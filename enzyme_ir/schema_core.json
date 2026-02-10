@@ -1,0 +1,700 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/enzyme/enzyme_core_ir.schema.v0_4.json",
+  "title": "ENZYME IR v0.4 (Core)",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "ir_kind",
+    "metadata",
+    "resources",
+    "protocol"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "0.4"
+    },
+    "ir_kind": {
+      "type": "string",
+      "enum": [
+        "core"
+      ]
+    },
+    "metadata": {
+      "$ref": "#/$defs/Metadata"
+    },
+    "resources": {
+      "$ref": "#/$defs/Resources"
+    },
+    "protocol": {
+      "$ref": "#/$defs/Protocol"
+    },
+    "environment": {
+      "type": "object"
+    },
+    "registries": {
+      "$ref": "#/$defs/Registries"
+    },
+    "tacit_knowledge": {
+      "type": "object"
+    }
+  },
+  "$defs": {
+    "Quantity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "unit"
+      ],
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "unit": {
+          "type": "string"
+        }
+      }
+    },
+    "Symbolic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "symbol"
+      ],
+      "properties": {
+        "symbol": {
+          "type": "string"
+        },
+        "unit": {
+          "type": "string"
+        }
+      }
+    },
+    "Range": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "range"
+      ],
+      "properties": {
+        "range": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "min",
+            "max"
+          ],
+          "properties": {
+            "min": {
+              "type": "number"
+            },
+            "max": {
+              "type": "number"
+            }
+          }
+        },
+        "unit": {
+          "type": "string"
+        }
+      }
+    },
+    "Value": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/Quantity"
+        },
+        {
+          "$ref": "#/$defs/Symbolic"
+        },
+        {
+          "$ref": "#/$defs/Range"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        },
+        {
+          "type": "object"
+        },
+        {
+          "type": "array"
+        }
+      ]
+    },
+    "Ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id"
+      ],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "material",
+            "container",
+            "equipment",
+            "sample",
+            "data",
+            "waste",
+            "location"
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        }
+      }
+    },
+    "Metadata": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "title",
+        "source"
+      ],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": true,
+          "required": [
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "type": "string"
+            },
+            "uri": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "retrieved_at": {
+              "type": "string"
+            }
+          }
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "authors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "license": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ResourceBase": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "Material": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/ResourceBase"
+        }
+      ],
+      "properties": {
+        "vendor": {
+          "type": "string"
+        },
+        "catalog_number": {
+          "type": "string"
+        },
+        "identifiers": {
+          "type": "object"
+        }
+      }
+    },
+    "Container": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/ResourceBase"
+        }
+      ],
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "max_volume": {
+          "$ref": "#/$defs/Value"
+        },
+        "geometry": {
+          "type": "object"
+        },
+        "identifiers": {
+          "type": "object"
+        }
+      }
+    },
+    "Equipment": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/ResourceBase"
+        }
+      ],
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "calibration": {
+          "type": "object"
+        }
+      }
+    },
+    "Sample": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/ResourceBase"
+        }
+      ],
+      "properties": {
+        "container_ref": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "DataResource": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/ResourceBase"
+        }
+      ],
+      "properties": {
+        "schema": {
+          "type": "object"
+        }
+      }
+    },
+    "Resources": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "materials": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Material"
+          }
+        },
+        "containers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Container"
+          }
+        },
+        "equipment": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Equipment"
+          }
+        },
+        "samples": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Sample"
+          }
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/DataResource"
+          }
+        }
+      }
+    },
+    "Registries": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "custom": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "action_kinds": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "required_settings_keys": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "settings_schema": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            "device_kinds": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "required_program_keys": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "program_schema": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            "observation_features": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "name",
+                  "value_type"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "value_type": {
+                    "type": "string"
+                  },
+                  "constraints": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            "modalities": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Expression": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "op"
+      ],
+      "properties": {
+        "op": {
+          "type": "string"
+        },
+        "left": {
+          "$ref": "#/$defs/Expression"
+        },
+        "right": {
+          "$ref": "#/$defs/Expression"
+        },
+        "args": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Expression"
+          }
+        },
+        "ref": {
+          "type": "string"
+        },
+        "const": {},
+        "symbol": {
+          "type": "string"
+        }
+      }
+    },
+    "Edge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "from",
+        "to"
+      ],
+      "properties": {
+        "from": {
+          "type": "string"
+        },
+        "to": {
+          "type": "string"
+        },
+        "condition": {
+          "$ref": "#/$defs/Expression"
+        },
+        "priority": {
+          "type": "number"
+        }
+      }
+    },
+    "Step": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "id",
+        "op"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "op": {
+          "type": "string",
+          "enum": [
+            "allocate",
+            "transfer",
+            "manipulate",
+            "run_device",
+            "observe",
+            "annotate",
+            "dispose"
+          ]
+        },
+        "label": {
+          "type": "string"
+        },
+        "inputs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Ref"
+          }
+        },
+        "outputs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Ref"
+          }
+        },
+        "params": {
+          "type": "object"
+        },
+        "provenance": {
+          "type": "object"
+        },
+        "annotations": {
+          "type": "object"
+        },
+        "tacit_refs": {
+          "type": "array"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "allocate"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "params",
+              "outputs"
+            ],
+            "properties": {
+              "params": {
+                "type": "object",
+                "required": [
+                  "allocate_kind"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "manipulate"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "params"
+            ],
+            "properties": {
+              "params": {
+                "type": "object",
+                "required": [
+                  "action_kind"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "run_device"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "params"
+            ],
+            "properties": {
+              "params": {
+                "type": "object",
+                "required": [
+                  "device_kind",
+                  "program"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "observe"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "params",
+              "outputs"
+            ],
+            "properties": {
+              "params": {
+                "type": "object",
+                "required": [
+                  "modality",
+                  "features"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "Protocol": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "steps",
+        "start_step_id",
+        "edges"
+      ],
+      "properties": {
+        "detail_level": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Step"
+          },
+          "minItems": 1
+        },
+        "start_step_id": {
+          "type": "string"
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Edge"
+          },
+          "minItems": 1
+        },
+        "step_order": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "outputs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Ref"
+          }
+        }
+      }
+    }
+  }
+}

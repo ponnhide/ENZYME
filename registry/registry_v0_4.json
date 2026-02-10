@@ -1,0 +1,351 @@
+{
+  "registry_version": "0.4",
+  "core_ops": [
+    "allocate",
+    "transfer",
+    "manipulate",
+    "run_device",
+    "observe",
+    "annotate",
+    "dispose"
+  ],
+  "action_kinds": {
+    "mix": {
+      "required_settings_keys": [],
+      "settings_schema": {
+        "type": "object",
+        "additionalProperties": true
+      },
+      "description": "mix by human hand (generic)"
+    },
+    "mix_gently": {
+      "required_settings_keys": [],
+      "settings_schema": {
+        "type": "object",
+        "additionalProperties": true
+      },
+      "description": "gentle mixing by human hand"
+    },
+    "resuspend": {
+      "required_settings_keys": [],
+      "settings_schema": {
+        "type": "object",
+        "additionalProperties": true
+      },
+      "description": "resuspend pellet or cells"
+    },
+    "rinse": {
+      "required_settings_keys": [],
+      "settings_schema": {
+        "type": "object",
+        "additionalProperties": true
+      },
+      "description": "rinse/wash vessel manually"
+    },
+    "spread_on_plate": {
+      "required_settings_keys": [],
+      "settings_schema": {
+        "type": "object",
+        "additionalProperties": true
+      },
+      "description": "spread sample on plate manually"
+    },
+    "pick_colony": {
+      "required_settings_keys": [
+        "pick_target"
+      ],
+      "settings_schema": {
+        "type": "object",
+        "properties": {
+          "pick_target": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "pick_target"
+        ],
+        "additionalProperties": true
+      },
+      "description": "pick colony from plate manually"
+    },
+    "dislodge_cells": {
+      "required_settings_keys": [],
+      "settings_schema": {
+        "type": "object",
+        "additionalProperties": true
+      },
+      "description": "dislodge/detach cells by gentle tapping/pipetting etc (manual)"
+    },
+    "label": {
+      "required_settings_keys": [
+        "text"
+      ],
+      "settings_schema": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "additionalProperties": true
+      },
+      "description": "label container/sample"
+    }
+  },
+  "device_kinds": {
+    "incubator": {
+      "required_program_keys": [
+        "program_name"
+      ],
+      "program_schema": {
+        "type": "object",
+        "properties": {
+          "program_name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "program_name"
+        ],
+        "additionalProperties": true
+      },
+      "description": "incubator run"
+    },
+    "thermocycler": {
+      "required_program_keys": [
+        "profile_name"
+      ],
+      "program_schema": {
+        "type": "object",
+        "properties": {
+          "profile_name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "profile_name"
+        ],
+        "additionalProperties": true
+      },
+      "description": "thermocycler run"
+    },
+    "centrifuge": {
+      "required_program_keys": [
+        "program_name"
+      ],
+      "program_schema": {
+        "type": "object",
+        "properties": {
+          "program_name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "program_name"
+        ],
+        "additionalProperties": true
+      },
+      "description": "centrifuge run"
+    },
+    "plate_reader": {
+      "required_program_keys": [
+        "program_name"
+      ],
+      "program_schema": {
+        "type": "object",
+        "properties": {
+          "program_name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "program_name"
+        ],
+        "additionalProperties": true
+      },
+      "description": "plate reader run"
+    },
+    "imager": {
+      "required_program_keys": [
+        "program_name"
+      ],
+      "program_schema": {
+        "type": "object",
+        "properties": {
+          "program_name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "program_name"
+        ],
+        "additionalProperties": true
+      },
+      "description": "imaging device run"
+    },
+    "cell_counter": {
+      "required_program_keys": [
+        "program_name"
+      ],
+      "program_schema": {
+        "type": "object",
+        "properties": {
+          "program_name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "program_name"
+        ],
+        "additionalProperties": true
+      },
+      "description": "cell counter run"
+    },
+    "dna_delivery_device": {
+      "required_program_keys": [
+        "program_name"
+      ],
+      "program_schema": {
+        "type": "object",
+        "properties": {
+          "program_name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "program_name"
+        ],
+        "additionalProperties": true
+      },
+      "description": "DNA delivery device run (abstract)"
+    },
+    "amplicon_readout_system": {
+      "required_program_keys": [
+        "program_name"
+      ],
+      "program_schema": {
+        "type": "object",
+        "properties": {
+          "program_name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "program_name"
+        ],
+        "additionalProperties": true
+      },
+      "description": "amplicon readout system run (abstract)"
+    }
+  },
+  "modalities": [
+    "visual",
+    "microscope",
+    "instrument_readout"
+  ],
+  "observation_features": {
+    "confluency": {
+      "value_type": "number",
+      "constraints": {
+        "min": 0,
+        "max": 100
+      },
+      "description": "confluency percentage"
+    },
+    "morphology": {
+      "value_type": "string",
+      "constraints": {},
+      "description": "cell morphology category"
+    },
+    "detached_enough": {
+      "value_type": "bool",
+      "constraints": {},
+      "description": "cells detached sufficiently"
+    },
+    "colonies_present": {
+      "value_type": "bool",
+      "constraints": {},
+      "description": "colonies present on plate"
+    },
+    "approx_count": {
+      "value_type": "integer",
+      "constraints": {
+        "min": 0
+      },
+      "description": "approximate count"
+    },
+    "pass_fail": {
+      "value_type": "bool",
+      "constraints": {},
+      "description": "pass/fail judgement"
+    },
+    "cell_count": {
+      "value_type": "number",
+      "constraints": {
+        "min": 0
+      },
+      "description": "cell count"
+    },
+    "viability": {
+      "value_type": "number",
+      "constraints": {
+        "min": 0,
+        "max": 1
+      },
+      "description": "viability fraction"
+    },
+    "band_pattern": {
+      "value_type": "string",
+      "constraints": {},
+      "description": "band pattern category or description"
+    },
+    "candidate_colonies": {
+      "value_type": "string",
+      "constraints": {},
+      "description": "candidate colony locations (encoded)"
+    }
+  },
+  "macros": {
+    "thermocycle": {
+      "required_params_keys": [
+        "profile_name"
+      ],
+      "lowers_to": [
+        "run_device"
+      ],
+      "description": "macro: thermocycle -> run_device(thermocycler)"
+    },
+    "incubate": {
+      "required_params_keys": [
+        "program_name"
+      ],
+      "lowers_to": [
+        "run_device"
+      ],
+      "description": "macro: incubate -> run_device(incubator)"
+    },
+    "centrifuge": {
+      "required_params_keys": [
+        "program_name"
+      ],
+      "lowers_to": [
+        "run_device"
+      ],
+      "description": "macro: centrifuge -> run_device(centrifuge)"
+    },
+    "measure": {
+      "required_params_keys": [
+        "device_kind",
+        "program_name"
+      ],
+      "lowers_to": [
+        "run_device",
+        "observe"
+      ],
+      "description": "macro: measure -> run_device + observe(instrument_readout)"
+    }
+  }
+}
