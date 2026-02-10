@@ -1,0 +1,343 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Example (abstract): plasmid transformation",
+    "version": "0.4-example",
+    "source": {
+      "type": "manual",
+      "id": null,
+      "uri": null,
+      "retrieved_at": "2026-02-09"
+    },
+    "created_at": "2026-02-09"
+  },
+  "resources": {
+    "materials": [],
+    "containers": [
+      {
+        "id": "ct:mix_tube",
+        "name": "mix_tube",
+        "type": "tube_generic"
+      },
+      {
+        "id": "ct:plate_sel",
+        "name": "selection_plate",
+        "type": "plate_generic"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "eq:dna_delivery",
+        "name": "dna_delivery_device",
+        "type": "dna_delivery_device"
+      },
+      {
+        "id": "eq:inc1",
+        "name": "incubator",
+        "type": "incubator"
+      }
+    ],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "detail_level": 0,
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "label": "allocate plasmid sample",
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample:plasmid"
+          }
+        ],
+        "params": {
+          "allocate_kind": "sample",
+          "name": "plasmid"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "label": "allocate cells sample",
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample:cells"
+          }
+        ],
+        "params": {
+          "allocate_kind": "sample",
+          "name": "cells"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "label": "combine plasmid into tube",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample:plasmid"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "ct:mix_tube",
+            "role": "destination"
+          }
+        ],
+        "params": {
+          "amount": {
+            "symbol": "X_dna",
+            "unit": "uL"
+          },
+          "transfer_kind": "pipette"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "label": "add cells into tube",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample:cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "ct:mix_tube",
+            "role": "destination"
+          }
+        ],
+        "params": {
+          "amount": {
+            "symbol": "X_cells"
+          },
+          "transfer_kind": "pipette"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "label": "mix gently",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "ct:mix_tube"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently",
+          "settings": {}
+        }
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "label": "DNA delivery (machine)",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "ct:mix_tube"
+          }
+        ],
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "device_ref": "eq:dna_delivery",
+          "program": {
+            "program_name": "DNA_DELIVERY_PROGRAM"
+          }
+        }
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "label": "recovery incubation (macro)",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "ct:mix_tube"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "eq:inc1",
+          "program": {
+            "program_name": "RECOVERY_PROGRAM"
+          }
+        },
+        "annotations": {
+          "lowered_from": "incubate"
+        }
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "label": "plate sample",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "ct:mix_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "ct:plate_sel",
+            "role": "destination"
+          }
+        ],
+        "params": {
+          "amount": {
+            "symbol": "X_plate"
+          },
+          "transfer_kind": "pipette"
+        }
+      },
+      {
+        "id": "s9",
+        "op": "manipulate",
+        "label": "spread on plate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "ct:plate_sel"
+          }
+        ],
+        "params": {
+          "action_kind": "spread_on_plate",
+          "settings": {}
+        }
+      },
+      {
+        "id": "s10",
+        "op": "run_device",
+        "label": "colony growth incubation (macro)",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "ct:plate_sel"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "eq:inc1",
+          "program": {
+            "program_name": "COLONY_GROWTH_PROGRAM"
+          }
+        },
+        "annotations": {
+          "lowered_from": "incubate"
+        }
+      },
+      {
+        "id": "s11",
+        "op": "observe",
+        "label": "observe colonies",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "ct:plate_sel"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "data:obs_colony"
+          }
+        ],
+        "params": {
+          "modality": "visual",
+          "features": {
+            "colonies_present": null,
+            "approx_count": null
+          }
+        }
+      },
+      {
+        "id": "s12",
+        "op": "annotate",
+        "label": "note observation exists",
+        "inputs": [
+          {
+            "kind": "data",
+            "id": "data:obs_colony"
+          }
+        ],
+        "params": {
+          "note": "Record colony observation in data:obs_colony"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      }
+    ],
+    "step_order": [
+      "s1",
+      "s2",
+      "s3",
+      "s4",
+      "s5",
+      "s6",
+      "s7",
+      "s8",
+      "s9",
+      "s10",
+      "s11",
+      "s12"
+    ]
+  }
+}

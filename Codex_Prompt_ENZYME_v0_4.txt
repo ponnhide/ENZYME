@@ -1,0 +1,135 @@
+あなたはシニアソフトウェアエンジニアです。以下の仕様（ENZYME v0.4）に従い、Python 3.11+でENZYMEのMVP実装を作ってください。
+
+# 目的（v0.4）
+- 実験プロトコルをENZYME-IR（JSON）として表現し、コンパイル（Lowering）、検証（Kernel）、評価（Scoring）、レポート生成を行う。
+- v0.4の重要ポイント:
+  - 少数の基本操作 ENZYME-Core（allocate/transfer/manipulate/run_device/observe/annotate/dispose）だけをKernelが信頼する。
+  - HL-IR（macroを含む）→ Core-IR（coreのみ）へのLoweringを必須にする。
+  - 装置が行う区間は run_device、人の動作は transfer/manipulate、観察は observe として明確に分離する。
+  - manipulate と observe が「何でも箱」にならないように Registry（統制語彙+必須キー）で拘束する。
+
+# 必須要件（実装しないとNG）
+- 新規リポジトリを作成する想定で、ファイル構成・コード・テスト・README まで生成すること。
+- 依存関係は pyproject.toml（uv or Poetry）で管理。
+- 使用ライブラリ（必須）:
+  - pydantic v2
+  - jsonschema
+  - pint
+  - typer
+  - rich
+  - networkx
+  - pytest
+- 仕様同梱ファイルをリポジトリに含めること（ファイル名は固定）:
+  - enzyme_ir/schema_hl.json  （= enzyme_ir.schema.v0_4.json と同等内容）
+  - enzyme_ir/schema_core.json（= enzyme_core_ir.schema.v0_4.json と同等内容）
+  - registry/registry_v0_4.json（= enzyme_registry.v0_4.json と同等内容）
+  - fixtures/protocolsio_fixture.json（= protocolsio_fixture_v0_4.json と同等内容）
+  - fixtures/expected_hl.json（= expected_hl_ir_from_protocolsio_v0_4.json と同等内容）
+  - fixtures/expected_core.json（= expected_core_ir_from_protocolsio_v0_4.json と同等内容）
+  - examples/*.json（抽象例のHL/Core）
+
+# CLI（必須）
+CLI名: enzyme
+
+- enzyme import protocolsio --in <file.json> --out <out.hl.json>
+  - protocols.io fixture形式を読み、HL-IRを生成
+  - 各protocol stepは annotate step として取り込む（原文を params.note に格納）
+  - previous_guid から順序を復元し、edgesとstep_orderを作る
+
+- enzyme compile --in <hl.json> --out <core.json>
+  - HL-IRをLoweringし、Core-IRを生成
+  - macro: thermocycle / incubate / centrifuge / measure を実装
+  - 出力は ir_kind="core"、全step.opがcore opsであること
+
+- enzyme validate --in <core.json> --out <validation.json>
+  - Kernel Validator（下記）を実行して PASS/FAIL と issues[] を返す
+
+- enzyme score --in <core.json> --validation <validation.json> --out <scores.json>
+  - 6軸スコアを算出し、減点根拠（issue集計）も返す
+
+- enzyme report --in <core.json> --validation <validation.json> --scores <scores.json> --format md --out <report.md>
+  - 人間が読めるMarkdownレポートを生成
+
+# データ仕様（超重要）
+- ENZYME-IRは v0.4。schema_version="0.4"。
+- HL-IR: ir_kind="hl"、step.opは任意文字列（core + macro）。
+- Core-IR: ir_kind="core"、step.opは core ops のみ。
+- protocolは workflow graph:
+  - protocol.start_step_id
+  - protocol.steps[]
+  - protocol.edges[]（from/to/condition?）
+  - condition は JSON AST の Expression
+
+# Registry（超重要）
+- registry/registry_v0_4.json を実装し、それを読み込む RegistryLoader を作る。
+- Kernelは次をチェック:
+  - manipulate.params.action_kind が registry.action_kinds に存在 OR IR内custom宣言がある
+  - run_device.params.device_kind が registry.device_kinds に存在 OR custom宣言
+  - run_device.params.program が device_kindごとの required_program_keys を満たす
+  - observe.params.modality が registry.modalities に存在 OR custom宣言
+  - observe.params.features のキーが registry.observation_features に存在 OR custom宣言
+- detail_levelによる厳格度:
+  - detail_level=0: 未宣言語彙は warn（ただしスコアで強く減点）
+  - detail_level>=1: 未宣言語彙は error
+
+# Lowering（必須macro）
+- thermocycle(profile_name, device_ref?) -> run_device(device_kind="thermocycler", program={"profile_name": ...})
+- incubate(program_name, device_ref?)    -> run_device(device_kind="incubator",    program={"program_name": ...})
+- centrifuge(program_name, device_ref?)  -> run_device(device_kind="centrifuge",   program={"program_name": ...})
+- measure(device_kind, program_name, device_ref?) -> run_device(...) + observe(modality="instrument_readout", features={})
+  - measure展開で2stepに分割する場合、安定ID parent.1 parent.2 を生成する（決定的）
+  - annotations.lowered_from / annotations.parent を付与し、provenanceも継承する
+
+# Kernel Validator（必須チェック）
+1) JSON Schema検証（schema_core.json）
+2) Core op制約（opがcoreのみ）
+3) Registry制約（上記）
+4) 参照整合（edge from/to が存在、resources参照が存在）
+5) グラフ整合（start_step_idが存在、edgeが最低1本）
+6) 単位検証（pintで解釈可能なunitのみ。symbolicは許容）
+7) 範囲制約（registry constraints min/max がある場合、数値があればチェック）
+
+Issueは必ず以下フィールドを持つ:
+- code, severity(error/warn/info), path, message, suggested_fix(optional)
+
+必須Issue code（MVP）:
+- SCHEMA_INVALID, UNKNOWN_CORE_OP, UNKNOWN_ACTION_KIND, UNKNOWN_DEVICE_KIND,
+  MISSING_REQUIRED_PROGRAM_KEY, UNKNOWN_MODALITY, UNKNOWN_OBSERVATION_FEATURE,
+  REF_NOT_FOUND, STEP_ID_NOT_FOUND, START_STEP_NOT_FOUND, EDGE_INVALID,
+  UNIT_PARSE_ERROR, VALUE_OUT_OF_RANGE
+
+# Scoring（6軸、必須）
+- S_structural: issue件数から算出（errorがあれば0）
+- S_param: 必須パラメータ充足率（detail_levelに応じる。最低限 transfer.amount 等）
+- S_vocab: 標準語彙率（custom/unknownが多いほど減点）
+- S_ident: resourcesの同定性（vendor/catalog/model/identifierがあれば加点）
+- S_ambiguity: symbolic/null/range幅で減点
+- S_exec_env: device_ref等の環境情報、container.max_volume等があれば評価
+
+各スコアの内訳（top_factors）として、減点に効いたissue集計を返すこと。
+
+# Importer（protocols.io fixture）
+- fixtures/protocolsio_fixture.json を入力すると、fixtures/expected_hl.json と同一のHL-IRが生成されること（golden test）。
+- 生成ルール:
+  - step id = "pstep:<step_guid>"
+  - op="annotate"
+  - params.note = step.step（原文テキスト）
+  - provenanceに protocol guid, step guid, section, step id を入れる
+  - edgesは previous_guid から復元（チェーン）
+  - start_step_id は最初のstep
+
+# テスト（必須）
+- test_schema: schema_hl/schema_coreで検証できる
+- test_lowering: thermocycle/incubate/centrifuge/measure のgolden test
+- test_kernel: registry未知語彙のwarn/error切替（detail_level）
+- test_e2e: fixture import -> compile -> validate -> score -> report が通る
+- examplesのCore IRが validate PASS になる（抽象例なのでスコアは問わない）
+
+# README（必須）
+- ENZYMEの目的、Core/Macro分離、run_device/transfer/manipulate/observeの境界、CLIの使い方、テスト方法を書く。
+
+# 実装上の注意
+- Canonical JSON（決定性）: compile結果のJSONはキー順/配列順が安定するように canonicalize を入れる。
+- 安全: LLMや外部API呼び出しはMVPでは不要（スタブでよい）。原文にない推測補完は禁止。
+
+以上を満たすリポジトリ一式を生成してください。
