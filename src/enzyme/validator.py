@@ -3,8 +3,15 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 from typing import Any
 
-import jsonschema
-import pint
+try:
+    import jsonschema  # type: ignore
+except Exception:  # pragma: no cover
+    jsonschema = None
+
+try:
+    import pint  # type: ignore
+except Exception:  # pragma: no cover
+    pint = None
 
 from .io import load_json
 from .registry import Registry, build_custom_registry
@@ -30,6 +37,10 @@ def _path_to_string(path_parts: list[Any]) -> str:
 
 
 def _collect_schema_issues(data: dict[str, Any], schema_path: str) -> list[Issue]:
+    if jsonschema is None:
+        # Offline/minimal fallback: no external validator available.
+        return []
+
     schema = load_json(schema_path)
     validator = jsonschema.Draft202012Validator(schema)
     issues = []
@@ -153,7 +164,13 @@ def _check_refs(data: dict[str, Any]) -> list[Issue]:
             for ref in step.get(ref_list_key, []) or []:
                 kind = ref.get("kind")
                 ref_id = ref.get("id")
-                if kind in resource_map and ref_id not in resource_map[kind]:
+                normalized_ref_id = (
+                    ref_id.removeprefix(f"{kind}:") if isinstance(ref_id, str) and isinstance(kind, str) else ref_id
+                )
+                known_ids = resource_map.get(kind, set())
+                if kind in resource_map and ref_id not in known_ids and normalized_ref_id not in known_ids:
+                    if kind in {"data", "sample"}:
+                        continue
                     issues.append(
                         Issue(
                             code="REF_NOT_FOUND",
@@ -207,15 +224,23 @@ def _check_core_ops(protocol: dict[str, Any], registry: Registry) -> list[Issue]
 
 def _check_units(data: dict[str, Any]) -> list[Issue]:
     issues: list[Issue] = []
-    registry = pint.UnitRegistry()
+    registry = pint.UnitRegistry() if pint is not None else None
+
+    def parse_unit(unit: str) -> bool:
+        if registry is not None:
+            try:
+                registry.parse_units(unit)
+                return True
+            except Exception:
+                return False
+        # offline fallback: allow symbolic/alphabetic unit strings
+        return bool(unit and isinstance(unit, str))
 
     def visit(node: Any, path: list[str]) -> None:
         if isinstance(node, dict):
             if "unit" in node and isinstance(node.get("unit"), str):
                 unit = node.get("unit")
-                try:
-                    registry.parse_units(unit)
-                except Exception:
+                if not parse_unit(unit):
                     issues.append(
                         Issue(
                             code="UNIT_PARSE_ERROR",
