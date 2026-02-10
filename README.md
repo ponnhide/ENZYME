@@ -41,6 +41,12 @@ enzyme score --in /tmp/core.json --validation /tmp/validation.json --out /tmp/sc
 enzyme report --in /tmp/core.json --validation /tmp/validation.json --scores /tmp/scores.json --format md --out /tmp/report.md
 ```
 
+## Testing
+
+```bash
+pytest
+```
+
 ## Included artifacts
 
 - `enzyme_ir/schema_hl.json` and `enzyme_ir/schema_core.json`
