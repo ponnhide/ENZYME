@@ -11,10 +11,16 @@ MACRO_MAP = {
 }
 
 
-def _inherit_metadata(step: dict[str, Any], new_step: dict[str, Any], parent_id: str) -> None:
+def _inherit_metadata(
+    step: dict[str, Any],
+    new_step: dict[str, Any],
+    parent_id: str,
+    include_parent: bool = False,
+) -> None:
     annotations = deepcopy(step.get("annotations", {}))
     annotations.setdefault("lowered_from", step.get("op"))
-    annotations.setdefault("parent", parent_id)
+    if include_parent:
+        annotations.setdefault("parent", parent_id)
     new_step["annotations"] = annotations
     if "provenance" in step:
         new_step["provenance"] = deepcopy(step.get("provenance"))
@@ -26,6 +32,7 @@ def lower_to_core(hl_ir: dict[str, Any]) -> dict[str, Any]:
 
     steps_out: list[dict[str, Any]] = []
     edges_out: list[dict[str, Any]] = []
+    measure_internal_edges: dict[str, dict[str, Any]] = {}
     id_map: dict[str, list[str]] = {}
 
     for step in hl_ir.get("protocol", {}).get("steps", []):
@@ -42,7 +49,9 @@ def lower_to_core(hl_ir: dict[str, Any]) -> dict[str, Any]:
             }
             if device_ref is not None:
                 new_step["params"]["device_ref"] = device_ref
-            _inherit_metadata(step, new_step, step.get("id"))
+            if op in {"incubate", "centrifuge"} and "outputs" not in new_step:
+                new_step["outputs"] = []
+            _inherit_metadata(step, new_step, step.get("id"), include_parent=False)
             steps_out.append(new_step)
             id_map[step.get("id")] = [step.get("id")]
         elif op == "measure":
@@ -51,9 +60,8 @@ def lower_to_core(hl_ir: dict[str, Any]) -> dict[str, Any]:
             run_step = {
                 "id": run_id,
                 "op": "run_device",
-                "label": step.get("label"),
+                "label": f"{step.get('label')} (run)" if step.get("label") else None,
                 "inputs": deepcopy(step.get("inputs", [])),
-                "outputs": deepcopy(step.get("outputs", [])),
                 "params": {
                     "device_kind": step.get("params", {}).get("device_kind"),
                     "program": {
@@ -61,37 +69,56 @@ def lower_to_core(hl_ir: dict[str, Any]) -> dict[str, Any]:
                     },
                 },
             }
+            if "outputs" in step:
+                run_step["outputs"] = deepcopy(step.get("outputs", []))
             device_ref = step.get("params", {}).get("device_ref")
             if device_ref is not None:
                 run_step["params"]["device_ref"] = device_ref
-            _inherit_metadata(step, run_step, step.get("id"))
+            _inherit_metadata(step, run_step, step.get("id"), include_parent=True)
 
             observe_step = {
                 "id": observe_id,
                 "op": "observe",
-                "label": step.get("label"),
+                "label": f"{step.get('label')} (observe)" if step.get("label") else None,
                 "inputs": deepcopy(step.get("inputs", [])),
-                "outputs": deepcopy(step.get("outputs", [])),
                 "params": {
                     "modality": "instrument_readout",
                     "features": {},
                 },
             }
-            _inherit_metadata(step, observe_step, step.get("id"))
+            if "outputs" in step:
+                observe_step["outputs"] = deepcopy(step.get("outputs", []))
+            else:
+                observe_step["outputs"] = [{"kind": "data", "id": f"data:{step.get('id')}_measurement"}]
+            _inherit_metadata(step, observe_step, step.get("id"), include_parent=True)
 
             steps_out.extend([run_step, observe_step])
-            edges_out.append({"from": run_id, "to": observe_id})
+            measure_internal_edges[step.get("id")] = {"from": run_id, "to": observe_id}
             id_map[step.get("id")] = [run_id, observe_id]
         else:
             steps_out.append(deepcopy(step))
             id_map[step.get("id")] = [step.get("id")]
 
+    internal_added: set[str] = set()
     for edge in hl_ir.get("protocol", {}).get("edges", []):
-        from_ids = id_map.get(edge.get("from"), [edge.get("from")])
+        from_step = edge.get("from")
+        if from_step in measure_internal_edges and from_step not in internal_added:
+            edges_out.append(measure_internal_edges[from_step])
+            internal_added.add(from_step)
+
+        from_ids = id_map.get(from_step, [from_step])
         to_ids = id_map.get(edge.get("to"), [edge.get("to")])
-        edges_out.append({"from": from_ids[-1], "to": to_ids[0], **{
-            k: v for k, v in edge.items() if k not in {"from", "to"}
-        }})
+        edges_out.append(
+            {
+                "from": from_ids[-1],
+                "to": to_ids[0],
+                **{k: v for k, v in edge.items() if k not in {"from", "to"}},
+            }
+        )
+
+    for measure_id, internal_edge in measure_internal_edges.items():
+        if measure_id not in internal_added:
+            edges_out.append(internal_edge)
 
     protocol = deepcopy(hl_ir.get("protocol", {}))
     protocol["steps"] = steps_out
@@ -102,6 +129,8 @@ def lower_to_core(hl_ir: dict[str, Any]) -> dict[str, Any]:
             new_order.extend(id_map.get(step_id, [step_id]))
         protocol["step_order"] = new_order
     if protocol.get("start_step_id"):
-        protocol["start_step_id"] = id_map.get(protocol.get("start_step_id"), [protocol.get("start_step_id")])[0]
+        protocol["start_step_id"] = id_map.get(
+            protocol.get("start_step_id"), [protocol.get("start_step_id")]
+        )[0]
     core_ir["protocol"] = protocol
     return core_ir

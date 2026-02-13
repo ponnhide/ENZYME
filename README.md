@@ -12,6 +12,25 @@ ENZYME represents experimental protocols as JSON (ENZYME-IR), lowers human/macro
   - `observe` captures observations.
 - **Registry control**: `manipulate.action_kind`, `run_device.device_kind`, and `observe` vocabularies are validated against the registry or declared custom vocabularies.
 
+## Quickstart
+
+```bash
+pip install -e .
+python scripts/generate_artifacts.py
+pytest -q
+```
+
+## Re-generate bundled artifacts
+
+```bash
+python scripts/generate_artifacts.py
+python scripts/generate_artifacts.py --check
+```
+
+Generated outputs are stored in:
+- `fixtures/generated/`
+- `examples/generated/`
+
 ## CLI Usage
 
 ```bash
@@ -20,12 +39,6 @@ enzyme compile --in /tmp/hl.json --out /tmp/core.json
 enzyme validate --in /tmp/core.json --out /tmp/validation.json
 enzyme score --in /tmp/core.json --validation /tmp/validation.json --out /tmp/scores.json
 enzyme report --in /tmp/core.json --validation /tmp/validation.json --scores /tmp/scores.json --format md --out /tmp/report.md
-```
-
-## Testing
-
-```bash
-pytest
 ```
 
 ## Included artifacts

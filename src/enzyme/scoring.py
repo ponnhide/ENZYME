@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from collections import Counter
+from math import isnan
 from typing import Any
 
 from .registry import Registry, build_custom_registry
@@ -125,6 +126,23 @@ def _score_exec_env(data: dict[str, Any]) -> float:
     return round(score, 3)
 
 
+def _compute_total(scores: dict[str, float]) -> float:
+    if not scores:
+        return 0.0
+    return round(sum(scores.values()) / len(scores), 3)
+
+
+def compute_total_100(total: Any) -> int:
+    if not isinstance(total, (int, float)):
+        return 0
+    if isinstance(total, float) and isnan(total):
+        return 0
+
+    raw = float(total) * 100.0
+    total_100 = int(raw + 0.5)
+    return max(0, min(100, total_100))
+
+
 def score_core(
     data: dict[str, Any], validation: dict[str, Any], registry: Registry
 ) -> dict[str, Any]:
@@ -141,8 +159,11 @@ def score_core(
         "S_ambiguity": _score_ambiguity(data),
         "S_exec_env": _score_exec_env(data),
     }
+    total = _compute_total(scores)
 
     return {
+        "total": total,
+        "total_100": compute_total_100(total),
         "scores": scores,
         "top_factors": _issue_factors(issues),
     }

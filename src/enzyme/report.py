@@ -14,8 +14,13 @@ def render_report(
 
     issues = validation.get("issues", [])
     score_values = scores.get("scores", {})
+    total = scores.get("total")
+    total_100 = scores.get("total_100", 0)
     lines = [
         "# ENZYME Report",
+        "",
+        f"**Total Score: {total_100}/100**",
+        f"(Total: {float(total):.3f})" if isinstance(total, (int, float)) else "(Total: n/a)",
         "",
         f"**Schema version:** {core_ir.get('schema_version')}",
         f"**IR kind:** {core_ir.get('ir_kind')}",
