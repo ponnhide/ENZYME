@@ -1,0 +1,297 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "FACS acquisition and gating (steps 46-53)",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00929-1"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "mat1",
+        "name": "unstained control"
+      },
+      {
+        "id": "mat2",
+        "name": "single-color control"
+      },
+      {
+        "id": "mat3",
+        "name": "DAPI (dead cell stain)"
+      },
+      {
+        "id": "mat4",
+        "name": "fluorescence minus one control"
+      },
+      {
+        "id": "mat5",
+        "name": "100 µm nozzle"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "eq1",
+        "name": "flow cytometer"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample1",
+        "name": "cell suspension"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          },
+          {
+            "kind": "material",
+            "id": "mat1"
+          },
+          {
+            "kind": "material",
+            "id": "mat2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "action": "Set laser levels for each fluorophore using unstained and single‑color controls."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          },
+          {
+            "kind": "material",
+            "id": "mat2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "action": "Run the single‑color controls again to record each fluorophore."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "action": "Perform compensation to correct fluorescence spill‑over."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "action": "Draw gates to select sequential populations, first eliminating debris with side scatter (SSC) and forward scatter (FSC) gates."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "action": "Eliminate doublets using SSC or FSC."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          },
+          {
+            "kind": "material",
+            "id": "mat3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "action": "Eliminate dead cells (using DAPI or other live/dead stain)."
+        }
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "action": "Set up FACS plots to select population of interest (e.g., CD45−CD31+ANPEP− endothelial cells, CD45−CD31−ANPEP+ mural cells)."
+        }
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          },
+          {
+            "kind": "material",
+            "id": "mat4"
+          },
+          {
+            "kind": "material",
+            "id": "mat1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "action": "(Optional) Run additional controls such as fluorescence‑minus‑one and unstained controls to determine the true population."
+        }
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          },
+          {
+            "kind": "material",
+            "id": "mat5"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "action": "Use a 100 µm nozzle to perform cell sorting."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Phase I to Phase II medium change in Transwell culture",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01236-7.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_phaseI",
+        "name": "Phase I medium"
+      },
+      {
+        "id": "m_phaseII",
+        "name": "Phase II medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_plate",
+        "type": "Transwell_plate"
+      },
+      {
+        "id": "c_waste",
+        "type": "waste_container"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e_incubator",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "c_plate",
+        "name": "c_plate"
+      },
+      {
+        "id": "c_waste",
+        "name": "c_waste"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c_plate"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c_waste"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e_incubator",
+          "program": {
+            "program_name": "incubate_1h"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c_plate"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "c_plate",
+          "destination": "c_waste",
+          "description": "remove phase I medium",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "m_phaseII",
+          "destination": "c_plate",
+          "description": "add phase II medium to bottom chamber",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

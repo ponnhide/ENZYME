@@ -1,0 +1,194 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Apply DSS injury to organoids",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "DSS",
+        "source": "MP Biomedicals"
+      },
+      {
+        "id": "m2",
+        "name": "organoid media (without EGF or Nicotinamide)"
+      },
+      {
+        "id": "m3",
+        "name": "Advanced DMEM/F12"
+      }
+    ],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "m1",
+        "name": "m1"
+      },
+      {
+        "id": "m2",
+        "name": "m2"
+      },
+      {
+        "id": "m4",
+        "name": "m4"
+      },
+      {
+        "id": "sample1",
+        "name": "sample1"
+      },
+      {
+        "id": "sample2",
+        "name": "sample2"
+      },
+      {
+        "id": "m3",
+        "name": "m3"
+      },
+      {
+        "id": "sample3",
+        "name": "sample3"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "m1"
+          },
+          {
+            "kind": "sample",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "m4"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "duration": "16 h",
+          "amount": {
+            "value": 16.0,
+            "unit": "µL"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "m4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "rinse"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample2"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "amount": {
+            "value": 1.0,
+            "unit": "µL"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "m3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample2"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "amount": {
+            "value": 1.0,
+            "unit": "µL"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample3"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

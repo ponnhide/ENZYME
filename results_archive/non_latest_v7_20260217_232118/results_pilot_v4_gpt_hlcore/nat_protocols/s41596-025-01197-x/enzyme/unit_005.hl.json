@@ -1,0 +1,288 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "SNR isolation (Steps 39‑43)",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01197-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "EGF",
+        "type": "reagent",
+        "name": "EGF"
+      },
+      {
+        "id": "FGF2",
+        "type": "reagent",
+        "name": "FGF2"
+      },
+      {
+        "id": "amplification_medium",
+        "type": "reagent",
+        "name": "amplification medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "ultralow_plate",
+        "type": "plate",
+        "name": "ultralow attachment 96‑well plate"
+      },
+      {
+        "id": "tissue_dish",
+        "type": "dish",
+        "name": "culture dish containing tissue"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "type": "incubator",
+        "name": "incubator"
+      },
+      {
+        "id": "Bunsen_burner",
+        "type": "equipment",
+        "name": "Bunsen burner"
+      },
+      {
+        "id": "stereoscope",
+        "type": "equipment",
+        "name": "stereoscope"
+      },
+      {
+        "id": "P200_filtered_pipette",
+        "type": "pipette",
+        "name": "P200 filtered pipette"
+      },
+      {
+        "id": "orbital_shaker",
+        "type": "equipment",
+        "name": "orbital shaker"
+      }
+    ],
+    "samples": [
+      {
+        "id": "amplification_medium_sample",
+        "type": "sample",
+        "name": "Amplification medium with growth factors"
+      },
+      {
+        "id": "SNR_pool",
+        "type": "sample",
+        "name": "Large SNRs (>200 µm) in tissue"
+      },
+      {
+        "id": "isolated_SNRs",
+        "type": "sample",
+        "name": "Isolated SNRs in 96‑well plate"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "amplification_medium_sample"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "amplification_medium_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "amplification_medium_sample"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "additives": [
+            {
+              "material_id": "EGF",
+              "concentration": {
+                "value": 10,
+                "unit": "ng/mL"
+              }
+            },
+            {
+              "material_id": "FGF2",
+              "concentration": {
+                "value": 10,
+                "unit": "ng/mL"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "amplification_medium_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "ultralow_plate"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 300,
+            "unit": "µL"
+          }
+        },
+        "annotations": {
+          "destination": "each well of ultralow attachment 96‑well plate"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Prepare a glass hook from a glass Pasteur pipette using a Bunsen burner. Hook is not reused."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "SNR_pool"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "modality": "visual",
+          "features": [
+            "size >200 µm in diameter",
+            "single lumen"
+          ]
+        },
+        "annotations": {
+          "instrument": "stereoscope"
+        }
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "SNR_pool"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "isolated_SNRs"
+          }
+        ],
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "annotations": {
+          "tool": "glass hook",
+          "description": "Separate SNRs from adjacent tissue and gently detach each from the bottom of the dish."
+        }
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "isolated_SNRs"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "ultralow_plate"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "count"
+          }
+        },
+        "annotations": {
+          "tool": "P200 filtered pipette",
+          "placement": "one SNR per well"
+        }
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Plate with isolated SNRs is kept on an orbital shaker (45 rpm) inside the incubator for 14–15 days."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

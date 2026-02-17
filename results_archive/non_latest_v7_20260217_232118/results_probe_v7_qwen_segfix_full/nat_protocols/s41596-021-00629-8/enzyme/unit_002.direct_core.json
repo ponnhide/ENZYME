@@ -1,0 +1,85 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Centrifuge plate to form single aggregates",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00629-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "culture_plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "centrifuge"
+      },
+      {
+        "id": "e2",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "c1",
+        "name": "c1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "unknown_centrifuge_program"
+          },
+          "device_ref": "e1"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "standard_incubation"
+          },
+          "device_ref": "e2"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

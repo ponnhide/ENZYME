@@ -1,0 +1,896 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Nucleofection for KO Cell Pool Generation",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01299-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "type": "sgRNA",
+        "concentration": "100 pmol/μl"
+      },
+      {
+        "id": "m2",
+        "type": "Cas9 protein",
+        "concentration": "20 pmol/μl"
+      },
+      {
+        "id": "m3",
+        "type": "E8 medium",
+        "supplement": "10 μM Y-27632"
+      },
+      {
+        "id": "m4",
+        "type": "DPBS"
+      },
+      {
+        "id": "m5",
+        "type": "Accutase"
+      },
+      {
+        "id": "m6",
+        "type": "nucleofection solution"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "96-well plate",
+        "shape": "V-shaped"
+      },
+      {
+        "id": "c2",
+        "type": "96-well plate"
+      },
+      {
+        "id": "c3",
+        "type": "six-well plate"
+      },
+      {
+        "id": "c4",
+        "type": "15-ml conical tube"
+      },
+      {
+        "id": "c5",
+        "type": "15-ml Falcon tube"
+      },
+      {
+        "id": "c6",
+        "type": "Nucleocuvette strip"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "centrifuge"
+      },
+      {
+        "id": "e2",
+        "type": "incubator"
+      },
+      {
+        "id": "e3",
+        "type": "cell_counter"
+      },
+      {
+        "id": "e4",
+        "type": "4D-Nucleofector X"
+      }
+    ],
+    "samples": [
+      {
+        "id": "smp1",
+        "name": "smp1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: warm"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "vortex_speed": "low",
+          "duration": "30 s"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "speed": "500g",
+          "duration": "5 min",
+          "program": {
+            "speed": "500g",
+            "duration": "5 min"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 300,
+            "unit": "pmol"
+          }
+        },
+        "annotations": {
+          "source": "sgRNA stock: 100 pmol/μl",
+          "cas9_amount": "40 pmol",
+          "cas9_stock": "20 pmol/μl",
+          "total_volume": "5 μl"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "incubation_time": "10 min",
+          "temperature": "room temperature",
+          "next_step": "place on ice until use"
+        }
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c3"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: aspirate"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c3"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          }
+        },
+        "annotations": {
+          "washes": "twice"
+        }
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m5"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c3"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c3"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "temperature": "37 °C",
+          "co2": "5%",
+          "duration": "7 min",
+          "program": {
+            "temperature": "37 °C",
+            "co2": "5%",
+            "duration": "7 min"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s10",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c3"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s11",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c4"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: pipette"
+        },
+        "annotations": {
+          "tool": "serological pipette",
+          "purpose": "dissociate clumps"
+        }
+      },
+      {
+        "id": "s12",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c4"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "speed": "200g",
+          "duration": "5 min",
+          "program": {
+            "speed": "200g",
+            "duration": "5 min"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s13",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c4"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: aspirate"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s14",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c4"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "annotations": {
+          "medium": "E8 medium supplemented with 10 μM Y-27632"
+        }
+      },
+      {
+        "id": "s15",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c4"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "modality": "visual",
+          "features": [
+            "cell count"
+          ]
+        },
+        "annotations": {
+          "device": "Bright-Line hemacytometer"
+        }
+      },
+      {
+        "id": "s16",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c5"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 9000000,
+            "unit": "cells"
+          }
+        },
+        "annotations": {
+          "purpose": "15 KO pools + 1 negative control + 1 million extra"
+        }
+      },
+      {
+        "id": "s17",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c5"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c5"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "speed": "200g",
+          "duration": "5 min",
+          "program": {
+            "speed": "200g",
+            "duration": "5 min"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s18",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c5"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c5"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: aspirate"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s19",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c5"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c5"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "annotations": {
+          "volume": "360 μl",
+          "solution": "nucleofection solution"
+        }
+      },
+      {
+        "id": "s20",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c5"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 20,
+            "unit": "μl"
+          }
+        },
+        "annotations": {
+          "destination": "each well of 96-well plate with RNP complex"
+        }
+      },
+      {
+        "id": "s21",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "pipetting_cycles": "2-3 times"
+        }
+      },
+      {
+        "id": "s22",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c6"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 25,
+            "unit": "μl"
+          }
+        },
+        "annotations": {
+          "destination": "each well of Nucleocuvette strip"
+        }
+      },
+      {
+        "id": "s23",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c6"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c6"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: close"
+        },
+        "annotations": {
+          "action": "click lid tight"
+        }
+      },
+      {
+        "id": "s24",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c6"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c6"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: tap"
+        },
+        "annotations": {
+          "purpose": "ensure sample covers bottom and no bubbles"
+        }
+      },
+      {
+        "id": "s25",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c6"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c6"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: insert"
+        },
+        "annotations": {
+          "device": "4D-Nucleofector X",
+          "part": "retainer",
+          "orientation_check": "required"
+        }
+      },
+      {
+        "id": "s26",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c6"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c6"
+          }
+        ],
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "program": "CA137"
+        },
+        "annotations": {
+          "critical_note": "Nucleofection efficiency and cell survival rate differ greatly with programs; CA137 was optimized for hiPS cells."
+        }
+      },
+      {
+        "id": "s27",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c6"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c6"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: remove"
+        },
+        "annotations": {
+          "action": "carefully remove from retainer"
+        }
+      },
+      {
+        "id": "s28",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c6"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 70,
+            "unit": "μl"
+          }
+        },
+        "annotations": {
+          "supplement": "10 μM Y-27632",
+          "temperature": "pre-warmed"
+        }
+      },
+      {
+        "id": "s29",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c6"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c6"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "annotations": {
+          "pipetting_cycles": "2-3 times up and down"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      },
+      {
+        "from": "s16",
+        "to": "s17"
+      },
+      {
+        "from": "s17",
+        "to": "s18"
+      },
+      {
+        "from": "s18",
+        "to": "s19"
+      },
+      {
+        "from": "s19",
+        "to": "s20"
+      },
+      {
+        "from": "s20",
+        "to": "s21"
+      },
+      {
+        "from": "s21",
+        "to": "s22"
+      },
+      {
+        "from": "s22",
+        "to": "s23"
+      },
+      {
+        "from": "s23",
+        "to": "s24"
+      },
+      {
+        "from": "s24",
+        "to": "s25"
+      },
+      {
+        "from": "s25",
+        "to": "s26"
+      },
+      {
+        "from": "s26",
+        "to": "s27"
+      },
+      {
+        "from": "s27",
+        "to": "s28"
+      },
+      {
+        "from": "s28",
+        "to": "s29"
+      }
+    ],
+    "detail_level": 0
+  }
+}

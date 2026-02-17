@@ -1,0 +1,196 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Accutase dissociation",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-019-0213-z.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "edta_solution",
+        "type": "material",
+        "name": "EDTA solution"
+      },
+      {
+        "id": "accutase",
+        "type": "material",
+        "name": "Accutase"
+      }
+    ],
+    "containers": [
+      {
+        "id": "well_plate",
+        "type": "container",
+        "container_type": "well_plate"
+      },
+      {
+        "id": "waste_container",
+        "type": "container",
+        "container_type": "waste"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "type": "equipment",
+        "equipment_type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "edta_solution",
+        "name": "edta_solution"
+      },
+      {
+        "id": "accutase",
+        "name": "accutase"
+      },
+      {
+        "id": "well_plate",
+        "name": "well_plate"
+      },
+      {
+        "id": "waste_container",
+        "name": "waste_container"
+      },
+      {
+        "id": "incubator",
+        "name": "incubator"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "edta_solution"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "accutase"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "well_plate"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "waste_container"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "equipment"
+        },
+        "outputs": [
+          {
+            "kind": "equipment",
+            "id": "incubator"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": "well_plate",
+          "destination": "waste_container",
+          "amount": {
+            "value": null,
+            "unit": null,
+            "note": "unspecified"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "source": "accutase",
+          "destination": "well_plate",
+          "amount": {
+            "value": 0.6,
+            "unit": "mL",
+            "per": "well"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator",
+          "program": {
+            "program_name": "incubate_3-5min_37C"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s6",
+    "edges": [
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

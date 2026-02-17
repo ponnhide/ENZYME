@@ -1,0 +1,258 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Organoid Splitting via TrypLE or Mechanical Disruption",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-020-0379-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "BME or Matrigel"
+      },
+      {
+        "id": "m2",
+        "name": "ice-cold adDMEM/F12+++ medium"
+      },
+      {
+        "id": "m3",
+        "name": "TrypLE"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "15-ml conical tube"
+      },
+      {
+        "id": "c2",
+        "type": "microcentrifuge tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "pipette"
+      },
+      {
+        "id": "e2",
+        "type": "P1000 filter tip"
+      },
+      {
+        "id": "e3",
+        "type": "P10 tip"
+      },
+      {
+        "id": "e4",
+        "type": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "m1",
+        "name": "m1"
+      },
+      {
+        "id": "m2",
+        "name": "m2"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "m1"
+          }
+        ],
+        "outputs": [],
+        "equipment": [
+          "e1"
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "amount": "unknown"
+        },
+        "inputs": [],
+        "outputs": [],
+        "sources": [
+          "c1"
+        ],
+        "destinations": [
+          "c1"
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "amount": "unknown"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "m2"
+          }
+        ],
+        "outputs": [],
+        "sources": [],
+        "destinations": [
+          "c1"
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "200g_5min_4C"
+          }
+        },
+        "inputs": [],
+        "outputs": [],
+        "equipment": [
+          "e4"
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [],
+        "outputs": [],
+        "equipment": [
+          "e2",
+          "e3"
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Split organoids using either TrypLE (for head and neck and compact breast, colon, pancreatic and liver organoids) or mechanical disruption (ovarian and cystic breast, colon, pancreatic and liver organoids)."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "37C"
+          }
+        },
+        "inputs": [],
+        "outputs": [],
+        "equipment": []
+      },
+      {
+        "id": "s8",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [],
+        "outputs": [],
+        "equipment": [
+          "e2",
+          "e3"
+        ]
+      },
+      {
+        "id": "s9",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "small clumps of cells (2–10 cells)"
+          ]
+        },
+        "inputs": [],
+        "outputs": [],
+        "equipment": []
+      },
+      {
+        "id": "s10",
+        "op": "annotate",
+        "params": {
+          "note": "Do not dissociate in TrypLE for >15 min, as this may result in poor organoid outgrowth or even loss of the culture."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "annotate",
+        "params": {
+          "note": "In case of preparation for drug screening, incomplete digestion resulting in big clumps of cells or pieces of organoid that are left intact will result in a small yield at the collection of organoids, as these will be filtered out during the preparation of the organoid suspension for drug screening."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      }
+    ],
+    "detail_level": 0
+  }
+}

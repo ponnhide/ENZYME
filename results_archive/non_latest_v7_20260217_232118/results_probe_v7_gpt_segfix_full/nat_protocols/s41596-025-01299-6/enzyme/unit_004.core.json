@@ -1,0 +1,295 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "FACS collection of mCherry+ hiPS cells",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01299-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_accutase",
+        "name": "Accutase"
+      },
+      {
+        "id": "m_bsa",
+        "name": "BSA"
+      },
+      {
+        "id": "m_dpbs",
+        "name": "DPBS"
+      },
+      {
+        "id": "m_y27632",
+        "name": "Y-27632"
+      },
+      {
+        "id": "m_vitronectin",
+        "name": "vitronectin"
+      },
+      {
+        "id": "m_e8",
+        "name": "E8 medium"
+      },
+      {
+        "id": "m_cell_strainer",
+        "name": "50-μm cell strainer"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_conical",
+        "type": "conical_tube"
+      },
+      {
+        "id": "c_dish",
+        "type": "dish"
+      },
+      {
+        "id": "c_conical_15ml",
+        "type": "conical_tube"
+      },
+      {
+        "id": "c_dish_10cm",
+        "type": "dish"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "eq_incubator",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_hiPS",
+        "name": "hiPS cells (starting culture)"
+      },
+      {
+        "id": "s_single_cell_susp",
+        "name": "single-cell suspension"
+      },
+      {
+        "id": "s_sorted_cells",
+        "name": "mCherry+ sorted cells"
+      },
+      {
+        "id": "s_start_culture",
+        "name": "starting hiPS culture"
+      },
+      {
+        "id": "s_filtered_cells",
+        "name": "filtered cells"
+      },
+      {
+        "id": "c_conical_15ml",
+        "name": "c_conical_15ml"
+      },
+      {
+        "id": "c_dish_10cm",
+        "name": "c_dish_10cm"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_start_culture"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "description": "Dissociate hiPS cells with Accutase to obtain single-cell suspension"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_start_culture"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_single_cell_susp"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "description": "Resuspend cells in 3% BSA/DPBS (wt/vol) supplemented with 10 μM Y-27632"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_single_cell_susp"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c_conical_15ml"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source_sample": "s_single_cell_susp",
+          "destination_container": "c_conical_15ml",
+          "material": "m_cell_strainer",
+          "description": "Filter cells through 50-μm cell strainer into 15-ml conical tube",
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_filtered_cells"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Conduct FACS to collect mCherry+ cells (lentivirus infected). Uninfected control cells processed similarly as negative controls to set the gate"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_sorted_cells"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s8",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c_dish_10cm"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s9",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "spread_on_plate",
+          "description": "Seed sorted mCherry+ cells at low density in 10-cm dish coated with vitronectin in 10 ml pre-warmed E8 medium supplemented with 10 μM Y-27632"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_sorted_cells"
+          },
+          {
+            "kind": "sample",
+            "id": "c_dish_10cm"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "37C_5%CO2"
+          },
+          "device_ref": "eq_incubator"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,359 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Crypt isolation and initial organoid embedding",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-024-55567-2.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "dpbs",
+        "name": "DPBS"
+      },
+      {
+        "id": "edta_solution",
+        "name": "2.5 mM EDTA",
+        "concentration": "2.5 mM"
+      },
+      {
+        "id": "cultrex_bme",
+        "name": "Cultrex RGF BME (R&D Systems)"
+      },
+      {
+        "id": "culture_medium_y27632",
+        "name": "Culture medium with 10 μM Y-27632",
+        "additive": "Y-27632",
+        "concentration": "10 μM"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate_48well",
+        "type": "48-well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator_4c",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "tissue_sample",
+        "name": "Tissue sample"
+      },
+      {
+        "id": "crypts_sample",
+        "name": "Crypts suspension"
+      },
+      {
+        "id": "droplet_embedded",
+        "name": "Crypts embedded in Cultrex droplets"
+      },
+      {
+        "id": "dpbs",
+        "name": "dpbs"
+      },
+      {
+        "id": "edta_solution",
+        "name": "edta_solution"
+      },
+      {
+        "id": "cultrex_bme",
+        "name": "cultrex_bme"
+      },
+      {
+        "id": "culture_medium_y27632",
+        "name": "culture_medium_y27632"
+      },
+      {
+        "id": "plate_48well",
+        "name": "plate_48well"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "dpbs"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "edta_solution"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cultrex_bme"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "culture_medium_y27632"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "plate_48well"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tissue_sample"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "rinse"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tissue_sample"
+          },
+          {
+            "kind": "sample",
+            "id": "dpbs"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tissue_sample"
+          }
+        ]
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator_4c",
+          "program": {
+            "program_name": "EDTA_4C_40min"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tissue_sample"
+          },
+          {
+            "kind": "sample",
+            "id": "edta_solution"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "crypts_sample"
+          }
+        ]
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer step missing amount; original protocol likely transferred crypts suspension to next step."
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "crypts_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "crypts_sample"
+          }
+        ]
+      },
+      {
+        "id": "s10",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "spread_on_plate"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "crypts_sample"
+          },
+          {
+            "kind": "sample",
+            "id": "cultrex_bme"
+          },
+          {
+            "kind": "sample",
+            "id": "plate_48well"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "droplet_embedded"
+          }
+        ]
+      },
+      {
+        "id": "s11",
+        "op": "annotate",
+        "params": {
+          "note": "Solidification time not specified; proceeding after gel set."
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "droplet_embedded"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "droplet_embedded"
+          }
+        ]
+      },
+      {
+        "id": "s12",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer step missing amount; original protocol likely added culture medium to embedded droplets."
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "culture_medium_y27632"
+          },
+          {
+            "kind": "sample",
+            "id": "droplet_embedded"
+          },
+          {
+            "kind": "sample",
+            "id": "plate_48well"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "droplet_embedded"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      }
+    ],
+    "detail_level": 0
+  }
+}

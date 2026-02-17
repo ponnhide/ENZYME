@@ -1,0 +1,171 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41467-024-55567-2",
+      "type": "paper"
+    },
+    "title": "Construction of LGR5‑mNeonGreen reporter"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "sgRNA_plasmids",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "hdr_template",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "organoids",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "Two LGR5-targeting sgRNAs were cloned into SpCas9-equipped HP180 plasmids (gift from Hui Yang lab)."
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "sgRNA_plasmids",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "HDR template was made by replacing the CMV promoter in pBluescript II SK (+) (Addgene #212205) with LGR5-P2AmNeonGreen sequence flanked by LGR5 homology arms using the Fast-Fusion™ Cloning Kit (GeneCopoeia)."
+        },
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "hdr_template",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "LGR5 sgRNA plasmids and HDR template were co-electroporated into human intestinal organoids using a NEPA21 electroporator (Nepa Gene) following published methods."
+        },
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "sgRNA_plasmids",
+            "kind": "sample"
+          },
+          {
+            "id": "hdr_template",
+            "kind": "sample"
+          },
+          {
+            "id": "organoids",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "electroporated_organoids",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "device_ref": "nepa21",
+          "program": "co-electroporation"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [],
+    "data": [],
+    "equipment": [
+      {
+        "id": "nepa21",
+        "kind": "equipment",
+        "name": "NEPA21 electroporator",
+        "vendor": "Nepa Gene"
+      }
+    ],
+    "materials": [],
+    "samples": [
+      {
+        "id": "sgRNA_plasmids",
+        "name": "sgRNA_plasmids"
+      },
+      {
+        "id": "hdr_template",
+        "name": "hdr_template"
+      },
+      {
+        "id": "organoids",
+        "name": "organoids"
+      },
+      {
+        "id": "electroporated_organoids",
+        "name": "electroporated_organoids"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

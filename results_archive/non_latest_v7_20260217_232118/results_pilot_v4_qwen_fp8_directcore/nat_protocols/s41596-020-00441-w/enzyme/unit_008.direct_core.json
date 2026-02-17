@@ -1,0 +1,128 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Anterior-posterior boundary spheroid formation (Day 8)",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-020-00441-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "96-well_round_bottom_ultra_low_attachment_plate",
+        "description": "used for spheroid culture and fusion"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "mechanical_pipette",
+        "description": "with wide-bore 200-µl tip"
+      },
+      {
+        "id": "e2",
+        "type": "centrifuge"
+      },
+      {
+        "id": "e3",
+        "type": "incubator"
+      }
+    ],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source": "c1:well_with_posterior_spheroid",
+          "destination": "c1:well_with_posterior_spheroid",
+          "tool": "e1",
+          "amount": {
+            "value": 200.0,
+            "unit": "µl"
+          }
+        },
+        "annotations": [
+          {
+            "key": "action",
+            "value": "pipette up and down to suspend spheroid in medium"
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "c1:well_with_posterior_spheroid",
+          "destination": "c1:well_with_anterior_spheroid",
+          "tool": "e1",
+          "amount": {
+            "value": 200.0,
+            "unit": "µl"
+          }
+        },
+        "annotations": [
+          {
+            "key": "note",
+            "value": "transfer entire spheroid with medium to well containing anterior spheroid"
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "speed": "1000 r.p.m.",
+            "duration": "1 min"
+          },
+          "device_ref": "e2"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": "37 °C",
+            "duration": "24 h"
+          },
+          "device_ref": "e3"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

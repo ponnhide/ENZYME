@@ -1,0 +1,131 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Selection for interneuron generation screen (Day 45 dissociation)",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01299-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "organoids",
+        "type": "biological_sample"
+      },
+      {
+        "id": "m2",
+        "name": "enzyme solution with papain (10 U ml−1)",
+        "type": "reagent"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "six-well plate",
+        "type": "plate",
+        "capacity": "6 wells"
+      },
+      {
+        "id": "c2",
+        "name": "well of six-well plate",
+        "type": "well",
+        "parent": "c1"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "CO2 incubator",
+        "type": "incubator",
+        "conditions": "5% CO2, 37 °C"
+      }
+    ],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source": "m1",
+          "destination": "c2",
+          "amount": {
+            "value": 12,
+            "unit": "organoids"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "m2",
+          "destination": "c2",
+          "amount": {
+            "value": 3,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": "37 °C, 5% CO2, 15 min"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "description": "Gently shake the plate horizontally every 5 min to evenly distribute the papain solution"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "note": "Both control and genetically perturbed hSO should be dissociated at this step, because control (uninfected) cells will be needed to set the gate for FACS."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

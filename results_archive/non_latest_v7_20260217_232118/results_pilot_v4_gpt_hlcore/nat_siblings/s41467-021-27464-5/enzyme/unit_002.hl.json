@@ -1,0 +1,148 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Initiate differentiation by plating",
+    "source": {
+      "type": "paper",
+      "id": "s41467-021-27464-5.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_cells",
+        "name": "single iPSC cells"
+      },
+      {
+        "id": "m_shh",
+        "name": "SHH-C24II",
+        "catalog": {
+          "vendor": "Miltenyi",
+          "catalog_number": "130-095-727"
+        }
+      },
+      {
+        "id": "m_y27632",
+        "name": "Y-27632",
+        "catalog": {
+          "vendor": "Miltenyi",
+          "catalog_number": "130-106-539"
+        }
+      },
+      {
+        "id": "m_chir",
+        "name": "CHIR99021",
+        "catalog": {
+          "vendor": "Miltenyi",
+          "catalog_number": "130-106-539"
+        }
+      },
+      {
+        "id": "m_dihydro",
+        "name": "dihydrochloride",
+        "catalog": {
+          "vendor": "Miltenyi",
+          "catalog_number": "130-106-538"
+        }
+      },
+      {
+        "id": "m_ipbrew",
+        "name": "iPS Brew"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_plate",
+        "name": "96-well U-bottom plate",
+        "catalog": {
+          "vendor": "Corning",
+          "catalog_number": "CLS7007"
+        }
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s_cells",
+        "name": "iPSC single cells sample"
+      },
+      {
+        "id": "s_plated_well",
+        "name": "Plated differentiation well"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c_plate"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells"
+          },
+          {
+            "kind": "container",
+            "id": "c_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_plated_well"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 2500,
+            "unit": "cells"
+          }
+        },
+        "annotations": {
+          "note": "Plated 2500 single cells per well of a 96-well U-bottom plate (Corning, #CLS7007) in iPS Brew containing 400 ng/ml SHH-C24II (Miltenyi, #130-095-727), 10 µM Y-27632, 1.5 µM CHIR99021 (Miltenyi, #130-106-539), and 200 mM dihydrochloride (Miltenyi, #130-106-538), as previously described."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s3"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

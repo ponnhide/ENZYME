@@ -1,0 +1,532 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Generation of CRISPR–Cas9-engineered stem cells and neural induction",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01197-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "material_accutase",
+        "type": "enzyme"
+      },
+      {
+        "id": "material_stem_medium",
+        "type": "medium"
+      },
+      {
+        "id": "material_sgRNA",
+        "type": "plasmid"
+      },
+      {
+        "id": "material_mg_plate",
+        "type": "plate"
+      },
+      {
+        "id": "material_puromycin",
+        "type": "antibiotic"
+      },
+      {
+        "id": "material_dispase",
+        "type": "enzyme"
+      },
+      {
+        "id": "material_induction",
+        "type": "medium"
+      },
+      {
+        "id": "material_amplification",
+        "type": "medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "container_dish",
+        "type": "dish"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "equipment_nucleofector",
+        "type": "dna_delivery_device"
+      },
+      {
+        "id": "equipment_incubator",
+        "type": "incubator"
+      },
+      {
+        "id": "equipment_microscope",
+        "type": "microscope"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_h9",
+        "type": "cell_line"
+      },
+      {
+        "id": "sample_transfected",
+        "type": "cell_population"
+      },
+      {
+        "id": "sample_selected_colonies",
+        "type": "cell_population"
+      },
+      {
+        "id": "material_accutase",
+        "name": "material_accutase"
+      },
+      {
+        "id": "material_stem_medium",
+        "name": "material_stem_medium"
+      },
+      {
+        "id": "equipment_nucleofector",
+        "name": "equipment_nucleofector"
+      },
+      {
+        "id": "material_sgRNA",
+        "name": "material_sgRNA"
+      },
+      {
+        "id": "material_mg_plate",
+        "name": "material_mg_plate"
+      },
+      {
+        "id": "material_puromycin",
+        "name": "material_puromycin"
+      },
+      {
+        "id": "data_puromycin_selection",
+        "name": "data_puromycin_selection"
+      },
+      {
+        "id": "material_dispase",
+        "name": "material_dispase"
+      },
+      {
+        "id": "material_induction",
+        "name": "material_induction"
+      },
+      {
+        "id": "data_neural_induction_observation",
+        "name": "data_neural_induction_observation"
+      },
+      {
+        "id": "material_amplification",
+        "name": "material_amplification"
+      }
+    ],
+    "data": [
+      {
+        "id": "data_puromycin_selection",
+        "type": "data"
+      },
+      {
+        "id": "data_neural_induction_observation",
+        "type": "data"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_h9"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "material_accutase"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "dislodge_cells",
+          "target": "sample_h9",
+          "reagent": "material_accutase",
+          "duration": "5-15 min"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "material_stem_medium"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "target": "sample_h9",
+          "reagent": "material_stem_medium"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "equipment"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "equipment_nucleofector"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s7",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "material_sgRNA"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "program": {
+            "program_name": "A023"
+          },
+          "device_ref": "equipment_nucleofector",
+          "inputs": {
+            "sample": "sample_h9",
+            "plasmid": "material_sgRNA"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s9",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "material_mg_plate"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s10",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "spread_on_plate",
+          "target": "sample_transfected",
+          "surface": "material_mg_plate"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "material_puromycin"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s12",
+        "op": "transfer",
+        "params": {
+          "source": "material_puromycin",
+          "destination": "sample_transfected",
+          "concentration": "0.25 μg/mL",
+          "amount": {
+            "value": "0.25",
+            "unit": "μg/mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s13",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": "puromycin resistant colonies appear"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "data_puromycin_selection"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s14",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "pick_colony",
+          "target": "sample_transfected",
+          "criteria": "puromycin resistance"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s15",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "material_dispase"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s16",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "dislodge_cells",
+          "target": "sample_selected_colonies",
+          "reagent": "material_dispase"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s17",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "material_induction"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s18",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "target": "sample_selected_colonies",
+          "reagent": "material_induction"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s19",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": "tissue thickening, cell layering, curling, detachments"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "data_neural_induction_observation"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s20",
+        "op": "transfer",
+        "params": {
+          "source": "sample_selected_colonies",
+          "action": "aspirate",
+          "amount": "80-90 % of old medium removed"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s21",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "material_amplification"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s22",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "target": "sample_selected_colonies",
+          "reagent": "material_amplification",
+          "note": "contains EGF 10 ng/mL and FGF2 10 ng/mL"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s23",
+        "op": "annotate",
+        "params": {
+          "note": "Half medium exchanged every other day with fresh medium containing 2× EGF and 2× FGF2 to maintain 10 ng/mL; limit FGF2 exposure to 5 days."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      },
+      {
+        "from": "s16",
+        "to": "s17"
+      },
+      {
+        "from": "s17",
+        "to": "s18"
+      },
+      {
+        "from": "s18",
+        "to": "s19"
+      },
+      {
+        "from": "s19",
+        "to": "s20"
+      },
+      {
+        "from": "s20",
+        "to": "s21"
+      },
+      {
+        "from": "s21",
+        "to": "s22"
+      },
+      {
+        "from": "s22",
+        "to": "s23"
+      }
+    ],
+    "detail_level": 0
+  }
+}

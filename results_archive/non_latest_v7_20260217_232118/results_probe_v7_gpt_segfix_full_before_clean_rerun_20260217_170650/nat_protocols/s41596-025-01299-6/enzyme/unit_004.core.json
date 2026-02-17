@@ -1,0 +1,439 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Day 0 generation of 3D neural spheroids in AggreWell plates",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01299-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "anti_adherence_solution",
+        "type": "material",
+        "name": "anti-adherence rinsing solution"
+      },
+      {
+        "id": "DPBS",
+        "type": "material",
+        "name": "DPBS"
+      },
+      {
+        "id": "e8_y27632_medium",
+        "type": "material",
+        "name": "pre-warmed E8 medium supplemented with 10 μM Y-27632"
+      },
+      {
+        "id": "Accutase",
+        "type": "material",
+        "name": "Accutase"
+      }
+    ],
+    "containers": [
+      {
+        "id": "aggrewell_plate1",
+        "type": "container",
+        "name": "AggreWell plate"
+      },
+      {
+        "id": "hipsc_plate1",
+        "type": "container",
+        "name": "hiPS cell culture plate"
+      },
+      {
+        "id": "dish1",
+        "type": "container",
+        "name": "10-cm dish"
+      },
+      {
+        "id": "tube1",
+        "type": "container",
+        "name": "50-ml conical tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator1",
+        "type": "equipment",
+        "name": "CO2 incubator"
+      },
+      {
+        "id": "centrifuge1",
+        "type": "equipment",
+        "name": "swinging bucket rotor centrifuge"
+      },
+      {
+        "id": "hemacytometer1",
+        "type": "equipment",
+        "name": "Bright-Line hemacytometer"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cell_suspension",
+        "type": "sample",
+        "name": "cell suspension"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source_material": "anti_adherence_solution",
+          "destination_container": "aggrewell_plate1",
+          "amount": {
+            "value": 500.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "RT_5min"
+          },
+          "device_ref": "incubator1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "1300g_5min"
+          },
+          "device_ref": "centrifuge1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "note": "Aspirate the rinsing solution and wash the AggreWell plate with 1 ml DPBS."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "params": {
+          "source_material": "e8_y27632_medium",
+          "destination_container": "aggrewell_plate1",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "1300g_5min"
+          },
+          "device_ref": "centrifuge1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "annotate",
+        "params": {
+          "note": "Aspirate medium from hiPS cell culture plates and rinse the cells with 1 ml DPBS twice."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "transfer",
+        "params": {
+          "source_material": "Accutase",
+          "destination_container": "dish1",
+          "amount": {
+            "value": 5.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s13",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "37C_7min"
+          },
+          "device_ref": "incubator1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s14",
+        "op": "annotate",
+        "params": {
+          "note": "Cells detach easily with gentle shaking."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s15",
+        "op": "annotate",
+        "params": {
+          "note": "Add 5 ml pre-warmed E8 medium to the cells in the dish and collect the cell suspension into a 50‑ml conical tube."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s16",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "200g_5min"
+          },
+          "device_ref": "centrifuge1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s17",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s18",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "target_sample": "cell_suspension",
+          "container": "tube1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s19",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "cell_count"
+          ],
+          "device_ref": "hemacytometer1"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s20",
+        "op": "annotate",
+        "params": {
+          "note": "Prepare a cell suspension of 3 million cells ml⁻¹."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s21",
+        "op": "transfer",
+        "params": {
+          "source_sample": "cell_suspension",
+          "destination_container": "aggrewell_plate1",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s22",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "100g_3min"
+          },
+          "device_ref": "centrifuge1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s23",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "37C_5CO2_24h"
+          },
+          "device_ref": "incubator1"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      },
+      {
+        "from": "s16",
+        "to": "s17"
+      },
+      {
+        "from": "s17",
+        "to": "s18"
+      },
+      {
+        "from": "s18",
+        "to": "s19"
+      },
+      {
+        "from": "s19",
+        "to": "s20"
+      },
+      {
+        "from": "s20",
+        "to": "s21"
+      },
+      {
+        "from": "s21",
+        "to": "s22"
+      },
+      {
+        "from": "s22",
+        "to": "s23"
+      }
+    ],
+    "detail_level": 0
+  }
+}

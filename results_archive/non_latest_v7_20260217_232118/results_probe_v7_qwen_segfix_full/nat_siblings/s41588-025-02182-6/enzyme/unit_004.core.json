@@ -1,0 +1,183 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Dimensionality reduction and clustering of scRNA-seq data",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41588-025-02182-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "d1",
+        "name": "d1"
+      },
+      {
+        "id": "d2",
+        "name": "d2"
+      },
+      {
+        "id": "d3",
+        "name": "d3"
+      },
+      {
+        "id": "d4",
+        "name": "d4"
+      },
+      {
+        "id": "d5",
+        "name": "d5"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "type": "scRNA-seq_normalized_data"
+      },
+      {
+        "id": "d2",
+        "type": "pca_components"
+      },
+      {
+        "id": "d3",
+        "type": "umap_coordinates"
+      },
+      {
+        "id": "d4",
+        "type": "leiden_clusters"
+      },
+      {
+        "id": "d5",
+        "type": "cell_type_annotations"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "params": {
+          "text": "unmapped action_kind in source: reduce_dimensionality"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d2"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "params": {
+          "text": "unmapped action_kind in source: compute_neighbors"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d3"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "params": {
+          "text": "unmapped action_kind in source: embed_dimensionality"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d2"
+          },
+          {
+            "kind": "sample",
+            "id": "d3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d3"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "params": {
+          "text": "unmapped action_kind in source: cluster"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d4"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "annotation": "The most specific cell type was annotated for each cluster based on these criteria."
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d5"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

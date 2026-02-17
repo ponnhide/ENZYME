@@ -1,0 +1,151 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Papain digestion of organoid pieces",
+    "source": {
+      "type": "paper",
+      "id": "s41586-019-1654-9.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Organoid pieces"
+      },
+      {
+        "id": "m2",
+        "name": "Papain"
+      },
+      {
+        "id": "m3",
+        "name": "Enzyme A"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "tube",
+        "name": "Incubation tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "device_kind": "incubator",
+        "name": "Incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoid_pieces",
+        "material_id": "m1",
+        "container_id": "c1",
+        "description": "Organoid pieces"
+      },
+      {
+        "id": "papain",
+        "material_id": "m2",
+        "container_id": "c1",
+        "description": "Papain solution"
+      },
+      {
+        "id": "enzyme_a",
+        "material_id": "m3",
+        "container_id": "c1",
+        "description": "Enzyme A"
+      },
+      {
+        "id": "mix1",
+        "description": "Organoid pieces in Papain (enzyme mix 1)"
+      },
+      {
+        "id": "mix2",
+        "description": "Organoid pieces in Papain with Enzyme A (enzyme mix 2)"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_pieces"
+          },
+          {
+            "kind": "sample",
+            "id": "papain"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "mix1"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "mix1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "mix1"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "incubate_37C_15min"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "mix1"
+          },
+          {
+            "kind": "sample",
+            "id": "enzyme_a"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "mix2"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

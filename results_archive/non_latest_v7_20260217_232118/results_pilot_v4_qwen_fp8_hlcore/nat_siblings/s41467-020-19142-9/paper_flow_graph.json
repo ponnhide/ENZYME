@@ -1,0 +1,380 @@
+{
+  "graph_version": "0.2",
+  "linkable_kinds": [
+    "data",
+    "sample"
+  ],
+  "unit_graphs": [
+    {
+      "unit_id": "unit_001",
+      "title": "Isolate colonic crypts",
+      "has_core": true,
+      "status": "skipped_existing",
+      "error": null,
+      "step_graph": {
+        "node_count": 1,
+        "edge_count": 1,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "annotate"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s1"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [],
+        "output_refs": []
+      }
+    },
+    {
+      "unit_id": "unit_002",
+      "title": "Plate crypts in basement membrane extract",
+      "has_core": true,
+      "status": "skipped_existing",
+      "error": null,
+      "step_graph": {
+        "node_count": 1,
+        "edge_count": 1,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "transfer"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s1"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "material:m1"
+        ],
+        "output_refs": [
+          "sample:s2"
+        ]
+      }
+    },
+    {
+      "unit_id": "unit_003",
+      "title": "Culture organoids in human intestinal stem cell medium",
+      "has_core": true,
+      "status": "skipped_existing",
+      "error": null,
+      "step_graph": {
+        "node_count": 1,
+        "edge_count": 1,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "annotate"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s1"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [],
+        "output_refs": []
+      }
+    },
+    {
+      "unit_id": "unit_004",
+      "title": "Dissociate tumor biopsies into single cells",
+      "has_core": true,
+      "status": "skipped_existing",
+      "error": null,
+      "step_graph": {
+        "node_count": 5,
+        "edge_count": 4,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "transfer"
+          },
+          {
+            "id": "s2",
+            "op": "transfer"
+          },
+          {
+            "id": "s3",
+            "op": "transfer"
+          },
+          {
+            "id": "s4",
+            "op": "manipulate"
+          },
+          {
+            "id": "s5",
+            "op": "run_device"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s2"
+          },
+          {
+            "from": "s2",
+            "to": "s3"
+          },
+          {
+            "from": "s3",
+            "to": "s4"
+          },
+          {
+            "from": "s4",
+            "to": "s5"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "material:m1",
+          "material:m2",
+          "material:m3",
+          "sample:s4",
+          "sample:s5"
+        ],
+        "output_refs": [
+          "sample:s2",
+          "sample:s3",
+          "sample:s4",
+          "sample:s5",
+          "sample:s6"
+        ]
+      }
+    },
+    {
+      "unit_id": "unit_005",
+      "title": "Plate dissociated tumor cells in BME with modified medium",
+      "has_core": true,
+      "status": "skipped_existing",
+      "error": null,
+      "step_graph": {
+        "node_count": 2,
+        "edge_count": 1,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "annotate"
+          },
+          {
+            "id": "s2",
+            "op": "run_device"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s2"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "sample:dissociated_tumor_cells",
+          "sample:plated_tumor_cells_in_bme"
+        ],
+        "output_refs": [
+          "sample:cultured_organoids",
+          "sample:plated_tumor_cells_in_bme"
+        ]
+      }
+    },
+    {
+      "unit_id": "unit_006",
+      "title": "Generate clonal organoid lines",
+      "has_core": true,
+      "status": "skipped_existing",
+      "error": null,
+      "step_graph": {
+        "node_count": 1,
+        "edge_count": 1,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "annotate"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s1"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [],
+        "output_refs": []
+      }
+    }
+  ],
+  "inter_unit_graph": {
+    "nodes": [
+      "unit_001",
+      "unit_002",
+      "unit_003",
+      "unit_004",
+      "unit_005",
+      "unit_006"
+    ],
+    "edges": []
+  },
+  "integrity": {
+    "pass": false,
+    "isolated_unit_count": 6,
+    "isolated_unit_rate": 1.0,
+    "isolated_units": [
+      "unit_001",
+      "unit_002",
+      "unit_003",
+      "unit_004",
+      "unit_005",
+      "unit_006"
+    ],
+    "issues": [
+      {
+        "code": "INTER_UNIT_ISOLATED_UNIT_MATERIAL",
+        "severity": "warn",
+        "message": "One or more units are isolated in strict material-flow connectivity.",
+        "unit_ids": [
+          "unit_001",
+          "unit_002",
+          "unit_003",
+          "unit_004",
+          "unit_005",
+          "unit_006"
+        ]
+      }
+    ]
+  },
+  "material_flow": {
+    "linkable_kinds": [
+      "data",
+      "sample"
+    ],
+    "inter_unit_graph": {
+      "nodes": [
+        "unit_001",
+        "unit_002",
+        "unit_003",
+        "unit_004",
+        "unit_005",
+        "unit_006"
+      ],
+      "edges": []
+    },
+    "integrity": {
+      "pass": false,
+      "isolated_unit_count": 6,
+      "isolated_unit_rate": 1.0,
+      "isolated_units": [
+        "unit_001",
+        "unit_002",
+        "unit_003",
+        "unit_004",
+        "unit_005",
+        "unit_006"
+      ],
+      "issues": [
+        {
+          "code": "INTER_UNIT_ISOLATED_UNIT_MATERIAL",
+          "severity": "warn",
+          "message": "One or more units are isolated in strict material-flow connectivity.",
+          "unit_ids": [
+            "unit_001",
+            "unit_002",
+            "unit_003",
+            "unit_004",
+            "unit_005",
+            "unit_006"
+          ]
+        }
+      ]
+    }
+  },
+  "logical_flow": {
+    "method": "heuristic_v0_1",
+    "window_units": 3,
+    "inter_unit_graph": {
+      "nodes": [
+        "unit_001",
+        "unit_002",
+        "unit_003",
+        "unit_004",
+        "unit_005",
+        "unit_006"
+      ],
+      "edges": []
+    },
+    "integrity": {
+      "pass": false,
+      "isolated_unit_count": 6,
+      "isolated_unit_rate": 1.0,
+      "isolated_units": [
+        "unit_001",
+        "unit_002",
+        "unit_003",
+        "unit_004",
+        "unit_005",
+        "unit_006"
+      ],
+      "issues": [
+        {
+          "code": "INTER_UNIT_ISOLATED_UNIT_LOGICAL",
+          "severity": "warn",
+          "message": "One or more units are isolated in heuristic logical-flow connectivity.",
+          "unit_ids": [
+            "unit_001",
+            "unit_002",
+            "unit_003",
+            "unit_004",
+            "unit_005",
+            "unit_006"
+          ]
+        }
+      ]
+    }
+  },
+  "combined_integrity": {
+    "pass": false,
+    "isolated_unit_count": 6,
+    "isolated_unit_rate": 1.0,
+    "isolated_units": [
+      "unit_001",
+      "unit_002",
+      "unit_003",
+      "unit_004",
+      "unit_005",
+      "unit_006"
+    ],
+    "issues": [
+      {
+        "code": "INTER_UNIT_ISOLATED_UNIT_COMBINED",
+        "severity": "warn",
+        "message": "One or more units are isolated in combined material/logical flow connectivity.",
+        "unit_ids": [
+          "unit_001",
+          "unit_002",
+          "unit_003",
+          "unit_004",
+          "unit_005",
+          "unit_006"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,155 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Blocking buffer preparation for immunofluorescence",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00880-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "donkey serum",
+        "type": "material"
+      },
+      {
+        "id": "m2",
+        "name": "Triton-X-100",
+        "type": "material"
+      },
+      {
+        "id": "m3",
+        "name": "PBS",
+        "type": "material"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "microcentrifuge tube",
+        "type": "container",
+        "capacity": "10 mL"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "refrigerator",
+        "type": "equipment"
+      }
+    ],
+    "samples": [
+      {
+        "id": "smp1",
+        "name": "blocking buffer",
+        "type": "sample",
+        "container_ref": "c1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "resource_type": "sample",
+          "sample_type": "blocking buffer",
+          "container_ref": "c1",
+          "volume": "10 mL"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "m1",
+          "destination": "smp1",
+          "amount": {
+            "value": 1.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "m2",
+          "destination": "smp1",
+          "amount": {
+            "value": 10.0,
+            "unit": "µL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "m3",
+          "destination": "smp1",
+          "amount": {
+            "value": 8.99,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "target": "smp1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Store at 4 °C for up to 2 weeks."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

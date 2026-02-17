@@ -1,0 +1,310 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-023-00929-1",
+      "type": "paper"
+    },
+    "title": "FACS setup and sorting"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "fluorophores",
+            "kind": "material"
+          },
+          {
+            "id": "single_color_control",
+            "kind": "material"
+          },
+          {
+            "id": "unstained_control",
+            "kind": "material"
+          },
+          {
+            "id": "cell_suspension",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [],
+        "params": {
+          "device_kind": "imager",
+          "device_ref": "facs1",
+          "program": "set_laser_levels"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "single_color_control",
+            "kind": "material"
+          },
+          {
+            "id": "cell_suspension",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "single_color_data",
+            "kind": "data"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "device_ref": "facs1",
+          "program": "run_single_color_control"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "single_color_data",
+            "kind": "data"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "compensated_data",
+            "kind": "data"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "device_ref": "facs1",
+          "program": "perform_compensation"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Draw gates to select sequential populations; first eliminate debris with side scatter (SSC) and forward scatter (FSC) gates."
+        },
+        "id": "s4",
+        "inputs": [],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "Eliminate doublets also with SSC or FSC."
+        },
+        "id": "s5",
+        "inputs": [],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "Eliminate dead cells using DAPI (or other live/dead stains)."
+        },
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "dapi",
+            "kind": "material"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "Set up FACS plots to select population of interest (e.g., endothelial cells CD45−CD31+ANPEP−; mural cells CD45−CD31−ANPEP+)."
+        },
+        "id": "s7",
+        "inputs": [],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "(Optional) Run additional controls such as fluorescence minus one (FMO) and unstained controls to determine true population."
+        },
+        "id": "s8",
+        "inputs": [],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s9",
+        "inputs": [
+          {
+            "id": "cell_suspension",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "sorted_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "device_ref": "facs1",
+          "nozzle_size": "100 µm",
+          "program": "sort_cells"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s10",
+        "inputs": [
+          {
+            "id": "sorted_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "observe",
+        "outputs": [
+          {
+            "id": "event_number_data",
+            "kind": "data"
+          }
+        ],
+        "params": {
+          "features": [
+            "event_number"
+          ],
+          "modality": "instrument_readout"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Translate the ‘event number’ readout into a true cell number (efficiency calculation)."
+        },
+        "id": "s11",
+        "inputs": [
+          {
+            "id": "event_number_data",
+            "kind": "data"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      }
+    ]
+  },
+  "resources": {
+    "containers": [],
+    "data": [
+      {
+        "id": "single_color_data",
+        "name": "single-color control data"
+      },
+      {
+        "id": "compensated_data",
+        "name": "compensated fluorescence data"
+      },
+      {
+        "id": "event_number_data",
+        "name": "event number readout"
+      }
+    ],
+    "equipment": [
+      {
+        "device_kind": "imager",
+        "id": "facs1",
+        "name": "Flow cytometer / cell sorter"
+      }
+    ],
+    "materials": [
+      {
+        "id": "fluorophores",
+        "name": "fluorophores",
+        "type": "reagent"
+      },
+      {
+        "id": "single_color_control",
+        "name": "single-color control",
+        "type": "reagent"
+      },
+      {
+        "id": "unstained_control",
+        "name": "unstained control",
+        "type": "reagent"
+      },
+      {
+        "id": "dapi",
+        "name": "DAPI (dead cell stain)",
+        "type": "reagent"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cell_suspension",
+        "name": "cell suspension",
+        "type": "sample"
+      },
+      {
+        "id": "sorted_cells",
+        "name": "sorted cells",
+        "type": "sample"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

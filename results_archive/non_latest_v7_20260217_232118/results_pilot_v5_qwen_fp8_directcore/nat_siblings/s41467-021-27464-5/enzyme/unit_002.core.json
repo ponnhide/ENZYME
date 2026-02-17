@@ -1,0 +1,156 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Initiate 3D VM organoid differentiation",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-021-27464-5.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "iPS Brew",
+        "source": "Miltenyi"
+      },
+      {
+        "id": "m2",
+        "name": "Y-27632 dihydrochloride",
+        "source": "Miltenyi",
+        "catalog_number": "#130-106-538"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "96-well U-bottom plate",
+        "manufacturer": "Corning",
+        "catalog_number": "#CLS7007"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s1",
+        "name": "single cells",
+        "type": "iPS cells"
+      },
+      {
+        "id": "c1",
+        "name": "c1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "quantity": 1
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "quantity": 2500
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "s1",
+          "destination": "c1",
+          "amount": {
+            "value": 100.0,
+            "unit": "uL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "m1",
+          "destination": "c1",
+          "amount": {
+            "value": 100.0,
+            "unit": "uL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "m2",
+          "destination": "c1",
+          "amount": {
+            "value": 1.0,
+            "unit": "uL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

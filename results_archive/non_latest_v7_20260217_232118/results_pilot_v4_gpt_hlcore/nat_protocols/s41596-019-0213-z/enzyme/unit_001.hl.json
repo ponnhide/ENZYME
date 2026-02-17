@@ -1,0 +1,123 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Aggregate formation (Day -1)",
+    "source": {
+      "type": "paper",
+      "id": "s41596-019-0213-z.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "cells",
+        "name": "cells"
+      },
+      {
+        "id": "Y27632",
+        "name": "Y27632"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate",
+        "name": "6-well low-attachment plate"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "cell_suspension",
+        "material_ref": "cells"
+      },
+      {
+        "id": "cell_on_plate",
+        "material_ref": "cells",
+        "container_ref": "plate"
+      },
+      {
+        "id": "cell_on_plate_with_Y27632",
+        "material_ref": "cells",
+        "container_ref": "plate"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_on_plate"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 200000.0,
+            "unit": "cells/mL"
+          }
+        },
+        "annotations": {
+          "note": "Seed cells onto 6-well low-attachment plate"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_on_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_on_plate_with_Y27632"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "note": "Add Y27632 to a final concentration of 50 μM"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

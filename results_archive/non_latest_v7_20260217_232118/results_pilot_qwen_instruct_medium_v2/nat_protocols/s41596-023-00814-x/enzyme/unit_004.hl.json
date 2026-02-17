@@ -1,0 +1,278 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Fix OVB organoids with PFA for histology",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00814-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "OVB organoids",
+        "type": "biological_sample"
+      },
+      {
+        "id": "m2",
+        "name": "DMEM/F12",
+        "type": "reagent"
+      },
+      {
+        "id": "m3",
+        "name": "PFA",
+        "type": "reagent"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "tube",
+        "capacity": "1 ml"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "micropipette",
+        "name": "1,000 µl micropipette tip"
+      },
+      {
+        "id": "e2",
+        "type": "micropipette",
+        "name": "200 µl micropipette tip"
+      },
+      {
+        "id": "e3",
+        "type": "water_bath",
+        "temperature": "37 °C"
+      },
+      {
+        "id": "e4",
+        "type": "incubator",
+        "name": "room temperature"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s1",
+        "name": "s1"
+      },
+      {
+        "id": "s2",
+        "name": "s2"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "up to five organoids",
+            "unit": "organoids"
+          },
+          "source_container": "unknown",
+          "target_container": "c1",
+          "tool": "e1"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "remaining medium",
+            "unit": "ml"
+          },
+          "source_container": "c1",
+          "target_container": "waste",
+          "tool": "e2"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          },
+          "source_container": "unknown",
+          "target_container": "c1",
+          "tool": "e2"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: incubate"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          },
+          "source_container": "c1",
+          "target_container": "waste",
+          "tool": "e2"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          },
+          "source_container": "unknown",
+          "target_container": "c1",
+          "tool": "e2"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": "room temperature",
+            "duration": "30–60 min"
+          }
+        },
+        "annotations": {
+          "critical_note": "Do not exceed the time of PFA fixation above 1 h since this will lead to high autofluorescence. Use with 37 °C water bath warmed PFA to fix the organoids to enhance penetration of PFA and preserve the cytoskeleton of the cells, since cold treatment leads to depolymerization of microtubules."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

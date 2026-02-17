@@ -1,0 +1,170 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Measure organoid permeability with FITC-dextran",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "FITC-Dextran",
+        "catalog_number": "MedChemExpress",
+        "molecular_weight": "4kDA",
+        "concentration": "2 mg/mL"
+      },
+      {
+        "id": "m2",
+        "name": "PBS"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "µ-slide",
+        "manufacturer": "Ibidi"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "spinning disc confocal microscope",
+        "manufacturer": "Nikon"
+      }
+    ],
+    "samples": [
+      {
+        "id": "c1",
+        "name": "c1"
+      },
+      {
+        "id": "d1",
+        "name": "d1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "m1",
+          "destination": "c1",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "m2",
+          "destination": "c1",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "5 min incubation"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "observe",
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "fluorescence",
+            "DIC"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d1"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Percentage of intact organoids calculated as number of organoids excluding FITC-dextran from lumen divided by total organoids per condition/donor"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

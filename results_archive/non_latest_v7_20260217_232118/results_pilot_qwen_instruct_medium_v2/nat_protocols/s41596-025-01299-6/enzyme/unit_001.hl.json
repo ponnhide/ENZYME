@@ -1,0 +1,300 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "hiPS Cell Transduction",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01299-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "vitronectin solution",
+        "type": "reagent"
+      },
+      {
+        "id": "m2",
+        "name": "DPBS",
+        "type": "reagent"
+      },
+      {
+        "id": "m3",
+        "name": "Accutase",
+        "type": "reagent"
+      },
+      {
+        "id": "m4",
+        "name": "E8 medium",
+        "type": "reagent"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "six_well_plate",
+        "quantity": 6
+      },
+      {
+        "id": "c2",
+        "type": "15_ml_conical_tube",
+        "quantity": 6
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator",
+        "device_kind": "incubator"
+      },
+      {
+        "id": "e2",
+        "type": "centrifuge",
+        "device_kind": "centrifuge"
+      }
+    ],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          },
+          "dilution": "1:100 with DPBS"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": "room temperature",
+            "duration": "1 h"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": "37 °C",
+            "co2": "5%",
+            "duration": "7 min"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s8",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "g_force": "200g",
+            "duration": "5 min"
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

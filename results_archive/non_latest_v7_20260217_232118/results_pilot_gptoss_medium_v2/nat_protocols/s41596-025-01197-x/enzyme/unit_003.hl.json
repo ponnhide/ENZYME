@@ -1,0 +1,201 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Neural induction initiation",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01197-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "PS cells"
+      },
+      {
+        "id": "m2",
+        "name": "MG‑coated wells"
+      },
+      {
+        "id": "m3",
+        "name": "stem cell medium"
+      },
+      {
+        "id": "m4",
+        "name": "neural induction medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "well_plate",
+        "name": "old_plate"
+      },
+      {
+        "id": "c2",
+        "type": "well_plate",
+        "name": "new_MG_coated_plate"
+      },
+      {
+        "id": "c3",
+        "type": "tube",
+        "name": "neural_induction_medium_reservoir"
+      },
+      {
+        "id": "c4",
+        "type": "tube",
+        "name": "fresh_neural_induction_medium_reservoir"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "pipette"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_ps_old",
+        "material_ref": "m1",
+        "container_ref": "c1"
+      },
+      {
+        "id": "s_ps_new",
+        "material_ref": "m1",
+        "container_ref": "c2"
+      },
+      {
+        "id": "s_neural_medium",
+        "material_ref": "m4",
+        "container_ref": "c3"
+      },
+      {
+        "id": "s_fresh_neural_medium",
+        "material_ref": "m4",
+        "container_ref": "c4"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "params": {
+          "container_type": "well_plate"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "description": "Replate PS cells at a 1:1 ratio into new MG‑coated wells as described in Steps 13–20."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "description": "Aspirate half of the stem cell medium from the culture (day 0, ~90% confluence)."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_neural_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_ps_new"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 2,
+            "unit": "mL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "description": "Daily medium change: tilt the plate ~30°, aspirate ~90% of the old medium with floating cells, then add 4 mL of fresh neural induction medium. Repeat for 7–10 days until neural induction signs are observed."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_fresh_neural_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_ps_new"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 4,
+            "unit": "mL"
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

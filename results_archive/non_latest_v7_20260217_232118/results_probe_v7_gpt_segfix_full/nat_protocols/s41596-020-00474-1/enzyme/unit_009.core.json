@@ -1,0 +1,121 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Organoid dissociation for passaging",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-020-00474-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "TrypLE"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "well_plate",
+        "description": "Culture plate with wells"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "pipette",
+        "model": "P1000"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_org1",
+        "type": "organoid_culture",
+        "description": "Organoid culture in BME"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source": {
+            "material_ref": "m1"
+          },
+          "destination": {
+            "container_ref": "c1",
+            "well": "A1"
+          },
+          "equipment_ref": "e1",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "description": "Forcefully pipette up and down 6–10 times per well with a P1000 pipette, aiming at the BME drops."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": {
+            "sample_ref": "s_org1"
+          },
+          "destination": {
+            "container_ref": "c1",
+            "well": "B1"
+          },
+          "equipment_ref": "e1",
+          "note": "Repeat with other wells, up to three wells combined.",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "params": {
+          "note": "Hold the plate after completing the dissociation steps."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

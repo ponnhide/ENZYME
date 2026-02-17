@@ -1,0 +1,115 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Organoid embedding and sectioning",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-019-1654-9.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "OCT compound 4583",
+        "vendor": "Tissue Tek"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "cryomold",
+        "name": "plastic cryomold",
+        "vendor": "Tissue Tek"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "smp1",
+        "name": "organoid"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "amount": "unknown"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "resources": {
+          "materials": [
+            "m1"
+          ]
+        }
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "snap-freeze-on-dry-ice"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "resources": {
+          "equipment": []
+        },
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

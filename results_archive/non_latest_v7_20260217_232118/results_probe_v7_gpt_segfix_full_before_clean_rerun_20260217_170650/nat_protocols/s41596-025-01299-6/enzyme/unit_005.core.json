@@ -1,0 +1,152 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Day 1 dislodging neural spheroids from AggreWell plates",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01299-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "dmem_f12",
+        "name": "DMEM/F-12"
+      },
+      {
+        "id": "e6_medium",
+        "name": "E6 medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "aggrewell_plate",
+        "type": "aggrewell_plate",
+        "name": "AggreWell plate"
+      },
+      {
+        "id": "tube1",
+        "type": "conical_tube_50ml",
+        "name": "50‑ml conical tube"
+      },
+      {
+        "id": "strainer",
+        "type": "filter_40um",
+        "name": "40‑μm strainer"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "p1000_pipette",
+        "type": "pipette_P1000",
+        "name": "P1000 pipette"
+      }
+    ],
+    "samples": [
+      {
+        "id": "neural_spheroids_plate",
+        "name": "Neural spheroids in AggreWell plate"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "params": {
+          "note": "Pre‑warm DMEM/F‑12 and E6 medium at room temperature for 30 min to 1 h before dislodging."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "type": "conical_tube_50ml"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "type": "filter_40um"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "dmem_f12",
+          "destination": "tube1",
+          "note": "Wet the 40‑μm strainer placed on top of the 50‑ml conical tube with DMEM/F‑12.",
+          "amount": {
+            "value": 2.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "dislodge_cells",
+          "equipment_ref": "p1000_pipette",
+          "method": "Gently pipette the medium in the AggreWell well up and down two to three times with a 1,000‑μl pipette tip (wide orifice, 1.5 mm) to dislodge neural spheroids."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": "neural_spheroids_plate",
+          "destination": "tube1",
+          "note": "Pass the suspended neural spheroids through the 40‑μm strainer; spheroids remain on the filter, medium and non‑aggregated cells pass through.",
+          "amount": {
+            "value": 0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

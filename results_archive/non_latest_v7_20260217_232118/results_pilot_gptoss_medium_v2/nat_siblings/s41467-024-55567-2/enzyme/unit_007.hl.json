@@ -1,0 +1,181 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Induction of M cells",
+    "source": {
+      "type": "paper",
+      "id": "s41467-024-55567-2.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "TNF-α",
+        "type": "reagent"
+      },
+      {
+        "id": "m2",
+        "name": "RANKL",
+        "type": "reagent"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "cell culture dish",
+        "type": "container"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "name": "cells",
+        "type": "cell_culture",
+        "container_ref": "c1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 50,
+            "unit": "ng/mL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "incubate 4 h"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 100,
+            "unit": "ng/mL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "incubate 3 d"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,223 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "RT‑qPCR gene expression analysis",
+    "source": {
+      "type": "paper",
+      "id": "s41467-024-55567-2.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "trizol",
+        "name": "Trizol reagent",
+        "source": {
+          "type": "commercial",
+          "id": "TransGen Biotech"
+        }
+      },
+      {
+        "id": "reverse_transcriptase_kit",
+        "name": "NovoScriptPlus Reverse Transcriptase kit",
+        "source": {
+          "type": "commercial",
+          "id": "NovoProtein"
+        }
+      },
+      {
+        "id": "qPCR_master_mix",
+        "name": "ChamQ Universal SYBR qPCR Master Mix",
+        "source": {
+          "type": "commercial",
+          "id": "Vazyme"
+        }
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube",
+        "type": "microcentrifuge tube"
+      },
+      {
+        "id": "96_well_plate",
+        "type": "96-well PCR plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "cfx384",
+        "name": "CFX384 Real‑Time System",
+        "device_kind": "thermocycler",
+        "manufacturer": "BioRad"
+      }
+    ],
+    "samples": [
+      {
+        "id": "total_RNA",
+        "description": "isolated total RNA"
+      },
+      {
+        "id": "cDNA_reaction",
+        "description": "cDNA synthesis reaction mixture"
+      },
+      {
+        "id": "cDNA",
+        "description": "cDNA product"
+      },
+      {
+        "id": "qPCR_reaction",
+        "description": "qPCR reaction mixture"
+      },
+      {
+        "id": "qPCR_data",
+        "description": "qPCR fluorescence data"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "total_RNA"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "total_RNA"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cDNA_reaction"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "µg"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cDNA_reaction"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cDNA"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "kit": "reverse_transcriptase_kit"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cDNA"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "qPCR_reaction"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "qPCR_reaction"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "qPCR_data"
+          }
+        ],
+        "params": {
+          "device_kind": "thermocycler",
+          "program": "qPCR",
+          "device_ref": "cfx384"
+        },
+        "annotations": {
+          "master_mix": "qPCR_master_mix"
+        }
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "qPCR_data"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "analysis_method": "ΔΔCt"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

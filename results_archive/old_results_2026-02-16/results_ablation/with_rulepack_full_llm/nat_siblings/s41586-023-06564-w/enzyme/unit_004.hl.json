@@ -1,0 +1,292 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Generation of 3D human cortical organoids (hCO)",
+    "source": {
+      "type": "paper",
+      "id": "s41586-023-06564-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "accutase",
+        "type": "reagent",
+        "name": "Accutase"
+      },
+      {
+        "id": "essential8",
+        "type": "medium",
+        "name": "Essential 8 medium"
+      },
+      {
+        "id": "rock_inhibitor",
+        "type": "reagent",
+        "name": "Y27632",
+        "concentration": {
+          "value": 10,
+          "unit": "µM"
+        }
+      },
+      {
+        "id": "aggrewell800",
+        "type": "container",
+        "name": "AggreWell 800 plate"
+      },
+      {
+        "id": "e6_medium",
+        "type": "medium",
+        "name": "E6 medium"
+      },
+      {
+        "id": "dorsomorphin",
+        "type": "reagent",
+        "name": "Dorsomorphin",
+        "concentration": {
+          "value": 2.5,
+          "unit": "µM"
+        }
+      },
+      {
+        "id": "sb431542",
+        "type": "reagent",
+        "name": "SB‑431542",
+        "concentration": {
+          "value": 10,
+          "unit": "µM"
+        }
+      },
+      {
+        "id": "xav939",
+        "type": "reagent",
+        "name": "XAV‑939",
+        "concentration": {
+          "value": 1.25,
+          "unit": "µM"
+        }
+      },
+      {
+        "id": "ultra_low_dish",
+        "type": "container",
+        "name": "Ultra‑low attachment plastic dish",
+        "catalogue_no": "3262",
+        "vendor": "Corning"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "centrifuge",
+        "type": "device",
+        "device_kind": "centrifuge"
+      },
+      {
+        "id": "incubator",
+        "type": "device",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "hiPS_cells",
+        "type": "cell_line",
+        "description": "hiPS cells"
+      },
+      {
+        "id": "single_cell_suspension",
+        "type": "cell_suspension"
+      },
+      {
+        "id": "seeded_aggrowell",
+        "type": "culture"
+      },
+      {
+        "id": "centrifuged_aggrowell",
+        "type": "culture"
+      },
+      {
+        "id": "incubated_aggrowell",
+        "type": "culture"
+      },
+      {
+        "id": "aggregates_in_dish",
+        "type": "culture"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "hiPS_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "single_cell_suspension"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "Dissociate hiPS cells with Accutase to obtain a single‑cell suspension."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "single_cell_suspension"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "seeded_aggrowell"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 3000000,
+            "unit": "cells"
+          },
+          "destination": "AggreWell 800 plate well",
+          "supplement": [
+            {
+              "material_id": "essential8"
+            },
+            {
+              "material_id": "rock_inhibitor",
+              "concentration": {
+                "value": 10,
+                "unit": "µM"
+              }
+            }
+          ]
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "seeded_aggrowell"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "centrifuged_aggrowell"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "100 g for 3 min"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "centrifuged_aggrowell"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "incubated_aggrowell"
+          }
+        ],
+        "params": {
+          "temperature": {
+            "value": 37,
+            "unit": "°C"
+          },
+          "CO2": {
+            "value": 5,
+            "unit": "%"
+          },
+          "duration": "overnight"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "incubated_aggrowell"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "aggregates_in_dish"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "Transfer incubated aggregates to Ultra‑low attachment plastic dish (Corning, catalogue no. 3262)."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "aggregates_in_dish"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "aggregates_in_dish"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "Culture aggregates in E6 medium supplemented with dorsomorphin (2.5 µM), SB‑431542 (10 µM) and XAV‑939 (1.25 µM)."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

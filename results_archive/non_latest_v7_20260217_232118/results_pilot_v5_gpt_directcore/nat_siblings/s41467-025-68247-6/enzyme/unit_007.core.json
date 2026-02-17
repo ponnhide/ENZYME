@@ -1,0 +1,299 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Cytomix inflammatory stimulus",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "tnf_alpha",
+        "type": "recombinant_protein",
+        "vendor": "R&D Systems"
+      },
+      {
+        "id": "ifn_gamma",
+        "type": "recombinant_protein",
+        "vendor": "R&D Systems"
+      },
+      {
+        "id": "il1_beta",
+        "type": "recombinant_protein",
+        "vendor": "PeproTech"
+      },
+      {
+        "id": "organoid_media",
+        "type": "media",
+        "description": "organoid media without EGF or Nicotinamide"
+      },
+      {
+        "id": "advanced_dmem_f12",
+        "type": "media",
+        "description": "Advanced DMEM/F12"
+      }
+    ],
+    "containers": [
+      {
+        "id": "organoid_plate",
+        "type": "culture_plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "tnf_alpha",
+        "type": "sample"
+      },
+      {
+        "id": "ifn_gamma",
+        "type": "sample"
+      },
+      {
+        "id": "il1_beta",
+        "type": "sample"
+      },
+      {
+        "id": "organoid_media",
+        "type": "sample"
+      },
+      {
+        "id": "advanced_dmem_f12",
+        "type": "sample"
+      },
+      {
+        "id": "organoid_plate",
+        "type": "sample"
+      },
+      {
+        "id": "cytomix_solution",
+        "type": "solution"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tnf_alpha"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "ifn_gamma"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "il1_beta"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_media"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "advanced_dmem_f12"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "organoid_plate"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cytomix_solution"
+          }
+        ],
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tnf_alpha"
+          },
+          {
+            "kind": "sample",
+            "id": "ifn_gamma"
+          },
+          {
+            "kind": "sample",
+            "id": "il1_beta"
+          },
+          {
+            "kind": "sample",
+            "id": "organoid_media"
+          }
+        ]
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer of cytomix_solution to organoid_plate amount unspecified."
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator",
+          "program": {
+            "program_name": "overnight_16h"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s10",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "rinse"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s11",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "rinse"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s12",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer of organoid_media to organoid_plate amount unspecified."
+        },
+        "outputs": [],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,395 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Protocol",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01197-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "sgRNA_mix1",
+        "name": "sgRNA plasmid mix 1+3"
+      },
+      {
+        "id": "sgRNA_mix2",
+        "name": "sgRNA plasmid mix 1+4"
+      },
+      {
+        "id": "puromycin",
+        "name": "Puromycin"
+      },
+      {
+        "id": "primer1",
+        "name": "Primer 1 (1F+5R)"
+      },
+      {
+        "id": "primer2",
+        "name": "Primer 2 (5R F+3R)"
+      },
+      {
+        "id": "dna_polymerase",
+        "name": "DNA polymerase"
+      },
+      {
+        "id": "dNTPs",
+        "name": "dNTP mix"
+      }
+    ],
+    "containers": [
+      {
+        "id": "well_plate_96",
+        "type": "container",
+        "name": "96-well low‑adhesion plate"
+      },
+      {
+        "id": "tube_1ml",
+        "type": "container",
+        "name": "1 mL microcentrifuge tube"
+      },
+      {
+        "id": "culture_dish",
+        "type": "container",
+        "name": "Culture dish"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "type": "equipment",
+        "name": "Incubator",
+        "device_kind": "incubator"
+      },
+      {
+        "id": "thermocycler",
+        "type": "equipment",
+        "name": "Thermocycler",
+        "device_kind": "thermocycler"
+      }
+    ],
+    "samples": [
+      {
+        "id": "ps_cells",
+        "name": "Human SHANK3 PS cells"
+      },
+      {
+        "id": "selected_cells",
+        "name": "Puromycin‑selected cells"
+      },
+      {
+        "id": "colony1",
+        "name": "Colony 1"
+      },
+      {
+        "id": "colony2",
+        "name": "Colony 2"
+      },
+      {
+        "id": "dna_extract",
+        "name": "Genomic DNA extract"
+      },
+      {
+        "id": "pcr_reaction",
+        "name": "PCR reaction mixture"
+      },
+      {
+        "id": "pcr_product",
+        "name": "PCR product"
+      },
+      {
+        "id": "snr1",
+        "name": "Isolated SNR 1"
+      },
+      {
+        "id": "colony_observation_data",
+        "name": "colony_observation_data"
+      },
+      {
+        "id": "pcr_results",
+        "name": "pcr_results"
+      }
+    ],
+    "data": [
+      {
+        "id": "colony_observation_data",
+        "name": "Colony observation"
+      },
+      {
+        "id": "pcr_results",
+        "name": "PCR validation results"
+      },
+      {
+        "id": "cutting_efficiency_data",
+        "name": "Cutting efficiency measurements"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "ps_cells"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "params": {
+          "note": "Electroporate ps_cells with sgRNA_mix1 and sgRNA_mix2 (electroporation device not represented in core ops)."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "description": "Add puromycin to electroporated cells for selection."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator",
+          "program": {
+            "program_name": "puromycin_selection"
+          }
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "selected_cells"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "colonies"
+          ]
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "colony_observation_data"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": "colony1",
+          "destination": "tube_1ml",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "dna_extract"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s8",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "description": "Lyse selected cells to obtain genomic DNA (dna_extract)."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "pcr_reaction"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s10",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "description": "Add primer1, primer2, dna_polymerase, and dNTPs to pcr_reaction."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "run_device",
+        "params": {
+          "device_kind": "thermocycler",
+          "device_ref": "thermocycler",
+          "program": {
+            "profile_name": "PCR_profile"
+          }
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "pcr_product"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s12",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "PCR product size"
+          ]
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "pcr_results"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s13",
+        "op": "annotate",
+        "params": {
+          "note": "Manually isolate SNRs (250–300 µm) under a stereoscope and transfer to low‑adhesion 96‑well plate."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s14",
+        "op": "transfer",
+        "params": {
+          "source": "snr1",
+          "destination": "well_plate_96",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s15",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator",
+          "program": {
+            "program_name": "organoid_formation"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      }
+    ],
+    "detail_level": 0
+  }
+}

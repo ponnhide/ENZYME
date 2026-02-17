@@ -1,0 +1,192 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-023-00929-1",
+      "type": "paper"
+    },
+    "title": "FACS setup and sorting"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "sample1",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "sample1",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "program": "set_laser_levels"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "sample1",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "sample1",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "program": "record_single_color_controls"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Compensation performed after single-color controls"
+        },
+        "id": "s3",
+        "inputs": [],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "Draw gates to eliminate debris (SSC/FSC), doublets, dead cells (DAPI), then select populations (e.g., CD45−CD31+ANPEP− for endothelial cells)"
+        },
+        "id": "s4",
+        "inputs": [],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "Optional fluorescence minus one (FMO) and unstained controls may be run to verify gating"
+        },
+        "id": "s5",
+        "inputs": [],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "sample1",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "sorted_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "nozzle": "100 µm",
+          "program": "cell_sorting"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s7",
+        "inputs": [
+          {
+            "id": "sorted_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "observe",
+        "outputs": [
+          {
+            "id": "efficiency_data",
+            "kind": "data"
+          }
+        ],
+        "params": {
+          "features": [
+            "event_number",
+            "cell_number",
+            "efficiency"
+          ],
+          "modality": "instrument_readout"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [],
+    "data": [
+      {
+        "description": "cell sorting efficiency calculation",
+        "id": "efficiency_data",
+        "kind": "data"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "eq1",
+        "kind": "equipment",
+        "name": "flow cytometer"
+      }
+    ],
+    "materials": [],
+    "samples": [
+      {
+        "description": "cell suspension for FACS",
+        "id": "sample1",
+        "kind": "sample"
+      },
+      {
+        "description": "sorted cell population",
+        "id": "sorted_cells",
+        "kind": "sample"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

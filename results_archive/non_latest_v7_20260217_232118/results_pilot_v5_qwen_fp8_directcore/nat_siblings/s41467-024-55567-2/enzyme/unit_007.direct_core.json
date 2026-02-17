@@ -1,0 +1,179 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Organoid dissociation and re-embedding",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-024-55567-2.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "TrypLE (Gibco)"
+      },
+      {
+        "id": "m2",
+        "name": "BME"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "48-well plate"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s2",
+        "name": "s2"
+      },
+      {
+        "id": "s3",
+        "name": "s3"
+      },
+      {
+        "id": "s4",
+        "name": "s4"
+      },
+      {
+        "id": "c1",
+        "name": "c1"
+      },
+      {
+        "id": "m2",
+        "name": "m2"
+      },
+      {
+        "id": "s6",
+        "name": "s6"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "destination": "c1",
+          "amount": {
+            "value": 20.0,
+            "unit": "μL"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s4"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "m2",
+          "destination": "c1",
+          "amount": {
+            "value": 20.0,
+            "unit": "μL"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s6"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

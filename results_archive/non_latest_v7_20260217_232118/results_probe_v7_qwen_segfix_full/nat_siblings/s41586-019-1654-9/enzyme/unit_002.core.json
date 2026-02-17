@@ -1,0 +1,165 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Organoid dissociation for single-cell sequencing",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-019-1654-9.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Papain",
+        "type": "enzyme"
+      },
+      {
+        "id": "m2",
+        "name": "Enzyme A",
+        "type": "enzyme"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "culture_dish"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "smp1",
+        "name": "organoid_pieces"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "37C_15min"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "annotations": [
+          "incubated in Papain (enzyme mix 1)"
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "action_kind": "add",
+          "amount": {
+            "value": 1,
+            "unit": "mL"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "annotations": [
+          "added Enzyme A (enzyme mix 2) to Papain mix"
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "annotations": [
+          "triturated using wide-bore 1,000-ml tips"
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "37C_5to10min_x3"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "annotations": [
+          "incubated for additional intervals of 5–10 min with enzyme mix 1 (total ~30 min)"
+        ],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

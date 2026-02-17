@@ -1,0 +1,283 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Differentiation into anterior/posterior gut cells (days 3-6)",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-020-00441-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "anterior_medium",
+        "description": "Anterior day 3–6 medium"
+      },
+      {
+        "id": "posterior_medium",
+        "description": "Posterior day 3–6 medium"
+      },
+      {
+        "id": "waste",
+        "description": "Waste container for discarded media"
+      }
+    ],
+    "containers": [
+      {
+        "id": "well_plate",
+        "type": "well_plate",
+        "description": "96-well plate containing PSCs"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "microscope",
+        "type": "imager",
+        "description": "Microscope for immunostaining observation"
+      },
+      {
+        "id": "flow_cytometer",
+        "type": "cell_counter",
+        "description": "Flow cytometer for EpCAM analysis"
+      }
+    ],
+    "samples": [
+      {
+        "id": "pscs",
+        "description": "Pluripotent stem cells seeded in well_plate"
+      },
+      {
+        "id": "well_plate",
+        "name": "well_plate"
+      },
+      {
+        "id": "anterior_medium",
+        "name": "anterior_medium"
+      },
+      {
+        "id": "posterior_medium",
+        "name": "posterior_medium"
+      },
+      {
+        "id": "waste",
+        "name": "waste"
+      },
+      {
+        "id": "immunostaining_results",
+        "name": "immunostaining_results"
+      },
+      {
+        "id": "flow_cytometry_results",
+        "name": "flow_cytometry_results"
+      }
+    ],
+    "data": [
+      {
+        "id": "immunostaining_results",
+        "description": "Immunostaining data for GATA4, SOX17, FOXA2"
+      },
+      {
+        "id": "flow_cytometry_results",
+        "description": "Flow cytometry data for EpCAM expression"
+      }
+    ]
+  },
+  "protocol": {
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "well_plate"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "anterior_medium"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "posterior_medium"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "waste"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "note": "Warm anterior day 3–6 medium at room temperature."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Warm posterior day 3–6 medium at room temperature."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "note": "Aspirate existing media from each well."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "params": {
+          "source": "anterior_medium",
+          "destination": "well_plate",
+          "amount": {
+            "value": 500.0,
+            "unit": "μl"
+          },
+          "note": "500 μl per well (anterior wells)"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "params": {
+          "source": "posterior_medium",
+          "destination": "well_plate",
+          "amount": {
+            "value": 500.0,
+            "unit": "μl"
+          },
+          "note": "500 μl per well (posterior wells)"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "observe",
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "GATA4",
+            "SOX17",
+            "FOXA2"
+          ]
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "immunostaining_results"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s11",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "EpCAM"
+          ]
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "flow_cytometry_results"
+          }
+        ],
+        "inputs": []
+      }
+    ],
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      }
+    ],
+    "detail_level": 0
+  }
+}

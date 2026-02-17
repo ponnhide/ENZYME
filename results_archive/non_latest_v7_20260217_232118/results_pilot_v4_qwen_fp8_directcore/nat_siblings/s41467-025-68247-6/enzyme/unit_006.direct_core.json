@@ -1,0 +1,345 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Organoid culture in microwell plates",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "type": "solution",
+        "name": "Advanced DMEM/F12"
+      },
+      {
+        "id": "m2",
+        "type": "solution",
+        "name": "Trypsin"
+      },
+      {
+        "id": "m3",
+        "type": "solution",
+        "name": "PBS"
+      },
+      {
+        "id": "m4",
+        "type": "solution",
+        "name": "organoid growth media without Nicotinamide",
+        "composition": [
+          "1X Pen-Strep",
+          "10 mM HEPES",
+          "1X GlutaMAX",
+          "1X B-27 Supplement",
+          "0.2 nM Wnt Surrogate protein",
+          "5 nM Gastrin-1",
+          "1.25mM N-Acetyl-L-Cysteine",
+          "100 µg/mL Primocin",
+          "500 nM A 83-01",
+          "50 ng/mL recombinant human EGF",
+          "100 ng/mL recombinant human Noggin",
+          "250 ng/mL recombinant human R-spondin 3",
+          "100 ng/mL recombinant human IGF1",
+          "50 ng/mL recombinant human FGF2",
+          "10 µM Y-27632"
+        ]
+      },
+      {
+        "id": "m5",
+        "type": "solution",
+        "name": "media with 2% Matrigel"
+      },
+      {
+        "id": "m6",
+        "type": "material",
+        "name": "Cultrex domes"
+      },
+      {
+        "id": "m7",
+        "type": "material",
+        "name": "ECM"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "microwell_plate",
+        "name": "500 µm Gri3D plate",
+        "manufacturer": "SUN bioscience"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator",
+        "name": "tissue culture incubator"
+      },
+      {
+        "id": "e2",
+        "type": "cell_counter",
+        "name": "hemocytometer"
+      }
+    ],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source": "c1",
+          "destination": "c1",
+          "action": "aspirate",
+          "material": "storage buffer",
+          "amount": {
+            "value": 500.0,
+            "unit": "µL"
+          }
+        },
+        "annotations": [
+          {
+            "key": "source",
+            "value": "SUN bioscience"
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "m1",
+          "destination": "c1",
+          "amount": {
+            "value": 150.0,
+            "unit": "µL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "duration": "30 min"
+          },
+          "device_ref": "e1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "annotations": [
+          {
+            "key": "source",
+            "value": "Cultrex domes"
+          },
+          {
+            "key": "duration",
+            "value": "at least 5 days after passaging"
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "m2",
+          "destination": "sample",
+          "action": "incubate",
+          "amount": {
+            "value": 0,
+            "unit": "unknown"
+          }
+        },
+        "annotations": [
+          {
+            "key": "duration",
+            "value": "12 min"
+          },
+          {
+            "key": "note",
+            "value": "until organoids were largely single cells"
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "rinse"
+        },
+        "annotations": [
+          {
+            "key": "protocol",
+            "value": "as in the passaging protocol"
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "source": "m3",
+          "destination": "sample",
+          "action": "wash",
+          "amount": {
+            "value": 0,
+            "unit": "unknown"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "annotations": [
+          {
+            "key": "material",
+            "value": "m4"
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "cell count"
+          ]
+        },
+        "annotations": [
+          {
+            "key": "device",
+            "value": "hemocytometer"
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "transfer",
+        "params": {
+          "source": "sample",
+          "destination": "c1",
+          "density": "200 cells per microwell",
+          "amount": {
+            "value": 50.0,
+            "unit": "µL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "duration": "30–60 min"
+          },
+          "device_ref": "e1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "transfer",
+        "params": {
+          "source": "m5",
+          "destination": "c1",
+          "amount": {
+            "value": 100.0,
+            "unit": "µL"
+          }
+        },
+        "annotations": [
+          {
+            "key": "note",
+            "value": "It is critical that Matrigel is added to the media while cold"
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      }
+    ],
+    "detail_level": 0
+  }
+}

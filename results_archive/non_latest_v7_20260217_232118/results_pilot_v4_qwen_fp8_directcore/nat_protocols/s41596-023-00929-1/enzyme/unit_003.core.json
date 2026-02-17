@@ -1,0 +1,108 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Distribute tissue into conical tubes with collagenase/dispase",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00929-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "type": "chemical",
+        "name": "collagenase/dispase",
+        "concentration": "100 mg/mL"
+      },
+      {
+        "id": "m2",
+        "type": "buffer",
+        "name": "HBSS/BSA/glucose"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "conical_tube",
+        "volume_capacity": "15 mL",
+        "quantity": 3
+      }
+    ],
+    "equipment": [],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source": "dish",
+          "target": "c1",
+          "note": "Aliquot the tissue–buffer solution in the dish into the tubes first",
+          "amount": {
+            "value": "unknown",
+            "unit": "mL"
+          }
+        },
+        "resources_used": [
+          "c1"
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "m2",
+          "target": "c1",
+          "note": "Use extra HBSS/BSA/glucose buffer to wash the dish and make up to 5 mL per tube",
+          "amount": {
+            "value": 5.0,
+            "unit": "mL"
+          }
+        },
+        "resources_used": [
+          "m2",
+          "c1"
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "m1",
+          "target": "c1",
+          "amount": {
+            "value": 167.0,
+            "unit": "µL"
+          }
+        },
+        "resources_used": [
+          "m1",
+          "c1"
+        ],
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

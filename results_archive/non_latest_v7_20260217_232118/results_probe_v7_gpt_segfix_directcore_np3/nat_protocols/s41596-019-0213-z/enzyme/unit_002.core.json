@@ -1,0 +1,401 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Form hPSC aggregates",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-019-0213-z.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "aggregation_medium",
+        "type": "material",
+        "name": "aggregation medium"
+      },
+      {
+        "id": "trypan_blue",
+        "type": "material",
+        "name": "0.1% Trypan blue solution"
+      },
+      {
+        "id": "Y27632",
+        "type": "material",
+        "name": "Y‑27632"
+      }
+    ],
+    "containers": [
+      {
+        "id": "falcon_15ml_tube",
+        "type": "container",
+        "name": "15‑mL Falcon tube"
+      },
+      {
+        "id": "counting_chamber_slide",
+        "type": "container",
+        "name": "counting chamber slide"
+      },
+      {
+        "id": "low_attach_6well_plate",
+        "type": "container",
+        "name": "6‑well low‑attachment plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "serological_pipette",
+        "type": "equipment",
+        "name": "5‑M serological pipette"
+      },
+      {
+        "id": "centrifuge",
+        "type": "equipment",
+        "name": "centrifuge"
+      },
+      {
+        "id": "cell_counter",
+        "type": "equipment",
+        "name": "automated cell counter"
+      },
+      {
+        "id": "microscope",
+        "type": "equipment",
+        "name": "microscope"
+      },
+      {
+        "id": "incubator",
+        "type": "equipment",
+        "name": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cell_pellet",
+        "type": "sample",
+        "name": "cell pellet (pre‑resuspension)"
+      },
+      {
+        "id": "cell_suspension",
+        "type": "sample",
+        "name": "cell suspension (5 mL aggregation medium)"
+      },
+      {
+        "id": "trypan_mix",
+        "type": "sample",
+        "name": "cell suspension + Trypan blue mixture"
+      },
+      {
+        "id": "counting_chamber_sample",
+        "type": "sample",
+        "name": "sample on counting chamber slide"
+      },
+      {
+        "id": "cell_pellet_post_centrifuge",
+        "type": "sample",
+        "name": "cell pellet after centrifugation"
+      },
+      {
+        "id": "cell_suspension_fresh",
+        "type": "sample",
+        "name": "cell suspension in fresh aggregation medium with Y‑27632"
+      },
+      {
+        "id": "plate_well_sample",
+        "type": "sample",
+        "name": "cell suspension in 6‑well plate"
+      },
+      {
+        "id": "aggregates_plate",
+        "type": "sample",
+        "name": "hPSC aggregates after incubation"
+      },
+      {
+        "id": "trypan_blue",
+        "type": "sample",
+        "name": "trypan_blue"
+      },
+      {
+        "id": "Y27632",
+        "type": "sample",
+        "name": "Y27632"
+      },
+      {
+        "id": "aggregation_medium",
+        "type": "sample",
+        "name": "aggregation_medium"
+      }
+    ],
+    "data": [
+      {
+        "id": "cell_count_data",
+        "type": "data",
+        "name": "viable cell count"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_pellet"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "volume": "5 mL",
+          "material": "aggregation_medium",
+          "equipment_ref": "serological_pipette"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_pellet"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "volumes": {
+            "cell_suspension": "10 µL",
+            "trypan_blue": "10 µL"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension"
+          },
+          {
+            "kind": "sample",
+            "id": "trypan_blue"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "trypan_mix"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "destination_container": "counting_chamber_slide",
+          "amount": {
+            "value": 10.0,
+            "unit": "µL"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "trypan_mix"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "counting_chamber_sample"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "viable_cell_count"
+          ],
+          "equipment_ref": "cell_counter"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "counting_chamber_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "cell_count_data"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Calculate volume needed for 2 × 10^5 cells per well based on counted viable cells."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "300g_5min_22C"
+          },
+          "device_ref": "centrifuge"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_pellet_post_centrifuge"
+          }
+        ]
+      },
+      {
+        "id": "s8",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "volume_per_well": "3 mL",
+          "additive": "Y27632",
+          "additive_concentration": "50 µM",
+          "material": "aggregation_medium",
+          "equipment_ref": "serological_pipette"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_pellet_post_centrifuge"
+          },
+          {
+            "kind": "sample",
+            "id": "Y27632"
+          },
+          {
+            "kind": "sample",
+            "id": "aggregation_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension_fresh"
+          }
+        ]
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "params": {
+          "destination_container": "low_attach_6well_plate",
+          "amount": {
+            "value": 3.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension_fresh"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate_well_sample"
+          }
+        ]
+      },
+      {
+        "id": "s10",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "1d_37C"
+          },
+          "device_ref": "incubator"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "plate_well_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "aggregates_plate"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,207 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Long‑term 4D light‑sheet imaging of organoids",
+    "source": {
+      "type": "paper",
+      "id": "s41592-021-01344-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Embryoid bodies (EBs)"
+      },
+      {
+        "id": "m2",
+        "name": "Matrigel"
+      },
+      {
+        "id": "m3",
+        "name": "Neural‑induction medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "Imaging chamber"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "4D light‑sheet microscope",
+        "device_kind": "imager"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "name": "Cerebral organoid EB"
+      },
+      {
+        "id": "samp2",
+        "name": "Embedded organoid in Matrigel"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "name": "Time‑lapse image series"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "annotations": {
+          "note": "Transfer Matrigel into the imaging chamber (amount not specified)"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          },
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "params": {
+          "action_kind": "None"
+        },
+        "annotations": {
+          "note": "Embed EBs in Matrigel within the imaging chamber (action_kind not in controlled vocabulary)"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "params": {
+          "temperature": {
+            "value": null,
+            "unit": null
+          },
+          "duration": {
+            "value": null,
+            "unit": null
+          },
+          "medium": {
+            "kind": "material",
+            "id": "m3"
+          }
+        },
+        "annotations": {
+          "note": "Culture in neural‑induction medium (temperature and duration not specified)"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          },
+          {
+            "kind": "equipment",
+            "id": "e1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d1"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "program": "Capture images every 30 min for 100 h"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

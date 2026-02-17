@@ -1,0 +1,175 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Electroporation of brain slices",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-023-06564-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "sgRNA1",
+        "name": "sgRNA",
+        "amount": "300 pmol"
+      },
+      {
+        "id": "Cas9_1",
+        "name": "Cas9 protein (Synthego, SpCas9 2NLS Nuclease)",
+        "amount": "40 pmol"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube1",
+        "type": "tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "electroporator1",
+        "type": "dna_delivery_device",
+        "name": "BTX Square Pulse electroporator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cells1",
+        "description": "brain slice cells",
+        "amount": "0.5 million cells"
+      },
+      {
+        "id": "mixed1",
+        "name": "mixed1"
+      },
+      {
+        "id": "electroporated1",
+        "name": "electroporated1"
+      }
+    ],
+    "data": [
+      {
+        "id": "flow_data1",
+        "description": "FlowJo analysis data"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "sgRNA1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "Cas9_1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "mixed1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "device_ref": "electroporator1",
+          "program": {
+            "program_name": "electroporation_50V"
+          }
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "electroporated1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Data were analysed on FlowJo (v.10.8.1)."
+        },
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "flow_data1"
+          }
+        ],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

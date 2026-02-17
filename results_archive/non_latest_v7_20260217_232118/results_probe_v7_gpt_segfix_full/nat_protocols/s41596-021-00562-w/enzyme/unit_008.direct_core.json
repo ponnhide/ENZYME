@@ -1,0 +1,242 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Seed organoid fragments into 24‑well plates and incubate",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00562-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "fragment suspension"
+      },
+      {
+        "id": "m2",
+        "name": "colon organoid medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "24-well_plate",
+        "name": "Olympus 24-well tissue culture treated plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator",
+        "name": "CO2 incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_frag",
+        "material_ref": "m1",
+        "description": "fragment suspension sample"
+      },
+      {
+        "id": "s_medium",
+        "material_ref": "m2",
+        "description": "colon organoid medium sample"
+      },
+      {
+        "id": "c1",
+        "name": "c1"
+      },
+      {
+        "id": "d1",
+        "name": "d1"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "type": "observation",
+        "description": "gelation check result"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_frag"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_medium"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "s_frag",
+          "destination": "c1",
+          "description": "seed droplets of fragment suspension into each well",
+          "amount": {
+            "value": 50.0,
+            "unit": "µl",
+            "per_well": true
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "c1",
+          "destination": "e1",
+          "description": "move plate containing Matrigel droplets to CO2 incubator",
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "gelation_15-20min",
+            "duration": "15-20 min"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "gelation"
+          ],
+          "description": "tilt plates to check Matrigel gelation"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d1"
+          }
+        ]
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "params": {
+          "source": "s_medium",
+          "destination": "c1",
+          "description": "add colon organoid medium to each well without disturbing droplets",
+          "amount": {
+            "value": 600.0,
+            "unit": "µl",
+            "per_well": true
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "culture_4d",
+            "temperature": "37 °C",
+            "CO2": "5%",
+            "air_humidity": "95%",
+            "duration": "4 d"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

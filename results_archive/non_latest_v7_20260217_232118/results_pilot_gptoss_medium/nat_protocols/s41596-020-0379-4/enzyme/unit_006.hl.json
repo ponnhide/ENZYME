@@ -1,0 +1,128 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Assist tissue disruption",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-0379-4"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "adDMEM/F12+++ medium",
+        "type": "medium"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "P1000 pipette"
+      },
+      {
+        "id": "e2",
+        "name": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_mix",
+        "name": "tissue mixture"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_mix"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_mix"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "note": "pipette up and down 10–20 times using a P1000 pipette"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "sample",
+            "id": "s_mix"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_mix"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 10,
+            "unit": "ml"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_mix"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_mix"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "speed": "200g",
+            "duration": "5 min",
+            "temperature": "4 °C"
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

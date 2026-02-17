@@ -1,0 +1,175 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Embedding and snap‑freezing of organoids",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-019-1654-9.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_oct",
+        "type": "material",
+        "name": "OCT compound 4583 (Tissue Tek)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_cryomold",
+        "type": "container",
+        "name": "plastic cryomold (Tissue Tek)"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s_organoid",
+        "type": "sample",
+        "description": "organoids"
+      },
+      {
+        "id": "c_cryomold",
+        "name": "c_cryomold"
+      },
+      {
+        "id": "m_oct",
+        "name": "m_oct"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "description": "organoids"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "type": "cryomold",
+          "description": "plastic cryomold (Tissue Tek)"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c_cryomold"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material",
+          "name": "OCT compound 4583 (Tissue Tek)"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "m_oct"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "s_organoid",
+          "destination": "c_cryomold",
+          "description": "transfer organoids to plastic cryomold",
+          "amount": {
+            "note": "amount not specified"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c_cryomold"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "m_oct",
+          "destination": "c_cryomold",
+          "description": "embed organoids in OCT compound",
+          "amount": {
+            "note": "amount not specified"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "m_oct"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c_cryomold"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "snap‑freeze on dry ice"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s4"
+      },
+      {
+        "from": "s2",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s3",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

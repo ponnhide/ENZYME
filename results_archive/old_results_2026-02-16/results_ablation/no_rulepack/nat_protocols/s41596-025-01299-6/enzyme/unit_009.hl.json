@@ -1,0 +1,261 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Assembling RNP complexes for nucleofection",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01299-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "sgRNA_stock",
+        "name": "sgRNA",
+        "description": "sgRNA stock at 100 pmol/µl"
+      },
+      {
+        "id": "cas9_stock",
+        "name": "Cas9 protein",
+        "description": "Cas9 stock at 20 pmol/µl"
+      }
+    ],
+    "containers": [
+      {
+        "id": "sgRNA_plate",
+        "type": "96-well plate",
+        "description": "Plate containing sgRNA mix"
+      },
+      {
+        "id": "RNP_plate",
+        "type": "V-shaped 96-well plate",
+        "description": "Plate used for assembling RNP complexes"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge_1",
+        "device_kind": "centrifuge",
+        "description": "Centrifuge for plate"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sgRNA_plate",
+        "name": "sgRNA_plate"
+      },
+      {
+        "id": "sgRNA_stock",
+        "name": "sgRNA_stock"
+      },
+      {
+        "id": "cas9_stock",
+        "name": "cas9_stock"
+      },
+      {
+        "id": "RNP_plate",
+        "name": "RNP_plate"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Warm the 96-well plate containing the sgRNA mix to room temperature."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Vortex the plate at low speed for 30 s."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sgRNA_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sgRNA_plate"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "duration": {
+              "value": 5,
+              "unit": "min"
+            },
+            "speed": {
+              "value": 500,
+              "unit": "g"
+            }
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sgRNA_stock"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sgRNA_plate"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 300,
+            "unit": "pmol"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cas9_stock"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sgRNA_plate"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 40,
+            "unit": "pmol"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sgRNA_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "RNP_plate"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "note": "Form RNP complex by mixing sgRNA and Cas9 in the V-shaped 96-well plate."
+        }
+      },
+      {
+        "id": "s7",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "RNP_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "RNP_plate"
+          }
+        ],
+        "params": {
+          "temperature": "room temperature",
+          "duration": {
+            "value": 10,
+            "unit": "min"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "RNP_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "RNP_plate"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Place the RNPs on ice until use."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

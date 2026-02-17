@@ -1,0 +1,212 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Irradiation injury protocol",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [
+      {
+        "id": "c_plate",
+        "type": "culture_plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e_irradiator",
+        "type": "gamma_irradiator"
+      },
+      {
+        "id": "e_incubator",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_organoid"
+      },
+      {
+        "id": "c_plate",
+        "name": "c_plate"
+      },
+      {
+        "id": "e_irradiator",
+        "name": "e_irradiator"
+      },
+      {
+        "id": "e_incubator",
+        "name": "e_incubator"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c_plate"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_organoid"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "equipment"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "e_irradiator"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "equipment"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "e_incubator"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "e_incubator",
+          "destination": "e_irradiator",
+          "container": "c_plate",
+          "sample": "sample_organoid",
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c_plate"
+          },
+          {
+            "kind": "sample",
+            "id": "sample_organoid"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Irradiate plates at 6 Gy or 12 Gy using gamma irradiator"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "source": "e_irradiator",
+          "destination": "e_incubator",
+          "container": "c_plate",
+          "sample": "sample_organoid",
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c_plate"
+          },
+          {
+            "kind": "sample",
+            "id": "sample_organoid"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e_incubator",
+          "program": {
+            "program_name": "standard_culture"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,337 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Organoid culture and RNA extraction",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-018-0024-3.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "advanced DMEM/F12 (AdMEM)"
+      },
+      {
+        "id": "m2",
+        "name": "human intestinal stem cell medium (HISM)"
+      },
+      {
+        "id": "m3",
+        "name": "RNA extraction reagents"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "culture_plate",
+        "name": "organoid culture plate"
+      },
+      {
+        "id": "c2",
+        "type": "tube",
+        "name": "RNA extraction tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator",
+        "name": "CO2 incubator"
+      },
+      {
+        "id": "e2",
+        "type": "centrifuge",
+        "name": "microcentrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_org1",
+        "type": "organoid",
+        "name": "colon organoid culture"
+      },
+      {
+        "id": "s_rna",
+        "type": "rna",
+        "name": "extracted RNA"
+      },
+      {
+        "id": "m1",
+        "name": "m1"
+      },
+      {
+        "id": "m2",
+        "name": "m2"
+      },
+      {
+        "id": "c1",
+        "name": "c1"
+      },
+      {
+        "id": "e1",
+        "name": "e1"
+      },
+      {
+        "id": "m3",
+        "name": "m3"
+      },
+      {
+        "id": "c2",
+        "name": "c2"
+      },
+      {
+        "id": "e2",
+        "name": "e2"
+      },
+      {
+        "id": "d1",
+        "name": "d1"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "type": "rna_quality_report",
+        "name": "RNA quality data"
+      }
+    ]
+  },
+  "protocol": {
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "m1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "m2"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "equipment"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "e1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "m2",
+          "destination": "c1",
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "organoid_culture"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "m3"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s8",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c2"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s9",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "equipment"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "e2"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s10",
+        "op": "transfer",
+        "params": {
+          "source": "m3",
+          "destination": "c2",
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "target": "c2"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "e2",
+          "program": {
+            "program_name": "spin"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s13",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "RNA_quality"
+          ]
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d1"
+          }
+        ],
+        "inputs": []
+      }
+    ],
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      }
+    ],
+    "detail_level": 0
+  }
+}

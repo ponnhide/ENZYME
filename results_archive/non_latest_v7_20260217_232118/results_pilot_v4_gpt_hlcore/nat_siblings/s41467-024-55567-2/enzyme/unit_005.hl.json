@@ -1,0 +1,146 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Differentiation protocol for Enteroendocrine cells",
+    "source": {
+      "type": "paper",
+      "id": "s41467-024-55567-2"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_DMH1",
+        "name": "DMH1"
+      },
+      {
+        "id": "m_Rspondin1_CM",
+        "name": "R-spondin1 CM"
+      },
+      {
+        "id": "m_Gastrin_I",
+        "name": "Gastrin I"
+      },
+      {
+        "id": "m_A83_01",
+        "name": "A83-01"
+      },
+      {
+        "id": "m_CHIR",
+        "name": "CHIR"
+      },
+      {
+        "id": "m_DAPT",
+        "name": "DAPT"
+      },
+      {
+        "id": "m_CP673451",
+        "name": "CP673451"
+      },
+      {
+        "id": "m_Gefitinib",
+        "name": "Gefitinib"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_culture_plate",
+        "name": "culture plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e_incubator",
+        "name": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_cells",
+        "name": "enteric progenitor cells"
+      },
+      {
+        "id": "s_treated_cells",
+        "name": "cells after addition of differentiation factors"
+      },
+      {
+        "id": "s_incubated_cells",
+        "name": "cells after 3‑day incubation"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_treated_cells"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "compounds": "DMH1 (2 μM), R-spondin1 CM (10%), Gastrin I (10 nM), A83-01 (0.5 μM), CHIR (4 μM), DAPT (10 μM), CP673451 (0.5 μM), Gefitinib (5 μM)"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_treated_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_incubated_cells"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "3 days"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

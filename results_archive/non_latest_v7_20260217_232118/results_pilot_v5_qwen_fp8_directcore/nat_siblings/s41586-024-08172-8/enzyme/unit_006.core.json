@@ -1,0 +1,109 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Log-normalization and HVG selection",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-024-08172-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "d1",
+        "name": "d1"
+      },
+      {
+        "id": "d2",
+        "name": "d2"
+      },
+      {
+        "id": "d3",
+        "name": "d3"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "type": "expression_matrix",
+        "description": "raw count matrix"
+      },
+      {
+        "id": "d2",
+        "type": "log_normalized_expression_matrix",
+        "description": "log-normalized after cell-wise scaling and ln(count + 1)"
+      },
+      {
+        "id": "d3",
+        "type": "highly_variable_features",
+        "description": "3,000 HVGs selected with seurat_v3 flavor and bio_sample batch_key"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "label"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d2"
+          }
+        ],
+        "annotations": [
+          {
+            "key": "description",
+            "value": "divided counts per cell by total counts in cell, multiplied by 1,000,000, then took natural logarithm of (count + 1)"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": {
+            "program_name": "scanpy.highly_variable_genes",
+            "flavor": "seurat_v3",
+            "batch_key": "bio_sample",
+            "n_top_genes": 3000
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d3"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

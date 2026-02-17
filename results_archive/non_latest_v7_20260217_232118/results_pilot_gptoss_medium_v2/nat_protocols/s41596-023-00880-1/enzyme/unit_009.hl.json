@@ -1,0 +1,293 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Fix organoids for downstream immunofluorescence",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00880-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "4% PFA (cold)",
+        "type": "reagent"
+      },
+      {
+        "id": "m2",
+        "name": "PBS",
+        "type": "reagent"
+      },
+      {
+        "id": "m3",
+        "name": "Parafilm",
+        "type": "consumable"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "Transwell plate",
+        "type": "plate"
+      },
+      {
+        "id": "c2",
+        "name": "PFA waste container",
+        "type": "container"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "P1000 pipette",
+        "type": "pipette"
+      },
+      {
+        "id": "e2",
+        "name": "Incubator (4 °C)",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "name": "Organoids in Transwell wells",
+        "type": "sample",
+        "container_ref": "c1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Aspirate medium from the base of the transwell."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "mL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "drop"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          },
+          {
+            "kind": "equipment",
+            "id": "e2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e2",
+          "program": "30 min at 4 °C"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Remove PFA using a P1000 pipette and discard in the appropriate PFA waste container."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "mL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "drop"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          },
+          {
+            "kind": "equipment",
+            "id": "e2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e2",
+          "program": "10 min at 4 °C"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "After the final wash, add 1 mL sterile PBS to the Transwell basolateral compartment and seal the plate with parafilm for short‑term storage."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

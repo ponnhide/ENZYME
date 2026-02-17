@@ -1,0 +1,376 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Albumin uptake functional assay",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00880-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "e6_medium",
+        "name": "E6 medium"
+      },
+      {
+        "id": "tritc_albumin",
+        "name": "TRITC–albumin"
+      },
+      {
+        "id": "hbss",
+        "name": "HBSS"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube_test",
+        "type": "conical_tube",
+        "name": "15 mL conical tube (test)"
+      },
+      {
+        "id": "tube_control",
+        "type": "conical_tube",
+        "name": "15 mL conical tube (control)"
+      },
+      {
+        "id": "transwell_plate",
+        "type": "transwell_plate",
+        "name": "Transwell plate with six wells"
+      },
+      {
+        "id": "imaging_plate",
+        "type": "imaging_plate",
+        "name": "Glass‑bottomed six‑well imaging plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "type": "incubator",
+        "name": "37 °C incubator"
+      },
+      {
+        "id": "confocal_microscope",
+        "type": "imager",
+        "name": "Confocal microscope"
+      }
+    ],
+    "samples": [
+      {
+        "id": "e6_test_sample",
+        "material_ref": "e6_medium",
+        "volume": "4 mL"
+      },
+      {
+        "id": "e6_control_sample",
+        "material_ref": "e6_medium",
+        "volume": "4 mL"
+      },
+      {
+        "id": "tritc_albumin_sample",
+        "material_ref": "tritc_albumin",
+        "volume": "4 µL"
+      },
+      {
+        "id": "hbss_sample",
+        "material_ref": "hbss",
+        "volume": "unspecified"
+      }
+    ],
+    "data": [
+      {
+        "id": "image_data",
+        "type": "image",
+        "description": "Confocal images of organoids"
+      }
+    ]
+  },
+  "protocol": {
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "container_type": "conical_tube"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "tube_test"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "container_type": "conical_tube"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "tube_control"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "material_ref": "e6_medium",
+          "volume": "4 mL"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "e6_test_sample"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "material_ref": "e6_medium",
+          "volume": "4 mL"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "e6_control_sample"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "e6_test_sample",
+          "destination": "tube_test",
+          "amount": {
+            "value": 4.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": "e6_control_sample",
+          "destination": "tube_control",
+          "amount": {
+            "value": 4.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "material_ref": "tritc_albumin",
+          "volume": "4 µL"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tritc_albumin_sample"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "params": {
+          "source": "tritc_albumin_sample",
+          "destination": "tube_test",
+          "amount": {
+            "value": 4.0,
+            "unit": "µL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "container_type": "transwell_plate"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "transwell_plate"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s10",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "label",
+          "target": "transwell_plate",
+          "labels": [
+            "test",
+            "control"
+          ]
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "annotate",
+        "params": {
+          "note": "Aspirate culture medium from all wells; add TRITC–albumin to test wells (drop then 1 mL basolateral) and add plain E6 to control wells similarly."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator",
+          "program": {
+            "program_name": "overnight_37C_16-20h"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s13",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "rinse",
+          "target": "transwell_plate",
+          "wash_solution": "hbss",
+          "wash_cycles": 3,
+          "wash_volume": "1 mL per compartment"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s14",
+        "op": "transfer",
+        "params": {
+          "source": "transwell_plate",
+          "destination": "imaging_plate",
+          "amount": {
+            "value": 1.0,
+            "unit": "mL"
+          },
+          "note": "Place each Transwell insert into a well containing 1 mL HBSS."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s15",
+        "op": "observe",
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "TRITC-albumin fluorescence",
+            "transmitted light"
+          ],
+          "device_ref": "confocal_microscope",
+          "instrument_settings": {
+            "laser_wavelength": "594 nm",
+            "objective": "10–20× Plan Apochromatic long working distance"
+          }
+        },
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "image_data"
+          }
+        ],
+        "inputs": []
+      }
+    ],
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      }
+    ],
+    "detail_level": 0
+  }
+}

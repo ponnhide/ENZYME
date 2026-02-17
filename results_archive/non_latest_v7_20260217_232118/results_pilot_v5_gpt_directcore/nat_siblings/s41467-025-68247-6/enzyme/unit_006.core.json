@@ -1,0 +1,184 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "DSS treatment of organoids",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "DSS",
+        "vendor": "MP Biomedicals"
+      },
+      {
+        "id": "m2",
+        "name": "Organoid media (without EGF or Nicotinamide)"
+      },
+      {
+        "id": "m3",
+        "name": "Advanced DMEM/F12"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "well_plate",
+        "name": "Organoid plate"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s_dss_solution",
+        "type": "solution",
+        "description": "DSS dissolved in organoid media (0.1% and 0.5% wt/vol)"
+      },
+      {
+        "id": "s_organoid",
+        "type": "organoid",
+        "description": "Organoids cultured in wells"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_dss_solution"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "description": "Dissolve DSS (m1) in organoid media (m2) to prepare 0.1% and 0.5% (wt/vol) DSS solutions"
+        },
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "sample",
+            "id": "s_dss_solution"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "s_dss_solution",
+          "destination": "c1",
+          "duration": "16 h",
+          "note": "Add DSS solution to organoid wells overnight",
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_dss_solution"
+          },
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "m3",
+          "destination": "c1",
+          "repeat": 2,
+          "note": "Wash organoid wells twice with Advanced DMEM/F12",
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m3"
+          },
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "m2",
+          "destination": "c1",
+          "note": "Replace wash buffer with fresh organoid media",
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

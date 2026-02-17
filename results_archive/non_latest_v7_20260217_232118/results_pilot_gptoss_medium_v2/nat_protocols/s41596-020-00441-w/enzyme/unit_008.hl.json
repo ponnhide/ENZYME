@@ -1,0 +1,296 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Form gut spheroids in ultra‑low attachment plates",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-00441-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_anterior_cells",
+        "name": "anterior gut cell suspension"
+      },
+      {
+        "id": "m_posterior_cells",
+        "name": "posterior gut cell suspension"
+      },
+      {
+        "id": "m_day7_medium",
+        "name": "day 7 medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_plate_anterior",
+        "name": "96-well round-bottom ultra-low attachment plate (anterior)",
+        "type": "plate",
+        "well_count": 96
+      },
+      {
+        "id": "c_plate_posterior",
+        "name": "96-well round-bottom ultra-low attachment plate (posterior)",
+        "type": "plate",
+        "well_count": 96
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e_incubator",
+        "name": "incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_anterior_cells",
+        "name": "anterior gut cell suspension sample",
+        "material_ref": "m_anterior_cells"
+      },
+      {
+        "id": "s_posterior_cells",
+        "name": "posterior gut cell suspension sample",
+        "material_ref": "m_posterior_cells"
+      },
+      {
+        "id": "s_day7_medium",
+        "name": "day 7 medium sample",
+        "material_ref": "m_day7_medium"
+      },
+      {
+        "id": "s_anterior_spheroid",
+        "name": "anterior gut spheroid",
+        "derived_from": [
+          "s_anterior_cells"
+        ]
+      },
+      {
+        "id": "s_posterior_spheroid",
+        "name": "posterior gut spheroid",
+        "derived_from": [
+          "s_posterior_cells"
+        ]
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c_plate_anterior"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c_plate_posterior"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_anterior_cells"
+          },
+          {
+            "kind": "container",
+            "id": "c_plate_anterior"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c_plate_anterior"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 10000,
+            "unit": "cells"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_posterior_cells"
+          },
+          {
+            "kind": "container",
+            "id": "c_plate_posterior"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c_plate_posterior"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 10000,
+            "unit": "cells"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_day7_medium"
+          },
+          {
+            "kind": "container",
+            "id": "c_plate_anterior"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c_plate_anterior"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 100,
+            "unit": "µl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_day7_medium"
+          },
+          {
+            "kind": "container",
+            "id": "c_plate_posterior"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c_plate_posterior"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 100,
+            "unit": "µl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c_plate_anterior"
+          },
+          {
+            "kind": "equipment",
+            "id": "e_incubator"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_anterior_spheroid"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "37 °C overnight"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c_plate_posterior"
+          },
+          {
+            "kind": "equipment",
+            "id": "e_incubator"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_posterior_spheroid"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "37 °C overnight"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s3"
+      },
+      {
+        "from": "s2",
+        "to": "s4"
+      },
+      {
+        "from": "s3",
+        "to": "s5"
+      },
+      {
+        "from": "s4",
+        "to": "s6"
+      },
+      {
+        "from": "s5",
+        "to": "s7"
+      },
+      {
+        "from": "s6",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

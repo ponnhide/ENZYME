@@ -1,0 +1,224 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "RNA extraction: On‑column DNase treatment",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00827-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "dnase_i",
+        "type": "reagent",
+        "name": "DNase I"
+      },
+      {
+        "id": "digestion_buffer",
+        "type": "reagent",
+        "name": "DNA Digestion Buffer"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube",
+        "type": "tube",
+        "name": "RNase-free tube"
+      },
+      {
+        "id": "column",
+        "type": "spin_column",
+        "name": "column matrix"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator1",
+        "type": "incubator",
+        "name": "Room temperature incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "dnase_i",
+        "name": "dnase_i"
+      },
+      {
+        "id": "digestion_buffer",
+        "name": "digestion_buffer"
+      },
+      {
+        "id": "tube",
+        "name": "tube"
+      },
+      {
+        "id": "column",
+        "name": "column"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "dnase_i"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "digestion_buffer"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tube"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "column"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "dnase_i",
+          "destination": "tube",
+          "amount": {
+            "value": 5.0,
+            "unit": "μl"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": "digestion_buffer",
+          "destination": "tube",
+          "amount": {
+            "value": 35.0,
+            "unit": "μl"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "target": "tube"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "params": {
+          "source": "tube",
+          "destination": "column",
+          "amount": {
+            "value": 40.0,
+            "unit": "μl"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator1",
+          "program": {
+            "program_name": "room_temp_15min"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

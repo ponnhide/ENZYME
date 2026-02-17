@@ -1,0 +1,227 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Click-iT reaction for EdU detection",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00562-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "type": "chemical",
+        "name": "Click-iT reaction buffer"
+      },
+      {
+        "id": "m2",
+        "type": "chemical",
+        "name": "CuSO4"
+      },
+      {
+        "id": "m3",
+        "type": "chemical",
+        "name": "Alexa Fluor azide"
+      },
+      {
+        "id": "m4",
+        "type": "chemical",
+        "name": "reaction buffer additive"
+      },
+      {
+        "id": "m5",
+        "type": "chemical",
+        "name": "BSA"
+      },
+      {
+        "id": "m6",
+        "type": "chemical",
+        "name": "DPBS−/−"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "cell_culture_plate"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s1_output",
+        "name": "s1_output"
+      },
+      {
+        "id": "c1",
+        "name": "c1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1_output"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "m1",
+          "destination": "s1_output",
+          "amount": {
+            "value": 1.0,
+            "unit": "x"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "m2",
+          "destination": "s1_output",
+          "amount": {
+            "value": 0.1,
+            "unit": "x"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "m3",
+          "destination": "s1_output",
+          "amount": {
+            "value": 0.1,
+            "unit": "x"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "m4",
+          "destination": "s1_output",
+          "amount": {
+            "value": 0.1,
+            "unit": "x"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1_output"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "source": "c1",
+          "destination": "c1",
+          "amount": {
+            "value": 500.0,
+            "unit": "µl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "room_temperature_30min"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "params": {
+          "note": "Incubation step must be performed protected from light."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

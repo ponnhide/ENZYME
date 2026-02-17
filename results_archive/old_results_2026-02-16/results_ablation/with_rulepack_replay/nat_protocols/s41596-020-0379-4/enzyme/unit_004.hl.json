@@ -1,0 +1,188 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Digest tissue fragments",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-0379-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "ROCK_inhibitor",
+        "type": "reagent",
+        "name": "ROCK inhibitor"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "P1000",
+        "type": "pipette",
+        "name": "P1000 pipette"
+      },
+      {
+        "id": "shaker",
+        "type": "shaker",
+        "name": "shaker"
+      }
+    ],
+    "samples": [
+      {
+        "id": "tissue_fragments",
+        "type": "sample",
+        "source_step": "3"
+      },
+      {
+        "id": "digestion_mix",
+        "type": "sample"
+      },
+      {
+        "id": "ROCK_inhibitor_solution",
+        "type": "sample",
+        "material_id": "ROCK_inhibitor"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tissue_fragments"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tissue_fragments"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Digest the tissue as appropriate based on the tumor type (Table 1)."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tissue_fragments"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "digestion_mix"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "method": "shaking vigorously and pipetting the mixture up and down using a P1000 pipette",
+          "frequency": "every 10–15 min for incubations <2 h"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "ROCK_inhibitor_solution"
+          },
+          {
+            "kind": "sample",
+            "id": "digestion_mix"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "digestion_mix"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 10,
+            "unit": "µM"
+          }
+        },
+        "annotations": {
+          "note": "Addition of ROCK inhibitor during digestion can increase outgrowth efficiency."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "digestion_mix"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "For overnight incubations, place the mixture on a shaker."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "digestion_mix"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "For head and neck organoids, digestion should not exceed 1 h and should be monitored regularly."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Subcluster epicardial lineage at day 15 and analyze trajectories with CellRank",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41587-023-01718-7.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "d1",
+        "name": "d1"
+      },
+      {
+        "id": "d2",
+        "name": "d2"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "type": "metacell_dataset"
+      },
+      {
+        "id": "d2",
+        "type": "differentially_expressed_genes"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "subclustered_epicardial_lineage",
+            "day_15",
+            "DEGs_from_Supplementary_Table_6"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d2"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": {
+            "program_name": "CellRank_trajectory_analysis"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d2"
+          }
+        ],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

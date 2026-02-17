@@ -1,0 +1,140 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Passaging hiPS cell colonies",
+    "source": {
+      "type": "paper",
+      "id": "s41586-023-06564-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "EDTA",
+        "description": "0.5 mM"
+      },
+      {
+        "id": "m2",
+        "name": "vitronectin",
+        "description": "coating"
+      },
+      {
+        "id": "m3",
+        "name": "Essential 8 medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "24-well plate",
+        "type": "plate",
+        "wells": 24
+      },
+      {
+        "id": "c2",
+        "name": "six-well plate",
+        "type": "plate",
+        "wells": 6
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s_cell_initial",
+        "name": "hiPS cell colonies",
+        "description": "initial culture"
+      },
+      {
+        "id": "s_cell_incubated",
+        "name": "hiPS cells after EDTA incubation"
+      },
+      {
+        "id": "s_cell_resuspended",
+        "name": "hiPS cells resuspended in Essential 8"
+      },
+      {
+        "id": "s_cell_distributed",
+        "name": "hiPS cells distributed into new six-well plates"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_initial"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_incubated"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Incubated cells with 0.5 mM EDTA in a 24-well plate coated with vitronectin for 7 min at room temperature"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_incubated"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_resuspended"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_resuspended"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_distributed"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Transfer of resuspended hiPS cells into new six-well plates; specific volume or cell count not provided in source."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

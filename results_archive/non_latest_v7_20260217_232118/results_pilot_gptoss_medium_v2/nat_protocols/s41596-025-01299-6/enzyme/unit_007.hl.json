@@ -1,0 +1,194 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Dissociation of hSO for interneuron generation screen (Day 45)",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01299-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "papain_solution",
+        "name": "enzyme solution with papain (10 U ml−1)",
+        "type": "reagent"
+      },
+      {
+        "id": "organoid_sample",
+        "name": "human cortical organoids (hSO)",
+        "type": "biological_sample"
+      }
+    ],
+    "containers": [
+      {
+        "id": "six_well_plate",
+        "name": "six-well plate",
+        "type": "plate"
+      },
+      {
+        "id": "well_A1",
+        "name": "well of six-well plate",
+        "type": "well",
+        "parent": "six_well_plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "name": "CO2 incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "well_content",
+        "name": "organoid + papain mixture",
+        "type": "sample",
+        "container_ref": "well_A1"
+      },
+      {
+        "id": "mixed_content",
+        "name": "pooled organoids with papain solution",
+        "type": "sample",
+        "container_ref": "well_A1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "papain_solution"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "well_content"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 3,
+            "unit": "ml"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "well_content"
+          },
+          {
+            "kind": "material",
+            "id": "organoid_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "mixed_content"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "mixed_content"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "mixed_content"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "Incubate at 37 °C, 5% CO2 for 15 min"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "mixed_content"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "mixed_content"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "annotations": {
+          "note": "Gently shake the plate horizontally every 5 min to evenly distribute the papain solution."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "mixed_content"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "mixed_content"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Both control and genetically perturbed hSO should be dissociated at this step, because control (uninfected) cells will be needed to set the gate for FACS."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

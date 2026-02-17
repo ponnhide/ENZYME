@@ -1,0 +1,137 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Switch hCO to neural medium with growth factors",
+    "source": {
+      "type": "paper",
+      "id": "s41586-023-06564-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Neurobasal A",
+        "catalogue_number": "10888022",
+        "supplier": "Thermo Fisher"
+      },
+      {
+        "id": "m2",
+        "name": "B-27 supplement without vitamin A",
+        "catalogue_number": "12587",
+        "supplier": "Life Technologies"
+      },
+      {
+        "id": "m3",
+        "name": "GlutaMax",
+        "catalogue_number": "35050061",
+        "supplier": "Life Technologies"
+      },
+      {
+        "id": "m4",
+        "name": "penicillin-streptomycin",
+        "catalogue_number": "15140163",
+        "supplier": "Thermo Fisher"
+      },
+      {
+        "id": "m5",
+        "name": "EGF",
+        "concentration": "20 ng ml⁻¹",
+        "supplier": "R&D Systems"
+      },
+      {
+        "id": "m6",
+        "name": "FGF2",
+        "concentration": "20 ng ml⁻¹",
+        "supplier": "R&D Systems"
+      }
+    ],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "smp1",
+        "name": "hCO organoids",
+        "type": "organoid"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 100,
+            "unit": "%"
+          },
+          "to": {
+            "material_id": "m1",
+            "additives": [
+              {
+                "material_id": "m2",
+                "ratio": "1:1"
+              },
+              {
+                "material_id": "m3",
+                "ratio": "1:100"
+              },
+              {
+                "material_id": "m4",
+                "ratio": "1:100"
+              },
+              {
+                "material_id": "m5",
+                "concentration": "20 ng ml⁻¹"
+              },
+              {
+                "material_id": "m6",
+                "concentration": "20 ng ml⁻¹"
+              }
+            ]
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "medium_change_schedule": "daily for first 10 days, every other day for subsequent 9 days",
+          "duration": "day 6 to day 24"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

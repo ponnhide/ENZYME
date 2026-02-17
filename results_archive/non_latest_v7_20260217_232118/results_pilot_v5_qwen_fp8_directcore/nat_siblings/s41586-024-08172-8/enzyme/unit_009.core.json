@@ -1,0 +1,134 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Label-aware integration with scPoli",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-024-08172-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [],
+    "data": [
+      {
+        "id": "d1",
+        "type": "computational_dataset",
+        "description": "organoid datasets for HNOCA"
+      },
+      {
+        "id": "d2",
+        "type": "computational_dataset",
+        "description": "scPoli model output with batch covariate (396 batches)"
+      },
+      {
+        "id": "d3",
+        "type": "computational_dataset",
+        "description": "RSS-based snapseed cell type annotation (top 3 levels)"
+      },
+      {
+        "id": "d4",
+        "type": "computational_model",
+        "description": "scPoli one-layer encoder-decoder with 1024 hidden units, 10 latent dimensions"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "params": {
+          "note": "Batch covariate defined as concatenation of 'id', 'bio_sample', and 'tech_sample' annotation columns, resulting in 396 individual batches."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "params": {
+          "note": "Batch covariate represented in scPoli model as a learned vector of size five."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "params": {
+          "note": "Cell type label input for scPoli prototype loss: top three levels of RSS-based snapseed cell type annotation."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "params": {
+          "note": "scPoli encoder and decoder hidden layer size: 1,024. Latent embedding dimension: 10."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "note": "alpha_epoch_anneal parameter set to 100."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Unlabelled prototype pretraining not used."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "note": "Model trained for 7 epochs total, 5 of which were pretraining epochs."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

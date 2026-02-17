@@ -1,0 +1,140 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Lentiviral transduction at day 15",
+    "source": {
+      "type": "paper",
+      "id": "s41587-023-01718-7.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "hiPSCs"
+      },
+      {
+        "id": "m2",
+        "name": "lentiviral vector encoding FLP under CDH1 promoter"
+      }
+    ],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "hiPSC_1",
+        "material_id": "m1"
+      },
+      {
+        "id": "lentivirus_1",
+        "material_id": "m2"
+      },
+      {
+        "id": "transduced_cells",
+        "derived_from": [
+          "hiPSC_1",
+          "lentivirus_1"
+        ]
+      },
+      {
+        "id": "analyzed_cells",
+        "derived_from": [
+          "transduced_cells"
+        ]
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "hiPSC_1"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "lentivirus_1"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "hiPSC_1"
+          },
+          {
+            "kind": "sample",
+            "id": "lentivirus_1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "transduced_cells"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "transduced_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "analyzed_cells"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 9,
+            "unit": "day"
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s3"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

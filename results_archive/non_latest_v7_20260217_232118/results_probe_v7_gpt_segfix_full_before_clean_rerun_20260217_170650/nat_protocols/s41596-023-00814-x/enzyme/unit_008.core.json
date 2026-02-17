@@ -1,0 +1,476 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Procedure",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00814-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "fixative_solution",
+        "type": "reagent",
+        "description": "2.5% glutaraldehyde and 1.8% sucrose in PBS (pH 7.2)"
+      },
+      {
+        "id": "PBS",
+        "type": "reagent",
+        "description": "Phosphate-buffered saline (pH 7.2)"
+      },
+      {
+        "id": "distilled_water",
+        "type": "reagent",
+        "description": "Distilled water"
+      },
+      {
+        "id": "osmium_tetroxide_1%",
+        "type": "reagent",
+        "description": "1% aqueous osmium tetroxide"
+      },
+      {
+        "id": "ethanol_series",
+        "type": "reagent",
+        "description": "Ethanol series 50%, 75%, 95%, absolute"
+      },
+      {
+        "id": "propylene_oxide",
+        "type": "reagent",
+        "description": "Propylene oxide"
+      },
+      {
+        "id": "embedding_resin",
+        "type": "reagent",
+        "description": "Epon-Araldite resin"
+      },
+      {
+        "id": "uranyl_acetate_solution",
+        "type": "reagent",
+        "description": "2% (wt/vol) uranyl acetate in 70% methanol"
+      },
+      {
+        "id": "methanol70",
+        "type": "reagent",
+        "description": "70% methanol"
+      },
+      {
+        "id": "lead_citrate_solution",
+        "type": "reagent",
+        "description": "Reynold’s lead citrate"
+      }
+    ],
+    "containers": [
+      {
+        "id": "fixation_tube",
+        "type": "tube"
+      },
+      {
+        "id": "embedding_mold",
+        "type": "mold"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "type": "incubator"
+      },
+      {
+        "id": "TEM",
+        "type": "electron_microscope"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoids",
+        "type": "sample"
+      },
+      {
+        "id": "grids",
+        "type": "sample"
+      }
+    ],
+    "data": [
+      {
+        "id": "TEM_images",
+        "type": "data"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s0",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "fixative_solution"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoids"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "fixation_tube"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "organoids",
+          "destination": "fixation_tube",
+          "solution": "fixative_solution",
+          "amount": {
+            "value": 3.0,
+            "unit": "-4 ml"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program_name": "overnight_4C",
+          "temperature": "4 °C",
+          "duration": "overnight",
+          "program": {
+            "program_name": "overnight_4C",
+            "temperature": "4 °C",
+            "duration": "overnight"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "rinse",
+          "solution": "PBS",
+          "volume": "5 ml",
+          "repeats": 5,
+          "duration_per": "15 min"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "rinse",
+          "solution": "distilled_water",
+          "repeats": 2
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program_name": "postfix_osmium_4C",
+          "temperature": "4 °C",
+          "duration": "1-2 h",
+          "solution": "osmium_tetroxide_1%",
+          "program": {
+            "program_name": "postfix_osmium_4C",
+            "temperature": "4 °C",
+            "duration": "1-2 h",
+            "solution": "osmium_tetroxide_1%"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "note": "Dehydrate organoids in graded ethanol series (50%, 75%, 95%, absolute), two incubations of 15 min each"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "params": {
+          "note": "Incubate samples 15 min in 5 ml propylene oxide"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s10",
+        "op": "annotate",
+        "params": {
+          "note": "Incubate organoids 30 min at RT in 5 ml mixture propylene oxide:resin 2:1"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s11",
+        "op": "annotate",
+        "params": {
+          "note": "Agitate slowly on wheel rotator, then incubate overnight at 4°C in 5 ml mixture propylene oxide:resin 1:1"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s12",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer samples to pure embedding resin overnight at 4°C"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s13",
+        "op": "annotate",
+        "params": {
+          "note": "Place organoids in flat embedding molds, orient for desired cutting area"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s14",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program_name": "polymerize_60C",
+          "temperature": "60-62 °C",
+          "duration": "48 h",
+          "program": {
+            "program_name": "polymerize_60C",
+            "temperature": "60-62 °C",
+            "duration": "48 h"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s15",
+        "op": "annotate",
+        "params": {
+          "note": "Cut block with razor blade to expose sample and create trapezoidal block"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s16",
+        "op": "annotate",
+        "params": {
+          "note": "Perform ultrathin sections (400–500 nm) with ultramicrotome, collect on formvar-coated copper grids"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "grids"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s17",
+        "op": "annotate",
+        "params": {
+          "note": "Stain grids in 2% uranyl acetate (wt/vol) in 70% methanol for 7 min (or in distilled water for 20 min)"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s18",
+        "op": "annotate",
+        "params": {
+          "note": "Wash grids in four drops 70% methanol followed by five drops distilled water"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s19",
+        "op": "annotate",
+        "params": {
+          "note": "Incubate grids in Reynolds lead citrate for 2–3 min"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s20",
+        "op": "annotate",
+        "params": {
+          "note": "Wash grids in five drops distilled water and dry at room temperature"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s21_alloc",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "equipment"
+        },
+        "outputs": [
+          {
+            "kind": "equipment",
+            "id": "TEM"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s22",
+        "op": "observe",
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "image"
+          ],
+          "device_ref": "TEM"
+        },
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "TEM_images"
+          }
+        ],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s0",
+    "edges": [
+      {
+        "from": "s0",
+        "to": "s1"
+      },
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      },
+      {
+        "from": "s16",
+        "to": "s17"
+      },
+      {
+        "from": "s17",
+        "to": "s18"
+      },
+      {
+        "from": "s18",
+        "to": "s19"
+      },
+      {
+        "from": "s19",
+        "to": "s20"
+      },
+      {
+        "from": "s20",
+        "to": "s21_alloc"
+      },
+      {
+        "from": "s21_alloc",
+        "to": "s22"
+      }
+    ],
+    "detail_level": 0
+  }
+}

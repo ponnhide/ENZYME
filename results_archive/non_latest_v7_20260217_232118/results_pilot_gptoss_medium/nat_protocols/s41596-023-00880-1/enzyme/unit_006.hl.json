@@ -1,0 +1,102 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "CHIR pulse",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00880-1"
+    },
+    "group": "nat_protocols"
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_chir_e6",
+        "name": "E6 medium containing 5 µM CHIR99021"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_transwell",
+        "name": "Transwell"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e_incubator",
+        "name": "37 °C incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_cell_micromasses",
+        "name": "cell micromasses on Transwell",
+        "container_ref": "c_transwell"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m_chir_e6"
+          },
+          {
+            "kind": "sample",
+            "id": "s_cell_micromasses"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_micromasses"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "mL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_micromasses"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_micromasses"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e_incubator",
+          "program": "incubate 1 h at 37 C"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,127 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "TOBis barcoding",
+    "source": {
+      "type": "paper",
+      "id": "s41596-021-00603-4"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "pre-aliquoted TOBis barcodes"
+      },
+      {
+        "id": "m2",
+        "name": "organoid sample"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "96-well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "name": "TOBis barcode aliquot",
+        "material_ref": "m1"
+      },
+      {
+        "id": "samp2",
+        "name": "organoid well",
+        "material_ref": "m2",
+        "container_ref": "c1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          },
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 200,
+            "unit": "µl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "params": {
+          "temperature": {
+            "value": 4,
+            "unit": "°C"
+          },
+          "duration": "overnight"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Any barcode combination can be used to stain any culture condition (Supplementary Tables 3 and 4)."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

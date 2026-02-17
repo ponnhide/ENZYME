@@ -1,0 +1,115 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Tumor biopsy digestion into single cells",
+    "source": {
+      "type": "paper",
+      "id": "s41467-020-19142-9.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "collagenase_II",
+        "name": "Collagenase II",
+        "concentration": "1 mg/ml",
+        "vendor": "Gibco, Thermo Fisher Scientific"
+      },
+      {
+        "id": "hyaluronidase",
+        "name": "Hyaluronidase",
+        "concentration": "10 µg/ml"
+      },
+      {
+        "id": "LY27632",
+        "name": "LY27632",
+        "concentration": "10 µM"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "incubator_1",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_1",
+        "name": "Tumor biopsy"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_1"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_1"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Add collagenase II (1 mg/ml, Gibco, Thermo Fisher Scientific), hyaluronidase (10 µg/ml) and LY27632 (10 µM) to the biopsy."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_1"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "37 °C shaking for 30 min"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

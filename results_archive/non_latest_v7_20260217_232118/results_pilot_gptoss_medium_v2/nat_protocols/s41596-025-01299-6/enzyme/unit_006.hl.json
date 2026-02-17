@@ -1,0 +1,212 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Dislodging neural spheroids from AggreWell plate (Day 1)",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01299-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "dmem_f12",
+        "name": "DMEM/F-12"
+      },
+      {
+        "id": "e6_medium",
+        "name": "E6 medium"
+      },
+      {
+        "id": "strainer_40um",
+        "name": "40-μm strainer"
+      },
+      {
+        "id": "conical_tube_50ml",
+        "name": "50‑ml conical tube"
+      },
+      {
+        "id": "pipette_tip_1000ul_wide",
+        "name": "1,000‑μl pipette tip with wide orifice (1.5 mm)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube_1",
+        "type": "conical_tube",
+        "material_ref": "conical_tube_50ml"
+      },
+      {
+        "id": "filter_1",
+        "type": "filter",
+        "material_ref": "strainer_40um"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "p1000_pipette",
+        "name": "P1000 pipette"
+      }
+    ],
+    "samples": [
+      {
+        "id": "neural_spheroids_in_well",
+        "description": "Neural spheroids residing in AggreWell microwells"
+      },
+      {
+        "id": "neural_spheroids_suspended",
+        "description": "Neural spheroids after gentle pipette mixing"
+      },
+      {
+        "id": "neural_spheroids_on_filter",
+        "description": "Neural spheroids retained on the 40‑μm filter after filtration"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "dmem_f12"
+          },
+          {
+            "kind": "material",
+            "id": "e6_medium"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Pre‑warm DMEM/F-12 and E6 medium at room temperature for 30 min to 1 h before dislodging."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "strainer_40um"
+          },
+          {
+            "kind": "container",
+            "id": "tube_1"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Place a 40‑μm strainer on top of a 50‑ml conical tube."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "dmem_f12"
+          },
+          {
+            "kind": "container",
+            "id": "tube_1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "filter_1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 2,
+            "unit": "ml"
+          }
+        },
+        "annotations": {
+          "note": "Wet the filter with 2 ml of DMEM/F-12."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "neural_spheroids_in_well"
+          },
+          {
+            "kind": "equipment",
+            "id": "p1000_pipette"
+          },
+          {
+            "kind": "material",
+            "id": "pipette_tip_1000ul_wide"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "neural_spheroids_suspended"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently",
+          "description": "Gently pipette the medium in the well up and down two to three times with a P1000 pipette using a 1,000‑μl tip with wide orifice (1.5 mm) to dislodge neural spheroids."
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "neural_spheroids_suspended"
+          },
+          {
+            "kind": "container",
+            "id": "filter_1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "neural_spheroids_on_filter"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Pass the suspended neural spheroids through the strainer; spheroids remain on the filter while medium and non‑aggregated cells pass through. (Transfer amount not specified.)"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

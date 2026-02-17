@@ -1,0 +1,138 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Phosphatase and protease inhibitor treatment",
+    "source": {
+      "type": "paper",
+      "id": "s41596-021-00603-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "culture_medium_with_inhibitors",
+        "name": "culture_medium_with_inhibitors"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "culture_medium_with_inhibitors"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "volume",
+            "unit_type": "microliter",
+            "magnitude": 100
+          },
+          "source": "Reagents",
+          "destination": "culture medium"
+        },
+        "annotations": {
+          "amount_description": "100× stock protease inhibitor cocktail"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "culture_medium_with_inhibitors"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "volume",
+            "unit_type": "microliter",
+            "magnitude": 40
+          },
+          "source": "Reagents",
+          "destination": "culture medium"
+        },
+        "annotations": {
+          "amount_description": "40× stock PhosSTOP"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "culture_medium_with_inhibitors"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "culture_medium_with_inhibitors"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently",
+          "duration": "10 s",
+          "repetitions": 5
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "culture_medium_with_inhibitors"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "culture_medium_with_inhibitors"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": "37 °C",
+            "co2": "5%",
+            "duration": "5 min"
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

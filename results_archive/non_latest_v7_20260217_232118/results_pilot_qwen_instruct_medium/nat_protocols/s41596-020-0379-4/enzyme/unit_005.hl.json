@@ -1,0 +1,199 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Cell Filtration and Centrifugation",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-0379-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "adDMEM/F12+++ medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "centrifuge_tube"
+      },
+      {
+        "id": "c2",
+        "type": "cell_strainer_100um"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s1_out",
+        "name": "s1_out"
+      },
+      {
+        "id": "s2_out",
+        "name": "s2_out"
+      },
+      {
+        "id": "s3_out",
+        "name": "s3_out"
+      },
+      {
+        "id": "s4_out",
+        "name": "s4_out"
+      },
+      {
+        "id": "s5_out",
+        "name": "s5_out"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1_out"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 10,
+            "unit": "ml"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1_out"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2_out"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "speed": "200g",
+            "duration": "5 min",
+            "temperature": "4 °C"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "resuspend",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2_out"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3_out"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend",
+          "volume": {
+            "value": 10,
+            "unit": "ml"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s3_out"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s4_out"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: filter"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s4_out"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s5_out"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "speed": "200g",
+            "duration": "5 min",
+            "temperature": "4 °C"
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

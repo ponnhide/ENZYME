@@ -1,0 +1,149 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Pooling and Dissociation for Single‑Cell Sequencing",
+    "source": {
+      "type": "paper",
+      "id": "s41592-025-02927-5"
+    },
+    "group": "nat_siblings"
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "barcoded_antibodies",
+        "name": "Barcoded antibodies for cell hashing"
+      }
+    ],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "condition_input",
+        "name": "Input samples from each condition"
+      },
+      {
+        "id": "pooled_sample",
+        "name": "Pooled sample"
+      },
+      {
+        "id": "single_cell_suspension",
+        "name": "Single‑cell suspension"
+      },
+      {
+        "id": "hashed_cells",
+        "name": "Cell‑hashed single‑cell suspension"
+      },
+      {
+        "id": "sequencing_ready",
+        "name": "Sample ready for 10x Genomics 3′ mRNA sequencing"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "condition_input"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "pooled_sample"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "pooled_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "single_cell_suspension"
+          }
+        ],
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "single_cell_suspension"
+          },
+          {
+            "kind": "material",
+            "id": "barcoded_antibodies"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "hashed_cells"
+          }
+        ],
+        "params": {
+          "action_kind": "label"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "hashed_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sequencing_ready"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Processing for single‑cell transcriptome sequencing (3′ mRNA, 10x Genomics) as described in Fig. 1b."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,393 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "HBPO culture (Day 9)",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-020-00441-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "type": "material",
+        "name": "Matrigel (Phenol Red-Free)",
+        "concentration": "100%",
+        "temperature": "on ice"
+      },
+      {
+        "id": "m2",
+        "type": "material",
+        "name": "gut growth medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "tube",
+        "volume": "1.5 ml",
+        "material": "polypropylene"
+      },
+      {
+        "id": "c2",
+        "type": "plate",
+        "format": "24-well",
+        "manufacturer": "VWR International"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "pipette",
+        "name": "mechanical pipette",
+        "tip_size": "200 µl",
+        "tip_type": "wide-bore"
+      },
+      {
+        "id": "e2",
+        "type": "pipette",
+        "name": "regular sterile filter pipette tip"
+      },
+      {
+        "id": "e3",
+        "type": "incubator",
+        "name": "CO2 incubator",
+        "conditions": {
+          "temperature": "37 °C",
+          "atmosphere": "5% CO2, 95% air"
+        }
+      },
+      {
+        "id": "e4",
+        "type": "centrifuge"
+      },
+      {
+        "id": "e5",
+        "type": "dissecting_microscope"
+      }
+    ],
+    "samples": [
+      {
+        "id": "c1",
+        "name": "c1"
+      },
+      {
+        "id": "c2",
+        "name": "c2"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source": "spheroid",
+          "destination": "c1",
+          "tool": "e1",
+          "amount": {
+            "value": 1,
+            "unit": "unit"
+          }
+        },
+        "annotations": [
+          {
+            "key": "note",
+            "value": "Pick up a fused A-P spheroid using a mechanical pipette with a wide-bore 200-µl tip"
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "spin down"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "annotations": [
+          {
+            "key": "note",
+            "value": "Spin down the spheroid in the 1.5-ml centrifuge tube"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "c1",
+          "destination": "waste",
+          "tool": "e2",
+          "action": "remove supernatant",
+          "amount": {
+            "value": 1,
+            "unit": "unit"
+          }
+        },
+        "annotations": [
+          {
+            "key": "critical",
+            "value": "Organoids may be visible but difficult to see; a dissecting microscope will help with visibility and handling"
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "m1",
+          "destination": "c1",
+          "tool": "e1",
+          "amount": {
+            "value": 25,
+            "unit": "µl"
+          }
+        },
+        "annotations": [
+          {
+            "key": "note",
+            "value": "Add 20–30 µl/well of 100% Matrigel (Phenol Red–Free) on ice"
+          },
+          {
+            "key": "critical",
+            "value": "To avoid solidification of Matrigel, this step should be performed quickly"
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "tools": [
+          "e1"
+        ],
+        "annotations": [
+          {
+            "key": "note",
+            "value": "Gently re-suspend the single A-P spheroid using a mechanical pipette with a wide-bore 200-µl tip"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": "c1",
+          "destination": "c2",
+          "tool": "e1",
+          "action": "plate as Matrigel drop",
+          "amount": {
+            "value": 1,
+            "unit": "unit"
+          }
+        },
+        "annotations": [
+          {
+            "key": "note",
+            "value": "Slowly plate the spheroid on a 24-well tissue culture plate (VWR International) to make a Matrigel drop"
+          },
+          {
+            "key": "note",
+            "value": "The tissue culture plate does not need to be on ice"
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": "37 °C",
+            "atmosphere": "5% CO2, 95% air",
+            "duration": "5 min"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c2"
+          }
+        ],
+        "annotations": [
+          {
+            "key": "note",
+            "value": "Incubate the drop in a CO2 incubator at 37 °C for 5 min"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "text": "unmapped action_kind in source: flip"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c2"
+          }
+        ],
+        "annotations": [
+          {
+            "key": "note",
+            "value": "Flip the plate upside down"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": "37 °C",
+            "atmosphere": "5% CO2, 95% air",
+            "duration": "5 min"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c2"
+          }
+        ],
+        "annotations": [
+          {
+            "key": "note",
+            "value": "Incubate for a further 5 min to prevent the spheroid from attaching to the bottom"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "transfer",
+        "params": {
+          "source": "m2",
+          "destination": "c2",
+          "action": "add to cover drop",
+          "amount": {
+            "value": 1,
+            "unit": "unit"
+          }
+        },
+        "annotations": [
+          {
+            "key": "note",
+            "value": "Add enough gut growth medium to cover the entire drop"
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": "37 °C",
+            "atmosphere": "5% CO2, 95% air",
+            "duration": "4 d"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c2"
+          }
+        ],
+        "annotations": [
+          {
+            "key": "note",
+            "value": "Culture for 4 d to generate HBPOs"
+          },
+          {
+            "key": "note",
+            "value": "Cultures for spheroids should be maintained at 37 °C in an atmosphere of 5% CO2, 95% air"
+          },
+          {
+            "key": "note",
+            "value": "Gut growth medium should be replaced every 4 d"
+          }
+        ],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      }
+    ],
+    "detail_level": 0
+  }
+}

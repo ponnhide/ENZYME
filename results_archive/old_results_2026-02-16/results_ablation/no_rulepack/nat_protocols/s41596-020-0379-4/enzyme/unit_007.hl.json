@@ -1,0 +1,302 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Split organoids",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-0379-4"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "org_susp",
+        "name": "organoid suspension"
+      },
+      {
+        "id": "tube_15ml",
+        "name": "15‑ml conical tube"
+      },
+      {
+        "id": "medium_adDMEM",
+        "name": "ice‑cold adDMEM/F12+++"
+      },
+      {
+        "id": "tryple",
+        "name": "TrypLE"
+      },
+      {
+        "id": "org_susp_in_tube",
+        "name": "org_susp_in_tube"
+      },
+      {
+        "id": "pellet",
+        "name": "pellet"
+      },
+      {
+        "id": "pellet_resuspended",
+        "name": "pellet_resuspended"
+      },
+      {
+        "id": "dissociated_organoids",
+        "name": "dissociated_organoids"
+      }
+    ],
+    "containers": [],
+    "equipment": [],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "org_susp"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "org_susp"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "org_susp"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "org_susp_in_tube"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null
+          },
+          "note": "Transfer organoid suspension to a 15‑ml conical tube (volume not specified)"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "medium_adDMEM"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "org_susp_in_tube"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 10,
+            "unit": "ml"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "centrifuge",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "org_susp_in_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "pellet"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "speed": {
+            "value": 200,
+            "unit": "g"
+          },
+          "duration": {
+            "value": 5,
+            "unit": "min"
+          },
+          "temperature": {
+            "value": 4,
+            "unit": "C"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "pellet"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "pellet"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Aspirate the supernatant"
+        }
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "tryple"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "pellet_resuspended"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          },
+          "note": "Resuspend the pellet in TrypLE"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "pellet_resuspended"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "pellet_resuspended"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s8",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "pellet_resuspended"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "dissociated_organoids"
+          }
+        ],
+        "params": {
+          "temperature": {
+            "value": 37,
+            "unit": "C"
+          },
+          "duration": {
+            "value": null,
+            "unit": null
+          },
+          "note": "Incubate at 37 °C until organoids fall apart"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "dissociated_organoids"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "dissociated_organoids"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Pipette up and down with a P1000 filter tip with a (non‑filtered) P10 tip on top for ≥10 times every 3–5 min to aid disruption; monitor digestion closely to keep incubation time to a minimum"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

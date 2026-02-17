@@ -1,0 +1,128 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Single‑cell RNA‑seq library generation",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-021-03209-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [
+      {
+        "id": "tube1",
+        "type": "tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge1",
+        "type": "centrifuge"
+      },
+      {
+        "id": "chromium1",
+        "type": "dna_delivery_device"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp_nuclei"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_nuclei"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "tube1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "samp_nuclei",
+          "destination": "tube1",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge1",
+          "program": {
+            "program_name": "500g_5min_4C"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "device_ref": "chromium1",
+          "program": {
+            "program_name": "10X_Chromium_3prime_Gene_Expression"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

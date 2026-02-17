@@ -1,0 +1,202 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Mount sections on 96-well superstructure",
+    "source": {
+      "type": "paper",
+      "id": "s41587-023-01747-2"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "sections"
+      },
+      {
+        "id": "m2",
+        "name": "96-well format coverslip"
+      },
+      {
+        "id": "m3",
+        "name": "96-well superstructure"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "microscope"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_sections",
+        "material_ref": "m1"
+      },
+      {
+        "id": "sample_on_coverslip",
+        "material_ref": "m1"
+      },
+      {
+        "id": "sample_attached",
+        "material_ref": "m1"
+      }
+    ],
+    "data": [
+      {
+        "id": "d_image",
+        "type": "image"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_sections"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_sections"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_on_coverslip"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null,
+            "description": "sections placed onto 96-well format coverslip"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_on_coverslip"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_on_coverslip"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "coverslip subsequently attached to a 96-well superstructure"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_on_coverslip"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_attached"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "immunohistological treatment performed on the mounted sections"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_attached"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d_image"
+          }
+        ],
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "image"
+          ]
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_attached"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_attached"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "antibody elution performed after imaging"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

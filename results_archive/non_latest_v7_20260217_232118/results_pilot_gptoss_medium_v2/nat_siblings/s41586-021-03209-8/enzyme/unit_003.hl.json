@@ -1,0 +1,148 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Lyse cells in chilled lysis buffer",
+    "source": {
+      "type": "paper",
+      "id": "s41586-021-03209-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "chilled lysis buffer",
+        "description": "10 mM Tris-HCl pH 7.4, 10 mM NaCl, 3 mM MgCl2, 0.1% Tween-20, 0.1% Igepal CA-630, 0.01% digitonin, 1% bovine serum albumin (BSA)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "microcentrifuge tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "centrifuge",
+        "device_kind": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_cells",
+        "name": "cells",
+        "description": "10^6 cells"
+      },
+      {
+        "id": "s_lysate",
+        "name": "cell lysate",
+        "description": "cells lysed in chilled lysis buffer"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {}
+        },
+        "annotations": {
+          "note": "Pellet cells (speed and time not specified)"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_lysate"
+          }
+        ],
+        "params": {
+          "action_kind": "mix",
+          "amount": {
+            "value": 100,
+            "unit": "μl"
+          }
+        },
+        "annotations": {
+          "note": "Mix cells with 100 μl chilled lysis buffer (m1)"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_lysate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_lysate"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Incubate lysate for 3 min"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

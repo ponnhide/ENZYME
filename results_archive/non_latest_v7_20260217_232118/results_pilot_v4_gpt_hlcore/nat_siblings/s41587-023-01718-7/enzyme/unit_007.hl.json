@@ -1,0 +1,151 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "JCF lineage tracing vector transduction",
+    "source": {
+      "type": "paper",
+      "id": "s41587-023-01718-7.pdf"
+    },
+    "group": "nat_siblings"
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "epicardioids from reporter line"
+      },
+      {
+        "id": "m2",
+        "name": "lentiviral vector encoding inducible FLP (FLP-ERT2) under the MAB21L2 promoter"
+      }
+    ],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s_epicardioids_day3",
+        "name": "epicardioids (day 3)"
+      },
+      {
+        "id": "s_transduced",
+        "name": "epicardioids transduced with lentiviral vector"
+      },
+      {
+        "id": "s_labeled",
+        "name": "HA-tag+ CDH1+ epicardioids"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_epicardioids_day3"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_epicardioids_day3"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_transduced"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          }
+        },
+        "annotations": {
+          "note": "Amount of lentiviral vector not specified in source text"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_transduced"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_transduced"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Incubate for 72 h before analysis"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_transduced"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_labeled"
+          }
+        ],
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "HA-tag+ CDH1+ cells"
+          ]
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

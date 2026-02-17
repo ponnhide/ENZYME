@@ -1,0 +1,115 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Quantify input cells via impedance",
+    "source": {
+      "type": "paper",
+      "id": "s41592-021-01391-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "kind": "cell_counter"
+      },
+      {
+        "id": "e2",
+        "kind": "imager"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp_input",
+        "type": "cell_sample"
+      }
+    ],
+    "data": [
+      {
+        "id": "d_impedance",
+        "type": "measurement"
+      },
+      {
+        "id": "d_microscopy",
+        "type": "image"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_input"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_input"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d_impedance"
+          }
+        ],
+        "params": {
+          "device_kind": "cell_counter",
+          "program": "impedance_measurement",
+          "device_ref": "e1"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_input"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d_microscopy"
+          }
+        ],
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "cell_count_validation"
+          ]
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

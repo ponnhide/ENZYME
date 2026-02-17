@@ -1,0 +1,296 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-020-00441-w.pdf",
+      "type": "paper"
+    },
+    "title": "Form gut spheroids in ultra‑low attachment plates"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s3"
+      },
+      {
+        "from": "s2",
+        "to": "s4"
+      },
+      {
+        "from": "s3",
+        "to": "s5"
+      },
+      {
+        "from": "s4",
+        "to": "s6"
+      },
+      {
+        "from": "s5",
+        "to": "s7"
+      },
+      {
+        "from": "s6",
+        "to": "s8"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "c_plate_anterior",
+            "kind": "container"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "c_plate_posterior",
+            "kind": "container"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "s_anterior_cells",
+            "kind": "sample"
+          },
+          {
+            "id": "c_plate_anterior",
+            "kind": "container"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "c_plate_anterior",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "cells",
+            "value": 10000
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "s_posterior_cells",
+            "kind": "sample"
+          },
+          {
+            "id": "c_plate_posterior",
+            "kind": "container"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "c_plate_posterior",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "cells",
+            "value": 10000
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "s_day7_medium",
+            "kind": "sample"
+          },
+          {
+            "id": "c_plate_anterior",
+            "kind": "container"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "c_plate_anterior",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "µl",
+            "value": 100
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "s_day7_medium",
+            "kind": "sample"
+          },
+          {
+            "id": "c_plate_posterior",
+            "kind": "container"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "c_plate_posterior",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "µl",
+            "value": 100
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s7",
+        "inputs": [
+          {
+            "id": "c_plate_anterior",
+            "kind": "container"
+          },
+          {
+            "id": "e_incubator",
+            "kind": "equipment"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "s_anterior_spheroid",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "37 °C overnight"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s8",
+        "inputs": [
+          {
+            "id": "c_plate_posterior",
+            "kind": "container"
+          },
+          {
+            "id": "e_incubator",
+            "kind": "equipment"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "s_posterior_spheroid",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "37 °C overnight"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "c_plate_anterior",
+        "name": "96-well round-bottom ultra-low attachment plate (anterior)",
+        "type": "plate",
+        "well_count": 96
+      },
+      {
+        "id": "c_plate_posterior",
+        "name": "96-well round-bottom ultra-low attachment plate (posterior)",
+        "type": "plate",
+        "well_count": 96
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "device_kind": "incubator",
+        "id": "e_incubator",
+        "name": "incubator"
+      }
+    ],
+    "materials": [
+      {
+        "id": "m_anterior_cells",
+        "name": "anterior gut cell suspension"
+      },
+      {
+        "id": "m_posterior_cells",
+        "name": "posterior gut cell suspension"
+      },
+      {
+        "id": "m_day7_medium",
+        "name": "day 7 medium"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_anterior_cells",
+        "material_ref": "m_anterior_cells",
+        "name": "anterior gut cell suspension sample"
+      },
+      {
+        "id": "s_posterior_cells",
+        "material_ref": "m_posterior_cells",
+        "name": "posterior gut cell suspension sample"
+      },
+      {
+        "id": "s_day7_medium",
+        "material_ref": "m_day7_medium",
+        "name": "day 7 medium sample"
+      },
+      {
+        "derived_from": [
+          "s_anterior_cells"
+        ],
+        "id": "s_anterior_spheroid",
+        "name": "anterior gut spheroid"
+      },
+      {
+        "derived_from": [
+          "s_posterior_cells"
+        ],
+        "id": "s_posterior_spheroid",
+        "name": "posterior gut spheroid"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

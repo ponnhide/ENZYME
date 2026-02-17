@@ -1,0 +1,262 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Seed iPSCs on Matrigel-coated wells",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00814-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "24-well plate",
+        "material": "sterile plastic"
+      },
+      {
+        "id": "c2",
+        "type": "glass coverslip",
+        "material": "glass",
+        "dimensions": "12 mm diameter"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: place"
+        },
+        "annotations": {
+          "note": "Place sterile glass coverslips (12 mm diameter) onto the bottom of each well of a sterile 24-well plate. Prepare at least six wells."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 300,
+            "unit": "µl"
+          },
+          "source": "Matrigel/DMEM/F12 solution (from Reagent setup)"
+        },
+        "annotations": {
+          "note": "Add 300 µl Matrigel/DMEM/F12 solution per well."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": 37,
+            "temperature_unit": "°C",
+            "co2": 5,
+            "co2_unit": "%",
+            "duration": 1,
+            "duration_unit": "h"
+          }
+        }
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 500,
+            "unit": "µl"
+          },
+          "source": "mTESR1 medium with 10 µM Rock inhibitor (Y-27632 2HCl)"
+        },
+        "annotations": {
+          "note": "Aspirate Matrigel solution and add 500 µl of mTESR1 medium and 10 µM Rock inhibitor (Y-27632 2HCl) per well."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          },
+          "source": "iPSC cell suspension",
+          "delivery_method": "serological pipette"
+        },
+        "annotations": {
+          "note": "Seed one drop of cell suspension with 1 ml serological pipette into each Matrigel-coated and mTeSR1 (including Rock inhibitor) filled well."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": 37,
+            "temperature_unit": "°C",
+            "co2": 5,
+            "co2_unit": "%",
+            "duration": "24-48",
+            "duration_unit": "h"
+          }
+        },
+        "annotations": {
+          "note": "Place the 24-well plate into the incubator (37 °C, 5% CO2) and do not move the plate for the next 24–48 h."
+        }
+      },
+      {
+        "id": "s7",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "modality": "visual",
+          "features": [
+            "cell attachment"
+          ]
+        },
+        "annotations": {
+          "note": "Check for cell attachment after 2 d."
+        }
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "medium",
+            "unit": "unknown"
+          },
+          "source": "old medium",
+          "destination": "new medium"
+        },
+        "annotations": {
+          "note": "Change medium daily."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,290 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-023-00814-x.pdf",
+      "type": "paper"
+    },
+    "title": "Perform electroretinogram (ERG) on OVB organoids"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "organoid_60d",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "organoid_in_well",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "organoid",
+            "value": 1
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "Add OVB-organoid medium to each well of a 12-well plate"
+        },
+        "id": "s2",
+        "inputs": [],
+        "op": "transfer",
+        "outputs": [],
+        "params": {
+          "amount": {
+            "unit": "ml",
+            "value": 2
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "organoid_in_well",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "organoid_in_well",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "co2": "5%",
+            "duration": "24 h",
+            "light_condition": "absolute darkness",
+            "temperature": "37 °C"
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "Prepare fresh OVB organoid medium in 50 ml centrifuge tubes"
+        },
+        "id": "s4",
+        "inputs": [],
+        "op": "transfer",
+        "outputs": [],
+        "params": {
+          "amount": {
+            "unit": "ml",
+            "value": 50
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "Oxygenate OVB organoid medium by pumping air with sterile 10 ml serological pipette for 2 min under clean bench"
+        },
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "ovb_medium_in_tube",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "ovb_medium_oxygenated",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: oxygenate"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Keep room absolutely dark during organoid handling and ERG experiment. Use red light (e.g., from western blot developing room) as sole light source. Use opaque box to transport organoids between dark rooms if required."
+        },
+        "id": "s6",
+        "inputs": [],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "Set up ERG aperture and fill superfusion system with oxygenated OVB medium"
+        },
+        "id": "s7",
+        "inputs": [],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "Place organoids under red light in an electrode chamber"
+        },
+        "id": "s8",
+        "inputs": [
+          {
+            "id": "organoid_in_well",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "organoid_in_electrode_chamber",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "organoid",
+            "value": 1
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "Place electrode chamber into the dark chamber of the ERG aperture and connect to superfusion system containing oxygenated OVB medium"
+        },
+        "id": "s9",
+        "inputs": [
+          {
+            "id": "organoid_in_electrode_chamber",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "organoid_in_electrode_chamber",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "organoid",
+            "value": 1
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s10",
+        "inputs": [],
+        "op": "annotate",
+        "outputs": [],
+        "params": {
+          "text": "unmapped device_kind in source: superfusion_system"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Record all responses. Intensities: 2000 mlux (moonlight), 20000 mlux (candle light), 200000 mlux (daylight on cloudy day)"
+        },
+        "id": "s11",
+        "inputs": [
+          {
+            "id": "organoid_in_electrode_chamber",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "erg_response_data",
+            "kind": "data"
+          }
+        ],
+        "params": {
+          "text": "unmapped device_kind in source: electroretinogram_system"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [],
+    "data": [],
+    "equipment": [],
+    "materials": [],
+    "samples": [
+      {
+        "id": "organoid_60d",
+        "name": "organoid_60d"
+      },
+      {
+        "id": "organoid_in_well",
+        "name": "organoid_in_well"
+      },
+      {
+        "id": "ovb_medium_in_tube",
+        "name": "ovb_medium_in_tube"
+      },
+      {
+        "id": "ovb_medium_oxygenated",
+        "name": "ovb_medium_oxygenated"
+      },
+      {
+        "id": "organoid_in_electrode_chamber",
+        "name": "organoid_in_electrode_chamber"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

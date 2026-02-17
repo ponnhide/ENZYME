@@ -1,0 +1,131 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Seed hPSCs and form aggregates for HFOs (day‑4)",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00629-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "cell_suspension_stock",
+        "name": "stock cell suspension"
+      }
+    ],
+    "containers": [
+      {
+        "id": "ultra_low_attachment_plate",
+        "type": "96-well_plate",
+        "name": "U-shaped ultra-low attachment 96-well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge_eq",
+        "type": "centrifuge",
+        "name": "centrifuge"
+      },
+      {
+        "id": "incubator_eq",
+        "type": "incubator",
+        "name": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cell_suspension_sample",
+        "material_ref": "cell_suspension_stock",
+        "description": "cell suspension for seeding"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "material_ref": "cell_suspension_stock"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "container_type": "96-well_plate"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source_sample": "cell_suspension_sample",
+          "destination_container": "ultra_low_attachment_plate",
+          "wells": "12 wells (one row)",
+          "amount": {
+            "value": 100.0,
+            "unit": "µL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge_eq",
+          "program": {
+            "program_name": "300g_4C_3min"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator_eq",
+          "program": {
+            "program_name": "standard_incubation"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

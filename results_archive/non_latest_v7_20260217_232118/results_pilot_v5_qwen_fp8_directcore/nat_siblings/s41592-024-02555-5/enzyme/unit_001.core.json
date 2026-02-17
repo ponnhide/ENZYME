@@ -1,0 +1,244 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Generate mosaic cortical brain organoids (mCBOs)",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41592-024-02555-5.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s1_psc_line_1",
+        "type": "cell_line"
+      },
+      {
+        "id": "s1_psc_line_2",
+        "type": "cell_line"
+      },
+      {
+        "id": "s1_psc_line_3",
+        "type": "cell_line"
+      },
+      {
+        "id": "s1_psc_line_4",
+        "type": "cell_line"
+      },
+      {
+        "id": "s1_psc_line_5",
+        "type": "cell_line"
+      },
+      {
+        "id": "s2_mosaic_organoid_pool",
+        "type": "organoid_pool"
+      },
+      {
+        "id": "d1_scRNAseq_50d",
+        "name": "d1_scRNAseq_50d"
+      },
+      {
+        "id": "d2_scRNAseq_100d",
+        "name": "d2_scRNAseq_100d"
+      },
+      {
+        "id": "d3_scRNAseq_300d",
+        "name": "d3_scRNAseq_300d"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1_scRNAseq_50d",
+        "type": "scRNA-seq"
+      },
+      {
+        "id": "d2_scRNAseq_100d",
+        "type": "scRNA-seq"
+      },
+      {
+        "id": "d3_scRNAseq_300d",
+        "type": "scRNA-seq"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1_psc_line_1"
+          },
+          {
+            "kind": "sample",
+            "id": "s1_psc_line_2"
+          },
+          {
+            "kind": "sample",
+            "id": "s1_psc_line_3"
+          },
+          {
+            "kind": "sample",
+            "id": "s1_psc_line_4"
+          },
+          {
+            "kind": "sample",
+            "id": "s1_psc_line_5"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1_psc_line_1"
+          },
+          {
+            "kind": "sample",
+            "id": "s1_psc_line_2"
+          },
+          {
+            "kind": "sample",
+            "id": "s1_psc_line_3"
+          },
+          {
+            "kind": "sample",
+            "id": "s1_psc_line_4"
+          },
+          {
+            "kind": "sample",
+            "id": "s1_psc_line_5"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2_mosaic_organoid_pool"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "organoid_differentiation_protocol"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2_mosaic_organoid_pool"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "scRNA-seq_profile"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2_mosaic_organoid_pool"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d1_scRNAseq_50d"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "scRNA-seq_profile"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2_mosaic_organoid_pool"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d2_scRNAseq_100d"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "scRNA-seq_profile"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2_mosaic_organoid_pool"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d3_scRNAseq_300d"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s3",
+        "to": "s5"
+      },
+      {
+        "from": "s3",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

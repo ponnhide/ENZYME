@@ -1,0 +1,181 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "SNR-Derived Organoid Dissociation for scRNA-seq (1-month-old)",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01197-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "organoid_sample",
+        "name": "organoid_sample"
+      },
+      {
+        "id": "organoid_in_tube",
+        "name": "organoid_in_tube"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_in_tube"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1.5,
+            "unit": "mL"
+          },
+          "source_container": "organoid_culture",
+          "target_container": "microcentrifuge_tube_1.5mL"
+        },
+        "annotations": {
+          "note": "P200 pipette tip cut to avoid damaging the organoids"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_in_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_in_tube"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: let_settle"
+        },
+        "annotations": {
+          "note": "Let organoids settle to the bottom"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_in_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_in_tube"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "aspirate_medium",
+            "unit": "unknown"
+          },
+          "source_container": "microcentrifuge_tube_1.5mL",
+          "target_container": "waste"
+        },
+        "annotations": {
+          "note": "Aspirate the medium"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_in_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_in_tube"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "mL"
+          },
+          "source_container": "pbs_stock",
+          "target_container": "microcentrifuge_tube_1.5mL"
+        },
+        "annotations": {
+          "note": "Rinse once with sterile PBS"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_in_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_in_tube"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "aspirate_pbs",
+            "unit": "unknown"
+          },
+          "source_container": "microcentrifuge_tube_1.5mL",
+          "target_container": "waste"
+        },
+        "annotations": {
+          "note": "Carefully remove the PBS without collecting organoids"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

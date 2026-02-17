@@ -1,0 +1,207 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Flow cytometry staining and analysis",
+    "source": {
+      "type": "paper",
+      "id": "s41467-024-55567-2.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "DPBS",
+        "description": "ice-cold DPBS"
+      },
+      {
+        "id": "m2",
+        "name": "Hoechst",
+        "vendor": "Beyotime"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "FACS tube"
+      },
+      {
+        "id": "c2",
+        "type": "40 μm cell strainer"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "BD FACSVerse",
+        "manufacturer": "BD Biosciences"
+      },
+      {
+        "id": "e2",
+        "name": "FlowJo",
+        "version": "V10"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_cell",
+        "name": "cells"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "type": "flow_cytometry_raw"
+      },
+      {
+        "id": "d2",
+        "type": "flow_cytometry_analysis"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Cells were washed with ice-cold DPBS"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell"
+          },
+          {
+            "kind": "container",
+            "id": "c1"
+          },
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Filtered into FACS tubes through a 40 μm cell strainer"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Stained with Hoechst (Beyotime) to identify live cells"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell"
+          },
+          {
+            "kind": "equipment",
+            "id": "e1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d1"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "FACS was performed on a BD FACSVerse (BD Biosciences)"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "data",
+            "id": "d1"
+          },
+          {
+            "kind": "equipment",
+            "id": "e2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d2"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Data were analyzed in FlowJo (V10)"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

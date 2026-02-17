@@ -1,0 +1,132 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Embed fused spheroids in Matrigel drops",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-00441-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "A–P spheroids"
+      },
+      {
+        "id": "m2",
+        "name": "Matrigel"
+      },
+      {
+        "id": "m3",
+        "name": "gut growth medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "culture well"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_pre",
+        "name": "A–P spheroids (pre‑embedding)"
+      },
+      {
+        "id": "s_embedded",
+        "name": "A–P spheroids embedded in Matrigel drops"
+      },
+      {
+        "id": "s_cultured",
+        "name": "Embedded spheroids cultured in gut growth medium"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_pre"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_embedded"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Embed A–P spheroids in Matrigel drops"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_embedded"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cultured"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "37 °C, 5% CO2, 95% air"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cultured"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cultured"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Replace the gut growth medium every 4 days"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

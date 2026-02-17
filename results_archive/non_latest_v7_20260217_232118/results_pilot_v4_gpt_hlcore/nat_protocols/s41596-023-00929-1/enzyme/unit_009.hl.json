@@ -1,0 +1,294 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Plating",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00929-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "growth medium (prewarmed 37 °C)"
+      },
+      {
+        "id": "m2",
+        "name": "1× PBS"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "microcentrifuge tube"
+      },
+      {
+        "id": "c2",
+        "name": "collagen‑coated culture well"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "centrifuge"
+      },
+      {
+        "id": "e2",
+        "name": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_cell",
+        "name": "sorted mural and/or endothelial cells"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell"
+          },
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "5 min at 300 g, 4 °C"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell"
+          },
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Remove supernatant from microcentrifuge tubes containing cells."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "sample",
+            "id": "s_cell"
+          },
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 500,
+            "unit": "µL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell"
+          },
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell"
+          },
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Add the desired amount of cell solution into collagen‑coated wells (approximately half the well volume)."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "sample",
+            "id": "s_cell"
+          },
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 500,
+            "unit": "µL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "amount": {
+            "value": 500,
+            "unit": "µL"
+          }
+        },
+        "annotations": {
+          "note": "Add 500 µL of 1× PBS to all other empty wells to prevent drying."
+        }
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell"
+          },
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "37 °C"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

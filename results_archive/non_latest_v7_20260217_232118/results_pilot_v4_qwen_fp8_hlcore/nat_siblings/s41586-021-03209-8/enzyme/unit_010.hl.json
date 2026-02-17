@@ -1,0 +1,121 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Cell type labeling via CellWalker",
+    "source": {
+      "type": "paper",
+      "id": "s41586-021-03209-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "method": "CellWalker (as implemented in CellWalkR v0.1.7)",
+          "description": "Integrated scRNA-seq derived labels with scATAC-seq data by building a network of label-to-cell and cell-to-cell edges and diffusing label information over this combined network to compensate for data sparsity in single-cell data."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "calculation": "cell-to-cell edge weight using Jaccard similarity between cells"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "calculation": "label-to-cell weight as sum of products of gene activity scores and log fold-change in expression of each marker for that cell label"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "tuning": "label edge weight using cell homogeneity (as described in reference 17)"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "result": "diffusion produced a vector of influence scores of each label for each cell"
+        }
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "smoothing": "smoothed influence vectors by taking weighted average of each cell's scores with those of its ten closest neighbours in UMAP space, where each neighbour contributed one-fifth as much as the cell in question"
+        }
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "label_assignment": "assigned cell-type labels using the label with the highest influence score for each cell"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

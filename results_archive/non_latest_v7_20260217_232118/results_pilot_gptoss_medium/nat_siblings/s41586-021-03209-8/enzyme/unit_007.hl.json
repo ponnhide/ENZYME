@@ -1,0 +1,158 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Nucleus isolation from frozen primary tissue",
+    "source": {
+      "type": "paper",
+      "id": "s41586-021-03209-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "frozen_tissue_section",
+        "name": "frozen tissue section"
+      },
+      {
+        "id": "homogenization_buffer",
+        "name": "homogenization buffer (10 mM Tris pH 7.8, 5 mM CaCl₂, 3 mM magnesium acetate, 320 mM sucrose, 0.1 mM EDTA, 0.1% NP40, 167 μM β‑mercaptoethanol, 16.7 μM PMSF)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube_2ml",
+        "name": "2 ml tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "prechilled_dounce",
+        "name": "pre‑chilled dounce homogenizer"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_frozen_tissue",
+        "name": "Frozen tissue sample"
+      },
+      {
+        "id": "sample_buffer",
+        "name": "Chilled homogenization buffer (2 ml)"
+      },
+      {
+        "id": "sample_thawed",
+        "name": "Thawed tissue in buffer"
+      },
+      {
+        "id": "sample_nuclei",
+        "name": "Isolated nuclei"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_frozen_tissue"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "homogenization_buffer"
+          },
+          {
+            "kind": "container",
+            "id": "tube_2ml"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_buffer"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 2,
+            "unit": "ml"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_frozen_tissue"
+          },
+          {
+            "kind": "sample",
+            "id": "sample_buffer"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_thawed"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Frozen tissue samples were thawed in 2 ml chilled homogenization buffer"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_thawed"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_nuclei"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Lysed in a pre‑chilled dounce homogenizer"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s3"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

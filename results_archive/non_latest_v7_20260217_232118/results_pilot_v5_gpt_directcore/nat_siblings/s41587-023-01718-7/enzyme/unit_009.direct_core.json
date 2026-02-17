@@ -1,0 +1,82 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Application of CellRank for macrostates inference",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41587-023-01718-7.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [],
+    "data": [
+      {
+        "id": "input_data",
+        "description": "input scRNA-seq dataset"
+      },
+      {
+        "id": "macrostates",
+        "description": "CellRank macrostates inference results"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "data",
+          "description": "input scRNA-seq dataset"
+        },
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "input_data"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "data",
+          "description": "CellRank macrostates inference results"
+        },
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "macrostates"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "params": {
+          "note": "CellRank47 was used to infer the terminal macrostates (myocytic, epicardial, endothelial and endodermal) and the probability of each cell to transition toward these states based on both pseudotime and RNA velocity."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

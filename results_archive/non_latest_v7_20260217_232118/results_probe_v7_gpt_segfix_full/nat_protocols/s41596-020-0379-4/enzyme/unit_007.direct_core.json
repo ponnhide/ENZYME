@@ -1,0 +1,158 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Solidify BME and add organoid medium",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-020-0379-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "organoid_medium",
+        "type": "liquid"
+      }
+    ],
+    "containers": [
+      {
+        "id": "culture_plate",
+        "type": "plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "culture_plate",
+        "name": "culture_plate"
+      },
+      {
+        "id": "organoid_medium",
+        "name": "organoid_medium"
+      },
+      {
+        "id": "incubator",
+        "name": "incubator"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "culture_plate"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_medium"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "equipment"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "incubator"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator",
+          "program": {
+            "program_name": "solidify_BME",
+            "duration": "20-30 min",
+            "temperature": "37 C",
+            "CO2": "5%"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source_ref": "organoid_medium",
+          "destination_ref": "culture_plate",
+          "amount": "500.0 µl per well"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator",
+          "program": {
+            "program_name": "post_addition_incubation",
+            "temperature": "37 C",
+            "CO2": "5%"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

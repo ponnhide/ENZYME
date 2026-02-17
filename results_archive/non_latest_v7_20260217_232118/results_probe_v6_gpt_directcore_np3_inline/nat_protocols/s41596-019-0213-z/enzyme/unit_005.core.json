@@ -1,0 +1,111 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Extract blood vessel networks",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-019-0213-z.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "12-well_plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "inc1",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "type": "organoid"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "container_type": "12-well_plate"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "sample_type": "organoid"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "samp1",
+          "destination": "c1",
+          "description": "Place ~50-60 organoids into one well of the 12-well plate",
+          "amount": {
+            "value": "50-60",
+            "unit": "organoids"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "inc1",
+          "program": {
+            "program_name": "self_assembly_20min"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

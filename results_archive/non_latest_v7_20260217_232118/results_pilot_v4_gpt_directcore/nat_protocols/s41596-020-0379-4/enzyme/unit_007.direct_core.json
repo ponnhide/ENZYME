@@ -1,0 +1,104 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Assist tissue disruption",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-020-0379-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "adDMEM/F12+++ medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "P1000 pipette"
+      },
+      {
+        "id": "e2",
+        "name": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample1",
+        "description": "mixture containing tissue fragments"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "operation": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "resources": [
+          "sample1",
+          "e1"
+        ],
+        "op": "annotate",
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "operation": "transfer",
+        "params": {
+          "volume": "10 ml"
+        },
+        "resources": [
+          "m1",
+          "sample1"
+        ],
+        "op": "annotate",
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "operation": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "spin",
+          "speed": "200g",
+          "duration": "5 min",
+          "temperature": "4 °C"
+        },
+        "resources": [
+          "e2",
+          "sample1"
+        ],
+        "op": "annotate",
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

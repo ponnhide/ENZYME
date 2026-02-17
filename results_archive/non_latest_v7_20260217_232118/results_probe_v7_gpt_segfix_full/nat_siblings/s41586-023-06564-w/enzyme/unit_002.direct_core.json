@@ -1,0 +1,247 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "FACS selection of transduced cells",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-023-06564-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "mat_pbs",
+        "name": "PBS"
+      },
+      {
+        "id": "mat_nds",
+        "name": "normal donkey serum (NDS)"
+      },
+      {
+        "id": "mat_triton",
+        "name": "Triton X-100"
+      },
+      {
+        "id": "mat_primary",
+        "name": "primary antibody"
+      }
+    ],
+    "containers": [
+      {
+        "id": "cont_slide",
+        "type": "slide"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "equip_incubator",
+        "type": "incubator"
+      },
+      {
+        "id": "equip_imager",
+        "type": "imager"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp_cryosection",
+        "type": "cryosection"
+      }
+    ],
+    "data": [
+      {
+        "id": "data_image",
+        "type": "fluorescence_image"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Three days later, mCherry+ cells were selected by FACS (collected)"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "rinse",
+          "target_sample": "samp_cryosection",
+          "reagent_material": "mat_pbs",
+          "description": "wash with PBS to remove excess OCT"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "note": "Fixed hiPS cells 1 h before imaging"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "target_sample": "samp_cryosection",
+          "reagents": [
+            "mat_nds",
+            "mat_triton"
+          ],
+          "description": "block in 10% NDS and 0.3% Triton X-100"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "target_sample": "samp_cryosection",
+          "reagents": [
+            "mat_primary",
+            "mat_pbs",
+            "mat_nds",
+            "mat_triton"
+          ],
+          "description": "incubate with primary antibodies diluted in PBS with 10% NDS and 0.3% Triton X-100"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "rinse",
+          "target_sample": "samp_cryosection",
+          "reagents": [
+            "mat_pbs",
+            "mat_nds",
+            "mat_triton"
+          ],
+          "duration": "1 hour",
+          "description": "wash after antibody incubation"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "observe",
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "fluorescence_image"
+          ]
+        },
+        "outputs": [],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      }
+    ],
+    "detail_level": 0
+  }
+}

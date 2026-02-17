@@ -1,0 +1,270 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Thaw cryopreserved organoids",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-0379-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "freezing medium with organoids"
+      },
+      {
+        "id": "m2",
+        "name": "adDMEM/F12+++ medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "cryogenic vial"
+      },
+      {
+        "id": "c2",
+        "name": "15‑ml conical tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "water bath"
+      },
+      {
+        "id": "e2",
+        "name": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample1",
+        "name": "organoids in cryogenic vial"
+      },
+      {
+        "id": "sample2",
+        "name": "organoids in 15‑ml conical tube"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "params": {
+          "temperature": {
+            "value": 37,
+            "unit": "°C"
+          },
+          "duration": "1–3 min",
+          "device": "water bath"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Carefully monitor the thawing, and remove the cryogenic vial from the water bath as soon as the freezing medium has thawed."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          },
+          "mode": "dropwise while mixing"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          },
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample2"
+          },
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "params": {
+          "amount": "entire volume"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "sample",
+            "id": "sample2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample2"
+          }
+        ],
+        "params": {
+          "note": "Fill the tube with adDMEM/F12+++ medium to a total volume of 10 ml"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample2"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "200 g for 5 min at 4 °C"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Aspirate the supernatant without disturbing the pellet."
+        }
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Follow Steps 22–25, as described above."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

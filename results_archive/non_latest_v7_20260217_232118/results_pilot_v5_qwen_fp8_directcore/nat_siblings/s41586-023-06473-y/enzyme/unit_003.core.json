@@ -1,0 +1,88 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Validate sgRNA efficiency using flow cytometry reporter assay",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-023-06473-y.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s1_reporter_cell_line",
+        "type": "cell_line",
+        "description": "3T3 fibroblast reporter cell line with gRNA-targeting sequence fused to TagBFP"
+      },
+      {
+        "id": "s1_reporter_cell_line_edited",
+        "name": "s1_reporter_cell_line_edited"
+      },
+      {
+        "id": "s2_bfp_fluorescence_data",
+        "name": "s2_bfp_fluorescence_data"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "program": {
+            "program_name": "lentiviral_transduction"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1_reporter_cell_line"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1_reporter_cell_line_edited"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "BFP_fluorescence"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1_reporter_cell_line_edited"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2_bfp_fluorescence_data"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,157 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Passage organoids by fragmentation",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00562-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "conical_tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "pipette"
+      }
+    ],
+    "samples": [
+      {
+        "id": "e1",
+        "name": "e1"
+      },
+      {
+        "id": "c1",
+        "name": "c1"
+      },
+      {
+        "id": "d1",
+        "name": "d1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "params": {
+          "text": "unmapped action_kind in source: bend"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "e1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "e1"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "repetitions": 25,
+          "amount": {
+            "value": 1000.0,
+            "unit": "µl"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "params": {
+          "uncertainty": "If organoids are in the first passage after thawing, pipette 25 times; otherwise, pipette 50 times."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "observe",
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "organoid_fragmentation_level"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d1"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

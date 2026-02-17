@@ -1,0 +1,133 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Tissue Collection and Storage",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-020-0379-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "adDMEM/F12+++ medium",
+        "type": "cell_culture_medium"
+      },
+      {
+        "id": "m2",
+        "name": "ROCK inhibitor",
+        "type": "small_molecule_inhibitor"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "50_ml_conical_tube"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "c1",
+        "name": "c1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "m1",
+          "destination": "c1",
+          "amount": {
+            "value": 45.0,
+            "unit": "ml"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "m2",
+          "destination": "c1",
+          "amount": {
+            "value": 10.0,
+            "unit": "µl"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "note": "Tissue pieces collected by biopsy site and/or tissue type (normal and tumor) and placed in c1. Keep at 4 °C until isolation."
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41586-021-03209-8",
+      "type": "paper"
+    },
+    "title": "Cell lysis for scRNA-seq"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {
+          "note": "Pelleting conditions (speed, time) not specified in source text."
+        },
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "cell_input",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "pelleted_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "pellet"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Lysis buffer is described as chilled."
+        },
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "lysis_buffer",
+            "kind": "material"
+          },
+          {
+            "id": "pelleted_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "lysate",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "microliter",
+            "value": 100
+          }
+        }
+      },
+      {
+        "annotations": {
+          "lowered_from": "incubate"
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "lysate",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "lysate",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": null
+          }
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "tube",
+        "name": "microcentrifuge tube"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "id": "centrifuge",
+        "name": "centrifuge"
+      },
+      {
+        "id": "incubator",
+        "name": "incubator (chilled)"
+      }
+    ],
+    "materials": [
+      {
+        "id": "lysis_buffer",
+        "name": "chilled lysis buffer (10 mM Tris-HCl pH 7.4, 10 mM NaCl, 3 mM MgCl2, 0.1% Tween-20, 0.1% Igepal CA-630, 0.01% digitonin, 1% BSA)"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cell_input",
+        "name": "cells (10^6)"
+      },
+      {
+        "id": "pelleted_cells",
+        "name": "pelleted cells"
+      },
+      {
+        "id": "lysate",
+        "name": "cell lysate"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

@@ -1,0 +1,247 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Split organoids",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-0379-4"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "TrypLE"
+      },
+      {
+        "id": "m2",
+        "name": "adDMEM/F12+++"
+      },
+      {
+        "id": "m3",
+        "name": "P1000 filter tip"
+      },
+      {
+        "id": "m4",
+        "name": "P10 tip (non‑filtered)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "microcentrifuge tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sp1",
+        "name": "organoid pellet"
+      },
+      {
+        "id": "sp2",
+        "name": "supernatant"
+      },
+      {
+        "id": "sp3",
+        "name": "organoid suspension (TrypLE)"
+      },
+      {
+        "id": "sp4",
+        "name": "organoid suspension (mechanical)"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Aspirate the supernatant."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Split organoids using either TrypLE (for head and neck and compact breast, colon, pancreatic and liver organoids) or mechanical disruption (ovarian and cystic breast, colon, pancreatic and liver organoids)."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sp3"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          },
+          "reagent": "TrypLE"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sp3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sp3"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "repetitions": "≥10 times every 3–5 min",
+          "tool": "P1000 filter tip with a (non‑filtered) P10 tip on top"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sp3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sp3"
+          }
+        ],
+        "params": {
+          "temperature": {
+            "value": 37,
+            "unit": "C"
+          },
+          "duration": "until organoids fall apart"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Monitor digestion closely to keep the incubation time in TrypLE to a minimum."
+        }
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sp4"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 3,
+            "unit": "ml"
+          },
+          "reagent": "adDMEM/F12+++ medium"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s9",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sp4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sp4"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "repetitions": "30 times",
+          "tool": "P1000 filter tip with a (non‑filtered) P10 tip on top"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s2",
+        "to": "s8"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

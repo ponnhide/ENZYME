@@ -1,0 +1,173 @@
+{
+  "units": [
+    {
+      "title": "Dataset curation via sfaira",
+      "text": "We curated all neural organoid datasets used in this study through the sfaira78 framework (GitHub dev branch, 18 April 2023).",
+      "rationale": "Establishes the source and method for gathering raw datasets.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 125,
+        "word_count": 20,
+        "sentence_count": 1,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Metadata harmonization and organoid age annotation",
+      "text": "We harmonized metadata according to the sfaira standards (https://sfaira.readthedocs.io/en/latest/adding_datasets.html) and manually curated an extra metadata column organoid_age_days, which described the number of days the organoid had been in culture before collection.",
+      "rationale": "Standardizes metadata and adds a key variable for downstream analysis.",
+      "detected_categories": [
+        {
+          "id": "purification_cleanup",
+          "hits": 1,
+          "confidence": 0.167,
+          "matched_patterns": [
+            "column"
+          ]
+        }
+      ],
+      "split_audit": {
+        "char_count": 271,
+        "word_count": 38,
+        "sentence_count": 1,
+        "category_count": 1,
+        "flags": []
+      }
+    },
+    {
+      "title": "Construction of cell‑type hierarchy",
+      "text": "We constructed a hierarchy of cell types including progenitor, neuron and non-neural types, each defined by a set of marker genes (Supplementary Data 1).",
+      "rationale": "Creates a reference framework for automated annotation.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 153,
+        "word_count": 25,
+        "sentence_count": 1,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Representation of data in RSS space",
+      "text": "We represented the data by the RSS3 to average expression profiles of cell clusters in the recently published human developing brain cell atlas27.",
+      "rationale": "Maps organoid data onto a common reference space for comparison.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 146,
+        "word_count": 23,
+        "sentence_count": 1,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "k‑NN graph construction and Leiden clustering",
+      "text": "We constructed a kNN graph (k = 30) in the RSS space and clustered the dataset using the Leiden algorithm83 (resolution 80).",
+      "rationale": "Generates clusters that serve as units for annotation.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 124,
+        "word_count": 21,
+        "sentence_count": 1,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Removal of non‑applicable dataset subsets",
+      "text": "We removed any non‑applicable subsets of the published datasets: diseased samples or samples expressing disease‑associated mutations, fused organoids (ref. 1), primary fetal data (refs. 10,23), hormone‑treated samples (ref. 22), neural induction (refs. 3,20) and share‑seq data (ref. 23).",
+      "rationale": "Ensures only relevant, comparable data are retained.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 288,
+        "word_count": 44,
+        "sentence_count": 7,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Scoring and assignment of cell‑type labels",
+      "text": "For each cell type, we computed the area under the receiver operating characteristic curve (AUROC) as well as the detection rate across clusters. For each cell type, a score was computed by multiplying the maximum AUROC with the maximum detection rate among its marker genes. Each cluster was then assigned to the cell type with the highest score.",
+      "rationale": "Quantitatively determines the most likely cell‑type for each cluster.",
+      "detected_categories": [
+        {
+          "id": "cell_culture",
+          "hits": 1,
+          "confidence": 0.143,
+          "matched_patterns": [
+            "\\bwell\\b"
+          ]
+        }
+      ],
+      "split_audit": {
+        "char_count": 347,
+        "word_count": 58,
+        "sentence_count": 3,
+        "category_count": 1,
+        "flags": []
+      }
+    },
+    {
+      "title": "Creation of a unified AnnData object",
+      "text": "We then concatenated all remaining datasets to create a single AnnData80 object.",
+      "rationale": "Combines all processed data into a single structure for downstream analysis.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 80,
+        "word_count": 12,
+        "sentence_count": 1,
+        "category_count": 0,
+        "flags": [
+          "UNIT_TOO_SHORT_CHARS",
+          "UNIT_TOO_SHORT_WORDS",
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Quality control: removal of low‑gene cells",
+      "text": "For quality control and filtering of HNOCA, we removed any cells with fewer than 200 genes expressed.",
+      "rationale": "Eliminates low‑quality cells that could bias results.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 101,
+        "word_count": 17,
+        "sentence_count": 1,
+        "category_count": 0,
+        "flags": [
+          "UNIT_TOO_SHORT_CHARS",
+          "UNIT_TOO_SHORT_WORDS",
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Log‑normalization of expression matrix",
+      "text": "We generated a log‑normalized expression matrix by first dividing the counts for each cell by the total counts in that cell and multiplying by a factor of 1,000,000 before taking the natural log of each count + 1.",
+      "rationale": "Standardizes expression values for comparative analyses.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 213,
+        "word_count": 40,
+        "sentence_count": 1,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    }
+  ],
+  "created_at": "2026-02-16T11:59:43.653815+00:00"
+}

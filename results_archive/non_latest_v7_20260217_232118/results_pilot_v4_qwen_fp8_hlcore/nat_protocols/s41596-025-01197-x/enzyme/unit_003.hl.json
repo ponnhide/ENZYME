@@ -1,0 +1,240 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Protocol",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01197-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "snp",
+        "name": "snp"
+      },
+      {
+        "id": "snr",
+        "name": "snr"
+      },
+      {
+        "id": "snr_in_96well",
+        "name": "snr_in_96well"
+      },
+      {
+        "id": "organoid_culture",
+        "name": "organoid_culture"
+      },
+      {
+        "id": "embedded_organoid",
+        "name": "embedded_organoid"
+      },
+      {
+        "id": "maturation_organoid",
+        "name": "maturation_organoid"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "description": "Stage 1: iPS cell maintenance using Essential 8/StemFlex media."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "description": "Stage 2: Neural induction begins when PS cells reach 100% confluency, using neural induction medium with Dorsomorphin 4 µM and SB431542 10 µM."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "snp"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "snr"
+          }
+        ],
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "snr"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "snr_in_96well"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "SNR"
+          },
+          "source_container": "unknown",
+          "target_container": "low-adhesion 96-well plate"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "snr_in_96well"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_culture"
+          }
+        ],
+        "params": {
+          "text": "unmapped device_kind in source: orbital_shaker"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "description": "Organoids reach 400–700 μm in diameter by end of 2 weeks with single lumen; SNRs <150 μm often fail to transform."
+        }
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_culture"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "embedded_organoid"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: embed_in_matrix"
+        },
+        "annotations": {
+          "description": "Organoids are embedded in MG (matrigel) for further propagation."
+        }
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "embedded_organoid"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "maturation_organoid"
+          }
+        ],
+        "params": {
+          "text": "unmapped device_kind in source: orbital_shaker"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s9",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "maturation_organoid"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "modality": "visual",
+          "features": [
+            "organoid size (400–700 μm)",
+            "presence of single lumen",
+            "expression of pH3, KI67, SOX2, NESTIN, PAX6, FOXG1"
+          ]
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

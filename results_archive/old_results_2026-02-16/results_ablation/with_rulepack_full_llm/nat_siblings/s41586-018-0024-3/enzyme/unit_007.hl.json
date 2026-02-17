@@ -1,0 +1,227 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Organoid CellTiter‑Glo viability assay",
+    "source": {
+      "type": "paper",
+      "id": "s41586-018-0024-3.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Tumour organoids"
+      },
+      {
+        "id": "m2",
+        "name": "Trypsin"
+      },
+      {
+        "id": "m3",
+        "name": "HISM without Wnt‑3a‑CM"
+      },
+      {
+        "id": "m4",
+        "name": "CellTiter‑Glo 3D kit (Promega)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "Culture plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "SpectraMax M5e (Molecular Devices)",
+        "device_kind": "plate_reader"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_organoid",
+        "name": "Tumour organoid material"
+      },
+      {
+        "id": "s_single",
+        "name": "Single‑cell suspension of organoids"
+      },
+      {
+        "id": "s_cultured",
+        "name": "Cultured organoid cells (5–10 days)"
+      },
+      {
+        "id": "s_assay",
+        "name": "CellTiter‑Glo 3D assay mixture"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "name": "Cell viability luminescence readout"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_single"
+          }
+        ],
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_single"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cultured"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 5,
+            "unit": "day",
+            "note": "5–10 days as reported"
+          }
+        },
+        "annotations": {
+          "note": "Cultured in HISM without Wnt‑3a‑CM; temperature and CO₂ conditions not specified."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m4"
+          },
+          {
+            "kind": "sample",
+            "id": "s_cultured"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_assay"
+          }
+        ],
+        "params": {
+          "amount": {
+            "note": "Volume of CellTiter‑Glo 3D reagent not specified in source."
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_assay"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_assay"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Incubation time for luminescence development not provided."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_assay"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d1"
+          }
+        ],
+        "params": {
+          "device_kind": "plate_reader",
+          "program": "luminescence readout"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

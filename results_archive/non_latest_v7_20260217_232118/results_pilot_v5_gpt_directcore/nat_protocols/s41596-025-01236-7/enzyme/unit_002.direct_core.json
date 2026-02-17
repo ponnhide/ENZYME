@@ -1,0 +1,184 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Y27632 pretreatment of hPSCs",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01236-7.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "mtesr_plus",
+        "name": "mTeSR Plus medium"
+      },
+      {
+        "id": "y27632",
+        "name": "Y27632"
+      },
+      {
+        "id": "pbs",
+        "name": "PBS"
+      }
+    ],
+    "containers": [
+      {
+        "id": "dish",
+        "type": "culture_dish"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "hpscs",
+        "type": "cell_culture"
+      },
+      {
+        "id": "dish",
+        "name": "dish"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "hpscs"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "dish"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "material_id": "mtesr_plus",
+          "supplement": "Y27632 10 µM",
+          "action": "add",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "hpscs"
+          },
+          {
+            "kind": "sample",
+            "id": "dish"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "1h_incubation"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "dish"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "action": "aspirate",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "dish"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "material_id": "pbs",
+          "action": "wash",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "dish"
+          }
+        ],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

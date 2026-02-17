@@ -1,0 +1,456 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Percoll density gradient centrifugation",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00929-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "HBSS_BSA_glucose",
+        "name": "HBSS/BSA/glucose",
+        "type": "reagent"
+      },
+      {
+        "id": "DNase",
+        "name": "DNase (10 mg/mL)",
+        "type": "reagent"
+      },
+      {
+        "id": "Percoll_22",
+        "name": "22% Percoll",
+        "type": "reagent"
+      }
+    ],
+    "containers": [
+      {
+        "id": "sample_tube",
+        "name": "sample tube",
+        "type": "tube"
+      },
+      {
+        "id": "perc_tube",
+        "name": "15 mL conical tube",
+        "type": "tube"
+      },
+      {
+        "id": "combined_tube",
+        "name": "combined tube",
+        "type": "tube"
+      },
+      {
+        "id": "waste_container",
+        "name": "waste container",
+        "type": "container"
+      },
+      {
+        "id": "perc_tube_1",
+        "name": "perc_tube_1",
+        "type": "generic_container"
+      },
+      {
+        "id": "perc_tube_2",
+        "name": "perc_tube_2",
+        "type": "generic_container"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge",
+        "name": "centrifuge",
+        "type": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_initial",
+        "name": "cell suspension",
+        "container_ref": "sample_tube"
+      },
+      {
+        "id": "sample_perc1",
+        "name": "cell suspension in Percoll tube 1",
+        "container_ref": "perc_tube_1"
+      },
+      {
+        "id": "sample_perc2",
+        "name": "cell suspension in Percoll tube 2",
+        "container_ref": "perc_tube_2"
+      },
+      {
+        "id": "sample_combined",
+        "name": "combined cell suspension",
+        "container_ref": "combined_tube"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Missing transfer amount for initial sample transfer."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_initial"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "mL"
+          },
+          "material_ref": "HBSS_BSA_glucose"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_initial"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 50,
+            "unit": "µL"
+          },
+          "material_ref": "DNase"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_initial"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_initial"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently",
+          "repetitions": 50
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "perc_tube_1"
+          },
+          {
+            "kind": "container",
+            "id": "perc_tube_2"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "perc_tube_1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 4,
+            "unit": "mL"
+          },
+          "material_ref": "Percoll_22"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "perc_tube_2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 4,
+            "unit": "mL"
+          },
+          "material_ref": "Percoll_22"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_initial"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_perc1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 750,
+            "unit": "µL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_initial"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_perc2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 750,
+            "unit": "µL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s10",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_perc1"
+          },
+          {
+            "kind": "sample",
+            "id": "sample_perc2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_perc1"
+          },
+          {
+            "kind": "sample",
+            "id": "sample_perc2"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "duration": "10 min",
+            "speed": "500g",
+            "temperature": "4 °C",
+            "deceleration": "none"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s11",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Missing transfer amount for sample_perc1 after centrifugation."
+        }
+      },
+      {
+        "id": "s12",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Missing transfer amount for sample_perc2 after centrifugation."
+        }
+      },
+      {
+        "id": "s13",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "combined_tube"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s14",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_perc1"
+          },
+          {
+            "kind": "sample",
+            "id": "sample_perc2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_combined"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s15",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_combined"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_combined"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "duration": "5 min",
+            "speed": "300g",
+            "temperature": "4 °C"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s16",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Do not discard the remaining tubes. The small amount of cells left over after combining the majority of cells into one tube for the master mix can be used for unstained and DAPI controls (Steps 36–45)."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      }
+    ],
+    "detail_level": 0
+  }
+}

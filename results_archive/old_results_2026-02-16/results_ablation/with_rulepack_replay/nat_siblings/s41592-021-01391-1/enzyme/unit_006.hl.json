@@ -1,0 +1,170 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Fabrication of flow layer",
+    "source": {
+      "type": "paper",
+      "id": "s41592-021-01391-1"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "PDMS"
+      },
+      {
+        "id": "m2",
+        "name": "curing agent"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "mixing container"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "vacuum chamber",
+        "annotations": {
+          "note": "Degassing method not specified in source text"
+        }
+      },
+      {
+        "id": "e2",
+        "name": "oven",
+        "annotations": {
+          "note": "Curing performed at 80 °C for 30 min; specific device not specified"
+        }
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_mix",
+        "name": "PDMS/curing agent mixture"
+      },
+      {
+        "id": "s_mix_degas",
+        "name": "Degassed PDMS/curing agent mixture"
+      },
+      {
+        "id": "s_cured",
+        "name": "Cured flow layer"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_mix"
+          }
+        ],
+        "params": {
+          "amount": {
+            "description": "PDMS and curing agent mixed at 5:1 ratio"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_mix"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_mix"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_mix"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_mix_degas"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Degas the mixture (method not specified in source text)"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_mix_degas"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cured"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": "80 °C",
+            "duration": "30 min"
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Organoid generation and crypt isolation",
+    "source": {
+      "type": "paper",
+      "id": "s41467-020-19142-9.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "chelation_solution",
+        "name": "Chelation solution",
+        "description": "5.6 mM Na2HPO4, 8.0 mM KH2PO4, 96.2 mM NaCl, 1.6 mM KCl, 43.4 mM Sucrose, 54.9 mM D‑Sorbitol (Sigma), supplemented with 0.5 mM dithiothreitol (Sigma) and 2 mM EDTA (in‑house)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube1",
+        "name": "Microcentrifuge tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator_cold",
+        "device_kind": "incubator",
+        "name": "Cold incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "tissue_sample",
+        "name": "Colonic epithelial tissue (healthy portion, ≥10 cm from tumor side)"
+      },
+      {
+        "id": "digestion_mix",
+        "name": "Tissue + chelation solution mixture"
+      },
+      {
+        "id": "crypts_isolated",
+        "name": "Isolated colonic crypts"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tissue_sample"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tissue_sample"
+          },
+          {
+            "kind": "material",
+            "id": "chelation_solution"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "digestion_mix"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "digestion_mix"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "crypts_isolated"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "30 min at 4 °C"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "crypts_isolated"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Crypts were isolated by digestion of the intestinal mucosa in chelation solution (5.6 mM Na2HPO4, 8.0 mM KH2PO4, 96.2 mM NaCl, 1.6 mM KCl, 43.4 mM Sucrose, and 54.9 mM D‑Sorbitol, Sigma) supplemented with dithiothreitol (0.5 mM, Sigma) and EDTA (2 mM, in‑house) for 30 min at 4 °C."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

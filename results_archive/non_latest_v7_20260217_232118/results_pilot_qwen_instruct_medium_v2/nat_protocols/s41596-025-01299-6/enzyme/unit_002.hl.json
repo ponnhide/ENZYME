@@ -1,0 +1,214 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Lentiviral Transduction of hiPS Cells",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01299-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "type": "medium",
+        "name": "E8 medium"
+      },
+      {
+        "id": "m2",
+        "type": "reagent",
+        "name": "polybrene",
+        "concentration": "5 μg ml−1"
+      },
+      {
+        "id": "m3",
+        "type": "virus",
+        "name": "lentivirus encoding sgRNA library"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "plate",
+        "format": "well",
+        "count": 1
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator",
+        "name": "37 °C, 5% CO2 incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s1",
+        "type": "cell",
+        "name": "hiPS cells",
+        "source": "culture"
+      },
+      {
+        "id": "s2",
+        "type": "cell",
+        "name": "uninfected hiPS cells",
+        "source": "culture"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          },
+          "from": {
+            "kind": "container",
+            "id": "c1"
+          },
+          "to": {
+            "kind": "container",
+            "id": "c1"
+          }
+        },
+        "annotations": {
+          "note": "Aspirate the medium from each well"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "material",
+            "id": "m3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          },
+          "from": {
+            "kind": "container",
+            "id": "c1"
+          },
+          "to": {
+            "kind": "container",
+            "id": "c1"
+          }
+        },
+        "annotations": {
+          "note": "Replace with 1 ml of pre-warmed E8 medium supplemented with 5 μg ml−1 polybrene and the empirically determined volume of lentivirus encoding the sgRNA library"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "After 8 h, add another 1 ml of E8 medium to each well"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "37 °C, 5% CO2"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Maintain one plate of uninfected hiPS cells as a negative control"
+        }
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "CRITICAL STEP: Before conducting the screen, optimize the volume of lentivirus required to achieve the desired transduction efficiency—typically ~20–50%—to ensure that transduced cells ideally carry only a single copy of the sgRNA expression cassette."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

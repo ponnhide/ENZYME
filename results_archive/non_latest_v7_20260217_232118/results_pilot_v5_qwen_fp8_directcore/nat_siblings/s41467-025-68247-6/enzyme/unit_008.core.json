@@ -1,0 +1,196 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Apply cytomix injury to organoids",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "human recombinant TNFα",
+        "source": "R&D Systems"
+      },
+      {
+        "id": "m2",
+        "name": "human recombinant IFNγ",
+        "source": "R&D Systems"
+      },
+      {
+        "id": "m3",
+        "name": "IL-1β",
+        "source": "PeproTech"
+      },
+      {
+        "id": "m4",
+        "name": "organoid media (without EGF or Nicotinamide)"
+      },
+      {
+        "id": "m5",
+        "name": "Advanced DMEM/F12"
+      }
+    ],
+    "containers": [],
+    "equipment": [],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source": "m1",
+          "destination": "m4",
+          "amount": {
+            "value": 10.0,
+            "unit": "ng/mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "m2",
+          "destination": "m4",
+          "amount": {
+            "value": 10.0,
+            "unit": "ng/mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "m3",
+          "destination": "m4",
+          "amount": {
+            "value": 1.0,
+            "unit": "ng/mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "8-hour incubation"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": "m4",
+          "destination": "m5",
+          "amount": {
+            "value": "wash volume",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "source": "m4",
+          "destination": "m5",
+          "amount": {
+            "value": "wash volume",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "params": {
+          "source": "m5",
+          "destination": "m4",
+          "amount": {
+            "value": "replacement volume",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "params": {
+          "note": "High dose: 50 ng/mL TNFα, 50 ng/mL IFNγ, 5 ng/mL IL-1β; Low dose: 10 ng/mL TNFα, 10 ng/mL IFNγ, 1 ng/mL IL-1β"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

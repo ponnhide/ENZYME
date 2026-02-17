@@ -1,0 +1,110 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Centrifuge and incubate fused spheroids",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-00441-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [
+      {
+        "id": "plate",
+        "type": "plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge1",
+        "device_kind": "centrifuge"
+      },
+      {
+        "id": "incubator1",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "spheroids",
+        "container_ref": "plate"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "spheroids"
+          }
+        ],
+        "params": {
+          "container_ref": "plate"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "spheroids"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "spheroids"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "1000 rpm for 1 min"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "spheroids"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "spheroids"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "37 °C for 24 h"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

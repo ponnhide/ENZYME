@@ -1,0 +1,205 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Dissociation and digestion",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00929-1"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "HBSS/BSA/glucose solution"
+      },
+      {
+        "id": "m2",
+        "name": "DNase (10 mg/mL)"
+      },
+      {
+        "id": "m3",
+        "name": "human brain tissue"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "60 mm cell culture dish"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "rotating oven",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_dish",
+        "name": "cell culture dish with HBSS/BSA/glucose"
+      },
+      {
+        "id": "s_tissue",
+        "name": "human brain tissue fragment"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "inputs": [],
+        "outputs": [],
+        "params": {
+          "device_kind": "incubator",
+          "program": "heat to 37 °C",
+          "device_ref": "e1"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_dish"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 7,
+            "unit": "mL"
+          },
+          "container_ref": "c1",
+          "material_ref": "m1"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "sample",
+            "id": "s_dish"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_dish"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 150,
+            "unit": "µL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_tissue"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 250,
+            "unit": "mg"
+          },
+          "material_ref": "m3"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_tissue"
+          },
+          {
+            "kind": "sample",
+            "id": "s_dish"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_dish"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null,
+            "note": "whole tissue fragment (~250 mg)"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_dish"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_dish"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "With a scalpel, cut tissue into small (~2 mm × 2 mm chunks) in HBSS/BSA/glucose + DNase solution in a sterile environment."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

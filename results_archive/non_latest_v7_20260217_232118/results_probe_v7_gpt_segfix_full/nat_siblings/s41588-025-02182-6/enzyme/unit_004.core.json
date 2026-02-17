@@ -1,0 +1,146 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Normalization of scRNA‑seq counts",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41588-025-02182-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [],
+    "data": [
+      {
+        "id": "raw_counts"
+      },
+      {
+        "id": "normalized_data"
+      },
+      {
+        "id": "pca_results"
+      },
+      {
+        "id": "knn_results"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "data"
+        },
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "raw_counts"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "params": {
+          "note": "Normalize raw counts to a total count of 10,000 and apply log-transformation."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "data"
+        },
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "normalized_data"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "params": {
+          "note": "Perform PCA on the normalized data and select the top 30 principal components."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "data"
+        },
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "pca_results"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Calculate k nearest neighbors (kNN) using the top 30 principal components."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "data"
+        },
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "knn_results"
+          }
+        ],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

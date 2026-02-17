@@ -1,0 +1,162 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Accutase treatment of hPSC colonies",
+    "source": {
+      "type": "paper",
+      "id": "s41596-021-00629-8"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "cell culture medium"
+      },
+      {
+        "id": "m2",
+        "name": "PBS w/o"
+      },
+      {
+        "id": "m3",
+        "name": "Accutase"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "culture plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "humidified incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s1",
+        "name": "hPSC colonies"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Aspirate the medium"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 3,
+            "unit": "mL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m3"
+          },
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 500,
+            "unit": "µL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "37 °C for 3 min"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

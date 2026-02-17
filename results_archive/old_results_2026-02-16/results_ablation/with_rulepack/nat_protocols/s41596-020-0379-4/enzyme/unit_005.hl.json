@@ -1,0 +1,112 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Add organoid medium after BME solidifies",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-0379-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_organoid_medium",
+        "name": "organoid medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_plate",
+        "type": "plate"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s_org_medium",
+        "kind": "material",
+        "material_ref": "m_organoid_medium"
+      },
+      {
+        "id": "s_plate",
+        "kind": "container",
+        "container_ref": "c_plate"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Wait for BME drops to solidify (30–60 min)"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_plate"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Flip the plate carefully"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_org_medium"
+          },
+          {
+            "kind": "sample",
+            "id": "s_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_plate"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 500,
+            "unit": "µl"
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

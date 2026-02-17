@@ -1,0 +1,244 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Organoid passaging: centrifugation and resuspension in Matrigel",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00562-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "preempt_solution",
+        "name": "PREempt disinfectant solution"
+      },
+      {
+        "id": "ethanol70",
+        "name": "70% ethanol"
+      },
+      {
+        "id": "matrigel",
+        "name": "Matrigel"
+      },
+      {
+        "id": "ice",
+        "name": "Ice"
+      }
+    ],
+    "containers": [
+      {
+        "id": "glass_dish",
+        "type": "dish",
+        "name": "glass dish"
+      },
+      {
+        "id": "cooling_block",
+        "type": "block",
+        "name": "aluminum cooling block"
+      },
+      {
+        "id": "conical_tube",
+        "type": "tube",
+        "name": "conical tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge",
+        "type": "centrifuge"
+      },
+      {
+        "id": "biosafety_cabinet",
+        "type": "biosafety_cabinet"
+      },
+      {
+        "id": "vacuum",
+        "type": "vacuum"
+      },
+      {
+        "id": "pasteur_pipette",
+        "type": "pipette"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoid_culture",
+        "name": "organoid culture"
+      },
+      {
+        "id": "centrifuged_organoid",
+        "name": "centrifuged organoid pellet"
+      },
+      {
+        "id": "organoid_matrigel",
+        "name": "organoid suspension in Matrigel"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_culture"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "conical_tube"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge",
+          "program": {
+            "program_name": "1000g_5min_4C"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_culture"
+          },
+          {
+            "kind": "container",
+            "id": "conical_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "centrifuged_organoid"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "params": {
+          "note": "Sterilize glass dish with PREempt disinfectant solution and 70% ethanol. Add ice to 50–70% capacity of the glass dish, spray with 70% ethanol again and place the dish into the biosafety cabinet. Put Matrigel aliquots into the aluminum cooling block, spray thoroughly with 70% ethanol, and place it into the glass dish containing the ice."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "method": "vacuum",
+          "note": "Aspirate CRS using vacuum and a sterile Pasteur pipette.",
+          "amount": {
+            "description": "unspecified amount"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "centrifuged_organoid"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "centrifuged_organoid"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Remove as much CRS as possible, as remaining CRS could decrease cell viability and compromise the integrity of the Matrigel matrix."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "volume": "up to 1 ml",
+          "material": "matrigel",
+          "note": "Resuspend the organoid pellet in a maximum of 1 ml of Matrigel. If less volume is required, add the calculated amount (e.g., 900 µl)."
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "centrifuged_organoid"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_matrigel"
+          }
+        ]
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "note": "Calculate the volume of Matrigel needed for the desired splitting ratio (e.g., 1.2 ml Matrigel per 24‑well plate, allowing 50 µl per well)."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

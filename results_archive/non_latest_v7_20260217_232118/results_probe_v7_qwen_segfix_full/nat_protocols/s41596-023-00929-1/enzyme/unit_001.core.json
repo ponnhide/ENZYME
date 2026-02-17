@@ -1,0 +1,268 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Dissociate brain tissue with DNase and collagenase/dispase",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00929-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "type": "chemical",
+        "name": "DNase",
+        "concentration": "10 mg/mL"
+      },
+      {
+        "id": "m2",
+        "type": "chemical",
+        "name": "collagenase/dispase",
+        "concentration": "100 mg/mL"
+      },
+      {
+        "id": "m3",
+        "type": "buffer",
+        "name": "HBSS/BSA/glucose"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "cell culture dish",
+        "volume": "7 mL"
+      },
+      {
+        "id": "c2",
+        "type": "conical tube",
+        "volume": "15 mL"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "rotating oven"
+      }
+    ],
+    "samples": [
+      {
+        "id": "smp1",
+        "type": "human brain tissue",
+        "mass": "250 mg"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "heat_to_37C"
+          }
+        },
+        "device_ref": "e1",
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "action_kind": "transfer",
+          "source": "m3",
+          "destination": "c1",
+          "amount": {
+            "value": 7.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "action_kind": "transfer",
+          "source": "m1",
+          "destination": "c1",
+          "amount": {
+            "value": 150.0,
+            "unit": "µL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "action_kind": "transfer",
+          "source": "smp1",
+          "destination": "c1",
+          "amount": {
+            "value": 0.25,
+            "unit": "g"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ]
+      },
+      {
+        "id": "s8",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "params": {
+          "action_kind": "transfer",
+          "source": "c1",
+          "destination": "c2",
+          "amount": {
+            "value": 5.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "transfer",
+        "params": {
+          "action_kind": "transfer",
+          "source": "m2",
+          "destination": "c2",
+          "amount": {
+            "value": 167.0,
+            "unit": "µL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "digest_30min_37C"
+          }
+        },
+        "device_ref": "e1",
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      }
+    ],
+    "detail_level": 0
+  }
+}

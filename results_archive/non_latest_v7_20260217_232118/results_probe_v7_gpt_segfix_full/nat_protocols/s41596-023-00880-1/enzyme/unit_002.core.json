@@ -1,0 +1,347 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Procedure",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00880-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Matrigel"
+      },
+      {
+        "id": "m2",
+        "name": "E6 medium with 6 µM CHIR99021"
+      },
+      {
+        "id": "m3",
+        "name": "Maturation medium with 5 µM CHIR99021, 200 ng/mL FGF9, 1 µg/mL heparin"
+      },
+      {
+        "id": "m4",
+        "name": "4% paraformaldehyde (PFA)"
+      },
+      {
+        "id": "m5",
+        "name": "PBS"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "12-well_plate"
+      },
+      {
+        "id": "c2",
+        "type": "transwell_insert"
+      },
+      {
+        "id": "c3",
+        "type": "centrifuge_tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator"
+      },
+      {
+        "id": "e2",
+        "type": "centrifuge"
+      },
+      {
+        "id": "e3",
+        "type": "pipette",
+        "name": "P1000 pipette"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "kind": "cell_suspension"
+      },
+      {
+        "id": "samp2",
+        "kind": "micromass"
+      },
+      {
+        "id": "c1",
+        "name": "c1"
+      },
+      {
+        "id": "c2",
+        "name": "c2"
+      },
+      {
+        "id": "c3",
+        "name": "c3"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c2"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c3"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source_material": "m2",
+          "destination_container": "c1",
+          "amount": {
+            "value": 1.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "5_day_37C"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "source_material": "m3",
+          "destination_container": "c1",
+          "amount": {
+            "value": 1.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "1_hour_37C"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "target_container": "c1",
+          "reagent_material": "m4",
+          "volume": "0.5 mL per well"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "10_min_4C"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "e2",
+          "program": {
+            "program_name": "3_cycles_2000g_5min"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "target_sample": "samp1",
+          "volume": "200 µL"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s13",
+        "op": "transfer",
+        "params": {
+          "source_sample": "samp1",
+          "destination_container": "c2",
+          "cell_count": "250000 cells",
+          "amount": {
+            "value": 200.0,
+            "unit": "µL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s14",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "24_hour_37C"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s15",
+        "op": "annotate",
+        "params": {
+          "note": "Further steps (e.g., staining, imaging) are described in the source text but not explicitly detailed; they should be added as needed."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      }
+    ],
+    "detail_level": 0
+  }
+}

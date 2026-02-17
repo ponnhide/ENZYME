@@ -1,0 +1,125 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Select scarring induction time points during organoid development",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41592-021-01344-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "eq1",
+        "type": "sequencer"
+      },
+      {
+        "id": "eq2",
+        "type": "light_sheet_microscope"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "type": "organoid"
+      }
+    ],
+    "data": [
+      {
+        "id": "data_seq",
+        "type": "scRNA_seq"
+      },
+      {
+        "id": "data_img",
+        "type": "light_sheet_image"
+      },
+      {
+        "id": "data_dist",
+        "type": "distance_measurements"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "params": {
+          "note": "Select scarring induction time points at 1, 1.5, and 2 months of culture"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "device_ref": "eq1",
+          "program": {
+            "program_name": "scRNA_seq"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "imager",
+          "device_ref": "eq2",
+          "program": {
+            "program_name": "long_term_light_sheet"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "spatial_distances"
+          ]
+        },
+        "outputs": [],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,265 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Collagenase digestion",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-020-00474-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "collagenase_stock",
+        "type": "reagent",
+        "description": "collagenase 20 mg/ml stock"
+      },
+      {
+        "id": "rock_inhibitor_stock",
+        "type": "reagent",
+        "description": "ROCK inhibitor 10 mM stock"
+      },
+      {
+        "id": "d_bsa_medium",
+        "type": "reagent",
+        "description": "D-BSA medium for pipette pre‑wetting"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube",
+        "type": "falcon_tube_50ml",
+        "description": "50‑ml Falcon tube containing minced tissue"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator_shaker",
+        "type": "incubator",
+        "description": "heated incubator with orbital shaker"
+      },
+      {
+        "id": "microscope",
+        "type": "imager",
+        "description": "inverted bright‑field microscope"
+      }
+    ],
+    "samples": [
+      {
+        "id": "collagenase_stock",
+        "name": "collagenase_stock"
+      },
+      {
+        "id": "rock_inhibitor_stock",
+        "name": "rock_inhibitor_stock"
+      },
+      {
+        "id": "d_bsa_medium",
+        "name": "d_bsa_medium"
+      },
+      {
+        "id": "tube",
+        "name": "tube"
+      },
+      {
+        "id": "observation_data",
+        "name": "observation_data"
+      }
+    ],
+    "data": [
+      {
+        "id": "observation_data",
+        "type": "image",
+        "description": "microscopy observation of cell clusters"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "collagenase_stock"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "rock_inhibitor_stock"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d_bsa_medium"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tube"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "collagenase_stock",
+          "destination": "tube",
+          "amount": {
+            "value": 500.0,
+            "unit": "µl"
+          }
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tube"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": "rock_inhibitor_stock",
+          "destination": "tube",
+          "amount": {
+            "value": 10.0,
+            "unit": "µl"
+          }
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tube"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "note": "Wrap the tube with parafilm and place at ~15° on orbital shaker inside heated incubator at 37 °C."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator_shaker",
+          "program": {
+            "program_name": "digestion_1-2h_37C_140rpm"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "description": "Pipette up and down 5–10 times every 30 min using a 5‑ml sterile serological pipette pre‑wetted with D‑BSA medium."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "observe",
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "cell_clusters_5-10_cells"
+          ]
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "observation_data"
+          }
+        ],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      }
+    ],
+    "detail_level": 0
+  }
+}

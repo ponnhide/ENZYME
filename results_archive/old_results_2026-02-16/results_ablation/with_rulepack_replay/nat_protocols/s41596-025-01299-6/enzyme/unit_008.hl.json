@@ -1,0 +1,297 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Nucleofection preparation for KO validation – coating and media",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01299-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "vitronectin",
+        "name": "Vitronectin"
+      },
+      {
+        "id": "e8_medium",
+        "name": "E8 medium"
+      },
+      {
+        "id": "y27632",
+        "name": "Y-27632"
+      },
+      {
+        "id": "nucleofector_solution",
+        "name": "Nucleofector solution"
+      },
+      {
+        "id": "nucleofector_supplement",
+        "name": "Nucleofector supplement"
+      }
+    ],
+    "containers": [
+      {
+        "id": "six_well_plate",
+        "type": "six-well plate"
+      },
+      {
+        "id": "mix_tube",
+        "type": "microcentrifuge tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator_37C",
+        "device_kind": "incubator",
+        "name": "37 °C incubator"
+      },
+      {
+        "id": "ice_bucket",
+        "name": "Ice"
+      }
+    ],
+    "samples": [
+      {
+        "id": "coated_plate",
+        "derived_from": "six_well_plate"
+      },
+      {
+        "id": "medium_sample",
+        "derived_from": "e8_medium"
+      },
+      {
+        "id": "nucleofector_mix",
+        "derived_from": [
+          "nucleofector_solution",
+          "nucleofector_supplement"
+        ]
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "six_well_plate"
+          },
+          {
+            "kind": "material",
+            "id": "vitronectin"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "coated_plate"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Coat six-well plates with vitronectin (see Step 1)."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "e8_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "medium_sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 3.5,
+            "unit": "ml"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "medium_sample"
+          },
+          {
+            "kind": "material",
+            "id": "y27632"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "medium_sample"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Warm E8 medium supplemented with 10 μM Y-27632 in a 37 °C incubator. Prepare 3.5 ml of medium per sample."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "medium_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "medium_sample"
+          }
+        ],
+        "params": {
+          "temperature": {
+            "value": 37,
+            "unit": "C"
+          }
+        },
+        "annotations": {
+          "note": "Incubation duration not specified."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "nucleofector_solution"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "mix_tube"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 16.4,
+            "unit": "μl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "nucleofector_supplement"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "mix_tube"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 3.6,
+            "unit": "μl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "mix_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "nucleofector_mix"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s8",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "nucleofector_mix"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "nucleofector_mix"
+          }
+        ],
+        "params": {
+          "temperature": {
+            "value": 0,
+            "unit": "C"
+          }
+        },
+        "annotations": {
+          "note": "Incubation on ice; duration not specified."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,256 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-020-00474-1",
+      "type": "paper"
+    },
+    "title": "Centrifugation and washing"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "start_step_id": "s1",
+    "step_order": null,
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "flowthrough_22_26",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "centrifuged_flowthrough",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "450g for 5 min at 8 °C"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "centrifuged_flowthrough",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "resuspended_pellet",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend"
+        }
+      },
+      {
+        "annotations": {
+          "container_ref": "falcon15_prewet"
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "resuspended_pellet",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "resuspended_pellet",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "ml",
+            "value": 4
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "d_bsa",
+            "kind": "material"
+          },
+          {
+            "id": "resuspended_pellet",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "sample_with_d_bsa",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "ml",
+            "value": 10
+          }
+        }
+      },
+      {
+        "annotations": {
+          "method": "pipette up and down several times"
+        },
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "sample_with_d_bsa",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "sample_mixed",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "sample_mixed",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "final_centrifuged",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "450g for 5 min at 8 °C"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Aspirate the supernatant very carefully with a vacuum system and clean tip until 1 ml is left."
+        },
+        "id": "s7",
+        "inputs": [
+          {
+            "id": "final_centrifuged",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "final_centrifuged",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "description": "pre‑wetted with D‑BSA",
+        "id": "falcon15_prewet",
+        "type": "15‑ml Falcon tube"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "device_kind": "centrifuge",
+        "id": "centrifuge"
+      },
+      {
+        "device_kind": "pipette",
+        "id": "serological_pipette"
+      },
+      {
+        "device_kind": "vacuum_system",
+        "id": "vacuum_system"
+      }
+    ],
+    "materials": [
+      {
+        "id": "d_bsa",
+        "name": "D-BSA"
+      }
+    ],
+    "samples": [
+      {
+        "id": "flowthrough_22_26",
+        "name": "flow‑through from Steps 22–26"
+      },
+      {
+        "id": "centrifuged_flowthrough",
+        "name": "centrifuged flow‑through"
+      },
+      {
+        "id": "resuspended_pellet",
+        "name": "resuspended tissue pellet"
+      },
+      {
+        "id": "sample_with_d_bsa",
+        "name": "sample after D‑BSA addition"
+      },
+      {
+        "id": "sample_mixed",
+        "name": "homogenized sample"
+      },
+      {
+        "id": "final_centrifuged",
+        "name": "final centrifuged sample"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

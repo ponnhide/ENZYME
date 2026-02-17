@@ -1,0 +1,240 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41593-021-00923-4.pdf",
+      "type": "paper"
+    },
+    "title": "Real‑time cell vulnerability assay"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "c1",
+            "kind": "container"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "m2",
+            "kind": "material"
+          },
+          {
+            "id": "m3",
+            "kind": "material"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "samp1",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": null,
+            "value": null
+          },
+          "description": "Coat wells with 1% Geltrex in DMEM/F-12"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "m4",
+            "kind": "material"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "samp2",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": "100000 cells per well"
+        }
+      },
+      {
+        "annotations": {
+          "lowered_from": "incubate"
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "samp2",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "samp2",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": null
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "m5",
+            "kind": "material"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "samp3",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": null,
+            "value": null
+          },
+          "description": "Add topotecan at 1.25 nM, 2.5 nM, 5 nM or 10 nM to respective wells"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "samp3",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "d1",
+            "kind": "data"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "device_ref": "e1",
+          "program": "Acquire images every 6 h"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "c1",
+        "material_id": "m1",
+        "type": "six-well plate"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "name": "Live-cell images"
+      }
+    ],
+    "equipment": [
+      {
+        "catalog": "4647",
+        "id": "e1",
+        "name": "IncuCyte S3 Live-Cell Analysis system",
+        "vendor": "Sartorius"
+      }
+    ],
+    "materials": [
+      {
+        "catalog": "CC010",
+        "id": "m1",
+        "name": "Six-well plate",
+        "vendor": "Appleton Woods, Corning"
+      },
+      {
+        "catalog": "A1413302",
+        "id": "m2",
+        "name": "Geltrex",
+        "vendor": "Thermo Fisher Scientific"
+      },
+      {
+        "catalog": "11514436",
+        "id": "m3",
+        "name": "DMEM/F-12",
+        "vendor": "Fisher Scientific, Gibco"
+      },
+      {
+        "catalog": null,
+        "id": "m4",
+        "name": "hiPSCs",
+        "vendor": null
+      },
+      {
+        "catalog": null,
+        "id": "m5",
+        "name": "Topotecan",
+        "vendor": null
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "name": "Coated plate"
+      },
+      {
+        "id": "samp2",
+        "name": "Seeded plate"
+      },
+      {
+        "id": "samp3",
+        "name": "Assay plate with topotecan"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

@@ -1,0 +1,316 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Organoid cryosectioning",
+    "source": {
+      "type": "paper",
+      "id": "s41467-021-27464-5"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "paraformaldehyde_4pct",
+        "name": "4% paraformaldehyde solution"
+      },
+      {
+        "id": "PBS",
+        "name": "PBS"
+      },
+      {
+        "id": "sucrose_30pct",
+        "name": "30% sucrose solution"
+      },
+      {
+        "id": "OCT",
+        "name": "OCT"
+      },
+      {
+        "id": "dry_ice",
+        "name": "dry ice"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube_1",
+        "type": "tube"
+      },
+      {
+        "id": "cryomold_1",
+        "type": "cryomold"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator_4C",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoid_raw",
+        "name": "VM organoids"
+      },
+      {
+        "id": "organoid_fixed",
+        "name": "Fixed organoids"
+      },
+      {
+        "id": "organoid_washed",
+        "name": "Washed organoids"
+      },
+      {
+        "id": "organoid_sucrose",
+        "name": "Organoids in 30% sucrose"
+      },
+      {
+        "id": "organoid_OCT",
+        "name": "Organoids in 1:1 OCT:30% sucrose"
+      },
+      {
+        "id": "organoid_embedded",
+        "name": "Organoids embedded in OCT"
+      },
+      {
+        "id": "organoid_frozen",
+        "name": "Organoids frozen on dry ice"
+      },
+      {
+        "id": "organoid_sectioned",
+        "name": "Cryosectioned organoids (20 µm)"
+      },
+      {
+        "id": "organoid_stored",
+        "name": "Organoids stored at -80 °C"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_raw"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_raw"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_fixed"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 5,
+            "unit": "h"
+          },
+          "temperature": {
+            "value": 4,
+            "unit": "C"
+          },
+          "device_kind": "incubator",
+          "device_ref": "incubator_4C"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_fixed"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_washed"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Wash in PBS three times for 10 min each"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_washed"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sucrose"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Left to sink in 30% sucrose overnight"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sucrose"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_OCT"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 6,
+            "unit": "h"
+          },
+          "device_kind": "incubator"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_OCT"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_embedded"
+          }
+        ],
+        "params": {
+          "action_kind": "fill"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_embedded"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_frozen"
+          }
+        ],
+        "params": {
+          "action_kind": "freeze"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s8a",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_frozen"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sectioned"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Cryosectioned at 20 µm"
+        }
+      },
+      {
+        "id": "s8b",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_frozen"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_stored"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Stored at -80 °C"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8a"
+      },
+      {
+        "from": "s7",
+        "to": "s8b"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,309 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-025-01197-x.pdf",
+      "type": "paper"
+    },
+    "title": "SNR isolation"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "amplification_medium",
+            "kind": "material"
+          },
+          {
+            "id": "EGF",
+            "kind": "material"
+          },
+          {
+            "id": "FGF2",
+            "kind": "material"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "amplification_medium_with_EGF_FGF2",
+            "kind": "material"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "amplification_medium_with_EGF_FGF2",
+            "kind": "material"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "ultralow_attachment_plate_filled",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "µL",
+            "value": 300
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "ultralow_attachment_plate_filled",
+            "kind": "container"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "ultralow_attachment_plate_in_incubator",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {}
+        }
+      },
+      {
+        "annotations": {
+          "note": "Prepare a glass hook from a glass Pasteur pipette using a Bunsen burner. Do not reuse the hook."
+        },
+        "id": "s4",
+        "inputs": [],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "tissue_sample",
+            "kind": "sample"
+          }
+        ],
+        "op": "observe",
+        "outputs": [],
+        "params": {
+          "features": "Identify large SNRs (>200 µm diameter) with a clearly visible single lumen.",
+          "modality": "microscope"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Separate SNRs from adjacent tissue using the glass hook and gently detach each one from the bottom of the dish."
+        },
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "tissue_sample",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "isolated_SNRs",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "dislodge_cells"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s7",
+        "inputs": [
+          {
+            "id": "isolated_SNRs",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "ultralow_attachment_plate_with_SNRs",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "SNR",
+            "value": 1
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s8",
+        "inputs": [
+          {
+            "id": "ultralow_attachment_plate_with_SNRs",
+            "kind": "container"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "ultralow_attachment_plate_in_incubator_SNRs",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {}
+        }
+      },
+      {
+        "annotations": {
+          "note": "Keep plates with isolated SNRs on an orbital shaker (45 rpm) in the incubator for 14–15 days."
+        },
+        "id": "s9",
+        "inputs": [],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "ultralow_attachment_plate",
+        "name": "ultralow attachment 96-well plate"
+      },
+      {
+        "id": "ultralow_attachment_plate_filled",
+        "name": "ultralow attachment plate filled with medium"
+      },
+      {
+        "id": "ultralow_attachment_plate_in_incubator",
+        "name": "ultralow attachment plate placed in incubator (medium only)"
+      },
+      {
+        "id": "ultralow_attachment_plate_with_SNRs",
+        "name": "ultralow attachment plate with isolated SNRs"
+      },
+      {
+        "id": "ultralow_attachment_plate_in_incubator_SNRs",
+        "name": "ultralow attachment plate with SNRs placed in incubator"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "device_kind": "incubator",
+        "id": "incubator",
+        "name": "incubator"
+      },
+      {
+        "id": "orbital_shaker",
+        "name": "orbital shaker"
+      },
+      {
+        "id": "stereoscope",
+        "name": "stereoscope"
+      },
+      {
+        "id": "P200_filtered_pipette",
+        "name": "P200 filtered pipette"
+      }
+    ],
+    "materials": [
+      {
+        "id": "amplification_medium",
+        "name": "amplification medium"
+      },
+      {
+        "id": "EGF",
+        "name": "EGF"
+      },
+      {
+        "id": "FGF2",
+        "name": "FGF2"
+      },
+      {
+        "id": "glass_pasteur_pipette",
+        "name": "glass Pasteur pipette"
+      },
+      {
+        "id": "Bunsen_burner",
+        "name": "Bunsen burner"
+      },
+      {
+        "id": "glass_hook",
+        "name": "glass hook"
+      },
+      {
+        "id": "amplification_medium_with_EGF_FGF2",
+        "name": "amplification_medium_with_EGF_FGF2"
+      }
+    ],
+    "samples": [
+      {
+        "id": "tissue_sample",
+        "name": "tissue containing SNRs"
+      },
+      {
+        "id": "isolated_SNRs",
+        "name": "isolated SNRs"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

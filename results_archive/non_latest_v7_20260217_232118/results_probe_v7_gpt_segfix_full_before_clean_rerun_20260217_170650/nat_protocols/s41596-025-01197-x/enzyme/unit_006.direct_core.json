@@ -1,0 +1,146 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "SNR propagation in suspension culture",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01197-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "fresh_amp_medium",
+        "name": "fresh amplification medium with 2× FGF2 and EGF"
+      },
+      {
+        "id": "old_medium",
+        "name": "old culture medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "culture_well",
+        "type": "well",
+        "name": "culture well"
+      },
+      {
+        "id": "waste_container",
+        "type": "tube",
+        "name": "waste container"
+      }
+    ],
+    "equipment": [],
+    "samples": [],
+    "data": [
+      {
+        "id": "organoid_images_dataset",
+        "name": "organoid images"
+      }
+    ]
+  },
+  "protocol": {
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material",
+          "material_id": "fresh_amp_medium"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "culture_well",
+          "destination": "waste_container",
+          "amount": {
+            "value": 150.0,
+            "unit": "μL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "fresh_amp_medium_instance",
+          "destination": "culture_well",
+          "amount": {
+            "value": 150.0,
+            "unit": "μL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "params": {
+          "note": "Change medium every other day for 2 weeks (repeat removal and addition steps)."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "data",
+          "data_id": "organoid_images_dataset"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "size",
+            "morphology"
+          ],
+          "timepoints": [
+            "1 d",
+            "7 d",
+            "14 d"
+          ]
+        },
+        "outputs": [],
+        "inputs": []
+      }
+    ],
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

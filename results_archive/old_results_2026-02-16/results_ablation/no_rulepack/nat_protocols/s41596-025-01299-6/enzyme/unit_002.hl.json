@@ -1,0 +1,221 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Day 1: hiPS cell transduction",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01299-6"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_E8",
+        "name": "E8 medium"
+      },
+      {
+        "id": "m_polybrene",
+        "name": "Polybrene"
+      },
+      {
+        "id": "m_lentivirus",
+        "name": "Lentivirus encoding sgRNA library"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_plate",
+        "name": "culture plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e_incubator",
+        "name": "37 °C, 5% CO2 incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_plate",
+        "name": "hiPS cells plate"
+      },
+      {
+        "id": "s_control_plate",
+        "name": "negative control hiPS cells plate"
+      },
+      {
+        "id": "s_E8_mix",
+        "name": "pre-warmed E8 medium with 5 μg/ml polybrene and lentivirus"
+      },
+      {
+        "id": "s_E8",
+        "name": "E8 medium"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_plate"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Aspirate the medium from each well"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_E8_mix"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_plate"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_plate"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 8,
+            "unit": "h"
+          },
+          "temperature": {
+            "value": 37,
+            "unit": "C"
+          },
+          "CO2": "5%"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_E8"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_plate"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_plate"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Place the plate back in a 37 °C, 5% CO2 incubator"
+        }
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_control_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_control_plate"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Maintain one plate of uninfected hiPS cells as a negative control"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

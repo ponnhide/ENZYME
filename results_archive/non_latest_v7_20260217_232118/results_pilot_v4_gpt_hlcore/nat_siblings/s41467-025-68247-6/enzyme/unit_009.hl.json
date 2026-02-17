@@ -1,0 +1,240 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "FITC‑dextran permeability assay",
+    "source": {
+      "type": "paper",
+      "id": "s41467-025-68247-6"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "FITC-Dextran",
+        "source": {
+          "type": "vendor",
+          "id": "MedChemExpress"
+        }
+      },
+      {
+        "id": "m2",
+        "name": "PBS"
+      },
+      {
+        "id": "m3",
+        "name": "organoid growth media"
+      },
+      {
+        "id": "m4",
+        "name": "Y-27632"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "incubator",
+        "device_kind": "incubator"
+      },
+      {
+        "id": "e2",
+        "name": "Nikon spinning disc confocal",
+        "device_kind": "imager"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_sol",
+        "name": "FITC-Dextran solution (2 mg/mL in PBS)"
+      },
+      {
+        "id": "s_culture",
+        "name": "Organoid culture with FITC-Dextran and growth media"
+      },
+      {
+        "id": "s_images",
+        "name": "Fluorescence and DIC images of organoids"
+      },
+      {
+        "id": "s_result",
+        "name": "Percentage of intact organoids"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_sol"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "concentration": "2 mg/mL"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_sol"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_sol"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "incubate"
+        },
+        "annotations": {
+          "temperature": "37 °C",
+          "CO2": "5%",
+          "duration": "30 min"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_sol"
+          },
+          {
+            "kind": "material",
+            "id": "m3"
+          },
+          {
+            "kind": "material",
+            "id": "m4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_culture"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Added organoid growth media containing 10 µM Y-27632 to the FITC‑Dextran solution."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_culture"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_culture"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Media was changed every other day to fresh organoid growth media."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_culture"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_images"
+          }
+        ],
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "fluorescence",
+            "DIC"
+          ]
+        },
+        "annotations": {
+          "instrument": "Nikon spinning disc confocal"
+        }
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_images"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_result"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "calculation": "Percentage of intact organoids = (number of organoids that excluded FITC‑dextran from the lumen) / (total number of organoids) per condition/donor."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

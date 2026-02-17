@@ -1,0 +1,155 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-021-00629-8.pdf",
+      "type": "paper"
+    },
+    "title": "Centrifuge and resuspend cells during passaging"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "c1",
+            "kind": "container"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "c2",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "mL",
+            "value": 5
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "c2",
+            "kind": "container"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "c2",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "duration": "3 min",
+            "speed": "300g",
+            "temperature": "4 °C"
+          }
+        }
+      },
+      {
+        "annotations": {
+          "action": "remove supernatant"
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "c2",
+            "kind": "container"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "solution": "E8 + 10 μM Y27632"
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "c2",
+            "kind": "container"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "c2",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend",
+          "amount": {
+            "unit": "mL",
+            "value": 1
+          }
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "c1",
+        "type": "flask"
+      },
+      {
+        "capacity": "15 mL",
+        "id": "c2",
+        "type": "conical_tube"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "centrifuge"
+      }
+    ],
+    "materials": [
+      {
+        "id": "m1",
+        "name": "DMEM/F12"
+      },
+      {
+        "id": "m2",
+        "name": "E8"
+      },
+      {
+        "id": "m3",
+        "name": "Y27632"
+      }
+    ],
+    "samples": []
+  },
+  "schema_version": "0.4"
+}

@@ -1,0 +1,209 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "MG embedding of organoids (Stage 5)",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01197-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "mg_material",
+        "name": "MG"
+      }
+    ],
+    "containers": [
+      {
+        "id": "parafilm_plate",
+        "type": "parafilm_dimple_plate"
+      },
+      {
+        "id": "petri_dish",
+        "type": "petri_dish_10cm"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "type": "incubator"
+      },
+      {
+        "id": "orbital_shaker",
+        "type": "shaker"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoid_sample",
+        "name": "SNR-derived organoid"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "mg_material"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "parafilm_plate"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "organoid_sample",
+          "destination": "parafilm_plate",
+          "description": "one organoid per dimple",
+          "amount": {
+            "value": 1,
+            "unit": "organoid"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "mg_material",
+          "destination": "parafilm_plate",
+          "amount": {
+            "value": 25.0,
+            "unit": "µL"
+          },
+          "description": "25.0 µL per dimple"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator",
+          "program": {
+            "program_name": "gelation_37C_5CO2"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "petri_dish"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "params": {
+          "source": "parafilm_plate",
+          "destination": "petri_dish",
+          "description": "5–7 organoids per dish",
+          "amount": {
+            "value": "5-7",
+            "unit": "organoid"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "params": {
+          "note": "Place petri dishes on orbital shaker inside 37 °C, 5% CO₂ incubator for long‑term culture"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

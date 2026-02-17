@@ -1,0 +1,311 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Transwell coating and monolayer seeding preparation",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00562-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "PREempt disinfectant solution"
+      },
+      {
+        "id": "m2",
+        "name": "70% ethanol"
+      },
+      {
+        "id": "m3",
+        "name": "collagen I"
+      },
+      {
+        "id": "m4",
+        "name": "PBS−/−"
+      },
+      {
+        "id": "m5",
+        "name": "CRS"
+      },
+      {
+        "id": "m6",
+        "name": "trypsin/EDTA"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "12-well Transwell"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "biosafety cabinet"
+      },
+      {
+        "id": "e2",
+        "type": "incubator"
+      },
+      {
+        "id": "e3",
+        "type": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "e1",
+        "name": "e1"
+      },
+      {
+        "id": "s2_out",
+        "name": "s2_out"
+      },
+      {
+        "id": "c1",
+        "name": "c1"
+      },
+      {
+        "id": "s5_out",
+        "name": "s5_out"
+      },
+      {
+        "id": "s6",
+        "name": "s6"
+      },
+      {
+        "id": "s9",
+        "name": "s9"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "rinse"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "e1"
+          }
+        ],
+        "outputs": [],
+        "annotations": [
+          "Sterilize biosafety cabinet using PREempt disinfectant solution and 70% ethanol."
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2_out"
+          }
+        ],
+        "annotations": [
+          "Prepare a coating solution containing 50 µg/ml collagen I in PBS−/−."
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "amount": "300 µl"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2_out"
+          }
+        ],
+        "outputs": [],
+        "annotations": [
+          "For 12-well Transwells, add 300 µl of coating solution on the apical side and 1,200 µl on the basolateral side."
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "collagen_coating",
+            "temperature": "37 °C",
+            "duration": "2 h"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": [],
+        "annotations": [
+          "Incubate the Transwells at 37 °C for at least 2 h to allow collagen coating to occur."
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s5_out"
+          }
+        ],
+        "annotations": [
+          "Prepare colon monolayer seeding medium as described in Table 4. At least 2 ml should be made for each Transwell plus an additional 1–2 ml for cell counting."
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "amount": "unknown"
+        },
+        "inputs": [],
+        "outputs": [],
+        "annotations": [
+          "Collect organoids as described in Steps 20–23."
+        ]
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "matrigel_dissolution",
+            "temperature": "4 °C",
+            "duration": "45–60 min"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s6"
+          }
+        ],
+        "outputs": [],
+        "annotations": [
+          "After resuspending in CRS, incubate on ice for 45–60 min, or until Matrigel is dissolved. CRITICAL Do not exceed 60 min incubation time in CRS as this can decrease cell viability."
+        ]
+      },
+      {
+        "id": "s8",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s6"
+          }
+        ],
+        "outputs": [],
+        "annotations": [
+          "Resuspend the Matrigel via gentle inversion every 10–15 min, and proceed to the next step 15 min before the end of incubation."
+        ]
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "params": {
+          "amount": "1 ml"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s6"
+          }
+        ],
+        "outputs": [],
+        "annotations": [
+          "Add 1 ml of prewarmed trypsin/EDTA to the organoid suspension."
+        ]
+      },
+      {
+        "id": "s10",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "organoid_pellet",
+            "g_force": "1000g",
+            "duration": "5 min",
+            "temperature": "4 °C"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s9"
+          }
+        ],
+        "outputs": [],
+        "annotations": [
+          "Centrifuge at 1,000g for 5 min at 4 °C. After centrifugation, there should be a noticeable organoid pellet, ~50–200 µl in size depending on the density of the original culture."
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      }
+    ],
+    "detail_level": 0
+  }
+}

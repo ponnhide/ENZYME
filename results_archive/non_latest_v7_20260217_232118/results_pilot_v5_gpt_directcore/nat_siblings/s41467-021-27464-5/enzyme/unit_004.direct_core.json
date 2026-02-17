@@ -1,0 +1,149 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Add db‑cAMP and DAPT from day 16",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-021-27464-5.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_dbcAMP",
+        "type": "chemical",
+        "name": "db-cAMP",
+        "vendor": "Sigma-Aldrich",
+        "catalog_number": "D0627-1G"
+      },
+      {
+        "id": "m_DAPT",
+        "type": "chemical",
+        "name": "DAPT",
+        "vendor": "R&D Systems",
+        "catalog_number": "2634"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_culture",
+        "type": "culture_plate",
+        "description": "culture vessel"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "sample_culture",
+        "type": "cell_culture",
+        "container_ref": "c_culture"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material",
+          "name": "db-cAMP",
+          "vendor": "Sigma-Aldrich",
+          "catalog_number": "D0627-1G",
+          "concentration": "0.5 mM"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material",
+          "name": "DAPT",
+          "vendor": "R&D Systems",
+          "catalog_number": "2634",
+          "concentration": "1 μM"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "description": "cell culture for day 16 onward"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source_ref": "m_dbcAMP",
+          "target_ref": "sample_culture",
+          "amount": {
+            "value": 0.5,
+            "unit": "mM"
+          },
+          "description": "Add db-cAMP to culture"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source_ref": "m_DAPT",
+          "target_ref": "sample_culture",
+          "amount": {
+            "value": 1,
+            "unit": "μM"
+          },
+          "description": "Add DAPT to culture"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "target_ref": "sample_culture"
+        },
+        "outputs": [],
+        "inputs": []
+      }
+    ],
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

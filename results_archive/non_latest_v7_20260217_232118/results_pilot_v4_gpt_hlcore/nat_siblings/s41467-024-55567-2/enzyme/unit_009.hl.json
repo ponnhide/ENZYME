@@ -1,0 +1,126 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "EdU incorporation assay for proliferation",
+    "source": {
+      "type": "paper",
+      "id": "s41467-024-55567-2"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "organoid_medium",
+        "name": "Organoid culture medium"
+      },
+      {
+        "id": "edu_reagent",
+        "name": "EdU (ethynyl-2’-deoxyuridine)",
+        "vendor": "Beyotime"
+      }
+    ],
+    "containers": [
+      {
+        "id": "culture_plate",
+        "name": "Culture dish"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator1",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample1",
+        "material": "organoid_medium",
+        "container": "culture_plate"
+      },
+      {
+        "id": "sample2",
+        "material": "organoid_medium + EdU",
+        "container": "culture_plate"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          },
+          {
+            "kind": "material",
+            "id": "edu_reagent"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 10,
+            "unit": "µM"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample2"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "incubate 1 hour"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

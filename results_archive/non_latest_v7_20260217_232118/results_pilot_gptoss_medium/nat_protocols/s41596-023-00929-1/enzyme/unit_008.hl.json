@@ -1,0 +1,310 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "FACS setup and sorting",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00929-1"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "fluorophores",
+        "name": "fluorophores",
+        "type": "reagent"
+      },
+      {
+        "id": "single_color_control",
+        "name": "single-color control",
+        "type": "reagent"
+      },
+      {
+        "id": "unstained_control",
+        "name": "unstained control",
+        "type": "reagent"
+      },
+      {
+        "id": "dapi",
+        "name": "DAPI (dead cell stain)",
+        "type": "reagent"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "facs1",
+        "name": "Flow cytometer / cell sorter",
+        "device_kind": "imager"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cell_suspension",
+        "name": "cell suspension",
+        "type": "sample"
+      },
+      {
+        "id": "sorted_cells",
+        "name": "sorted cells",
+        "type": "sample"
+      }
+    ],
+    "data": [
+      {
+        "id": "single_color_data",
+        "name": "single-color control data"
+      },
+      {
+        "id": "compensated_data",
+        "name": "compensated fluorescence data"
+      },
+      {
+        "id": "event_number_data",
+        "name": "event number readout"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "fluorophores"
+          },
+          {
+            "kind": "material",
+            "id": "single_color_control"
+          },
+          {
+            "kind": "material",
+            "id": "unstained_control"
+          },
+          {
+            "kind": "sample",
+            "id": "cell_suspension"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "device_kind": "imager",
+          "program": "set_laser_levels",
+          "device_ref": "facs1"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "single_color_control"
+          },
+          {
+            "kind": "sample",
+            "id": "cell_suspension"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "single_color_data"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "program": "run_single_color_control",
+          "device_ref": "facs1"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "data",
+            "id": "single_color_data"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "compensated_data"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "program": "perform_compensation",
+          "device_ref": "facs1"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Draw gates to select sequential populations; first eliminate debris with side scatter (SSC) and forward scatter (FSC) gates."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Eliminate doublets also with SSC or FSC."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "dapi"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Eliminate dead cells using DAPI (or other live/dead stains)."
+        }
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Set up FACS plots to select population of interest (e.g., endothelial cells CD45−CD31+ANPEP−; mural cells CD45−CD31−ANPEP+)."
+        }
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "(Optional) Run additional controls such as fluorescence minus one (FMO) and unstained controls to determine true population."
+        }
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sorted_cells"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "program": "sort_cells",
+          "device_ref": "facs1",
+          "nozzle_size": "100 µm"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s10",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sorted_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "event_number_data"
+          }
+        ],
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "event_number"
+          ]
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s11",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "data",
+            "id": "event_number_data"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Translate the ‘event number’ readout into a true cell number (efficiency calculation)."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      }
+    ],
+    "detail_level": 0
+  }
+}

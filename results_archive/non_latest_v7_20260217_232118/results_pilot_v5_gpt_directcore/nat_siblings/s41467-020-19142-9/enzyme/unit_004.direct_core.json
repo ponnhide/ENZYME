@@ -1,0 +1,179 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Tumor biopsy dissociation into single cells",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-020-19142-9.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Collagenase II",
+        "vendor": "Gibco, Thermo Fisher Scientific",
+        "concentration": "1 mg/ml"
+      },
+      {
+        "id": "m2",
+        "name": "Hyaluronidase",
+        "concentration": "10 µg/ml"
+      },
+      {
+        "id": "m3",
+        "name": "LY27632",
+        "concentration": "10 µM"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "microcentrifuge_tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "type": "tissue"
+      },
+      {
+        "id": "c1",
+        "name": "c1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "params": {
+          "text": "Transfer tissue sample samp1 into container c1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "params": {
+          "text": "Add Collagenase II (m1) to container c1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "text": "Add Hyaluronidase (m2) to container c1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "text": "Add LY27632 (m3) to container c1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "target": {
+            "container": "c1"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "shaking_37C_30min"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

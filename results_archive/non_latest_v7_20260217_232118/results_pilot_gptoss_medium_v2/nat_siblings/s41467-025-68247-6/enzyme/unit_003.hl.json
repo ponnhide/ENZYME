@@ -1,0 +1,113 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "EDTA digestion to release crypts",
+    "source": {
+      "type": "paper",
+      "id": "s41467-025-68247-6"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "2.5 mM EDTA in PBS"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "end-over-end rotator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "name": "tissue sample"
+      },
+      {
+        "id": "samp1_resuspended",
+        "name": "tissue sample resuspended in EDTA"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1_resuspended"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend",
+          "amount": {
+            "value": 25,
+            "unit": "mL"
+          },
+          "solution": {
+            "material_ref": "m1"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp1_resuspended"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1_resuspended"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Placed in an end-over-end rotator at 37 °C for ~12 min until crypts were visible."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

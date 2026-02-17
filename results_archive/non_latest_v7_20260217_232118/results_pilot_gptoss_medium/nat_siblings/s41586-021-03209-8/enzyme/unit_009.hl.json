@@ -1,0 +1,191 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "CUT&Tag primary antibody incubation",
+    "source": {
+      "type": "paper",
+      "id": "s41586-021-03209-8"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Primary antibody (H3K27ac)"
+      },
+      {
+        "id": "m2",
+        "name": "dig‑wash buffer"
+      },
+      {
+        "id": "m3",
+        "name": "DMEM/F12‑based medium"
+      },
+      {
+        "id": "m4",
+        "name": "glutamax (1×)"
+      },
+      {
+        "id": "m5",
+        "name": "N2 supplement (1×)"
+      },
+      {
+        "id": "m6",
+        "name": "B27 supplement without vitamin A (1×)"
+      },
+      {
+        "id": "m7",
+        "name": "antibiotic–antimycotic (anti‑anti) (1×)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "microcentrifuge tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "overhead rotary shaker",
+        "description": "rotating at 90 rpm"
+      }
+    ],
+    "samples": [
+      {
+        "id": "primary_antibody",
+        "material_id": "m1",
+        "container_id": "c1"
+      },
+      {
+        "id": "dig_wash_buffer",
+        "material_id": "m2",
+        "container_id": "c1"
+      },
+      {
+        "id": "antibody_mix",
+        "container_id": "c1"
+      },
+      {
+        "id": "final_sample",
+        "container_id": "c1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "primary_antibody"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "dig_wash_buffer"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "primary_antibody"
+          },
+          {
+            "kind": "sample",
+            "id": "dig_wash_buffer"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "antibody_mix"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 100,
+            "unit": "µl"
+          }
+        },
+        "annotations": {
+          "note": "Primary antibody added at a dilution of 1:50 in dig‑wash buffer"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "antibody_mix"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Incubated overnight at 4 °C on an overhead rotary shaker rotating at 90 rpm"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "antibody_mix"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "final_sample"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Changed to DMEM/F12‑based medium containing 1× glutamax, 1× N2, 1× B27 without vitamin A and 1× antibiotic–antimycotic (anti‑anti)"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

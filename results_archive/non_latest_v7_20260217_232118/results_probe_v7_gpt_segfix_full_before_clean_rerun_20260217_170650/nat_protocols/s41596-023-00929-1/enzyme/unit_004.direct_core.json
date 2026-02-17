@@ -1,0 +1,380 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Immunostaining of cells",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00929-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "hbss_bsa_glucose",
+        "type": "reagent",
+        "name": "HBSS/BSA/glucose"
+      },
+      {
+        "id": "master_mix",
+        "type": "reagent",
+        "name": "master mix"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube1",
+        "type": "microcentrifuge_tube"
+      },
+      {
+        "id": "waste",
+        "type": "waste_container"
+      },
+      {
+        "id": "facs_tube",
+        "type": "FACS_tube"
+      },
+      {
+        "id": "filter70",
+        "type": "filter_70um"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge1",
+        "type": "centrifuge"
+      },
+      {
+        "id": "incubator_ice",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cells",
+        "type": "cell_sample",
+        "description": "cells after spin"
+      },
+      {
+        "id": "tube1",
+        "name": "tube1"
+      },
+      {
+        "id": "facs_tube",
+        "name": "facs_tube"
+      },
+      {
+        "id": "filter70",
+        "name": "filter70"
+      },
+      {
+        "id": "facs_data",
+        "name": "facs_data"
+      }
+    ],
+    "data": [
+      {
+        "id": "facs_data",
+        "type": "data"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tube1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "tube1",
+          "destination": "waste",
+          "description": "discard supernatant after spin",
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "reagent": "hbss_bsa_glucose",
+          "volume": "~200 µL",
+          "target": "tube1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "master_mix",
+          "destination": "tube1",
+          "description": "add master mix",
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator_ice",
+          "program": {
+            "program_name": "ice_15min"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "source": "hbss_bsa_glucose",
+          "destination": "tube1",
+          "description": "wash with HBSS/BSA/glucose",
+          "amount": {
+            "value": 5.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "target": "tube1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge1",
+          "program": {
+            "program_name": "5min_300g_4C"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "transfer",
+        "params": {
+          "source": "tube1",
+          "destination": "waste",
+          "description": "discard supernatant after wash",
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "annotate",
+        "params": {
+          "note": "If remaining supernatant <500 µL, add additional HBSS/BSA/glucose to reach 500 µL before resuspending"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "target": "tube1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s13",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "facs_tube"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s14",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "filter70"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s15",
+        "op": "transfer",
+        "params": {
+          "source": "tube1",
+          "through": "filter70",
+          "destination": "facs_tube",
+          "description": "dispense cells through filter into FACS tube",
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s16",
+        "op": "annotate",
+        "params": {
+          "note": "Seal the FACS tube and place on ice"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s17",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "FACS"
+          ],
+          "target": "facs_tube"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "facs_data"
+          }
+        ],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      },
+      {
+        "from": "s16",
+        "to": "s17"
+      }
+    ],
+    "detail_level": 0
+  }
+}

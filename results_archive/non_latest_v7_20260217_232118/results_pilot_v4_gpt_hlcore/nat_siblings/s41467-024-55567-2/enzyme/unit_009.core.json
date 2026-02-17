@@ -1,0 +1,127 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41467-024-55567-2",
+      "type": "paper"
+    },
+    "title": "EdU incorporation assay for proliferation"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "start_step_id": "s1",
+    "step_order": null,
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "sample1",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "sample1",
+            "kind": "sample"
+          },
+          {
+            "id": "edu_reagent",
+            "kind": "material"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "sample2",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "µM",
+            "value": 10
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "sample2",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "sample2",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "incubate 1 hour"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "culture_plate",
+        "name": "Culture dish"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "device_kind": "incubator",
+        "id": "incubator1"
+      }
+    ],
+    "materials": [
+      {
+        "id": "organoid_medium",
+        "name": "Organoid culture medium"
+      },
+      {
+        "id": "edu_reagent",
+        "name": "EdU (ethynyl-2’-deoxyuridine)",
+        "vendor": "Beyotime"
+      }
+    ],
+    "samples": [
+      {
+        "container": "culture_plate",
+        "id": "sample1",
+        "material": "organoid_medium"
+      },
+      {
+        "container": "culture_plate",
+        "id": "sample2",
+        "material": "organoid_medium + EdU"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

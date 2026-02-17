@@ -1,0 +1,197 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Organoid fixation and short‑term storage",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00880-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_pfa",
+        "type": "material",
+        "name": "4% PFA",
+        "description": "Cold 4% paraformaldehyde solution"
+      },
+      {
+        "id": "m_pbs",
+        "type": "material",
+        "name": "PBS",
+        "description": "Phosphate‑buffered saline"
+      },
+      {
+        "id": "m_parafilm",
+        "type": "material",
+        "name": "Parafilm",
+        "description": "Sealing film"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_plate",
+        "type": "container",
+        "name": "48‑well transwell plate",
+        "description": "Plate holding organoid cultures"
+      },
+      {
+        "id": "c_waste",
+        "type": "container",
+        "name": "PFA waste container",
+        "description": "Container for discarded PFA"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e_pipette",
+        "type": "equipment",
+        "name": "P1000 pipette",
+        "description": "Manual pipette for liquid handling"
+      },
+      {
+        "id": "e_incubator",
+        "type": "equipment",
+        "name": "Incubator",
+        "description": "Incubator set to 4 °C"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_organoid",
+        "type": "sample",
+        "name": "Organoids",
+        "description": "Organoid cultures in transwell wells"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source": "c_plate",
+          "destination": "c_waste",
+          "amount": {
+            "description": "medium (aspirated from base of transwell)"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "m_pfa",
+          "destination": "c_plate",
+          "amount": {
+            "description": "1.0 mL per well + one drop on top of each organoid"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "30 min at 4 °C"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "c_plate",
+          "destination": "c_waste",
+          "amount": {
+            "description": "1.0 mL per well (remove PFA with P1000 pipette)"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "note": "Wash three times with PBS, 10 min per wash, adding 1 mL PBS to the basolateral compartment and one drop on top of each organoid."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": "m_pbs",
+          "destination": "c_plate",
+          "amount": {
+            "description": "1.0 mL per well (final sterile PBS addition)"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "note": "Seal the plate with parafilm for short‑term storage."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "note": "For longer‑term storage, store the sealed plate at 4 °C for up to 1 year."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

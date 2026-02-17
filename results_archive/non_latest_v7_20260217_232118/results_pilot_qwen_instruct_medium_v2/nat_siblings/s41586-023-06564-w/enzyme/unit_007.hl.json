@@ -1,0 +1,227 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Differentiate hiPS cells into hCO aggregates",
+    "source": {
+      "type": "paper",
+      "id": "s41586-023-06564-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "type": "cell",
+        "name": "hiPS cells",
+        "quantity": {
+          "value": 3000000,
+          "unit": "cells"
+        }
+      },
+      {
+        "id": "m2",
+        "type": "medium",
+        "name": "Essential 8 medium"
+      },
+      {
+        "id": "m3",
+        "type": "chemical",
+        "name": "Y27632",
+        "concentration": {
+          "value": 10,
+          "unit": "µM"
+        }
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "plate",
+        "name": "AggreWell 800 plate",
+        "well_count": 800
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s1",
+        "name": "s1"
+      },
+      {
+        "id": "s2",
+        "name": "s2"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 3000000,
+            "unit": "cells"
+          },
+          "source": "m1",
+          "target": "c1"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "volume_unit"
+          },
+          "source": "m2",
+          "target": "c1"
+        },
+        "annotations": {
+          "note": "Volume of Essential 8 medium not specified in protocol"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 10,
+            "unit": "µM"
+          },
+          "source": "m3",
+          "target": "c1"
+        },
+        "annotations": {
+          "note": "Concentration of Y27632 added to medium; volume not specified"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "speed": {
+              "value": 100,
+              "unit": "g"
+            },
+            "duration": {
+              "value": 3,
+              "unit": "min"
+            }
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": {
+              "value": 37,
+              "unit": "°C"
+            },
+            "co2": {
+              "value": 5,
+              "unit": "%"
+            },
+            "duration": {
+              "value": 24,
+              "unit": "h"
+            }
+          }
+        },
+        "annotations": {
+          "note": "Incubation duration specified as 'overnight'; assumed 24 hours"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

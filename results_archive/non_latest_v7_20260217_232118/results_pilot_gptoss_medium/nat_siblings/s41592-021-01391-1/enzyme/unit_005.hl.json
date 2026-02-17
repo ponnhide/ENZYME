@@ -1,0 +1,239 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Time‑dependent quality assessment",
+    "source": {
+      "type": "paper",
+      "id": "s41592-021-01391-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "HEK 293T cells"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "DisCo loading chamber"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "DisCo system"
+      },
+      {
+        "id": "e2",
+        "name": "incubator (22 °C)"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cell_pool",
+        "name": "HEK 293T cell pool"
+      },
+      {
+        "id": "loaded_cells",
+        "name": "Cells loaded onto DisCo system"
+      },
+      {
+        "id": "sample_0_20",
+        "name": "Cells processed 0–20 min at 22 °C"
+      },
+      {
+        "id": "sample_20_40",
+        "name": "Cells processed 20–40 min at 22 °C"
+      },
+      {
+        "id": "sample_40_60",
+        "name": "Cells processed 40–60 min at 22 °C"
+      },
+      {
+        "id": "sample_120_ice",
+        "name": "Cells stored 120 min on ice"
+      },
+      {
+        "id": "sample_180_ice",
+        "name": "Cells stored 180 min on ice"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_pool"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_pool"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "loaded_cells"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Transfer cell_pool to loaded_cells (amount not specified)"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "loaded_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_0_20"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "22 °C for 20 min"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "loaded_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_20_40"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "22 °C for 20 min"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "loaded_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_40_60"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "22 °C for 20 min"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "loaded_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_120_ice"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Stored on ice for 120 min"
+        }
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "loaded_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_180_ice"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Stored on ice for 180 min"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s2",
+        "to": "s4"
+      },
+      {
+        "from": "s2",
+        "to": "s5"
+      },
+      {
+        "from": "s2",
+        "to": "s6"
+      },
+      {
+        "from": "s2",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

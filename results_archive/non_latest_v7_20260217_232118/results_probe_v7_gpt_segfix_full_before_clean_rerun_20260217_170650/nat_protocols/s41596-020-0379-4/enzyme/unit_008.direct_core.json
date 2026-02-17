@@ -1,0 +1,231 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Resuspend cells in BME/Matrigel and plate droplets",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-020-0379-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "BME (Matrigel)"
+      },
+      {
+        "id": "m2",
+        "name": "Organoid medium"
+      },
+      {
+        "id": "m3",
+        "name": "ROCK inhibitor (10 µM)"
+      },
+      {
+        "id": "m4",
+        "name": "Primocin (100 µg/ml)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "plate",
+        "name": "24-well suspension cell culture plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator",
+        "name": "Humidified incubator"
+      },
+      {
+        "id": "e2",
+        "type": "water_bath",
+        "name": "37 °C water bath"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sm1",
+        "name": "Cell pellet"
+      },
+      {
+        "id": "sm2",
+        "name": "Cells resuspended in BME"
+      },
+      {
+        "id": "sm3",
+        "name": "BME droplets with organoids in 24-well plate"
+      },
+      {
+        "id": "sm4",
+        "name": "Prepared organoid medium with ROCK inhibitor and Primocin"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sm1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "material_ref": "m1"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sm1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sm2"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source_ref": "sm2",
+          "destination_ref": "c1",
+          "amount": {
+            "description": "10.0 µl per drop, 3-4 drops per well"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sm2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sm3"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "solidify_20-30min",
+            "temperature": "37 °C",
+            "CO2": "5%",
+            "duration": "20-30 min"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sm3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sm3"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sm4"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "material_refs": [
+            "m2",
+            "m3",
+            "m4"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sm4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sm4"
+          }
+        ]
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "note": "Place prepared organoid medium in 37 °C water bath."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

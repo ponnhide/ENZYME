@@ -1,0 +1,117 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Replace medium with FGF9/heparin",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00880-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "fgf9",
+        "type": "protein",
+        "name": "FGF9"
+      },
+      {
+        "id": "heparin",
+        "type": "glycosaminoglycan",
+        "name": "heparin"
+      },
+      {
+        "id": "e6_medium",
+        "type": "medium",
+        "name": "E6 medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "culture_plate",
+        "type": "plate",
+        "name": "culture plate"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "new_medium"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "new_medium"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "additives": [
+            "FGF9 200 ng/mL",
+            "heparin 1 µg/mL"
+          ]
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "new_medium"
+          }
+        ],
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "new_medium"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "new_medium",
+          "destination": "culture_plate",
+          "description": "replace old medium",
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          }
+        },
+        "outputs": [],
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "new_medium"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

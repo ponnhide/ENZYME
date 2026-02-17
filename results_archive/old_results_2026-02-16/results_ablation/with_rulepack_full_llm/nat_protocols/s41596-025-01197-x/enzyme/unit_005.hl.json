@@ -1,0 +1,268 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "SNR isolation (Steps 39‑43)",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01197-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "amplification_medium",
+        "name": "amplification medium with EGF (10 ng/mL) and FGF2 (10 ng/mL)"
+      },
+      {
+        "id": "glass_pasteur_pipette",
+        "name": "glass Pasteur pipette"
+      },
+      {
+        "id": "p200_filtered_pipette",
+        "name": "P200 filtered pipette"
+      },
+      {
+        "id": "glass_hook",
+        "name": "glass hook"
+      }
+    ],
+    "containers": [
+      {
+        "id": "ultra_plate",
+        "type": "ultralow attachment 96-well plate"
+      },
+      {
+        "id": "isolation_plate",
+        "type": "96-well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "device_kind": "incubator",
+        "name": "incubator"
+      },
+      {
+        "id": "bunsen_burner",
+        "device_kind": "bunsen_burner",
+        "name": "Bunsen burner"
+      },
+      {
+        "id": "stereoscope",
+        "device_kind": "microscope",
+        "name": "stereoscope"
+      },
+      {
+        "id": "orbital_shaker",
+        "device_kind": "shaker",
+        "name": "orbital shaker (45 rpm)"
+      },
+      {
+        "id": "p200_filtered_pipette_eq",
+        "device_kind": "pipette",
+        "name": "P200 filtered pipette"
+      }
+    ],
+    "samples": [
+      {
+        "id": "SNRs",
+        "type": "SNR",
+        "description": "large SNRs (>200 μm) with single lumen"
+      },
+      {
+        "id": "filled_plate",
+        "type": "plate",
+        "description": "ultralow attachment plate filled with medium"
+      },
+      {
+        "id": "isolated_SNRs",
+        "type": "SNR",
+        "description": "isolated SNRs after separation"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "ultra_plate"
+          }
+        ],
+        "params": {
+          "container_type": "ultralow attachment 96-well plate"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "amplification_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "ultra_plate"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 300,
+            "unit": "μL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "ultra_plate"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Place the plate in the incubator."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "glass_pasteur_pipette"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "glass_hook"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Prepare a glass hook from a glass Pasteur pipette using a Bunsen burner. Not reused."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "SNRs"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "modality": "visual",
+          "features": "large SNRs >200 μm diameter with single lumen"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "SNRs"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "isolated_SNRs"
+          }
+        ],
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "annotations": {
+          "note": "Using glass hook, carefully separate SNRs from adjacent tissue and gently detach each from bottom of dish."
+        }
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "isolated_SNRs"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "isolation_plate"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Transfer one SNR per well using a P200 filtered pipette."
+        }
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "isolation_plate"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Keep plates on an orbital shaker (45 rpm) in the incubator for 14–15 d."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

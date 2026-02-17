@@ -1,0 +1,307 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-023-00814-x.pdf",
+      "type": "paper"
+    },
+    "title": "Prepare Matrigel‑coated 24‑well plate and seed iPSCs"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5a"
+      },
+      {
+        "from": "s5a",
+        "to": "s5b"
+      },
+      {
+        "from": "s5b",
+        "to": "s6"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "plate_empty",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "Place sterile glass coverslips onto the bottom of each well (prepare at least six wells)."
+        },
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "plate_empty",
+            "kind": "sample"
+          },
+          {
+            "id": "coverslips",
+            "kind": "material"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "plate_with_coverslips",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "place"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "matrigel_solution",
+            "kind": "material"
+          },
+          {
+            "id": "plate_with_coverslips",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "plate_with_matrigel",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "per_well": true,
+            "unit": "µl",
+            "value": 300,
+            "wells": 6
+          }
+        }
+      },
+      {
+        "annotations": {
+          "lowered_from": "incubate"
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "plate_with_matrigel",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "plate_coated",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator",
+          "program": {
+            "program_name": null
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "Aspirate the Matrigel solution from each well."
+        },
+        "id": "s5a",
+        "inputs": [
+          {
+            "id": "plate_coated",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "plate_aspirated",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "aspirate"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s5b",
+        "inputs": [
+          {
+            "id": "mtesr1_medium",
+            "kind": "material"
+          },
+          {
+            "id": "rock_inhibitor",
+            "kind": "material"
+          },
+          {
+            "id": "plate_aspirated",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "plate_ready",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "per_well": true,
+            "unit": "µl",
+            "value": 500,
+            "wells": 6
+          },
+          "supplement": {
+            "rock_inhibitor_concentration": {
+              "unit": "µM",
+              "value": 10
+            }
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "iPSC_suspension",
+            "kind": "sample"
+          },
+          {
+            "id": "plate_ready",
+            "kind": "sample"
+          },
+          {
+            "id": "serological_pipette",
+            "kind": "material"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "seeded_plate",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "per_well": true,
+            "unit": "ml",
+            "value": 1,
+            "wells": 6
+          },
+          "method": "one drop per well using serological pipette"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "plate_24well",
+        "name": "Sterile 24‑well plate"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "id": "incubator",
+        "name": "Incubator"
+      }
+    ],
+    "materials": [
+      {
+        "id": "matrigel_solution",
+        "name": "Matrigel/DMEM/F12 solution"
+      },
+      {
+        "id": "mtesr1_medium",
+        "name": "mTESR1 medium"
+      },
+      {
+        "id": "rock_inhibitor",
+        "name": "Rock inhibitor (Y-27632 2HCl)"
+      },
+      {
+        "id": "coverslips",
+        "name": "Sterile glass coverslips (12 mm diameter)"
+      },
+      {
+        "id": "iPSC_suspension",
+        "name": "Human iPSC suspension"
+      },
+      {
+        "id": "serological_pipette",
+        "name": "1 ml serological pipette"
+      }
+    ],
+    "samples": [
+      {
+        "id": "plate_empty",
+        "name": "Empty 24‑well plate"
+      },
+      {
+        "id": "plate_with_coverslips",
+        "name": "Plate with coverslips"
+      },
+      {
+        "id": "plate_with_matrigel",
+        "name": "Plate with Matrigel solution"
+      },
+      {
+        "id": "plate_coated",
+        "name": "Matrigel‑coated plate (post‑incubation)"
+      },
+      {
+        "id": "plate_aspirated",
+        "name": "Plate after Matrigel aspiration"
+      },
+      {
+        "id": "plate_ready",
+        "name": "Plate with mTESR1 + Rock inhibitor"
+      },
+      {
+        "id": "seeded_plate",
+        "name": "Plate seeded with iPSCs"
+      },
+      {
+        "id": "iPSC_suspension",
+        "name": "iPSC_suspension"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

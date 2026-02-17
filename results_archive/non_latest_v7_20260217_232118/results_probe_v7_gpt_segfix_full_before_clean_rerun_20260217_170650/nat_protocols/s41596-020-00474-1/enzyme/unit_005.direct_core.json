@@ -1,0 +1,244 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Centrifugation and red blood cell lysis",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-020-00474-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "d_bsa",
+        "name": "D-BSA"
+      },
+      {
+        "id": "rbc_lysis_buffer",
+        "name": "red blood cell lysis buffer"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube_15ml",
+        "type": "tube",
+        "name": "15-ml Falcon tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge",
+        "type": "centrifuge"
+      },
+      {
+        "id": "vacuum_system",
+        "type": "vacuum_system"
+      }
+    ],
+    "samples": [
+      {
+        "id": "flow_through",
+        "name": "flow_through"
+      },
+      {
+        "id": "pellet",
+        "name": "pellet"
+      },
+      {
+        "id": "resuspended_pellet",
+        "name": "resuspended_pellet"
+      },
+      {
+        "id": "mixed_sample",
+        "name": "mixed_sample"
+      },
+      {
+        "id": "pellet2",
+        "name": "pellet2"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "description": "flow-through from steps 22-26"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "flow_through"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge",
+          "program": {
+            "program_name": "450g_5min_8C"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "flow_through"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "pellet"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "description": "Aspirate supernatant leaving 4 ml, resuspend pellet in 4 ml and transfer to pre‑wetted 15‑ml Falcon tube"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "pellet"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "resuspended_pellet"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "description": "Add 10 ml D‑BSA and homogenize by pipetting up and down"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "resuspended_pellet"
+          },
+          {
+            "kind": "material",
+            "id": "d_bsa"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "mixed_sample"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge",
+          "program": {
+            "program_name": "450g_5min_8C"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "mixed_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "pellet2"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Aspirate supernatant carefully with vacuum system until 1 ml remains"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "note": "Let tube rest for 1 min to allow D‑BSA to settle"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "note": "Remove residual D‑BSA with P1000 pipette"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "params": {
+          "note": "(Optional) If pellet partially red, add 1–2 ml red blood cell lysis buffer, resuspend, incubate 2 min at RT"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

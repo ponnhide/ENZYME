@@ -1,0 +1,155 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Colony genotyping PCR (abstract, non-operational)",
+    "source": {
+      "type": "paper_pdf",
+      "id": "colony_genotyping_pcr_abstract.txt"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "colony morphology"
+          ]
+        },
+        "outputs": [
+          "colony_candidate"
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "action_kind": "pick_colony"
+        },
+        "inputs": [
+          "colony_candidate"
+        ],
+        "outputs": [
+          "colony_template"
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [
+          "colony_template"
+        ],
+        "outputs": [
+          "crude_template"
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          "pcr_reaction_mix"
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [
+          "pcr_reaction_mix",
+          "crude_template"
+        ],
+        "outputs": [
+          "pcr_mix_with_template"
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "thermocycler",
+          "program": {
+            "profile_name": "genotype_assay_profile"
+          }
+        },
+        "inputs": [
+          "pcr_mix_with_template"
+        ],
+        "outputs": [
+          "amplicons"
+        ]
+      },
+      {
+        "id": "s7",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "amplicon_signal_pattern"
+          ]
+        },
+        "inputs": [
+          "amplicons"
+        ],
+        "outputs": [
+          "detection_data"
+        ]
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "note": "Compare observed signal patterns against expected assay signatures. Record genotype call and mark uncertain outcomes for confirmatory follow-up."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ]
+  }
+}

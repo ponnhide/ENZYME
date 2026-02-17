@@ -1,0 +1,212 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Fix iPSC colonies",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00814-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "DMEM/F12",
+        "description": "prewarmed in a 37 °C warm water bath"
+      },
+      {
+        "id": "m2",
+        "name": "PFA",
+        "description": "prewarmed in a 37 °C warm water bath"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "well_plate",
+        "description": "culture plate containing iPSC colonies"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator",
+        "description": "room temperature incubation"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s1",
+        "type": "cell_culture",
+        "description": "iPSC colonies/patches (200–500 µm diameter)"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "note": "Aspirate the medium from the plate."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": {
+            "id": "m1"
+          },
+          "destination": {
+            "id": "c1"
+          },
+          "description": "Add prewarmed DMEM/F12 to each well.",
+          "amount": {
+            "value": 500.0,
+            "unit": "µl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "note": "Aspirate the DMEM/F12 from the plate."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "params": {
+          "source": {
+            "id": "m2"
+          },
+          "destination": {
+            "id": "c1"
+          },
+          "description": "Add prewarmed PFA to each well without detaching the cells.",
+          "amount": {
+            "value": 500.0,
+            "unit": "µl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "RT 10 min"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

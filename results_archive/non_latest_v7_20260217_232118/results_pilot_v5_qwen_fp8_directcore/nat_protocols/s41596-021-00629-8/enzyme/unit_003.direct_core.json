@@ -1,0 +1,114 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Centrifuge and resuspend hPSCs in E8 + Y27632",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00629-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "DMEM/F12"
+      },
+      {
+        "id": "m2",
+        "name": "E8 + 10 μM Y27632"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "15 mL conical tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "centrifuge"
+      }
+    ],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "inputs": [],
+        "outputs": [],
+        "resources": [
+          {
+            "id": "m1",
+            "volume": "3 mL"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": [],
+        "resources": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "centrifuge_300g_3min_4C"
+          }
+        },
+        "inputs": [],
+        "outputs": [],
+        "resources": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [],
+        "outputs": [],
+        "resources": [
+          {
+            "id": "m2",
+            "volume": "1 mL"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

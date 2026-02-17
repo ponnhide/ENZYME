@@ -1,0 +1,161 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "DSS chemical injury protocol",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "DSS (MP Biomedicals)"
+      },
+      {
+        "id": "m2",
+        "name": "organoid media (without EGF or Nicotinamide)"
+      },
+      {
+        "id": "m3",
+        "name": "Advanced DMEM/F12"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "organoid well plate"
+      },
+      {
+        "id": "c2",
+        "name": "tube for DSS solution"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "name": "organoids"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source_material": "m1",
+          "destination_container": "c2",
+          "description": "Dissolve DSS in organoid media (without EGF or Nicotinamide)"
+        },
+        "annotations": [
+          {
+            "key": "amount",
+            "value": "unspecified"
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source_container": "c2",
+          "destination_container": "c1",
+          "sample": "samp1",
+          "description": "Add DSS solution to organoid wells"
+        },
+        "annotations": [
+          {
+            "key": "amount",
+            "value": "unspecified"
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": "overnight incubation"
+        },
+        "annotations": [
+          {
+            "key": "duration",
+            "value": "16 h"
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "rinse"
+        },
+        "annotations": [
+          {
+            "key": "wash_times",
+            "value": "2"
+          },
+          {
+            "key": "wash_solution",
+            "value": "m3"
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source_material": "m2",
+          "destination_container": "c1",
+          "description": "Replace with organoid media"
+        },
+        "annotations": [
+          {
+            "key": "amount",
+            "value": "unspecified"
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

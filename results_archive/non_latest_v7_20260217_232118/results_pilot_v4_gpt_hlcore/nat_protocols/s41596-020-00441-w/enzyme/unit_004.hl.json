@@ -1,0 +1,105 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Plate cells at defined density with Y‑27632",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-00441-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "cells",
+        "type": "cell_line",
+        "name": "cells"
+      },
+      {
+        "id": "mTeSR1",
+        "type": "media",
+        "name": "mTeSR1"
+      },
+      {
+        "id": "Y-27632",
+        "type": "chemical",
+        "name": "Y-27632"
+      },
+      {
+        "id": "matrigel_plate",
+        "type": "plate",
+        "name": "Matrigel-coated 24-well plate"
+      }
+    ],
+    "containers": [
+      {
+        "id": "well_plate",
+        "type": "plate",
+        "name": "24-well plate",
+        "properties": {
+          "coating": "Matrigel",
+          "format": "24-well"
+        }
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "cell_suspension",
+        "type": "sample",
+        "material_id": "cells",
+        "description": "cells resuspended in mTeSR1 with 10 μM Y-27632"
+      },
+      {
+        "id": "plated_cells",
+        "name": "plated_cells"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plated_cells"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 100000,
+            "unit": "cells"
+          },
+          "volume": {
+            "value": 500,
+            "unit": "μl"
+          },
+          "container_ref": "well_plate",
+          "well_pattern": "multiple wells (at least two independent wells per condition)"
+        },
+        "annotations": {
+          "density_range": "100,000–150,000 cells per well",
+          "Y-27632_concentration": "10 μM",
+          "purpose": "Generate anterior and posterior gut spheroids simultaneously"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s1"
+      }
+    ],
+    "detail_level": 0
+  }
+}

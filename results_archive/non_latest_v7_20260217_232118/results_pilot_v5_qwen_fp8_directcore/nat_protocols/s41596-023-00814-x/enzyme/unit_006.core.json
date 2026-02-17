@@ -1,0 +1,641 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Procedure",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00814-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "PBS",
+        "type": "buffer"
+      },
+      {
+        "id": "m2",
+        "name": "Accutase",
+        "type": "enzymatic_dissociation_reagent"
+      },
+      {
+        "id": "m3",
+        "name": "DNase I",
+        "type": "enzyme",
+        "concentration": "0.2 U/µl"
+      },
+      {
+        "id": "m4",
+        "name": "DMEM/F12",
+        "type": "culture_medium"
+      },
+      {
+        "id": "m5",
+        "name": "OVB organoid medium",
+        "type": "culture_medium"
+      },
+      {
+        "id": "m6",
+        "name": "Trypan-blue",
+        "type": "viability_stain"
+      },
+      {
+        "id": "m7",
+        "name": "primer mixture",
+        "type": "oligonucleotide",
+        "description": "contains Illumina R1 sequence, 16 bp 10× barcode, 12 bp UMI, poly-dT"
+      },
+      {
+        "id": "m8",
+        "name": "master mix",
+        "type": "pcr_mix"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "centrifuge_tube",
+        "volume": "15 ml"
+      },
+      {
+        "id": "c2",
+        "type": "pipette_tip",
+        "volume": "1000 µl",
+        "modified": "cut"
+      },
+      {
+        "id": "c3",
+        "type": "pipette_tip",
+        "volume": "200 µl"
+      },
+      {
+        "id": "c4",
+        "type": "pipette_tip",
+        "volume": "1000 µl",
+        "modified": "uncut"
+      },
+      {
+        "id": "c5",
+        "type": "strainer",
+        "pore_size": "70 µm"
+      },
+      {
+        "id": "c6",
+        "type": "microcentrifuge_tube",
+        "volume": "1 ml"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "water_bath",
+        "temperature": "37 °C"
+      },
+      {
+        "id": "e2",
+        "type": "centrifuge"
+      },
+      {
+        "id": "e3",
+        "type": "biosafety_hood"
+      }
+    ],
+    "samples": [
+      {
+        "id": "smp1",
+        "name": "OVB organoids",
+        "source": "day 30 or day 60",
+        "quantity": "up to three"
+      },
+      {
+        "id": "c1",
+        "name": "c1"
+      },
+      {
+        "id": "c6",
+        "name": "c6"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "action_kind": "transfer",
+          "source": "smp1",
+          "destination": "c1",
+          "tool": "c2",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "action_kind": "aspirate",
+          "source": "c1",
+          "destination": "waste",
+          "tool": "c3",
+          "amount": {
+            "value": 15.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "action_kind": "transfer",
+          "source": "m1",
+          "destination": "c1",
+          "tool": "c3",
+          "amount": {
+            "value": 3.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "action_kind": "aspirate",
+          "source": "c1",
+          "destination": "waste",
+          "tool": "c3",
+          "amount": {
+            "value": 3.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "action_kind": "transfer",
+          "source": "m2",
+          "destination": "c1",
+          "tool": "c3",
+          "amount": {
+            "value": 2.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "action_kind": "transfer",
+          "source": "m3",
+          "destination": "c1",
+          "tool": "c3",
+          "amount": {
+            "value": 0.1,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "37 °C water bath incubation",
+            "duration": "15 min"
+          },
+          "device_ref": "e1"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "container": "c1",
+          "tool": "c4"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "organoid_integrity"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "37 °C water bath incubation",
+            "duration": "15 min"
+          },
+          "device_ref": "e1"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "container": "c1",
+          "tool": "c4"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "37 °C water bath incubation",
+            "duration": "15 min"
+          },
+          "device_ref": "e1"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s13",
+        "op": "transfer",
+        "params": {
+          "action_kind": "transfer",
+          "source": "m4",
+          "destination": "c1",
+          "tool": "c3",
+          "amount": {
+            "value": 8.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s14",
+        "op": "transfer",
+        "params": {
+          "action_kind": "filter",
+          "source": "c1",
+          "destination": "c1",
+          "tool": "c5",
+          "amount": {
+            "value": 15.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s15",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "500g for 5 min at RT"
+          },
+          "device_ref": "e2"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s16",
+        "op": "transfer",
+        "params": {
+          "action_kind": "aspirate",
+          "source": "c1",
+          "destination": "waste",
+          "tool": "c3",
+          "amount": {
+            "value": 15.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s17",
+        "op": "transfer",
+        "params": {
+          "action_kind": "resuspend",
+          "source": "c1",
+          "destination": "c6",
+          "medium": "m5",
+          "tool": "c3",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s18",
+        "op": "transfer",
+        "params": {
+          "action_kind": "transfer",
+          "source": "m6",
+          "destination": "c6",
+          "tool": "c3",
+          "amount": {
+            "value": 0.1,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s19",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "cell_viability"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c6"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s20",
+        "op": "annotate",
+        "params": {
+          "note": "Cell viability should be 65–95% to continue; scRNA-seq library construction using Chromium Single Cell 3′ Reagent Kits v3 targeting 2,000–3,000 cells per sample."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s21",
+        "op": "transfer",
+        "params": {
+          "action_kind": "transfer",
+          "source": "m7",
+          "destination": "c6",
+          "tool": "c3",
+          "amount": {
+            "value": 0.5,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s22",
+        "op": "transfer",
+        "params": {
+          "action_kind": "transfer",
+          "source": "m8",
+          "destination": "c6",
+          "tool": "c3",
+          "amount": {
+            "value": 0.5,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s23",
+        "op": "run_device",
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "program": {
+            "program_name": "GEM generation and cDNA synthesis"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c6"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s24",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "dislodge_cells",
+          "container": "c6",
+          "tool": "c3"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s25",
+        "op": "transfer",
+        "params": {
+          "action_kind": "purify",
+          "source": "c6",
+          "destination": "c6",
+          "method": "silane_magnetic_beads",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s26",
+        "op": "run_device",
+        "params": {
+          "device_kind": "thermocycler",
+          "program": {
+            "profile_name": "PCR amplification of barcoded cDNA"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c6"
+          }
+        ],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      },
+      {
+        "from": "s16",
+        "to": "s17"
+      },
+      {
+        "from": "s17",
+        "to": "s18"
+      },
+      {
+        "from": "s18",
+        "to": "s19"
+      },
+      {
+        "from": "s19",
+        "to": "s20"
+      },
+      {
+        "from": "s20",
+        "to": "s21"
+      },
+      {
+        "from": "s21",
+        "to": "s22"
+      },
+      {
+        "from": "s22",
+        "to": "s23"
+      },
+      {
+        "from": "s23",
+        "to": "s24"
+      },
+      {
+        "from": "s24",
+        "to": "s25"
+      },
+      {
+        "from": "s25",
+        "to": "s26"
+      }
+    ],
+    "detail_level": 0
+  }
+}

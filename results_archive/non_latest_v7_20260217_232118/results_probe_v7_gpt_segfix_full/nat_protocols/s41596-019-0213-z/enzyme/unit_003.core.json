@@ -1,0 +1,186 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Centrifugation and Y‑27632 treatment",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-019-0213-z.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "agg_medium_y27632",
+        "type": "liquid"
+      }
+    ],
+    "containers": [
+      {
+        "id": "well",
+        "type": "well"
+      },
+      {
+        "id": "waste",
+        "type": "waste_container"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge",
+        "type": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cells",
+        "type": "cell_culture"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "agg_medium_y27632"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "well"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "waste"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "equipment"
+        },
+        "outputs": [
+          {
+            "kind": "equipment",
+            "id": "centrifuge"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge",
+          "program": {
+            "program_name": "300g_5min_22-23C"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "source_ref": "well",
+          "destination_ref": "waste",
+          "description": "aspirate medium after centrifugation",
+          "amount": "unspecified"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "target_ref": "cells",
+          "reagent_ref": "agg_medium_y27632",
+          "volume_per_well": "3 mL",
+          "description": "Resuspend cells in fresh aggregation medium containing 50 μM Y-27632"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

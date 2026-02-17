@@ -1,0 +1,153 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Organoid dissociation and re‑embedding for passaging",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-024-55567-2.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "TrypLE",
+        "source": "Gibco"
+      },
+      {
+        "id": "m2",
+        "name": "BME",
+        "source": "unspecified"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "48-well plate"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "smp1",
+        "name": "organoid culture"
+      },
+      {
+        "id": "smp2",
+        "name": "single cell suspension"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "description": "organoid culture"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "description": "48-well plate for re‑embedding"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source_ref": "m1",
+          "target_ref": "smp1",
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "target_ref": "smp1",
+          "description": "dissociate organoids into single cells with TrypLE"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp2"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source_ref": "m2",
+          "target_ref": "c1",
+          "amount": "20.0 μL per well"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "target_ref": "c1",
+          "description": "embed ~8000 single cells per well in BME"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "EDTA digestion for crypt release",
+    "source": {
+      "type": "paper",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "tissue",
+        "name": "tissue"
+      },
+      {
+        "id": "tissue_in_edta",
+        "name": "tissue_in_edta"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tissue"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tissue_in_edta"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend",
+          "solution": "2.5 mM EDTA in PBS",
+          "volume": "25 mL"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tissue_in_edta"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tissue_in_edta"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "end-over-end rotation at 37 °C"
+        },
+        "annotations": {
+          "duration": "around 12 min",
+          "endpoint": "crypts were visible"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

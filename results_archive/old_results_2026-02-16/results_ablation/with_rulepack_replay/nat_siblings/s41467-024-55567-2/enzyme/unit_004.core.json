@@ -1,0 +1,245 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41467-024-55567-2.pdf",
+      "type": "paper"
+    },
+    "title": "EdU proliferation assay"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "organoid_culture",
+            "kind": "sample"
+          },
+          {
+            "id": "edu_reagent",
+            "kind": "material"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "medium_with_EdU",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "µM",
+            "value": 10
+          }
+        }
+      },
+      {
+        "annotations": {
+          "lowered_from": "incubate"
+        },
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "medium_with_EdU",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "incubated_organoids",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": null
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "Organoids were then collected"
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "incubated_organoids",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "collected_organoids",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "Organoids were fixed"
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "collected_organoids",
+            "kind": "sample"
+          },
+          {
+            "id": "fixative",
+            "kind": "material"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "fixed_organoids",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "Organoids were permeabilized"
+        },
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "fixed_organoids",
+            "kind": "sample"
+          },
+          {
+            "id": "permeabilization_solution",
+            "kind": "material"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "permeabilized_organoids",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "EdU detection was performed according to the manufacturer’s instructions"
+        },
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "permeabilized_organoids",
+            "kind": "sample"
+          },
+          {
+            "id": "edu_detection_kit",
+            "kind": "material"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "edu_detected_sample",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      }
+    ]
+  },
+  "resources": {
+    "containers": [],
+    "data": [],
+    "equipment": [
+      {
+        "id": "incubator",
+        "name": "Incubator"
+      }
+    ],
+    "materials": [
+      {
+        "id": "organoid_culture_medium",
+        "name": "Organoid culture medium"
+      },
+      {
+        "id": "edu_reagent",
+        "name": "EdU (Beyotime)"
+      },
+      {
+        "id": "fixative",
+        "name": "Fixative (manufacturer unspecified)"
+      },
+      {
+        "id": "permeabilization_solution",
+        "name": "Permeabilization solution (manufacturer unspecified)"
+      },
+      {
+        "id": "edu_detection_kit",
+        "name": "EdU detection kit (manufacturer unspecified)"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoid_culture",
+        "name": "Organoid culture"
+      },
+      {
+        "id": "medium_with_EdU",
+        "name": "Culture medium supplemented with EdU"
+      },
+      {
+        "id": "incubated_organoids",
+        "name": "Organoids after 1 hour EdU incubation"
+      },
+      {
+        "id": "collected_organoids",
+        "name": "Collected organoids"
+      },
+      {
+        "id": "fixed_organoids",
+        "name": "Fixed organoids"
+      },
+      {
+        "id": "permeabilized_organoids",
+        "name": "Permeabilized organoids"
+      },
+      {
+        "id": "edu_detected_sample",
+        "name": "Organoids after EdU detection"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

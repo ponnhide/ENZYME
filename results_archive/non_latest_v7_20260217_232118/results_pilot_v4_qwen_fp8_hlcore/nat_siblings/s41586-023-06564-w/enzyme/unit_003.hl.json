@@ -1,0 +1,119 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Select transfected colonies with puromycin",
+    "source": {
+      "type": "paper",
+      "id": "s41586-023-06564-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "puromycin",
+        "concentration": "1 µg ml⁻¹",
+        "medium": "StemFlex medium",
+        "supplier": "Life Technologies",
+        "catalogue_no": "A3349401"
+      }
+    ],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s1",
+        "name": "s1"
+      },
+      {
+        "id": "s2",
+        "name": "s2"
+      },
+      {
+        "id": "s3",
+        "name": "s3"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "µg/ml"
+          },
+          "to": "StemFlex medium"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "5 days"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "modality": "visual",
+          "features": [
+            "colonies visible"
+          ]
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

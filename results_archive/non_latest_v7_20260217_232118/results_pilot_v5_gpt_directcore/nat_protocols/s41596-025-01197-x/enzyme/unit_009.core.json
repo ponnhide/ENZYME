@@ -1,0 +1,460 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Dissociation of 1‑month‑old organoids for scRNA‑seq (Option A)",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01197-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "PBS",
+        "type": "reagent"
+      },
+      {
+        "id": "papain_DNase_mix",
+        "type": "reagent"
+      },
+      {
+        "id": "trypsin_inhibitor",
+        "type": "reagent"
+      },
+      {
+        "id": "PBS_BSA",
+        "type": "reagent"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube1",
+        "type": "microcentrifuge_tube"
+      },
+      {
+        "id": "dish1",
+        "type": "petri_dish"
+      },
+      {
+        "id": "strainer1",
+        "type": "cell_strainer"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge1",
+        "type": "centrifuge"
+      },
+      {
+        "id": "incubator1",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoid_sample",
+        "type": "sample"
+      },
+      {
+        "id": "cell_suspension",
+        "type": "sample"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "tube1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "dish1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "strainer1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "organoid_sample",
+          "destination": "tube1",
+          "note": "using P200 tip cut to avoid damage",
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": "PBS",
+          "destination": "tube1",
+          "note": "rinse organoids once",
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "source": "tube1",
+          "destination": "waste",
+          "note": "remove PBS without collecting organoids",
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "params": {
+          "source": "tube1",
+          "destination": "dish1",
+          "note": "transfer organoids to 6 cm dish",
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "params": {
+          "note": "chop organoids into small pieces with scalpel and collect pieces back into tube"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "transfer",
+        "params": {
+          "source": "dish1",
+          "destination": "tube1",
+          "note": "collect chopped pieces into tube",
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge1",
+          "program": {
+            "profile_name": "2min_1000rpm",
+            "program_name": "2min_1000rpm"
+          },
+          "note": "centrifuge 2 min at 1,000 rpm (300 g) at room temperature"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "transfer",
+        "params": {
+          "source": "tube1",
+          "destination": "waste",
+          "note": "discard supernatant",
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s13",
+        "op": "transfer",
+        "params": {
+          "source": "papain_DNase_mix",
+          "destination": "tube1",
+          "note": "add prewarmed papain with 5% DNase I",
+          "amount": {
+            "value": 500.0,
+            "unit": "µL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s14",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator1",
+          "program": {
+            "program_name": "37C_30min"
+          },
+          "note": "incubate at 37 °C for 30 min, gently tapping every 10 min"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s15",
+        "op": "transfer",
+        "params": {
+          "source": "tube1",
+          "destination": "waste",
+          "note": "discard papain solution",
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s16",
+        "op": "transfer",
+        "params": {
+          "source": "trypsin_inhibitor",
+          "destination": "tube1",
+          "note": "add trypsin inhibitor",
+          "amount": {
+            "value": 500.0,
+            "unit": "µL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s17",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator1",
+          "program": {
+            "program_name": "37C_10min"
+          },
+          "note": "incubate 10 min at 37 °C"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s18",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "target": "tube1",
+          "note": "dissociate organoids into single cells by repeated pipetting with P1000"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s19",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge1",
+          "program": {
+            "profile_name": "5min_1000rpm",
+            "program_name": "5min_1000rpm"
+          },
+          "note": "centrifuge 5 min at 1,000 rpm"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s20",
+        "op": "transfer",
+        "params": {
+          "source": "PBS_BSA",
+          "destination": "tube1",
+          "note": "resuspend cell pellet in sterile PBS containing 0.04% BSA",
+          "amount": {
+            "value": 300.0,
+            "unit": "µL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s21",
+        "op": "annotate",
+        "params": {
+          "note": "filter the suspension through a 40 µm cell strainer to obtain a single‑cell suspension"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s22",
+        "op": "annotate",
+        "params": {
+          "note": "keep samples on ice"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      },
+      {
+        "from": "s16",
+        "to": "s17"
+      },
+      {
+        "from": "s17",
+        "to": "s18"
+      },
+      {
+        "from": "s18",
+        "to": "s19"
+      },
+      {
+        "from": "s19",
+        "to": "s20"
+      },
+      {
+        "from": "s20",
+        "to": "s21"
+      },
+      {
+        "from": "s21",
+        "to": "s22"
+      }
+    ],
+    "detail_level": 0
+  }
+}

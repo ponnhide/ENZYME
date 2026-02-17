@@ -1,0 +1,198 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Select transduced cells by FACS",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-023-06564-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "material1",
+        "type": "accutase"
+      }
+    ],
+    "containers": [
+      {
+        "id": "container1",
+        "type": "tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "equipment1",
+        "type": "cell_sorter",
+        "name": "FACS sorter"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample1",
+        "type": "hiPS_cells",
+        "description": "CAG::Cas9;Dlxi1/2::eGFP hiPS cells"
+      },
+      {
+        "id": "material1",
+        "name": "material1"
+      },
+      {
+        "id": "container1",
+        "name": "container1"
+      },
+      {
+        "id": "data1",
+        "name": "data1"
+      }
+    ],
+    "data": [
+      {
+        "id": "data1",
+        "type": "flow_cytometry_results"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "material1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "container1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "material1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "container1"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "container1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "container1"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Select mCherry+ cells by FACS sorting using a cell sorter."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "GFP+ percentage"
+          ]
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "data1"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

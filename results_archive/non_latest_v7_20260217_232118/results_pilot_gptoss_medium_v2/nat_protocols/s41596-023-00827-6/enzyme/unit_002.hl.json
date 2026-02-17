@@ -1,0 +1,118 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Centrifuge to remove Matrigel",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00827-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "sample"
+      },
+      {
+        "id": "m2",
+        "name": "100% ethanol"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "microcentrifuge tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "centrifuge",
+        "device_kind": "centrifuge"
+      },
+      {
+        "id": "e2",
+        "name": "vortex mixer"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp0",
+        "name": "sample before centrifugation"
+      },
+      {
+        "id": "samp1",
+        "name": "supernatant after centrifugation"
+      },
+      {
+        "id": "samp2",
+        "name": "supernatant mixed with ethanol"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp0"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "speed": "16000g",
+            "duration": "5 min",
+            "temperature": "4 °C"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "note": "Mix supernatant with equal amount of 100% ethanol and vortex thoroughly."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

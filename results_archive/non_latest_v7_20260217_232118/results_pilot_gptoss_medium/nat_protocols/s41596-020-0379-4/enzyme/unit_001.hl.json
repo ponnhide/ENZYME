@@ -1,0 +1,163 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Collect primary tissue",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-0379-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "primary human tissue pieces"
+      },
+      {
+        "id": "m2",
+        "name": "adDMEM/F12+++ medium"
+      },
+      {
+        "id": "m3",
+        "name": "ROCK inhibitor",
+        "description": "10 µM"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "50‑ml conical tube",
+        "capacity": {
+          "value": 50,
+          "unit": "ml"
+        }
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s_tissue",
+        "material": "m1",
+        "container": "c1"
+      },
+      {
+        "id": "s_medium",
+        "material": "m2",
+        "container": "c1",
+        "amount": {
+          "value": 45,
+          "unit": "ml"
+        },
+        "temperature": {
+          "value": 0,
+          "unit": "°C",
+          "note": "ice‑cold"
+        }
+      },
+      {
+        "id": "s_combined",
+        "material": "m1",
+        "container": "c1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_tissue"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_medium"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 45,
+            "unit": "ml"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_tissue"
+          },
+          {
+            "kind": "sample",
+            "id": "s_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_combined"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "note": "Optional: add 10 µM ROCK inhibitor to the medium to increase cell survival."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_combined"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_combined"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Keep tissue samples in this medium at 4 °C until the start of the isolation."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

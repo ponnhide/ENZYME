@@ -1,0 +1,167 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Differentiation to Paneth cells",
+    "source": {
+      "type": "paper",
+      "id": "s41467-024-55567-2.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "EGF"
+      },
+      {
+        "id": "m2",
+        "name": "IGF‑I"
+      },
+      {
+        "id": "m3",
+        "name": "FGF‑2"
+      },
+      {
+        "id": "m4",
+        "name": "DMH1"
+      },
+      {
+        "id": "m5",
+        "name": "R‑spondin1 conditioned medium"
+      },
+      {
+        "id": "m6",
+        "name": "Gastrin I"
+      },
+      {
+        "id": "m7",
+        "name": "A83‑01"
+      },
+      {
+        "id": "m8",
+        "name": "CHIR"
+      },
+      {
+        "id": "m9",
+        "name": "DAPT"
+      },
+      {
+        "id": "m10",
+        "name": "pVc"
+      },
+      {
+        "id": "m11",
+        "name": "IL‑22"
+      },
+      {
+        "id": "m12",
+        "name": "Paneth cell differentiation media"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "culture vessel (e.g., organoid plate)"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_org1",
+        "name": "organoid culture"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_org1"
+          }
+        ],
+        "params": {
+          "container_ref": "c1"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_org1"
+          },
+          {
+            "kind": "material",
+            "id": "m12"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_org1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "full media change",
+            "unit": null
+          }
+        },
+        "annotations": {
+          "note": "Media was changed directly to Paneth cell differentiation media containing: EGF (50 ng/mL), IGF‑I (100 ng/mL), FGF‑2 (50 ng/mL), DMH1 (2 μM), R‑spondin1 CM (10%), Gastrin I (10 nM), A83‑01 (0.5 μM), CHIR (4 μM), DAPT (10 μM), pVc (100 μg/mL) and IL‑22 (2 ng/mL)."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_org1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_org1"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "culture 3 days",
+          "duration": {
+            "value": 3,
+            "unit": "day"
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

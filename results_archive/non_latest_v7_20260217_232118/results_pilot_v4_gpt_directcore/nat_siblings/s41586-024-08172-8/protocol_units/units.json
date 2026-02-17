@@ -1,0 +1,165 @@
+{
+  "units": [
+    {
+      "title": "Dataset curation",
+      "text": "We curated all neural organoid datasets used in this study through the sfaira78 framework (GitHub dev branch, 18 April 2023).",
+      "rationale": "Describes the initial collection of datasets.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 125,
+        "word_count": 20,
+        "sentence_count": 1,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Metadata harmonization",
+      "text": "We harmonized metadata according to the sfaira standards (https://sfaira.readthedocs.io/en/latest/adding_datasets.html) and manually curated an extra metadata column organoid_age_days, which described the number of days the organoid had been in culture before collection.",
+      "rationale": "Standardizes metadata for downstream analysis.",
+      "detected_categories": [
+        {
+          "id": "purification_cleanup",
+          "hits": 1,
+          "confidence": 0.167,
+          "matched_patterns": [
+            "column"
+          ]
+        }
+      ],
+      "split_audit": {
+        "char_count": 271,
+        "word_count": 38,
+        "sentence_count": 1,
+        "category_count": 1,
+        "flags": []
+      }
+    },
+    {
+      "title": "Removal of non‑applicable subsets",
+      "text": "We next removed any non-applicable subsets of the published datasets: diseased samples or samples expressing disease-associated mutations (refs. 14–16,18,19,26), fused organoids (ref. 1), primary fetal data (refs. 10,23), hormone-treated samples (ref. 22), data collected before neural induction (refs. 3,20) and share-seq data (ref. 23).",
+      "rationale": "Filters out data that could confound the analysis.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 338,
+        "word_count": 54,
+        "sentence_count": 8,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Cell‑type hierarchy construction",
+      "text": "We constructed a hierarchy of cell types including progenitor, neuron and non-neural types, each defined by a set of marker genes (Supplementary Data 1).",
+      "rationale": "Creates a reference framework for annotation.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 153,
+        "word_count": 25,
+        "sentence_count": 1,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "RSS‑based expression profiling",
+      "text": "We represented the data by the RSS3 to average expression profiles of cell clusters in the recently published human developing brain cell atlas27.",
+      "rationale": "Maps organoid data onto a reference atlas.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 146,
+        "word_count": 23,
+        "sentence_count": 1,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "kNN graph and Leiden clustering",
+      "text": "We then constructed a kNN graph (k = 30) in the RSS space and clustered the dataset using the Leiden algorithm83 (resolution 80).",
+      "rationale": "Performs unsupervised clustering of cells.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 129,
+        "word_count": 22,
+        "sentence_count": 1,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Gene‑count filtering",
+      "text": "We removed any cells with fewer than 200 genes expressed.",
+      "rationale": "Excludes low‑quality cells.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 57,
+        "word_count": 10,
+        "sentence_count": 1,
+        "category_count": 0,
+        "flags": [
+          "UNIT_TOO_SHORT_CHARS",
+          "UNIT_TOO_SHORT_WORDS",
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Outlier removal based on QC metrics",
+      "text": "We removed outlier cells in terms of two quality control metrics: number of expressed genes and percentage mitochondrial counts.",
+      "rationale": "Further cleans the dataset by QC thresholds.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 128,
+        "word_count": 19,
+        "sentence_count": 2,
+        "category_count": 0,
+        "flags": [
+          "UNIT_TOO_SHORT_WORDS",
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Log‑normalization of counts",
+      "text": "We next generated a log-normalized expression matrix by first dividing the counts for each cell by the total counts in that cell and multiplying by a factor of 1,000,000 before taking the natural log of each count + 1.",
+      "rationale": "Prepares data for downstream statistical analysis.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 218,
+        "word_count": 41,
+        "sentence_count": 1,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Selection of highly variable genes",
+      "text": "We computed 3,000 highly variable features in a batch-aware manner using the scanpy highly_variable_genes function (flavor = ‘seurat_v3’, batch_key = ‘bio_sample’).",
+      "rationale": "Identifies informative genes for dimensionality reduction.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 164,
+        "word_count": 21,
+        "sentence_count": 1,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    }
+  ],
+  "created_at": "2026-02-16T12:26:32.505260+00:00"
+}

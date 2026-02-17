@@ -1,0 +1,123 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Cell input quantification and processing",
+    "source": {
+      "type": "paper",
+      "id": "s41592-021-01391-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "impedance_counter",
+        "type": "cell_counter",
+        "description": "Impedance‑based cell counter used for quantification"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cells_input",
+        "type": "cell_line",
+        "description": "HEK 293T cells (input range 74–170 cells)"
+      },
+      {
+        "id": "cells_processed",
+        "type": "cell_line",
+        "description": "HEK 293T cells after DisCo processing"
+      }
+    ],
+    "data": [
+      {
+        "id": "impedance_data",
+        "type": "measurement",
+        "description": "Impedance measurement of input cell numbers"
+      },
+      {
+        "id": "sequencing_data",
+        "type": "sequencing",
+        "description": "Sequencing results after quality filtering (>500 UMIs)"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_input"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "impedance_data"
+          }
+        ],
+        "params": {
+          "device_kind": "cell_counter",
+          "program": "impedance measurement"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_input"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_processed"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "All cells were processed with DisCo (device not specified in canonical vocabulary)."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_processed"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "sequencing_data"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Cells were sequenced and quality filtered to retain reads with >500 UMIs."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

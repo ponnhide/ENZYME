@@ -1,0 +1,182 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Plate gut cell suspensions for spheroid formation",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-020-00441-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Anterior gut cell suspension"
+      },
+      {
+        "id": "m2",
+        "name": "Posterior gut cell suspension"
+      },
+      {
+        "id": "m3",
+        "name": "Day 7 medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "96-well round-bottom ultra-low attachment plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_anterior",
+        "name": "sample_anterior"
+      },
+      {
+        "id": "sample_posterior",
+        "name": "sample_posterior"
+      },
+      {
+        "id": "plate",
+        "name": "plate"
+      },
+      {
+        "id": "incubated_plate",
+        "name": "incubated_plate"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "material_ref": "m1"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_anterior"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "material_ref": "m2"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_posterior"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "container_type": "96-well round-bottom ultra-low attachment plate"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source_ref": "sample_anterior",
+          "destination_ref": "plate",
+          "cell_density": "10,000 cells per well",
+          "well_pattern": "anterior wells",
+          "amount": {
+            "value": 100.0,
+            "unit": "μl"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source_ref": "sample_posterior",
+          "destination_ref": "plate",
+          "cell_density": "10,000 cells per well",
+          "well_pattern": "posterior wells",
+          "amount": {
+            "value": 100.0,
+            "unit": "μl"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "overnight incubation at 37°C"
+          },
+          "target_ref": "plate"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "incubated_plate"
+          }
+        ],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Peptide fractionation using high-pH reversed-phase chromatography",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-020-19142-9.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "ammonium formate",
+        "concentration": "200 mM",
+        "pH": 10
+      },
+      {
+        "id": "m2",
+        "name": "acetonitrile"
+      },
+      {
+        "id": "m3",
+        "name": "formic acid",
+        "concentration": "10%"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "STAGE-tip",
+        "material": "C18"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "vacuum centrifuge"
+      }
+    ],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source": "sample",
+          "destination": "c1",
+          "conditions": "loaded in 200 mM ammonium formate at pH 10",
+          "amount": {
+            "value": "unknown",
+            "unit": null
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "params": {
+          "text": "unmapped action_kind in source: elute"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "vacuum drying"
+          },
+          "device_ref": "e1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "sample",
+          "destination": "sample",
+          "conditions": "reconstituted in 10% formic acid",
+          "amount": {
+            "value": "unknown",
+            "unit": null
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

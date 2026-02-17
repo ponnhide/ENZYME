@@ -1,0 +1,186 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Secondary antibody and DAPI staining",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00827-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "PBS"
+      },
+      {
+        "id": "m2",
+        "name": "donkey serum"
+      },
+      {
+        "id": "m3",
+        "name": "secondary antibody"
+      },
+      {
+        "id": "m4",
+        "name": "DAPI"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "sample container"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "name": "sample"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "target": "samp1",
+        "params": {
+          "action_kind": "rinse"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "target": "samp1",
+        "annotations": [
+          {
+            "key": "solution",
+            "value": "PBS with 1% donkey serum"
+          },
+          {
+            "key": "repeat",
+            "value": "3 times"
+          }
+        ],
+        "params": {},
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "source": "m3",
+        "destination": "samp1",
+        "params": {
+          "amount": {
+            "value": "unspecified",
+            "unit": ""
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "target": "samp1",
+        "annotations": [
+          {
+            "key": "dilution",
+            "value": "1:200"
+          },
+          {
+            "key": "incubation_time",
+            "value": "1 h"
+          },
+          {
+            "key": "temperature",
+            "value": "room temperature"
+          }
+        ],
+        "params": {},
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "device": "e1",
+        "params": {
+          "device_kind": "incubator",
+          "program": "room temperature 1 h"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "source": "m4",
+        "destination": "samp1",
+        "params": {
+          "amount": {
+            "value": "unspecified",
+            "unit": ""
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "target": "samp1",
+        "annotations": [
+          {
+            "key": "dilution",
+            "value": "1:500"
+          }
+        ],
+        "params": {},
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

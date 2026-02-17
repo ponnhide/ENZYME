@@ -1,0 +1,274 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Dispense organoids into 384‑well screening plates",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-0379-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "milliq_water",
+        "name": "MilliQ water"
+      },
+      {
+        "id": "ethanol_70",
+        "name": "70 % (vol/vol) ethanol solution"
+      },
+      {
+        "id": "pbs",
+        "name": "PBS"
+      },
+      {
+        "id": "adDMEM_F12",
+        "name": "ice‑cold adDMEM/F12+++"
+      },
+      {
+        "id": "organoid_suspension",
+        "name": "organoid suspension"
+      }
+    ],
+    "containers": [
+      {
+        "id": "conical_50ml",
+        "name": "50‑ml conical tube"
+      },
+      {
+        "id": "falcon_tube",
+        "name": "Falcon tube"
+      },
+      {
+        "id": "plate_384",
+        "name": "black/clear‑bottom ultra‑low attachment 384‑well cell culture plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "dispenser",
+        "name": "Thermo dispenser system"
+      }
+    ],
+    "samples": [
+      {
+        "id": "tubing",
+        "name": "dispenser tubing"
+      },
+      {
+        "id": "organoid_sample",
+        "name": "organoid suspension sample",
+        "source_material": "organoid_suspension"
+      },
+      {
+        "id": "plate",
+        "name": "384‑well plate",
+        "container_ref": "plate_384"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Calibrate tubing before usage according to manufacturer’s instructions; at least every 3 months, check before each screen."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tubing"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tubing"
+          }
+        ],
+        "params": {
+          "action_kind": "rinse"
+        },
+        "annotations": {
+          "solution": "MilliQ water"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tubing"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tubing"
+          }
+        ],
+        "params": {
+          "action_kind": "rinse"
+        },
+        "annotations": {
+          "solution": "70 % (vol/vol) ethanol solution"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tubing"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tubing"
+          }
+        ],
+        "params": {
+          "action_kind": "rinse"
+        },
+        "annotations": {
+          "solution": "PBS (first wash)"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tubing"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tubing"
+          }
+        ],
+        "params": {
+          "action_kind": "rinse"
+        },
+        "annotations": {
+          "solution": "PBS (second wash)",
+          "source_container": "clean 50‑ml conical tube"
+        }
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tubing"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tubing"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "action": "Flush tubing at least once with ice‑cold adDMEM/F12+++ medium"
+        }
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "action": "Invert Falcon tubes with organoid suspension to ensure homogeneous distribution"
+        }
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 40,
+            "unit": "µl"
+          }
+        },
+        "annotations": {
+          "device": "Thermo dispenser system",
+          "program": "Dispense organoid solution into 384‑well plate (black/clear‑bottom ultra‑low attachment), 40 µl per well",
+          "critical": "Start program as quickly as possible after priming to avoid organoid settling"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

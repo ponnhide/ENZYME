@@ -1,0 +1,124 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "S phase cell labeling",
+    "source": {
+      "type": "paper",
+      "id": "s41596-021-00603-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "127IdU_stock",
+        "name": "127IdU_stock"
+      },
+      {
+        "id": "medium_with_127IdU",
+        "name": "medium_with_127IdU"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "127IdU_stock"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "medium_with_127IdU"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 10,
+            "unit": "µl"
+          },
+          "source": "127IdU_stock",
+          "destination": "medium_with_127IdU"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "medium_with_127IdU"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "medium_with_127IdU"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently",
+          "repetitions": 5,
+          "duration": {
+            "value": 10,
+            "unit": "s"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "medium_with_127IdU"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "medium_with_127IdU"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": {
+              "value": 37,
+              "unit": "°C"
+            },
+            "co2": 5,
+            "duration": {
+              "value": 25,
+              "unit": "min"
+            }
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

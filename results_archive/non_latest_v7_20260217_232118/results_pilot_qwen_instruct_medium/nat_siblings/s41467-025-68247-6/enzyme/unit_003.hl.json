@@ -1,0 +1,214 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Crypt filtration and centrifugation",
+    "source": {
+      "type": "paper",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "digestion_solution",
+        "name": "digestion_solution"
+      },
+      {
+        "id": "digestion_solution_topup",
+        "name": "digestion_solution_topup"
+      },
+      {
+        "id": "filtered_digestion",
+        "name": "filtered_digestion"
+      },
+      {
+        "id": "pellet",
+        "name": "pellet"
+      },
+      {
+        "id": "resuspended_pellet",
+        "name": "resuspended_pellet"
+      },
+      {
+        "id": "filtered_resuspension",
+        "name": "filtered_resuspension"
+      },
+      {
+        "id": "final_pellet",
+        "name": "final_pellet"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "digestion_solution"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "digestion_solution_topup"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 20,
+            "unit": "mL"
+          }
+        },
+        "annotations": {
+          "material": "DMEM++",
+          "note": "topped up with 20 mL of DMEM++"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "digestion_solution_topup"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "filtered_digestion"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: filter"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "filtered_digestion"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "pellet"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "speed": "500 × g",
+            "temperature": "4 °C",
+            "duration": "3 min"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "pellet"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "resuspended_pellet"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend",
+          "volume": "10 mL"
+        },
+        "annotations": {
+          "material": "PBS+++"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "resuspended_pellet"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "filtered_resuspension"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: filter"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "filtered_resuspension"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "final_pellet"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "speed": "500 × g",
+            "temperature": "4 °C",
+            "duration": "3 min"
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

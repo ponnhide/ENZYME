@@ -1,0 +1,250 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Single‑cell RNA‑seq library preparation",
+    "source": {
+      "type": "paper",
+      "id": "s41467-024-55567-2"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "TrypLE (Gibco)",
+        "type": "reagent"
+      },
+      {
+        "id": "m2",
+        "name": "40 µm cell strainer (Falcon)",
+        "type": "consumable"
+      },
+      {
+        "id": "m3",
+        "name": "10x Genomics Chromium 3’ Gene Expression solution v3.1",
+        "type": "kit"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "Incubator",
+        "type": "incubator"
+      },
+      {
+        "id": "e2",
+        "name": "Countstar cell counter",
+        "type": "cell_counter"
+      },
+      {
+        "id": "e3",
+        "name": "10x Genomics Chromium instrument",
+        "type": "dna_delivery_device"
+      },
+      {
+        "id": "e4",
+        "name": "NovaSeq6000 (Illumina)",
+        "type": "sequencer"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_organoid",
+        "name": "Organoids"
+      },
+      {
+        "id": "s_digestion",
+        "name": "Organoid digestion mixture"
+      },
+      {
+        "id": "s_suspension",
+        "name": "Single‑cell suspension"
+      },
+      {
+        "id": "s_library",
+        "name": "Single‑cell RNA‑seq library"
+      }
+    ],
+    "data": [
+      {
+        "id": "d_qc",
+        "name": "Cell count QC data"
+      },
+      {
+        "id": "d_seq",
+        "name": "Sequencing data"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid"
+          },
+          {
+            "kind": "material",
+            "id": "m1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_digestion"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_digestion"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_suspension"
+          }
+        ],
+        "params": {
+          "temperature": {
+            "value": 37,
+            "unit": "C"
+          },
+          "duration": {
+            "value": 10,
+            "unit": "minute"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_suspension"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_suspension"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Pass suspension through a 40 µm cell strainer (Falcon) to remove any remaining cell aggregates"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_suspension"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_suspension"
+          },
+          {
+            "kind": "data",
+            "id": "d_qc"
+          }
+        ],
+        "params": {
+          "device_kind": "cell_counter",
+          "device_ref": "e2",
+          "program": "count"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_suspension"
+          },
+          {
+            "kind": "material",
+            "id": "m3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_library"
+          }
+        ],
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "device_ref": "e3",
+          "program": "Chromium 3' Gene Expression v3.1"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_library"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d_seq"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Sequenced on a NovaSeq6000 (Illumina)"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

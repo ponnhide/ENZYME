@@ -1,0 +1,148 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Embedding crypts in Matrigel droplets",
+    "source": {
+      "type": "paper",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Crypts"
+      },
+      {
+        "id": "m2",
+        "name": "Matrigel (Corning)"
+      },
+      {
+        "id": "m3",
+        "name": "Organoid growth media"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "Droplet"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "Incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_crypts",
+        "name": "Crypts"
+      },
+      {
+        "id": "s_embedded",
+        "name": "Crypts in Matrigel droplets"
+      },
+      {
+        "id": "s_fed",
+        "name": "Fed crypts in Matrigel droplets"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_crypts"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_embedded"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "30-50 crypts per droplet"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_embedded"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_embedded"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "solidify",
+          "duration": {
+            "value": 30,
+            "unit": "min"
+          },
+          "temperature": {
+            "value": 37,
+            "unit": "°C"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_embedded"
+          },
+          {
+            "kind": "material",
+            "id": "m3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_fed"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Add organoid growth media (volume not specified)"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

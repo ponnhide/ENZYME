@@ -1,0 +1,147 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Preparation of FN‑silk/LN‑111 mixture",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-021-27464-5.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "pfa",
+        "type": "material",
+        "name": "paraformaldehyde",
+        "description": "4% solution"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube_mix",
+        "type": "tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "inc1",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "mix1",
+        "type": "sample",
+        "name": "FN-silk/LN-111 mixture"
+      },
+      {
+        "id": "org1",
+        "type": "sample",
+        "name": "organoid"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "mix1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "org1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "description": "final concentration 10 μg ml−1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "incubate_unknown"
+          },
+          "device_ref": "inc1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5_annotate",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer of paraformaldehyde to organoid sample; amount unspecified"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "fix_5h_4C"
+          },
+          "device_ref": "inc1"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5_annotate"
+      },
+      {
+        "from": "s5_annotate",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

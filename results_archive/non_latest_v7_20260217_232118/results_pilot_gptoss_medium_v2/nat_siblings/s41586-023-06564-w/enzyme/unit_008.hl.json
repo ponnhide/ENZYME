@@ -1,0 +1,168 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Selection of puromycin‑resistant CAG::Cas9 hiPS colonies",
+    "source": {
+      "type": "paper",
+      "id": "s41586-023-06564-w"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "puromycin",
+        "name": "Puromycin",
+        "source": {
+          "type": "unknown",
+          "id": ""
+        }
+      },
+      {
+        "id": "stemflex_medium",
+        "name": "StemFlex medium",
+        "source": {
+          "type": "catalog",
+          "id": "A3349401"
+        }
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "incubator",
+        "device_kind": "incubator",
+        "name": "Incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cells",
+        "type": "cell_culture",
+        "description": "Seeded hiPS cells at 70–80% confluency"
+      },
+      {
+        "id": "selection_medium",
+        "type": "culture_medium",
+        "description": "StemFlex medium supplemented with puromycin 1 µg/mL"
+      },
+      {
+        "id": "selected_cells",
+        "type": "cell_culture",
+        "description": "Cells cultured in puromycin‑supplemented medium for selection"
+      }
+    ],
+    "data": [
+      {
+        "id": "colony_observation",
+        "type": "observation",
+        "description": "Visible colonies after 5 days of puromycin selection"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Once the seeded cells reached 70–80% confluency"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "puromycin"
+          },
+          {
+            "kind": "material",
+            "id": "stemflex_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "selection_medium"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "µg/mL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          },
+          {
+            "kind": "sample",
+            "id": "selection_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "selected_cells"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "5 days"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "selected_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "colony_observation"
+          }
+        ],
+        "params": {
+          "modality": "visual",
+          "features": [
+            "colonies"
+          ]
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

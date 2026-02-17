@@ -1,0 +1,234 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "10x single‑cell library preparation",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-019-1654-9.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "mat_cells",
+        "name": "cells"
+      },
+      {
+        "id": "mat_rt_mix",
+        "name": "reverse transcription mix"
+      },
+      {
+        "id": "mat_gel_beads",
+        "name": "gel beads"
+      },
+      {
+        "id": "mat_oil",
+        "name": "oil"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "chip_device",
+        "type": "dna_delivery_device"
+      },
+      {
+        "id": "thermocycler1",
+        "type": "thermocycler"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cell_sample",
+        "material_ref": "mat_cells"
+      },
+      {
+        "id": "rt_mix_sample",
+        "material_ref": "mat_rt_mix"
+      },
+      {
+        "id": "beads_sample",
+        "material_ref": "mat_gel_beads"
+      },
+      {
+        "id": "oil_sample",
+        "material_ref": "mat_oil"
+      },
+      {
+        "id": "mixed_sample"
+      },
+      {
+        "id": "droplets_sample"
+      },
+      {
+        "id": "cdna_sample"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_sample"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "rt_mix_sample"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "beads_sample"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "oil_sample"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "mixed_sample"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "text": "Transfer beads_sample to chip_device (amount unspecified)"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "text": "Transfer oil_sample to chip_device (amount unspecified)"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "device_ref": "chip_device",
+          "program": {
+            "program_name": "coencapsulation"
+          }
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "droplets_sample"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "params": {
+          "device_kind": "thermocycler",
+          "device_ref": "thermocycler1",
+          "program": {
+            "profile_name": "first_strand_cDNA_synthesis"
+          }
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cdna_sample"
+          }
+        ],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

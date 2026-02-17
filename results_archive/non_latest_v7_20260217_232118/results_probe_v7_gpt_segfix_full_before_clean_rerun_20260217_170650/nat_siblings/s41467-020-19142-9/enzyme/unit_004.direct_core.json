@@ -1,0 +1,184 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Organoid harvest and cell recovery",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-020-19142-9.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Cell Recovery Solution",
+        "source": "Roche Diagnostics"
+      },
+      {
+        "id": "m2",
+        "name": "PBS"
+      },
+      {
+        "id": "m3",
+        "name": "Medium"
+      },
+      {
+        "id": "m4",
+        "name": "Paper towel"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_tube1",
+        "type": "microcentrifuge tube"
+      },
+      {
+        "id": "c2",
+        "type": "6-well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "centrifuge"
+      },
+      {
+        "id": "e2",
+        "type": "incubator"
+      }
+    ],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c_tube1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "method": "pipette",
+          "amount": {
+            "value": "unknown",
+            "unit": "unspecified"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "8min_500g_brakes_off"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4a",
+        "op": "transfer",
+        "params": {
+          "amount": {
+            "value": "unknown",
+            "unit": "unspecified"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4b",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e2",
+          "program": {
+            "program_name": "30min_on_ice"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "rinse",
+          "material": "m2",
+          "times": 3
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Removed PBS and quickly dried tube opening using a paper towel"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "note": "Snap frozen in dry ice and stored at -80 °C"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4a"
+      },
+      {
+        "from": "s4a",
+        "to": "s4b"
+      },
+      {
+        "from": "s4b",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

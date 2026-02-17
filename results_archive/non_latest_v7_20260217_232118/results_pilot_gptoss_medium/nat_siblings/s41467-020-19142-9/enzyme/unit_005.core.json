@@ -1,0 +1,130 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41467-020-19142-9.pdf",
+      "type": "paper"
+    },
+    "title": "Tumor biopsy digestion into single cells"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "s_biopsy",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "reagents": "collagenase II (1 mg/ml, Gibco, Thermo Fischer Scientific), hyaluronidase (10 µg/ml), LY27632 (10 µM)"
+        },
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "s_biopsy",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "s_mix",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "s_mix",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "s_digested",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "30 min at 37 °C with shaking"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "c1",
+        "type": "tube"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "description": "incubator with shaking capability",
+        "device_kind": "incubator",
+        "id": "e1"
+      }
+    ],
+    "materials": [
+      {
+        "details": "1 mg/ml, Gibco, Thermo Fischer Scientific",
+        "id": "m1",
+        "name": "collagenase II"
+      },
+      {
+        "details": "10 µg/ml",
+        "id": "m2",
+        "name": "hyaluronidase"
+      },
+      {
+        "details": "10 µM",
+        "id": "m3",
+        "name": "LY27632"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_biopsy",
+        "type": "tumor biopsy"
+      },
+      {
+        "id": "s_mix",
+        "type": "intermediate mixture"
+      },
+      {
+        "id": "s_digested",
+        "type": "single cell suspension"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

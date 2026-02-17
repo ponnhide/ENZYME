@@ -1,0 +1,351 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Embryoid body formation (steps 14‑27)",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00827-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "EB/PS medium",
+        "type": "medium"
+      },
+      {
+        "id": "m2",
+        "name": "hPSC maintenance medium",
+        "type": "medium"
+      },
+      {
+        "id": "m3",
+        "name": "trypsin/EDTA (cold 4 °C)",
+        "type": "enzyme_solution"
+      },
+      {
+        "id": "m4",
+        "name": "wash medium",
+        "type": "medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "dish",
+        "name": "Matrigel-coated dish"
+      },
+      {
+        "id": "c2",
+        "type": "conical_tube",
+        "volume_ml": 15,
+        "name": "15 ml conical tube"
+      },
+      {
+        "id": "c3",
+        "type": "six_well_ultralow_attachment_plate",
+        "name": "Six‑well ultralow‑attachment plate"
+      },
+      {
+        "id": "c_waste",
+        "type": "waste_container",
+        "name": "Waste container"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator",
+        "name": "Normoxic incubator"
+      },
+      {
+        "id": "e2",
+        "type": "incubator",
+        "name": "Hypoxic incubator"
+      },
+      {
+        "id": "e3",
+        "type": "centrifuge",
+        "name": "Centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_cell",
+        "type": "cell_suspension",
+        "name": "Dissociated hPSC cells"
+      },
+      {
+        "id": "s_dissoc",
+        "type": "cell_suspension",
+        "name": "Dissociated cells sample"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "params": {
+          "note": "Begin EB formation steps 14‑27"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source_ref": "c1",
+          "destination_ref": "c_waste",
+          "amount": {
+            "note": "volume not specified"
+          },
+          "description": "Remove hPSC maintenance medium from the Matrigel‑coated dish"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source_ref": "m3",
+          "destination_ref": "c1",
+          "amount": {
+            "volume_ml": 3
+          },
+          "description": "Add 3 ml cold (4 °C) trypsin/EDTA to the dish"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "normoxic_incubation_1-1.5min"
+          },
+          "duration_min": 1.5,
+          "description": "Incubate the dish for 1–1.5 min in a normoxic incubator"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source_ref": "c1",
+          "destination_ref": "c_waste",
+          "amount": {
+            "note": "volume not specified"
+          },
+          "description": "Aspirate the trypsin/EDTA solution"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source_ref": "m4",
+          "destination_ref": "c1",
+          "amount": {
+            "volume_ml": 10
+          },
+          "description": "Add 10 ml wash medium to neutralize the enzymes"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "target_ref": "c1",
+          "description": "Gently flush the cells off the dish by pipetting up and down using a 10 ml serological pipet"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "params": {
+          "source_ref": "c1",
+          "destination_ref": "c2",
+          "amount": {
+            "note": "volume not specified"
+          },
+          "description": "Transfer the cell mixture to a 15 ml conical tube"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "source_ref": "c2",
+          "description": "Create a sample representing the dissociated cells"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_dissoc"
+          }
+        ]
+      },
+      {
+        "id": "s10",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "e3",
+          "program": {
+            "program_name": "400g_4min"
+          },
+          "description": "Pellet the dissociated cells by centrifugation at 400 g for 4 min"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "transfer",
+        "params": {
+          "source_ref": "c2",
+          "destination_ref": "c_waste",
+          "amount": {
+            "note": "volume not specified"
+          },
+          "description": "Aspirate as much of the supernatant as possible"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "target_ref": "c2",
+          "description": "Resuspend the cells with 12.5 ml EB/PS medium"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s13",
+        "op": "transfer",
+        "params": {
+          "source_ref": "c2",
+          "destination_ref": "c3",
+          "amount": {
+            "volume_ml": 2
+          },
+          "description": "Distribute 2 ml per well of the cell mixture to a six‑well ultralow‑attachment plate"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s14",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "target_ref": "c3",
+          "description": "Gently rock the plate side‑to‑side a few times to ensure even distribution"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s15",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e2",
+          "program": {
+            "program_name": "hypoxic_12-16h"
+          },
+          "description": "Place the plate in a hypoxic incubator for 12–16 h to allow EB formation"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      }
+    ],
+    "detail_level": 0
+  }
+}

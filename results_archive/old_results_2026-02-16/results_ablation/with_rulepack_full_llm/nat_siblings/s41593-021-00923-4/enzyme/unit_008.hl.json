@@ -1,0 +1,220 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "MEA recordings",
+    "source": {
+      "type": "paper",
+      "id": "s41593-021-00923-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_platinum_harp",
+        "name": "platinum harp"
+      },
+      {
+        "id": "m_3d_mea",
+        "name": "3D MEA (Multi Channel Systems, MEA2100, 60–3DMEA200/12iR-Ti-gr, 60 electrodes, 200‑μm spacing)"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e_mea2100",
+        "name": "MEA2100 system",
+        "manufacturer": "Multi Channel Systems"
+      },
+      {
+        "id": "e_matlab",
+        "name": "Matlab",
+        "manufacturer": "MathWorks"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_ali_co1",
+        "type": "ALI-CO"
+      },
+      {
+        "id": "s_ali_co_on_mea",
+        "type": "ALI-CO mounted on MEA"
+      }
+    ],
+    "data": [
+      {
+        "id": "d_raw_recording",
+        "description": "Six‑minute spontaneous activity recording at 37 °C"
+      },
+      {
+        "id": "d_exported_matlab",
+        "description": "Raw recording exported to Matlab"
+      },
+      {
+        "id": "d_filtered",
+        "description": "Bandpass‑filtered signal (third‑order Butterworth, 600–8,000 Hz)"
+      },
+      {
+        "id": "d_spikes",
+        "description": "Detected spikes (threshold 3 SD, refractory 1.5 ms)"
+      },
+      {
+        "id": "d_sttc",
+        "description": "Spike‑time tiling coefficient (STTC) results (window 175 ms)"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_ali_co1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_ali_co_on_mea"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "ALI-COs were secured with a platinum harp onto 3D MEAs (Multi Channel Systems, MEA2100, 60–3DMEA200/12iR-Ti-gr, 60 electrodes, 200-μm spacing)."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_ali_co_on_mea"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d_raw_recording"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "device_ref": "e_mea2100",
+          "program": "spontaneous_recording_6min",
+          "duration": "6 min",
+          "temperature": "37 °C"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "data",
+            "id": "d_raw_recording"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d_exported_matlab"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Recordings were acquired and exported to Matlab (MathWorks) for analysis."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "data",
+            "id": "d_exported_matlab"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d_filtered"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "The raw signal was bandpass-filtered (third-order Butterworth, 600–8,000 Hz)."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "data",
+            "id": "d_filtered"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d_spikes"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Spikes detected using a threshold of 3 standard deviations above background noise with a 1.5‑ms refractory period."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "data",
+            "id": "d_spikes"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d_sttc"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Correlated activity between electrodes was analyzed using the spike‑time tiling coefficient (STTC) with a synchronicity window of 175 ms."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

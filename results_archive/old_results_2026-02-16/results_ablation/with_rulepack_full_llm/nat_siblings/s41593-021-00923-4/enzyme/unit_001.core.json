@@ -1,0 +1,387 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41593-021-00923-4.pdf",
+      "type": "paper"
+    },
+    "title": "Generation of cerebral organoids and ALI-COs"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "samp_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "material_id": "mat_cells"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "samp_organoid",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "container_id": "cont_plate"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "samp_cells",
+            "kind": "sample"
+          },
+          {
+            "id": "mat_microfilaments",
+            "kind": "material"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "samp_organoid",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "cells",
+            "value": 18000
+          },
+          "description": "Plate 18,000 hiPSC cells in the presence of poly(lactide-co-glycolide) copolymer microfilaments"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "samp_organoid",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "samp_organoid",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "standard cell culture conditions (37 °C, 5 % CO₂)"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Media changes performed at days 3, 5 and 7, then every 3–4 days"
+        },
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "samp_organoid",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "samp_organoid",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s6",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "mat_matrigel",
+            "kind": "material"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "Matrigel dilution ratio 1:50; exact volume not specified"
+        },
+        "id": "s7",
+        "inputs": [
+          {
+            "id": "mat_matrigel",
+            "kind": "material"
+          },
+          {
+            "id": "samp_organoid",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "samp_organoid",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "unspecified",
+            "value": "unspecified"
+          },
+          "description": "At 35 DIV add Matrigel diluted 1:50 to the organoid culture to promote polarized cortical plate formation"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s8",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "cont_insert",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "material_id": "mat_millicell"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Between 50 and 80 DIV, prepare 300‑µm thick ALI‑CO cultures on Millicell‑CM inserts for long‑term culture"
+        },
+        "id": "s9",
+        "inputs": [
+          {
+            "id": "samp_organoid",
+            "kind": "sample"
+          },
+          {
+            "id": "cont_insert",
+            "kind": "container"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "samp_ali_co",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s10",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "samp_slice_medium",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "description": "Slice medium composed of Neurobasal medium, 1× B27 supplement, 0.45 % glucose, Glutamax, and 1 % antibiotic–antimycotic"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Exact volume of slice medium per feed not specified"
+        },
+        "id": "s11",
+        "inputs": [
+          {
+            "id": "samp_slice_medium",
+            "kind": "sample"
+          },
+          {
+            "id": "samp_ali_co",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "samp_ali_co",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "unspecified",
+            "value": "unspecified"
+          },
+          "description": "Feed ALI‑CO cultures daily with slice medium"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "cont_plate",
+        "name": "culture plate",
+        "type": "well_plate"
+      },
+      {
+        "id": "cont_insert",
+        "name": "Millicell-CM insert",
+        "type": "insert"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "device_kind": "incubator",
+        "id": "eq_incubator",
+        "name": "cell culture incubator"
+      }
+    ],
+    "materials": [
+      {
+        "catalog": null,
+        "id": "mat_cells",
+        "name": "hiPSC cells",
+        "vendor": "unspecified"
+      },
+      {
+        "catalog": "08570",
+        "id": "mat_kit",
+        "name": "STEMdiff Cerebral Organoid kit",
+        "vendor": "StemCell Technologies"
+      },
+      {
+        "catalog": null,
+        "id": "mat_microfilaments",
+        "name": "poly(lactide-co-glycolide) copolymer microfilaments",
+        "vendor": "unspecified"
+      },
+      {
+        "catalog": "354234",
+        "id": "mat_matrigel",
+        "name": "Matrigel",
+        "vendor": "Corning"
+      },
+      {
+        "catalog": "PICM0RG50",
+        "id": "mat_millicell",
+        "name": "Millicell-CM insert",
+        "vendor": "Merck Millipore"
+      },
+      {
+        "catalog": "21103049",
+        "id": "mat_neurobasal",
+        "name": "Neurobasal medium",
+        "vendor": "ThermoFisher Scientific"
+      },
+      {
+        "catalog": "17504044",
+        "id": "mat_b27",
+        "name": "B27 supplement (1×)",
+        "vendor": "ThermoFisher Scientific"
+      },
+      {
+        "catalog": "G8769",
+        "id": "mat_glucose",
+        "name": "Glucose (0.45% w/v)",
+        "vendor": "Sigma-Aldrich"
+      },
+      {
+        "catalog": "35050038",
+        "id": "mat_glutamax",
+        "name": "Glutamax",
+        "vendor": "ThermoFisher Scientific"
+      },
+      {
+        "catalog": null,
+        "id": "mat_antibiotic",
+        "name": "Antibiotic–antimycotic (1%)",
+        "vendor": "unspecified"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp_cells",
+        "name": "hiPSC cell suspension"
+      },
+      {
+        "id": "samp_organoid",
+        "name": "cerebral organoid culture"
+      },
+      {
+        "id": "samp_ali_co",
+        "name": "ALI-CO culture on insert"
+      },
+      {
+        "id": "samp_slice_medium",
+        "name": "slice medium"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

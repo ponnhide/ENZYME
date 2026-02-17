@@ -1,0 +1,200 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Plating sorted cells",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00929-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "growth medium",
+        "description": "prewarmed (37 °C) growth medium"
+      },
+      {
+        "id": "m2",
+        "name": "1× PBS",
+        "description": "phosphate‑buffered saline"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "microcentrifuge tube"
+      },
+      {
+        "id": "c2",
+        "type": "well_plate",
+        "description": "collagen‑coated culture plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "centrifuge"
+      },
+      {
+        "id": "e2",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_cell_pellet",
+        "description": "sorted mural and/or endothelial cell pellet"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "spin_5min_300g_4C"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "c1",
+          "destination": "waste",
+          "action": "remove_supernatant",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "m1",
+          "destination": "c1",
+          "temperature": "37 °C",
+          "amount": {
+            "value": 500.0,
+            "unit": "µL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "c1",
+          "destination": "c2",
+          "note": "fill each well approx half volume",
+          "amount": {
+            "value": "desired amount",
+            "unit": null
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": "m1",
+          "destination": "c2",
+          "note": "total 1 mL per well",
+          "amount": {
+            "value": 500.0,
+            "unit": "µL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "source": "m2",
+          "destination": "c2",
+          "target": "empty wells",
+          "note": "prevent drying",
+          "amount": {
+            "value": 500.0,
+            "unit": "µL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e2",
+          "program": {
+            "program_name": "incubate_37C"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

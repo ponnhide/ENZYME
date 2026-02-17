@@ -1,0 +1,126 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Add day‑0 medium",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-020-00441-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "day 0 medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "24-well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample1",
+        "name": "sample1"
+      },
+      {
+        "id": "c1_filled",
+        "name": "c1_filled"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "material": "m1",
+          "volume": "0.5 ml"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "sample1",
+          "destination": "c1",
+          "amount": {
+            "value": 0.5,
+            "unit": "ml"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1_filled"
+          }
+        ]
+      },
+      {
+        "id": "s2a",
+        "op": "annotate",
+        "params": {
+          "text": "0.5 ml per well"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": "5% CO₂ at 37 °C overnight",
+          "device_ref": "e1"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1_filled"
+          }
+        ],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s2a"
+      },
+      {
+        "from": "s2a",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

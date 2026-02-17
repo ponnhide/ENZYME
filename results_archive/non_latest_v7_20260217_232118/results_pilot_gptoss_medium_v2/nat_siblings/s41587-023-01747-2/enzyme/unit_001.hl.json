@@ -1,0 +1,129 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Sample placement on 96-well superstructure",
+    "source": {
+      "type": "paper",
+      "id": "s41587-023-01747-2"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "tissue sections"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "96-well format coverslip"
+      },
+      {
+        "id": "c2",
+        "name": "96-well superstructure"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "device_kind": "imager",
+        "name": "microscope"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample1",
+        "name": "tissue sections",
+        "material_ref": "m1"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "type": "image",
+        "generated_by": "s3"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "description": "sections were placed on a 96-well format coverslip"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "description": "coverslip was subsequently attached to a 96-well superstructure allowing immunohistological treatment"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d1"
+          }
+        ],
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "image"
+          ],
+          "device_kind": "imager"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "description": "antibody elution performed after imaging"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

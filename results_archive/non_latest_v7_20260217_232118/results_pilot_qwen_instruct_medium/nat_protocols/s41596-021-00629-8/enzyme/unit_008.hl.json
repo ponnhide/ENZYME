@@ -1,0 +1,119 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Centrifuge 96-well plate to form aggregates",
+    "source": {
+      "type": "paper",
+      "id": "s41596-021-00629-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [
+      {
+        "id": "plate",
+        "name": "plate",
+        "type": "generic_container"
+      }
+    ],
+    "equipment": [],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "plate"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "speed": "300g",
+            "temperature": "4 °C",
+            "duration": "3 min"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "plate"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "critical_note": "Ensure that, after centrifugation, the hPSCs form a round cell pellet at the culture plate bottom as shown in Fig. 4a."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "plate"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: place_into_incubator"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "plate"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "critical_note": "Place the plate into the incubator very carefully, and do not move it for at least 24 h to ensure that one round aggregate will form per well overnight."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

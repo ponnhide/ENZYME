@@ -1,0 +1,202 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Throughput measurement at different cell concentrations",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41592-021-01391-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "tube"
+      },
+      {
+        "id": "c2",
+        "type": "tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "eq1",
+        "type": "cell_counter"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "container_ref": "c1"
+      },
+      {
+        "id": "samp2",
+        "container_ref": "c2"
+      },
+      {
+        "id": "data1",
+        "name": "data1"
+      },
+      {
+        "id": "data2",
+        "name": "data2"
+      }
+    ],
+    "data": [
+      {
+        "id": "data1"
+      },
+      {
+        "id": "data2"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "data"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "data1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "data"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "data2"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "processing_speed"
+          ],
+          "device_ref": "eq1"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "data1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "note": "200 cells per hour at 2 cells/μl"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "processing_speed"
+          ],
+          "device_ref": "eq1"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "data2"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "note": "350 cells per hour at 20 cells/μl"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

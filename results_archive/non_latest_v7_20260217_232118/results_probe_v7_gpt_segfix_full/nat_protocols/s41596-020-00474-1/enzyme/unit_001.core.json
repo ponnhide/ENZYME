@@ -1,0 +1,202 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Tissue collection and initial handling",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-020-00474-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "D-BSA"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "falcon_tube_50ml"
+      },
+      {
+        "id": "c2",
+        "type": "glass_petri_dish_10cm"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "microscope"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample1",
+        "description": "tissue sample (<3–4 cm3)"
+      },
+      {
+        "id": "c1",
+        "name": "c1"
+      },
+      {
+        "id": "c2",
+        "name": "c2"
+      },
+      {
+        "id": "data1",
+        "name": "data1"
+      }
+    ],
+    "data": [
+      {
+        "id": "data1",
+        "type": "image"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c2"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "sample1",
+          "destination": "c1",
+          "amount": {
+            "value": "3-4",
+            "unit": "cm3"
+          },
+          "description": "Transfer tissue sample (<3–4 cm3) into Falcon tube filled with D-BSA. Keep on ice."
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "params": {
+          "note": "Register the new sample in the corresponding lab management system."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "note": "(Optional) Generate labels for collecting pieces of tissue for different purposes (DNA, RNA, protein and/or histology)."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": "c1",
+          "destination": "c2",
+          "amount": {
+            "description": "tissue"
+          },
+          "description": "Decant tissue from Falcon tube into 10-cm glass Petri dish."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "observe",
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "image"
+          ],
+          "description": "Take a microscopic picture of the tissue, including a ruler."
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "data1"
+          }
+        ]
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "note": "Make a note of how the tissue looks (size, fatty, vascularized, necrotic, etc)."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

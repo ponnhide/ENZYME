@@ -1,0 +1,171 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Protocol",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00814-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "type": "cell_line",
+        "name": "IMR90-1",
+        "source": "WiCell Research Institute, USA",
+        "rrid": "CVCL_C434"
+      },
+      {
+        "id": "m2",
+        "type": "cell_line",
+        "name": "Crx-iPS",
+        "source": "Olivier Goureau laboratory"
+      },
+      {
+        "id": "m3",
+        "type": "cell_line",
+        "name": "F13535.1",
+        "source": "Celeste Karch laboratory"
+      },
+      {
+        "id": "m4",
+        "type": "cell_line",
+        "name": "GM25256",
+        "source": "Allen Cell Collection at Coriell Institute for Medical Research, USA"
+      }
+    ],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s1_sample",
+        "name": "s1_sample"
+      },
+      {
+        "id": "s2_sample",
+        "name": "s2_sample"
+      },
+      {
+        "id": "s3_sample",
+        "name": "s3_sample"
+      },
+      {
+        "id": "s4_data",
+        "name": "s4_data"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1_sample"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "label"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2_sample"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "OVB_organoid_culture"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3_sample"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "pigmented_areas"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s3_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s4_data"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "note": "Protocol requires at least three independent experiments (N=3 batches), each with at least three organoids (n=3) per timepoint. Manual processing limits scalability to ~40 organoids per batch. Organoid viability declines beyond 60 days, limiting maturation. Cell line donor variability affects success rate."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

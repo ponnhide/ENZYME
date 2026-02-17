@@ -1,0 +1,127 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Digest tissue",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-0379-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "tissue_step3",
+        "name": "Tissue (from Step 3)"
+      },
+      {
+        "id": "rock_inhibitor",
+        "name": "ROCK inhibitor",
+        "description": "10 µM"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "p1000_pipette",
+        "name": "P1000 pipette"
+      },
+      {
+        "id": "shaker",
+        "name": "Shaker"
+      }
+    ],
+    "samples": [
+      {
+        "id": "tissue_input",
+        "derived_from": "tissue_step3"
+      },
+      {
+        "id": "digested_tissue",
+        "derived_from": "tissue_input"
+      },
+      {
+        "id": "digested_tissue_with_rock",
+        "derived_from": "digested_tissue"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tissue_input"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "digested_tissue"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "note": "Digest the tissue as appropriate based on the tumor type (Table 1). For incubations shorter than 2 h, mix the contents every 10–15 min by shaking vigorously and by pipetting the mixture up and down using a P1000 pipette."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "For overnight incubations, place the mixture on a shaker. For head and neck organoids, digestion should not exceed 1 h and should be monitored regularly."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "digested_tissue"
+          },
+          {
+            "kind": "material",
+            "id": "rock_inhibitor"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "digested_tissue_with_rock"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 10,
+            "unit": "µM"
+          }
+        },
+        "annotations": {
+          "note": "Addition of 10 µM ROCK inhibitor during digestion can increase outgrowth efficiency."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

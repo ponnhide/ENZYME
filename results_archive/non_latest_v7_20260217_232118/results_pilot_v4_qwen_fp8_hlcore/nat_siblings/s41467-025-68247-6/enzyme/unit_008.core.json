@@ -1,0 +1,388 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41467-025-68247-6.pdf",
+      "type": "paper"
+    },
+    "title": "Microwell plate seeding protocol"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      }
+    ],
+    "start_step_id": "s1",
+    "step_order": null,
+    "steps": [
+      {
+        "annotations": {
+          "note": "Storage buffer was aspirated from each well and 150 µL of Advanced DMEM/F12 was added through the pipetting port."
+        },
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "c1",
+            "kind": "container"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "c1",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "µL",
+            "value": 150
+          },
+          "destination": "well",
+          "source": "storage buffer"
+        }
+      },
+      {
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "c1",
+            "kind": "container"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "c1",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "at least 30 min"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Organoids maintained in Cultrex domes for at least 5 days after passaging were removed from the ECM following the passaging protocol as above, but dissociated for 12 min in Trypsin rather than 6, or until organoids were largely single cells."
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "s1",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "s2",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "dislodge_cells"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Trypsin was neutralized and organoids were washed as in the passaging protocol."
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "s2",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "s3",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "volume_unit",
+            "value": 1
+          },
+          "destination": "wash buffer",
+          "source": "Trypsin"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Following the PBS wash"
+        },
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "s3",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "s4",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "volume_unit",
+            "value": 1
+          },
+          "destination": "PBS",
+          "source": "wash buffer"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Organoids were resuspended in organoid growth media without Nicotinamide: Advanced DMEM/F12 supplemented with 1X Pen-Strep, 10 mM HEPES, 1X GlutaMAX, 1X B-27 Supplement, 0.2 nM Wnt Surrogate protein, 5 nM Gastrin-1, 1.25mM N-Acetyl-L-Cysteine, 100 µg/mL Primocin, 500 nM A 83-01, 50 ng/mL recombinant human EGF, 100 ng/mL recombinant human Noggin, 250 ng/mL recombinant human R-spondin 3, 100 ng/mL recombinant human IGF1, 50 ng/mL recombinant human FGF2, and with 10 µM Y-27632."
+        },
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "s4",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "s5",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend"
+        }
+      },
+      {
+        "id": "s7",
+        "inputs": [
+          {
+            "id": "s5",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "d1",
+            "kind": "data"
+          }
+        ],
+        "params": {
+          "device_kind": "cell_counter",
+          "program": "count cells"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Dissociated organoids were then counted using a hemocytometer and seeded into the microwell plates at a density of 200 cells per microwell, in 50 µL of media per well."
+        },
+        "id": "s8",
+        "inputs": [
+          {
+            "id": "s5",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "c1",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "µL",
+            "value": 50
+          },
+          "density": "200 cells per microwell",
+          "destination": "well",
+          "source": "s5"
+        }
+      },
+      {
+        "id": "s9",
+        "inputs": [
+          {
+            "id": "c1",
+            "kind": "container"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "c1",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "30–60 min to allow the cells to settle"
+        }
+      },
+      {
+        "annotations": {
+          "note": "It is critical that Matrigel is added to the media while cold."
+        },
+        "id": "s10",
+        "inputs": [
+          {
+            "id": "c1",
+            "kind": "container"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "c1",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "µL",
+            "value": 100
+          },
+          "destination": "well",
+          "source": "media containing 2% Matrigel"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "c1",
+        "material_id": "m1",
+        "type": "microwell plate",
+        "well_volume": "500 µm"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "device_kind": "incubator",
+        "id": "e1"
+      },
+      {
+        "device_kind": "cell_counter",
+        "id": "e2"
+      }
+    ],
+    "materials": [
+      {
+        "id": "m1",
+        "name": "500 µm Gri3D plates",
+        "vendor": "SUN bioscience"
+      },
+      {
+        "id": "m2",
+        "name": "Advanced DMEM/F12"
+      },
+      {
+        "id": "m3",
+        "name": "Trypsin"
+      },
+      {
+        "id": "m4",
+        "name": "PBS"
+      },
+      {
+        "composition": [
+          "1X Pen-Strep",
+          "10 mM HEPES",
+          "1X GlutaMAX",
+          "1X B-27 Supplement",
+          "0.2 nM Wnt Surrogate protein",
+          "5 nM Gastrin-1",
+          "1.25mM N-Acetyl-L-Cysteine",
+          "100 µg/mL Primocin",
+          "500 nM A 83-01",
+          "50 ng/mL recombinant human EGF",
+          "100 ng/mL recombinant human Noggin",
+          "250 ng/mL recombinant human R-spondin 3",
+          "100 ng/mL recombinant human IGF1",
+          "50 ng/mL recombinant human FGF2",
+          "10 µM Y-27632"
+        ],
+        "id": "m5",
+        "name": "Organoid growth media without Nicotinamide"
+      },
+      {
+        "concentration": "2%",
+        "id": "m6",
+        "name": "Matrigel"
+      },
+      {
+        "id": "m7",
+        "name": "Cultrex domes"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s1",
+        "name": "s1"
+      },
+      {
+        "id": "s2",
+        "name": "s2"
+      },
+      {
+        "id": "s3",
+        "name": "s3"
+      },
+      {
+        "id": "s4",
+        "name": "s4"
+      },
+      {
+        "id": "s5",
+        "name": "s5"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

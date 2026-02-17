@@ -1,0 +1,270 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "RNA extraction from lung organoid using Trizol",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00827-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "trizol",
+        "name": "Trizol"
+      },
+      {
+        "id": "ethanol",
+        "name": "100% ethanol"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube_1_5ml",
+        "type": "tube",
+        "name": "1.5 ml tube"
+      },
+      {
+        "id": "spin_column",
+        "type": "spin_column",
+        "name": "Zymo-Spin IC Column in Collection Tube"
+      },
+      {
+        "id": "new_collection_tube",
+        "type": "tube",
+        "name": "New Collection Tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge",
+        "type": "centrifuge",
+        "name": "Centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoid_trizol",
+        "name": "Lung organoid in Trizol"
+      },
+      {
+        "id": "supernatant",
+        "name": "Supernatant after centrifugation"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "material": "trizol",
+          "sample": "organoid_trizol",
+          "amount": {
+            "value": 300.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "sample": "organoid_trizol",
+          "description": "Pipette up and down to break Matrigel"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "sample": "organoid_trizol",
+          "container": "tube_1_5ml",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "sample": "organoid_trizol",
+          "description": "Vortex until homogenized"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge",
+          "program": {
+            "program_name": "16k_5min_4C"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "params": {
+          "material": "ethanol",
+          "sample": "supernatant",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "sample": "supernatant",
+          "description": "Vortex thoroughly"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "transfer",
+        "params": {
+          "sample": "supernatant",
+          "container": "spin_column",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge",
+          "program": {
+            "program_name": "16k_30s"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "transfer",
+        "params": {
+          "container": "spin_column",
+          "destination_container": "new_collection_tube",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s13",
+        "op": "annotate",
+        "params": {
+          "note": "Discard flow through"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      }
+    ],
+    "detail_level": 0
+  }
+}

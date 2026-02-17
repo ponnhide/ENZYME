@@ -1,0 +1,124 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Quantify barcode diversity by scRNA‑seq",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41592-021-01344-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "samp1",
+        "name": "iTracer iPSC pools"
+      },
+      {
+        "id": "data1",
+        "name": "data1"
+      },
+      {
+        "id": "result1",
+        "name": "result1"
+      }
+    ],
+    "data": [
+      {
+        "id": "data1",
+        "name": "scRNA-seq data from three iPSC pools"
+      },
+      {
+        "id": "result1",
+        "name": "barcode diversity measurement result"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "data"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "data1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "data"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "result1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "barcode diversity"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "data1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "result1"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

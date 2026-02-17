@@ -1,0 +1,81 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "LC‑MS/MS sample preparation and analysis",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-020-19142-9.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "formic_acid_10pct",
+        "name": "10 % formic acid"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "vacuum_centrifuge",
+        "type": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samples",
+        "description": "biological samples"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "vacuum_centrifuge",
+          "program": {
+            "program_name": "vacuum_dry"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "reagent": "formic_acid_10pct"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "params": {
+          "note": "Three technical replicates per fraction measured by LC‑MS/MS"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

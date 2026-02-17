@@ -1,0 +1,195 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Seed AF cells in Matrigel and culture",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41591-024-02807-z.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "AF cells",
+        "type": "cell_line"
+      },
+      {
+        "id": "m2",
+        "name": "Matrigel",
+        "type": "extracellular_matrix"
+      },
+      {
+        "id": "m3",
+        "name": "generic epithelial medium",
+        "type": "culture_medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "culture dish",
+        "type": "dish"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "incubator",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "material_id": "m1",
+        "description": "viable AF cells suspension"
+      },
+      {
+        "id": "samp2",
+        "material_id": "m2",
+        "description": "Matrigel droplet"
+      },
+      {
+        "id": "samp3",
+        "material_id": "m3",
+        "description": "generic epithelial medium"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "container_id": "c1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "sample_id": "samp1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "sample_id": "samp2"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "sample_id": "samp3"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source_sample_id": "samp1",
+          "dest_sample_id": "samp2",
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "target_sample_id": "samp2"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "source_sample_id": "samp3",
+          "dest_container_id": "c1",
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": "culture"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "params": {
+          "note": "Culture in generic epithelial medium without tissue-specific signals as defined in Supplementary Table 3"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

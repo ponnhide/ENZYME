@@ -1,0 +1,161 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Seed and culture iPSCs on Matrigel-coated wells",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00814-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [
+      {
+        "id": "24-well_plate",
+        "name": "24-well_plate",
+        "type": "generic_container"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "iPSC_cell_suspension",
+        "name": "iPSC_cell_suspension"
+      },
+      {
+        "id": "iPSC_in_well",
+        "name": "iPSC_in_well"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "iPSC_cell_suspension"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "iPSC_in_well"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "drop"
+          },
+          "source_container": "unknown",
+          "target_container": "Matrigel-coated well with mTeSR1 and Rock inhibitor"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "24-well_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "24-well_plate"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": "37 °C",
+            "co2": "5%"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Do not move the plate for the next 24–48 h."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "24-well_plate"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "modality": "visual",
+          "features": [
+            "cell attachment"
+          ]
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "24-well_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "24-well_plate"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "medium"
+          },
+          "source_container": "24-well_plate",
+          "target_container": "24-well_plate"
+        },
+        "annotations": {
+          "note": "Change medium daily after checking for cell attachment."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

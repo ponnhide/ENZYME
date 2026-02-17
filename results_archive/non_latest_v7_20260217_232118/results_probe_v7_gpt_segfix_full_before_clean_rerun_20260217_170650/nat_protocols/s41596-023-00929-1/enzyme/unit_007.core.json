@@ -1,0 +1,230 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "FACS setup and cell sorting",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00929-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "unstained_control",
+        "type": "control"
+      },
+      {
+        "id": "single_color_control",
+        "type": "control"
+      },
+      {
+        "id": "DAPI_dead_cell_stain",
+        "type": "stain"
+      }
+    ],
+    "containers": [
+      {
+        "id": "FACS_tube",
+        "type": "tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "FACS_machine",
+        "type": "cell_sorter"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cell_suspension",
+        "type": "cell_suspension"
+      }
+    ],
+    "data": [
+      {
+        "id": "laser_settings",
+        "type": "settings"
+      },
+      {
+        "id": "compensation_matrix",
+        "type": "matrix"
+      },
+      {
+        "id": "gating_strategy",
+        "type": "gating"
+      },
+      {
+        "id": "sorting_event_data",
+        "type": "event_data"
+      },
+      {
+        "id": "efficiency_calculation",
+        "type": "calculation"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "note": "Set laser levels for each fluorophore using unstained and single-color controls."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Run single-color controls to record each fluorophore; after all controls are run, perform compensation to correct fluorescence spillover."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "note": "Draw gates to eliminate debris (SSC/FSC), doublets, and dead cells (using DAPI)."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "note": "Define population of interest (e.g., CD45−CD31+ANPEP− for endothelial cells)."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "params": {
+          "note": "Optional: run fluorescence minus one and additional unstained controls to verify gating."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "annotate",
+        "params": {
+          "note": "Sort cells using a 100 µm nozzle on the FACS machine."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "event_number"
+          ]
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s12",
+        "op": "annotate",
+        "params": {
+          "note": "Translate event number readout to true cell number (efficiency calculation)."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Organoid imaging and quantification",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "spinning_disc_confocal_microscope"
+      }
+    ],
+    "samples": [
+      {
+        "id": "d1",
+        "name": "d1"
+      },
+      {
+        "id": "d2",
+        "name": "d2"
+      },
+      {
+        "id": "d3",
+        "name": "d3"
+      },
+      {
+        "id": "d4",
+        "name": "d4"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "params": {
+          "device_kind": "imager",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "fluorescence_and_dic_imaging"
+          }
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "percentage_of_intact_organoids"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d2"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "imager",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "fluorescence_and_dic_imaging"
+          }
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d3"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "caspase_3_7_area_percentage"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d4"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

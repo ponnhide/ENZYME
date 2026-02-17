@@ -1,0 +1,174 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Post‑sorting culture of clonal organoids",
+    "source": {
+      "type": "paper",
+      "id": "s41467-020-19142-9.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "BME"
+      },
+      {
+        "id": "m2",
+        "name": "LY27632"
+      },
+      {
+        "id": "m3",
+        "name": "HISCM"
+      },
+      {
+        "id": "m4",
+        "name": "HICS minus WNT conditioned medium"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "Incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_cells",
+        "name": "Sorted cells"
+      },
+      {
+        "id": "s_cells_BME",
+        "name": "Sorted cells covered with BME"
+      },
+      {
+        "id": "s_hiscm_LY",
+        "name": "HISCM with LY27632"
+      },
+      {
+        "id": "s_organoids",
+        "name": "Clonal tumor organoids expanded in HICS minus WNT"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells"
+          },
+          {
+            "kind": "material",
+            "id": "m1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells_BME"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 10,
+            "unit": "µl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells_BME"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells_BME"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": {
+              "value": 37,
+              "unit": "°C"
+            }
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "material",
+            "id": "m3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_hiscm_LY"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "text": "Added LY27632 to HISCM; amount not specified in source text."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_hiscm_LY"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoids"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "text": "Clonal tumor organoids were then expanded in HICS minus WNT conditioned medium."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

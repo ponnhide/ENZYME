@@ -1,0 +1,274 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Permeabilization and blocking",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00827-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "pbs",
+        "name": "PBS"
+      },
+      {
+        "id": "triton",
+        "name": "Triton X-100"
+      },
+      {
+        "id": "pbst",
+        "name": "0.2% PBST",
+        "description": "PBS + 0.2% Triton X-100"
+      },
+      {
+        "id": "donkey_serum",
+        "name": "donkey serum"
+      },
+      {
+        "id": "blocking_solution",
+        "name": "PBS with 5% donkey serum",
+        "description": "PBS containing 5% donkey serum"
+      },
+      {
+        "id": "primary_antibody",
+        "name": "primary antibody"
+      },
+      {
+        "id": "primary_antibody_solution",
+        "name": "primary antibody solution",
+        "description": "primary antibody in 0.2% Triton X-100 and 2% donkey serum"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube1",
+        "type": "tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator1",
+        "device_kind": "incubator",
+        "name": "Incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample1",
+        "type": "sample",
+        "container_ref": "tube1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "params": {
+          "container_ref": "tube1"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          },
+          {
+            "kind": "material",
+            "id": "pbst"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "annotations": {
+          "note": "Amount of 0.2% PBST not specified in source text"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "permeabilization",
+          "duration": {
+            "value": 10,
+            "unit": "min"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          },
+          {
+            "kind": "material",
+            "id": "blocking_solution"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "annotations": {
+          "note": "Amount of blocking solution not specified in source text"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "blocking",
+          "duration": {
+            "value": 1,
+            "unit": "h"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          },
+          {
+            "kind": "material",
+            "id": "primary_antibody_solution"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "annotations": {
+          "note": "Amount of primary antibody solution not specified in source text"
+        }
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "primary_antibody_incubation"
+        },
+        "annotations": {
+          "note": "Incubate overnight"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

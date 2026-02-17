@@ -1,0 +1,91 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Image organoid morphology using PC‑CT",
+    "source": {
+      "type": "paper",
+      "id": "s41591-024-02807-z.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "pc_ct_imager",
+        "device_kind": "imager",
+        "name": "X-ray PC-CT scanner"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoid_sample",
+        "type": "organoid"
+      }
+    ],
+    "data": [
+      {
+        "id": "pc_ct_image",
+        "type": "image",
+        "description": "PC-CT image of organoid morphology"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "program": "PC-CT scan"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "pc_ct_image"
+          }
+        ],
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "morphology"
+          ]
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

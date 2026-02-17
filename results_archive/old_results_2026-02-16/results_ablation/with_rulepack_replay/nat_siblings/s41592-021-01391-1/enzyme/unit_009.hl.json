@@ -1,0 +1,99 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Impedance‑based cell counting",
+    "source": {
+      "type": "paper",
+      "id": "s41592-021-01391-1"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "impedance_counter",
+        "name": "Impedance cell counter"
+      },
+      {
+        "id": "microscope",
+        "name": "Microscope"
+      }
+    ],
+    "samples": [
+      {
+        "id": "input_cells",
+        "description": "Input cell suspension to be counted"
+      }
+    ],
+    "data": [
+      {
+        "id": "cell_count_data",
+        "description": "Impedance‑based cell count"
+      },
+      {
+        "id": "microscopy_image",
+        "description": "Microscopy image used for validation (Extended Data Fig. 2f)"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "input_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "cell_count_data"
+          }
+        ],
+        "params": {
+          "device_kind": "cell_counter",
+          "program": "impedance measurement"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "input_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "microscopy_image"
+          }
+        ],
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "cell count validation"
+          ]
+        },
+        "annotations": {
+          "reference": "Extended Data Fig. 2f"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

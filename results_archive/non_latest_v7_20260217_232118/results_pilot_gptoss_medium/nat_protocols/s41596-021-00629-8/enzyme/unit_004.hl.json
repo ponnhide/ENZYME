@@ -1,0 +1,99 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Transfer to conical tube and centrifuge",
+    "source": {
+      "type": "paper",
+      "id": "s41596-021-00629-8"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [
+      {
+        "id": "tube1",
+        "name": "15 mL conical tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge1",
+        "name": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample1",
+        "name": "cell suspension"
+      },
+      {
+        "id": "sample2",
+        "name": "cell suspension in 15 mL conical tube"
+      },
+      {
+        "id": "sample3",
+        "name": "centrifuged cell suspension (pellet)"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "annotations": {
+          "note": "Amount of cell suspension not specified in source text."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample3"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "300 g for 3 min at 4 °C"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

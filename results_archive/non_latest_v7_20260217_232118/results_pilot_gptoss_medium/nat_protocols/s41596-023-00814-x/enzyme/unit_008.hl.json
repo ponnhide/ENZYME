@@ -1,0 +1,148 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Mounting coverslip with Mowiol",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00814-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "glass slide"
+      },
+      {
+        "id": "m2",
+        "name": "coverslip"
+      },
+      {
+        "id": "m3",
+        "name": "Mowiol"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "tweezers"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_glass",
+        "material_ref": "m1"
+      },
+      {
+        "id": "s_coverslip",
+        "material_ref": "m2"
+      },
+      {
+        "id": "s_mowiol",
+        "material_ref": "m3"
+      },
+      {
+        "id": "s_glass_mowiol",
+        "material_ref": "m1"
+      },
+      {
+        "id": "s_assembled",
+        "material_ref": "m1"
+      },
+      {
+        "id": "s_assembled_dried",
+        "material_ref": "m1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_mowiol"
+          },
+          {
+            "kind": "sample",
+            "id": "s_glass"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_glass_mowiol"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 3,
+            "unit": "µl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_coverslip"
+          },
+          {
+            "kind": "sample",
+            "id": "s_glass_mowiol"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_assembled"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "Take the coverslip with tweezers without scratching the center (touch only the rim), flip the coverslip and place it with the cell side onto the Mowiol on the glass slide. Place the coverslip slowly to prevent air bubbles."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_assembled"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_assembled_dried"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "Let it dry for 15–30 min at RT and protected from light."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

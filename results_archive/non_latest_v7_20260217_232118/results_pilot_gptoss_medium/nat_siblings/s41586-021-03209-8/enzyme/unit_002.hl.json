@@ -1,0 +1,107 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Single-cell RNA‑seq library preparation and sequencing",
+    "source": {
+      "type": "paper",
+      "id": "s41586-021-03209-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "10X Genomics Chromium 3′ Gene Expression Kit"
+      },
+      {
+        "id": "m2",
+        "name": "single cells"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "Chromium chip"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "samp_cells",
+        "material_ref": "m2"
+      },
+      {
+        "id": "samp_loaded",
+        "material_ref": "m2",
+        "container_ref": "c1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_cells"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_loaded"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 10000,
+            "unit": "cells"
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s3"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

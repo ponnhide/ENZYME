@@ -1,0 +1,153 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Mesoderm induction with CHIR99021 and BMP‑4",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-019-0213-z.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "induction_medium",
+        "name": "N2B27 medium + 12 µM CHIR99021 + 30 ng/mL BMP-4"
+      }
+    ],
+    "containers": [
+      {
+        "id": "low_attachment_plate",
+        "type": "plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "serological_pipette_10mL",
+        "type": "pipette"
+      },
+      {
+        "id": "P1000_pipette",
+        "type": "pipette"
+      },
+      {
+        "id": "incubator",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "aggregates_initial",
+        "description": "cell aggregates"
+      },
+      {
+        "id": "resuspended_aggregates",
+        "description": "aggregates resuspended in induction medium"
+      },
+      {
+        "id": "plate_aggregates",
+        "description": "aggregates transferred to low‑attachment plate"
+      },
+      {
+        "id": "resuspended_aggregates_day1",
+        "description": "aggregates quickly resuspended after daily pipetting"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "description": "Allocate initial cell aggregates"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "description": "Gently resuspend aggregates in induction medium"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "description": "Transfer resuspended aggregates back to low‑attachment plate",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "standard_incubation"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "description": "Quickly resuspend aggregates once per day to avoid fusion"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "3_day_incubation"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

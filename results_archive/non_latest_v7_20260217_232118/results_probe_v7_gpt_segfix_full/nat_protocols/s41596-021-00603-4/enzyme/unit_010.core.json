@@ -1,0 +1,402 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Intracellular staining and post‑fixation",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00603-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "antibody_panel",
+        "type": "material"
+      },
+      {
+        "id": "CSB",
+        "type": "material"
+      },
+      {
+        "id": "FA_PBS",
+        "type": "material"
+      },
+      {
+        "id": "intracellular_cocktail",
+        "type": "material"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube",
+        "type": "tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge",
+        "type": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cells",
+        "type": "sample"
+      },
+      {
+        "id": "cells_with_cocktail",
+        "type": "sample"
+      },
+      {
+        "id": "mixed_cells",
+        "type": "sample"
+      },
+      {
+        "id": "pellet",
+        "type": "sample"
+      },
+      {
+        "id": "cells_FA",
+        "type": "sample"
+      },
+      {
+        "id": "cells_final",
+        "type": "sample"
+      },
+      {
+        "id": "final_pellet",
+        "type": "sample"
+      },
+      {
+        "id": "antibody_panel",
+        "name": "antibody_panel"
+      },
+      {
+        "id": "CSB",
+        "name": "CSB"
+      },
+      {
+        "id": "FA_PBS",
+        "name": "FA_PBS"
+      },
+      {
+        "id": "intracellular_cocktail",
+        "name": "intracellular_cocktail"
+      },
+      {
+        "id": "cells_after_CSB1",
+        "name": "cells_after_CSB1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "antibody_panel"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "CSB"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "FA_PBS"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "target": "intracellular_cocktail",
+          "components": [
+            "antibody_panel",
+            "CSB"
+          ],
+          "total_volume": "up to 50 µl"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "intracellular_cocktail"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": "intracellular_cocktail",
+          "destination": "cells",
+          "amount": {
+            "value": 50,
+            "unit": "µl"
+          }
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_with_cocktail"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "target": "cells_with_cocktail",
+          "method": "pipetting"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "mixed_cells"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "note": "Incubate 30 min on rocker at room temperature"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "params": {
+          "source": "CSB",
+          "destination": "mixed_cells",
+          "amount": {
+            "value": 2.0,
+            "unit": "ml"
+          }
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_after_CSB1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s10",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge",
+          "program": {
+            "program_name": "800g_5min_RT"
+          }
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "pellet"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s11",
+        "op": "annotate",
+        "params": {
+          "note": "Discard supernatant"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s12",
+        "op": "transfer",
+        "params": {
+          "source": "FA_PBS",
+          "destination": "pellet",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_FA"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s13",
+        "op": "annotate",
+        "params": {
+          "note": "Incubate 10 min on rocker at room temperature"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s14",
+        "op": "transfer",
+        "params": {
+          "source": "CSB",
+          "destination": "cells_FA",
+          "amount": {
+            "value": 2.0,
+            "unit": "ml"
+          }
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_final"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s15",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge",
+          "program": {
+            "program_name": "800g_5min_RT"
+          }
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "final_pellet"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s16",
+        "op": "annotate",
+        "params": {
+          "note": "Discard supernatant"
+        },
+        "outputs": [],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      }
+    ],
+    "detail_level": 0
+  }
+}

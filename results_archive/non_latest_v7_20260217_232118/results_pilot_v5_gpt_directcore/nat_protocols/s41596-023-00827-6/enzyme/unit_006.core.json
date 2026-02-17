@@ -1,0 +1,207 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "cDNA synthesis",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00827-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "qScript XLT cDNA SuperMix",
+        "type": "reagent"
+      },
+      {
+        "id": "m2",
+        "name": "total RNA",
+        "type": "sample"
+      },
+      {
+        "id": "m3",
+        "name": "RNase-/DNase-free water",
+        "type": "reagent"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "microtube",
+        "name": "0.2 ml microtube"
+      },
+      {
+        "id": "c_inst1",
+        "name": "c_inst1",
+        "type": "generic_container"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "thermocycler",
+        "name": "thermocycler"
+      },
+      {
+        "id": "e2",
+        "type": "centrifuge",
+        "name": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "rxn_sample",
+        "name": "rxn_sample"
+      },
+      {
+        "id": "cDNA_product",
+        "name": "cDNA_product"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c_inst1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "rxn_sample"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "m1",
+          "destination": "rxn_sample",
+          "amount": {
+            "value": 4.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "params": {
+          "description": "Transfer variable amount of total RNA (100–1,000 ng) to rxn_sample"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "description": "Add RNase-/DNase-free water to bring total volume to 20 μl"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "target": "rxn_sample",
+          "description": "Vortex gently to mix contents"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "e2",
+          "program": {
+            "program_name": "brief_spin"
+          },
+          "target": "rxn_sample",
+          "description": "Centrifuge briefly to collect components at the bottom of the tube"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "thermocycler",
+          "device_ref": "e1",
+          "program": {
+            "profile_name": "cDNA_synthesis_profile"
+          },
+          "target": "rxn_sample",
+          "description": "Incubate: 5 min at 25 °C, 60 min at 42 °C, 5 min at 85 °C, hold at 4 °C"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cDNA_product"
+          }
+        ],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

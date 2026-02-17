@@ -1,0 +1,197 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Single‑cell RNA‑seq library preparation",
+    "source": {
+      "type": "paper",
+      "id": "s41467-021-27464-5.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "10x Genomics Single Cell 3′ Chip"
+      },
+      {
+        "id": "m2",
+        "name": "10x Genomics Mastermix (v3 chemistry)"
+      },
+      {
+        "id": "m3",
+        "name": "db‑cAMP"
+      },
+      {
+        "id": "m4",
+        "name": "DAPT"
+      },
+      {
+        "id": "m5",
+        "name": "200‑cycle sequencing kit"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "NextSeq500"
+      },
+      {
+        "id": "e2",
+        "name": "NovaSeq 6000"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "name": "single_cell_suspension"
+      },
+      {
+        "id": "samp2",
+        "name": "mastermix"
+      },
+      {
+        "id": "samp3",
+        "name": "culture_emulsion_GEMs"
+      },
+      {
+        "id": "samp4",
+        "name": "culture_emulsion_GEMs_db_cAMP"
+      },
+      {
+        "id": "samp5",
+        "name": "supplemented_emulsion"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "name": "sequencing_output"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          },
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp3"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "unknown",
+            "unit": "unspecified"
+          }
+        },
+        "annotations": {
+          "note": "Single‑cell suspension and mastermix loaded onto 10x Genomics Single Cell 3′ Chip according to manufacturer’s instructions."
+        }
+      },
+      {
+        "id": "s2a",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp3"
+          },
+          {
+            "kind": "material",
+            "id": "m3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp4"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 0.5,
+            "unit": "mM"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2b",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp4"
+          },
+          {
+            "kind": "material",
+            "id": "m4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp5"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "μM"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp5"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d1"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Resulting libraries sequenced on a NextSeq500 or NovaSeq 6000 with Read1 28 cycles, Read2 98 cycles, Index1 8 cycles using a 200‑cycle kit."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2a"
+      },
+      {
+        "from": "s2a",
+        "to": "s2b"
+      },
+      {
+        "from": "s2b",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,173 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Add BDNF and L‑Ascorbic acid on day 14",
+    "source": {
+      "type": "paper",
+      "id": "s41467-021-27464-5.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "bdnf",
+        "name": "BDNF",
+        "vendor": "Miltenyi",
+        "catalog_number": "130-096-286"
+      },
+      {
+        "id": "ascorbic_acid",
+        "name": "L-Ascorbic acid",
+        "vendor": "Sigma-Aldrich",
+        "catalog_number": "A4403-100MG"
+      },
+      {
+        "id": "culture",
+        "name": "Cell culture (day 14)",
+        "vendor": null,
+        "catalog_number": null
+      }
+    ],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "bdnf_stock",
+        "material_ref": "bdnf"
+      },
+      {
+        "id": "ascorbic_stock",
+        "material_ref": "ascorbic_acid"
+      },
+      {
+        "id": "culture_day14",
+        "material_ref": "culture"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "bdnf_stock"
+          }
+        ],
+        "params": {
+          "material_ref": "bdnf"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "ascorbic_stock"
+          }
+        ],
+        "params": {
+          "material_ref": "ascorbic_acid"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "culture_day14"
+          }
+        ],
+        "params": {
+          "material_ref": "culture"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "bdnf_stock"
+          },
+          {
+            "kind": "sample",
+            "id": "culture_day14"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "culture_day14"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 20,
+            "unit": "ng/mL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "ascorbic_stock"
+          },
+          {
+            "kind": "sample",
+            "id": "culture_day14"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "culture_day14"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 200,
+            "unit": "µM"
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

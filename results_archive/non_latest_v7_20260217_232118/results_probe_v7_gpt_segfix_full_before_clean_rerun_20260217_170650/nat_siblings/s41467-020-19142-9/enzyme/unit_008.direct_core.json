@@ -1,0 +1,163 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Sample drying and reconstitution for LC‑MS/MS",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-020-19142-9.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "fa10",
+        "type": "reagent",
+        "description": "10% formic acid"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "centrifuge1",
+        "type": "centrifuge",
+        "description": "vacuum centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample1",
+        "type": "sample",
+        "description": "Biological sample"
+      }
+    ],
+    "data": [
+      {
+        "id": "lcms_result",
+        "type": "data",
+        "description": "LC‑MS/MS measurement data"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "fa10"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "vacuum_dry"
+          }
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "params": {
+          "note": "Add formic acid to sample (amount unspecified)"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "LC-MS/MS"
+          ]
+        },
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "lcms_result"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "note": "Three technical replicates measured by LC‑MS/MS per fraction"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

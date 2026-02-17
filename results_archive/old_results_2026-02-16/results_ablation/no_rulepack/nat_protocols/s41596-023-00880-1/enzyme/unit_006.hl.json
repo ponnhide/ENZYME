@@ -1,0 +1,128 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "CHIR99021 pulse",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00880-1"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "E6-containing 5 µM CHIR99021"
+      },
+      {
+        "id": "m2",
+        "name": "cell micromasses"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "Transwell"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s0",
+        "name": "CHIR solution",
+        "material_ref": "m1"
+      },
+      {
+        "id": "s1",
+        "name": "cell micromasses on membranes",
+        "material_ref": "m2",
+        "container_ref": "c1"
+      },
+      {
+        "id": "s2",
+        "name": "cell micromasses with CHIR added",
+        "derived_from": [
+          "s1",
+          "s0"
+        ]
+      },
+      {
+        "id": "s3",
+        "name": "cell micromasses after 1 h CHIR pulse",
+        "derived_from": [
+          "s2"
+        ]
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s0"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "mL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 1,
+            "unit": "h"
+          },
+          "temperature": {
+            "value": 37,
+            "unit": "°C"
+          },
+          "device_kind": "incubator"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

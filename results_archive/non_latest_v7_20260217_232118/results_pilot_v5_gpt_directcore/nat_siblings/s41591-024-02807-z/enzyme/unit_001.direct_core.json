@@ -1,0 +1,212 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Seeding AF cells in Matrigel",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41591-024-02807-z.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "AF cells",
+        "description": "viable AF cells"
+      },
+      {
+        "id": "m2",
+        "name": "Matrigel",
+        "description": "Matrigel extracellular matrix"
+      },
+      {
+        "id": "m3",
+        "name": "generic epithelial medium",
+        "description": "ad hoc-defined generic epithelial medium without tissue-specific signals"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "well_plate",
+        "description": "culture plate for Matrigel droplets"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator",
+        "description": "standard cell culture incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_af_cells",
+        "material_ref": "m1"
+      },
+      {
+        "id": "s_matrigel",
+        "material_ref": "m2"
+      },
+      {
+        "id": "s_medium",
+        "material_ref": "m3"
+      },
+      {
+        "id": "s_droplet",
+        "description": "mixed AF cells and Matrigel droplet"
+      },
+      {
+        "id": "c1",
+        "name": "c1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "material_ref": "m1"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_af_cells"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "material_ref": "m2"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_matrigel"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "material_ref": "m3"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_medium"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "container_type": "well_plate"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "sample_refs": [
+            "s_af_cells",
+            "s_matrigel"
+          ]
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_droplet"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "text": "Transfer droplet (unknown amount) from s_droplet to c1"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "text": "Transfer medium (unknown amount) from s_medium to c1"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "culture"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

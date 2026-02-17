@@ -1,0 +1,82 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Single-cell ATAC-seq analysis pipeline",
+    "source": {
+      "type": "paper",
+      "id": "s41586-021-03209-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "inputs": [],
+        "outputs": [],
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": "10X Genomics Cell Ranger ATAC pipeline"
+        },
+        "annotations": {
+          "input": "BCL files generated from sequencing",
+          "output": "FASTQ files, fragment files with unique properly paired and aligned fragments (MAPQ >30), cell barcode associations"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "description": "FASTQ files were aligned to GRCh38 using BWA"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "description": "Fragment files were generated containing all unique properly paired and aligned fragments with mapping quality (MAPQ) >30"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "description": "Each unique fragment was associated with a single cell barcode"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

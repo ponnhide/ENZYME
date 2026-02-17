@@ -1,0 +1,290 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Perform electroretinogram (ERG) on OVB organoids",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00814-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "organoid_60d",
+        "name": "organoid_60d"
+      },
+      {
+        "id": "organoid_in_well",
+        "name": "organoid_in_well"
+      },
+      {
+        "id": "ovb_medium_in_tube",
+        "name": "ovb_medium_in_tube"
+      },
+      {
+        "id": "ovb_medium_oxygenated",
+        "name": "ovb_medium_oxygenated"
+      },
+      {
+        "id": "organoid_in_electrode_chamber",
+        "name": "organoid_in_electrode_chamber"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_60d"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_in_well"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "organoid"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [],
+        "outputs": [],
+        "params": {
+          "amount": {
+            "value": 2,
+            "unit": "ml"
+          }
+        },
+        "annotations": {
+          "note": "Add OVB-organoid medium to each well of a 12-well plate"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_in_well"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_in_well"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": "37 °C",
+            "co2": "5%",
+            "duration": "24 h",
+            "light_condition": "absolute darkness"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [],
+        "outputs": [],
+        "params": {
+          "amount": {
+            "value": 50,
+            "unit": "ml"
+          }
+        },
+        "annotations": {
+          "note": "Prepare fresh OVB organoid medium in 50 ml centrifuge tubes"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "ovb_medium_in_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "ovb_medium_oxygenated"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: oxygenate"
+        },
+        "annotations": {
+          "note": "Oxygenate OVB organoid medium by pumping air with sterile 10 ml serological pipette for 2 min under clean bench"
+        }
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Keep room absolutely dark during organoid handling and ERG experiment. Use red light (e.g., from western blot developing room) as sole light source. Use opaque box to transport organoids between dark rooms if required."
+        }
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Set up ERG aperture and fill superfusion system with oxygenated OVB medium"
+        }
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_in_well"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_in_electrode_chamber"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "organoid"
+          }
+        },
+        "annotations": {
+          "note": "Place organoids under red light in an electrode chamber"
+        }
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_in_electrode_chamber"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_in_electrode_chamber"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "organoid"
+          }
+        },
+        "annotations": {
+          "note": "Place electrode chamber into the dark chamber of the ERG aperture and connect to superfusion system containing oxygenated OVB medium"
+        }
+      },
+      {
+        "id": "s10",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {
+          "text": "unmapped device_kind in source: superfusion_system"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s11",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_in_electrode_chamber"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "erg_response_data"
+          }
+        ],
+        "params": {
+          "text": "unmapped device_kind in source: electroretinogram_system"
+        },
+        "annotations": {
+          "note": "Record all responses. Intensities: 2000 mlux (moonlight), 20000 mlux (candle light), 200000 mlux (daylight on cloudy day)"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      }
+    ],
+    "detail_level": 0
+  }
+}

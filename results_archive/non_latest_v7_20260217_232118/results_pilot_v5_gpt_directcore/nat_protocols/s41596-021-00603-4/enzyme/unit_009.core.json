@@ -1,0 +1,370 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Permeabilization",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00603-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "triton_x100",
+        "name": "Triton X-100",
+        "description": "0.1% (vol/vol) Triton X-100 in PBS"
+      },
+      {
+        "id": "pbs",
+        "name": "PBS"
+      },
+      {
+        "id": "csb",
+        "name": "CSB"
+      },
+      {
+        "id": "methanol",
+        "name": "Methanol",
+        "description": "50% (vol/vol) methanol in PBS, ice-cold"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube1",
+        "type": "microcentrifuge_tube"
+      },
+      {
+        "id": "waste",
+        "type": "waste_container"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "rocker",
+        "type": "incubator"
+      },
+      {
+        "id": "centrifuge",
+        "type": "centrifuge"
+      },
+      {
+        "id": "ice_bath",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cells",
+        "type": "cell_suspension",
+        "container_ref": "tube1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "sample_id": "cells",
+          "volume": "1 ml",
+          "solution": "0.1% Triton X-100/PBS"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "rocker",
+          "program": {
+            "program_name": "rocker_30min_room_temp"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "sample_id": "cells",
+          "volume": "2 ml",
+          "reagent": "csb"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge",
+          "program": {
+            "program_name": "800g_5min_room_temp"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer supernatant from cells to waste"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "sample_id": "cells",
+          "volume": "2 ml",
+          "reagent": "csb"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge",
+          "program": {
+            "program_name": "800g_5min_room_temp"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer supernatant from cells to waste"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "ice_bath",
+          "program": {
+            "program_name": "ice_1min"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "sample_id": "cells",
+          "volume": "1 ml",
+          "solution": "ice-cold 50% methanol/PBS"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "ice_bath",
+          "program": {
+            "program_name": "ice_10min"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s13",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "sample_id": "cells",
+          "volume": "2 ml",
+          "reagent": "csb"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s14",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge",
+          "program": {
+            "program_name": "800g_5min_room_temp"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s15",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer supernatant from cells to waste"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s16",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "sample_id": "cells",
+          "volume": "2 ml",
+          "reagent": "csb"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s17",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge",
+          "program": {
+            "program_name": "800g_5min_room_temp"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s18",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer supernatant from cells to waste"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s19",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "sample_id": "cells",
+          "volume": "50 µl",
+          "reagent": "csb"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      },
+      {
+        "from": "s16",
+        "to": "s17"
+      },
+      {
+        "from": "s17",
+        "to": "s18"
+      },
+      {
+        "from": "s18",
+        "to": "s19"
+      }
+    ],
+    "detail_level": 0
+  }
+}

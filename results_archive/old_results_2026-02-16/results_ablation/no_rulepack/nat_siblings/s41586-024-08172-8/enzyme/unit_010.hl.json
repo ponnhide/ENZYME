@@ -1,0 +1,100 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Real‑time‑informed pseudotime inference",
+    "source": {
+      "type": "paper",
+      "id": "s41586-024-08172-8"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "organoid_age_data",
+        "description": "Raw organoid age measurements (days) for all samples"
+      },
+      {
+        "id": "binned_age_data",
+        "description": "Organoid ages grouped into seven bins: (0,15], (15,30], (30,60], (60,90], (90,120], (120,150], (150,450]"
+      },
+      {
+        "id": "transport_result",
+        "description": "Result of neural optimal transport (moscot) used for real‑time‑informed pseudotime"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_age_data"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_age_data"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "binned_age_data"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Grouped organoid age in days into seven bins: (0, 15], (15, 30], (30,60], (60, 90], (90, 120], (120, 150], (150, 450]."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "binned_age_data"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "transport_result"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Used moscot to solve a temporal neural optimal transport problem with parameters: iterations = 25000, compute_wasserstein_baseline = False, batch_size = 1024, patience = 100, pretrain = True, train_size = 1."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

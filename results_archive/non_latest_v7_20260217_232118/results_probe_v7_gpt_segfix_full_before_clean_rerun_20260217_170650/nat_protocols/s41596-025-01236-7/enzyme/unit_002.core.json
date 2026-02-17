@@ -1,0 +1,98 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "AccuMAX enzymatic dissociation of hPSCs",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01236-7.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "pbs",
+        "name": "PBS"
+      },
+      {
+        "id": "accumax",
+        "name": "Accumax solution",
+        "note": "pre-warmed to 37 °C"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate",
+        "type": "cell_culture_plate",
+        "name": "culture plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "type": "incubator",
+        "name": "37 °C incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cells",
+        "name": "hPSC culture",
+        "container_ref": "plate"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source_ref": "accumax",
+          "destination_ref": "plate",
+          "amount": {
+            "value": 0.5,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator",
+          "program": {
+            "program_name": "incubation_12-18min_37C"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "params": {
+          "note": "Every 3–4 min, remove plate from incubator and tap gently to facilitate hPSC dissociation."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

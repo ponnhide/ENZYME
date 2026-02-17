@@ -1,0 +1,331 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Day 0 hiPS cell preparation for transduction",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01299-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "vitronectin_solution",
+        "type": "reagent",
+        "name": "vitronectin solution (1:100 dilution with DPBS)"
+      },
+      {
+        "id": "DPBS",
+        "type": "reagent",
+        "name": "DPBS"
+      },
+      {
+        "id": "Accutase",
+        "type": "reagent",
+        "name": "Accutase"
+      },
+      {
+        "id": "E8_medium",
+        "type": "reagent",
+        "name": "pre-warmed E8 medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate1",
+        "type": "six_well_plate",
+        "name": "six-well plate"
+      },
+      {
+        "id": "tube1",
+        "type": "conical_tube",
+        "name": "15‑ml conical tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator1",
+        "type": "incubator",
+        "name": "5% CO₂ incubator"
+      },
+      {
+        "id": "centrifuge1",
+        "type": "centrifuge",
+        "name": "centrifuge"
+      },
+      {
+        "id": "pipette1",
+        "type": "pipette",
+        "name": "serological pipette"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cells1",
+        "type": "cell_culture",
+        "name": "hiPS cells"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "plate1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "tube1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source_material": "vitronectin_solution",
+          "destination_container": "plate1",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          },
+          "note": "1.0 ml per well"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator1",
+          "program": {
+            "program_name": "room_temp_1h"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source_container": "plate1",
+          "destination_container": "waste",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          },
+          "note": "aspirate vitronectin, 1.0 ml per well"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "note": "aspirate culture medium (amount unspecified)"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "params": {
+          "source_material": "DPBS",
+          "destination_container": "plate1",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          },
+          "note": "rinse with DPBS, 1.0 ml per well"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "params": {
+          "source_material": "Accutase",
+          "destination_container": "plate1",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          },
+          "note": "add Accutase, 1.0 ml per well"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator1",
+          "program": {
+            "program_name": "37C_5%CO2_7min"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "note": "gentle shaking to detach cells"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "transfer",
+        "params": {
+          "source_material": "E8_medium",
+          "destination_container": "plate1",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          },
+          "note": "add pre‑warmed E8 medium, 1.0 ml per well"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s13",
+        "op": "annotate",
+        "params": {
+          "note": "collect total cell suspension into conical tube (amount unspecified)"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s14",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "equipment_ref": "pipette1",
+          "note": "gently pipette to dissociate clumps"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s15",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge1",
+          "program": {
+            "program_name": "200g_5min"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      }
+    ],
+    "detail_level": 0
+  }
+}

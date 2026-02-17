@@ -1,0 +1,186 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "RNA purification using Zymo‑Spin column",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00827-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "RNA mixture"
+      },
+      {
+        "id": "m2",
+        "name": "Zymo-Spin IC Column"
+      },
+      {
+        "id": "m5",
+        "name": "DNase I (6 U/μl)"
+      },
+      {
+        "id": "m6",
+        "name": "DNA Digestion Buffer"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "Collection Tube"
+      },
+      {
+        "id": "c2",
+        "name": "RNase‑free tube"
+      },
+      {
+        "id": "c3",
+        "name": "New Collection Tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "centrifuge"
+      },
+      {
+        "id": "e2",
+        "name": "incubator"
+      }
+    ],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "operation": "transfer",
+        "params": {
+          "source": "m1",
+          "destination": "m2",
+          "container": "c1"
+        },
+        "op": "annotate",
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "operation": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "30 s at 16,000g"
+        },
+        "op": "annotate",
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "operation": "transfer",
+        "params": {
+          "source": "m2",
+          "destination": "c3",
+          "note": "discard flow through"
+        },
+        "op": "annotate",
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "operation": "transfer",
+        "params": {
+          "source": "m5",
+          "volume": "5 μl",
+          "destination": "c2"
+        },
+        "op": "annotate",
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "operation": "transfer",
+        "params": {
+          "source": "m6",
+          "volume": "35 μl",
+          "destination": "c2"
+        },
+        "op": "annotate",
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "operation": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "target": "c2"
+        },
+        "op": "annotate",
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "operation": "transfer",
+        "params": {
+          "source": "c2",
+          "destination": "m2",
+          "note": "add mix directly to column matrix"
+        },
+        "op": "annotate",
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "operation": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": "room temperature (20–30 °C) for 15 min"
+        },
+        "op": "annotate",
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

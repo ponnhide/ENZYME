@@ -1,0 +1,126 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Fix vascular networks",
+    "source": {
+      "type": "paper",
+      "id": "s41596-019-0213-z.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "cell culture medium"
+      },
+      {
+        "id": "m2",
+        "name": "4 % paraformaldehyde (PFA) solution in PBS"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "well of a culture plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "P1000 pipette"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp_medium",
+        "material_id": "m1",
+        "container_id": "c1"
+      },
+      {
+        "id": "samp_pfa",
+        "material_id": "m2"
+      },
+      {
+        "id": "samp_well",
+        "container_id": "c1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_medium"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Carefully aspirate the medium from a well using a P1000 pipette"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_pfa"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_well"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Transfer PFA solution to the well (amount not specified)"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_well"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_well"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 20,
+            "unit": "min"
+          },
+          "temperature": "room temperature"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

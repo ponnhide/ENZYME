@@ -1,0 +1,199 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Micromass centrifugation and transfer to Transwell",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00880-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "E6/2% FBS"
+      },
+      {
+        "id": "m2",
+        "name": "CHIR99021 solution (5 µM in E6)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "tube"
+      },
+      {
+        "id": "c2",
+        "name": "Transwell insert"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "device_kind": "centrifuge"
+      },
+      {
+        "id": "e2",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "smp1",
+        "name": "cell micromass"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source": "m1",
+          "destination": "c1",
+          "amount": {
+            "value": 200.0,
+            "unit": "µL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s1a",
+        "op": "annotate",
+        "params": {
+          "text": "Top up the medium volume in each tube to 200 µL with E6/2% FBS."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "e1",
+          "program": "300g for 3 min, repeat 3 times with 180° rotation between spins"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3a",
+        "op": "annotate",
+        "params": {
+          "text": "Use a P200 pipette with a wide‑bore tip to gently push each cell pellet down to the base of the tube and aspirate the micromass into the pipette tip opening."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "c1",
+          "destination": "c2"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4a",
+        "op": "annotate",
+        "params": {
+          "text": "Transfer three micromasses to each Transwell insert, allowing each micromass to settle into the pipette tip opening before dispensing in a single droplet onto the Transwell membrane. (Exact volume not specified.)"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "m2",
+          "destination": "c2",
+          "amount": {
+            "value": 1.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5a",
+        "op": "annotate",
+        "params": {
+          "text": "Add 1 mL of E6‑containing 5 µM CHIR99021 to the base of the Transwell."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e2",
+          "program": "incubate at 37 °C for 1 h"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s1a"
+      },
+      {
+        "from": "s1a",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s3a"
+      },
+      {
+        "from": "s3a",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s4a"
+      },
+      {
+        "from": "s4a",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s5a"
+      },
+      {
+        "from": "s5a",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

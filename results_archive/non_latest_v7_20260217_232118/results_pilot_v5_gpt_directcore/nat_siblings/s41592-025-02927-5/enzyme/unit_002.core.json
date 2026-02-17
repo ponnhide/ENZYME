@@ -1,0 +1,199 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Cell hashing and single-cell library preparation",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41592-025-02927-5.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "type": "barcoded_antibody",
+        "name": "Barcoded antibodies"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "tube",
+        "name": "Sample tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "amplicon_readout_system",
+        "name": "10x Genomics Chromium"
+      }
+    ],
+    "samples": [
+      {
+        "id": "pooled_cells",
+        "type": "cell_suspension",
+        "description": "Pooled cells from conditions"
+      },
+      {
+        "id": "single_cell_suspension",
+        "type": "cell_suspension"
+      },
+      {
+        "id": "hashed_cells_intermediate",
+        "type": "cell_suspension"
+      },
+      {
+        "id": "hashed_cells",
+        "type": "cell_suspension"
+      }
+    ],
+    "data": [
+      {
+        "id": "seq_data",
+        "type": "sequencing_output"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "pooled_cells"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "pooled_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "single_cell_suspension"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "note": "transfer amount unspecified"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "single_cell_suspension"
+          },
+          {
+            "kind": "material",
+            "id": "m1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "hashed_cells_intermediate"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "hashed_cells_intermediate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "hashed_cells"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "single_cell_transcriptome_sequencing"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "hashed_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "seq_data"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

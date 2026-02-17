@@ -1,0 +1,172 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Organoid dissociation and re‑embedding for single‑cell assays",
+    "source": {
+      "type": "paper",
+      "id": "s41467-024-55567-2.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Established organoids"
+      },
+      {
+        "id": "m2",
+        "name": "TrypLE",
+        "vendor": "Gibco"
+      },
+      {
+        "id": "m3",
+        "name": "Fresh BME"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "48-well plate"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "sample1",
+        "name": "Organoid tissue"
+      },
+      {
+        "id": "sample2",
+        "name": "Organoid + TrypLE"
+      },
+      {
+        "id": "sample3",
+        "name": "Single cell suspension"
+      },
+      {
+        "id": "sample4",
+        "name": "Re‑embedded cells in BME"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "annotations": {
+          "note": "Amount of TrypLE not specified in source text."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample3"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "annotations": {
+          "note": "Dissociation into single cells with TrypLE as described in source."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample3"
+          },
+          {
+            "kind": "material",
+            "id": "m3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample4"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 20,
+            "unit": "μL"
+          }
+        },
+        "annotations": {
+          "note": "Re‑embedding at ~8000 cells per well in a 48‑well plate."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

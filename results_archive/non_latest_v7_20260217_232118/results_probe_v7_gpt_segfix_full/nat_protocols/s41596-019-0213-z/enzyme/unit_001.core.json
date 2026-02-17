@@ -1,0 +1,290 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Cell dissociation and preparation",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-019-0213-z.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_edta",
+        "name": "0.5 mM EDTA"
+      },
+      {
+        "id": "m_accutase",
+        "name": "Accutase"
+      },
+      {
+        "id": "m_e8",
+        "name": "E8 medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_plate",
+        "type": "6-well_plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "eq_incubator",
+        "type": "incubator"
+      },
+      {
+        "id": "eq_microscope",
+        "type": "microscope"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_hpscs",
+        "name": "human pluripotent stem cells"
+      },
+      {
+        "id": "edta_solution",
+        "name": "edta_solution"
+      },
+      {
+        "id": "accutase_solution",
+        "name": "accutase_solution"
+      },
+      {
+        "id": "e8_medium",
+        "name": "e8_medium"
+      },
+      {
+        "id": "hpscs",
+        "name": "hpscs"
+      },
+      {
+        "id": "observation_data",
+        "name": "observation_data"
+      }
+    ],
+    "data": [
+      {
+        "id": "observation_data",
+        "type": "image"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "edta_solution"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "accutase_solution"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "e8_medium"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c_plate"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "hpscs"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": "e8_medium",
+          "destination": "waste",
+          "amount": {
+            "value": 0.6,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "source": "edta_solution",
+          "destination": "c_plate",
+          "amount": {
+            "value": 0.6,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "params": {
+          "source": "c_plate",
+          "destination": "waste",
+          "amount": {
+            "value": 0.6,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "params": {
+          "source": "accutase_solution",
+          "destination": "c_plate",
+          "amount": {
+            "value": 0.6,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "eq_incubator",
+          "program": {
+            "program_name": "37C_3-5min"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": "cell rounding"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "observation_data"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s12",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      }
+    ],
+    "detail_level": 0
+  }
+}

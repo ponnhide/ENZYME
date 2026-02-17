@@ -1,0 +1,125 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "hPSC-to-iNPC differentiation stage II",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01236-7.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "phase_I_medium",
+        "name": "phase_I_medium"
+      },
+      {
+        "id": "waste_medium",
+        "name": "waste_medium"
+      },
+      {
+        "id": "phase_II_medium",
+        "name": "phase_II_medium"
+      },
+      {
+        "id": "culture_medium_day4",
+        "name": "culture_medium_day4"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "phase_I_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "waste_medium"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1.2,
+            "unit": "ml"
+          },
+          "source_container": "culture_plate",
+          "target_container": "waste_container"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "phase_II_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "culture_medium_day4"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1.2,
+            "unit": "ml"
+          },
+          "source_container": "phase_II_medium_stock",
+          "target_container": "culture_plate"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Days 5 and 6. Renew the medium with 1.2 ml of fresh phase II medium."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "caution": "If you note that the cells are starting to peel off the plate, it is best to discontinue and restart the differentiation, because it will just get worse over time."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,206 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "group": "nat_siblings",
+    "source": {
+      "id": "s41591-024-02807-z",
+      "type": "paper"
+    },
+    "title": "Seed AF cells in Matrigel"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "af_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "matrigel",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "medium",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "description": "Seed viable AF cells in Matrigel droplets"
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "af_cells",
+            "kind": "sample"
+          },
+          {
+            "id": "matrigel",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "af_cells_in_matrigel",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "description": "Culture the Matrigel droplets in generic epithelial medium without tissue-specific signals"
+        },
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "af_cells_in_matrigel",
+            "kind": "sample"
+          },
+          {
+            "id": "medium",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "afo_culture",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "afo_culture",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "afo_culture_incubated",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "culture"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [],
+    "data": [],
+    "equipment": [
+      {
+        "id": "incubator1",
+        "name": "incubator"
+      }
+    ],
+    "materials": [
+      {
+        "id": "mat_af_cells",
+        "name": "viable AF cells"
+      },
+      {
+        "id": "mat_matrigel",
+        "name": "Matrigel"
+      },
+      {
+        "id": "mat_generic_epithelial_medium",
+        "name": "generic epithelial medium"
+      }
+    ],
+    "samples": [
+      {
+        "id": "af_cells",
+        "material_id": "mat_af_cells"
+      },
+      {
+        "id": "matrigel",
+        "material_id": "mat_matrigel"
+      },
+      {
+        "id": "medium",
+        "material_id": "mat_generic_epithelial_medium"
+      },
+      {
+        "derived_from": [
+          "af_cells",
+          "matrigel"
+        ],
+        "id": "af_cells_in_matrigel"
+      },
+      {
+        "derived_from": [
+          "af_cells_in_matrigel",
+          "medium"
+        ],
+        "id": "afo_culture"
+      },
+      {
+        "derived_from": [
+          "afo_culture"
+        ],
+        "id": "afo_culture_incubated"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

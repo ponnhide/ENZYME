@@ -1,0 +1,165 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Extracellular staining",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00603-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "type": "antibody_panel",
+        "name": "antibody_panel"
+      },
+      {
+        "id": "m2",
+        "type": "buffer",
+        "name": "CSB"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "microcentrifuge_tube"
+      },
+      {
+        "id": "c2",
+        "type": "cell_culture_plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "rocking_platform"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s1",
+        "type": "cells"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "volume": "50 µl"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "m1",
+          "destination": "c1",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "m2",
+          "destination": "c1",
+          "amount": {
+            "value": 50.0,
+            "unit": "µl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "c1",
+          "destination": "c2",
+          "amount": {
+            "value": 50.0,
+            "unit": "µl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "30_min_rocker_RT"
+          },
+          "device_ref": "e1"
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

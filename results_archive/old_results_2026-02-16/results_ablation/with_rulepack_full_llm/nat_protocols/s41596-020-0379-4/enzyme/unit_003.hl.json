@@ -1,0 +1,540 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Splitting of organoids",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-0379-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "adDMEM_F12_plus",
+        "name": "adDMEM/F12+++"
+      },
+      {
+        "id": "TrypLE",
+        "name": "TrypLE"
+      },
+      {
+        "id": "BME_70pct",
+        "name": "70% (vol/vol) BME"
+      },
+      {
+        "id": "ROCK_inhibitor",
+        "name": "10 µM ROCK inhibitor"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube_15ml",
+        "type": "15‑ml conical tube"
+      },
+      {
+        "id": "culture_plate",
+        "type": "culture plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge",
+        "type": "centrifuge"
+      },
+      {
+        "id": "incubator",
+        "type": "incubator"
+      },
+      {
+        "id": "pipette_P1000",
+        "type": "P1000 filter pipette tip with non‑filtered P10 tip"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoid_suspension",
+        "type": "organoid suspension"
+      },
+      {
+        "id": "organoid_in_tube",
+        "type": "organoid suspension in 15‑ml tube"
+      },
+      {
+        "id": "organoid_pellet",
+        "type": "organoid pellet"
+      },
+      {
+        "id": "organoid_TrypLE",
+        "type": "organoid in TrypLE"
+      },
+      {
+        "id": "organoid_mech",
+        "type": "organoid after mechanical disruption"
+      },
+      {
+        "id": "washed_organoids",
+        "type": "washed organoids"
+      },
+      {
+        "id": "plated_organoids",
+        "type": "plated organoids"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_suspension"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_suspension"
+          }
+        ],
+        "params": {
+          "action_kind": "mix",
+          "description": "Pipette up and down to disrupt BME or Matrigel"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Transfer the organoid suspension to a 15‑ml conical tube (volume not specified)."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "adDMEM_F12_plus"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_in_tube"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 10,
+            "unit": "ml"
+          },
+          "temperature": "ice‑cold"
+        },
+        "annotations": {
+          "note": "Top the volume up with 10 ml of ice‑cold adDMEM/F12+++"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_in_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_pellet"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "200 g, 5 min, 4 °C"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Aspirate the supernatant, then split organoids using either TrypLE (for head and neck and compact breast, colon, pancreatic and liver organoids) or mechanical disruption (ovarian and cystic breast, colon, pancreatic and liver organoids)."
+        }
+      },
+      {
+        "id": "s7a",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_pellet"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_TrypLE"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          }
+        },
+        "annotations": {
+          "note": "Resuspend the pellet in 1 ml of TrypLE"
+        }
+      },
+      {
+        "id": "s8a",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_TrypLE"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_TrypLE"
+          }
+        ],
+        "params": {
+          "action_kind": "mix",
+          "description": "Pipette up and down and incubate at 37 °C until organoids fall apart"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s9a",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_TrypLE"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_TrypLE"
+          }
+        ],
+        "params": {
+          "action_kind": "mix",
+          "repetitions": "≥10 times every 3–5 min",
+          "description": "Use a P1000 filter tip with a (non‑filtered) P10 tip on top"
+        },
+        "annotations": {
+          "note": "Monitor digestion closely to keep incubation time to a minimum"
+        }
+      },
+      {
+        "id": "s7b",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_pellet"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_mech"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 3,
+            "unit": "ml"
+          }
+        },
+        "annotations": {
+          "note": "Resuspend the pellet in 3 ml of adDMEM/F12+++"
+        }
+      },
+      {
+        "id": "s8b",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_mech"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_mech"
+          }
+        ],
+        "params": {
+          "action_kind": "mix",
+          "repetitions": 30,
+          "description": "Pipette up and down with a P1000 filter tip with a (non‑filtered) P10 tip on top"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s9b",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_mech"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_mech"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Use the bottom of the tube to create pressure, which will aid organoid disruption"
+        }
+      },
+      {
+        "id": "s10",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "adDMEM_F12_plus"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "washed_organoids"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 10,
+            "unit": "ml"
+          }
+        },
+        "annotations": {
+          "note": "Wash with 10 ml of adDMEM/F12+++"
+        }
+      },
+      {
+        "id": "s11",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Resuspend organoid pellet in 70% (vol/vol) BME (volume not specified)."
+        }
+      },
+      {
+        "id": "s12",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "washed_organoids"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plated_organoids"
+          }
+        ],
+        "params": {
+          "action_kind": "spread_on_plate",
+          "description": "Plate organoids in small droplets on the bottom of a pre‑warmed culture plate"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s13",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "plated_organoids"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plated_organoids"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "temperature": "37 °C",
+          "CO2": "5 % (vol/vol)",
+          "duration": "30–60 min",
+          "orientation": "inverted"
+        },
+        "annotations": {
+          "note": "Place plate in humidified incubator after inverting"
+        }
+      },
+      {
+        "id": "s14",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "adDMEM_F12_plus"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "adDMEM_F12_plus"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "pre‑warm at 37 °C"
+        },
+        "annotations": {
+          "note": "Pre‑warm organoid medium containing 10 µM ROCK inhibitor at 37 °C"
+        }
+      },
+      {
+        "id": "s15",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "plated_organoids"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plated_organoids"
+          }
+        ],
+        "params": {
+          "action_kind": "mix",
+          "description": "Pipette pre‑warmed medium into the wells after BME drops have solidified (30–60 min)"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s16",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "plated_organoids"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plated_organoids"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "temperature": "37 °C",
+          "CO2": "5 % (vol/vol)",
+          "duration": "until organoids are needed for the drug screen"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s7a"
+      },
+      {
+        "from": "s5",
+        "to": "s7b"
+      },
+      {
+        "from": "s7a",
+        "to": "s8a"
+      },
+      {
+        "from": "s8a",
+        "to": "s9a"
+      },
+      {
+        "from": "s9a",
+        "to": "s10"
+      },
+      {
+        "from": "s7b",
+        "to": "s8b"
+      },
+      {
+        "from": "s8b",
+        "to": "s9b"
+      },
+      {
+        "from": "s9b",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      }
+    ],
+    "detail_level": 0
+  }
+}

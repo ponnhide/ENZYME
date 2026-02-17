@@ -1,0 +1,188 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Day 1: hiPS cell transduction",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01299-6"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "e8_medium",
+        "name": "E8 medium"
+      },
+      {
+        "id": "polybrene",
+        "name": "Polybrene"
+      },
+      {
+        "id": "lentivirus",
+        "name": "Lentivirus encoding sgRNA library"
+      },
+      {
+        "id": "e8_mix",
+        "name": "Pre-warmed E8 medium supplemented with 5 μg/ml polybrene and lentivirus",
+        "components": [
+          "e8_medium",
+          "polybrene",
+          "lentivirus"
+        ]
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate",
+        "name": "96-well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "name": "37 °C, 5% CO2 incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "hiPS_cells_plate",
+        "name": "hiPS cells in plate",
+        "container_ref": "plate"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Aspirate the medium from each well."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "e8_mix"
+          },
+          {
+            "kind": "sample",
+            "id": "hiPS_cells_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "hiPS_cells_plate"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "hiPS_cells_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "hiPS_cells_plate"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 8,
+            "unit": "h"
+          },
+          "temperature": {
+            "value": 37,
+            "unit": "C"
+          },
+          "CO2": {
+            "value": 5,
+            "unit": "%"
+          },
+          "device_kind": "incubator",
+          "device_ref": "incubator"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "e8_mix"
+          },
+          {
+            "kind": "sample",
+            "id": "hiPS_cells_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "hiPS_cells_plate"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Maintain one plate of uninfected hiPS cells as a negative control."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

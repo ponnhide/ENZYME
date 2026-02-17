@@ -1,0 +1,120 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Day 8 switch to CDBLY2 medium",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00880-1"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "CDBLY2_medium",
+        "name": "CDBLY2 medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "well_plate",
+        "type": "well_plate"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "culture_well",
+        "type": "cell_culture",
+        "container_ref": "well_plate"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "CDBLY2_medium"
+          },
+          {
+            "kind": "sample",
+            "id": "culture_well"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "culture_well"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "mL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "culture_well"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "culture_well"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Refresh CDBLY2 medium daily for 5 days (to D13 differentiation)"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "culture_well"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "culture_well"
+          }
+        ],
+        "params": {
+          "modality": "visual",
+          "features": "epithelialization"
+        },
+        "annotations": {
+          "note": "Monitor monolayer daily to ensure no epithelialization"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

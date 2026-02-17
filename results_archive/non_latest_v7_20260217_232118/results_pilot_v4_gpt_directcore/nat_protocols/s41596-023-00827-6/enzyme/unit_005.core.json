@@ -1,0 +1,106 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "RT‑qPCR reaction setup",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00827-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "name": "Sybr green"
+      },
+      {
+        "name": "Forward primer (10 μM stock)"
+      },
+      {
+        "name": "Reverse primer (10 μM stock)"
+      },
+      {
+        "name": "cDNA"
+      },
+      {
+        "name": "Water"
+      }
+    ],
+    "containers": [
+      {
+        "name": "384-well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "name": "thermocycler"
+      }
+    ],
+    "samples": [
+      {
+        "name": "RT‑qPCR reaction mixture"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "resource": "384-well plate",
+          "replicates": 3,
+          "description": "Allocate wells for technical triplicates of 15 μl reaction each"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "description": "Add 7.5 μl Sybr green, 0.15 μl forward primer (10 μM), 0.15 μl reverse primer (10 μM), cDNA and water to each allocated well to reach a total volume of 15 μl"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "thermocycler",
+          "program": "RT‑qPCR 40 cycles"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "params": {
+          "note": "Calculate relative gene expression using the average Ct value, normalized to GAPDH as internal control, and report as fold change (2^(-ddCT))."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

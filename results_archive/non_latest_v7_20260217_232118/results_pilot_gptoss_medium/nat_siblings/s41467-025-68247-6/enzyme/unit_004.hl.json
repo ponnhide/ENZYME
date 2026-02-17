@@ -1,0 +1,157 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Plating crypts in microwell plates with Matrigel",
+    "source": {
+      "type": "paper",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_crypts",
+        "name": "crypts"
+      },
+      {
+        "id": "m_media",
+        "name": "media"
+      },
+      {
+        "id": "m_media_matrigel",
+        "name": "media with 2% Matrigel"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_microwell_plate",
+        "type": "microwell_plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e_incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_crypts",
+        "material_ref": "m_crypts"
+      },
+      {
+        "id": "s_media",
+        "material_ref": "m_media"
+      },
+      {
+        "id": "s_media_matrigel",
+        "material_ref": "m_media_matrigel"
+      },
+      {
+        "id": "s_plate",
+        "container_ref": "c_microwell_plate"
+      },
+      {
+        "id": "s_plate_incubated",
+        "container_ref": "c_microwell_plate"
+      },
+      {
+        "id": "s_plate_final",
+        "container_ref": "c_microwell_plate"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_crypts"
+          },
+          {
+            "kind": "sample",
+            "id": "s_media"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_plate"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 200,
+            "unit": "cells"
+          }
+        },
+        "annotations": {
+          "note": "Added 50 µL of media per well together with the crypts."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_plate_incubated"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "30-60 min"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_media_matrigel"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_plate_final"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 100,
+            "unit": "µL"
+          }
+        },
+        "annotations": {
+          "note": "Media contains 2% Matrigel."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

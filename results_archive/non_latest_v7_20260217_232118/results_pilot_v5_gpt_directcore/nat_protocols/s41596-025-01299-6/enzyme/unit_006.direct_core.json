@@ -1,0 +1,321 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Section 3B: selection for the interneuron migration screen – assembloid generation",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01299-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "nm1",
+        "type": "material",
+        "name": "NM"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate1",
+        "type": "container",
+        "container_type": "24-well low-attachment plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "p1000",
+        "type": "equipment",
+        "equipment_type": "pipette"
+      },
+      {
+        "id": "p20",
+        "type": "equipment",
+        "equipment_type": "pipette"
+      },
+      {
+        "id": "incubator1",
+        "type": "equipment",
+        "equipment_type": "incubator"
+      },
+      {
+        "id": "microscope1",
+        "type": "equipment",
+        "equipment_type": "microscope"
+      }
+    ],
+    "samples": [
+      {
+        "id": "hco1",
+        "type": "sample",
+        "name": "hCO"
+      },
+      {
+        "id": "hso1",
+        "type": "sample",
+        "name": "hSO"
+      },
+      {
+        "id": "hfa1",
+        "type": "sample",
+        "name": "assembloid hFA"
+      }
+    ],
+    "data": [
+      {
+        "id": "image1",
+        "type": "data",
+        "name": "fluorescence_image"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "description": "hCO organoid"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "hco1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "description": "hSO organoid"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "hso1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "description": "24-well low-attachment plate"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "plate1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "hco1",
+          "destination": "plate1",
+          "method": "P1000 pipette tip with wide orifice",
+          "amount": {
+            "value": 0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "hso1",
+          "destination": "plate1",
+          "method": "P1000 pipette tip with wide orifice",
+          "amount": {
+            "value": 0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material",
+          "description": "NM (Neurobasal medium)"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "nm1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "source": "nm1",
+          "destination": "plate1",
+          "amount": {
+            "value": 2.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "description": "Tilt the plate slightly to guide organoids toward the edge of the well"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "description": "Using a P20 pipette tip, gently position the hCO and hSO so that they are in contact"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "description": "assembloid hFA formed by hCO and hSO contact"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "hfa1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s11",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator1",
+          "program": {
+            "program_name": "37C_5%CO2_tilted_4d"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "annotate",
+        "params": {
+          "note": "Change the medium for the hFA every 4 days by replacing 2 ml of NM, handling aspiration and refilling carefully to avoid disrupting the assembloids"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s13",
+        "op": "observe",
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "GFP+ cells migration"
+          ],
+          "description": "Assess interneuron migration in the hFA using a fluorescence microscope 30 days after formation"
+        },
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "image1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s14",
+        "op": "annotate",
+        "params": {
+          "note": "~10% of total hFA were excluded due to minimal interneuron migration to the hCO side"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      }
+    ],
+    "detail_level": 0
+  }
+}

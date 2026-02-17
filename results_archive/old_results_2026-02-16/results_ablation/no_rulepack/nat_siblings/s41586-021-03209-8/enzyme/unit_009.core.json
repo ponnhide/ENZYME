@@ -1,0 +1,445 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41586-021-03209-8",
+      "type": "paper"
+    },
+    "title": "Bulk H3K27ac CUT&Tag library preparation"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {
+          "note": "Dissociate cells from human cortical tissue as described above."
+        },
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "cells_50k",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "cells_50k",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "cells_50k",
+            "kind": "sample"
+          },
+          {
+            "id": "cut_tag_wash_buffer",
+            "kind": "material"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "cell_suspension",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "µl",
+            "value": 200
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "cell_suspension",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "nuclei",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend",
+          "amount": {
+            "unit": "µl",
+            "value": 200
+          },
+          "reagent": "dig_wash_buffer"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Wash nuclei twice with 200 µl dig‑wash buffer."
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "nuclei",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "nuclei",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "nuclei",
+            "kind": "sample"
+          },
+          {
+            "id": "dig_wash_buffer",
+            "kind": "material"
+          },
+          {
+            "id": "edta_2mM",
+            "kind": "material"
+          },
+          {
+            "id": "h3k27ac_primary_ab",
+            "kind": "material"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "antibody_bound_nuclei",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "additives": [
+            "2 mM EDTA"
+          ],
+          "amount": {
+            "unit": "µl",
+            "value": 100
+          },
+          "dilution": "1:50"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "antibody_bound_nuclei",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "antibody_bound_nuclei",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator_4c",
+          "program": "overnight incubation at 4 °C with shaking at 90 rpm on overhead rotary shaker"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s7",
+        "inputs": [
+          {
+            "id": "antibody_bound_nuclei",
+            "kind": "sample"
+          },
+          {
+            "id": "pa_tn5",
+            "kind": "material"
+          },
+          {
+            "id": "dig_med_buffer",
+            "kind": "material"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "tn5_tagmented",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "µl",
+            "value": 100
+          },
+          "dilution": "1:100"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s8",
+        "inputs": [
+          {
+            "id": "tn5_tagmented",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "tn5_tagmented",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator_37c",
+          "program": "1 h incubation at 37 °C"
+        }
+      },
+      {
+        "annotations": {
+          "note": "DNA purified with AMPure XP beads and eluted in 21 µl buffer EB."
+        },
+        "id": "s9",
+        "inputs": [
+          {
+            "id": "tn5_tagmented",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "purified_dna",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s10",
+        "inputs": [
+          {
+            "id": "purified_dna",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "library",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "thermocycler",
+          "device_ref": "thermocycler",
+          "program": "PCR amplification, 12 cycles"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s11",
+        "inputs": [
+          {
+            "id": "library",
+            "kind": "sample"
+          }
+        ],
+        "op": "observe",
+        "outputs": [
+          {
+            "id": "library",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "features": "Sequencing on Illumina NovaSeq to a depth of 15 million reads per library",
+          "modality": "instrument_readout"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "tube1",
+        "type": "microcentrifuge_tube"
+      },
+      {
+        "id": "tube2",
+        "type": "microcentrifuge_tube"
+      },
+      {
+        "id": "tube3",
+        "type": "microcentrifuge_tube"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "description": "overhead rotary shaker",
+        "id": "rotary_shaker",
+        "type": "shaker"
+      },
+      {
+        "description": "4 °C incubator",
+        "id": "incubator_4c",
+        "type": "incubator"
+      },
+      {
+        "description": "37 °C incubator",
+        "id": "incubator_37c",
+        "type": "incubator"
+      },
+      {
+        "id": "thermocycler",
+        "type": "thermocycler"
+      }
+    ],
+    "materials": [
+      {
+        "id": "human_cortical_tissue",
+        "type": "biological_source"
+      },
+      {
+        "description": "20 mM HEPES pH 7.5, 150 mM NaCl, 0.5 mM spermidine, 1× protease inhibitor cocktail (Roche)",
+        "id": "cut_tag_wash_buffer",
+        "type": "reagent"
+      },
+      {
+        "id": "dig_wash_buffer",
+        "type": "reagent"
+      },
+      {
+        "id": "dig_med_buffer",
+        "type": "reagent"
+      },
+      {
+        "description": "2 mM EDTA",
+        "id": "edta_2mM",
+        "type": "reagent"
+      },
+      {
+        "description": "Cell Signaling 8173",
+        "id": "h3k27ac_primary_ab",
+        "type": "reagent"
+      },
+      {
+        "id": "pa_tn5",
+        "type": "reagent"
+      },
+      {
+        "id": "ampure_xp_beads",
+        "type": "reagent"
+      },
+      {
+        "description": "Elution buffer EB",
+        "id": "buffer_eb",
+        "type": "reagent"
+      },
+      {
+        "description": "Illumina NovaSeq sequencer",
+        "id": "illumina_novaseq",
+        "type": "instrument"
+      }
+    ],
+    "samples": [
+      {
+        "description": "50 000 cells",
+        "id": "cells_50k",
+        "type": "cell_population"
+      },
+      {
+        "id": "cell_suspension",
+        "type": "sample"
+      },
+      {
+        "id": "nuclei",
+        "type": "sample"
+      },
+      {
+        "id": "antibody_bound_nuclei",
+        "type": "sample"
+      },
+      {
+        "id": "tn5_tagmented",
+        "type": "sample"
+      },
+      {
+        "id": "purified_dna",
+        "type": "sample"
+      },
+      {
+        "id": "library",
+        "type": "sample"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

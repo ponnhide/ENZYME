@@ -1,0 +1,373 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Multiplexed cortical brain organoid generation and single‑cell library preparation",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41592-024-02555-5.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "mat_psc_cells",
+        "name": "Pluripotent stem cell line",
+        "type": "cell_line"
+      },
+      {
+        "id": "mat_dissociation_buffer",
+        "name": "Organoid dissociation buffer",
+        "type": "buffer"
+      },
+      {
+        "id": "mat_library_kit",
+        "name": "Single‑cell library preparation kit",
+        "type": "kit"
+      }
+    ],
+    "containers": [
+      {
+        "id": "cont_organoid_plate",
+        "type": "well_plate",
+        "name": "6‑well plate for organoid culture"
+      },
+      {
+        "id": "cont_microtube",
+        "type": "microcentrifuge_tube",
+        "name": "Microcentrifuge tube for cell suspension"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "eq_incubator",
+        "type": "incubator",
+        "name": "CO₂ incubator"
+      },
+      {
+        "id": "eq_microscope",
+        "type": "microscope",
+        "name": "Fluorescence microscope"
+      },
+      {
+        "id": "eq_amplicon_reader",
+        "type": "amplicon_readout_system",
+        "name": "Sequencing instrument (amplicon readout)"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_psc",
+        "type": "sample",
+        "name": "PSC cell suspension"
+      },
+      {
+        "id": "sample_organoid",
+        "type": "sample",
+        "name": "Organoid culture"
+      },
+      {
+        "id": "sample_dissociated_cells",
+        "type": "sample",
+        "name": "Dissociated single cells"
+      },
+      {
+        "id": "sample_library",
+        "type": "sample",
+        "name": "Prepared sequencing library"
+      }
+    ],
+    "data": [
+      {
+        "id": "obs_viability",
+        "type": "data",
+        "name": "Viability observation"
+      },
+      {
+        "id": "data_seq_metrics",
+        "type": "data",
+        "name": "Sequencing quality metrics"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_psc"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "cont_organoid_plate"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "sample_psc",
+          "destination": "cont_organoid_plate",
+          "amount": {
+            "description": "5.0 ,000 cells per line"
+          }
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_organoid"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_organoid"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "eq_incubator",
+          "program": {
+            "program_name": "organoid_differentiation_50_100_300d"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_organoid"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "mat_dissociation_buffer"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_organoid"
+          },
+          {
+            "kind": "material",
+            "id": "mat_dissociation_buffer"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_dissociated_cells"
+          }
+        ]
+      },
+      {
+        "id": "s8",
+        "op": "observe",
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "cell viability",
+            "single‑cell suspension"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_dissociated_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "obs_viability"
+          }
+        ]
+      },
+      {
+        "id": "s9",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "mat_library_kit"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s10",
+        "op": "transfer",
+        "params": {
+          "source": "sample_dissociated_cells",
+          "destination": "cont_microtube",
+          "amount": {
+            "description": "cell suspension for library prep"
+          }
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_library"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s11",
+        "op": "run_device",
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "device_ref": "eq_amplicon_reader",
+          "program": {
+            "program_name": "single_cell_library_preparation"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_library"
+          },
+          {
+            "kind": "material",
+            "id": "mat_library_kit"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "sequencing metrics",
+            "UMI count distribution"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_library"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "data_seq_metrics"
+          }
+        ]
+      },
+      {
+        "id": "s13",
+        "op": "annotate",
+        "params": {
+          "note": "Computational demultiplexing of pooled single‑cell data using SCanSNP and consensus call (methods described in the paper)."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      }
+    ],
+    "detail_level": 0
+  }
+}

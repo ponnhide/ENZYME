@@ -1,0 +1,160 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Seeding AF cells in Matrigel and culturing",
+    "source": {
+      "type": "paper",
+      "id": "s41591-024-02807-z.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "matrigel",
+        "name": "Matrigel"
+      },
+      {
+        "id": "generic_medium",
+        "name": "generic epithelial medium"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "incubator",
+        "name": "incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "af_cells",
+        "name": "viable AF cells"
+      },
+      {
+        "id": "seeded_droplets",
+        "name": "AF cells in Matrigel droplets"
+      },
+      {
+        "id": "cultured_droplets",
+        "name": "AF cells cultured in generic epithelial medium"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "af_cells"
+          }
+        ],
+        "params": {},
+        "annotations": {},
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "matrigel"
+          }
+        ],
+        "params": {},
+        "annotations": {},
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "generic_medium"
+          }
+        ],
+        "params": {},
+        "annotations": {},
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "af_cells"
+          },
+          {
+            "kind": "material",
+            "id": "matrigel"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "seeded_droplets"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Seed viable AF cells in Matrigel droplets"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "seeded_droplets"
+          },
+          {
+            "kind": "material",
+            "id": "generic_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cultured_droplets"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {}
+        },
+        "annotations": {
+          "note": "Culture the Matrigel droplets in generic epithelial medium"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s4"
+      },
+      {
+        "from": "s2",
+        "to": "s4"
+      },
+      {
+        "from": "s3",
+        "to": "s5"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

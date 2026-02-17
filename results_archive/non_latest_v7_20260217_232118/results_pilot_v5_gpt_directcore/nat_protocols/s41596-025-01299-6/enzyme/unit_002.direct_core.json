@@ -1,0 +1,237 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Day 1: hiPS cell transduction",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01299-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "type": "E8 medium"
+      },
+      {
+        "id": "m2",
+        "type": "polybrene"
+      },
+      {
+        "id": "m3",
+        "type": "lentivirus encoding sgRNA library"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate1",
+        "type": "96-well plate"
+      },
+      {
+        "id": "waste1",
+        "type": "waste"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator1",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_mix",
+        "type": "sample",
+        "description": "pre-warmed E8 medium with 5 μg/ml polybrene and lentivirus"
+      },
+      {
+        "id": "cells_plate",
+        "type": "sample",
+        "description": "hiPS cells in plate"
+      }
+    ],
+    "data": [
+      {
+        "id": "obs1",
+        "type": "observation"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s_alloc_mix",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_mix"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s_alloc_cells",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_plate"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s0",
+        "op": "annotate",
+        "params": {
+          "note": "Maintain one plate of uninfected hiPS cells as a negative control."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source_ref": "plate1",
+          "destination_ref": "waste1",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source_ref": "sample_mix",
+          "destination_ref": "plate1",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "params": {
+          "note": "Incubate for 8 h."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source_ref": "m1",
+          "destination_ref": "plate1",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator1",
+          "program": {
+            "program_name": "standard_37C_5CO2"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source_ref": "m1",
+          "destination_ref": "plate1",
+          "amount": {
+            "value": 3.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "cell morphology"
+          ]
+        },
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "obs1"
+          }
+        ],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s_alloc_mix",
+    "edges": [
+      {
+        "from": "s_alloc_mix",
+        "to": "s_alloc_cells"
+      },
+      {
+        "from": "s_alloc_cells",
+        "to": "s0"
+      },
+      {
+        "from": "s0",
+        "to": "s1"
+      },
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

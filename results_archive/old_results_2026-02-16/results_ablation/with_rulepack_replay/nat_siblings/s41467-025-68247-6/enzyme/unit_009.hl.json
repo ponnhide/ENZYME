@@ -1,0 +1,298 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Single‑cell dissociation for scRNA‑seq",
+    "source": {
+      "type": "paper",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_neural_dissociation_kit",
+        "name": "Neural Dissociation‑P kit (Miltenyi)"
+      },
+      {
+        "id": "m_y27632",
+        "name": "Y‑27632"
+      },
+      {
+        "id": "m_pbs",
+        "name": "PBS"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_microwell_plate",
+        "type": "microwell plate"
+      },
+      {
+        "id": "c_deepwell_plate",
+        "type": "deep‑well 96‑well plate (Thermo Fisher)"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e_incubator",
+        "device_kind": "incubator"
+      },
+      {
+        "id": "e_centrifuge",
+        "device_kind": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_organoid_initial",
+        "description": "Organoids in microwell plate"
+      },
+      {
+        "id": "s_organoid_in_plate",
+        "description": "Organoids transferred to deep‑well plate"
+      },
+      {
+        "id": "s_enzyme_mix1",
+        "description": "Enzyme mix 1 (with Y‑27632)"
+      },
+      {
+        "id": "s_enzyme_mix2",
+        "description": "Enzyme mix 2"
+      },
+      {
+        "id": "s_organoid_incubated1",
+        "description": "Organoids after 10 min incubation at 10 °C with mix 1"
+      },
+      {
+        "id": "s_organoid_mix2",
+        "description": "Organoids after addition of mix 2"
+      },
+      {
+        "id": "s_organoid_dissociated",
+        "description": "Organoids after 60 min dissociation at 10 °C"
+      },
+      {
+        "id": "s_pellet",
+        "description": "Centrifuged cell pellet"
+      },
+      {
+        "id": "s_washed_cells",
+        "description": "Cells washed twice with PBS"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_initial"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_in_plate"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_enzyme_mix1"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "note": "Prepared according to manufacturer protocols with addition of Y‑27632 for a final volume containing human recombinant proteins."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_in_plate"
+          },
+          {
+            "kind": "sample",
+            "id": "s_enzyme_mix1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_incubated1"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": {
+              "value": 10,
+              "unit": "°C"
+            },
+            "duration": {
+              "value": 10,
+              "unit": "min"
+            }
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_enzyme_mix2"
+          },
+          {
+            "kind": "sample",
+            "id": "s_organoid_incubated1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_mix2"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "note": "Enzyme mix 2 added after the initial 10 min incubation."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_mix2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_dissociated"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": {
+              "value": 10,
+              "unit": "°C"
+            },
+            "duration": {
+              "value": 60,
+              "unit": "min"
+            }
+          }
+        },
+        "annotations": {
+          "note": "Organoids kept at 10 °C throughout dissociation for up to 60 min, and were removed every 10 min to be pipette mixed with a P1000 pipette to aid in disassociation."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "centrifuge",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_dissociated"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_pellet"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 3,
+            "unit": "min"
+          },
+          "speed": {
+            "value": 500,
+            "unit": "×g"
+          },
+          "temperature": {
+            "value": 4,
+            "unit": "°C"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_pellet"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_washed_cells"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "note": "Washed twice with PBS."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

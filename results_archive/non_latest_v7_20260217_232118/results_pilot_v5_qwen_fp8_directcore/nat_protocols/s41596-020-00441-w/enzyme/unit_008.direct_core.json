@@ -1,0 +1,157 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Anterior-posterior boundary spheroid formation (Day 8)",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-020-00441-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "96-well round-bottom ultra-low attachment plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "mechanical pipette with wide-bore 200-µl tip"
+      },
+      {
+        "id": "e2",
+        "type": "centrifuge"
+      },
+      {
+        "id": "e3",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s1",
+        "kind": "posterior spheroid"
+      },
+      {
+        "id": "s2",
+        "kind": "anterior spheroid"
+      },
+      {
+        "id": "s3",
+        "kind": "fused anterior-posterior gut spheroid"
+      },
+      {
+        "id": "c1",
+        "name": "c1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "pick_colony"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "equipment": [
+          "e1"
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "amount": "unknown"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "containers": [
+          "c1"
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "1000_rpm_1min"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "equipment": [
+          "e2"
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "37C_24h"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "equipment": [
+          "e3"
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

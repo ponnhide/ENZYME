@@ -1,0 +1,140 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Fixation",
+    "source": {
+      "type": "paper",
+      "id": "s41596-021-00603-4"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "culture medium"
+      },
+      {
+        "id": "m2",
+        "name": "4% PFA solution"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "well_plate",
+        "description": "culture wells"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "device_kind": "incubator",
+        "description": "CO2 incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_well",
+        "container_id": "c1",
+        "description": "well containing cells in Matrigel"
+      },
+      {
+        "id": "s_PFA",
+        "material_id": "m2",
+        "description": "prewarmed 4% PFA"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_well"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_well"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Remove culture medium by pipetting, taking care not to disrupt Matrigel."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_PFA"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_well"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 200,
+            "unit": "µl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_well"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_well"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 60,
+            "unit": "min"
+          },
+          "temperature": {
+            "value": 37,
+            "unit": "°C"
+          },
+          "CO2": {
+            "value": 5,
+            "unit": "%"
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

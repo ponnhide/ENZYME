@@ -1,0 +1,210 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Fix OVB organoids",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00814-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "pfa_4pct",
+        "name": "4% PFA"
+      },
+      {
+        "id": "dmem_f12",
+        "name": "DMEM/F12"
+      },
+      {
+        "id": "pbs",
+        "name": "PBS"
+      },
+      {
+        "id": "sucrose_30pct",
+        "name": "30% (wt/vol) sucrose/PBS"
+      },
+      {
+        "id": "oct_solution",
+        "name": "OCT embedding solution"
+      },
+      {
+        "id": "pll",
+        "name": "poly-L-lysine (PLL)"
+      },
+      {
+        "id": "sds_1pct",
+        "name": "1% sodium dodecyl sulfate"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube1ml",
+        "type": "tube_1ml"
+      },
+      {
+        "id": "tip_1000ul",
+        "type": "pipette_tip_1000ul"
+      },
+      {
+        "id": "tip_200ul",
+        "type": "pipette_tip_200ul"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "water_bath_37C",
+        "type": "water_bath"
+      }
+    ],
+    "samples": [
+      {
+        "id": "ovb_organoids",
+        "type": "organoid_sample"
+      },
+      {
+        "id": "tube1ml",
+        "name": "tube1ml"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "ovb_organoids"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tube1ml"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "ovb_organoids",
+          "destination": "tube1ml",
+          "method": "cut_1000ul_tip",
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "params": {
+          "note": "Remove carried-over medium using a 200 µl micropipette tip without disturbing the organoids."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "dmem_f12",
+          "destination": "tube1ml",
+          "temperature": "37 °C water bath",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Remove DMEM/F12 after 3 min wash."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "source": "pfa_4pct",
+          "destination": "tube1ml",
+          "temperature": "37 °C water bath",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "note": "Incubate tube at room temperature for 30–60 min (do not exceed 1 h)."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

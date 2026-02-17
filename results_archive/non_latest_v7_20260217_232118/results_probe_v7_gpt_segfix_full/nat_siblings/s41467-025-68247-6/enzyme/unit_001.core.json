@@ -1,0 +1,143 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Tissue sectioning and PBS placement",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "PBS++"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "dish"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "t1",
+        "name": "tissue"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material",
+          "name": "PBS++"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "type": "dish"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source_ref": "m1",
+          "destination_ref": "c1",
+          "description": "fill dish with PBS++",
+          "amount": {
+            "note": "unspecified amount"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "name": "tissue"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "t1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "note": "Tissue cut into ~2\" x 2\" sections"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source_ref": "t1",
+          "destination_ref": "c1",
+          "description": "place tissue sections into PBS++ filled dish",
+          "amount": {
+            "note": "unspecified amount"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

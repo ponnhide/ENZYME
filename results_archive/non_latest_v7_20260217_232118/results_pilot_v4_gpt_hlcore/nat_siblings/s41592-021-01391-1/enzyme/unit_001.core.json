@@ -1,0 +1,116 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41592-021-01391-1.pdf",
+      "type": "paper"
+    },
+    "title": "Quantify input cells via impedance"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "start_step_id": "s1",
+    "step_order": null,
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "samp_input",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "samp_input",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "d_impedance",
+            "kind": "data"
+          }
+        ],
+        "params": {
+          "device_kind": "cell_counter",
+          "device_ref": "e1",
+          "program": "impedance_measurement"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "samp_input",
+            "kind": "sample"
+          }
+        ],
+        "op": "observe",
+        "outputs": [
+          {
+            "id": "d_microscopy",
+            "kind": "data"
+          }
+        ],
+        "params": {
+          "features": [
+            "cell_count_validation"
+          ],
+          "modality": "microscope"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [],
+    "data": [
+      {
+        "id": "d_impedance",
+        "type": "measurement"
+      },
+      {
+        "id": "d_microscopy",
+        "type": "image"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "kind": "cell_counter"
+      },
+      {
+        "id": "e2",
+        "kind": "imager"
+      }
+    ],
+    "materials": [],
+    "samples": [
+      {
+        "id": "samp_input",
+        "type": "cell_sample"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

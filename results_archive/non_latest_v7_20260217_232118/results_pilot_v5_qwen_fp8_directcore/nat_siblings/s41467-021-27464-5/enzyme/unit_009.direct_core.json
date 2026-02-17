@@ -1,0 +1,71 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Sequence libraries on NextSeq or NovaSeq",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-021-27464-5.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "eq1",
+        "type": "NextSeq500"
+      },
+      {
+        "id": "eq2",
+        "type": "NovaSeq6000"
+      }
+    ],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": {
+            "program_name": "NextSeq500_200cycle",
+            "Read1": "28 cycles",
+            "Read2": "98 cycles",
+            "Index1": "8 cycles"
+          },
+          "device_ref": "eq1"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": {
+            "program_name": "NovaSeq6000_200cycle",
+            "Read1": "28 cycles",
+            "Read2": "98 cycles",
+            "Index1": "8 cycles"
+          },
+          "device_ref": "eq2"
+        },
+        "outputs": [],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

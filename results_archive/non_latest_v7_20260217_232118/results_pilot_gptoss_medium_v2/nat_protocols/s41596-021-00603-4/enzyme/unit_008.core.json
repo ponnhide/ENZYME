@@ -1,0 +1,136 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-021-00603-4.pdf",
+      "type": "paper"
+    },
+    "title": "Extracellular stain"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "cell_suspension",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "cell_pellet",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "800g for 5 min at room temperature"
+        }
+      },
+      {
+        "annotations": {
+          "note": "discard the supernatant"
+        },
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "cell_pellet",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "cell_pellet",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "cell_pellet",
+            "kind": "sample"
+          },
+          {
+            "id": "m2",
+            "kind": "material"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "resuspended_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend",
+          "amount": {
+            "unit": "µl",
+            "value": 50
+          }
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "c1",
+        "name": "microcentrifuge tube"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "device_kind": "centrifuge",
+        "id": "e1",
+        "name": "centrifuge"
+      }
+    ],
+    "materials": [
+      {
+        "id": "m1",
+        "name": "cells"
+      },
+      {
+        "id": "m2",
+        "name": "CSB"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cell_suspension",
+        "name": "cells in suspension"
+      },
+      {
+        "id": "cell_pellet",
+        "name": "cell pellet after centrifugation"
+      },
+      {
+        "id": "resuspended_cells",
+        "name": "cells resuspended in CSB"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

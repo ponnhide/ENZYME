@@ -1,0 +1,152 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Imaging organoids on Nikon spinning disc confocal",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_PBS",
+        "type": "buffer",
+        "name": "PBS"
+      },
+      {
+        "id": "m_media",
+        "type": "media",
+        "name": "organoid growth media"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_plate",
+        "type": "microwell_plate",
+        "name": "microwell plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e_incubator",
+        "type": "incubator",
+        "name": "incubator"
+      },
+      {
+        "id": "e_imager",
+        "type": "imager",
+        "name": "Nikon spinning disc confocal"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_organoid",
+        "type": "organoid",
+        "name": "organoids"
+      },
+      {
+        "id": "d_image",
+        "name": "d_image"
+      }
+    ],
+    "data": [
+      {
+        "id": "d_image",
+        "type": "image",
+        "name": "confocal image"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e_incubator",
+          "program": {
+            "program_name": "incubate_30min"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "rinse"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "imager",
+          "device_ref": "e_imager",
+          "program": {
+            "program_name": "confocal_imaging"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "observe",
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "image"
+          ]
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d_image"
+          }
+        ],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

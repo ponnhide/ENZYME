@@ -1,0 +1,111 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Individual CBO generation and post‑dissociation pooling",
+    "source": {
+      "type": "paper",
+      "id": "s41592-024-02555-5"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "psc_line",
+        "name": "Pluripotent stem cell line"
+      },
+      {
+        "id": "cbo_individual",
+        "name": "Individual CBO"
+      },
+      {
+        "id": "dissociated_cells",
+        "name": "Dissociated organoid cells"
+      },
+      {
+        "id": "pooled_cells",
+        "name": "Pooled cells for single‑cell library preparation"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "psc_line"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cbo_individual"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "CBO generation details not specified in source text"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cbo_individual"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "dissociated_cells"
+          }
+        ],
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "dissociated_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "pooled_cells"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

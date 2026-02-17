@@ -1,0 +1,180 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Fuse anterior and posterior spheroids",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-00441-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "pipette",
+        "kind": "material",
+        "name": "mechanical pipette"
+      },
+      {
+        "id": "wide_bore_tip",
+        "kind": "material",
+        "name": "wide-bore 200-µl tip"
+      },
+      {
+        "id": "ultra_low_attachment_plate",
+        "kind": "material",
+        "name": "96-well round-bottom ultra-low attachment plate"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate",
+        "kind": "container",
+        "type": "96-well round-bottom ultra-low attachment plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge",
+        "kind": "equipment",
+        "name": "centrifuge"
+      },
+      {
+        "id": "incubator",
+        "kind": "equipment",
+        "name": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "posterior_spheroid",
+        "kind": "sample",
+        "description": "single posterior spheroid with entire medium"
+      },
+      {
+        "id": "anterior_spheroid",
+        "kind": "sample",
+        "description": "single anterior spheroid"
+      },
+      {
+        "id": "fused_spheroid",
+        "kind": "sample",
+        "description": "fused anterior-posterior gut spheroid"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "posterior_spheroid"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "posterior_spheroid"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "posterior_spheroid"
+          },
+          {
+            "kind": "sample",
+            "id": "anterior_spheroid"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "fused_spheroid"
+          }
+        ],
+        "params": {
+          "amount": {
+            "description": "entire medium"
+          },
+          "device_ref": "pipette"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "plate"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "centrifuge",
+          "speed": "1000 r.p.m.",
+          "duration": "1 min"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "plate"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "incubate",
+          "temperature": "37 °C",
+          "duration": "24 h"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

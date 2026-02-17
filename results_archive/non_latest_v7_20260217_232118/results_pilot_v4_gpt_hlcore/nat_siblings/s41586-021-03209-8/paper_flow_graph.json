@@ -1,0 +1,707 @@
+{
+  "graph_version": "0.2",
+  "linkable_kinds": [
+    "data",
+    "sample"
+  ],
+  "unit_graphs": [
+    {
+      "unit_id": "unit_001",
+      "title": "Cortical organoid seeding density",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 1,
+        "edge_count": 1,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "transfer"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s1"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "sample:cell_stock"
+        ],
+        "output_refs": [
+          "sample:seeded_well"
+        ]
+      }
+    },
+    {
+      "unit_id": "unit_002",
+      "title": "Nucleus isolation from fresh tissue (lysis and pelleting)",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 2,
+        "edge_count": 1,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "transfer"
+          },
+          {
+            "id": "s2",
+            "op": "run_device"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s2"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "material:wash_buffer",
+          "sample:lysed_cells",
+          "sample:washed_cells"
+        ],
+        "output_refs": [
+          "sample:nuclei_pellet",
+          "sample:washed_cells"
+        ]
+      }
+    },
+    {
+      "unit_id": "unit_003",
+      "title": "Single‑cell RNA‑seq library generation",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 3,
+        "edge_count": 2,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "allocate"
+          },
+          {
+            "id": "s2",
+            "op": "allocate"
+          },
+          {
+            "id": "s3",
+            "op": "transfer"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s2"
+          },
+          {
+            "from": "s2",
+            "to": "s3"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "container:c1",
+          "sample:s_cell"
+        ],
+        "output_refs": [
+          "container:c1",
+          "sample:s_cell",
+          "sample:s_loaded"
+        ]
+      }
+    },
+    {
+      "unit_id": "unit_004",
+      "title": "Bulk ATAC‑seq library preparation",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 5,
+        "edge_count": 4,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "allocate"
+          },
+          {
+            "id": "s2",
+            "op": "annotate"
+          },
+          {
+            "id": "s3",
+            "op": "annotate"
+          },
+          {
+            "id": "s4",
+            "op": "annotate"
+          },
+          {
+            "id": "s5",
+            "op": "annotate"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s2"
+          },
+          {
+            "from": "s2",
+            "to": "s3"
+          },
+          {
+            "from": "s3",
+            "to": "s4"
+          },
+          {
+            "from": "s4",
+            "to": "s5"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "sample:s_library",
+          "sample:s_nuclei",
+          "sample:s_permeabilized",
+          "sample:s_tagmented"
+        ],
+        "output_refs": [
+          "sample:s_library",
+          "sample:s_nuclei",
+          "sample:s_permeabilized",
+          "sample:s_seq_data",
+          "sample:s_tagmented"
+        ]
+      }
+    },
+    {
+      "unit_id": "unit_005",
+      "title": "H3K27ac CUT&Tag primary antibody incubation",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 3,
+        "edge_count": 2,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "allocate"
+          },
+          {
+            "id": "s2",
+            "op": "annotate"
+          },
+          {
+            "id": "s3",
+            "op": "annotate"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s2"
+          },
+          {
+            "from": "s2",
+            "to": "s3"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "sample:samp1"
+        ],
+        "output_refs": [
+          "sample:samp1",
+          "sample:samp2"
+        ]
+      }
+    },
+    {
+      "unit_id": "unit_006",
+      "title": "Nucleus isolation from frozen tissue",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 5,
+        "edge_count": 4,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "allocate"
+          },
+          {
+            "id": "s2",
+            "op": "transfer"
+          },
+          {
+            "id": "s3",
+            "op": "manipulate"
+          },
+          {
+            "id": "s4",
+            "op": "run_device"
+          },
+          {
+            "id": "s5",
+            "op": "annotate"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s2"
+          },
+          {
+            "from": "s2",
+            "to": "s3"
+          },
+          {
+            "from": "s3",
+            "to": "s4"
+          },
+          {
+            "from": "s4",
+            "to": "s5"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "material:homogenization_buffer",
+          "sample:cell_lysate",
+          "sample:centrifuged_lysate",
+          "sample:thawed_mix",
+          "sample:tissue_frozen"
+        ],
+        "output_refs": [
+          "sample:cell_lysate",
+          "sample:centrifuged_lysate",
+          "sample:isolated_nuclei",
+          "sample:thawed_mix",
+          "sample:tissue_frozen"
+        ]
+      }
+    },
+    {
+      "unit_id": "unit_007",
+      "title": "scATAC‑seq library preparation",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 4,
+        "edge_count": 3,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "allocate"
+          },
+          {
+            "id": "s2",
+            "op": "allocate"
+          },
+          {
+            "id": "s3",
+            "op": "annotate"
+          },
+          {
+            "id": "s4",
+            "op": "annotate"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s2"
+          },
+          {
+            "from": "s2",
+            "to": "s3"
+          },
+          {
+            "from": "s3",
+            "to": "s4"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "material:m1",
+          "sample:samp1"
+        ],
+        "output_refs": [
+          "material:m1",
+          "sample:samp1"
+        ]
+      }
+    },
+    {
+      "unit_id": "unit_008",
+      "title": "Library PCR amplification conditions",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 1,
+        "edge_count": 1,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "run_device"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s1"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [],
+        "output_refs": []
+      }
+    },
+    {
+      "unit_id": "unit_009",
+      "title": "DNA purification with AMPure XP beads",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 2,
+        "edge_count": 1,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "allocate"
+          },
+          {
+            "id": "s2",
+            "op": "annotate"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s2"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "sample:sample_lib"
+        ],
+        "output_refs": [
+          "sample:sample_lib",
+          "sample:sample_purified"
+        ]
+      }
+    },
+    {
+      "unit_id": "unit_010",
+      "title": "Cell‑type labeling with CellWalker",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 1,
+        "edge_count": 1,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "annotate"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s1"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [],
+        "output_refs": []
+      }
+    }
+  ],
+  "inter_unit_graph": {
+    "nodes": [
+      "unit_001",
+      "unit_002",
+      "unit_003",
+      "unit_004",
+      "unit_005",
+      "unit_006",
+      "unit_007",
+      "unit_008",
+      "unit_009",
+      "unit_010"
+    ],
+    "edges": [
+      {
+        "from_unit": "unit_005",
+        "to_unit": "unit_007",
+        "via_refs": [
+          "sample:samp1"
+        ],
+        "n_refs": 1
+      },
+      {
+        "from_unit": "unit_007",
+        "to_unit": "unit_005",
+        "via_refs": [
+          "sample:samp1"
+        ],
+        "n_refs": 1
+      }
+    ]
+  },
+  "integrity": {
+    "pass": false,
+    "isolated_unit_count": 8,
+    "isolated_unit_rate": 0.8,
+    "isolated_units": [
+      "unit_001",
+      "unit_002",
+      "unit_003",
+      "unit_004",
+      "unit_006",
+      "unit_008",
+      "unit_009",
+      "unit_010"
+    ],
+    "issues": [
+      {
+        "code": "INTER_UNIT_ISOLATED_UNIT_MATERIAL",
+        "severity": "warn",
+        "message": "One or more units are isolated in strict material-flow connectivity.",
+        "unit_ids": [
+          "unit_001",
+          "unit_002",
+          "unit_003",
+          "unit_004",
+          "unit_006",
+          "unit_008",
+          "unit_009",
+          "unit_010"
+        ]
+      }
+    ]
+  },
+  "material_flow": {
+    "linkable_kinds": [
+      "data",
+      "sample"
+    ],
+    "inter_unit_graph": {
+      "nodes": [
+        "unit_001",
+        "unit_002",
+        "unit_003",
+        "unit_004",
+        "unit_005",
+        "unit_006",
+        "unit_007",
+        "unit_008",
+        "unit_009",
+        "unit_010"
+      ],
+      "edges": [
+        {
+          "from_unit": "unit_005",
+          "to_unit": "unit_007",
+          "via_refs": [
+            "sample:samp1"
+          ],
+          "n_refs": 1
+        },
+        {
+          "from_unit": "unit_007",
+          "to_unit": "unit_005",
+          "via_refs": [
+            "sample:samp1"
+          ],
+          "n_refs": 1
+        }
+      ]
+    },
+    "integrity": {
+      "pass": false,
+      "isolated_unit_count": 8,
+      "isolated_unit_rate": 0.8,
+      "isolated_units": [
+        "unit_001",
+        "unit_002",
+        "unit_003",
+        "unit_004",
+        "unit_006",
+        "unit_008",
+        "unit_009",
+        "unit_010"
+      ],
+      "issues": [
+        {
+          "code": "INTER_UNIT_ISOLATED_UNIT_MATERIAL",
+          "severity": "warn",
+          "message": "One or more units are isolated in strict material-flow connectivity.",
+          "unit_ids": [
+            "unit_001",
+            "unit_002",
+            "unit_003",
+            "unit_004",
+            "unit_006",
+            "unit_008",
+            "unit_009",
+            "unit_010"
+          ]
+        }
+      ]
+    }
+  },
+  "logical_flow": {
+    "method": "heuristic_v0_1",
+    "window_units": 3,
+    "inter_unit_graph": {
+      "nodes": [
+        "unit_001",
+        "unit_002",
+        "unit_003",
+        "unit_004",
+        "unit_005",
+        "unit_006",
+        "unit_007",
+        "unit_008",
+        "unit_009",
+        "unit_010"
+      ],
+      "edges": [
+        {
+          "from_unit": "unit_001",
+          "to_unit": "unit_002",
+          "confidence": 0.5,
+          "signals": [
+            "temporal_adjacency",
+            "continuity_cue",
+            "step_dependency_pattern"
+          ],
+          "shared_terms": []
+        },
+        {
+          "from_unit": "unit_003",
+          "to_unit": "unit_004",
+          "confidence": 0.35,
+          "signals": [
+            "temporal_adjacency",
+            "shared_target_terms"
+          ],
+          "shared_terms": [
+            "library"
+          ]
+        },
+        {
+          "from_unit": "unit_004",
+          "to_unit": "unit_007",
+          "confidence": 0.5,
+          "signals": [
+            "shared_target_terms",
+            "continuity_cue"
+          ],
+          "shared_terms": [
+            "library",
+            "sequencing"
+          ]
+        },
+        {
+          "from_unit": "unit_005",
+          "to_unit": "unit_006",
+          "confidence": 0.4,
+          "signals": [
+            "temporal_adjacency",
+            "continuity_cue"
+          ],
+          "shared_terms": []
+        },
+        {
+          "from_unit": "unit_006",
+          "to_unit": "unit_007",
+          "confidence": 0.4,
+          "signals": [
+            "temporal_adjacency",
+            "continuity_cue"
+          ],
+          "shared_terms": []
+        },
+        {
+          "from_unit": "unit_007",
+          "to_unit": "unit_008",
+          "confidence": 0.45,
+          "signals": [
+            "temporal_adjacency",
+            "shared_target_terms",
+            "implicit_input_dependency"
+          ],
+          "shared_terms": [
+            "library"
+          ]
+        }
+      ]
+    },
+    "integrity": {
+      "pass": false,
+      "isolated_unit_count": 2,
+      "isolated_unit_rate": 0.2,
+      "isolated_units": [
+        "unit_009",
+        "unit_010"
+      ],
+      "issues": [
+        {
+          "code": "INTER_UNIT_ISOLATED_UNIT_LOGICAL",
+          "severity": "warn",
+          "message": "One or more units are isolated in heuristic logical-flow connectivity.",
+          "unit_ids": [
+            "unit_009",
+            "unit_010"
+          ]
+        }
+      ]
+    }
+  },
+  "combined_integrity": {
+    "pass": false,
+    "isolated_unit_count": 2,
+    "isolated_unit_rate": 0.2,
+    "isolated_units": [
+      "unit_009",
+      "unit_010"
+    ],
+    "issues": [
+      {
+        "code": "INTER_UNIT_ISOLATED_UNIT_COMBINED",
+        "severity": "warn",
+        "message": "One or more units are isolated in combined material/logical flow connectivity.",
+        "unit_ids": [
+          "unit_009",
+          "unit_010"
+        ]
+      }
+    ]
+  }
+}

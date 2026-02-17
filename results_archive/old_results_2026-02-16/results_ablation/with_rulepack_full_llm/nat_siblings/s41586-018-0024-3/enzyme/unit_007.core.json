@@ -1,0 +1,233 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41586-018-0024-3.pdf",
+      "type": "paper"
+    },
+    "title": "Organoid CellTiter‑Glo viability assay"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "m1",
+            "kind": "material"
+          }
+        ],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "s_organoid",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "s_organoid",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "s_single",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "dislodge_cells"
+        }
+      },
+      {
+        "annotations": {
+          "lowered_from": "incubate",
+          "note": "Cultured in HISM without Wnt‑3a‑CM; temperature and CO₂ conditions not specified."
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "s_single",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "s_cultured",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": null
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "m4",
+            "kind": "material"
+          },
+          {
+            "id": "s_cultured",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "s_assay",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "note": "Volume of CellTiter‑Glo 3D reagent not specified in source."
+          }
+        }
+      },
+      {
+        "annotations": {
+          "lowered_from": "incubate",
+          "note": "Incubation time for luminescence development not provided."
+        },
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "s_assay",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "s_assay",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": null
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "s_assay",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "d1",
+            "kind": "data"
+          }
+        ],
+        "params": {
+          "device_kind": "plate_reader",
+          "program": "luminescence readout"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "c1",
+        "name": "Culture plate"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "name": "Cell viability luminescence readout"
+      }
+    ],
+    "equipment": [
+      {
+        "device_kind": "plate_reader",
+        "id": "e1",
+        "name": "SpectraMax M5e (Molecular Devices)"
+      }
+    ],
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Tumour organoids"
+      },
+      {
+        "id": "m2",
+        "name": "Trypsin"
+      },
+      {
+        "id": "m3",
+        "name": "HISM without Wnt‑3a‑CM"
+      },
+      {
+        "id": "m4",
+        "name": "CellTiter‑Glo 3D kit (Promega)"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_organoid",
+        "name": "Tumour organoid material"
+      },
+      {
+        "id": "s_single",
+        "name": "Single‑cell suspension of organoids"
+      },
+      {
+        "id": "s_cultured",
+        "name": "Cultured organoid cells (5–10 days)"
+      },
+      {
+        "id": "s_assay",
+        "name": "CellTiter‑Glo 3D assay mixture"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

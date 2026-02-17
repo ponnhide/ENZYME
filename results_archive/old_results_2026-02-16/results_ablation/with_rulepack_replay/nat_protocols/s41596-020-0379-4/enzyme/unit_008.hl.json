@@ -1,0 +1,233 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Freeze organoids for storage",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-0379-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "cell‑freezing medium"
+      },
+      {
+        "id": "m2",
+        "name": "sterile cryogenic vial"
+      },
+      {
+        "id": "m3",
+        "name": "freezing container"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "24‑well cell culture plate"
+      },
+      {
+        "id": "c2",
+        "name": "cryogenic vial"
+      },
+      {
+        "id": "c3",
+        "name": "freezing container"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "P1000 pipette"
+      },
+      {
+        "id": "e2",
+        "name": "-80 °C freezer"
+      },
+      {
+        "id": "e3",
+        "name": "liquid nitrogen tank"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "name": "organoids (original in 24‑well plate)"
+      },
+      {
+        "id": "samp2",
+        "name": "organoids resuspended in freezing medium"
+      },
+      {
+        "id": "samp3",
+        "name": "organoids in cryogenic vial"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 500,
+            "unit": "µl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "note": "Pipette up and down using a P1000 pipette to properly resuspend the organoids."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp3"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 500,
+            "unit": "µl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp3"
+          },
+          {
+            "kind": "material",
+            "id": "m3"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Place the cryogenic vial into a freezing container."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "m3"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "store at -80 °C for 24 h"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp3"
+          },
+          {
+            "kind": "equipment",
+            "id": "e3"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "After storage at –80 °C for 24 h, remove the vials from the freezing container, and transfer them to the liquid nitrogen tank (approximately –180 °C)."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

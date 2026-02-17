@@ -1,0 +1,193 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41586-021-03209-8",
+      "type": "paper"
+    },
+    "title": "Cortical organoid differentiation"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {
+          "reagent": "Accutase"
+        },
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "s_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "s_single_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "s_single_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "s_pellet",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "speed": {
+              "unit": "g",
+              "value": 600
+            }
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "Wash twice (details not specified in source text)"
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "s_pellet",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "s_washed_pellet",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "container": "96-well v-bottom low-adhesion plate",
+          "medium": "Neural induction medium",
+          "volume": "200 µl per well"
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "s_washed_pellet",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "s_organoid_well",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "cells",
+            "value": 10000
+          }
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "c1",
+        "name": "96-well v-bottom low-adhesion plate",
+        "type": "plate"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "Swinging bucket rotor centrifuge",
+        "type": "centrifuge"
+      }
+    ],
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Accutase",
+        "type": "reagent"
+      },
+      {
+        "id": "m2",
+        "name": "Neural induction medium",
+        "type": "media"
+      },
+      {
+        "id": "m3",
+        "name": "Human iPSC line H28126",
+        "type": "cell_line"
+      },
+      {
+        "id": "m4",
+        "name": "Human iPSC line 1323-4",
+        "type": "cell_line"
+      },
+      {
+        "id": "m5",
+        "name": "Human ESC line H1",
+        "type": "cell_line"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_cells",
+        "source_material_id": "m3",
+        "type": "cell_culture"
+      },
+      {
+        "id": "s_single_cells",
+        "type": "cell_suspension"
+      },
+      {
+        "id": "s_pellet",
+        "type": "cell_pellet"
+      },
+      {
+        "id": "s_washed_pellet",
+        "type": "cell_pellet"
+      },
+      {
+        "id": "s_organoid_well",
+        "type": "cell_culture"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

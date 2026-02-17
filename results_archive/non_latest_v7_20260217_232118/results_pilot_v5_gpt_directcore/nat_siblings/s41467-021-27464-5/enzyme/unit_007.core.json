@@ -1,0 +1,110 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Load single‑cell suspensions onto 10x Genomics chips",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-021-27464-5.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "mastermix",
+        "name": "10x Genomics Mastermix"
+      }
+    ],
+    "containers": [
+      {
+        "id": "chip",
+        "type": "10x_Genomics_Single_Cell_3prime_Chip"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "sample_sc",
+        "type": "single_cell_suspension"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source_ref": "sample_sc",
+          "destination_ref": "chip",
+          "amount": {
+            "value": "unspecified"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source_ref": "mastermix",
+          "destination_ref": "chip",
+          "amount": {
+            "value": "unspecified"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Organoid seeding in microwell plates",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "microwell_plate",
+        "metadata": {
+          "description": "500 µm Gri3D plate (SUN bioscience)"
+        }
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "organoid_sample",
+        "name": "organoid_sample"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "action_kind": "transfer",
+          "source": "organoid_sample",
+          "destination": "c1",
+          "amount": "unknown"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "observe",
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "fluorescence",
+            "DIC"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d1"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,384 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-019-0213-z.pdf",
+      "type": "paper"
+    },
+    "title": "Stepwise timeline for generating blood vessel organoids from hPSCs"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "s_hpsc_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "s_hpsc_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "s_aggregate",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "cells",
+            "value": 200000
+          },
+          "container_ref": "c1"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "s_aggregate",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "s_aggregate",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "mix",
+          "reagent": {
+            "amount": {
+              "unit": "μM",
+              "value": 50
+            },
+            "id": "m2"
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "s_aggregate",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "s_mesoderm",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "mix",
+          "reagents": [
+            {
+              "amount": {
+                "unit": "μM",
+                "value": 12
+              },
+              "id": "m3"
+            },
+            {
+              "amount": {
+                "unit": "ng/mL",
+                "value": 30
+              },
+              "id": "m4"
+            }
+          ]
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "s_mesoderm",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "s_vascular",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "mix",
+          "reagents": [
+            {
+              "amount": {
+                "unit": "ng/mL",
+                "value": 100
+              },
+              "id": "m5"
+            },
+            {
+              "amount": {
+                "unit": "μM",
+                "value": 2
+              },
+              "id": "m6"
+            }
+          ]
+        }
+      },
+      {
+        "annotations": {
+          "note": "Transfer vascular lineage cells into collagen I–Matrigel matrix in a 12-well plate (container c2)."
+        },
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "s_vascular",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "s_embedded",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s7",
+        "inputs": [
+          {
+            "id": "s_embedded",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "s_vessel_organoid",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "mix",
+          "reagents": [
+            {
+              "amount": {
+                "unit": "ng/mL",
+                "value": 100
+              },
+              "id": "m5"
+            },
+            {
+              "amount": {
+                "unit": "ng/mL",
+                "value": 100
+              },
+              "id": "m8"
+            },
+            {
+              "amount": {
+                "unit": "%",
+                "value": 15
+              },
+              "id": "m9"
+            }
+          ]
+        }
+      },
+      {
+        "annotations": {
+          "note": "Extract blood vessel networks (~20 min for 1 well, ~50–60 organoids)."
+        },
+        "id": "s8",
+        "inputs": [
+          {
+            "id": "s_vessel_organoid",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "s_extracted_networks",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "Transfer extracted blood vessel networks to immuno Box 1 (96-well plate) for transplantation into NSG mice."
+        },
+        "id": "s9",
+        "inputs": [
+          {
+            "id": "s_extracted_networks",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "s_transplanted",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "c1",
+        "name": "6-well low-attachment plate"
+      },
+      {
+        "id": "c2",
+        "name": "12-well plate"
+      },
+      {
+        "id": "c3",
+        "name": "96-well plate"
+      },
+      {
+        "id": "c4",
+        "name": "immuno Box 1"
+      }
+    ],
+    "data": [],
+    "equipment": [],
+    "materials": [
+      {
+        "id": "m1",
+        "name": "hPSCs"
+      },
+      {
+        "id": "m2",
+        "name": "Y27632"
+      },
+      {
+        "id": "m3",
+        "name": "CHIR99021"
+      },
+      {
+        "id": "m4",
+        "name": "BMP-4"
+      },
+      {
+        "id": "m5",
+        "name": "VEGF-A"
+      },
+      {
+        "id": "m6",
+        "name": "forskolin"
+      },
+      {
+        "id": "m7",
+        "name": "collagen I–Matrigel matrix"
+      },
+      {
+        "id": "m8",
+        "name": "FGF-2"
+      },
+      {
+        "id": "m9",
+        "name": "FBS"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_hpsc_cells",
+        "name": "hPSC cells"
+      },
+      {
+        "id": "s_aggregate",
+        "name": "cell aggregates (Y27632 treated)"
+      },
+      {
+        "id": "s_mesoderm",
+        "name": "mesoderm‑induced cells"
+      },
+      {
+        "id": "s_vascular",
+        "name": "vascular lineage cells"
+      },
+      {
+        "id": "s_embedded",
+        "name": "embedded cell aggregates in matrix"
+      },
+      {
+        "id": "s_vessel_organoid",
+        "name": "vessel organoids (sprouting)"
+      },
+      {
+        "id": "s_extracted_networks",
+        "name": "extracted blood vessel networks"
+      },
+      {
+        "id": "s_transplanted",
+        "name": "transplanted vessel organoids"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

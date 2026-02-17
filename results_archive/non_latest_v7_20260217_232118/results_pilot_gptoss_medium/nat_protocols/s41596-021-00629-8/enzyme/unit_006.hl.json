@@ -1,0 +1,133 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Prepare Geltrex-coated T25 flask",
+    "source": {
+      "type": "paper",
+      "id": "s41596-021-00629-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Geltrex-coated T25 flask"
+      },
+      {
+        "id": "m2",
+        "name": "E8 medium"
+      },
+      {
+        "id": "m3",
+        "name": "Y27632"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "T25 flask (Geltrex-coated)"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "flask_sample",
+        "name": "Prepared Geltrex-coated T25 flask"
+      },
+      {
+        "id": "e8_solution",
+        "name": "E8 medium + 10 µM Y27632"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "flask_sample"
+          }
+        ],
+        "params": {
+          "container_ref": "c1"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "e8_solution"
+          }
+        ],
+        "params": {
+          "material_ref": "m2",
+          "additive_ref": "m3",
+          "concentration": {
+            "value": 10,
+            "unit": "µM"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Aspirate the medium from the prepared Geltrex-coated T25 flask."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "e8_solution"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "flask_sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 4,
+            "unit": "mL"
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

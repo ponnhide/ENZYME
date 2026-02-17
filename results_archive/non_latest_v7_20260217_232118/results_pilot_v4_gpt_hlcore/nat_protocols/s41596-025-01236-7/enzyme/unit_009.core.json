@@ -1,0 +1,284 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-025-01236-7.pdf",
+      "type": "paper"
+    },
+    "title": "Nephron organoid formation – aggregation"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "start_step_id": "s1",
+    "step_order": null,
+    "steps": [
+      {
+        "annotations": {
+          "device_kind": "cell_counter"
+        },
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "single_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "observe",
+        "outputs": [
+          {
+            "id": "cell_count_data",
+            "kind": "data"
+          }
+        ],
+        "params": {
+          "features": [
+            "cell count"
+          ],
+          "modality": "instrument_readout"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "single_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "cell_pellet",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "300 g for 5 min"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Resuspend pellet with volume of hNPSR‑v2 medium such that each 100 µl contains 25,000–30,000 iNPCs"
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "cell_pellet",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "resuspended_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend"
+        }
+      },
+      {
+        "annotations": {
+          "approximate_range": "25000-30000 cells",
+          "destination": "one well of 96‑well U‑bottom low‑attachment plate",
+          "volume": "100 µl"
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "resuspended_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "seeded_plate",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "cells",
+            "value": 25000
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "seeded_plate",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "seeded_plate",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "300 g for 5 min"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Allow cells to aggregate overnight"
+        },
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "seeded_plate",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "aggregates",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "overnight"
+        }
+      },
+      {
+        "annotations": {
+          "destination": "membrane of a Transwell for air–liquid interface culture"
+        },
+        "id": "s7",
+        "inputs": [
+          {
+            "id": "aggregates",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "transwell_culture",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "cells",
+            "value": 25000
+          }
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [],
+    "data": [
+      {
+        "id": "cell_count_data",
+        "kind": "data",
+        "name": "cell count from TC20"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "cell_counter_TC20",
+        "kind": "equipment",
+        "name": "TC20 automated cell counter"
+      },
+      {
+        "id": "centrifuge",
+        "kind": "equipment",
+        "name": "centrifuge"
+      },
+      {
+        "id": "incubator",
+        "kind": "equipment",
+        "name": "incubator"
+      }
+    ],
+    "materials": [
+      {
+        "id": "medium_hNPSR_v2",
+        "kind": "material",
+        "name": "hNPSR‑v2 medium"
+      },
+      {
+        "id": "plate_96U",
+        "kind": "material",
+        "name": "96‑well U‑bottom low‑attachment plate"
+      },
+      {
+        "id": "transwell_membrane",
+        "kind": "material",
+        "name": "Transwell membrane"
+      }
+    ],
+    "samples": [
+      {
+        "id": "single_cells",
+        "kind": "sample",
+        "name": "single iNPC cells after dissociation"
+      },
+      {
+        "id": "cell_pellet",
+        "kind": "sample",
+        "name": "cell pellet after centrifugation"
+      },
+      {
+        "id": "resuspended_cells",
+        "kind": "sample",
+        "name": "resuspended iNPC cells in hNPSR‑v2 medium"
+      },
+      {
+        "id": "seeded_plate",
+        "kind": "sample",
+        "name": "96‑well plate containing seeded iNPCs"
+      },
+      {
+        "id": "aggregates",
+        "kind": "sample",
+        "name": "iNPC aggregates after overnight incubation"
+      },
+      {
+        "id": "transwell_culture",
+        "kind": "sample",
+        "name": "iNPC aggregates on Transwell membrane (air–liquid interface)"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

@@ -1,0 +1,362 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Percoll density gradient centrifugation",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00929-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_hbss",
+        "name": "HBSS/BSA/glucose"
+      },
+      {
+        "id": "m_dnase",
+        "name": "DNase (10 mg/mL)"
+      },
+      {
+        "id": "m_percoll",
+        "name": "22% Percoll"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_sample_tube",
+        "type": "conical_tube_15ml",
+        "name": "sample digestion tube"
+      },
+      {
+        "id": "c_percoll_tube",
+        "type": "conical_tube_15ml",
+        "name": "Percoll filtration tube"
+      },
+      {
+        "id": "c_waste",
+        "type": "waste_container",
+        "name": "waste container"
+      },
+      {
+        "id": "c_master_tube",
+        "type": "conical_tube_15ml",
+        "name": "combined Percoll tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "eq_centrifuge",
+        "type": "centrifuge",
+        "name": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_cell_suspension",
+        "type": "cell_suspension",
+        "name": "cell sample"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_suspension"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m_hbss"
+          },
+          {
+            "kind": "material",
+            "id": "m_dnase"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_suspension"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_suspension"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c_percoll_tube"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m_percoll"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c_percoll_tube"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_suspension"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c_percoll_tube"
+          }
+        ]
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "eq_centrifuge",
+          "program": {
+            "program_name": "10min_500g_4C_no_decel"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c_percoll_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c_percoll_tube"
+          }
+        ]
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "params": {
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c_percoll_tube"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c_master_tube"
+          }
+        ]
+      },
+      {
+        "id": "s10",
+        "op": "transfer",
+        "params": {
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c_percoll_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c_master_tube"
+          }
+        ]
+      },
+      {
+        "id": "s11",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c_master_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c_master_tube"
+          }
+        ]
+      },
+      {
+        "id": "s12",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "eq_centrifuge",
+          "program": {
+            "program_name": "5min_300g_4C"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c_master_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c_master_tube"
+          }
+        ]
+      },
+      {
+        "id": "s13",
+        "op": "annotate",
+        "params": {
+          "note": "Do not discard the remaining tubes; they can be used for unstained and DAPI controls."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      }
+    ],
+    "detail_level": 0
+  }
+}

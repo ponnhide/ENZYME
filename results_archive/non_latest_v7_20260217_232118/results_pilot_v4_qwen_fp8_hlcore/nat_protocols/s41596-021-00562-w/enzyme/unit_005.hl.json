@@ -1,0 +1,99 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Permeabilize monolayer with Triton X-100",
+    "source": {
+      "type": "paper",
+      "id": "s41596-021-00562-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "permeabilization_solution",
+        "name": "permeabilization_solution"
+      },
+      {
+        "id": "apical_side",
+        "name": "apical_side"
+      },
+      {
+        "id": "basolateral_side",
+        "name": "basolateral_side"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "permeabilization_solution"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "apical_side"
+          },
+          {
+            "kind": "sample",
+            "id": "basolateral_side"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 500,
+            "unit": "µl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "apical_side"
+          },
+          {
+            "kind": "sample",
+            "id": "basolateral_side"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "apical_side"
+          },
+          {
+            "kind": "sample",
+            "id": "basolateral_side"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "room temperature for 20 min"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

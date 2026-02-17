@@ -1,0 +1,119 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Tissue Collection and Processing",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-0379-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "adDMEM/F12+++ medium",
+        "type": "cell_culture_medium"
+      },
+      {
+        "id": "m2",
+        "name": "ROCK inhibitor",
+        "type": "small_molecule_inhibitor"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "conical_tube",
+        "capacity": "50 ml"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s1_sample",
+        "name": "s1_sample"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1_sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 45,
+            "unit": "ml"
+          },
+          "source": "adDMEM/F12+++ medium",
+          "destination": "c1"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1_sample"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "(Optional) Add 10 µM ROCK inhibitor to adDMEM/F12+++ medium to increase cell survival."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1_sample"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: store_cold"
+        },
+        "annotations": {
+          "temperature": "4 °C",
+          "duration": "until the start of the isolation"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

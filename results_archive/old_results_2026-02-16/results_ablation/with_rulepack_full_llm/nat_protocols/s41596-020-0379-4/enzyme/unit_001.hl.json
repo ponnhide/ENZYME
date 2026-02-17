@@ -1,0 +1,294 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Collection and preparation of primary human tissue",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-0379-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "adDMEM/F12+++ medium",
+        "type": "media"
+      },
+      {
+        "id": "m2",
+        "name": "ROCK inhibitor",
+        "type": "chemical",
+        "concentration": "10 µM"
+      },
+      {
+        "id": "m3",
+        "name": "10% formalin",
+        "type": "fixative"
+      },
+      {
+        "id": "m4",
+        "name": "4% paraformaldehyde",
+        "type": "fixative"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "50‑ml conical tube",
+        "type": "tube"
+      },
+      {
+        "id": "c2",
+        "name": "10‑cm cell culture dish",
+        "type": "dish"
+      },
+      {
+        "id": "c3",
+        "name": "cryovial",
+        "type": "vial"
+      },
+      {
+        "id": "c4",
+        "name": "fixation tube",
+        "type": "tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "dissection microscope",
+        "type": "microscope"
+      },
+      {
+        "id": "e2",
+        "name": "surgical scissors",
+        "type": "tool"
+      },
+      {
+        "id": "e3",
+        "name": "scalpel",
+        "type": "tool"
+      },
+      {
+        "id": "e4",
+        "name": "-80 °C freezer",
+        "type": "freezer"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_tissue_raw",
+        "name": "primary human tissue pieces",
+        "source": "biopsy"
+      },
+      {
+        "id": "s_tissue_processed",
+        "name": "processed tissue fragments",
+        "derived_from": "s_tissue_raw"
+      },
+      {
+        "id": "s_rep_fragment",
+        "name": "representative fragment for fixation",
+        "derived_from": "s_tissue_processed"
+      },
+      {
+        "id": "s_snap_fragment",
+        "name": "fragment for snap‑freeze",
+        "derived_from": "s_tissue_processed"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 45,
+            "unit": "ml"
+          },
+          "temperature": "ice-cold"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 10,
+            "unit": "µM"
+          }
+        },
+        "annotations": {
+          "note": "Optional addition of ROCK inhibitor to increase cell survival."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_tissue_raw"
+          },
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_tissue_processed"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Keep tissue samples in this medium at 4 °C until the start of the isolation."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_tissue_processed"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_tissue_processed"
+          }
+        ],
+        "params": {
+          "modality": "microscope",
+          "features": "assessment of epithelial vs. fat/muscle composition"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "If tissue contains fat or muscle, remove non‑epithelial components using surgical scissors or scalpels and forceps under a dissection microscope."
+        }
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Mince the tissue into small fragments of 1–3 mm³ in a 10‑cm cell culture dish using surgical scissors or scalpels."
+        }
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Fix one or two representative fragments in fixative (10% formalin or 4% paraformaldehyde) for histological analysis."
+        }
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Snap‑freeze fragments for molecular (whole exome/genome or mRNA sequencing) or biochemical (Western blotting or proteomics) analysis at –80 °C."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

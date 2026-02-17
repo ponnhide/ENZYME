@@ -1,0 +1,623 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Anteriorization of embryoid bodies (steps 67‑89)",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00827-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_fibronectin",
+        "type": "material",
+        "name": "fibronectin"
+      },
+      {
+        "id": "m_complete_SFD",
+        "type": "material",
+        "name": "complete SFD medium"
+      },
+      {
+        "id": "m_anterior1",
+        "type": "material",
+        "name": "Anteriorization medium-1"
+      },
+      {
+        "id": "m_trypsin",
+        "type": "material",
+        "name": "trypsin"
+      },
+      {
+        "id": "m_stop",
+        "type": "material",
+        "name": "Stop medium"
+      },
+      {
+        "id": "m_anterior2",
+        "type": "material",
+        "name": "Anteriorization medium-2"
+      },
+      {
+        "id": "m_trypan_blue",
+        "type": "material",
+        "name": "Trypan Blue"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_plate_fib",
+        "type": "six_well_plate",
+        "coating": "fibronectin"
+      },
+      {
+        "id": "c_plate_ultra",
+        "type": "ultralow_attachment_plate"
+      },
+      {
+        "id": "c_tube_15ml",
+        "type": "conical_tube",
+        "volume_ml": 15
+      },
+      {
+        "id": "c_small_tube",
+        "type": "microcentrifuge_tube",
+        "volume_ml": 0.5
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e_incubator",
+        "type": "incubator",
+        "environment": "normoxic"
+      },
+      {
+        "id": "e_centrifuge",
+        "type": "centrifuge"
+      },
+      {
+        "id": "e_hemocytometer",
+        "type": "hemocytometer"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_ebs",
+        "type": "sample",
+        "description": "embryoid bodies"
+      },
+      {
+        "id": "s_cells",
+        "type": "sample",
+        "description": "dissociated cells"
+      },
+      {
+        "id": "s_cell_mixture",
+        "type": "sample",
+        "description": "cell suspension"
+      },
+      {
+        "id": "s_complete_SFD",
+        "type": "sample",
+        "description": "complete SFD medium sample"
+      },
+      {
+        "id": "s_anterior1",
+        "type": "sample",
+        "description": "Anteriorization medium-1 sample"
+      },
+      {
+        "id": "s_anterior2",
+        "type": "sample",
+        "description": "Anteriorization medium-2 sample"
+      }
+    ],
+    "data": [
+      {
+        "id": "d_cell_count",
+        "type": "data",
+        "description": "cell count from hemocytometer"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "container_type": "six_well_plate",
+          "coating": "fibronectin"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c_plate_fib"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "material_ref": "m_complete_SFD",
+          "volume_ml": 15
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_complete_SFD"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "material_ref": "m_anterior1",
+          "volume_ml": 50
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_anterior1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "container_type": "ultralow_attachment_plate"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c_plate_ultra"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "target": "c_plate_ultra",
+          "description": "swirl to concentrate EBs"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer all volume from c_plate_ultra to c_tube_15ml"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "e_centrifuge",
+          "program": {
+            "program_name": "130g_1min"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer supernatant from c_tube_15ml to waste"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "params": {
+          "source": "m_trypsin",
+          "destination": "c_tube_15ml",
+          "amount": {
+            "value": 3.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "target": "c_tube_15ml"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "target": "c_tube_15ml",
+          "description": "tap to swirl"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "transfer",
+        "params": {
+          "source": "m_stop",
+          "destination": "c_tube_15ml",
+          "amount": {
+            "value": 10.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s13",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "e_centrifuge",
+          "program": {
+            "program_name": "400g_4min"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s14",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer supernatant from c_tube_15ml to waste"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s15",
+        "op": "transfer",
+        "params": {
+          "source": "m_complete_SFD",
+          "destination": "c_tube_15ml",
+          "amount": {
+            "value": 10.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s16",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "target": "c_tube_15ml",
+          "description": "resuspend cells"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s17",
+        "op": "transfer",
+        "params": {
+          "source": "c_tube_15ml",
+          "destination": "c_small_tube",
+          "amount": {
+            "value": 25.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s18",
+        "op": "transfer",
+        "params": {
+          "source": "m_trypan_blue",
+          "destination": "c_small_tube",
+          "amount": {
+            "value": 25.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s19",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "cell_count"
+          ],
+          "instrument_ref": "e_hemocytometer"
+        },
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d_cell_count"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s20",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "e_centrifuge",
+          "program": {
+            "program_name": "400g_4min"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s21",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer supernatant from c_tube_15ml to waste"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s22",
+        "op": "transfer",
+        "params": {
+          "source": "m_anterior1",
+          "destination": "c_tube_15ml",
+          "amount": {
+            "value": 2.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s23",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "target": "c_tube_15ml",
+          "description": "resuspend cells in Anteriorization medium-1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s24",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer 2.0 ml per well from c_tube_15ml to c_plate_fib"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s25",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "target": "c_plate_fib",
+          "description": "rock side-to-side to distribute cells"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s26",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e_incubator",
+          "program": {
+            "program_name": "normoxic"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s27",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "material_ref": "m_anterior2",
+          "volume_ml": 50
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_anterior2"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s28",
+        "op": "annotate",
+        "params": {
+          "note": "Aspirate Anteriorization medium-1 from c_plate_fib to waste (2.0 ml per well)"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s29",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer 2.0 ml per well of m_anterior2 to c_plate_fib"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s30",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e_incubator",
+          "program": {
+            "program_name": "normoxic"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      },
+      {
+        "from": "s16",
+        "to": "s17"
+      },
+      {
+        "from": "s17",
+        "to": "s18"
+      },
+      {
+        "from": "s18",
+        "to": "s19"
+      },
+      {
+        "from": "s19",
+        "to": "s20"
+      },
+      {
+        "from": "s20",
+        "to": "s21"
+      },
+      {
+        "from": "s21",
+        "to": "s22"
+      },
+      {
+        "from": "s22",
+        "to": "s23"
+      },
+      {
+        "from": "s23",
+        "to": "s24"
+      },
+      {
+        "from": "s24",
+        "to": "s25"
+      },
+      {
+        "from": "s25",
+        "to": "s26"
+      },
+      {
+        "from": "s26",
+        "to": "s27"
+      },
+      {
+        "from": "s27",
+        "to": "s28"
+      },
+      {
+        "from": "s28",
+        "to": "s29"
+      },
+      {
+        "from": "s29",
+        "to": "s30"
+      }
+    ],
+    "detail_level": 0
+  }
+}

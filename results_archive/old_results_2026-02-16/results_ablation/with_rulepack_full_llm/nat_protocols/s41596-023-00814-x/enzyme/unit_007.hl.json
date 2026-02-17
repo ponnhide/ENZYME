@@ -1,0 +1,96 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Filter single‑cell suspension for scRNA‑seq",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00814-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "70 µm sterile strainer"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "centrifuge",
+        "device_kind": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "name": "cell suspension"
+      },
+      {
+        "id": "samp2",
+        "name": "filtered cell suspension"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          },
+          {
+            "kind": "material",
+            "id": "m1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "params": {
+          "action_kind": "filter"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "centrifuge",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "params": {
+          "speed": "500g",
+          "duration": "5 min",
+          "temperature": "RT"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

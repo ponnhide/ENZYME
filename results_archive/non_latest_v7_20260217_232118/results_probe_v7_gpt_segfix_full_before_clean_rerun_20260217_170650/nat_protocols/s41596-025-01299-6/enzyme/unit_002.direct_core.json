@@ -1,0 +1,137 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Day 1 hiPS cell transduction with sgRNA library",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01299-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "E8 medium"
+      },
+      {
+        "id": "m2",
+        "name": "Polybrene",
+        "details": "5 μg ml−1"
+      },
+      {
+        "id": "m3",
+        "name": "Lentivirus (sgRNA library)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "well_plate",
+        "name": "hiPS cell culture plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator",
+        "name": "37 °C, 5 % CO₂ incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sm1",
+        "name": "hiPS cells",
+        "container_ref": "c1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "params": {
+          "note": "Aspirate the medium from each well of the hiPS cell culture plate."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source_material": "m1",
+          "additives": [
+            "m2",
+            "m3"
+          ],
+          "destination_container": "c1",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "8h incubation at 37 °C, 5 % CO₂"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source_material": "m1",
+          "destination_container": "c1",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "note": "Place the plate back in the 37 °C, 5 % CO₂ incubator for continued culture. Maintain a control plate of uninfected hiPS cells."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

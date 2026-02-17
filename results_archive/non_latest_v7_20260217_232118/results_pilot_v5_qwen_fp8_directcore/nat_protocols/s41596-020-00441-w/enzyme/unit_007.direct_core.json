@@ -1,0 +1,240 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Anterior/posterior gut spheroid formation (Day 7)",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-020-00441-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "TrypLE Express",
+        "type": "enzyme"
+      },
+      {
+        "id": "m2",
+        "name": "DMEM/F12",
+        "type": "medium"
+      },
+      {
+        "id": "m3",
+        "name": "day 7 medium",
+        "type": "medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "well_plate",
+        "format": "96-well_round_bottom_ultra_low_attachment"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator"
+      },
+      {
+        "id": "e2",
+        "type": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "m1",
+        "name": "m1"
+      },
+      {
+        "id": "s1_sample",
+        "name": "s1_sample"
+      },
+      {
+        "id": "m2",
+        "name": "m2"
+      },
+      {
+        "id": "s3_pellet",
+        "name": "s3_pellet"
+      },
+      {
+        "id": "m3",
+        "name": "m3"
+      },
+      {
+        "id": "s4_resuspension",
+        "name": "s4_resuspension"
+      },
+      {
+        "id": "c1",
+        "name": "c1"
+      },
+      {
+        "id": "s6_spheroids",
+        "name": "s6_spheroids"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "37_C_5_min"
+          },
+          "device_ref": "e1"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "m1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1_sample"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "c1",
+          "destination": "c1",
+          "amount": {
+            "value": 500.0,
+            "unit": "ul"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "m2"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "1000_rpm_3_min"
+          },
+          "device_ref": "e2"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3_pellet"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s3_pellet"
+          },
+          {
+            "kind": "sample",
+            "id": "m3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s4_resuspension"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "s4_resuspension",
+          "destination": "c1",
+          "amount": {
+            "value": 100.0,
+            "unit": "ul"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s4_resuspension"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "37_C_overnight"
+          },
+          "device_ref": "e1"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s6_spheroids"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

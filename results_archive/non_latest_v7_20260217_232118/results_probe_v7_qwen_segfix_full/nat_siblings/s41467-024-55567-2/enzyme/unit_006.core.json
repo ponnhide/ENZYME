@@ -1,0 +1,123 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Organoid dissociation and re-embedding",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-024-55567-2.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "TrypLE (Gibco)"
+      },
+      {
+        "id": "m2",
+        "name": "BME"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "48-well plate"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s1_input_sample",
+        "name": "s1_input_sample"
+      },
+      {
+        "id": "s1_output_sample",
+        "name": "s1_output_sample"
+      },
+      {
+        "id": "s2_output_sample",
+        "name": "s2_output_sample"
+      },
+      {
+        "id": "s3_output_sample",
+        "name": "s3_output_sample"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1_input_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1_output_sample"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "s1_output_sample",
+          "destination": "c1",
+          "amount": {
+            "value": 20.0,
+            "unit": "μL"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1_output_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2_output_sample"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "density": "8000 cells per well"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3_output_sample"
+          }
+        ],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,418 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Immunostain cells and prepare for FACS",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00929-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "HBSS/BSA/glucose"
+      },
+      {
+        "id": "m2",
+        "name": "master mix"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "microcentrifuge_tube"
+      },
+      {
+        "id": "c2",
+        "type": "facs_tube"
+      },
+      {
+        "id": "c3",
+        "type": "filter"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "centrifuge"
+      },
+      {
+        "id": "e2",
+        "type": "ice_bath"
+      }
+    ],
+    "samples": [
+      {
+        "id": "c1",
+        "name": "c1"
+      },
+      {
+        "id": "m1",
+        "name": "m1"
+      },
+      {
+        "id": "m2",
+        "name": "m2"
+      },
+      {
+        "id": "c2",
+        "name": "c2"
+      },
+      {
+        "id": "c3",
+        "name": "c3"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "m1",
+          "destination": "c1",
+          "amount": {
+            "value": 200.0,
+            "unit": "µL"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "m1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "m2",
+          "destination": "c1",
+          "amount": {
+            "value": 1.0,
+            "unit": "µL"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "ice_15min"
+          },
+          "device_ref": "e2"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "m1",
+          "destination": "c1",
+          "amount": {
+            "value": 5.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "m1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ]
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "300g_4C_5min"
+          },
+          "device_ref": "e1"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ]
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "text": "unmapped action_kind in source: discard_supernatant"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ]
+      },
+      {
+        "id": "s10",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s11",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c3"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s12",
+        "op": "transfer",
+        "params": {
+          "source": "c1",
+          "destination": "c2",
+          "through": "c3",
+          "amount": {
+            "value": 1.0,
+            "unit": "µL"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          },
+          {
+            "kind": "container",
+            "id": "c3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c2"
+          }
+        ]
+      },
+      {
+        "id": "s13",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "label"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c2"
+          }
+        ]
+      },
+      {
+        "id": "s14",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "ice_storage"
+          },
+          "device_ref": "e2"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c2"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      }
+    ],
+    "detail_level": 0
+  }
+}

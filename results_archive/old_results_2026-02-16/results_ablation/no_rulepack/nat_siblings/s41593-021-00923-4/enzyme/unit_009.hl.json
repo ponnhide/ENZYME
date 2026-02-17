@@ -1,0 +1,238 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Real‑time cell vulnerability assay",
+    "source": {
+      "type": "paper",
+      "id": "s41593-021-00923-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Six-well plate",
+        "vendor": "Appleton Woods, Corning",
+        "catalog": "CC010"
+      },
+      {
+        "id": "m2",
+        "name": "Geltrex",
+        "vendor": "Thermo Fisher Scientific",
+        "catalog": "A1413302"
+      },
+      {
+        "id": "m3",
+        "name": "DMEM/F-12",
+        "vendor": "Fisher Scientific, Gibco",
+        "catalog": "11514436"
+      },
+      {
+        "id": "m4",
+        "name": "hiPSCs",
+        "vendor": null,
+        "catalog": null
+      },
+      {
+        "id": "m5",
+        "name": "Topotecan",
+        "vendor": null,
+        "catalog": null
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "six-well plate",
+        "material_id": "m1"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "IncuCyte S3 Live-Cell Analysis system",
+        "vendor": "Sartorius",
+        "catalog": "4647"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "name": "Coated plate"
+      },
+      {
+        "id": "samp2",
+        "name": "Seeded plate"
+      },
+      {
+        "id": "samp3",
+        "name": "Assay plate with topotecan"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "name": "Live-cell images"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "material",
+            "id": "m3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null
+          },
+          "description": "Coat wells with 1% Geltrex in DMEM/F-12"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "params": {
+          "amount": "100000 cells per well"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 24,
+            "unit": "hour"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m5"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp3"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null
+          },
+          "description": "Add topotecan at 1.25 nM, 2.5 nM, 5 nM or 10 nM to respective wells"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d1"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "device_ref": "e1",
+          "program": "Acquire images every 6 h"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

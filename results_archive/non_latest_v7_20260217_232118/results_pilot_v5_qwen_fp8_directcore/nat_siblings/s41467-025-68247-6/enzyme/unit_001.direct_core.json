@@ -1,0 +1,378 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Clean and isolate crypts from colon tissue",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "gauze",
+        "vendor": "Fisher Scientific"
+      },
+      {
+        "id": "m2",
+        "name": "PBS++",
+        "composition": [
+          "PBS",
+          "10 mM HEPES",
+          "1X GlutaMAX",
+          "1X Pen-Strep",
+          "2.5 μg/mL Amphotericin B"
+        ],
+        "vendor": "Thermo Fisher Scientific"
+      },
+      {
+        "id": "m3",
+        "name": "DMEM++",
+        "composition": [
+          "Advanced DMEM/F12",
+          "10 mM HEPES",
+          "1X GlutaMAX",
+          "1X Pen-Strep",
+          "2.5 μg/mL Amphotericin B"
+        ],
+        "vendor": "Thermo Fisher Scientific"
+      },
+      {
+        "id": "m4",
+        "name": "scalpel",
+        "vendor": "Fisher Scientific"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "dish",
+        "size": "15 cm"
+      },
+      {
+        "id": "c2",
+        "type": "conical_tube",
+        "size": "50 mL"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s1_input_sample",
+        "name": "s1_input_sample"
+      },
+      {
+        "id": "s1_output_sample",
+        "name": "s1_output_sample"
+      },
+      {
+        "id": "s2_output_sample",
+        "name": "s2_output_sample"
+      },
+      {
+        "id": "s3_output_sample",
+        "name": "s3_output_sample"
+      },
+      {
+        "id": "s4_output_sample",
+        "name": "s4_output_sample"
+      },
+      {
+        "id": "s5_output_sample",
+        "name": "s5_output_sample"
+      },
+      {
+        "id": "s6_output_sample",
+        "name": "s6_output_sample"
+      },
+      {
+        "id": "s7_output_sample",
+        "name": "s7_output_sample"
+      },
+      {
+        "id": "s8_output_sample",
+        "name": "s8_output_sample"
+      },
+      {
+        "id": "s9_output_sample",
+        "name": "s9_output_sample"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "rinse"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1_input_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1_output_sample"
+          }
+        ],
+        "resources": {
+          "materials": [
+            "m1"
+          ],
+          "containers": []
+        }
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1_output_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2_output_sample"
+          }
+        ],
+        "resources": {
+          "materials": [
+            "m4"
+          ],
+          "containers": []
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "amount": "unknown"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2_output_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3_output_sample"
+          }
+        ],
+        "resources": {
+          "containers": [
+            "c1"
+          ]
+        }
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "amount": "unknown"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s3_output_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s4_output_sample"
+          }
+        ],
+        "resources": {
+          "containers": [
+            "c2"
+          ]
+        }
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "centrifuge_500g_4C_3min"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s4_output_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s5_output_sample"
+          }
+        ],
+        "resources": {
+          "containers": [
+            "c2"
+          ]
+        }
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "rinse"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s5_output_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s6_output_sample"
+          }
+        ],
+        "resources": {
+          "materials": [
+            "m3"
+          ],
+          "containers": [
+            "c2"
+          ]
+        }
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "centrifuge_500g_4C_3min"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s6_output_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s7_output_sample"
+          }
+        ],
+        "resources": {
+          "containers": [
+            "c2"
+          ]
+        }
+      },
+      {
+        "id": "s8",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "rinse"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s7_output_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s8_output_sample"
+          }
+        ],
+        "resources": {
+          "materials": [
+            "m3"
+          ],
+          "containers": [
+            "c2"
+          ]
+        }
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "centrifuge_500g_4C_3min"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s8_output_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s9_output_sample"
+          }
+        ],
+        "resources": {
+          "containers": [
+            "c2"
+          ]
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

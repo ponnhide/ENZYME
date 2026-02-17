@@ -1,0 +1,345 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Harvest and processing of organoids for peptidome analysis",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-020-19142-9.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Cell Recovery Solution",
+        "vendor": "Roche Diagnostics"
+      },
+      {
+        "id": "m2",
+        "name": "PBS"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "6-well_plate"
+      },
+      {
+        "id": "c2",
+        "type": "microcentrifuge_tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "P1000_pipette"
+      },
+      {
+        "id": "e2",
+        "type": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "smp1",
+        "name": "organoid_cell_pellet"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source": "c1",
+          "destination": "c2",
+          "tool": "e1",
+          "amount": {
+            "value": 1.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "centrifuge_500g_8min_offbrakes",
+            "speed": "500 g",
+            "duration": "8 min",
+            "brakes": "off"
+          },
+          "device_ref": "e2"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "c2",
+          "destination": "c2",
+          "reagent": "m1",
+          "amount": {
+            "value": 1.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "ice_incubation",
+            "temperature": "0 °C",
+            "duration": "30 min"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": "c2",
+          "destination": "c2",
+          "reagent": "m2",
+          "amount": {
+            "value": 1.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ]
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "source": "c2",
+          "destination": "c2",
+          "reagent": "m2",
+          "amount": {
+            "value": 1.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ]
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "params": {
+          "source": "c2",
+          "destination": "c2",
+          "reagent": "m2",
+          "amount": {
+            "value": 1.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ]
+      },
+      {
+        "id": "s9",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "rinse"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ]
+      },
+      {
+        "id": "s10",
+        "op": "annotate",
+        "params": {
+          "note": "All PBS was removed and the tube opening was quickly dried using a paper towel."
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ]
+      },
+      {
+        "id": "s11",
+        "op": "annotate",
+        "params": {
+          "note": "Cell pellets were snap frozen in dry ice and stored at −80 °C."
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      }
+    ],
+    "detail_level": 0
+  }
+}

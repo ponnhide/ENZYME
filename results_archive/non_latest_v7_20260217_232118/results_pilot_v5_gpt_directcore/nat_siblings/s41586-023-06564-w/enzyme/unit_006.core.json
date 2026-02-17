@@ -1,0 +1,84 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Harvesting and concentration of viral supernatant",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-023-06564-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [
+      {
+        "id": "tube1",
+        "type": "microcentrifuge_tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge1",
+        "type": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "viral_supernatant"
+      },
+      {
+        "id": "concentrated_virus"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "viral_supernatant"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge1",
+          "program": {
+            "program_name": "spin_17000rpm_6C_1h"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "viral_supernatant"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "concentrated_virus"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

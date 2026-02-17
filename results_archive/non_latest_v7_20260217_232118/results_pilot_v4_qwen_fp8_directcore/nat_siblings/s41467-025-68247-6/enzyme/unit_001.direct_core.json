@@ -1,0 +1,176 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Tissue cleaning and crypt isolation",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "type": "gauze",
+        "name": "Fisher Scientific gauze"
+      },
+      {
+        "id": "m2",
+        "type": "PBS++",
+        "name": "PBS supplemented with 10 mM HEPES, 1X GlutaMAX, 1X Pen-Strep, 2.5 μg/mL Amphotericin B"
+      },
+      {
+        "id": "m3",
+        "type": "DMEM++",
+        "name": "Advanced DMEM/F12 supplemented with 10 mM HEPES, 1X GlutaMAX, 1X Pen-Strep, 2.5 μg/mL Amphotericin B"
+      },
+      {
+        "id": "m4",
+        "type": "scalpel",
+        "name": "Fisher Scientific scalpel"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "dish",
+        "name": "15 cm dish"
+      },
+      {
+        "id": "c2",
+        "type": "conical_tube",
+        "name": "50 mL conical tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "centrifuge"
+      }
+    ],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "inputs": [],
+        "outputs": [],
+        "annotations": [
+          {
+            "key": "description",
+            "value": "colon tissue was sliced open lengthwise and wiped 3–4 times with gauze (Fisher Scientific) to remove waste and mucus"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "amount": "unknown"
+        },
+        "inputs": [],
+        "outputs": [],
+        "annotations": [
+          {
+            "key": "description",
+            "value": "tissue was cut into small sections of ~2\" × 2\" and placed into a 15 cm dish filled with PBS++"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "inputs": [],
+        "outputs": [],
+        "annotations": [
+          {
+            "key": "description",
+            "value": "epithelium was minced from tissue segments using scalpels (Fisher Scientific) and collected into 50 mL conical tubes"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "amount": "unknown"
+        },
+        "inputs": [],
+        "outputs": [],
+        "annotations": [
+          {
+            "key": "description",
+            "value": "minced epithelium was washed 3 times with DMEM++"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "temperature": "4 °C",
+            "speed": "500 × g",
+            "duration": "3 min"
+          }
+        },
+        "inputs": [],
+        "outputs": [],
+        "annotations": [
+          {
+            "key": "description",
+            "value": "centrifuged at 4 °C, 500 × g for 3 min between each wash"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {},
+        "inputs": [],
+        "outputs": [],
+        "annotations": [
+          {
+            "key": "repeat",
+            "value": "steps s4 and s5 repeated 3 times total"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

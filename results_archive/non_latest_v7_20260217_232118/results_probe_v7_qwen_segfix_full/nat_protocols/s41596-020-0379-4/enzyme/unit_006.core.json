@@ -1,0 +1,221 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Culture Medium Addition and Maintenance",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-020-0379-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "organoid medium",
+        "type": "culture_medium"
+      },
+      {
+        "id": "m2",
+        "name": "ROCK inhibitor",
+        "type": "small_molecule",
+        "concentration": "10 µM"
+      },
+      {
+        "id": "m3",
+        "name": "Primocin",
+        "type": "antibiotic",
+        "concentration": "100 µg/ml"
+      },
+      {
+        "id": "m4",
+        "name": "caspofungin",
+        "type": "antifungal",
+        "concentration": "0.5 µg/ml"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "multi_well_plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "water_bath"
+      },
+      {
+        "id": "e2",
+        "type": "humidified_incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "m1",
+        "name": "m1"
+      },
+      {
+        "id": "m2",
+        "name": "m2"
+      },
+      {
+        "id": "m3",
+        "name": "m3"
+      },
+      {
+        "id": "c1",
+        "name": "c1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "m1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "m1"
+          },
+          {
+            "kind": "sample",
+            "id": "m2"
+          },
+          {
+            "kind": "sample",
+            "id": "m3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "m1"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "params": {
+          "text": "unmapped device_kind in source: water_bath"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "m1"
+          }
+        ],
+        "device_ref": "e1",
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "amount": {
+            "value": 500.0,
+            "unit": "µl"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "m1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "standard_organoid_culture",
+            "temperature": "37 °C",
+            "co2": "5% (vol/vol)"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "device_ref": "e2",
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "For head and neck organoids, add 0.5 µg/ml caspofungin to organoid medium. Do not add medium directly on top of BME drops."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "note": "Change medium every 2–3 days. Maintain ROCK inhibitor and Primocin (and caspofungin for head and neck organoids) for first two passages."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

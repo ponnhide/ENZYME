@@ -1,0 +1,119 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Image analysis for cell migration using Fiji and Blinding",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-023-06564-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "microscope_imaging_system"
+      }
+    ],
+    "samples": [
+      {
+        "id": "d1",
+        "name": "d1"
+      },
+      {
+        "id": "d2",
+        "name": "d2"
+      },
+      {
+        "id": "d3",
+        "name": "d3"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "params": {
+          "device_kind": "imager",
+          "program": {
+            "program_name": "Fiji (ImageJ v1.0)"
+          }
+        },
+        "device_ref": "e1",
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "params": {
+          "device_kind": "imager",
+          "program": {
+            "program_name": "Fiji (ImageJ v1.53f51)"
+          }
+        },
+        "device_ref": "e1",
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d2"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "imager",
+          "program": {
+            "program_name": "ImageJ2 v.2.3.0/1.53q"
+          }
+        },
+        "device_ref": "e1",
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d3"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "params": {
+          "note": "Blinding for genotype was used for analysis."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

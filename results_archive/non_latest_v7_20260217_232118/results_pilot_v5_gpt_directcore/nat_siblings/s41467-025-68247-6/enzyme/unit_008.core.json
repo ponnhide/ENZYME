@@ -1,0 +1,263 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Organoid passaging procedure",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "edta_y27632_solution",
+        "name": "10 mM EDTA with 10 µM Y-27632"
+      },
+      {
+        "id": "trypsin_solution",
+        "name": "1X Trypsin"
+      }
+    ],
+    "containers": [
+      {
+        "id": "conical_tube_15ml",
+        "type": "conical_tube",
+        "name": "15 mL conical tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge",
+        "type": "centrifuge",
+        "name": "Centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoids",
+        "name": "Organoids"
+      },
+      {
+        "id": "edta_y27632_solution",
+        "name": "edta_y27632_solution"
+      },
+      {
+        "id": "trypsin_solution",
+        "name": "trypsin_solution"
+      },
+      {
+        "id": "conical_tube_15ml",
+        "name": "conical_tube_15ml"
+      },
+      {
+        "id": "organoids_dislodged",
+        "name": "organoids_dislodged"
+      },
+      {
+        "id": "organoids_centrifuged",
+        "name": "organoids_centrifuged"
+      },
+      {
+        "id": "organoids_resuspended",
+        "name": "organoids_resuspended"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoids"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "edta_y27632_solution"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "trypsin_solution"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "conical_tube_15ml"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoids"
+          },
+          {
+            "kind": "sample",
+            "id": "edta_y27632_solution"
+          },
+          {
+            "kind": "sample",
+            "id": "conical_tube_15ml"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoids_dislodged"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Place tube on end‑over‑end rotator at 4 °C for 30 min."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge",
+          "program": {
+            "program_name": "500g_5min_4C"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoids_dislodged"
+          },
+          {
+            "kind": "sample",
+            "id": "conical_tube_15ml"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoids_centrifuged"
+          }
+        ]
+      },
+      {
+        "id": "s8",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoids_centrifuged"
+          },
+          {
+            "kind": "sample",
+            "id": "trypsin_solution"
+          },
+          {
+            "kind": "sample",
+            "id": "conical_tube_15ml"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoids_resuspended"
+          }
+        ]
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "params": {
+          "note": "Place tube on end‑over‑end rotator at 37 °C for 6 min."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

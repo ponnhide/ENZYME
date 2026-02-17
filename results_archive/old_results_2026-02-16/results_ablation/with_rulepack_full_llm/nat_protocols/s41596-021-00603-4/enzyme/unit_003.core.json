@@ -1,0 +1,157 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-021-00603-4",
+      "type": "paper"
+    },
+    "title": "Phosphatase and protease inhibitor treatment"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {
+          "note": "Amount of protease inhibitor cocktail and PhosSTOP not specified in source text"
+        },
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "m1",
+            "kind": "material"
+          },
+          {
+            "id": "m2",
+            "kind": "material"
+          },
+          {
+            "id": "sample1",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "sample1_treated",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": null,
+            "value": null
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "sample1_treated",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "sample1_rotated",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently",
+          "duration": {
+            "unit": "s",
+            "value": 10
+          },
+          "repetitions": 5
+        }
+      },
+      {
+        "annotations": {
+          "lowered_from": "incubate"
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "sample1_rotated",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "sample1_incubated",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": null
+          }
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "c1",
+        "type": "plate"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator"
+      }
+    ],
+    "materials": [
+      {
+        "id": "m1",
+        "name": "protease inhibitor cocktail (100× stock)"
+      },
+      {
+        "id": "m2",
+        "name": "PhosSTOP (40× stock)"
+      },
+      {
+        "id": "m3",
+        "name": "culture medium"
+      }
+    ],
+    "samples": [
+      {
+        "description": "culture medium before inhibitor addition",
+        "id": "sample1"
+      },
+      {
+        "description": "culture medium after addition of protease inhibitor cocktail and PhosSTOP",
+        "id": "sample1_treated"
+      },
+      {
+        "description": "culture medium after gentle rotation of plate",
+        "id": "sample1_rotated"
+      },
+      {
+        "description": "culture medium after incubation",
+        "id": "sample1_incubated"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

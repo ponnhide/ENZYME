@@ -1,0 +1,171 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Anterior-posterior boundary spheroid formation",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-00441-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [
+      {
+        "id": "96_well_plate_with_two_spheroids",
+        "name": "96_well_plate_with_two_spheroids",
+        "type": "generic_container"
+      },
+      {
+        "id": "96_well_plate_after_centrifugation",
+        "name": "96_well_plate_after_centrifugation",
+        "type": "generic_container"
+      },
+      {
+        "id": "96_well_plate_after_incubation",
+        "name": "96_well_plate_after_incubation",
+        "type": "generic_container"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "posterior_spheroid_well",
+        "name": "posterior_spheroid_well"
+      },
+      {
+        "id": "posterior_spheroid_pipetted",
+        "name": "posterior_spheroid_pipetted"
+      },
+      {
+        "id": "posterior_spheroid_transferred",
+        "name": "posterior_spheroid_transferred"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "posterior_spheroid_well"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "posterior_spheroid_pipetted"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 200,
+            "unit": "µl"
+          },
+          "source_container": "well_with_posterior_spheroid",
+          "target_container": "pipette_tip_200ul"
+        },
+        "annotations": {
+          "note": "Pipette up and down to suspend spheroid in medium"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "posterior_spheroid_pipetted"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "posterior_spheroid_transferred"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 200,
+            "unit": "µl"
+          },
+          "source_container": "pipette_tip_200ul",
+          "target_container": "well_with_anterior_spheroid"
+        },
+        "annotations": {
+          "note": "Transfer to well containing one anterior spheroid in same 96-well round-bottom ultra-low attachment plate"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "96_well_plate_with_two_spheroids"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "96_well_plate_after_centrifugation"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "speed": "1000 r.p.m.",
+            "duration": "1 min"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "96_well_plate_after_centrifugation"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "96_well_plate_after_incubation"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": "37 °C",
+            "duration": "24 h"
+          }
+        },
+        "annotations": {
+          "note": "Form fused boundary spheroids (anterior-posterior gut spheroid; A-P spheroids)"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

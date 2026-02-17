@@ -1,0 +1,120 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Seed cells on day‑4",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00629-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "human pluripotent stem cells (hPSC)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "ultra-low attachment 96-U-well plate",
+        "type": "plate",
+        "well_count": 96
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "centrifuge",
+        "device_kind": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "material": "m1",
+        "description": "cell suspension"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "sample": "samp1",
+          "quantity": 5000,
+          "unit": "cells"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "samp1",
+          "destination": "c1",
+          "amount": {
+            "quantity": 5000,
+            "unit": "cells"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2a",
+        "op": "annotate",
+        "params": {
+          "text": "per_well: true"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "e1",
+          "program": "aggregate formation"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3a",
+        "op": "annotate",
+        "params": {
+          "text": "target container: c1"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s2a"
+      },
+      {
+        "from": "s2a",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s3a"
+      }
+    ],
+    "detail_level": 0
+  }
+}

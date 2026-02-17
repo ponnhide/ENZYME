@@ -1,0 +1,111 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Measure cell viability with CyQuant assay",
+    "source": {
+      "type": "paper",
+      "id": "s41467-021-27464-5.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "CyQuant cell proliferation assay",
+        "vendor": "Invitrogen"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "plate reader",
+        "device_kind": "plate_reader"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "name": "cells",
+        "type": "cell",
+        "amount": {
+          "value": 50000,
+          "unit": "cells"
+        }
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "name": "absorbance measurement",
+        "type": "absorbance"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Cell viability measured using CyQuant assay (Invitrogen) following the manufacturer’s instructions"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d1"
+          }
+        ],
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            {
+              "name": "absorbance",
+              "range": "480-520 nm"
+            }
+          ]
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

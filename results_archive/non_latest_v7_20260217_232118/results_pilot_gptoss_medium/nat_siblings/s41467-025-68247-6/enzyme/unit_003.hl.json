@@ -1,0 +1,106 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "EDTA digestion for crypt isolation",
+    "source": {
+      "type": "paper",
+      "id": "s41467-025-68247-6"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "edta_solution",
+        "description": "2.5 mM EDTA in PBS"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube",
+        "type": "tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "rotator",
+        "name": "end-over-end rotator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "tissue",
+        "type": "tissue"
+      },
+      {
+        "id": "resuspended_tissue",
+        "type": "tissue"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tissue"
+          },
+          {
+            "kind": "material",
+            "id": "edta_solution"
+          },
+          {
+            "kind": "container",
+            "id": "tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "resuspended_tissue"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend",
+          "amount": {
+            "value": 25,
+            "unit": "mL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "resuspended_tissue"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "resuspended_tissue"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Placed in an end-over-end rotator at 37 °C until crypts were visible, around 12 min."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

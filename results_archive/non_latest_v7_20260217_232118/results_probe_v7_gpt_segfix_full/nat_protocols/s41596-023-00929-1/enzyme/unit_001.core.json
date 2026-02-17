@@ -1,0 +1,250 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Dissociation and digestion",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00929-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_hbss",
+        "name": "HBSS/BSA/glucose"
+      },
+      {
+        "id": "m_dnase",
+        "name": "DNase",
+        "concentration": "10 mg/mL"
+      },
+      {
+        "id": "m_collagenase_dispase",
+        "name": "collagenase/dispase",
+        "concentration": "100 mg/mL"
+      },
+      {
+        "id": "m_brain_tissue",
+        "name": "human brain tissue"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_dish",
+        "type": "cell_culture_dish",
+        "description": "60 mm cell culture dish"
+      },
+      {
+        "id": "c_tube",
+        "type": "conical_tube_15ml",
+        "description": "15 mL conical tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e_rotating_oven",
+        "type": "incubator",
+        "name": "rotating oven"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_dish",
+        "name": "sample_dish"
+      },
+      {
+        "id": "sample_tissue",
+        "name": "sample_tissue"
+      },
+      {
+        "id": "sample_tube1",
+        "name": "sample_tube1"
+      },
+      {
+        "id": "sample_tube2",
+        "name": "sample_tube2"
+      },
+      {
+        "id": "sample_tube3",
+        "name": "sample_tube3"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s0",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e_rotating_oven",
+          "program": {
+            "program_name": "heat_to_37C"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_dish"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "m_dnase",
+          "destination": "sample_dish",
+          "amount": {
+            "value": 150.0,
+            "unit": "µL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_tissue"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "amount": {
+            "value": 250,
+            "unit": "mg"
+          },
+          "source": "sample_tissue",
+          "destination": "sample_dish"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "note": "Cut tissue into ~2 mm × 2 mm chunks in dish using scalpel in sterile environment."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_tube1"
+          },
+          {
+            "kind": "sample",
+            "id": "sample_tube2"
+          },
+          {
+            "kind": "sample",
+            "id": "sample_tube3"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "note": "Distribute tissue–buffer solution from dish into three 15 mL conical tubes; wash dish with extra HBSS/BSA/glucose to make up to 5 mL per tube."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "note": "Add 167 µL of collagenase/dispase (100 mg/mL) to each tube (equivalent to 33.4 µL per 1 mL)."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e_rotating_oven",
+          "program": {
+            "program_name": "digest_30min_37C"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s0",
+    "edges": [
+      {
+        "from": "s0",
+        "to": "s1"
+      },
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,200 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Preparation of sequencing libraries from sgRNA integrations",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-023-06564-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "genomic DNA"
+      },
+      {
+        "id": "m2",
+        "name": "Herculase II Fusion DNA Polymerase",
+        "vendor": "Agilent",
+        "catalogue_no": "600679"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "PCR tube"
+      },
+      {
+        "id": "c2",
+        "name": "pool tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "device_kind": "thermocycler"
+      },
+      {
+        "id": "e2",
+        "device_kind": "amplicon_readout_system",
+        "name": "Illumina NextSeq 550"
+      }
+    ],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "resource_id": "m1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "resource_id": "m2"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "resource_id": "c1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "params": {
+          "text": "Transfer genomic DNA (m1) to PCR tube (c1)"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "text": "Transfer Herculase II Fusion DNA Polymerase (m2) to PCR tube (c1)"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "thermocycler",
+          "program": "PCR amplification of lentiviral sgRNA spacer",
+          "device_ref": "e1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "allocate",
+        "params": {
+          "resource_id": "c2"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "params": {
+          "text": "Transfer PCR reaction from PCR tube (c1) to pool tube (c2)"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "run_device",
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": "Illumina NextSeq 550 sequencing at 450–1,000× read depth",
+          "device_ref": "e2"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": "read depth 450–1,000×"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      }
+    ],
+    "detail_level": 0
+  }
+}

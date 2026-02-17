@@ -1,0 +1,287 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Crypt plating in Matrigel",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "type": "solution",
+        "name": "PBS+++"
+      },
+      {
+        "id": "m2",
+        "type": "matrix",
+        "name": "Matrigel",
+        "vendor": "Corning"
+      },
+      {
+        "id": "m3",
+        "type": "media",
+        "name": "organoid growth media"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "tube",
+        "volume": "10 mL"
+      },
+      {
+        "id": "c2",
+        "type": "well",
+        "volume": "30 μL"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "centrifuge"
+      },
+      {
+        "id": "e2",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s1_input_sample",
+        "name": "s1_input_sample"
+      },
+      {
+        "id": "s1_output_sample",
+        "name": "s1_output_sample"
+      },
+      {
+        "id": "s2_output_sample",
+        "name": "s2_output_sample"
+      },
+      {
+        "id": "s3_output_sample",
+        "name": "s3_output_sample"
+      },
+      {
+        "id": "s4_output_sample",
+        "name": "s4_output_sample"
+      },
+      {
+        "id": "s5_output_sample",
+        "name": "s5_output_sample"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1_input_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1_output_sample"
+          }
+        ],
+        "annotations": [
+          {
+            "key": "volume",
+            "value": "10 mL"
+          },
+          {
+            "key": "solution",
+            "value": "PBS+++"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "amount": "unknown"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1_output_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2_output_sample"
+          }
+        ],
+        "annotations": [
+          {
+            "key": "filter",
+            "value": "100 µm cell strainer"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "duration": "3 min",
+            "temperature": "4 °C",
+            "speed": "500"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2_output_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3_output_sample"
+          }
+        ],
+        "device_ref": "e1"
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s3_output_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s4_output_sample"
+          }
+        ],
+        "annotations": [
+          {
+            "key": "matrix",
+            "value": "Matrigel"
+          },
+          {
+            "key": "temperature",
+            "value": "cold"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "amount": "unknown"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s4_output_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s5_output_sample"
+          }
+        ],
+        "annotations": [
+          {
+            "key": "volume",
+            "value": "30 μL"
+          },
+          {
+            "key": "density",
+            "value": "30–50 crypts per droplet"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "duration": "30 min",
+            "temperature": "37 °C"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s5_output_sample"
+          }
+        ],
+        "outputs": [],
+        "device_ref": "e2"
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "amount": "unknown"
+        },
+        "inputs": [],
+        "outputs": [],
+        "annotations": [
+          {
+            "key": "media",
+            "value": "organoid growth media"
+          },
+          {
+            "key": "action",
+            "value": "fed to crypts"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

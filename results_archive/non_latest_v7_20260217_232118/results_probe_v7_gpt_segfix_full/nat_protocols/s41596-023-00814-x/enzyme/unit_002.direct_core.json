@@ -1,0 +1,728 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Procedure",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00814-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "matrigel_solution",
+        "description": "Matrigel/DMEM/F12 solution"
+      },
+      {
+        "id": "mtesr1_medium",
+        "description": "mTESR1 medium"
+      },
+      {
+        "id": "rock_inhibitor",
+        "description": "10 µM Rock inhibitor (Y-27632 2HCl)"
+      },
+      {
+        "id": "dmem_f12",
+        "description": "DMEM/F12"
+      },
+      {
+        "id": "pfa",
+        "description": "4% PFA"
+      },
+      {
+        "id": "pbs_glycine",
+        "description": "PBS-Glycine"
+      },
+      {
+        "id": "permeabilization_solution",
+        "description": "permeabilization solution"
+      },
+      {
+        "id": "blocking_solution",
+        "description": "blocking solution"
+      },
+      {
+        "id": "primary_antibody",
+        "description": "primary antibody (e.g., OCT4)"
+      },
+      {
+        "id": "secondary_antibody",
+        "description": "secondary antibody"
+      },
+      {
+        "id": "dapi_hoechst",
+        "description": "DAPI or Hoechst 33342"
+      },
+      {
+        "id": "distilled_water",
+        "description": "distilled water"
+      },
+      {
+        "id": "mowiol",
+        "description": "Mowiol mounting medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate_24well",
+        "type": "24-well_plate"
+      },
+      {
+        "id": "coverslip",
+        "type": "glass_coverslip"
+      },
+      {
+        "id": "glass_slide",
+        "type": "glass_slide"
+      },
+      {
+        "id": "serological_pipette",
+        "type": "serological_pipette"
+      },
+      {
+        "id": "tweezers",
+        "type": "tweezers"
+      },
+      {
+        "id": "paper",
+        "type": "paper"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "type": "incubator"
+      },
+      {
+        "id": "water_bath",
+        "type": "incubator"
+      },
+      {
+        "id": "refrigerator",
+        "type": "incubator"
+      },
+      {
+        "id": "fluorescence_microscope",
+        "type": "microscope"
+      }
+    ],
+    "samples": [
+      {
+        "id": "ipscs",
+        "description": "human iPSC colonies"
+      },
+      {
+        "id": "fixed_cells",
+        "description": "fixed iPSC cells on coverslip"
+      },
+      {
+        "id": "slide_preparation",
+        "description": "coverslip mounted on slide"
+      }
+    ],
+    "data": [
+      {
+        "id": "attachment_check",
+        "description": "cell attachment observation"
+      },
+      {
+        "id": "fluorescence_images",
+        "description": "fluorescence microscopy images"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "spread_on_plate",
+          "description": "Place sterile glass coverslips (12 mm) onto the bottom of each well (≥6 wells)"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "matrigel_solution",
+          "destination": "plate_24well",
+          "amount": {
+            "value": 300.0,
+            "unit": "µl",
+            "per": "well"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "1h_37C_5%CO2"
+          },
+          "device_ref": "incubator"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "source": "plate_24well",
+          "destination": "waste",
+          "amount": {
+            "description": "aspirate Matrigel solution"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s9",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s10",
+        "op": "transfer",
+        "params": {
+          "source": [
+            "mtesr1_medium",
+            "rock_inhibitor"
+          ],
+          "destination": "plate_24well",
+          "amount": {
+            "description": "500 µl mTESR1 + 10 µM Rock inhibitor per well"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "annotate",
+        "params": {
+          "description": "Passage iPSCs and seed one drop of cell suspension (1 ml) into each well; place plate in incubator (37 °C, 5 % CO₂) without moving for 24–48 h"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "24-48h_37C_5%CO2"
+          },
+          "device_ref": "incubator"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s13",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "cell_attachment"
+          ],
+          "description": "Check for cell attachment after 2 days"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s14",
+        "op": "annotate",
+        "params": {
+          "description": "When iPSC colonies reach 200–500 µm, proceed with fixation"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s15",
+        "op": "transfer",
+        "params": {
+          "source": "plate_24well",
+          "destination": "waste",
+          "amount": {
+            "description": "aspirate medium"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s16",
+        "op": "transfer",
+        "params": {
+          "source": "dmem_f12",
+          "destination": "plate_24well",
+          "amount": {
+            "value": 500.0,
+            "unit": "µl",
+            "per": "well",
+            "note": "prewarmed 37°C"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s17",
+        "op": "transfer",
+        "params": {
+          "source": "plate_24well",
+          "destination": "waste",
+          "amount": {
+            "description": "aspirate DMEM/F12"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s18",
+        "op": "transfer",
+        "params": {
+          "source": "pfa",
+          "destination": "plate_24well",
+          "amount": {
+            "value": 500.0,
+            "unit": "µl",
+            "per": "well",
+            "note": "prewarmed 37°C"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s19",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "10min_RT"
+          },
+          "device_ref": "incubator"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s20",
+        "op": "annotate",
+        "params": {
+          "description": "Aspirate PFA and wash three times with 500 µl PBS‑Glycine (careful to avoid detaching cells)"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s21",
+        "op": "transfer",
+        "params": {
+          "source": "permeabilization_solution",
+          "destination": "plate_24well",
+          "amount": {
+            "value": 500.0,
+            "unit": "µl",
+            "per": "well"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s22",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "10min_RT"
+          },
+          "device_ref": "incubator"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s23",
+        "op": "annotate",
+        "params": {
+          "description": "Aspirate permeabilization solution and wash three times with 500 µl PBS‑Glycine"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s24",
+        "op": "transfer",
+        "params": {
+          "source": "blocking_solution",
+          "destination": "plate_24well",
+          "amount": {
+            "value": 500.0,
+            "unit": "µl",
+            "per": "well"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s25",
+        "op": "annotate",
+        "params": {
+          "description": "Pause point: store plate at 4 °C (wrapped in Parafilm) for up to 2 weeks or proceed after 1 h RT incubation with blocking solution"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s26",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "1h_RT"
+          },
+          "device_ref": "incubator"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s27",
+        "op": "transfer",
+        "params": {
+          "source": "primary_antibody",
+          "destination": "plate_24well",
+          "amount": {
+            "value": 200.0,
+            "unit": "µl",
+            "per": "well"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s28",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "1h_RT"
+          },
+          "device_ref": "incubator"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s29",
+        "op": "annotate",
+        "params": {
+          "description": "Aspirate primary antibody and wash three times with 500 µl blocking solution"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s30",
+        "op": "transfer",
+        "params": {
+          "source": "secondary_antibody",
+          "destination": "plate_24well",
+          "amount": {
+            "value": 500.0,
+            "unit": "µl",
+            "per": "well"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s31",
+        "op": "annotate",
+        "params": {
+          "description": "Incubate 1 h RT protected from light; then aspirate and wash three times with blocking solution"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s32",
+        "op": "annotate",
+        "params": {
+          "description": "Add DAPI or Hoechst (0.1–0.5 µg/ml or 1–5 µg/ml) to the last secondary antibody incubation for nuclear staining"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s33",
+        "op": "transfer",
+        "params": {
+          "source": "distilled_water",
+          "destination": "plate_24well",
+          "amount": {
+            "value": 500.0,
+            "unit": "µl",
+            "per": "well"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s34",
+        "op": "annotate",
+        "params": {
+          "description": "Remove coverslips with tweezers, place on paper for 5 min RT protected from light"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s35",
+        "op": "transfer",
+        "params": {
+          "source": "mowiol",
+          "destination": "glass_slide",
+          "amount": {
+            "value": 3.0,
+            "unit": "µl",
+            "note": "drop"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s36",
+        "op": "annotate",
+        "params": {
+          "description": "Place coverslip (cell side down) onto Mowiol on slide; let dry 15–30 min RT protected from light"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s37",
+        "op": "observe",
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "fluorescence"
+          ],
+          "description": "Fluorescence imaging of stained cells"
+        },
+        "outputs": [],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      },
+      {
+        "from": "s16",
+        "to": "s17"
+      },
+      {
+        "from": "s17",
+        "to": "s18"
+      },
+      {
+        "from": "s18",
+        "to": "s19"
+      },
+      {
+        "from": "s19",
+        "to": "s20"
+      },
+      {
+        "from": "s20",
+        "to": "s21"
+      },
+      {
+        "from": "s21",
+        "to": "s22"
+      },
+      {
+        "from": "s22",
+        "to": "s23"
+      },
+      {
+        "from": "s23",
+        "to": "s24"
+      },
+      {
+        "from": "s24",
+        "to": "s25"
+      },
+      {
+        "from": "s25",
+        "to": "s26"
+      },
+      {
+        "from": "s26",
+        "to": "s27"
+      },
+      {
+        "from": "s27",
+        "to": "s28"
+      },
+      {
+        "from": "s28",
+        "to": "s29"
+      },
+      {
+        "from": "s29",
+        "to": "s30"
+      },
+      {
+        "from": "s30",
+        "to": "s31"
+      },
+      {
+        "from": "s31",
+        "to": "s32"
+      },
+      {
+        "from": "s32",
+        "to": "s33"
+      },
+      {
+        "from": "s33",
+        "to": "s34"
+      },
+      {
+        "from": "s34",
+        "to": "s35"
+      },
+      {
+        "from": "s35",
+        "to": "s36"
+      },
+      {
+        "from": "s36",
+        "to": "s37"
+      }
+    ],
+    "detail_level": 0
+  }
+}

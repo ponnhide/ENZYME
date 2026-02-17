@@ -1,0 +1,238 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Crypt isolation and organoid embedding",
+    "source": {
+      "type": "paper",
+      "id": "s41467-024-55567-2.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_dpbs",
+        "name": "DPBS"
+      },
+      {
+        "id": "m_edta",
+        "name": "EDTA",
+        "description": "2.5 mM"
+      },
+      {
+        "id": "m_cultrex",
+        "name": "Cultrex RGF BME",
+        "vendor": "R&D Systems"
+      },
+      {
+        "id": "m_medium",
+        "name": "culture medium"
+      },
+      {
+        "id": "m_y27632",
+        "name": "Y-27632",
+        "concentration": "10 μM",
+        "vendor": "TargetMol"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_tissue_container",
+        "type": "tube"
+      },
+      {
+        "id": "c_48well_plate",
+        "type": "48-well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e_incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_tissue",
+        "type": "tissue"
+      },
+      {
+        "id": "s_crypts",
+        "type": "crypts"
+      },
+      {
+        "id": "s_droplet",
+        "type": "organoid_droplet"
+      },
+      {
+        "id": "s_medium",
+        "type": "culture_medium"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_tissue"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_tissue"
+          }
+        ],
+        "params": {
+          "material_ref": "m_dpbs",
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_tissue"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_tissue"
+          }
+        ],
+        "params": {
+          "device_ref": "e_incubator",
+          "temperature": {
+            "value": 4,
+            "unit": "°C"
+          },
+          "duration": {
+            "value": 40,
+            "unit": "min"
+          },
+          "additive_material_ref": "m_edta"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_tissue"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_crypts"
+          }
+        ],
+        "params": {
+          "description": "collect supernatant containing crypts",
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_crypts"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_droplet"
+          }
+        ],
+        "params": {
+          "material_ref": "m_cultrex",
+          "container_ref": "c_48well_plate",
+          "amount": "50 crypts per well",
+          "description": "embed crypts in Cultrex droplets (~50 crypts/well)"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_droplet"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_droplet"
+          }
+        ],
+        "params": {
+          "material_ref": "m_medium",
+          "additive_material_ref": "m_y27632",
+          "description": "overlay droplets with culture medium containing 10 μM Y-27632",
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Change medium every 3 days"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

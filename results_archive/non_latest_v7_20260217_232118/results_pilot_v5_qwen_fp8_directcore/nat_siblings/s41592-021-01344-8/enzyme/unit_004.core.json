@@ -1,0 +1,100 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Initiate cerebral organoids from barcoded iPSCs",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41592-021-01344-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s1_sample",
+        "type": "iPSCs",
+        "metadata": {
+          "description": "uniquely barcoded iPSCs"
+        }
+      },
+      {
+        "id": "s1_resuspended_sample",
+        "name": "s1_resuspended_sample"
+      },
+      {
+        "id": "s2_organoid_initiation_sample",
+        "name": "s2_organoid_initiation_sample"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1_resuspended_sample"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "amount": {
+            "value": 2000.0,
+            "unit": "cells"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1_resuspended_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2_organoid_initiation_sample"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "params": {
+          "note": "Initiate cerebral organoids using approximately 2,000 cells to record lineages during organoid development (Fig. 1b)."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

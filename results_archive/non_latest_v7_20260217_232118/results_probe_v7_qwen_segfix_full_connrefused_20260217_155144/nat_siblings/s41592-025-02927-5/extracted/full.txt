@@ -1,0 +1,2429 @@
+nature methods
+
+Resource https://doi.org/10.1038/s41592-025-02927-5
+
+
+Systematic scRNA-seq screens profile neural
+organoid response to morphogens
+
+Received: 7 March 2024 Fátima Sanchís-Calleja1,5, Nadezhda Azbukina1,5, Akanksha Jain 1,
+ Zhisong He 1, Ryoko Okamoto1, Charlotte Rusimbi 2, Pedro Rifes2,
+Accepted: 22 October 2025
+ Gaurav Singh Rathore 2, Malgorzata Santel 1, Jasper Janssens1,
+Published online: 15 December 2025 Makiko Seimiya1, Benedikt Eisinger1, Jonas Simon Fleck1, Agnete Kirkeby 2
+ ,
+ J. Gray Camp 3,4,6 & Barbara Treutlein 1,6
+ Check for updates
+
+
+ Morphogens direct neuroepithelial fates toward discrete regional identities
+ in vivo. Neural organoids provide models for studying neural regionalization
+ through morphogen exposure; however, we lack a comprehensive survey
+ of how the developing human neuroepithelium responds to morphogen
+ cues. Here we produce a detailed survey of morphogen-induced effects on
+ the regional specification of human neural organoids using multiplexed
+ single-cell transcriptomic screens. We find that the timing, concentration
+ and combination of morphogens strongly influence organoid cell-type and
+ regional composition, and that cell line and neural induction method impact
+ the response to a given morphogen condition. We apply concentration
+ gradients in microfluidic chips or increasing static concentrations in
+ multi-well plates and observe different patterning dynamics in each
+ scenario. Altogether, we provide a detailed resource on neural lineage
+ specification that, in combination with deep learning models, can enable the
+ prediction of differentiation outcomes in human stem-cell-based systems.
+
+The elaborate architecture and functionality of the human central Current knowledge of CNS regionalization mostly originates
+nervous system (CNS) arises from tightly coordinated patterning from studies using non-human animal models with divergent cytoevents initiated in early stages of development. After gastrulation, architecture, cell behavior and gene expression patterns comectodermal cells giving rise to non-neural tissues maintain their pared to humans4–7. However, the advent of stem cell-based neural
+identity via paracrine bone morphogenetic protein 4 (BMP4) sign- differentiation methods has enabled the study of human-specific
+aling. The neural plate emerges from the ectoderm through BMP neurodevelopment in vitro4,5,8–12. While monolayer neural cultures
+inhibition and fibroblast growth factor (FGF) activation signals, ulti- present basic rosette-like arrangements, neural organoids provide a
+mately giving rise to the CNS. Meanwhile, at the edge of the neural three-dimensional environment where cells self-organize cytoarchiplate, ectodermal cells with intermediate BMP and high FGF and WNT tectural and morphogenetic features with similarities to the primary
+signaling activity form the neural crest, precursor of the peripheral human tissue, such as cortical layering and folding as well as interneunervous system. While these lineages are established, a unique set ron migration13,14. Hence, human pluripotent stem (hPS) cell-derived
+of morphogen concentration gradients interact in space and time neural organoids provide the unique opportunity to systematically
+to guide neural tube regionalization along the anteroposterior (AP) explore the effect of morphogens on neuroepithelial development
+and dorsoventral (DV) axes1–3. and brain regional patterning.
+
+
+1
+ Department of Biosystems Science and Engineering, ETH Zürich, Basel, Switzerland. 2Novo Nordisk Foundation Center for Stem Cell Medicine (reNEW),
+University of Copenhagen, Copenhagen, Denmark. 3Institute of Human Biology, Roche Pharma Research and Early Development, Roche Innovation
+Center Basel, Basel, Switzerland. 4Biozentrum, University of Basel, Basel, Switzerland. 5These authors contributed equally: Fátima Sanchís-Calleja,
+Nadezhda Azbukina. 6These authors jointly supervised this work: J. Gray Camp, Barbara Treutlein. e-mail: jarrettgrayson.camp@unibas.ch;
+barbara.treutlein@bsse.ethz.ch
+
+
+Nature Methods | Volume 23 | February 2026 | 465–478 465
+
+Resource https://doi.org/10.1038/s41592-025-02927-5
+
+ Numerous approaches have been developed to generate repro- each condition (Supplementary Fig. 1) were pooled and dissociated
+ducibly patterned neural organoids, such as organoids with intrinsic into single-cell suspensions, followed by cell hashing with barcoded
+inducible organizers15, self-folding systems with DV patterning16, and antibodies25 and processing for single-cell transcriptome sequencing
+a wide range of protocols for the generation of regionalized neural (3′ mRNA, 10x Genomics; Fig. 1b). Altogether, 100,538 single cells from
+organoids of forebrain, midbrain, hindbrain or retinal-like tissue 97 morphogen treatment conditions were analyzed, including untreated
+fates17–22. Although these advances have increased our understanding organoids (one control condition per 96-well plate or organoid batch).
+of neural tissue regionalization and consolidated neural organoids We integrated the data using reference similarity spectrum (RSS)27
+as a leading model system for neurodevelopmental studies13,23, it is comparison to an early developing human brain cell atlas ref. 28 and
+still challenging to integrate the findings obtained in each study and embedded the dataset with uniform manifold approximation and
+evaluate their relevance for human-specific biology. Different guided projection (UMAP)29 (Fig. 1c–e). Analysis of cluster marker gene expresorganoid protocols aimed toward the same brain region can produce sion (Extended Data Fig. 2a–c and Supplementary Table 1) revealed
+different outcomes24, as they use different culture settings that might cell identities including diverse CNS progenitors and neurons of telenaffect tissue architecture, regional patterning, cell-type diversity and cephalon, diencephalon, retina, hypothalamus, hindbrain and spinal
+maturation rates. cord domains, as well as neural crest, non-neural ectoderm, mesoderm,
+ The development of new protocols is still inefficient: the assess- endoderm and extraembryonic tissue (Fig. 1e). Further subclustering
+ment of different culture conditions typically relies on bulk measure- of CNS neurons revealed different regional identities consistent with
+ments of a few marker genes with low organoid throughput, and their the identities observed in CNS progenitors (Fig. 1d). We found that
+validation is often performed after several months in culture, when organoid cells from all hPS cell lines predominantly localized to neural
+they are predominantly composed of mature neurons. Besides slowing clusters in the absence of any morphogen treatment (Fig. 1f), whereas
+down progress in the field, this approach has neglected the study of treated organoids generated distinct clusters that resembled neural
+early neuroepithelial patterning, which is key for the successful genera- regions absent in control organoids, such as hindbrain and hypothalation of regionally patterned and functionally mature neural organoids. mus, as well as other non-neural tissues (Fig. 1g–i).
+ To unify our understanding of early neural regionalization, we The single-cell transcriptomic readout allowed quantification
+implement a systematic approach to assess morphogen effects on of organoid cell-type composition for each morphogen treatment
+developing human neural organoids. We supply patterning molecules (Fig. 1j). We measured the heterogeneity of each patterning condition
+at multiple time points, concentrations and combinations, and use using the Shannon diversity index, where lower scores indicate lower
+highly multiplexed single-cell RNA-sequencing (scRNA-seq) with sam- cell-type diversity. While few conditions showed relatively homogeple barcoding25,26 to assess neural progenitor regionalization after 3 neous cell-type compositions (high cyclopamine or late supply of
+weeks in culture. Analysis of this time point captured a high diversity low FGF8), most conditions displayed an array of cellular identities
+of developmental stages, ranging from pluripotent stem cells and spanning differentiation states between progenitors and neurons patneuroectodermal states to neural progenitors and neurons. We show terned to different brain regions (Fig. 1j and Supplementary Table 2).
+that the delivery of sonic hedgehog (SHH), WNT, FGF8, retinoic acid Interestingly, higher morphogen concentrations did not generally
+(RA), BMP4 and BMP7 pathway modulators in short pulses over differ- promote more homogeneous cell-type composition in the organoids,
+ent time windows induces substantial changes in organoid composi- but instead generated new cell types that incrementally replaced the
+tion. Increasing concentration steps in enlarged treatment windows initial identities across the concentration conditions. Altogether, we
+modulate the proportion of each regional identity within the same provide a single-cell transcriptomic reference of human neural orgatissue. Guided by this analysis, we use combinations of morphogens noid patterning to explore principles of cell fate acquisition in response
+to steer axial and regional fates in a more precise manner. Our experi- to extrinsic morphogen exposure.
+ments reveal substantial variability across hPS cell lines and neural
+induction methods. Finally, we show that an SHH morphogen gradient Effect of morphogen timing and concentration on regional cell
+and discontinuous SHH morphogen steps similarly recapitulate DV identities in developing neural organoids
+patterning of the human forebrain. Altogether, our work provides an To identify effects of each morphogen at the cell-type level, we calcuin-depth survey of morphogen-induced patterning of human neural lated cluster enrichment/depletion scores for each treatment (Fig. 2a–c,
+organoids and serves as a reference to accelerate development of Extended Data Figs. 3a–k and 4a,b and Supplementary Table 3). Most
+optimized organoid models. morphogen pathway manipulations resulted in enrichment or deple-
+ tion of one or more clusters. We observed the most significant changes
+Results in cell-type composition in the morphogen concentration experiments,
+A single-cell screening of morphogen patterning conditions in where organoids were exposed to morphogens for a longer time
+human neural organoids (Fig. 2b). However, a single pulse of certain treatments also showed
+We established an experimental workflow to systematically test the remarkable effects, such as RA promoting non-neural ectoderm at early
+timing, concentration and combinations of patterning molecules time points but retinal and hindbrain progenitors when supplied at
+using cell hashing-based multiplexed scRNA-seq. Neural organoids later time points (Fig. 2a,c). Interestingly, late and long exposure (days
+were generated in 96-well plates, where pluripotent stem cells (WTC, 9–20) of a low concentration (c2–3) of RA promoted the emergence of
+H9 and HES3 lines; the latter modified to report the expression of the retinal progenitors, whereas higher concentration of RA progressively
+regional marker NKX2-1) were aggregated into embryoid bodies and enriched for hindbrain and posterior floor plate progenitors (Fig. 2c).
+cultured in minimal neural induction media (MNIM) to induce neuroe- In situ hybridization chain reaction (HCR) stainings confirmed the
+ctodermal fates (Fig. 1a). Developing organoids were then subjected to presence of more retinal progenitors (SFRP2+) at lower RA concentraa panel of morphogen treatments with varying timing, concentration tions and more ventralized and posterior fates (FOXA2+) at higher RA
+and combination of the molecules CHIR99021 (CHIR, WNT pathway concentrations (Fig. 2d and Extended Data Fig. 3l,m).
+activator), XAV939 (WNT pathway inhibitor), rh-SHH/CS24II (SHH) and Inhibition of the WNT pathway (XAV939) at early and intermediate
+purmorphamine, FGF-8B (FGF8), RA, rhBMP-4 (BMP4), rhBMP-7 (BMP7) time points (days 0–3, 10–13 and 14–17) led to a significant enrichment
+and cyclopamine (Extended Data Fig. 1a–d and Supplementary Figs. 1 in telencephalic progenitors (Fig. 2a and Extended Data Fig. 3a).
+and 2). In each batch, one condition did not receive any morphogen Activation of the WNT pathway via exposure to CHIR caused
+pathway modulator, but was exposed to the same base media and, strong dorsalization and posteriorization, as shown by the productherefore, served as control. On day 21, multiple neural organoids of tion of neural crest fates and peripheral nervous system neurons
+
+
+Nature Methods | Volume 23 | February 2026 | 465–478 466
+
+Resource https://doi.org/10.1038/s41592-025-02927-5
+
+
+ a 0d 3d 9d 14 d 21 d
+ c d Subpallial
+ Telencephalic interneurons
+ CNS neurons Hypothalamic
+ 5
+ progenitors neurons
+ iPS 4 Cortical/
+ MNIM Ndiff +/– VA CNS neurons
+ Brew
+ 9
+ diencephalic
+ –1 0 7 14 21 14 neurons
+ Days 7 8 Retinal
+ Timing 3 6 neurons
+ 12 13
+
+
+ UMAP 2
+ 1 Hindbrain/spinal
+ cord neurons 3,121 cells
+ Concentration steps UMAP 1
+ 2
+ Neural 1 Pluripotent stem cells 10 Posterior floor plate
+ 15 11
+ crest 2 Neuroectoderm 11 Neural crest
+ Morphogen combinations 10
+ 3 Neuroepithelium 12 PNS progenitors
+ Non-neural 18
+ 4 Telencephalic progenitors 13 PNS neurons
+ ectoderm 16
+ 5 Cortical hem/diencephalic P. 14 CNS neurons
+
+ b Patterning molecule treatment
+ (4–20 organoids per condition)
+ BMP4
+ Non- 3 cell lines 6 Retinal progenitors 15 Non-neural ectoderm
+
+
+ UMAP 2
+ BMP7 7 Hypothalamic progenitors 16 Mesenchymal cells
+ 17 ectodermal 97 conditions
+ SHH 8 Hindbrain progenitors 17 Endoderm-derived tissue
+ cells 100,538 cells
+ Cyc UMAP 1 9 Spinal cord progenitors 18 Extraembryonic tissue
+ FGF8
+ RA
+ CHIR
+ XAV939 e f g
+ Dissociation
+ + + + + + + + + + + + +
+ Cell hashing
+ PS cells Control
+ WTC
+ Neuroectoderm CHIR
+ Ectoderm HES3 FGF8
+ Multiplexed scRNA-seq
+ Non-neural ectoderm H9 SHH
+ h Max Mesoderm BMP7
+ BMP4
+
+
+ UMAP 2
+ Endoderm
+
+
+ UMAP 2
+ UMAP 2
+
+
+ Min ExE endoderm RA
+ XAV939
+ Cyc
+ UMAP 1 UMAP 1 UMAP 1
+
+
+ FOXG1 NKX2-1 HOXB2 FOXA2
+
+ i Normalized
+ expression
+ 20
+ 15
+ UMAP 2
+
+
+ 10
+ 5
+
+ UMAP 1 POU5F1 TFAP2A SOX2 STMN2 FOXG1 NKX2-1 VSX2 HOXB2 FOXA2
+
+ j Timing Concentrations Interactions
+ RA c2–3 XAV939 c>1 FGF8 c4 SHH c>5 BMP4>5 BMP7 c>5 SHH t3–14 RA t9–20 FGF8 t3–14 CHIR t0–9 BMP4 t12–20 BMP7 t12–20 FGF8 t12–20 Cyc c5 SHH c1 SHH c5
+ t 1 t 2 t3 t 4 t 5 t1 t2 t 3 t 4 t5 t 1 t 2 t3 t 4 t5 t 1 t2 t3 t 4 t5 t1 t 2 t3 t4 t5 t 1 t 2 t3 t 4 t 5 c 1 c 2 c 3 c 4 c 5 c1 c 2 c 3 c 4 c 5 c1 c2 c3 c4 c5 c1 c2 c3 c4 c5 c1 c2 c3 c4 c5 c1 c2 c3 c4 c5 c1 c2 c3 c4 c5
+
+
+ CHIR c5
+
+
+ CHIR c5
+
+
+ CHIR c5
+
+
+ CHIR c5
+ XAV c5
+ XAV c5
+
+
+ XAV c5
+
+
+ XAV c5
+ XAV c1
+ XAV c1
+
+
+ XAV c1
+
+
+ XAV c1
+ RA c5
+
+
+ RA c5
+
+
+ RA c5
+
+
+ RA c5
+ X X X X X X X X X X X
+
+
+ x
+
+
+ x
+
+
+ x
+ 100
+ % cells per condition
+
+
+ 75
+
+
+ 50
+
+
+ 25
+
+
+ 0
+
+
+ 1 Pluripotent stem cells 4 Telencephalic progenitors 7 Hypothalamic progenitors 10 Posterior floor plate 13 PNS neurons 16 Mesenchymal cells
+ 2 Neuroectoderm 5 Diencephalic progenitors 8 Hindbrain progenitors 11 Neural crest 14 CNS neurons 17 Endoderm-derived tissue
+ 3 Neuroepithelium 6 Retinal progenitors 9 Spinal cord progenitors 12 PNS progenitors 15 Non-neural ectoderm 18 Extraembryonic tissue
+
+
+Fig. 1 | A single-cell transcriptomic atlas of human neural organoid patterning. developing human brain dataset published in Braun et al.28. i, Feature plots for
+a, Experimental timeline showing morphogen treatment modalities in this study, representative marker genes (POU5F1, stem cells; TFAP2A, non-neural ectoderm
+an overview of the organoid culture protocol used and representative bright-field or hindbrain; SOX2, neural stem cells; STMN2, neurons; FOXG1, telencephalon;
+images at different developmental stages (WTC cell line). Scale bars, 500 µm. A full NKX2-1, ventral telencephalon; VSX2, retina; HOXB2, hindbrain; FOXA2, floor
+overview of all experiments performed can be found in Extended Data Fig. 1 and plate). j, Bar plots showing the cell-type composition of each condition for
+Supplementary Fig. 1. Ndiff +/− VA, neural differentiation media with or without HES3-derived organoids exposed to a single time point, concentration steps and
+vitamin A. b, Overview of the experimental approach to obtain multiplexed an example subset of combinatorial morphogen treatments. Concentrations
+scRNA-seq readouts from treated organoids. c, RSS-based UMAP projection of all are indicated by c1–c5 and treatment windows by t0–21, indicating the start
+cells in the dataset, including three hPS cell lines (HES3, H9 and WTC) in different and end of morphogen exposure in days. Lines with dots represent timing
+proportions, colored by cluster identity. iPS Brew, StemMACS iPS Brew XF. experiments (single morphogen pulse); the dot represents the time frame when
+d, RSS-based UMAP projection of subclustered CNS neurons, showing different the treatment took place (up is early, down is late). Concentration experiments
+regional identities in the same colors as their corresponding progenitors shown in are represented by progressively taller bars. The shading of the dots and bars
+c. P., progenitors. e, Whole-dataset RSS-UMAP projection colored by germ layer, in timing and concentration experiments represents the concentration used
+showing off-target cells mostly generated by morphogen treatments. PS cells, (darker shading means higher concentration). ‘X’ indicates untreated (control)
+pluripotent stem cells; ExE endoderm, extraembryonic endoderm. f, RSS-UMAP organoids. Correspondences between controls and experimental conditions are
+projection highlighting untreated (control) cells from each cell line of origin. Cells indicated by the tree below the bar plots. On the right, combinatorial experiments
+from morphogen treatment conditions are shown in gray. g, Same projection (‘Interactions’) are labeled with the AP morphogen (vertical) and the DV
+highlighting cells treated with a single morphogen and control cells. Cells from morphogen (horizontal); for simplicity, only concentrations are indicated
+combined morphogen treatments are colored in gray in the background. (refer to Supplementary Fig. 1 for timing information) and FGF8 combinations are
+h, Voxel maps showing the normalized expression of regional marker genes in the not shown. PNS, peripheral neural system.
+
+
+Nature Methods | Volume 23 | February 2026 | 465–478 467
+
+Resource https://doi.org/10.1038/s41592-025-02927-5
+
+(Fig. 2b and Extended Data Fig. 3b). At the highest concentrations, CHIR also generating more highly anteriorized telencephalic progenitor
+additionally guided cells toward non-neural identities such as cells (Extended Data Fig. 4d–f). This finding is surprising since it has
+mesenchyme (Fig. 2b). been shown in the mouse that FGF8 is secreted from the anterior neural
+ BMP4 and BMP7 often display interchangeable roles in neural ridge to promote anteriorization of the developing telencephalon,
+patterning30; therefore, we tested them in equimolar steps to dis- potentially suggesting a differential role of FGF8 in mouse and human
+sect their roles. Both factors prevented neural specification when brain patterning38. Interestingly, SHH exposure induced FGF8 expressupplied in early time windows, consistent with their role in vivo30 sion, but FGF8 treatment did not induce SHH nor FGF8 expression
+(Fig. 2a and Extended Data Fig. 3e,h). When provided on days 0–3, (Extended Data Fig. 4g).
+BMP4 led to organoid disintegration, while BMP7 induced a nearly
+90% enrichment in mesenchymal cells (Extended Data Fig. 3h). After Morphogen conditions differentially activate transcription
+day 3, BMP4 induced non-neural ectoderm (NNE) formation and pro- factor regulons in developing neural organoids
+gressively guided toward retina cell fates at later time points (Fig. 2a We next explored how morphogens impact gene regulatory netand Extended Data Fig. 3e). Instead, BMP7 guided cells toward pluri- works underlying human neural organoid development (Fig. 2e
+potency, even when added at later time points (Extended Data Fig. 3h). and Supplementary Table 4). Using the screening data for the HES3
+When supplying BMP4 over an extended period of time (days 12–20), embryonic stem (ES) cell line, we linked each morphogen treatment to
+increase in concentration led to an increase in the percentage of regulons39—a transcription factor and a set of predicted downstream
+retinal progenitors, while still producing NNE cells (Fig. 2b and target genes—and assessed regulon specificity by comparing regu-
+Extended Data Fig. 3f). BMP7 also showed a dose-dependent induc- lon activity across cell types. Notably, some regulons were associated
+tion of retinal progenitor fate, although less efficiently than BMP4 with two or more morphogens, apparent as interconnected nodes in
+(Fig. 2b and Extended Data Fig. 3i). Overall, treatment with both the network graph, such as regulons linked to both SHH and RA (for
+BMP4 and BMP7 generated the same cell types as control orga- example, GATA3, GLI1).
+noids, but BMP4 significantly altered their proportions (Fig. 2b and We next examined the dependency of regulon activity on mor-
+Extended Data Fig. 4h). We calculated differential expression between phogen timing and concentration, finding both positive and negative
+control, BMP4 and BMP7 conditions (Extended Data Fig. 4i) and correlations (Fig. 2f–h and Extended Data Fig. 5). While SHH-linked
+found very similar expression patterns in control and BMP7-treated and RA-linked regulons showed wide dependency on both timing
+organoids, whereas BMP4-treated cells activated MSX2 and TBX and concentration (Fig. 2f and Extended Data Fig. 5a), FGF8-linked
+genes, implicated in neural crest development and dorsal neural regulons showed strong dependence only on concentration (Fig. 2g),
+tube formation31,32. BMP4 also activated the expression of FOXE3 and BMP4-linked and BMP7-linked regulons were more dependent
+and SAMD11, which are essential for optic cup morphogenesis33,34, on timing than concentration (Extended Data Fig. 5b,c). Regulon
+consistent with the promotion of retinal fates. associations for BMP7 were weak, not surpassing thresholds (weights
+ SHH and FGF8 both induced telencephalic fates when supplied above 200).
+in short pulses at specific time points (Extended Data Figs. 3c,g and Notably, this analysis shows that tuning morphogen timing, mor-
+4a,b). FGF8 maintained this activity over a longer time window, while phogen concentration or both factors can activate different developthe SHH patterning window was more restricted to earlier time points. mental programs in a targeted manner. For example, SHH-induced
+Exposing organoids to FGF8 for a longer duration led to depletion of activation of the NKX2-1 regulon (key for the formation of the medial
+telencephalic fates at later time points (days 12–20), in contrast to ganglionic eminence or MGE) occurred homogeneously across
+enrichment in early time points (days 3–14; Extended Data Figs. 3j,k treatment windows but required higher SHH concentrations, while
+and Fig. 4a). Late single-pulse SHH exposure favored the production of SHH-induced activation of the TCF7L2 regulon (essential for thalamic
+retinal progenitors together with a slight enrichment in telencephalic development) occurred only at later time points and even higher conidentities (Extended Data Fig. 4b). Sustained and progressively higher centrations (Fig. 2f,h). Interestingly, retinal regulons VSX2 and VAX2
+SHH concentrations induced a transition from telencephalic to hypo- were active independent of FGF8 and BMP4 treatment time point and
+thalamic progenitors (Extended Data Figs. 3d and 4b,c), consistent with concentration, respectively (Fig. 2g,h and Extended Data Fig. 5b). RA
+the spatial concentration gradient of SHH in vivo35–37. induced FOXA2 regulon activity at early treatment windows with little
+ We next compared FGF8 and SHH influence on DV and AP pattern- dependency on RA concentration. Instead, HOX genes were induced by
+ing within the telencephalon. We calculated DV and AP scores for each RA in a concentration-dependent manner. HOXB8 and HOXA2 regulons
+cell using marker genes varying along these axes identified from the were activated at similar RA concentrations, while HOXB7 was activated
+primary human brain (Extended Data Fig. 4d,e). We observed that SHH with earlier RA exposures (Extended Data Fig. 5a).
+had stronger ventralizing and anteriorizing effects than FGF8, generat- Inhibition of the WNT pathway using XAV939 mildly modulated
+ing hypothalamic floor plate cells at the highest concentrations, while regulon activity in a time-dependent manner, as shown by FOXG1
+
+
+Fig. 2 | Morphogen timing and concentration determine regional cell (showing correlating activity to morphogen treatment). The size of each regulon
+identities in developing neural organoids. All results in this figure refer to the node indicates the relative size of the regulon, and the color refers to the cluster
+hES cell line HES3. a,b, Heat maps showing enrichment/depletion scores for where that regulon registers maximum activity (excluding non-neural and
+timing (a) and concentration (b) experiments in HES3-derived organoids. The undifferentiated clusters). f, Scatterplot of SHH-associated regulon correlation
+shading of dots and bars on top of the heat map indicates the used dose, and the to timing and concentration, showing wide dependency on both variables.
+dots along a line represent the time point of patterning molecule addition. g, Scatterplot of FGF8-associated regulon correlation to timing and concentration,
+c, Effects of different RA treatment windows (left) and concentration steps (right) showing high dependency on concentration and low dependency on timing. For
+on the abundance of retinal and hindbrain progenitors, non-neural ectoderm f and g, οnly regulons with weights above 200 are shown in the plot. h, Summary
+and posterior floor plate in 21-day-old neural organoids. P values were derived scatterplot showing how modulating the timing and concentration of each
+using two-sided Fisher’s exact test with Bonferroni correction. ***P value < 0.001, morphogen can be used to activate regulons associated with different cell types.
+** 0.001 < P value < 0.01. Exact P values can be found in Supplementary Table 3. Each panel shows the top regulons associated with each morphogen and how
+d, HCR in situ hybridization for SFRP2 (retinal marker gene) and FOXA2 their activity correlates with changes in morphogen timing and concentration.
+comparing RA treatment conditions c1 and c5. DAPI, 4′,6-diamidino-2-phenylindole. Each regulon is one dot in the plot. Dot size indicates regulon weight and color
+e, Inferred regulon network for all tested patterning molecules. Each black node indicates the cluster that the regulon is most enriched in (that is, the main cell
+represents a morphogen that is connected to a number of associated regulons type possibly controlled by that regulon).
+
+
+Nature Methods | Volume 23 | February 2026 | 465–478 468
+
+Resource https://doi.org/10.1038/s41592-025-02927-5
+
+
+ a Timing
+ b Concentrations 1 Pluripotent stem cells
+ 2 Neuroectoderm
+ SHH c>5 RA c2–3 FGF8 c4 XAV939 c>1 BMP4>5 BMP7 c>5 SHH t3–14 RA t9–20 FGF8 t3–14 FGF8 t12–20 CHIR t0–9 BMP4 t12–20 BMP7 t12–20 3 Neuroepithelium
+ t1 t2 t 3 t4 t 5 t 1 t 2 t3 t 4 t5 t 1 t2 t3 t4 t5 t1 t 2 t 3 t 4 t 5 t 2 t3 t4 t5 t1 t 2 t 3 t4 t 5 c1 c2 c3 c4 c5 c1 c2 c3 c4 c5 c1 c2 c3 c4 c5 c1 c2 c3 c4 c5 c1 c2 c3 c4 c5 c1 c2 c3 c4 c5 c1 c2 c3 c4 c5 4 Telencephalic progenitors
+ 5 Diencephalic progenitors
+ 6 Retinal progenitors
+ 1 1 7 Hypothalamic progenitors
+
+
+ Undiff.
+
+
+ Undiff.
+ 2 2 8 Hindbrain progenitors
+ 3 3
+ 4 4 9 Spinal cord progenitors
+ 5 5 10 Posterior floor plate
+ 6 6 11 Neural crest
+
+
+ Neural fates
+ 7 7
+
+
+ Neural fates
+ 8 8 12 PNS progenitors
+ 9 9 13 PNS neurons
+ 10 10 14 CNS neurons
+ 11 11 15 Non-neural ectoderm
+ 12 12
+
+
+ Non-neural fates
+ 13 13 16 Mesenchymal cells
+ 14 14 17 Endoderm-derived tissue
+
+
+ neural fates
+ 15 15 18 Extraembryonic tissue
+
+
+ Non-
+ 16 16
+ 17 17 Depletion Enrichment
+ 18 18
+ –4 –2 0 2 4
+ c % cell type versus control (enrichment) % cell type versus control (enrichment)
+ d
+
+
+ d9–20
+ 250 nM
+
+
+ Non-neural Hindbrain Retinal Posterior Hindbrain Retinal
+ RA t9–20
+ ectoderm progenitors progenitors floor plate progenitors progenitors
+ 75
+ *** 75
+ ***
+ 50 50
+ ***
+ Concentrations
+
+ 25 *** 25 ***
+ *** ** **
+ Timing
+
+
+ 0 0
+
+ –25 –25
+ ***
+ –50 –50 c1 c5
+ c1 c2 c3 c4 c5 c1 c2 c3 c4 c5 c1 c2 c3 c4 c5
+ t 1 t2 t3 t4 t5 t 1 t2 t3 t4 t 5 t1 t2 t3 t4 t 5 DAPI SFRP2 FOXA2
+ RA timing windows RA concentration steps
+
+ e JUN
+ YY1 HESX1
+ ETS1 GBX2 MAF
+ NHLH1 ATF3 DLX6
+ DLX2 JUNB ETS2 PAX2 TCF7L2
+ ZBTB20 AHDC1 ELK3 ATF5 NR2F6 EMX1
+ FOXA2 FOXC1
+ NFIA OVOL2 NKX2−8 NKX2−1 ELK4
+ KLF4 SOX4 NKX6−2
+ TFAP2C
+ CBFB CREB5 SP5 SOX14
+ DMBX1 CEBPB HOXC5 NR2F2 HOXA1 PLAG1
+ TCF15 GATA4 RUNX1
+ PPARD ELF1 NFYB
+ NCOA1 EGR1 SHH VSX2
+ MYCN ATF4 CEBPG HNF1B KLF5 RARB
+ TCF7 FLI1
+ TFAP2A GRHL2 FOXD1 HOXC4 ZNF286A
+ SP8 ZSCAN18
+ GATA3 ZNF521
+ HDAC2 PBX1 VAX1 ETV4
+ CHIR NR3C1 ASCL1 MEIS2 GLI1 SALL4 TAL2
+ SMAD1 FOXA1
+ OLIG3 POU3F2 POU3F3
+ KLF6 STAT6 ZNF836 SOX10 FOXP1 FGF8
+ EGR2 BCL11A
+ DDIT3 MXI1 CREB3 RA NFIC
+ KLF7 BARHL1
+ NKX1−1 FOS GATAD1
+ SOX8 TRPS1 HOXB4 HESX1 1250
+ ERF HOXA4 CEBPA PAX2 ARX SOX3 SMAD5 CCNT2
+ TBX6 JUND HOXB7 RARA ETS2
+ TLX2 GATA5 RFX1 FOSL2 1000
+ ZNF287 HMX2 HOXB5
+ ARID3A
+ NHLH1 ELF3 NKX2−8 GBX2 MAF PHF20 POU3F1
+ YY1 JUN A ZNF444
+ TF3 LEF1 DLX6 XAV939 TCF7L2 750
+ MBNL2 HOXA5 PITX1
+ NKX2−5 RXRG
+ XBP1 ETS1 ELK3 JUNB HOXA2 NKX2−1 FOXC1 SOX11 ZNF518A
+ TFEC HOXB3 500
+ DLX2 TFAP2C NFIB PHOX2B EMX1 IRF7NKX6−2SOX1
+ AHDC1 CREB5 NFIA NR2F6 ELK4 PLAG1 250
+ NR1H4 ZBTB20 CEBPG PDX1 RXRB
+ NFE2L3 FOXA2 TEAD4 EMX2 SOX14 VAX1 SOX9 Association Regulon
+ SOX4 CBFB CDX2 OVOL2 FOXG1 NFYB
+ KLF4 BMP4 TCF15GATA6 RFX4 weights ifelse(row_
+ size num<=7,5000,regul
+ DMBX1EGR1 CEBPB SP5 NR2F2 HOXA1 SHH
+ PPARD MYCN PRDM5 ZNF689
+ SP8 ZNF286A
+ ATF4 TCF7 ATF5 ZNF300
+ ELF1 FLI1 HESX1 MYF6
+ RUNX1 VSX2 1250
+ 1,250 1,000
+ MAFB BACH1 NCOA1 HOXB8 GATA4 PAX2 TCF3
+ ZNF521
+ ZNF770 TFAP2A HDAC2 ETS2 GATA3 ETV4 SALL4 1,000
+ ETV1 PURA
+ CHIR SMAD1 FOXD1 ZNF704 RB1 1000 2,000
+ MITF KLF6 PAX6
+ NHLH1 HNF4A HOXC5NKX2−8
+ HNF1B GBX2 MAF
+ ZNF37A STAT6 SO X10 NR3C1 KLF5 HO XC4 PLAGL1
+ YY1 JUN
+ MSX2 ATF3
+ FOS TBX3 DLX6 GLI1 TCF7L2
+ LHX1 TAL2750
+ 750 3,000
+ DDIT3 CREB3 JUND
+ VAX2 FO XA1 NFIC
+ SMAD9
+ CRX ETS1 ELK3 NKX1−1 JUNB
+ MXI1 GRHL2 NKX2−1 FOXC1
+ PBX1 POU3F2 POU3F3 FGF8
+ NFKB1DLX2 ZNF529 TCF12
+ ZNF836 BCL11A 500
+ 500 4,000
+ XBP1
+ TFAP2C ASCL1 MEIS2 OLIG3 EMX1 NKX6−2 ZSCAN18
+ FOXP2
+ AHDC1ERF EGR2NFIA SP3 RARB ELK4 PLAG1
+ ZBTB20 CREB5
+ PITX3 NR2F6 RA 250
+ 250 5,000
+ CEBPG
+ TBX6 VENTX HOXA4
+ SOX4 CBFB GATA2 MAFK SOX8 KLF7 FOXA2 FOXP1
+ OVOL2 HOXB7
+ HO
+ SOXB4
+ X14 VAX1 NFYB SMAD5 GATAD1
+ ifelse(row_ num<=7,5000,regulon_si
+ KLF4
+ DMBX1ARID3A TLX2 TCF15
+ EGR1 CEBPB SP5 NR2F2
+ TRPS1HOXA1 ELF3 BARHL1 SO X3 top_cluster
+ HMX2 CCNT2
+ f PPARD MYCN
+ TFAP2A
+ ATF4 NCO(w
+ SHH regulons NKX2−5
+ TCF7 ATF5ZNF287
+ A1 > 200) GATA4
+ ELF1 GAT FLI1
+ RARA
+ RUNX1
+ A5 LEF1
+ HOXB5SHH
+ FGF8 regulonsPITX1
+ HO XA5
+ (w > 200)g
+ SP8
+ CEBPA
+ ZNF521 ARX VSX2 ZNF286A
+ SHH
+ PHF20
+ 1000
+ POU3F1 FGF8 CNSNeurons h
+ HDAC2 RXRG GAT A3 SALL4
+ KLF6 CHIR SMAD1 HNF1B HO XC5
+ FOXD1
+ ZNF444 HO XA2 TEAD4 RFX1 ETV4 FOSL2 2000
+ DiencephalicProgenitors
+ STAT6 MBNL2NR3C1 KLF5 ZNF518A
+ 0.6 DDIT3 FOS SOX10
+ NKX6−2 JUND HO XB3 HOXC4 GLI1 NFIB PHOX2B XAV939 0.4 TAL2 3000
+ CREB3 GRHL2 0.6 FOXA1 PDX1 RXRBFGF8 NFIC FOXA2+Cells
+ NKX1−1 MXI1 XBP1 ZNF836
+ TCF7L2
+ BCL11A PBX1
+ NFE2L3 POU3F2 ZNF300 POU3F3 IRF7 4000
+ SOX9 SOX11
+ ERF EGR2
+ HESX1 ASCL1 MEIS2 OLIG3 GATA6 RARB NFIC CDX2 ZSCAN18
+ 5000 HindbrainProgenitors
+ Correlation to concentration
+
+
+ TBX6 SOX8GLI1 RA TFEC HOXA4 HO XB4 ZNF689 SOX1
+ Correlation to concentration
+
+
+ FO XP1
+Correlation to concentration
+
+
+ 0.4 KLF7 HOXB7 HNF4A
+ HOXB8NFYB PHF20
+ 0 SMAD5 GATAD1 HypothalamicProgenitors
+ ARID3A TLX2 HMX2
+ NKX2−8 TRPS1
+ 0.4 ELF3 POU3F1 BARHL1 SO X3 RFX4 CCNT2 top_cluster
+ NKX2−1 BMP4 RARA HOXB5 CEBPA FOXG1
+ NKX2−5 MAFB PITX1 ZNF286A ARX
+ GBX2 ZNF287 GATA5 LEF1 HOXA5 SALL4 EMX2 TCF3 PHF20 POU3F1 CNSNeurons NA
+ RXRG ETS2 0.6 NR1H4
+ ZNF444 HOXA2 TEAD4 RFX1 FOSL2
+ ETV4 ZNF770 SMAD5 MYF6 ZNF704 −0.4 ZNF518A DiencephalicProgenitors
+ NeuralCrest
+ 0.2 MBNL2 ETV1 BACH1
+ HO XB3 0.2 NFIB
+ NFIC(+) PHOX2B ELK4 XAV939
+ ZNF521ZNF37A PAX6PDX1
+ TCF12 RXRB RB1 FOXA2+Cells PNSNeurons
+ MAF
+ SMAD9 NFE2L3 ZNF300 PLAG1 IRF7 LHX1 SOX11
+ SOX14 CCNT2
+ PHF20(+) ZNF518A
+ SO X9
+ PLAGL1
+ PAX2 NFKB1 MSX2 GAT A6
+ TBX3 SP3 CDX2 PRDM5 HindbrainProgenitors
+ 0.4 TFEC NFYB(+) ZNF521 GZNF689
+ ATAD1 SOX1 PNSProgenitors
+ 0 CRX MITF ZNF529 HOXB8 HNF4A
+ 0 POU3F1(+)
+ RA HypothalamicProgenitors
+ BMP4
+ BMP4 PURA ZNF286A(+)ZSCAN18 FOXG1 RFX4 RetinalProgenitors
+ DLX6 MAFB FOXC1
+ FOXP2 PITX3 MAFK SALL4(+)
+ VAX2
+ VSX2
+ EMX2 TCF3 NA
+ NR1H4
+ GATA3 SOX11 SpinalCordProgenitors
+ EMX1 ZNF770
+ Density
+ 0.2 GAT A2 VENTX ELK4(+) SMAD5(+) MYF6 ZNF704 Density NeuralCrest
+ −0.2 ETV1 BACH1 −0.2 RB1 0.4
+ PNSNeurons TelencephalicProgenitors
+ TAL2
+ ZNF37A SMAD9 PAX625TCF12 PLAG1(+)LHX1 25
+ SP8 MSX2 TBX3 SP3 CCNT2(+) PLAGL1
+ VAX1 NFKB1 20 ZNF518A(+)
+ SOX3 PRDM5 20 PNSProgenitors
+ CRX MITF ZNF529 PURA ZNF521(+) GATAD1(+)
+ POU3F3
+ −0.4 0.015 −0.4 15 0 RetinalProgenitors
+ FOXP2 PITX3 MAFK VAX2 ZSCAN18(+)
+ 10 VSX2(+) 10 SpinalCordProgenitors
+ Weight
+ GATA2 VENTX SOX11(+)
+ POU3F3
+ 5 5 TelencephalicProgenitors
+ 250
+ 1,000
+ −0.6 −0.2 −0.6 −0.4 500
+ TAL2(+) 0
+ 0 750 1,250
+ SOX3(+) POU3F3(+) 0
+ −0.4 −0.2 0 0.2 0.4 −0.4 −0.2 0.2 0.4 −0.2 0 0.2 0.4 −0.2 0 0.2 0.4
+ −0.4
+ Correlation to timing Correlation to timing Correlation to timing
+
+
+Nature Methods | Volume 23 | February 2026 | 465–478 469
+
+Resource https://doi.org/10.1038/s41592-025-02927-5
+
+
+a XAV RA CHIR
+ b FGF8
+ c5 c1 c5 c5 c1 1 Pluripotent stem cells
+ 2 Neuroectoderm
+ XAV RA 3 Neuroepithelium
+Cyc c5 c5 c5 4 Telencephalic progenitors
+ 5 Cortical hem/dienc. prog.
+ A1 A2 A3 A4 A5 6 Retinal progenitors
+ Cyc c5 7 Hypothalamic progenitors
+ 8 Hindbrain progenitors
+ A1 + F A4 + F 9 Spinal cord progenitors
+ B1 B2 B3 B4 B5 10 Posterior floor plate
+ 11 Neural crest
+ 12 PNS progenitors
+ c1 13 PNS neurons
+ B1 + F B4 + F
+ d18 d23 GW4–5
+ C1 C2 C3 C4 C5 14 CNS neurons
+SHH 15 Non-neural ectoderm
+ SHH c1 16 Mesenchymal cells
+ c5 17 Endoderm-derived tissue
+ C1 + F C4 + F
+ 18 Extraembryonic tissue f 10 30 50
+ D1 D2 D3 D4 D5
+ 4 5 11 13 15
+c Combinatorial effect of FGF8 d Predominant effects in combinations e Non-linear interactions between morphogens No morphogens
+ Cyc c5
+ Additive Measured
+ –FGF8 +FGF8 MMD1 MMD2
+ effects effects XAV c1
+ XAV c5 XAV c5 SHH c5 XAV c5 + SHH c5
+ XAV c5
+XAV c5 + Cyc c5 XAV c5 SHH c1 XAV c1 + SHH c5
+ RA c5 XAV c5 Cyc c5 XAV c5 + SHH c1 Cyc c5
+ XAV c1 SHH c5 CHIR c5 + Cyc c5 XAV c1 + SHH c1
+XAV c5 + SHH c1
+ XAV c1 SHH c1 RA c5 + SHH c5
+ RA c5 + SHH c1 SHH c5
+ XAV c1 Cyc c5 CHIR c5 + SHH c5
+ RA c5 + Cyc c5 RA c5 SHH c5 RA c5 + SHH c1 Cyc c5
+ RA c5 SHH c1 RA c5 + Cyc c5 XAV c5 + SHH c1
+ 0 5 10 15 20 RA c5 Cyc c5 XAV c5 + Cyc c5
+ SHH c5
+ MMD CHIR c5 SHH c5 CHIR c5 + SHH c1
+ CHIR c5 SHH c1 XAV c1 + SHH c1 SHH c1
+ RA c5 FGF8 c1 XAV c5c1 CHIR c5 Cyc c5 XAV c1 + Cyc c5 SHH c5
+ CHIR c5 SHH c5c1 Cyc c5
+ 5.0 2.5 0 2.5 5.0 7.5 1 2
+
+ MMD distance to NNLS residuals
+ combination (metric of non-linearity)
+
+g Top XAV939-SHH interactive regulons (HES3) Top RA-SHH interactive regulons (HES3)
+ GTF3A POU5F1 ZNF217 SOX3 FEZF1 SP8
+ XAV c5 RA c5
+ SHH c5 SHH c5
+XAV c5 + SHH c5 RA c5 + SHH c5
+
+ –0.05 0 0.05 0 0.05 0.10 0 0.05 0.10 0.15 –0.3 –0.2 –0.1 0 –0.15 0 –0.2 –0.1 0
+ Delta to control Delta to control Delta to control Delta to control Delta to control Delta to control
+
+Fig. 3 | Morphogen combinations regulate neural cell fates. All results in this and their respective combination. Smaller MMD distances between two
+figure refer to the hES cell line HES3. a, Pie charts showing cell-type composition conditions imply more similarity. e, Non-negative least squares (NNLS) residuals
+of each condition of the morphogen treatment panel in HES3-derived organoids. are used to measure deviation from a hypothetical additive effect of the two
+c5 and c1 refer to the highest and lowest concentration, respectively, used for composing morphogens. Quantification of NNLS residuals is used to measure
+the corresponding morphogens, consistent with previous experiments. Each deviation from a hypothetical additive effect of the two composing morphogens.
+condition has a coordinate indicated in the lower-right corner. b, Pie charts of Higher values indicate non-linearity, non-additive effects between two
+cell-type composition for treatment conditions A1–C1 and A4–C4 supplemented morphogens. f, Dot plot summarizing the most substantial variations in cell-type
+with FGF8 (indicated as ‘+F’ in the coordinate name). Cell-type names and color proportions for treatment with different doses of XAV939 and SHH, both alone
+correspondence for a and b are indicated at the bottom and right of the and in combination, versus their control condition (no morphogens). g, Bar
+panels. dienc. prog., diencephalic progenitors. c, Quantification of MMD plots showing regulon activation relative to control in selected conditions where
+distance between each morphogen treatment and its equivalent with FGF8 interactive effects were detected. Dashed lines represent the expected regulon
+in addition. The colors of each dot represent the morphogens and activity in case of additive effects. The colors of circles in the baseline represent
+concentrations that make up the treatment, and stay consistent through с–e the morphogen condition according to the colors shown at the bottom of c.
+and g. d, Quantification of MMD distances between each morphogen treatment
+
+
+and POU3F3 correlating with early exposure and EMX2, ARX and A combinatorial patterning screening reveals morphogen
+BARHL1 regulons correlating with late exposure times, respectively interactions
+(Extended Data Fig. 5d). In contrast, WNT pathway activation using To probe relevant morphogen combinations, we selected timing and
+CHIR showed a clear dependency on morphogen concentration. Most concentration conditions and designed a combination scheme to
+CHIR-associated regulons were related to neurogenesis and showed reach most domains of the CNS (Fig. 3a). XAV939, RA and CHIR were
+negative correlation to CHIR concentration, indicating a possible used to pattern along the AP axis, whereas cyclopamine and SHH were
+suppression of neural fates. Consistently, regulons positively cor- applied to modulate along the DV axis. We designed additional condirelated with CHIR concentration were associated with alternative tions including FGF8 together with other morphogens that may genernon-neural programs like neural crest differentiation (for example, ate anterior neural ridge or midbrain–hindbrain boundary domains
+SOX10; Extended Data Fig. 5e). (Fig. 3b). In addition, we performed this experiment with two different
+ These analyses demonstrate that modulating morphogen tim- hPS cell lines: HES3 (human embryonic stem (hES) cell, XX karyotype)
+ing and concentration can selectively modulate distinct subsets of and WTC (human induced pluripotent stem (hiPS) cell, XY karyotype).
+morphogen-associated regulons that drive emergence of distinct We note that these experiments are performed in MNIM without dual
+cell fates. SMAD inhibition.
+
+
+Nature Methods | Volume 23 | February 2026 | 465–478 470
+
+Resource https://doi.org/10.1038/s41592-025-02927-5
+
+ Different morphogen combinations displayed varying degrees (Extended Data Fig. 6e–g). Organoids treated with RA alone generated
+of consistency across the two cell lines. Treatments including CHIR a majority of posterior floor plate progenitors (53%) and a smaller
+consistently induced non-neural fates. RA consistently induced the pos- proportion of hindbrain progenitors (19.5%). Higher SHH concentraterior floor plate in both cell lines, although WTC also produced hind- tions combined with RA increased the proportion of posterior floor
+brain and retinal progenitors in low SHH signaling conditions (Fig. 3a plate progenitors (69% with SHH c1, 87.8% with SHH c5) and depleted
+and Extended Data Fig. 6a). XAV939 anteriorized WTC organoids, as hindbrain progenitors. Including FGF8 shifted the balance of regional
+shown by abundant telencephalic progenitors (Extended Data Fig. 6a). fates back toward hindbrain progenitors (Extended Data Fig. 6f), a
+However, HES3 organoids responded to XAV939 treatments by increas- finding that is consistent with the role of FGF8 at the midbrain–
+ing non-neural ectoderm and neural crest-derived fates (Fig. 3a). The hindbrain boundary41.
+addition of FGF8 to XAV939-treated organoids enriched for neural and
+undifferentiated states in HES3 (Fig. 3b), but no significant changes hPS cell lines and neural induction method impact patterning
+occurred in WTC organoids (Extended Data Fig. 6b). Meanwhile, outcome
+treatment of HES3 organoids with FGF8 and RA notably increased hPS cell lines present distinct genetic and epigenetic properties
+the fraction of retinal progenitors (Fig. 3b). In WTC organoids, ret- that affect their differentiation potential and lead to biases in neural
+inal progenitors were already abundant with RA treatment alone, organoid regional development4,42. Multiple methods exist to induce
+and the addition of FGF8 turned them into hindbrain progenitors neural development from multipotent embryoid bodies, including
+(Extended Data Fig. 6b). dual SMAD inhibition43 and MNIM9. Our patterning condition screen
+ To better understand the contribution of each morphogen to revealed variable organoid composition across hPS cell lines in the
+cell-type compositions in each cell line, we summarized each sam- absence of morphogens (Extended Data Fig. 7a–f) and between neuple based on treatment and cell line (Methods; pseudo-bulk analysis ral induction methods, in this case only in the presence of patterning
+of conditions) and projected them in a three-dimensional principal molecules (data not shown). We analyzed multiple culture variables
+component analysis (PCA) space. We then measured maximum mean and noted that, in MNIM without morphogens, the date of aggregation
+discrepancy (MMD) values between conditions with FGF8 and their was the main factor correlating with changes in organoid composition
+equivalents without FGF8, as a measure of FGF8’s effects on the pre- (Extended Data Fig. 7b–f). When treated with increasing BMP4, BMP7
+existing conditions (Fig. 3c and Extended Data Fig. 6c). We found that and FGF8 concentrations, each morphogen displayed variable consist-
+FGF8 induced the largest effects on cell-type composition when applied ency across hPS cell lines (Extended Data Fig. 7g–j).
+over the XAV939 c5 condition in the hES cell line HES3 (Fig. 3c), deplet- To systematically assess the impact of these variables on pating the non-neural ectoderm and neural crest-related fates in favor of terning outcomes, we designed a patterning reproducibility screen
+neural identities like neuroectoderm, neuroepithelium and telence- (Fig. 4a–g and Extended Data Figs. 8 and 9) where 12 morphogen treatphalic progenitors (Fig. 3a, panel B1, versus Fig. 3b, panel B1 + F). While ments were replicated using four hPS cell lines: H9 (hES cell, XX), H1
+XAV939 treatments seemed more sensitive to FGF8 treatment in HES3 (hES cell, XY), WIBJ2 (hiPS cell, XX) and WTC (hiPS cell, XY). Each treat-
+(Fig. 3c), RA treatments were most influenced by the addition of FGF8 ment was tested using two neural induction approaches and two techniin the iPS cell line WTC (Extended Data Fig. 6c). cal batches (192 samples, 209,902 cells; Methods).
+ We also compared all combinations of two morphogens to each of Data were integrated using RSS27-based comparison to an early
+the corresponding single morphogen treatments and calculated MMD developing human brain cell atlas28 and embedded with UMAP29
+distances between them (Fig. 3d and Extended Data Fig. 6d). A small (Fig. 4b,c,e–g and Extended Data Fig. 8a,b). Cluster marker gene
+distance between a single morphogen treatment and its combination expression (Extended Data Fig. 8c–e and Supplementary Table 5)
+with another morphogen indicates a strong influence of that mor- revealed cell identities corresponding to diverse CNS progenitors and
+phogen on the combination phenotype. In HES3, we observed similar neurons of the telencephalon, diencephalon, retina, hypothalamus,
+MMD distances between all single morphogens and their pair-wise hindbrain and spinal cord domains, as well as midbrain progenitors
+combinations (Fig. 3d), indicating an overall comparable contribution and subpopulations of hypothalamic, cortical and spinal cord-derived
+of both morphogens regardless of which morphogen was added first neurons, which were predominantly generated under dual SMAD
+to the media. In WTC organoids, the timing of morphogen addition background conditions (Fig. 4b,c). We observed a higher ratio of neudid not strongly affect the resulting cell-type composition either, but rons in dual SMAD conditions (Extended Data Fig. 9c), suggesting
+MMD distances were quite variable. The effects of SHH activation were that dual SMAD inhibition promotes stronger neural fate acquisition
+stronger than WNT inhibition (XAV939), but weaker than WNT activa- and maturation. To validate cell-type annotation and assess which
+tion (CHIR), while RA was the dominating morphogen when combined primary cell types or states were generated, we mapped organoid
+with SHH modulation (Extended Data Fig. 6d). The different cell-type data to the single-cell transcriptomic atlas of the developing human
+composition outcomes we observed across cell lines were not due to brain28 (Extended Data Fig. 8f–h) and integrated human organoid atlas24
+differences in underlying regulon activation under basal culture condi- (Extended Data Fig. 9e,f). We analyzed normalized presence scores in
+tions (Extended Data Fig. 6h). both control and morphogen-treated conditions, revealing expansion
+ To unveil possible morphogen interactions, we then measured of diverse reference cells generated after morphogen administration
+how much a certain morphogen combination would diverge from the (including increased proportions of hypothalamus, midbrain, medulla,
+expected additive effects of the two separated morphogens, using pons and cortex identities). We note that brain regions such as the
+non-negative least square residuals as a metric of non-linearity. cerebellum and the dorsal midbrain were still underrepresented in
+ In HES3, WNT inhibition and SHH activation also displayed inter- these conditions (Extended Data Fig. 8g,h), indicating more specialactive effects (Fig. 3e–g). XAV939 treatment (WNT inhibition) alone ized protocols, using sequential and/or combinatorial patterning
+promoted diencephalic, neural crest and non-neuroectodermal fates approaches are needed44,45.
+in a dose-dependent manner, while SHH treatment alone induced We observed a remarkable degree of reproducibility between
+progressive ventralization of anterior forebrain tissue, as previously experimental batches for most conditions (Fig. 4d and Extended
+described40. A combination of XAV939 and SHH showed synergis- Data Fig. 9a), but the different Neural Induction Media (NIM) clearly
+tic effects leading to a higher proportion of non-neural ectodermal generated different cell populations (Fig. 4e). Some cell types
+cells (Fig. 3f). were predominantly produced by particular hPS cell lines (Fig. 4f).
+ In WTC, we found that the balance between hindbrain pro- In the absence of morphogens, MNIM treatment led to more simigenitors and posterior floor plate is regulated by RA, FGF8 and SHH lar outcomes across lines in comparison to dual SMAD inhibition
+
+
+Nature Methods | Volume 23 | February 2026 | 465–478 471
+
+Resource https://doi.org/10.1038/s41592-025-02927-5
+
+
+ a iPS
+ b c Cluster11: +
+ Neural induction medium Ndiff+VA 6 Major cell clusters MGE-derived GABA
+ Brew CNS neurons
+ Days –1 0 7 14 21 −
+ 5 Hypothalamic SIM1
+ SHH c1 Cortical
+ 8
+ SHH c5 Hypothalamic SIM1
+ +
+
+ RA c1 10 +
+ 3 11 Spinal cord GLY
+ RA c5
+ CHIR c1 7 Cholinergic
+ 1
+ CHIR c5 Retinal
+ FGF8 c1 2
+ FGF8 c5 4
+ d 100 Batch 1, minimal NIM Batch 1, dual SMAD
+
+
+ Percent (%)
+ CHIR c3 9
+ 50
+
+
+ UMAP 2
+ 12 morphogen Technical parameters: 12
+ 13
+ conditions 4 cell lines, 2 batches, 2 NIM
+ UMAP 1 0
+ Cell H1 (XY) WTC (XY) Neural Minimal NIM Batch 2, minimal NIM Batch 2, dual SMAD
+ 100
+ line H9 (XX) WIBJ2 (XX) induction Dual SMAD 1 Telencephalic progenitors 8 Spinal cord progenitors
+
+
+ Percent (%)
+ 2 Retinal progenitors 9 PNS neurons
+ Combinatorial indexing 3 Cortical hem/diencephalon 10 Neuroectoderm/-epithelium 50
+ 4 Hypothalamic progenitors 11 CNS neurons
+ 192 samples
+ 5 Midbrain progenitors 12 Non-neurectodermal tissues
+ 576 organoids 13 Neural crest
+ 6 Floor plate 0
+ scRNA-seq 209,902 cells
+ 7 Hindbrain progenitors
+
+
+ CHIR c5
+ Ctrl
+ SHH c1
+ SHH c5
+ RA c1
+ RA c5
+ CHIR c1
+
+ FGF8 c1
+ FGF8 c5
+ CHIR t1
+ CHIR t3
+ CHIR t5
+
+ Ctrl
+ SHH c1
+ SHH c5
+ RA c1
+ RA c5
+ CHIR c1
+ CHIR c5
+ FGF8 c1
+ FGF8 c5
+ CHIR t1
+ CHIR t3
+ CHIR t5
+ e f All conditions
+ g Minimal NIM Dual SMAD
+
+
+ Cell line
+ Induction H1
+ UMAP 2
+
+
+ MNIM H9
+ Dual SMAD WIBJ2
+ UMAP 1 WTC
+
+
+ h3 i j
+ MNIM CHIR
+ j
+
+
+ 4 4.5 Ctrl
+ Dual
+ Smad FGF8
+ 2 RA
+ log2 KLD
+ log2 KLD
+
+
+ SHH
+KLD
+
+
+ 2
+ 2.0
+ 1
+
+
+ 0 0 0
+ H1 H9 WTC WIBJ2 MNIM Dual
+ c
+
+
+ c
+ c
+
+
+ c
+
+
+ c
+
+ c
+
+ c
+
+ c
+
+
+ c
+ c
+ c
+
+
+ C 5
+
+
+ C 5
+ c
+
+
+ c
+
+ c
+
+ c
+
+
+ c
+ t
+ SH 5
+ t
+
+
+ 5
+
+
+ 5
+
+
+ 5
+
+
+ C 5
+
+ SH 5
+
+
+ 5
+ t
+
+
+ C 3t
+
+
+ t
+ t
+
+ 5
+
+
+ C 1
+
+ SH 3
+
+
+ C 1
+
+
+ 1
+
+
+ SH 1
+
+ FG 1
+
+ C 1
+
+
+ C 1
+ FG 1
+
+
+ FG rl
+ trl
+
+
+ 1
+ C 1
+
+
+ SMAD
+
+
+ IR
+ IR
+
+
+ IR
+
+
+ IR
+
+
+ IR
+ IR
+ F8
+
+
+ H
+ F8
+
+
+ H
+
+
+ IR
+
+ RA
+
+ H
+
+ F8
+
+
+ RA
+ H
+ IR
+
+
+ RA
+
+
+ F8
+
+ RA
+
+ IR
+
+
+ IR
+ t
+ C
+ C
+
+
+ H
+ H
+
+
+ H
+
+
+ H
+
+
+ H
+ H
+
+
+ H
+ H
+
+
+ H
+
+
+ H
+ FG
+ C
+
+
+ k l Minimal NIM Dual SMAD
+ 2.5 6
+ D
+ 2 Cell line
+ –2.5
+ H1
+ –2 H9
+ WIBJ2
+ –7.5
+ Morphogen WTC
+ Ctrl RA c5 –6
+ Cell line V
+ SHH c1 FGF8 c1
+ UMAP2
+
+
+ SHH c5 FGF8 c5 H1 –12.5
+ CHIR c1 CHIR t1 H9 Induction –10
+ CHIR c5 CHIRt3 WIBJ2 MNIM
+ UMAP1 RA c1 CHIRt5 WTC Dual SMAD 0.5 1.0 2.0 3.0 1.0 1.5 2.5 3.5
+ A P A P
+
+Fig. 4 | Morphogen patterning outcome is influenced by PS cell line and NIM. Kullback–Leibler divergence. i, Box plots showing pair-wise distances between
+a, Experimental timeline showing morphogen treatment modalities in this study, pairs of conditions derived from different hPS cell lines exposed to the same
+an overview of the organoid culture protocol used and technical parameters that morphogen treatment and neural induction method. Each dot represents a
+were tested. b, RSS-based UMAP projection of all cells in the dataset, including distance between two cell lines when receiving the same morphogen treatment
+four cell lines (H1, H9, WIBJ2 and WTC), colored by cluster identity. and undergoing the same neural induction method. n = 326 for each category.
+c, RSS-based UMAP projection of subclustered CNS neurons, showing different j, Box plots showing distribution of KLD scores between cell lines under the same
+regional identities. d, Stacked bar plots, showing the cell-type composition treatment conditions. Each dot represents a distance between a pair of cell lines
+of each condition for H9-derived organoids, split by experimental batches. receiving the indicated morphogen treatment. n = 28 for each category. For the
+Concentrations are indicated by c1–c5. Cell-type color codes are identical to b. box plots in h–j, the center line indicates the median, the box limits show the
+e, RSS-based UMAP projection of all cells in the dataset, colored by neural lower and upper quartiles, and the whiskers extend to 1.5 times the interquartile
+induction method. f, RSS-based UMAP projection of all cells in the dataset, range from the quartiles. k, UMAP projection of summarized experiments, with
+colored by cell line. g, RSS-UMAP projection highlighting untreated (control) each sample colored by treatment condition (left), cell line of origin (center) and
+cells from each cell line of origin, split by neural induction method. Cells from neural induction method (right). Each dot represents one pool of three organoids
+morphogen treatment conditions are shown behind in gray. h, Box plots from the same line that were exposed to a certain morphogen treatment in each
+showing the distribution of KLD scores between experimental batches. experiment/batch. Bold strokes around dots highlight the control samples.
+Each dot represents a distance between experimental batches for each tested l, Scatterplot showing aggregated location of control and treatment conditions
+morphogen treatment and the indicated cell line. n = 24 for each category. KLD, along the DV (vertical) and AP (horizontal) axes.
+
+
+Nature Methods | Volume 23 | February 2026 | 465–478 472
+
+Resource https://doi.org/10.1038/s41592-025-02927-5
+
+(Fig. 4g). We next performed a quantitative analysis of organoid Overall, morphogen effects on different cell lines always followed
+reproducibility using three different distance metrics (Kullback– the same directionality within the same neural induction method.
+Leibler divergence, MMD and E-distance). While joint analysis of However, we did observe some regulons with opposite responses in
+both induction methods revealed similar reproducibility scores MNIM versus dual SMAD inhibition. This was most obvious under
+across all cell lines (Fig. 4h and Extended Data Fig. 8i), we could CHIR treatment, where HOX regulons were activated in dual SMAD
+confirm a tendency for increased variability across all condi- conditions but downregulated in MNIM (Fig. 5c).
+tions in organoids exposed to dual SMAD inhibition (Fig. 4i and RA and FGF8 showed the highest consistency across neural induc-
+Extended Data Fig. 8j). We noted a few outlier conditions in MNIM, tion methods. FGF8-associated regulons, mostly related to retinal and
+corresponding to CHIR conditions that generated off-target cell states telencephalic development, showed mild dependency on FGF8 con-
+(Fig. 4i,j, Extended Data Fig. 9b and Supplementary Table 6). Overall, centration across lines and induction methods. Under RA treatment,
+higher morphogen concentration conditions exhibited reduced varia- HOX regulons were the most consistently activated across induction
+bility across cell lines (Fig. 4j). When summarizing heterogeneity across methods and hPS cell lines. We observed a set of regulons that was
+condition, cell line and replicate experiments, we observed a pro- consistently downregulated by RA in MNIM conditions but remained
+nounced segregation of morphogen conditions, neural induction meth- largely unaffected in dual SMAD inhibition media. These regulons
+ods and hPS cell lines (Fig. 4k). Analysis of variability across screens (by were mostly associated with neuronal and neural crest fates. A set of
+comparing common conditions in the common hPS cell lines H9 and retinal development regulons (POU5F1, YBX1, HMGA1) could only be
+WTC) confirmed overall correlation of organoid composition (Extended modulated by RA in dual SMAD conditions. Notably, FOXG1 and POU3F2
+Data Fig. 9d). displayed divergent behaviors in response to RA in the two different
+ To compare the effects of morphogens on DV and AP axes across media. RA treatment induced consistent effects across hPS cell lines;
+cell lines, we calculated DV and AP scores for neural progenitors in each only H9 in MNIM showed many divergent regulons (Fig. 5c).
+condition using a regularized linear model, trained on the radial glia In SHH treatments, PAX6 and GLI3 downregulation was consistof the human developing brain cell atlas28 (Methods). Subsequently, ent across hPS cell lines and neural induction methods. However,
+for each treatment condition and cell line, the average coordinates in some regulons showed drastic differences in behavior. For example,
+AP–DV axes were calculated and visualized as a scatterplot (Fig. 4l). HOXB3 was strongly downregulated in dual SMAD conditions but not
+We observed that high concentration of SHH and RA produced similar affected in MNIM. Conversely, SOX6 was only downregulated in MNIM
+effects across cell lines under both MNIM and dual SMAD inhibition conditions. Overall, many key patterning regulons associated with
+conditions. In contrast, early CHIR timing consistently shifted all cell SHH treatments (OTP, ARX, FOXP2 or TCF7L2) showed widely variable
+lines in ventral and posterior directions under dual SMAD inhibition, responses across lines and neural induction methods (Fig. 5c).
+whereas cell lines showed inconsistent effects under MNIM. Conditions When comparing hiPS and hES cell-derived organoids, we did
+with weak patterning effects—including FGF8 at both concentrations not detect any notable difference, as well as when comparing across
+and SHH and CHIR at low concentrations—failed to demonstrate con- karyotypes (XX versus XY).
+sistent shifts in AP–DV axis coordinates across cell lines. We observed The collective evidence presented here demonstrates that the
+substantial differences in patterning outcome between MNIM and regulon activity changes in response to patterning molecules have
+dual SMAD inhibition: Generally, dual SMAD inhibition conditions consistent directionality across cell lines, but are highly dependent
+produced more dorsal neural progenitors than MNIM. Additionally, on the neural induction approach.
+while MNIM control conditions consistently generated anterior neural progenitors, dual SMAD inhibition control conditions showed Morphogen gradation influences DV forebrain proportion
+marked line-to-line variability: H9-derived progenitors were found Morphogen gradients form boundaries and organizing centers, which
+dorsally and anteriorly, H1-derived and WIBJ2-derived progenitors in turn influence region proportion during brain development3. We used
+were found ventrally and anteriorly, and WTC-derived progenitors were two approaches to test if graded change in morphogen exposure can
+found posteriorly. This observation indicates that dual SMAD inhibi- control the proportion of dorsal and ventral telencephalon cells within
+tion promotes stringent neural fate acquisition but makes the result- complex human neural tissues (Fig. 6a,b and Extended Data Fig. 10).
+ing patterning outcome more susceptible to hPS cell line variability In the first approach, we use a two-input microfluidic tree gradient
+than MNIM. generator, which has previously been used for AP neural tube specifica-
+ tion (Microfluidic STem cell Regionalization or MiSTR)47, to introduce
+Assessing reproducibility across cell lines and NIM at the a DV gradient. Here, a three-dimensional sheet of developing neural
+regulon level tissue received a gradient of SHH agonist and WNT antagonist mol-
+Our early sampling time point (21 days) allowed us to study the activa- ecules (Fig. 6b). In a second approach, we exposed neural organoids
+tion of individual regulons responsible for early nervous system region- to discrete concentrations of the same agonists representing different
+alization at the single-cell level. We first inferred a global regulatory locations of the gradient, including a control condition not exposed
+network for each neural induction method (Methods). We then exam- to patterning molecules (Fig. 6b and Supplementary Table 7). Both
+ined the dependency of regulon activity on morphogen concentration culture settings used dual SMAD inhibition for neural induction. After
+across cell lines separately for MNIM and dual SMAD inhibition-based 21 days in culture, we collected MiSTR tissue and neural organoids to
+neural induction methods (Fig. 5a). For each morphogen–transcription perform scRNA-seq, using cell hashing to track the MiSTR segment and
+factor pair, we assessed the consistency of the correlation between organoid condition (Fig. 6b). In both datasets, we observed marked
+regulon activity and morphogen concentration across hPS cell lines differences in the expression of DV patterning genes across segments
+(Methods). Among the regulons that exhibited consistent activity (Extended Data Fig. 10a,b and Supplementary Table 8). Datasets were
+across cell lines were well-known patterning regulators such as HOXB3, merged and integrated using Harmony, RPCA, CCA and CSS, with all
+a cervical HOX gene activated by RA, and HOXC6, a thoracic HOX gene integrations yielding a strong overlap between the two approaches
+activated by CHIR. Notably, the activity of the GLI3 regulon was consist- (Extended Data Fig. 10c). We note an exceptional FOXA2+ floor plate
+ently reduced across all cell lines in response to SHH, consistent with cluster, which was enriched in organoids treated with high doses of
+previous studies about the role of GLI3 in DV human brain patterning46. SHH (Fig. 6c–e and Extended Data Fig. 10c).
+Interestingly, FOXG1, RFX2 and POU3F2 were among the most variable Similar cluster compositions were observed using both
+regulons in response to CHIR, SHH and RA, respectively, both across approaches, although with different proportions, and organoids
+hPS cell lines and neural induction methods (Fig. 5b). contained more ventral regions than the tissue patterned with a
+
+
+Nature Methods | Volume 23 | February 2026 | 465–478 473
+
+Resource https://doi.org/10.1038/s41592-025-02927-5
+
+
+a MNIM Dual SMAD Correlation between
+ regulon activity &
+ HOXC6 SOX10 GRHL2 CREB3L2 morphogen concentration
+ GATA2 FOXP2 PAX6 KLF12 RFX3 SOX5
+ MBNL2 TAL1 SOX17 0.85
+ LCOR SIX1 HEYL ETS1
+ SOX14 RORA EP300 LCORL
+ OTP NCOA2 CTNNB1 VSX2 HEY2
+ LMX1A CHD1 TCF7L2 0
+ RBFOX2 CHD2 HOXB9 TFDP2
+ SOX11 HNF4A SREBF2
+ ARX TLX2
+ CUX1 RFX4 LMX1A −0.5
+ SHH CHIR
+FOXP1 NCOA1 BPTF OTP
+ RA SSBP3 PARP1 SALL2 POU3F2
+ UBE2K RFX4 TCF12 HOXB3
+ GLI3 POU3F2
+ SOX4 POU5F1 PRDM16 FOXG1 TEAD1 TBR1 MECOM CBFA2T2 HOXD3 ZEB1
+ HCFC1 POU4F1 HOXA3
+ ZNF704 SOX6 HMGA1 ZNF516 ZEB1 ELF2 PAX6 ZBTB20 FOXG1 PRDM16
+ SALL2 HOXB3 SREBF2
+ HCFC1 SOX5
+ HOXA3 GATA1
+ TCF4 TFAP2B MYBL1 HMGA1
+ EHF GLI3 CREB3L1 YBX1
+ CHIR SHH UBE2K
+ HOXD3 FGF8
+ MECOM FGF8 ATF2 PBX1 EP300 RA
+ EHF
+ SOX2 PARP1
+ SOX14 NCOA1
+ YBX1 POU5F1 PBX1 LCORL
+ SOX4 HMGA2
+ RORA
+ TFDP2 PAX2 FOXP1 ARX SOX2 TAL1
+ HOXC6 HOXB9 SOX11 HNF4A
+ NEUROD1 FOXP2
+ ZNF83 LHX9 POU2F2
+ HMGA2 VSX2
+
+
+b NIM Dual SMAD c
+ CHIR RA
+ Cell line
+ MNIM
+ HOXC6
+
+ Dual
+ Consistent SMAD
+ GLI3 regulons
+
+ Cell type
+ Cell line
+
+
+ LCOR
+ CUX1
+ SSBP3
+ TEAD1
+ ATF2
+ ZNF516
+ TCF12
+ CTNNB1
+ RBFOX2
+ TCF4
+ NCOA2
+ BPTF
+ TLX2
+ GATA1
+ POU3F2
+ POU2F2
+ TAL1
+ LHX9
+ UBE2K
+ POU5F1
+ YBX1
+ HMGA1
+ SALL2
+ HOXA3
+ HOXC6
+ HMGA1
+ HOXB3
+ HOXB9
+ YBX1
+ HOXD3
+ HCFC1
+ PARP1
+ RFX4
+ TFDP2
+ MECOM
+ POU3F2
+ FOXG1
+ PRDM16
+ POU5F1
+ PAX2
+ SOX2
+ LMX1A
+ SOX10
+ HEY2
+ SOX17
+ ETS1
+ SIX1
+ POU4F1
+ OTP
+ CBFA2T2
+ TFAP2B
+ CREB3L2
+ HEYL
+ GRHL2
+ MYBL1
+ SREBF2
+ SOX5
+ ZEB1
+ LCORL
+ HNF4A
+ EHF
+ PBX1
+ VSX2
+ HOXA3
+ HOXD3
+ HOXB3
+ FOXG1
+ KLF12
+ ELF2
+ CHD2
+ RFX3
+ HOXB3
+
+
+ FOXG1 Telencephalic progenitors Cortical hem/diencephalon Midbrain progenitors Hindbrain progenitors PNS neurons Neural crest
+ Retinal progenitors Hypothalamic progenitors Floor plate Spinal cord progenitors CNS neurons
+ Variable
+ regulons Cell line
+ RFX2
+ FGF8 SHH
+ WTC
+ MNIM H9
+ POU3F2 WIBJ2
+ H1
+ Condition Dual Correlation
+ Condition
+
+
+ Control CHIR c1 SMAD 0.85
+ SHH c1 CHIR c5
+ SHH c5 Average regulon activity Cell type 0
+ RA c1
+ YBX1
+ HCFC1
+ PRDM16
+ MECOM
+ FOXG1
+ PARP1
+ HMGA2
+ SOX2
+ SOX6
+ POU3F2
+ CREB3L1
+ HMGA1
+ SALL2
+ PAX6
+ POU3F2
+ FOXP1
+ GLI3
+ MECOM
+ FOXG1
+ PRDM16
+ LMX1A
+ RFX4
+ RORA
+ FOXP2
+ TAL1
+ PARP1
+ ARX
+ YBX1
+ HCFC1
+ SOX2
+ HMGA1
+ POU5F1
+ EP300
+ CUX1
+ OTP
+ SALL2
+ SOX11
+ SOX4
+ NCOA1
+ SOX14
+ SOX6
+ CHD1
+ ZNF704
+ MBNL2
+ HNF4A
+ UBE2K
+ GATA2
+ TCF7L2
+ HOXB3
+ MYBL1
+ HMGA2
+ TFAP2B
+ PDLIM5
+ POU4F1
+ FLI1
+ ZNF83
+ CREB3L1
+ RFX2
+ LIN28B
+ ZBTB20
+ TBR1
+ NHLH1
+ NEUROD1
+ CBFA2T2
+ RA c5 0 0.5
+ −0.5
+
+
+Fig. 5 | Variable and consistent regulons across hPS cell lines and NIM. indicate that regulon activity was not inferred for the stated condition. This
+a, Inferred regulon network for tested patterning molecules for MNIM (left) is because some conditions are represented mostly by non-neural ectodermand dual SMAD inhibition (right) neural induction approaches. Each black derived tissues, which were excluded for regulon analysis. c, Heat map
+node represents a morphogen that is connected to a number of associated representing the correlation of regulon activity with morphogen concentrations
+regulons (showing correlating activity to morphogen treatment). Color of edges for each cell line for regulons in MNIM and dual SMAD inhibition media. The color
+represents correlation of regulon activity with morphogen concentration for panel on the bottom refers to the cell type where that regulon registers maximum
+the H9 cell line. b, Examples of regulon activity in each cell line and morphogen activity (excluding non-neural and undifferentiated clusters). Gray wells indicate
+condition for regulons, consistent and inconsistent across cell lines. Beige wells that regulon was not inferred for the stated neural induction approach.
+
+
+microfluidic gradient (Fig. 6f). Low SHH regions in the MiSTR tissue was generally stronger in organoids, we sampled MiSTR tissue and
+produced cortical/lateral ganglionic eminence (Ctx/LGE) progeni- neural organoids on day 9 of the protocol and integrated the data
+tors and neurons, whereas the lowest concentration of SHH in the again using multiple methods (Extended Data Fig. 10g,h). This earlier
+organoids induced more ventral fates, including MGE progenitors time point showed the emergence of equivalent regional cell types
+and MGE-derived interneurons (FOXG1+, NKX2-1+). While increasing (Extended Data Fig. 10g). However, while MiSTR segment identities
+SHH concentrations induced mainly MGE fates in the MiSTR, high SHH ranged from cortical-PSB-LGE progenitors to hypothalamic proinduced a combination of hypothalamic fates (FOXG1−, NKX2-1+) and genitors, organoids receiving intermediate amounts of SHH directly
+diencephalic floor plate fates (FOXA2+) in the organoids (Fig. 6g,h). jumped to hypothalamic-like signatures (Extended Data Fig. 10i–k).
+ Forebrain axial scoring and ranking (FBaxis_rank) revealed a When we scored the positioning of each system in the DV forebrain
+continuity of the axial domains generated in each of the settings, axis, we confirmed that the MiSTR setup produced much more medial
+with MiSTR tissue cells dominated by telencephalic DV fates and identities with gradual step changes, whereas organoids displayed
+organoid cells dominated by diencephalic ventral fates (Fig. 6i and drastically dorsal or ventral identities depending on whether they
+Extended Data Fig. 10d). Immunostaining and HCR in situ hybridi- surpassed specific SHH concentrations (Extended Data Fig. 10l–n).
+zation confirmed these findings: while organoids displayed NKX2-1 This rules out the possibility that SHH concentrations are generally
+expression in all conditions, including control (Fig. 6j,k), MiSTR tissue lower in the MiSTR setup due to PDMS absorbance.
+showed restricted NKX2-1 expression in the segments with higher SHH To investigate these differences in patterning dynamics between
+exposure (Fig. 6l; sections C–E). the two systems, we performed live fluorescence imaging of NKX2-
+ We speculated that these differences could be due to differences 1:GFP organoids and MiSTR tissue growing in high SHH conditions.
+in morphogen availability in a flowing microfluidic polydimethylsilox- Interestingly, NKX2-1-driven fluorescence48 emerged at very localane (PDMS) chamber versus a plate setting with intermittent media ized areas in organoids under ‘D’ conditions, despite nonlocalchange. To test this hypothesis and find out whether ventralization ized exposure to SHH; and these foci gradually spread (Fig. 6m).
+
+
+Nature Methods | Volume 23 | February 2026 | 465–478 474
+
+Resource https://doi.org/10.1038/s41592-025-02927-5
+
+
+ a b c
+ a'' Continuous gradient Discontinuous gradient
+ a'
+ 5–6 PCW
+ Basal Ventralizing
+ media media Basal Ventralizing 1 Cycling telencephalic progenitors
+ PAX6 media media 2 Cortical-PSB-LGE progenitors
+ Neurons 3 LGE-derived interneurons
+ Neural 4 MGE progenitors
+ NKX2.1 5 MGE-derived interneurons
+ a' NKX2.1
+ a'' FOXA2 progenitors
+ Anterior Posterior
+ 6 PoA/hypothalamic progenitors
+ A B C D E A B C D E
+ 7 Hypothalamic neurons
+ Floor plate
+ 8 Floor plate
+
+
+ UMAP 2
+ Pallium
+ (cortex)
+ CH 9 Undetermined
+
+ UMAP 1
+ PSB LGE LGE PSB
+ MGE MGE
+ + + + + + + + + + + +
+ Ganglionic
+ d e
+ eminences
+ PoA
+ a' Preoptic area
+
+ Multiplexed
+ Thalamus
+ scRNA-seq
+ DIV –1 0 14 21 Control
+ iB Neural progenitor media NDiff + VA Organoids A
+ Basal B
+ MiSTR
+ media SB + Nog
+ C
+
+
+ UMAP 2
+
+
+ UMAP 2
+ XAV939 D
+ Hypothalamus Ventralizing
+ E
+ media SHH + PM
+ a'' Floor plate UMAP 1 UMAP 1
+
+
+ f g h % Cells per condition
+ i MiSTR Organoids
+ % Cells per condition % Cells per condition 8,000 D
+ 0 25 50 75 100
+ 0 25 50 75 100 0 25 50 75 100
+ Ctrl 6,000 Cortical-PSB-
+ LGE progenitors
+
+ FBaxis_rank
+ A
+ MiSTR A
+ B 4,000 MGE progenitors
+ Organoids B
+ PoA/
+ C C 2,000 hypothalamic
+ D D progenitors
+ 0 25 50 75 100 0 V
+ E E
+ % Cells per condition A B CD E Ctrl A B CD E
+
+ j k
+ FOXG1 (RNA)
+ FOXA2 (RNA)
+
+
+ NKX2.1-GFP
+ NKX2.1-GFP
+
+
+ Ctrl A B C D E Ctrl A B C D E
+
+ l m
+ 180 h (day 7) 260 h (day 10) 340 h (day 14) 420 h (day 17) 500 h (day 20)
+ DAPI
+ NKX2.1
+
+
+ A B C D E Condition D NKX2.1-GFP
+
+Fig. 6 | Morphogen gradients and discontinuous morphogen steps similarly (higher ranks) toward posterior–ventral identities (lower ranks). For each of them:
+recapitulate DV patterning of the human forebrain. a, Overview of DV left, ridge plot showing distribution of cells along FBaxis_rank values; middle,
+patterning of the developing forebrain and the corresponding regions and marker jitter plot showing the distribution of each progenitor type along the FBaxis
+genes expressed in each of them. Different AP sections of a 5–6-week-old human ranking (most dorsal cells at the top, most ventral cells at the bottom); right, same
+embryo and their patterning profiles are depicted in a’ (telencephalic, FOXG1+, jitter plot showing separately each MiSTR segment and organoid condition.
+anterior) and a’’ (hypothalamic, NKX2.1+, posterior). PCW, post-conception week. j,k, HCR stainings of organoids patterned with increasing concentrations of
+b, Simplified schematic of the microfluidic gradient tree (MiSTR) and the 96-well SHH, purmorphamine (PM) and XAV939. Endogenous NKX2.1-GFP protein is
+setup (organoids) used for treating developing neural tissue with increasing shown in green, while FOXA2 (j) and FOXG1 (k) mRNA levels are shown in magenta.
+concentrations of SHH. Bottom, culture protocol for both experimental setups. Images are representative of four organoids from each condition cultured
+iB, iPS Brew; SB, SB431542; Nog, Noggin; DIV, days in vitro. c–e, UMAP projection simultaneously. l, Example immunohistochemistry staining of MiSTR neural
+of Harmony-integrated scRNA-seq data from MiSTR and organoid experiments tissue exposed to a continuous morphogen gradient. Orientation of the tissue is
+(both using the hES cell line H9), colored by cluster (c), experimental setup (d) shown with a–e, indicating each subsection. Scale bar, 250 µm. Four MiSTR tissues
+and section of origin (e). PSB, pallial–subpallial boundary; LGE, lateral ganglionic from similar culture conditions (slight variations in SHH and PM concentrations)
+eminence; MGE, medial ganglionic eminence; PoA, preoptic area. f, Cell-type were stained and showed similar compartmentalization of NKX2-1 expression.
+composition of all aggregated segments from each experimental setup. m, Still images from long-term light-sheet imaging of organoids containing the
+g,h, Cell-type composition of each segment from MiSTR tissues (g) and separately NKX2.1:GFP reporter showing focal induction and spreading of ventral domains.
+patterned organoids (h). i, Forebrain axis score ranking of cells from each Images are representative of five organoids cultured simultaneously using the
+experimental setup, representing shifts from anterodorsal identities concentration of SHH, PM and XAV9393 corresponding to condition D.
+
+
+Nature Methods | Volume 23 | February 2026 | 465–478 475
+
+Resource https://doi.org/10.1038/s41592-025-02927-5
+
+Meanwhile, rectangular monolayer cultures resembling segment Several important limitations should be considered when inter-
+D of the MiSTR setup showed homogeneous, low expression levels preting these findings. Line-to-line differences and batch variation
+of NKX2.1-GFP on day 5 that progressively increased in a simultane- contribute substantially to organoid outcome variability, highlighting
+ous manner across the tissue (Extended Data Fig. 10f). Altogether, the need for standardized experimental documentation to enable
+these data suggest a feed-forward mechanism that reinforces neural proper cross-study comparisons. Our use of multiple molecules targetorganoid response to SHH signaling, possibly facilitated by a higher ing individual pathways (for example, SHH/purmorphamine, BMP4/
+number of neighboring cells in comparison to pseudo-monolayer BMP7) may confound pathway-specific interpretations but provides
+(2.5D) cultures. valuable information for assessing relative molecule potency and pro-
+ tocol optimization. Organoid seeding cell number and size at treatment
+Discussion initiation impact patterning by influencing morphogen accessibility,
+We provide a systematic evaluation of timing-dependent and cell density and signaling gradient establishment, variables that should
+concentration-dependent effects of morphogen signaling on devel- be systematically tested in future studies. Our analysis focuses on cell
+oping human neural organoids. Our screen delimits competence composition and gene expression rather than morphology and spatial
+windows for SHH, FGF8, RA, BMP4/BMP7 and WNT pathway modula- arrangement. However, the location of a cell within a three-dimensional
+tors, demonstrating that cell fate decisions can be controlled through structure may impact its patterning outcome due to concentration gramorphogen timing and dosage. For example, SHH and RA enriched dients and mechanical constraints. This spatial factor possibly contribdifferent regional fates at low-versus-high concentrations compared uted to the regional heterogeneity observed within organoids treated
+to untreated organoids. We identified new morphogen synergies with the same patterning molecules. Finally, media change timing may
+beyond those known to cooperatively pattern the neural tube. RA disrupt endogenous patterning gradients, and our day-21 time point,
+stimulated posterior floor plate formation with SHH49–53 or hindbrain although representing a compromise for capturing patterning events
+progenitors with FGF8, consistent with established roles in hindbrain with robust cell identification, may miss critical earlier specification
+specification2,3. Further, we found that WNT inhibition (XAV939) com- or later refinement processes that longitudinal analysis could reveal.
+bined with SHH activation increases non-neural ectoderm, an effect Despite these limitations, this work, together with recent work on
+also seen for early activation of WNT (CHIR). Interestingly, this effect later stages of neural organoids45,55, provides an integrated resource
+was observable only without dual SMAD inhibition, highlighting how for morphogen-induced neural regionalization in vitro, demonstratneural induction methods influence morphogen responses. ing that systematic screens with single-cell readouts offer powerful
+ Our systematic analysis addresses hPS cell line and protocol approaches for protocol optimization and understanding the effect of
+variability at the cell-type and regulon level. Unlike previous studies morphogen pathway modulations on brain organoid patterning. Future
+that sample later developmental time points and focus on neuronal studies incorporating later time points, additional signaling pathways
+populations54–56, we harvested organoids at an early time point (day and more sophisticated culture systems and readout modalities (for
+21) to capture neuroepithelial populations through patterned pro- example, epigenomics) will further advance our ability to model human
+genitors. This approach enabled measurement of patterning regulon brain development in vitro.
+activity during regionalization events, providing a unique developmental snapshot complementing existing resources. Our data also open Online content
+up numerous possibilities for computational modeling and predic- Any methods, additional references, Nature Portfolio reporting sumtion of patterning outcomes57. While we found no generalizable rules maries, source data, extended data, supplementary information,
+for hPS cell line variability, our data identify specific regulons and acknowledgements, peer review information; details of author contricell types requiring optimization for reproducible patterning. The butions and competing interests; and statements of data and code availinconsistency likely reflects genetic or epigenetic differences affect- ability are available at https://doi.org/10.1038/s41592-025-02927-5.
+ing baseline expression and signaling pathway susceptibility42,58–60.
+Neural induction methods substantially impact regionalization out- References
+comes: dual SMAD inhibition produces predominantly CNS fates with 1. Sagner, A. & Briscoe, J. Morphogen interpretation: concentration,
+higher variability, while MNIM generates diverse neuroectodermal time, competence, and signaling dynamics. Wiley Interdiscip. Rev.
+and non-neuroectodermal tissues with greater reproducibility. Our Dev. Biol. 6, e271 (2017).
+systematic analysis of batch-to-batch variability yielded consistent 2. Puelles, E., Puelles, L. & Echevarria, D. in The Mouse Nervous
+results with experimental batches separated by only 2 weeks. This aligns System (eds Watson, C.) 2–18 (Academic Press, 2012).
+with findings from our patterning condition screen, where longer time 3. Kiecker, C. & Lumsden, A. The role of organizers in patterning the
+intervals between experiments correlated with increased variability. nervous system. Annu. Rev. Neurosci. 35, 347–367 (2012).
+We hypothesize that reagent degradation and changing hPS cell states 4. Kanton, S. et al. Organoid single-cell genomic atlas uncovers
+contribute to this time-dependent variability. human-specific features of brain development. Nature 574,
+ Our MiSTR-versus-organoid comparison highlights the impor- 418–422 (2019).
+tance of tissue architecture in morphogen responses. The MiSTR 5. Pollen, A. A. et al. Establishing cerebral organoids as
+model’s elongated neural tube-like structure produces milder ventrali- models of human-specific brain evolution. Cell 176, 743–756.e17
+zation likely through lateral inhibitory mechanisms, while organoids (2019).
+enable study of self-organizing interactions where locally secreted 6. Nakajima, R. & Hagihara, H. Similarities of developmental
+morphogens may amplify patterning signals. Both systems generated gene expression changes in the brain between human and
+composite tissues with multiple regional identities corresponding to experimental animals: rhesus monkey, mouse, Zebrafish, and
+spatially adjacent brain regions, suggesting intrinsic self-organizing Drosophila. Mol. Brain 14, 135 (2021).
+responses create relevant boundaries even under uniform conditions. 7. Marshall, J. J. & Mason, J. O. Mouse vs man: organoid models of
+Higher morphogen concentrations increased organoid homogeneity, brain development & disease. Brain Res. 1724, 146427 (2019).
+although regions responding to lower concentrations remain difficult 8. Mariani, J. et al. Modeling human cortical development in vitro
+to reproduce. The prevalence of multiregional organoids indicates that using induced pluripotent stem cells. Proc. Natl Acad. Sci. USA
+gradient formation likely establishes regional domains, as confirmed 109, 12770–12775 (2012).
+by our microfluidic gradient experiments showing compositional shifts 9. Lancaster, M. A. et al. Cerebral organoids model human brain
+along concentration axes. development and microcephaly. Nature 501, 373–379 (2013).
+
+
+Nature Methods | Volume 23 | February 2026 | 465–478 476
+
+Resource https://doi.org/10.1038/s41592-025-02927-5
+
+10. Kadoshima, T. et al. Self-organization of axial polarity, inside-out 33. Blixt, A., Landgren, H., Johansson, B. R. & Carlsson, P. Foxe3 is
+ layer pattern, and species-specific progenitor dynamics in required for morphogenesis and differentiation of the anterior
+ human ES cell–derived neocortex. Proc. Natl Acad. Sci. USA 110, segment of the eye and is sensitive to Pax6 gene dosage.
+ 20284–20289 (2013). Dev. Biol. 302, 218–229 (2007).
+11. Paşca, A. M. et al. Functional cortical neurons and astrocytes 34. Kubo, S. et al. Functional analysis of Samd11, a retinal
+ from human pluripotent stem cells in 3D culture. Nat. Methods 12, photoreceptor PRC1 component, in establishing rod
+ 671–678 (2015). photoreceptor identity. Sci. Rep. 11, 4180 (2021).
+12. Camp, J. G. et al. Human cerebral organoids recapitulate gene 35. Blaess, S., Szabó, N., Haddad-Tóvolli, R., Zhou, X. &
+ expression programs of fetal neocortex development. Proc. Natl Álvarez-Bolado, G. Sonic hedgehog signaling in the development
+ Acad. Sci. USA 112, 15672–15677 (2015). of the mouse hypothalamus. Front. Neuroanat. 8, 156 (2014).
+13. Benito-Kwiecinski, S. & Lancaster, M. A. Brain organoids: human 36. Alvarez-Bolado, G., Paul, F. A. & Blaess, S. Sonic hedgehog
+ neurodevelopment in a dish. Cold Spring Harb. Perspect. Biol. 12, lineage in the mouse hypothalamus: from progenitor domains to
+ a035709 (2020). hypothalamic regions. Neural Dev. 7, 4 (2012).
+14. Zhang, Z., O’Laughlin, R., Song, H. & Ming, G.-L. Patterning of 37. Chen, B. & Kwan, K. Y. Patterning and Cell Type Specification in
+ brain organoids derived from human pluripotent stem cells. Curr. the Developing CNS and PNS: Comprehensive Developmental
+ Opin. Neurobiol. 74, 102536 (2022). Neuroscience (Academic Press, 2020).
+15. Cederquist, G. Y. et al. Specification of positional identity in 38. Toyoda, R. et al. FGF8 acts as a classic diffusible morphogen to
+ forebrain organoids. Nat. Biotechnol. 37, 436–444 (2019). pattern the neocortex. Development 137, 3439–3448 (2010).
+16. Karzbrun, E. et al. Human neural tube morphogenesis in vitro by 39. Aibar, S. et al. SCENIC: single-cell regulatory network inference
+ geometric constraints. Nature 599, 268–272 (2021). and clustering. Nat. Methods 14, 1083–1086 (2017).
+17. Jo, J. et al. Midbrain-like organoids from human pluripotent stem 40. Brady, M. V. & Vaccarino, F. M. Role of SHH in patterning human
+ cells contain functional dopaminergic and neuromelanin-producing pluripotent cells towards ventral forebrain fates. Cells 10, 914 (2021).
+ neurons. Cell Stem Cell 19, 248–257 (2016). 41. Gibbs, H. C., Chang-Gonzalez, A., Hwang, W., Yeh, A. T. & Lekven, A.
+18. Muguruma, K., Nishiyama, A., Kawakami, H., Hashimoto, K. & C. Midbrain-hindbrain boundary morphogenesis: at the intersection
+ Sasai, Y. Self-organization of polarized cerebellar tissue in 3D of Wnt and Fgf signaling. Front. Neuroanat. 11, 64 (2017).
+ culture of human pluripotent stem cells. Cell Rep. 10, 42. Strano, A., Tuck, E., Stubbs, V. E. & Livesey, F. J. Variable outcomes
+ 537–550 (2015). in neural differentiation of human PSCs arise from intrinsic
+19. Qian, X. et al. Brain-region-specific organoids using differences in developmental signaling pathways. Cell Rep. 31,
+ mini-bioreactors for modeling ZIKV exposure. Cell 165, 107732 (2020).
+ 1238–1254 (2016). 43. Chambers, S. M. et al. Highly efficient neural conversion of
+20. Regent, F. et al. A simple and efficient method for generating human ES and iPS cells by dual inhibition of SMAD signaling.
+ human retinal organoids. Mol. Vis. 26, 97–105 (2020). Nat. Biotechnol. 27, 275–280 (2009).
+21. Tieng, V. et al. Engineering of midbrain organoids containing long- 44. Azbukina, N. et al. Multi-omic human neural organoid cell
+ lived dopaminergic neurons. Stem Cells Dev. 23, 1535–1547 (2014). atlas of the posterior brain. Preprint at bioRxiv https://doi.org/
+22. Valiulahi, P. et al. Generation of caudal-type serotonin neurons 10.1101/2025.03.20.644368 (2025).
+ and hindbrain-fate organoids from hPSCs. Stem Cell Rep. 16, 45. Amin, N. D. et al. Generating human neural diversity with a
+ 1938–1952 (2021). multiplexed morphogen screen in organoids. Cell Stem Cell 31,
+23. Qian, X., Song, H. & Ming, G.-L. Brain organoids: advances, 1831–1846 (2024).
+ applications and challenges. Development 146, dev166074 46. Fleck, J. S. et al. Inferring and perturbing cell fate regulomes in
+ (2019). human brain organoids. Nature 621, 365–372 (2023).
+24. He, Z. et al. An integrated transcriptomic cell atlas of human 47. Rifes, P. et al. Modeling neural tube development by
+ neural organoids. Nature 635, 690–698 (2024). differentiation of human embryonic stem cells in a microfluidic
+25. Stoeckius, M. et al. Simultaneous epitope and transcriptome WNT gradient. Nat. Biotechnol. 38, 1265–1273 (2020).
+ measurement in single cells. Nat. Methods 14, 865–868 (2017). 48. Jain, A. et al. Morphodynamics of human early brain organoid
+26. Rosenberg, A. B. et al. Single-cell profiling of the developing development. Nature 644, 1010–1019 (2025).
+ mouse brain and spinal cord with split-pool barcoding. Science 49. Yang, M. et al. A novel protocol to derive cervical motor neurons
+ 360, 176–182 (2018). from induced pluripotent stem cells for amyotrophic lateral
+27. He, Z., Brazovskaja, A., Ebert, S., Camp, J. G. & Treutlein, B. CSS: sclerosis. Stem Cell Rep. 18, 1870–1883 (2023).
+ cluster similarity spectrum integration of single-cell genomics 50. Du, Z.-W. et al. Generation and expansion of highly pure motor
+ data. Genome Biol. 21, 224 (2020). neuron progenitors from human pluripotent stem cells. Nat.
+28. Braun, E. et al. Comprehensive cell atlas of the first-trimester Commun. 6, 6626 (2015).
+ developing human brain. Science 382, eadf1226 (2023). 51. Butts, J. C. et al. Differentiation of V2a interneurons from human
+29. McInnes, L., Healy, J., Saul, N. & Großberger, L. UMAP: uniform pluripotent stem cells. Proc. Natl Acad. Sci. USA 114, 4969–4974
+ manifold approximation and projection. J. Open Source Softw. 3, (2017).
+ 861 (2018). 52. Ogura, T., Sakaguchi, H., Miyamoto, S. & Takahashi, J.
+30. Muñoz-Sanjuán, I. & Brivanlou, A. H. Neural induction, the default Three-dimensional induction of dorsal, intermediate and
+ model and embryonic stem cells. Nat. Rev. Neurosci. 3, 271–280 ventral spinal cord tissues from human pluripotent stem cells.
+ (2002). Development 145, dev162214 (2018).
+31. Ishii, M. et al. Combined deficiencies of Msx1 and Msx2 cause 53. Faye, P.-A. et al. Optimized protocol to generate spinal motor
+ impaired patterning and survival of the cranial neural crest. neuron cells from induced pluripotent stem cells from Charcot
+ Development 132, 4937–4950 (2005). Marie tooth patients. Brain Sci. 10, 407 (2020).
+32. Moraes, F., Nóvoa, A., Jerome-Majewska, L. A., Papaioannou, V. E. & 54. Scuderi, S. et al. Specification of human brain regions with
+ Mallo, M. Tbx1 is required for proper neural crest migration orthogonal gradients of WNT and SHH in organoids reveals
+ and to stabilize spatial patterns during middle and inner ear patterning variations across cell lines. Cell Stem Cell
+ development. Mech. Dev. 122, 199–212 (2005). https://doi.org/10.1016/j.stem.2025.04.006 (2025).
+
+
+Nature Methods | Volume 23 | February 2026 | 465–478 477
+
+Resource https://doi.org/10.1038/s41592-025-02927-5
+
+55. Tresenrider, A. et al. Single-cell sequencing of individual retinal Publisher’s note Springer Nature remains neutral with regard to
+ organoids reveals determinants of cell-fate heterogeneity. Cell jurisdictional claims in published maps and institutional affiliations.
+ Rep. Methods 3, 100548 (2023).
+56. Naas, J. et al. Quantitative profiling of human brain organoid cell Open Access This article is licensed under a Creative Commons
+ diversity across four protocols and multiple cell lines. Cell Rep. Attribution 4.0 International License, which permits use, sharing,
+ 44, 116168 (2025). adaptation, distribution and reproduction in any medium or format,
+57. Klein, D. et al. CellFlow enables generative single-cell phenotype as long as you give appropriate credit to the original author(s) and the
+ modeling with flow matching. Preprint at bioRxiv source, provide a link to the Creative Commons licence, and indicate
+ https://doi.org/10.1101/2025.04.11.648220 (2025). if changes were made. The images or other third party material in this
+58. Puigdevall, P., Jerber, J., Danecek, P., Castellano, S. & article are included in the article’s Creative Commons licence, unless
+ Kilpinen, H. Somatic mutations alter the differentiation outcomes indicated otherwise in a credit line to the material. If material is not
+ of iPSC-derived neurons. Cell Genom. 3, 100280 (2023). included in the article’s Creative Commons licence and your intended
+59. Merkle, F. T. et al. Whole-genome analysis of human embryonic use is not permitted by statutory regulation or exceeds the permitted
+ stem cells enables rational line selection based on genetic use, you will need to obtain permission directly from the copyright
+ variation. Cell Stem Cell 29, 472–486 (2022). holder. To view a copy of this licence, visit http://creativecommons.
+60. Jerber, J. et al. Population-scale single-cell RNA-seq profiling org/licenses/by/4.0/.
+ across dopaminergic neuron differentiation. Nat. Genet. 53,
+ 304–312 (2021). © The Author(s) 2­02­5
+
+
+Nature Methods | Volume 23 | February 2026 | 465–478 478
+
+Resource https://doi.org/10.1038/s41592-025-02927-5
+
+M­et­ho­ds the bottom part of the MiSTR device. Cells were incubated for a day
+Ethics statement (37 °C, 5% CO2) to allow them to proliferate and form a uniform sheet.
+Stem cell experiments with WTC, WIBJ2 hiPS cells, H9, H1 and On the next day, dead cells and debris were removed from the cham-
+HES3 (NKX2.1GFP/w) hES cells were approved by the Bundesamt ber by washing twice with a 1:20 dilution of KOSR (Knock-Out Serum
+für Gesundheit (Swiss Health Federal Office) with disposition Replacement, LifeTech) in DMEM/F12 (LifeTech). After aspirating bubnumber 606.0000-1/31/19.018224; and by the Ethikkommission bles and pre-perfusing the microfluidic tree with the same solution,
+Nordwest- und Zentralschweiz (Ethics Commission for Northern and the top part of the MiSTR device (containing the PDMS microfluidic
+Central Switzerland). tree) was fit over the bed of ES cells. Lastly, the polycarbonate lid was
+ placed on top and the whole setup was pushed into the POM cassette
+iPS cell and ES cell culture for stabilization.
+NKX2.1GFP/w (HES3) hES cells were obtained from A.K.’s research Once the ‘sandwich’ was assembled, two high-precision GasTight
+group at the University of Copenhagen, after the arrangement of a syringes (Hamilton) with different media were attached to the tubing
+material transfer agreement with E. Stanley and A. G. Elefanty (Murdoch coming out of either side of the MiSTR device:
+Children’s Research Institute, Melbourne). H1 and H9 (WA09) hES cells • The left-side syringe contained default neural patterning
+were obtained from WiCell; WTC hiPS cells from the Allen Institute for media: 50% DMEM/F12 (LifeTech), 50% NeuroMedium (Milte-
+Cell Science; and WIBJ2 cells from the HipSci resource. Stem cells were nyi), a 1:200 dilution of Glutamax (LifeTech), a 1:250 dilution
+grown at 37 °C and 5% CO2 in feeder-free conditions, on six-well tissue of penicillin–streptomycin (LifeTech), NB-21 (NeuroBrew-21
+culture plates coated with hES cell-Qualified Matrigel (Corning). They without vitamin A, Miltenyi) and a 1:200 dilution of N2 supplewere fed every other day with mTesR Plus (StemCell Technologies) or ment (LifeTech). These media were complemented with 10 µM
+StemMACS iPS Brew XF (Miltenyi) and passaged when reaching around SB (SB432542, Miltenyi) and 100 ng ml−1 Noggin (rh-Noggin,
+80% confluence with EDTA for gentle dissociation. All lines were tested Miltenyi) for neural induction from day 0 to day 9.
+regularly for copy number changes using the Agilent ISCA 8x60K v2 • The right-side syringe contained the same neural patterning
+array and no abnormalities were detected. Additionally, a karyotyping media as above, also complemented with SB and Noggin for
+control was performed and showed normal XX (NKX2.1GFP/w and H9) neural induction on days 0–9, and the following patterning
+and XY (WTC) karyotypes. These analyses were performed by the Cell molecules: from day 0 to 9, 5 μM of XAV939 (Miltenyi); from day
+Guidance Systems Genetics Service. Regular PCR-based mycoplasma 3 to 14, 200 ng ml−1 of SHH (rh-SHH/C24II, Miltenyi) and 0.3 μM
+testing (Biological Industries) was performed to discard potential of purmorphamine (Miltenyi).
+Mycoplasma infections.
+ After bringing the MiSTR device into the incubator and assembling
+Neural organoid generation and incubation with patterning the syringes on high-precision neMESYS pumps, the flow was initiated
+molecules and kept at a constant rate of 160 μl h−1. Meanwhile, the outlet tub-
+Stem cells were washed with PBS once and trypsinized using TrypLE ing would collect waste media into a small glass bottle placed on an
+Express Enzyme (Thermo Fisher Scientific) to obtain single-cell sus- upper shelf of the same incubator. The syringe media were changed or
+pensions and 500 cells were plated in each well of ultralow-attachment replenished every 2 or 3 days and the differentiation was maintained in
+96-well plates (day −1). A 1–5-min centrifugation of the well plate was the microfluidic tree for 14 days. Then the MiSTR device was disassemperformed at 200g and cells in suspension were cultured for one day bled, and the neural sheet was recovered and completely embedded
+in mTesR Plus (StemCell Technologies) to allow for aggregation and in GFR-Matrigel by adding 200 μl on top of it. After polymerization
+embryoid body formation. On day 0, embryoid bodies were transi- of the fresh Matrigel, the tissue was transported into a Petri dish with
+tioned to MNIM (containing DMEM/F12, 1% N2 supplement (vol/vol), Ndiff+VA media (see composition above, under ‘Neural organoid gen-
+1% GlutaMAX supplement (vol/vol), 1% MEM-NEAA (vol/vol) and 1 μg eration and incubation with patterning molecules’). Cultures were
+ml−1 heparin). MNIM was maintained for 14 days and then switched kept in the incubator under mild rocking conditions to ensure good
+to NDiff+VA (neural differentiation media with vitamin A), with the perfusion and media were changed every 3–4 days until day 21. On day
+exception of the RA/XAV939/SHH/FGF8 timing experiments, which 21 of MiSTR culture, the neural sheet was retrieved and cut in five equal
+used NDiff−VA instead until day 21. The specific morphogen treat- parts from left to right, following the longitudinal axis of the gradient
+ment windows and concentrations used per condition are specified in the chamber. A custom-made mold was used to standardize the
+in Supplementary Fig. 1 and are designed based on known published sizes of each piece. From left to right (basic neural patterning media
+protocols (Supplementary Table 9). on the left to neural patterning media with patterning factors on the
+ In the MNIM versus dual SMAD inhibition experiments, control right), the sections were called A, B, C, D and E. Each section from A to
+dual SMAD organoids were cultured in neural patterning media (see E is represented by two independent MiSTR experiments, which were
+MiSTR and MiSTR-like organoid culture sections below) and exposed pooled for dissociation. Before and after each experiment, the differto 10 μM SB (SB432542, Miltenyi) and 100 ng ml−1 Noggin (rh-Noggin, ent parts of the MiSTR device were sterilized appropriately by either
+Miltenyi) from day 0 to 9. MNIM organoids were cultured in the NIM ethanol baths or autoclaving, according to their material.
+described above. For organoid patterning, we used 4.5 μM XAV939
+(Miltenyi) from day 0 to 9 and 180 ng ml−1 SHH (rh-SHH/C24II, Miltenyi) MiSTR-like organoid cultures
+together with 270 nM purmorphamine (Miltenyi) from day 3 to 14. On day −1, embryoid body aggregation of H9 and HES3 (NKX2.1GFP/w)
+ hES cells was performed as described in the previous section, using iPS
+MiSTR cultures Brew and ROCK inhibitor at a 1:200 dilution. For neural induction, neu-
+MiSTR culture was performed as previously published47 with some ral patterning media were used together with SB and Noggin-mediated
+modifications to patterning in the DV axis. One day before the assembly dual SMAD inhibition from day 0 to day 14. After this, the media were
+of the MiSTR device and start of differentiation (day −1), H9 cells were changed to neural differentiation media with vitamin A (composition
+detached from the well using EDTA to obtain single-cell suspensions, previously described) until day 21. Overall, organoids were grown in
+which were adjusted to a concentration of 1.25 × 106 cells per ml in identical media conditions as the MiSTR cultures, but in 96-well plates
+iPS Brew + 10 μM ROCK inhibitor (Y-27632, VWR). Then, 800 μl of cell for the entire time course. Each of the organoid conditions was treated
+suspension (approximately 1 million cells) were plated on top of a pure with the average morphogen concentration to which the correspond-
+GFR-Matrigel (Corning) bed polymerized within a PDMS chamber in ing MiSTR segment was exposed (Supplementary Table 7).
+
+
+Nature Methods
+
+Resource https://doi.org/10.1038/s41592-025-02927-5
+
+Live imaging of developing MiSTR-like organoids and Amplification stage: organoids were incubated with 1 ml of amplitwo-dimensional neural sheets fication buffer for 10 min at room temperature. Meanwhile, hairpin
+For the light-sheet imaging experiments, MiSTR-like organoids from mixtures were prepared with 100 μl of amplification buffer and 2 μl
+conditions ‘control’ (n = 4) and ‘D’ (n = 4) were aggregated on day −1 and of each pair of snap-cooled hairpin probes (amplification probes,
+transferred to an imaging cuvette one day later (day 0 of the culture 3 μM stock). Each hybridization probe pair had two corresponding
+protocol). Matrigel diluted to a 1:50 ratio was used to fix the organoids amplification probes that would bind two hybridization probe pairs.
+in their position in the microchambers within the cuvette. The LS1 live Due to their cross-reactivity (the chain reaction could be prematurely
+light-sheet microscope (Viventis) was used to image each organoid triggered if they were in contact), these hairpin amplification probes
+every hour with a ×25 objective demagnified to ×18.5, across 200 opti- were snap-cooled separately by heating them to 95 °C for 90 s and
+cal slices separated by a 2-μm step size. In total, MiSTR-like organoids cooling them down to room temperature in a dark drawer for 30 min.
+were imaged for 21 days48. Once the pre-amplification time was over, the solution was removed
+ For the imaging of two-dimensional cultures of MiSTR-like neural and 100 μl of the hairpin mixture was added to the organoids, which
+progenitors, a custom-made chamber was made with the same dimen- were then incubated overnight (12–16 h) in the dark at room temperasions as the MiSTR chamber. This chamber was used to contain 1 million ture. On the next day, excess hairpins were removed with several wash-
+H9 and HES3 (NKX2.1GFP/w) hES cells, which were seeded on day −1 on ing steps using 2 ml of 5× SSCT at room temperature: first, two 5-min
+a bed of pure Matrigel. From day 0 until day 14, they were exposed to washes, followed by two 30-min washes, and finally one 5-min wash.
+neural patterning media and the morphogen cocktail corresponding Samples were then mounted on μ-Slide 18-well chambers (81811-IBI,
+to ‘control’ and condition ‘D’ (as described in the previous section). ibidi) and immobilized with 1% low-gelling-temperature agar (Merck/
+Imaging of the resulting neural sheets was performed using a Nikon Ti2 Sigma). When the agar solidified, 18% Optiprep (D1556-250ML, Sigma)
+microscope with a spinning disk module. Tile scans of the entire tissue in RNase-free PBS was added as a mounting medium and organoids
+were taken every day until NKX2.1-GFP activation, at a ×4 magnification were imaged in the following week.
+in three different z-step locations. Media were exchanged every day, HCR probes were designed and synthesized by Molecular Instruand the cultures were maintained until day 21. ments and their sequence is confidential (Supplementary Table 10).
+
+In situ HCR Imaging in situ HCR-stained organoids
+Tissue collection and fixation: on day 21 of culture, neural organoids Neural organoids were imaged using a Zeiss LSM 980 system in lambda
+were collected from the 96-well plates and pooled by condition in 2-ml scanning mode followed by spectral unmixing and processed with Fiji.
+microcentrifuge tubes. After removing leftover media, 2 ml of cold Acquisition mode parameters were: pinhole size, 20 μm (increased
+4% paraformaldehyde (PFA; Thermo Scientific, 28908) in RNase-free light collection in case of very low signal); scan speed, 6; bidirectional
+PBS (Invitrogen, AM9625) was added and samples were fixed for 2 h scanning, 2× averaging per frame; averaging method, sum intensity,
+or overnight at 4 °C. All subsequent incubation steps were done with 8 bits per pixel. A water-immersion, ×10 objective was used to take
+mild rocking using a nutator at 4 °C unless otherwise stated to preserve z-scans spanning each entire organoid, with a z-step size of 10 μm.
+the quality of endogenous mRNAs. After fixation, PFA was removed Tile scans were taken when organoid size exceeded the size of the
+and samples were washed three times with PBST (RNase-free PBS and field of view, and they were later stitched using the ZEN Blue software
+Tween20, Sigma-Aldrich) with incubation times of 15 min. After the last (v3.5.093.00008). Laser levels for each probe and fluorophore were
+wash, half of the PBST was removed, and the same amount of methanol adjusted to obtain the maximal dynamic range across all organoids,
+(MeOH) was added to make it a 50:50 PBST–MeOH mixture (vol/vol). avoiding signal saturation.
+Samples were incubated for 10–15 min and the PBST–MeOH solution
+was exchanged for 100% MeOH, then incubated for 15 min and replaced Organoid dissociation
+by new, pure MeOH for overnight storage at −20 °C. On day 21 of organoid culture, all the organoids from the same condi-
+ On the day of the experiment, samples were rehydrated with tions were collected from their individual wells and pooled for disa series of graded PBST/MeOH washes (25% PBST/75% MeOH, 50% sociation together. In the morphogen screen experiments including
+PBST/50% MeOH, 75% PBST/25% MeOH, 100% PBST twice) for 5 min multiple hPS cell lines (‘AT3’, ‘OG1’, ‘OG2’, ‘SMG4’ and ‘SMOG1’), cells
+each at 4 °C. Then PBST was removed, and samples were treated with from organoids from different lines were pooled and their identities
+0.5 ml of 10 μg ml−1 proteinase K (AM2546, Thermo Fisher) in PBST for were later assigned by comparison to a single-nucleotide polymor-
+3 min at room temperature. This concentration and time were previ- phism reference. A–E segments of 21-day-old MiSTR tissue were proously optimized for good permeabilization without disruption of cessed in the same way as organoids.
+neural organoid tissue. Next, organoids were washed twice for 2 min The Miltenyi neural tissue dissociation kit was consistently used
+with 1.5 ml of PBST, then postfixed with 0.5 ml of 4% PFA (20 min at in all experiments. First, tissue from each dissociation pool (hereafter
+room temperature) and washed again three times for 5 min with 1.5 ml referred to as ‘sample’) was transferred to a 5-ml microcentrifuge tube,
+of PBST. where it would be washed twice with 1 ml of HBSS without Ca2+ and Mg2+
+ Detection stage: Before hybridization, organoids were treated (HBSS w/o, Thermo Scientific). After removing the supernatant, 1 ml
+with 200 μl of probe hybridization buffer for 30 min at 37 °C inside a of enzyme mix 1 (Enzyme P/Papain + Buffer X from Miltenyi Neural dis-
+Thermomixer covered by the ThermoTop (Eppendorf) to avoid evapo- sociation kit) was added to each sample and incubated at 37 °C in the
+ration of the buffer. The probe hybridization buffer was then removed water bath or inside the incubator for 15 min. In the case of the MiSTR
+and 200 μl of probe solution was added to the organoids, which were tissue dissociations, the gentleMACS Octo Dissociator (Miltenyi) was
+incubated overnight at 37 °C as previously mentioned. The probe used inside the incubator for a milder and more progressive homogsolution contained 100 μl of probe hybridization buffer and 0.5 μl of enization of the tissue into single cells.
+each hybridization probe (targeting each gene, 1 μM stock), up to a After the first incubation step, 15 μl of enzyme mix 2 (Enzyme
+total of five probes. On the next day, excess probes were removed by A/DNase + Buffer Y from Miltenyi Neural Dissociation kit) were added
+washing four times for 15 min with preheated probe wash buffer (30% and the sample was mixed carefully with a wide-bore pipette, then
+formamide, 5× SSC, 9 mM citric acid pH 6, 0.1% Tween20, 50 μg ml−1 triturated 5–10× with a p1000 pipette and triturated again 5–10×
+heparin, dilution in ultrapure water) at 37 °C. Finally, organoids were with a p200 before another 15 min of incubation at 37 °C. Samples
+washed twice for 5 min with 2 ml of SSCT (0.1% Tween20 in 5× SSC were then further triturated with a p200 and incubated for another
+buffer, Sigma) at room temperature. 10 min at 37 °C. If there were still clumps, samples were triturated
+
+
+Nature Methods
+
+Resource https://doi.org/10.1038/s41592-025-02927-5
+
+once more with a p200. At this stage, the quality of the dissocia- One-quarter of the cDNA from each 10x sample was carried over
+tion was monitored by observing 1 μl of cell suspension under the for gene expression library construction. In short, cDNA was fragmicroscope at a magnification of ×10. If there were still clumps, mented to eliminate the template-switching oligonucleotide incorpofurther 5-min incubation and trituration steps would be per- rated in the previous step and ends were repaired and A-tailed. Reaction
+formed. If the suspension was homogeneous, we would proceed to products were purified with SPRIselect reagent and TruSeq read 2
+a filtering step. adaptors were ligated, one of them being a partial read to provide an
+ For cell suspension filtrations, 20 μm PluriSelect cell strainers were overhang for the following PCR. Another cleanup step with SPRIselect
+used. These were placed on top of a new 5-ml tube and pre-wet with was performed before the Sample Index PCR when P5 and P7 sequences
+500 ml of HBSS w/o before passing the cell suspension through it and (for Illumina sequencing) and sample indices (to allow for multiplexing
+washing any trapped cells with 1 ml of HBSS w/o and 1 ml of 0.5% BSA in the sequencer) were included in the construct. The final product
+(Miltenyi). From these filtered cell suspensions, 20 μl was taken from was purified with SPRIselect magnetic beads, and a concentration and
+each of them to count cells and check their viability. In the meantime, quality check were performed by running a Bioanalyzer High Sensitivity
+samples were centrifuged once for 5 min at 300g using a swing centri- chip before sequencing.
+fuge to minimize cell loss by concentrating the pellet at the bottom of
+the tube. After this step, the supernatant was removed, and cells were Single-cell hashtag (HTO) library generation
+resuspended in staining buffer (0.5% BSA in PBS−/−) at a concentration The first steps of HTO library preparation were done synchronously
+of 7,777 cells per μl. with the cDNA library until the cDNA amplification step of the
+ 10x library workflow. From that point onward, a modified version of the
+Cell hashing (CITE-seq) BioLegend protocol was used. The barcoded antibodies are coupled
+Once all samples were ready at the desired concentration, 45 μl of to oligo sequences called hashtags (HTOs), which contain a polyadecell suspension was transferred to a new 1.5-ml microcentrifuge tube nylated sequence at their 3′ end that enables hybridization with the
+(approximately 350,000 cells) and 5 μl of Human TruStain FcXTM Fc poly(dT) capture sequences in GEM beads. In parallel to endogenous
+Blocking reagent (BioLegend) was added to block unspecific binding mRNAs, HTO sequences were reverse-transcribed, and the resulting
+of the hashing antibodies. After mixing, the suspension was incubated cDNA was amplified using as PCR oligonucleotides the partial TruSeq
+for 10 min at 4 °C. Right after blocking, 2 μl (1 μg) of the corresponding read 1 adaptor (provided in the 10x kit) and an additive primer (a parhashing antibody (TotalSeq-A, BioLegend; Supplementary Table 11) tial TruSeq read 2, sequence provided by BioLegend and synthesized
+were added to the blocked samples, mixed with a pipette and left to by Integrated DNA Technologies). The additive primer annealed on
+incubate for 30 min at 4 °C. Every 10 min the tubes were mildly shaken the 3′ end of the construct and enabled its exponential amplification.
+to avoid precipitation of cells at the bottom of the tube. When the During the post-cDNA amplification cleanup step, hashtag-derived
+incubation time was finished, 1 ml of staining buffer was added to dilute fragments (HTOs) were separated from mRNA-derived fragments
+each sample and tubes were spun down in a swing centrifuge for 5 min (cDNA) based on their size (<180 base pairs) and processed separately
+at 300g and 4 °C. The supernatant was then removed, and an extra to construct a hashtag-specific library. The HTO fraction was subwashing step was performed, during which 20 μl of cell suspension was jected to a Sample Index PCR where the P5 adaptor was added through
+taken out for cell counting and viability checking. After the last washing the SI-PCR primer mix (10x kit) together with the P7 adaptor and an
+step, cell pellets were resuspended in staining buffer at a concentration index sequence (both contained in a TruSeq D70x_s oligonucleotide,
+of 1,000 cells per μl. Once all samples were adjusted in concentration, sequence synthesized by Integrated DNA Technologies) to allow for
+6–12 samples were pooled at a 1:1 ratio, usually by mixing 10 μl of each simultaneous sequencing with other libraries. For each sample, reacof them. The suspension was kept on ice during 10x preparations and tions contained 5 μl of HTO fraction, 2.5 μl of SI-PCR primer (10 μM
+20–25 μl of the hashed pool (20–25,000 cells) was loaded in one lane stock), 2.5 μl of TruSeq D70x_s primer (10 μM stock), 50 μl of Kapa Hifi
+of the Chromium chip (10x Genomics). Hotstart Ready Mix (Roche) and 40 μl of nuclease-free water (Invitro-
+ gen). After the Sample Index PCR, a final SPRIselect-based cleanup
+Single-cell transcriptome (cDNA) library generation was performed before resuspension in nuclease-free water and library
+We used the Chromium Next GEM Single Cell 3′ v3/3.1 kit (10x Genom- quality control and quantification.
+ics) to generate single-cell transcriptome libraries from hashed samples. The procedure followed the steps listed in the corresponding Automatic organoid dissociation, single-cell fixation,
+10x protocol (CG000183 Rev A for v3, CG000204 Rev D for v3.1). scRNA-seq library preparation and sequencing for patterning
+ Briefly, the Chromium chip and Controller were used to encap- reproducibility experiment
+sulate single cells in GEMs (nanoliter-scale Gel beads in EMulsion) After day 21 in culture, three organoids per condition per cell line were
+together with a master mix for reverse transcription of its messen- dissociated individually using the CyBio FeliX liquid handler robot
+ger RNAs and a gel bead functionalized with polydT sequences that with a thermoshaker. For dissociation, we used a papain-based discapture the cell’s mRNA. In addition, these gel beads also contain a sociation kit as for the patterning conditions screen. Each organoid
+unique molecular identifier (UMI) that individually tags all original was dissociated using 410 μl of enzyme mix 1 and 6 μl of enzyme mix 2.
+RNA molecules and a 10x barcode that labels all cDNAs belonging to the Then, single-cell suspensions from the same condition were pooled
+same cell. A TruSeq read 1 adaptor sequence is also included to facili- (H1 and H9; WTC and WIBJ2). Each individual single-cell suspension
+tate transcriptome sequencing in Illumina platforms. Once cells were has been followed by fixation and permeabilization procedures, which
+encapsulated in GEMs, a reverse-transcription step was run to convert were performed according to the manufacturer’s specification (Parsepolyadenylated mRNAs into full-length cDNA sequences with a UMI Biosciences, cell fixation kit v3, CF100). Then, collected samples were
+and cellular barcode. cDNA products were then purified with magnetic processed for highly multiplexed scRNA-seq using a split-pool combeads (Dynabeads MyOne SILANE, manufactured by Thermo Fisher but binatorial barcoding kit (ParseBiosciences, WT Mega kit v3, MG100).
+included in 10x Genomics kits) and further amplified in an extra PCR
+step using a partial TruSeq read 1 and partial template-switching oligo- Sequencing and genomic data preprocessing
+nucleotide as primers. Another purification step based on construct The pooled libraries were appropriately diluted and sequenced at
+size was performed with SPRIselect reagent (Beckman Coulter) before the Genomics Facility Basel (GFB). Sequencing data were demulquantification and quality control with a Bioanalyzer High Sensitivity tiplexed by the GFB, using bcl2fastq version 2.20.422 with the folchip (2100 Bioanalyzer, Agilent). lowing parameters: --ignore-missing-bcls --ignore-missing-controls
+
+
+Nature Methods
+
+Resource https://doi.org/10.1038/s41592-025-02927-5
+
+--ignore-missing-positions --ignore-missing-filter --no- bgzf- differences in patterning, which would otherwise be masked by other
+compression --barcode-mismatches 1. 10x libraries were sequenced sources of variation such as cell cycle, differentiation stage or metabolic
+in SP/S1/S2 flow cells with Illumina NovaSeq technology, using a states across organoid cells. Feature, dot plot, heat map and violin plotpaired-end 28/10/10/90 or 28/8/0/91 configuration (Read1/IDX i7/ ting were performed with the packages ggplot2 (v3.4.1)65, Seurat64 and
+IDX i5/Read2). After sample demultiplexing, Cell Ranger v3.1.0 was used SCpubr (v1.1.2)66. Differential gene expression testing was performed
+with GRCh38-3.0.0 as a reference to derive gene-cell count matrices with Seurat’s function FindMarkers and the wilcoxauc function from the
+from the sequencing read (fastq) files of the gene expression library. presto package67.
+To obtain hashtag-cell count matrices, CITE-seq-Count (v1.4.3)25 was Once each experiment was analyzed separately, the single-cell
+run on the hashtag library sequencing read files with the following gene/hashtag data were merged with Seurat or integrated using
+parameters: --cbf 1, --cbl 16, --umif 17, --umil 28, and a variable number Harmony68, CCA/RPCA69 or CSS/RSS27. In RSS integration, a pseudo-cell
+of targeted cells depending on the loaded cells per experiment (ranging aggregated version was used as a reference. The LabelTransfer funcfrom 12,000 to 16,000 cells). tion from Seurat was used to project the gene expression data to the
+ Parse libraries were sequenced in S2 flow cells with Illumina developing mouse70 and human brain28 single-cell transcriptome
+NovaSeq technology, using a paired-end 64/8/8/58 configuration. datasets, and the VoxHunt package (v.1.0.1)71 was used for spatial
+We used Parse Biosciences Software (v1.3.1) to demultiplex barcodes, projections to the developing mouse brain, using the Allen Brain
+map to hg38 human transcriptome and generate count matrix. Atlas ISH reference.
+ For reproducibility experiment analysis, we used the Scanpy
+Demultiplexing of hashing antibody labels Python package (v1.10.3). Cells were filtered out on the basis of UMI
+The hashtag-cell count matrices obtained from CITE-seq-Count were counts (>750, <20,000) and the fraction of mitochondrial genes
+preprocessed with a custom-made script, which involved transposi- (<10). Then transcript counts were normalized to the total number
+tion and column/row name adaptation. Once adapted, they were of counts for that cell, multiplied by a scaling factor of 10,000 and
+subsetted for the cell barcodes present in both the hashtag and gene subsequently natural log transformed. Then, highly variable genes
+expression library and added as an ‘HTO’ assay to normalized Seu- were estimated and total UMI counts and the fraction of mitochonrat objects. They were then normalized using the NormalizeData drial genes were regressed out. RSS embedding was generated as
+function using the centered log-ratio transformation method. After described before. For generating UMAP embeddings and clustering,
+normalization, HTODemux was run on the ‘HTO’ assay with a posi- only RSS embeddings with correlation levels to cell cycle scores less
+tive.quantile of 0.99–0.999 (adapted depending on the sample) to than 0.5 were considered. Clusters were annotated into cell classes
+obtain a hashtag labeling classification of each cell. The quality of and brain regions based on canonical marker expression. Neuron
+this classification was assessed by visualizing hashtag assignments clusters were further annotated based on neurotransmitter transporter
+on t-SNE and RidgePlots. expression.
+
+Demultiplexing of cell line identities Forebrain axis scoring
+In the morphogen screen experiments where multiple hPS cell lines To calculate a forebrain axis score per cell, forebrain progenitors (telwere pooled (‘AT3’, ‘OG1’, ‘OG2’, ‘SMG4’ and ‘SMOG1’), hPS cell identi- encephalic and hypothalamic progenitors) were subsetted from the
+ties were demultiplexed using demuxlet61 and the parameters --alpha main Seurat object, as this score would only be representative of the
+0 --alpha 0.5. For patterning reproducibility experiment cell identities DV axis at this AP axis position. The corresponding expression matrix
+were demultiplexed using cellsnp-lite62 followed by vireo62,63. Unclear was extracted for these cells and the union of reference genes involved
+cell identities were further deciphered using average expression of in DV patterning (known from the literature72–74) with the variable
+Y-chromosome genes. features from this dataset. This expression matrix was transposed
+ and converted into a Seurat object to observe genes as the variable
+Single-cell gene expression data analysis of interest. ScaleData, RunPCA and FindNeighbors were run to find
+Gene count matrices from each experiment were preprocessed and gene modules with correlated expression patterns. Next, we took the
+analyzed using Seurat (v4.3.0)64. A quality-control step was consistently nearest-neighbor graph embeddings and converted them into a symapplied by filtering out cells with gene counts lower than 1,000 and metric matrix of neighboring (covarying) genes, which was converted
+mitochondrial gene contents of 10% or higher. The count matrices were into a summary data frame of correlating genes. The dorsalizing genes
+then normalized and scaled, either using the functions NormalizeData were separated from the ventralizing ones, and their nearest-neighbor
+(logarithmic normalization) and ScaleData in the MiSTR experiments genes were assigned to the same gene module to then calculate a dorsal
+or using SCTransform in the patterning screenings. In all cases, cell and ventral score using Seurat’s function AddModuleScore. DV_score
+cycle scoring was performed to remove the effects of cell cycle vari- and FBaxis_score were calculated as the difference between the dorsal
+ables in the data during the scaling step. In addition, a custom-made and ventral scores, and FBaxis_rank as the cellular rankings stemming
+function was applied to ignore mitochondrial and ribosomal genes in from the FBaxis_score.
+downstream analysis.
+ Variable feature selection was performed with the ‘mean.var.plot’ Pseudo-bulk analysis of conditions
+method or within SCTransform, and the obtained variable genes were To summarize gene expression for each condition taking cell line
+used as input for PCA calculation. The principal components (PCs) with and experimental information into account, the Seurat functions
+correlation levels to cell cycle scores higher than 0.3 were excluded ‘AverageExpression’ and ‘AggregateExpression’ and the custom
+from downstream analysis. Cell cycle scoring was performed using the function ‘summarize_data_to_groups’ were used. Taking the Condi-
+CellCycleScoring() function of Seurat package. A variable number of the tion_ident_line column of the metadata as a grouping variable, the
+other PCs—determined by ElbowPlot visualization of their contribution average normalized data matrix, the aggregated count data matrix
+to dataset variance—were used for further dimensionality reduction and the summarized metadata table were given as input to create a
+with t-SNE or UMAP embeddings and for neighbor finding and cluster- new Seurat object (with the ‘CreateSeuratObject’ function). After
+ing. The clustering resolution and UMAP parameters were adapted for this, the same downstream processing as earlier was followed, with
+each dataset to retrieve the most meaningful biological information. SCTransform normalization and scaling, cell cycle score regression,
+In some intermediate steps, a list of relevant patterning genes was PCA calculation with variable features from the SCT assay and UMAP
+provided as input to PC calculation to enhance the visualization of dimensionality reduction.
+
+
+Nature Methods
+
+Resource https://doi.org/10.1038/s41592-025-02927-5
+
+Morphogen–regulon network computation for the patterning mentioned above, centroids for each condition were calculated. Then,
+condition screen for each condition (single and combination), the location of the control
+First, our goal was to retrieve regulons for the patterning condition centroid was deducted to position control as 0. Then, for each triple
+screen data, specifically for the HES3 cells. To calculate regulons, we used of single morphogen and combination, the non-negative linear model
+SCENIC39 using the pySCENIC implementation75 (v0.12.1). We ran the full was fitted, representing morphogen combination as a linear combina-
+SCENIC algorithm with default parameters using the clustered v10 motif tion of single morphogen treatments and for each case the residual of
+database on the 38,504 cells from the patterning condition screen data39. linear model fit was calculated. These residuals serve as a measure of
+This led to the detection of 413 regulons (average size, 141 genes). After- non-additivity of morphogen interaction (the higher the residual is, the
+ward, we calculated regulon activity scores for every cell using AUCell. higher the non-additivity). Residuals were computed using the NNLS
+ Regulon activity was used as input for the GRNBoost2 algorithm function of SciPy.optimize v.1.14.1.
+(arboreto package 0.1.6) to identify regulons predictive of morphogen
+concentration, thereby inferring links between regulons and morpho- Quantification of variability
+gens. To assess time effects and morphogen interactions, we explicitly To quantify variability between batches and conditions, we utilized
+included these terms as pseudo-morphogens (39 in total). After infer- several metrics. We calculated Kullback–Leibler divergence (so-called
+ence, we demultiplexed the variables back into single morphogens, relative entropy) using the entropy function of SciPy v.1.14.1 comparannotating edges to indicate whether the detected morphogen–regu- ing distributions of cell-type proportion among conditions; MMD
+lon link was influenced by interactions or time-dependent effects. and E-distance to measure distances between distributions of cells
+When a morphogen–regulon link was detected multiple times, we between conditions in 20-dimensional PCA space, derived from RSS
+retained only the strongest connection based on weight (w). embeddings, using pertpy v.0.9.4. For all of them, lower value repre-
+ We also calculated correlations between morphogens and regulon sents higher similarity between compared samples, meaning a higher
+activity scores (area under the curve or AUC). Pearson correlations degree of reproducibility. To estimate variability between batches, we
+were calculated for timing and concentration experiments separately. calculated the three metrics mentioned above for each cell line and
+Finally, only morphogen–regulon links with a weight > 200 were kept, condition, comparing different batches of the same condition and cell
+and non-neural as well as undifferentiated cluster-associated regulons line. To compare variability across conditions, we calculated distances
+were removed from the network. To improve readability, the number between all unique pairs of samples, which received the same treatment
+of regulons per morphogen displayed in the regulon network (Fig. 2) (considering all four tested cell lines). Each condition was characterized
+was limited to 55. The layout was computed using layout_as_backbone by the set of 28 unique calculated distances, whose distributions were
+(keep = 0.3) and plotted using igraph v.1.4.0 and tidygraph v1.2.3. visualized using box plots.
+
+Morphogen–regulon network computation for the patterning Mapping to primary data and human neural organoid atlas
+reproducibility screen To map single-cell organoid data to the primary human developing
+For the patterning reproducibility screen (201,104 cells clustered into brain atlas, we utilized the approach described previously24. Briefly,
+26 clusters) on four different cell lines (H1, WTC, H9, WIBJ2), we ran scArches was used to map scRNA-seq data to the scANVI model of the
+pySCENIC with the same parameters as the original run. First, we ran human developing brain atlas. We trained the model for 100 epochs
+pySCENIC 100 times on each cell line separately. For this we subsam- with default parameters. After mapping we calculated maximum prespled the ‘adata’ object, retaining a maximum of 500 cells per cluster, ence scores of each condition for primary cells.
+removing any cells belonging to non-neurectodermal tissues. In addi- To map single-cell organoid data to the human neural organoid
+tion, because we were interested in cell line differences, we performed atlas, we utilized the hnoca-tools package24. scArches was used to map
+100 SCENIC runs sampling a maximum of 600 cells for every cluster scRNA-seq data to the scPoli model of the human developing brain
+(equally distributed across cell lines). In total, we then summarized atlas. We trained the model for 100 epochs with default parameters.
+these 500 SCENIC runs, generating consensus regulons, summarizing After mapping we calculated maximum presence scores of each condievery detected interaction between transcription factor and target tion for organoid atlas cells.
+genes. This led to 136 consensus regulons (average size of 88 genes).
+We then scored every cell for all consensus regulons using AUCell. Estimation of AP and DV scores
+ The regulon activity matrix was then used as input for the GRN- To train the models to estimate AP and DV scores, the radial glia
+Boostv2 algorithm to link morphogens with regulons (as described subset of a recently published first-trimester developing human
+above). The algorithm was run for every cell line separately. Finally, brain transcriptomic atlas28 was used, which was reprocessed as
+for every detected link, we calculated the Pearson correlation with described previously24.
+morphogen concentration, including interactions. For the correlation For building models, a radial glial cell subset was used. For the
+calculations, we filtered the data, to only retain conditions detected AP axis scoring model, the dissection tissues of the primary radial
+in all cell lines. Furthermore, we subsampled the data, keeping 500 glial cells were firstly summarized to telencephalon, diencephalon,
+cells per condition for each cell line (22 conditions). Then we normal- mesencephalon and rhombencephalon. Cells whose dissection tissue
+ized the morphogen concentrations (log and min–max). Finally, we labeling was too broad (for example, head and brain) were assigned to
+calculated correlations (Pearson) separately for conditions with NIM ‘None’. To correct for the potential labeling error due to mis-dissection,
+and neural patterning media (SciPy, 1.12.0). We used the Ramsey RESET a label smoothening procedure was applied by calculating the numtest to identify morphogen–regulon links that are non-linear using the bers of neighboring cells dissected from each of the four summastatsmodels module in Python (v.0.14.1). rized regions. A weighted proportion (weighted by Jaccard index
+ for neighborhood similarity) was calculated and the cell was reas-
+Analysis of morphogen interactions signed to the region with the highest score. Based on the calibrated
+To quantify differences between single morphogen conditions and regional label, a value of 1, 2, 3 or 4 was assigned to each cell—1 for
+morphogen combinations, the MMD distance was calculated between telencephalon, 2 for diencephalon, 3 for mesencephalon and 4 for
+each pair of conditions using pertpy v.0.9.4. MMD was calculated in rhombencephalon. In total, 5,000 radial glial cells with each of the
+20-dimensional PCA space, derived from RSS embeddings. four values were then subset to train an elastic net model (with glmnet
+ To quantify non-additivity of morphogen interactions, we package, default parameters) with the scANVI latent representation as
+developed the following approach. In the 20-dimensional PCA space the input.
+
+
+Nature Methods
+
+Resource https://doi.org/10.1038/s41592-025-02927-5
+
+ For the DV axis scoring model, the intuitive dorsal and ventral 63. Huang, Y., McCarthy, D. J. & Stegle, O. Vireo: Bayesian
+scores were firstly calculated as the module activity scores of the dor- demultiplexing of pooled single-cell RNA-seq data without
+sal organizer markers (PAX6, GLI3, BARHL1, GAS1, EMX1, WNT2B) and genotype reference. Genome Biol. 20, 273 (2019).
+ventral organizer markers (NKX2-1, NKX2-2, SIX6, SIX3, SHH, RAX, DLK1, 64. Hao, Y. et al. Integrated analysis of multimodal single-cell data.
+FOXA2, SPON1, SULF1) using the AddModuleScores function in Seurat. Cell 184, 3573–3587.e29 (2021).
+Both marker sets were derived from the mouse developing brain atlas70. 65. Wickham, H. ggplot2: Elegant Graphics for Data Analysis (Springer,
+The marker-based DV scores were calculated as the difference between 2016).
+the two modules scores (DV). A random subset of 80% of the radial 66. Blanco-Carmona, E. Generating publication ready visualizations
+glial cells with absolute values of the marker-based DV scores > 5 was for single cell transcriptomics using SCpubr. Preprint at bioRxiv
+selected to train an elastic net model (with glmnet package, binomial https://doi.org/10.1101/2022.02.28.482303 (2022).
+family) to classify dorsal and ventral cells with the scANVI latent rep- 67. Korsunsky, I., Nathan, A., Millard, N. & Raychaudhuri, S. Presto
+resentation as the input. scales Wilcoxon and auROC analyses to millions of observations.
+ To apply the two scoring models to the organoid data, scArches76 Preprint at bioRxiv https://doi.org/10.1101/653253 (2019).
+was first used to project the organoid data to the scANVI model of the 68. Korsunsky, I. et al. Fast, sensitive and accurate integration of
+primary atlas to obtain the projected latent representation as described single-cell data with Harmony. Nat. Methods 16, 1289–1296 (2019).
+in the previous section. Next, the projected representation was used 69. Butler, A., Hoffman, P., Smibert, P., Papalexi, E. & Satija, R. Integrating
+as the input to the trained AP and DV axis scoring model for prediction single-cell transcriptomic data across different conditions,
+(type = ‘link’). technologies, and species. Nat. Biotechnol. 36, 411–420 (2018).
+ 70. La Manno, G. et al. Molecular architecture of the developing
+Statistics and reproducibility mouse brain. Nature 596, 92–96 (2021).
+For all datasets, single-cell transcriptome measurements were taken 71. Fleck, J. S. et al. Resolving organoid brain region identities by
+once for each organoid or MiSTR culture after 21 days in culture. For dif- mapping single-cell genomic data to reference atlases. Cell Stem
+ferential composition testing in Fig. 2 and Extended Data Figs. 1 and 2, Cell 28, 1177–1180 (2021).
+we applied the R function fisher.test (Fisher’s exact test for count data) 72. Moreau, M. X., Saillour, Y., Cwetsch, A. W., Pierani, A. & Causeret,
+to compare the number of cells per cluster in each morphogen condi- F. Single-cell transcriptomics of the early developing mouse
+tion against the control condition. Tests were separately performed cerebral cortex disentangle the spatial and temporal components
+for each cell line because each line presented different cell-type biases. of neuronal fate acquisition. Development 148, dev197962 (2021).
+No covariates were tested. P values were adjusted for multiple testing 73. Onorati, M. et al. Molecular and functional definition of the
+using the Bonferroni method. For conditions with adjusted P value developing human striatum. Nat. Neurosci. 17, 1804–1815 (2014).
+lower than 0.01, an enrichment score was calculated using the log2 of 74. Kim, D. W. et al. Author Correction: The cellular and molecular landscape
+the odds ratio; for all the other conditions, the enrichment score was of hypothalamic patterning and differentiation from embryonic to late
+set to 0 (no enrichment nor depletion of a particular cluster). For visu- postnatal development. Nat. Commun. 13, 332 (2022).
+alization purposes, an arbitrary value of ±5 was set as the maximum and 75. Van de Sande, B. et al. A scalable SCENIC workflow for single-cell
+minimum enrichment score to display, with all values above and below gene regulatory network analysis. Nat. Protoc. 15, 2247–2276
+represented as 5 in the final heat map. Supplementary Table 3 shows (2020).
+the final data frame compiling all Fisher’s test results, P values, sample 76. Lotfollahi, M. et al. Mapping single-cell data to reference atlases
+sizes and enrichment scores for all clusters, morphogen treatments by transfer learning. Nat. Biotechnol. 40, 121–130 (2022).
+and cell lines. The script ‘Morphogen_Screen_Enrichment.R’ contains 77. Sanchís Calleja, F., Azbukina, N., He, Z., Camp, J., & Treutlein, B.
+the code used to generate Supplementary Table 3, and is available on Systematic scRNAseq screens profile neural organoid response to
+GitHub (https://github.com/quadbio/organoid_patterning_screen/). morphogens. Zenodo https://doi.org/10.5281/zenodo.17225179 (2025).
+Since HES3-derived organoids were exposed to all the morphogen
+treatments in the screen, all figures in the paper refer to their enrich- Acknowledgements
+ment scores, where gradual variations can be better observed. We thank the B.T., J.G.C. and A.K. laboratories for insightful discussions
+ and feedback. We also thank E. Duperrex for helping to establish
+Reporting summary in situ HCR for this project. We thank the GFB and Single Cell Facility
+Further information on research design is available in the Nature for technical support in scRNA-seq and imaging experiments. We also
+Portfolio Reporting Summary linked to this article. thank E. Stanley and A. G. Elefanty (MCRI and Monash University) and
+ the laboratory of A.K. for kindly sharing the HES3, NKX2.1GFP/w cell
+Data availability line. We thank B. Kashanian for help with taking bright-field images
+Raw and processed sequencing data are available at ArrayExpress. of organoids. We thank S. Seidel for discussions on regulon-based
+The accession codes for the individual experiments are E-MTAB-15622 analysis, D. Bobrovskiy for discussion on distribution comparison
+for the morphogen reproducibility screen and E-MTAB-15667 for the and P. L. Murphy for help with manuscript formatting. Work in the
+morphogen patterning screen. Processed data and the VCF files for laboratory of B.T. is supported by the European Research Council
+demultiplexing are available on Zenodo via https://doi.org/10.5281/ (Organomics-758877, Braintime-874606); the Chan Zuckerberg Initiative
+zenodo.17225179 (ref. 77). DAF, an advised fund of the Silicon Valley Community Foundation (grant
+ no. CZF2019-002440); the Swiss National Science Foundation (project
+Code availability grant-310030_192604); and the National Centre of Competence in
+Scripts reproducing the main analyses in this study are available on Research Molecular Systems Engineering. J.G.C. was supported by the
+GitHub (https://github.com/quadbio/organoid_patterning_screen/). European Research Council (Anthropoid-803441) and the Swiss National
+ Science Foundation (project grant 310030_84795) and A.K. by the Novo
+References Nordisk Foundation (NNF18OC0030286 and NNF21CC0073729).
+61. Kang, H. M. et al. Multiplexed droplet single-cell RNA-sequencing
+ using natural genetic variation. Nat. Biotechnol. 36, 89–94 (2018). Author contributions
+62. Huang, X. & Huang, Y. Cellsnp-lite: an efficient tool for genotyping F.S.-C. designed and performed the morphogen patterning screen and
+ single cells. Bioinformatics 37, 4569–4571 (2021). MiSTR-related experiments, analyzed and interpreted the results, and
+
+
+Nature Methods
+
+Resource https://doi.org/10.1038/s41592-025-02927-5
+
+wrote the manuscript. N.A. designed and performed reproducibility Competing interests
+experiments, analyzed and interpreted the results, and wrote the The authors declare no competing interests.
+manuscript. A.J. executed and analyzed long-term light-sheet
+imaging experiments and contributed to HCR establishment and Additional information
+experimental design. Z.H. performed and supervised computational Extended data is available for this paper at
+analyses. R.O. performed hPS cell, organoid culture and cell hashing https://doi.org/10.1038/s41592-025-02927-5.
+experiments. C.R., P.R. and G.S.R. performed MiSTR experiments.
+M. Santel performed organoid culture and cell hashing for the Supplementary information The online version
+MiSTR-versus-organoid experiments, as well as sample fixation in contains supplementary material available at
+the reproducibility screen. J.J. performed SCENIC analysis and J.S.F. https://doi.org/10.1038/s41592-025-02927-5.
+performed organoid cell-type projection to the developing human
+brain reference. M. Seimiya performed HCR stainings and sample Correspondence and requests for materials should be addressed to
+fixation for the reproducibility screen. B.E. supported organoid culture J. Gray Camp or Barbara Treutlein.
+for the reproducibility screen. A.K. designed and supervised MiSTR
+experiments and provided feedback on the entire project. J.G.C. and Peer review information Nature Methods thanks Karl Koehler and the
+B.T. supervised the project, designed the experiments, interpreted the other, anonymous, reviewer(s) for their contribution to the peer review
+results and wrote the manuscript. of this work. Primary Handling Editor: Madhura Mukhopadhyay,
+ in collaboration with the Nature Methods team.
+Funding
+Open access funding provided by Swiss Federal Institute of Reprints and permissions information is available at
+Technology Zurich. www.nature.com/reprints.
+
+
+Nature Methods
+
+Resource https://doi.org/10.1038/s41592-025-02927-5
+
+
+Extended Data Fig. 1 | Overview of conditions and results of patterning timing (b), concentration (c), and combination (d) experiments. Heatmap shows
+condition screening. a, Overview of the experimental setup and downstream enrichment (orange) and depletion (purple) of each cluster across conditions
+analyses. b-d, Barplots (left) show total number of cells sequenced and (right) in comparison to corresponding control, untreated organoids from the
+percentage of cells in each cluster per condition in the morphogen exposure same experiment. All results correspond to the cell line HES3.
+
+
+Nature Methods
+
+Resource https://doi.org/10.1038/s41592-025-02927-5
+
+
+Extended Data Fig. 2 | Annotation of single-cell dataset resulting from the pluripotent stem cells; N.ect, Neuroectoderm; N.epith., Neuroepithelium;
+patterning condition screening. Dotplots showing cluster marker expression Dienc., Diencephalon; PNS, peripheral neural system; CNS, central neural
+for the entire morphogen screen dataset (including 3 cell lines H9, HES3 and system. c, Dotplot, showing marker expression for CNS neurons. GE, ganglionic
+WTC), showing cell class markers (a) and brain region markers (b). PSC., eminence.
+
+
+Nature Methods
+
+Resource https://doi.org/10.1038/s41592-025-02927-5
+
+
+Extended Data Fig. 3 | See next page for caption.
+
+
+Nature Methods
+
+Resource https://doi.org/10.1038/s41592-025-02927-5
+
+Extended Data Fig. 3 | Regulation of neural and non-neural cell fates by HCR in situ hybridization for FOXA2 and RARA comparing RA treatment
+morphogen timing and morphogen concentrations. a-k, Most significantly conditions c1 and c5 (left) and HCR in situ hybridization for PTCH1 and NKX2-1
+enriched or depleted clusters for each morphogen after single time point pulses comparing SHH treatment conditions c1 and c5 (right) for WTC cell line. m, HCR
+(Timing) or prolonged exposure to concentration steps (Concentrations) in in situ hybridization for HOXB2 comparing RA treatment conditions c1 and c5
+HES3-derived organoids. P-values were derived using two-sided Fisher’s exact for HES3 cell line. In panels l and m, images are representative of 3 organoids per
+test with Bonferroni correction. *** p-value < 0.001, ** 0.001< p-value < 0.01, * 0.01 condition.
+< p-value < 0.05. Exact p-values can be found in Supplementary Table 3. l,
+
+
+Nature Methods
+
+Resource https://doi.org/10.1038/s41592-025-02927-5
+
+
+Extended Data Fig. 4 | Comparing the effects of FGF8 versus SHH and BMP4 n = 361 for SHH c5, n = 17 for Ctrl (FGF-8 experiment), n = 446 for FGF-8 c1,
+versus BMP7 treatment. Results shown correspond to the lines HES3 (single-cell n = 239 for FGF-8 c2, n = 526 for FGF-8 c3, n = 407 for FGF-8 c4 and n = 472 for
+RNA-seq analysis) and WTC (HCR image). a, Effects of different FGF8 treatment FGF-8 c5. e, Anteroposterior scores for telencephalic progenitors treated with
+windows (left) and concentration steps (right) at early (day 3-14) and late (day SHH or FGF8 concentration steps on days 3-14. Vertical bars depict the median
+12-20) time windows on the abundance of telencephalic progenitor populations dorso-ventral score across all cells categorized as telencephalic progenitors
+at 21 days. Bottom left: Spatial representation of the clusters enriched by FGF8 for each condition. n = 12 for Ctrl (SHH experiment), n = 1165 for SHH c1, n = 269
+and SHH in a schematic representation of a ~ 4 GW human embryo. b, Effects of for SHH c2, n = 274 for SHH c3, n = 304 for SHH c4, n = 356 for SHH c5, n = 17 for
+different SHH treatment windows (left) and concentration steps (right) on the Ctrl (FGF-8 experiment), n = 439 for FGF-8 c1, n = 238 for FGF-8 c2, n = 523 for
+abundance of retinal, telencephalic and hypothalamic progenitor populations FGF-8 c3, n = 406 for FGF-8 c4, and n = 470 for FGF-8 c5. f, Volcano Plot showing
+in 21-day-old neural organoids. P-values were derived using two-sided Fisher’s the differentially expressed genes between the telencephalic progenitors of
+exact test with Bonferroni correction. For panels a and b, *** p-value < 0.001, FGF-8 and SHH conditions, promoting the greatest increase in telencephalic
+** 0.001< p-value < 0.01, * 0.01 < p-value < 0.05. Exact p-values can be found in progenitors (c3 on days 3-14 for FGF-8, and c2 on days 3-14 for SHH). Differentially
+Supplementary Table 3. c, HCR in situ hybridization for PTCH1 (hypothalamic expressed genes were obtained by applying the Wilcoxon rank sum test for
+marker gene and target gene of SHH signaling) comparing SHH treatment differential expression analysis. P-values were then subjected to Bonferroni
+conditions c1 and c5. Cell line = WTC. Images are representative of 3 organoids correction for multiple testing. g, Endogenous FGF8 expression in telencephalic
+per condition. d, Dorso-ventral score values of forebrain single cells for progenitors in response to SHH or FGF8 concentration steps applied at the same
+different concentration steps of SHH and FGF8 (both given on days 3-14) with time window. SHH expression is not shown, as it consistently yielded zero values.
+their corresponding controls showing higher ventralization in SHH-treated h, UMAP representation of cell fateshifts under BMP4 and BMP7 treatment in
+organoids, which reach the hypothalamic compartment. Horizontal bars depict comparison to control. Only cells from the BMP concentration steps experiment
+the median dorso-ventral score across all cells categorized as telencephalic and are shown and are coloured by cluster. Legend with relevant clusters is shown
+hypothalamic progenitors for each condition. n = 12 for Ctrl (SHH experiment), below. i, Heatmap showing differentially expressed genes in ectodermal cells
+n = 424 for SHH c1, n = 271 for SHH c2, n = 379 for SHH c3, n = 380 for SHH c4, from control, BMP4 or BMP7 conditions.
+
+
+Nature Methods
+
+Resource https://doi.org/10.1038/s41592-025-02927-5
+
+
+Extended Data Fig. 5 | Correlations between regulon activity and morphogen roughly equal dependency on concentration and timing. d, Lollipop plot showing
+timing and concentration. All results correspond to the hESC line HES3. (a-c) the correlation of regulon activity (weights>200) to XAV939 treatment timing.
+Scatterplot showing the relationship between correlation to timing (x-axis) e, Lollipop plot showing the correlation of regulon activity (weights>200) to
+and concentration (y-axis) of morphogen-associated regulons, with selected CHIR concentrations. In d and e, the size of the lollipop circle represents the
+regulons labeled. a,b, Scatterplots of RA- and BMP4-associated regulon weight of the corresponding association to the morphogen, and the color
+correlation to timing and concentration. c Scatterplot of the top 20 weighted represents the cluster where the regulon is most enriched. The top regulons
+BMP7-associated regulons correlation to timing and concentration, showing with associations to timing surpassing weights of 200 are shown.
+
+
+Nature Methods
+
+Resource https://doi.org/10.1038/s41592-025-02927-5
+
+
+Extended Data Fig. 6 | Morphogen combinations regulate neural cell fates Smaller MMD distances between two conditions imply more similarity. e, Top,
+(WTC). All plots in this figure are related to WTC. a, Pie charts indicating cell example projection of single morphogen treatments, the expected result of their
+types distributions of each coordinate of the morphogen treatment panel. Pie additive combination and the observed result of their combination in a common
+charts with gray background correspond to single morphogen treatment. B3 PCA space. Non-Negative Least Squares (NNLS) Residuals indicate whether
+serves as a control, without any morphogens added, and is calculated as the the combination of morphogens deviates from the additive model of single
+average of all control conditions for each organoid batch. b, Pie charts indicating morphogen-treated conditions. Bottom, quantification of NNLS Residuals for
+cell types distributions of each coordinate of the morphogen treatment panel each combination of morphogens. f, Enrichment of hindbrain vs. posterior floor
+with addition of FGF8 on top of the corresponding morphogens. c, Top, example plate in different conditions under RA, SHH and FGF8 treatment. The basal levels
+projection of MMD distances between conditions with and without FGF8 of posterior floor plate and hindbrain progenitors under treatment with
+in a common PCA space. The colors of each dot represent the morphogens only RA are shown with a discontinued line in purple or pink, respectively.
+and concentrations that compose the treatment. MMD, Maximum Mean g, Bar plots showing regulon activation relative to control in RA- and SHH-high
+Discrepancy. Bottom, quantification of MMD distance between each morphogen conditions where interactive effects were detected. Dotted lines represent the
+treatment and its equivalent with FGF8 on top. d, Top, example projection of expected regulon activity in case of additive effects. The colors of circles in the
+MMD distances between treatments using two separate morphogens and their baseline represent the morphogen condition and follow the same code as panels
+respective combination in a common PCA space. Bottom, quantification of MMD c-e. h, Comparison of baseline activation of each interactive regulon in control
+distances between each morphogen treatment and their respective combination. organoids (without morphogens) across hPSC lines.
+
+
+Nature Methods
+
+Resource https://doi.org/10.1038/s41592-025-02927-5
+
+
+Extended Data Fig. 7 | See next page for caption.
+
+
+Nature Methods
+
+Resource https://doi.org/10.1038/s41592-025-02927-5
+
+Extended Data Fig. 7 | Comparison of patterning variability in the presence by medium change regime (as indicated in e), date of aggregation, last passage
+and absence of morphogen treatment. a, PCA projection of summarized number, days in culture, plating dilution, split or thawn hSC source. Each dot
+control samples colored by cell line of origin. Each dot represents one pool of represents one pool of 4-16 organoids from the same line that were exposed to a
+4-16 organoids from the same line that were exposed to a certain morphogen certain morphogen treatment in each experiment/batch. g, UMAP projection
+treatment in each experiment/batch. b-d, Bar plots showing last passage of summarized experiments, with each sample colored by cell line of origin.
+number, days in culture, total passage number (top) and stacked barplot showing h shows the same projection but only control samples are highlighted for each
+proportion of cell types (bottom) for each experiment for HES3 (b), WTC (c), H9 cell line. i, UMAP projection split by morphogen identity for BMP4, BMP7 and
+(d). The bottom line indicates the month when each experiment was conducted. FGF8 concentration experiments, colored by cell line of origin. j, Cell type
+T1-3, Timing experiments 1-3; C1-4, Concentration experiments 1-4; O1-2, composition of neural organoids exposed to increasing concentration steps of
+Combination experiments 1-2; C/O, Concentration and combination (mixed) BMP4, BMP7 and FGF8 (late exposure, from day 12 to 21). Top, WTC organoids,
+experiment; GT, Gradient Timing experiment (data not shown); e, Schematic middle, HES3 organoids, bottom, H9 organoids. Cell type colour legend is
+indicating the medium change regime for each experiment. Black cells indicate a identical to b-d.
+medium change event. f, PCA projection of summarized control samples colored
+
+
+Nature Methods
+
+Resource https://doi.org/10.1038/s41592-025-02927-5
+
+
+Extended Data Fig. 8 | See next page for caption.
+
+
+Nature Methods
+
+Resource https://doi.org/10.1038/s41592-025-02927-5
+
+Extended Data Fig. 8 | Annotation of regionalized patterning reproducibility and patterning condition screen, coloured by transferred cell class (left) and
+screen single-cell dataset and projection to primary reference data. dissected brain region (right) of human primary reference atlas. i, Boxplots
+a-b, RSS-UMAP projection of data, colored by treated morphogen (a) or showing pair-wise MMD (left) and E-distance (right) between pairs of conditions
+experimental batch (b). c-d, Dotplots showing cluster marker expression for derived from different hPSC lines exposed to the same morphogen treatment
+the entire patterning reproducibility screen dataset, showing cell class markers and neural induction method. Each dot represents a distance between two cell
+(c) and brain region markers (d). N.ectoderm, Neuroectoderm; N.epith., lines when receiving the same morphogen treatment and undergoing the same
+Neuroepithelium; C.H.,Cortical Hem; PNS, peripheral neural system; CNS, neural induction method. n = 24 for each category. j, Boxplots showing pair-wise
+Central Nervous System; N.C, neural crest; C.P., choroid plexus; P., progenitors; distances between pairs of conditions derived from different hPSC lines exposed
+N. neurons; Non-n. ectod, non-neural ectoderm. e, Dotplots showing cluster to the same morphogen treatment and neural induction method. Each dot
+marker expression for the CNS neurons subset. GLUT., glutamatergic; GABA, represents a distance between two cell lines when receiving the same morphogen
+GABAergic; GLY, glycinergic; MGE, Medial ganglionic eminence; CHOL, treatment and undergoing the same neural induction method. n = 326 for each
+cholinergic; PNS, peripheral neural system; N. neurons. f, UMAP of the human category. MMD, maximum mean discrepancy; E-distance, energy distance. For
+primary reference atlas radial glia subset28, colored by dissected regions. panels i–j, boxplots are shown with the median indicated, where the boxes show
+g, UMAP of the primary reference, colored by the max presence scores across all the quartiles of the measurement and the whiskers, the 1.5 IQRs of the lower and
+control and treatment conditions in patterning reproducibility and patterning upper quartile.
+condition screen. h, RSS-UMAP projection of patterning reproducibility screen
+
+
+Nature Methods
+
+Resource https://doi.org/10.1038/s41592-025-02927-5
+
+
+Extended Data Fig. 9 | See next page for caption.
+
+
+Nature Methods
+
+Resource https://doi.org/10.1038/s41592-025-02927-5
+
+Extended Data Fig. 9 | Comparison of patterning variability in the presence Benjamini-Hochberg procedure. Exact adjusted P-values are 0.28 NPC, 9.4*10-11
+and absence of morphogen treatment. a, Stacked barplots, showing the cell for Neurons and 3.3*10-5 for off-target. n = 48 for each category, samples being
+type composition of each condition for H1 (left), WTC (middle) and WIBJ2 each organoid. d, Scatterplot showing enrichment of cell types over control for
+(right)-derived organoids, split by experimental batches. Concentrations are patterning reproducibility (y-axis) and patterning condition screen (x-axis) for
+indicated by c1-5, treatment time windows are indicated by t1-t5. Cell types WTC (left) and H9 (right) cell lines. Shape of the dot indicates the morphogen
+colour codes are identical to panel b. b, Barplots (left) show total number of treatment condition, color indicates thecell type. Datapoints aligning with the
+cells sequenced and percentage of cells in each cluster per condition in the diagonal represent treatments that are highly reproducible in the two screening
+morphogen reproducibility experiments. Heatmap shows enrichment (orange) setups. e, UMAP of the integrated human neural organoid cell atlas (HNOCA),
+and depletion (purple) of each cluster across conditions (right). All results are colored by cell class (left) and brain region (right) as provided in the original
+presented split by cell line. c, Boxplots showing distribution of percentage publication. PSC, pluripotent stem cell; N.epith, neuroepithelium; NPC, neural
+of progenitors, neurons and off-target cell types, split by neural induction progenitor cell; IP, intermediate progenitor; OPC, oligodendrocyte progenitor
+approach, with the median indicated, where the boxes show the quartiles of the cell; CP, choroid plexus; EC, endothelial cell; NC, neural crest; MC, mesenchyme.
+measurement and the whiskers, the 1.5 IQRs of the lower and upper quartile. f, UMAP of the integrated human neural organoid cell atlas, colored by the
+NPC, neural progenitor cells; off, off-target cell types. Statistically significant max presence scores across all control and treatment conditions in patterning
+compositional differences were estimated using a linear model, implemented in reproducibility and patterning condition screen.
+the speckle package, followed by 2-sided t-test. P-values were FDR adjusted using
+
+
+Nature Methods
+
+Resource https://doi.org/10.1038/s41592-025-02927-5
+
+
+Extended Data Fig. 10 | See next page for caption.
+
+
+Nature Methods
+
+Resource https://doi.org/10.1038/s41592-025-02927-5
+
+Extended Data Fig. 10 | Characterization and data integration of MiSTR other 2D MiSTR cultures under different morphogen conditions. g, UMAP
+and MiSTR-like organoid cultures. All experiments were performed with projection of Harmony-integrated single-cell RNA-seq data from MiSTR and
+the hESC line H9. a, b, Expression patterns of key forebrain patterning genes organoid experiments, day 9, colored by cell type. h, UMAP resulting from
+across sections A-E in MiSTR tissue (a) and MiSTR-like organoids (b), showing different methods showing the robustness of the integration, colored by sample
+a tendency towards higher ventralization in organoids, sampled at day 21. source (top) and segment (bottom). i,j, Cell type composition of each segment
+For panel a, n = 368 for A, n = 1902 for B, n = 404 for C, n = 2152 for D, n = 1562 from MiSTR tissues (not h, but i) and separately patterned organoids (not i,
+for E. For panel b, n = 967 for Control, n = 483 for A, n = 955 for B, n = 669 for but j), sampled at day 9. k, Dotplots showing cluster marker expression for
+C, n = 1144 for D, n = 997 for E. For panels a-b, boxplots are shown with the the dataset at day 9. PSB, Pallial-Subpallial Boundary; LGE, Lateral Ganglionic
+median indicated, where boxes show the quartiles of the measurement and Eminence; Prog., progenitors. l, Forebrain axis score ranking of cells from each
+whiskers show the 1.5 IQRs of the lower and upper quartile. c, UMAP resulting experimental setup, representing shifts from anterodorsal identities (higher
+from different methods showing the robustness of the integration, colored by ranks) towards posterior-ventral identities (lower ranks). For each of them: left,
+sample source (top) and segment (bottom), sampled at day 21. d, Distribution ridge plot showing distribution of cells along FBaxis_rank values; middle, jitter
+of MiSTR (brown) and MiSTR-like organoid cells (orange) across the binned plot showing the distribution of each progenitor type along the FBaxis ranking
+DV ranks, showing coverage of the same dorso-ventral domains at different (most dorsal cells at the top, most ventral cells at the bottom); right, same
+frequencies, sampled at day 21. e, Dotplots showing cluster marker expression jitter plot showing separately each MiSTR segment and organoid condition,
+for the dataset at day 21. Annotations are kept consistent with Fig. 6c: 1-Cycling sampled at day 9. m, Distribution of MiSTR (brown) and MiSTR-like organoid
+Telencephalic Progenitors, 2-Cortical-PSB-LGE Progenitors, 3-LGE-derived cells (orange) across the binned DV ranks, showing coverage of the same dorso-
+Interneurons, 4-MGE Progenitors, 5-MGE-derived Interneurons, 6-PoA / ventral domains at different frequencies, sampled at day 9. n, Boxplots showing
+Hypothalamic Progenitors, 7-Hypothalamic Neurons, 8-Floor Plate, 9-Unknown. distribution of percentage of progenitors, neurons and off-target cell types,
+PSB, Pallial-Subpallial Boundary; LGE, Lateral Ganglionic Eminence; MGE, split by tissue source at day 9 (left) and day 21 (right), with the median indicated,
+Medial Ganglionic Eminence; PoA, Preoptic Area. f, Fluorescence image showing where the boxes show the quartiles of the measurement and the whiskers, the
+NKX2.1-GFP expression in control MiSTR tissue cultured in the absence of PDMS 1.5 IQRs of the lower and upper quartile. n = 5 for MiSTR and n = 6 for organoids
+microfluidic tree. This culture was performed under patterning conditions for category for each timepoint and cell class. NPC, neural progenitor cells; off,
+segment D, and the image (representative of 3 cultures under D conditions) off-target cell types.
+was taken on differentiation day 12. Induction patterns were similar across
+
+
+Nature Methods

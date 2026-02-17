@@ -1,0 +1,133 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "DNA extraction and library preparation for whole-genome sequencing",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-020-19142-9.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "QiaSymphony DSP DNA Mini Kit",
+        "catalog_number": "937236",
+        "vendor": "Qiagen"
+      },
+      {
+        "id": "m2",
+        "name": "Illumina TruSeq DNA Nano Library Prep Kit",
+        "catalog_number": "20015964",
+        "vendor": "Illumina"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "automated_dna_extraction_system"
+      },
+      {
+        "id": "e2",
+        "type": "sequencing_system"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_dna",
+        "name": "sample_dna"
+      },
+      {
+        "id": "library",
+        "name": "library"
+      },
+      {
+        "id": "sequencing_data",
+        "name": "sequencing_data"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "QiaSymphony_DSP_DNA_Mini_Kit"
+          }
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_dna"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "device_ref": "e2",
+          "program": {
+            "program_name": "TruSeq_DNA_Nano_Library_Prep"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_dna"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "library"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "device_ref": "e2",
+          "program": {
+            "program_name": "Illumina_HiSeq_X_Ten_2x150_30x"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "library"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sequencing_data"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

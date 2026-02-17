@@ -1,0 +1,184 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Caspase‑3/7 apoptosis assay",
+    "source": {
+      "type": "paper",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Organoids"
+      },
+      {
+        "id": "m2",
+        "name": "CellEvent Caspase-3/7 Detection Reagent (Thermo Fisher)"
+      },
+      {
+        "id": "m3",
+        "name": "Media"
+      },
+      {
+        "id": "m4",
+        "name": "PBS"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "Well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "Nikon spinning disc confocal"
+      }
+    ],
+    "samples": [
+      {
+        "id": "smp1",
+        "name": "Organoid sample"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "name": "Fluorescence and DIC images"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "CellEvent Caspase-3/7 Detection Reagent diluted in media according to manufacturer protocols"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Incubated for 30 min"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Washed with PBS"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d1"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "program": "collect fluorescence and DIC images"
+        },
+        "annotations": {
+          "device_ref": "e1"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "data",
+            "id": "d1"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "modality": "visual",
+          "features": [
+            "% area of caspase quantified using FIJI"
+          ]
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

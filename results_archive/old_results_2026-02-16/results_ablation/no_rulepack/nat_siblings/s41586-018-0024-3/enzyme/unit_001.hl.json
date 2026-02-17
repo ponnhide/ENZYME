@@ -1,0 +1,165 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Clonal organoid establishment from normal crypts",
+    "source": {
+      "type": "paper",
+      "id": "s41586-018-0024-3.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "single crypts"
+      },
+      {
+        "id": "m2",
+        "name": "Matrigel"
+      },
+      {
+        "id": "m3",
+        "name": "HISM medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "culture droplet"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "crypt_sample",
+        "name": "crypt_sample"
+      },
+      {
+        "id": "matrigel_sample",
+        "name": "matrigel_sample"
+      },
+      {
+        "id": "matrigel_droplet",
+        "name": "matrigel_droplet"
+      },
+      {
+        "id": "embedded_crypt",
+        "name": "embedded_crypt"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "crypt_sample"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "matrigel_sample"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "matrigel_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "matrigel_droplet"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 10,
+            "unit": "µl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "crypt_sample"
+          },
+          {
+            "kind": "sample",
+            "id": "matrigel_droplet"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "embedded_crypt"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "embedded_crypt"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Cultured in HISM medium."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

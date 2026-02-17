@@ -1,0 +1,124 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "DNA extraction and library preparation for sequencing",
+    "source": {
+      "type": "paper",
+      "id": "s41467-020-19142-9"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "QIAamp DNA Mini Kit",
+        "vendor": "Qiagen",
+        "catalog": "937236"
+      },
+      {
+        "id": "m2",
+        "name": "TruSeq DNA Nano Library Prep Kit",
+        "catalog": "20015964"
+      },
+      {
+        "id": "m3",
+        "name": "Illumina HiSeq X Ten sequencing system"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "Illumina HiSeq X Ten",
+        "type": "sequencer"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_dna",
+        "name": "DNA extract"
+      },
+      {
+        "id": "s_lib",
+        "name": "Sequencing library"
+      },
+      {
+        "id": "s_seq",
+        "name": "Sequencing data"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_dna"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Organoids were dissociated and DNA was isolated using the QIAamp DNA Mini Kit (Qiagen; 937236)."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_dna"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_lib"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Libraries were prepared using the TruSeq DNA Nano Library Prep Kit (20015964)."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_lib"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_seq"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Paired-end sequencing of the generated libraries with 2 × 150 bp on the Illumina HiSeq X Ten sequencing system at the Hartwig Medical Foundation."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

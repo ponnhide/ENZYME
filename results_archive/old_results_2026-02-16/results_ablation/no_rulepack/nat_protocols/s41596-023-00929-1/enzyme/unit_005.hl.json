@@ -1,0 +1,524 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Immunostaining (steps 24-35)",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00929-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "kind": "material",
+        "id": "hbss_solution",
+        "name": "HBSS/BSA/glucose"
+      },
+      {
+        "kind": "material",
+        "id": "master_mix",
+        "name": "master mix"
+      }
+    ],
+    "containers": [
+      {
+        "kind": "container",
+        "id": "tube",
+        "name": "centrifuge tube"
+      },
+      {
+        "kind": "container",
+        "id": "facs_tube",
+        "name": "FACS tube"
+      },
+      {
+        "kind": "container",
+        "id": "filter_70um",
+        "name": "70 µm filter"
+      }
+    ],
+    "equipment": [
+      {
+        "kind": "equipment",
+        "id": "centrifuge",
+        "name": "centrifuge"
+      },
+      {
+        "kind": "equipment",
+        "id": "facs_instrument",
+        "name": "FACS"
+      }
+    ],
+    "samples": [
+      {
+        "kind": "sample",
+        "id": "cells_spin",
+        "name": "cells after spin"
+      },
+      {
+        "kind": "sample",
+        "id": "cells_pellet",
+        "name": "cell pellet after discarding supernatant"
+      },
+      {
+        "kind": "sample",
+        "id": "cells_resuspend_pre",
+        "name": "cells before resuspension"
+      },
+      {
+        "kind": "sample",
+        "id": "cells_resuspended",
+        "name": "resuspended cells"
+      },
+      {
+        "kind": "sample",
+        "id": "cells_with_master",
+        "name": "cells with master mix added"
+      },
+      {
+        "kind": "sample",
+        "id": "cells_incubated",
+        "name": "cells incubated on ice"
+      },
+      {
+        "kind": "sample",
+        "id": "cells_wash_pre",
+        "name": "cells before wash"
+      },
+      {
+        "kind": "sample",
+        "id": "cells_washed",
+        "name": "washed cells"
+      },
+      {
+        "kind": "sample",
+        "id": "cells_spun2",
+        "name": "cells after second spin"
+      },
+      {
+        "kind": "sample",
+        "id": "cells_pellet2",
+        "name": "cell pellet after discarding supernatant (post‑wash)"
+      },
+      {
+        "kind": "sample",
+        "id": "cells_resuspended2",
+        "name": "resuspended cells after wash"
+      },
+      {
+        "kind": "sample",
+        "id": "cells_in_facs_tube",
+        "name": "cells dispensed into FACS tube"
+      },
+      {
+        "kind": "sample",
+        "id": "cells_facs",
+        "name": "cells taken to FACS"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_spin"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_pellet"
+          }
+        ],
+        "params": {
+          "action_kind": "discard"
+        },
+        "annotations": {
+          "note": "Discard supernatant after spin."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "hbss_solution"
+          },
+          {
+            "kind": "sample",
+            "id": "cells_pellet"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_resuspend_pre"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 200,
+            "unit": "µL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_resuspend_pre"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_resuspended"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "master_mix"
+          },
+          {
+            "kind": "sample",
+            "id": "cells_resuspended"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_with_master"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Add the master mix into the tube of resuspended cells (volume not specified)."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_with_master"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_incubated"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 15,
+            "unit": "min"
+          },
+          "temperature": "ice"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "hbss_solution"
+          },
+          {
+            "kind": "sample",
+            "id": "cells_incubated"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_wash_pre"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 5,
+            "unit": "mL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_wash_pre"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_washed"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_washed"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_spun2"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "5 min at 300g, 4 °C"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s9",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_spun2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_pellet2"
+          }
+        ],
+        "params": {
+          "action_kind": "discard"
+        },
+        "annotations": {
+          "note": "Note the amount of supernatant remaining; 500 µL needed to resuspend. Add additional HBSS/BSA/glucose if below 500 µL."
+        }
+      },
+      {
+        "id": "s10",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_pellet2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_resuspended2"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s11",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "facs_tube"
+          },
+          {
+            "kind": "container",
+            "id": "filter_70um"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s12",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_resuspended2"
+          },
+          {
+            "kind": "container",
+            "id": "filter_70um"
+          },
+          {
+            "kind": "container",
+            "id": "facs_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_in_facs_tube"
+          }
+        ],
+        "params": {
+          "note": "Dispense the resuspended cells through the filter into the FACS tube."
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s13",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "facs_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "facs_tube"
+          }
+        ],
+        "params": {
+          "action_kind": "seal"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s14",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "facs_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "facs_tube"
+          }
+        ],
+        "params": {
+          "temperature": "ice"
+        },
+        "annotations": {
+          "note": "Place sealed tube on ice."
+        }
+      },
+      {
+        "id": "s15",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_in_facs_tube"
+          },
+          {
+            "kind": "equipment",
+            "id": "facs_instrument"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_facs"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Take samples to FACS for analysis."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      }
+    ],
+    "detail_level": 0
+  }
+}

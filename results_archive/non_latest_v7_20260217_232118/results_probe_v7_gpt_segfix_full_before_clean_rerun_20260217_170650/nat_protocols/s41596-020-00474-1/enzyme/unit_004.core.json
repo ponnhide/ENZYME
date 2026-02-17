@@ -1,0 +1,179 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Homogenization and filtration of digested tissue",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-020-00474-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "D-BSA"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "serological_pipette",
+        "name": "10‑ml sterile serological pipette"
+      },
+      {
+        "id": "c2",
+        "type": "cell_strainer",
+        "name": "100‑µm strainer"
+      },
+      {
+        "id": "c3",
+        "type": "falcon_tube",
+        "name": "new 50‑ml Falcon tube"
+      },
+      {
+        "id": "c4",
+        "type": "falcon_tube",
+        "name": "initial 50‑ml Falcon tube"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s_digested",
+        "name": "digested tissue"
+      },
+      {
+        "id": "s_unfiltered",
+        "name": "s_unfiltered"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "sample_ref": "s_digested",
+          "equipment_ref": "c1",
+          "note": "Homogenize by pipetting up and down vigorously with a pre‑wetted pipette."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "m1",
+          "destination": "c3",
+          "note": "Pre‑wet the 100‑µm strainer by pipetting 10 ml of D‑BSA onto the strainer into a new 50‑ml Falcon tube.",
+          "amount": {
+            "value": 10.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "params": {
+          "note": "Swirl the 50‑ml tube to wet the sides of the tube and discard the D‑BSA."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "s_digested",
+          "destination": "c3",
+          "via": "c2",
+          "note": "Strain the digested tissue over the pre‑wetted 100‑µm strainer into the 50‑ml Falcon tube.",
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "description": "unfiltered tissue pieces retained on the strainer"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_unfiltered"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": "s_unfiltered",
+          "destination": "c4",
+          "note": "Reverse the filter and flush with 10 ml of D‑BSA to transfer unfiltered tissue pieces back into the initial Falcon tube.",
+          "amount": {
+            "value": 10.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "sample_ref": "s_digested",
+          "equipment_ref": "c1",
+          "note": "Pipette the digested tissue up and down vigorously with a pre‑wetted 10‑ml serological pipette."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

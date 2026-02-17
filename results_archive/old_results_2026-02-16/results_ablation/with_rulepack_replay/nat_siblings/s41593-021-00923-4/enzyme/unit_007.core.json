@@ -1,0 +1,189 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41593-021-00923-4.pdf",
+      "type": "paper"
+    },
+    "title": "Alkaline comet assay for DNA damage"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "sample1",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "container_id": "c1",
+          "material_id": "m1"
+        }
+      },
+      {
+        "annotations": {
+          "lowered_from": "incubate",
+          "note": "Cells were seeded overnight"
+        },
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "sample1",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "sample1",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": null
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "Add topotecan to achieve 10 μM concentration"
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "m2",
+            "kind": "material"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "sample1",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "μM",
+            "value": 10
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "Add ATMi (AZD0156) to achieve 30 nM; may be omitted for control condition"
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "m3",
+            "kind": "material"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "sample1",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "nM",
+            "value": 30
+          }
+        }
+      },
+      {
+        "annotations": {
+          "lowered_from": "incubate",
+          "note": "Incubate with topotecan (and ATMi where added) for 1 hour"
+        },
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "sample1",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "sample1",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": null
+          }
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "c1",
+        "type": "culture plate"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator"
+      }
+    ],
+    "materials": [
+      {
+        "id": "m1",
+        "name": "hiPSC cells"
+      },
+      {
+        "id": "m2",
+        "name": "topotecan"
+      },
+      {
+        "id": "m3",
+        "name": "AZD0156 (ATMi)",
+        "vendor": "Selleck Chemicals"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample1",
+        "name": "sample1"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

@@ -1,0 +1,203 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Nucleus isolation from frozen primary tissue",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-021-03209-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "homogenization buffer",
+        "composition": "10 mM Tris pH 7.8, 5 mM CaCl2, 3 mM magnesium acetate, 320 mM sucrose, 0.1 mM EDTA, 0.1% NP40, 167 μM β-mercaptoethanol, 16.7 μM PMSF"
+      },
+      {
+        "id": "m2",
+        "name": "wash buffer"
+      },
+      {
+        "id": "m3",
+        "name": "iodixanol"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "tube"
+      },
+      {
+        "id": "c2",
+        "type": "centrifuge tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "dounce homogenizer"
+      },
+      {
+        "id": "e2",
+        "type": "swinging bucket centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "c1",
+        "name": "c1"
+      },
+      {
+        "id": "c2",
+        "name": "c2"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "frozen tissue",
+          "destination": "c1",
+          "amount": {
+            "value": 2.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "params": {
+          "text": "unmapped action_kind in source: lyse"
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [],
+        "device_ref": "e1"
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "iodixanol gradient centrifugation",
+            "speed": "3000g",
+            "duration": "20 min",
+            "temperature": "4 °C",
+            "brake": "off"
+          },
+          "device_ref": "e2"
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": "c2",
+          "destination": "new container",
+          "amount": {
+            "value": "n/a",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "text": "action_kind missing; converted from manipulate"
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,364 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Colony genotyping PCR (abstract, non-operational)",
+    "source": {
+      "type": "paper_pdf",
+      "id": "colony_genotyping_pcr_abstract.txt"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "colony_plate"
+      },
+      {
+        "id": "pcr_reaction_mix"
+      },
+      {
+        "id": "primer_set"
+      }
+    ],
+    "containers": [
+      {
+        "id": "sample_container",
+        "type": "tube"
+      },
+      {
+        "id": "pcr_tube",
+        "type": "tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "thermocycler",
+        "type": "thermocycler"
+      },
+      {
+        "id": "amplicon_reader",
+        "type": "amplicon_readout_system"
+      }
+    ],
+    "samples": [
+      {
+        "id": "selected_colony"
+      },
+      {
+        "id": "template_extract_sample"
+      },
+      {
+        "id": "pcr_reaction_sample"
+      },
+      {
+        "id": "sample_container",
+        "name": "sample_container"
+      },
+      {
+        "id": "colony_plate",
+        "name": "colony_plate"
+      },
+      {
+        "id": "pcr_reaction_mix",
+        "name": "pcr_reaction_mix"
+      },
+      {
+        "id": "primer_set",
+        "name": "primer_set"
+      },
+      {
+        "id": "pcr_tube",
+        "name": "pcr_tube"
+      },
+      {
+        "id": "signal_pattern",
+        "name": "signal_pattern"
+      },
+      {
+        "id": "genotype_call",
+        "name": "genotype_call"
+      }
+    ],
+    "data": [
+      {
+        "id": "signal_pattern"
+      },
+      {
+        "id": "genotype_call"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_container"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "selected_colony"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "colony_plate",
+          "destination": "sample_container",
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "colony_plate"
+          },
+          {
+            "kind": "sample",
+            "id": "sample_container"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_container"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_container"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_container"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "pcr_reaction_mix"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "primer_set"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s7",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "pcr_tube"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s8",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "pcr_reaction_mix"
+          },
+          {
+            "kind": "sample",
+            "id": "primer_set"
+          },
+          {
+            "kind": "sample",
+            "id": "template_extract_sample"
+          },
+          {
+            "kind": "sample",
+            "id": "pcr_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "pcr_reaction_sample"
+          }
+        ]
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "params": {
+          "device_kind": "thermocycler",
+          "device_ref": "thermocycler",
+          "program": {
+            "profile_name": "genotype_assay"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "pcr_reaction_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "pcr_reaction_sample"
+          }
+        ]
+      },
+      {
+        "id": "s10",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "signal_pattern"
+          ],
+          "device_kind": "amplicon_readout_system",
+          "device_ref": "amplicon_reader",
+          "program": {
+            "program_name": "detection_method"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "pcr_reaction_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "signal_pattern"
+          }
+        ]
+      },
+      {
+        "id": "s11",
+        "op": "annotate",
+        "params": {
+          "note": "Compare observed signal patterns against expected assay signatures."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "annotate",
+        "params": {
+          "note": "Record the genotype call and mark uncertain outcomes for confirmatory follow-up."
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "genotype_call"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      }
+    ],
+    "detail_level": 0
+  }
+}

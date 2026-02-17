@@ -1,0 +1,144 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Plate cells for embryoid body formation",
+    "source": {
+      "type": "paper",
+      "id": "s41467-021-27464-5.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "iPS Brew",
+        "source": "paper:s41467-021-27464-5.pdf"
+      },
+      {
+        "id": "m2",
+        "name": "Y-27632 dihydrochloride",
+        "vendor": "Miltenyi",
+        "catalog_number": "#130-106-538",
+        "source": "paper:s41467-021-27464-5.pdf"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "96-well U-bottom plate",
+        "vendor": "Corning",
+        "catalog_number": "#CLS7007",
+        "source": "paper:s41467-021-27464-5.pdf"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s1",
+        "name": "single iPS cells",
+        "source": "paper:s41467-021-27464-5.pdf"
+      },
+      {
+        "id": "s2",
+        "name": "s2"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 2500,
+            "unit": "cells"
+          },
+          "source_container": "s1",
+          "target_container": "c1"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 100,
+            "unit": "µL"
+          },
+          "source_container": "m1",
+          "target_container": "c1"
+        },
+        "annotations": {
+          "note": "Volume per well not specified in protocol; assumed standard 100 µL for 96-well U-bottom plate."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 10,
+            "unit": "µM"
+          },
+          "source_container": "m2",
+          "target_container": "c1"
+        },
+        "annotations": {
+          "note": "Concentration of Y-27632 is given as 10 µM; volume added not specified. Assumed to be added to achieve final concentration in 100 µL total volume."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

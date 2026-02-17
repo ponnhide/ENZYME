@@ -1,0 +1,159 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Fixation and permeabilization",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00562-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "fixative_solution",
+        "name": "fixative solution"
+      },
+      {
+        "id": "wash_solution",
+        "name": "3% BSA in DPBS−/−"
+      },
+      {
+        "id": "perm_solution",
+        "name": "0.2% Triton X-100 in DPBS−/−"
+      }
+    ],
+    "containers": [
+      {
+        "id": "transwell",
+        "type": "transwell",
+        "name": "cell culture transwell"
+      },
+      {
+        "id": "waste_container",
+        "type": "waste_container",
+        "name": "waste container"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "type": "incubator",
+        "name": "room temperature incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "wash_solution",
+        "name": "wash_solution"
+      },
+      {
+        "id": "perm_solution",
+        "name": "perm_solution"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "wash_solution"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "perm_solution"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "transwell",
+          "destination": "waste_container",
+          "description": "aspirate fixative solution from monolayer",
+          "amount": {
+            "value": "unspecified",
+            "unit": ""
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "wash_solution",
+          "destination": "transwell",
+          "description": "wash monolayer twice with 3% BSA in DPBS−/−",
+          "amount": {
+            "apical": {
+              "value": 1,
+              "unit": "ml"
+            },
+            "basolateral": {
+              "value": 2,
+              "unit": "ml"
+            }
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator",
+          "program": {
+            "program_name": "room_temp_20min"
+          },
+          "description": "incubate with permeabilization solution at room temperature for 20 min"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

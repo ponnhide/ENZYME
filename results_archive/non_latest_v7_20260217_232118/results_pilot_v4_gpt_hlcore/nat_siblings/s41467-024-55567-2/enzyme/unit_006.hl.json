@@ -1,0 +1,214 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Interference with MBD3 expression via CRISPR",
+    "source": {
+      "type": "paper",
+      "id": "s41467-024-55567-2.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "sgRNA_MBD3",
+        "name": "sgRNA sequences targeting MBD3"
+      },
+      {
+        "id": "HP180_plasmid",
+        "name": "SpCas9-equipped HP180 plasmid"
+      },
+      {
+        "id": "LGR5_cells",
+        "name": "LGR5-mNeonGreen reporter cells"
+      },
+      {
+        "id": "MBD3_antibody",
+        "name": "MBD3 antibody (1:200, Santa Cruz)"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "electroporator",
+        "device_kind": "dna_delivery_device"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sgRNA_seq",
+        "derived_from": "sgRNA_MBD3"
+      },
+      {
+        "id": "hp180_plasmid",
+        "derived_from": "HP180_plasmid"
+      },
+      {
+        "id": "recombinant_plasmid",
+        "description": "HP180 plasmid with cloned sgRNA"
+      },
+      {
+        "id": "reporter_cells",
+        "derived_from": "LGR5_cells"
+      },
+      {
+        "id": "electroporated_cells",
+        "description": "Cells after electroporation"
+      },
+      {
+        "id": "picked_colonies",
+        "description": "Manually picked colonies"
+      },
+      {
+        "id": "expanded_colonies",
+        "description": "Expanded colonies"
+      }
+    ],
+    "data": [
+      {
+        "id": "western_blot_result",
+        "description": "Western blot screening for MBD3 expression"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sgRNA_seq"
+          },
+          {
+            "kind": "sample",
+            "id": "hp180_plasmid"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "recombinant_plasmid"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "recombinant_plasmid"
+          },
+          {
+            "kind": "sample",
+            "id": "reporter_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "electroporated_cells"
+          }
+        ],
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "program": "electroporation"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "electroporated_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "picked_colonies"
+          }
+        ],
+        "params": {
+          "action_kind": "pick_colony"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "picked_colonies"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "expanded_colonies"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Colonies were manually expanded"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "expanded_colonies"
+          },
+          {
+            "kind": "material",
+            "id": "MBD3_antibody"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "western_blot_result"
+          }
+        ],
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "MBD3 expression"
+          ]
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

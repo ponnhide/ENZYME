@@ -1,0 +1,234 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Cytokine treatment of ileum organoids",
+    "source": {
+      "type": "paper",
+      "id": "s41588-025-02182-6"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_organoid",
+        "name": "ASC-derived ileum organoids",
+        "type": "organoid"
+      },
+      {
+        "id": "m_cytokines",
+        "name": "Cytokine mixture",
+        "type": "cytokine"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_plate",
+        "name": "culture plate",
+        "type": "plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e_incubator",
+        "name": "Incubator",
+        "device_kind": "incubator"
+      },
+      {
+        "id": "e_sequencer",
+        "name": "Sequencer",
+        "device_kind": "amplicon_readout_system"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_control",
+        "name": "Control organoid sample",
+        "type": "organoid"
+      },
+      {
+        "id": "sample_treated",
+        "name": "Cytokine‑treated organoid sample",
+        "type": "organoid"
+      }
+    ],
+    "data": [
+      {
+        "id": "data_control",
+        "name": "scRNA‑seq data (control)",
+        "type": "sequencing"
+      },
+      {
+        "id": "data_treated",
+        "name": "scRNA‑seq data (treated)",
+        "type": "sequencing"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m_organoid"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_control"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m_organoid"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_treated"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m_cytokines"
+          },
+          {
+            "kind": "sample",
+            "id": "sample_treated"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_treated"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Cytokine amounts and concentrations not specified in source text."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_control"
+          },
+          {
+            "kind": "sample",
+            "id": "sample_treated"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_control"
+          },
+          {
+            "kind": "sample",
+            "id": "sample_treated"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 24,
+            "unit": "hour"
+          },
+          "device_kind": "incubator"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_control"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "data_control"
+          }
+        ],
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": "scRNA-seq"
+        },
+        "annotations": {
+          "note": "scRNA‑seq library preparation and sequencing details not provided."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_treated"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "data_treated"
+          }
+        ],
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": "scRNA-seq"
+        },
+        "annotations": {
+          "note": "scRNA‑seq library preparation and sequencing details not provided."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

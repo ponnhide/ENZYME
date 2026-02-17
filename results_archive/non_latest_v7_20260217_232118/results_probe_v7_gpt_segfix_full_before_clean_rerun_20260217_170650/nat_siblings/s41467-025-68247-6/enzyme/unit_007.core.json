@@ -1,0 +1,128 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Enzymatic dissociation with enzyme mixes",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "enzyme_mix_2",
+        "type": "reagent"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "incubator_1",
+        "type": "incubator"
+      },
+      {
+        "id": "pipette_P1000",
+        "type": "pipette"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoids",
+        "type": "organoid"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoids"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "enzyme_mix_2"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source_ref": "enzyme_mix_2",
+          "destination_ref": "organoids",
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          },
+          "note": "add enzyme mix 2 after 10 min"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator_1",
+          "program": {
+            "program_name": "10C_60min"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "equipment_ref": "pipette_P1000",
+          "note": "pipette mixed every 10 min"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

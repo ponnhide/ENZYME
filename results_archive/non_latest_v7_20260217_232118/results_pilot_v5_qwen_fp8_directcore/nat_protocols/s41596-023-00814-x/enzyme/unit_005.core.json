@@ -1,0 +1,386 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Procedure",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00814-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "DMEM/F12",
+        "concentration": "prewarmed to 37 °C"
+      },
+      {
+        "id": "m2",
+        "name": "0.05% Trypsin"
+      },
+      {
+        "id": "m3",
+        "name": "20% FBS-DMEM"
+      },
+      {
+        "id": "m4",
+        "name": "RPE medium"
+      },
+      {
+        "id": "m5",
+        "name": "laminin"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "centrifuge_tube",
+        "volume": "15 ml"
+      },
+      {
+        "id": "c2",
+        "type": "centrifuge_tube",
+        "volume": "15 ml"
+      },
+      {
+        "id": "c3",
+        "type": "cell_culture_dish",
+        "coating": "laminin"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "micropipette",
+        "volume": "1000 µl"
+      },
+      {
+        "id": "e2",
+        "type": "micropipette",
+        "volume": "200 µl"
+      },
+      {
+        "id": "e3",
+        "type": "incubator"
+      },
+      {
+        "id": "e4",
+        "type": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "smp1",
+        "name": "OVB organoids",
+        "age": "day 60"
+      },
+      {
+        "id": "c1",
+        "name": "c1"
+      },
+      {
+        "id": "c2",
+        "name": "c2"
+      },
+      {
+        "id": "c3",
+        "name": "c3"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source": "smp1",
+          "destination": "c1",
+          "tool": "e1",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "c1",
+          "destination": "waste",
+          "tool": "e2",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "m1",
+          "destination": "c1",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "37 °C for 3 min"
+          },
+          "device_ref": "e3"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "c1",
+          "destination": "waste",
+          "tool": "e2",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": "m2",
+          "destination": "c1",
+          "amount": {
+            "value": 3.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "37 °C for 20 min"
+          },
+          "device_ref": "e3"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "params": {
+          "source": "m3",
+          "destination": "c1",
+          "amount": {
+            "value": 6.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "params": {
+          "source": "c1",
+          "destination": "c2",
+          "tool": "e2",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "1000g for 3 min at RT"
+          },
+          "device_ref": "e4"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c2"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "container": "c2",
+          "medium": "m4"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "transfer",
+        "params": {
+          "source": "c2",
+          "destination": "c3",
+          "tool": "e2",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s13",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "37 °C and 5% CO2"
+          },
+          "device_ref": "e3"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c3"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s14",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "expanding colonies of pigmented cells",
+            "adherent monolayer sheets"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c3"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s15",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "pick_colony",
+          "source": "c3",
+          "destination": "c3"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      }
+    ],
+    "detail_level": 0
+  }
+}

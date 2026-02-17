@@ -1,0 +1,163 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Wholemount immunofluorescence fixation and staining",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00880-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "4% PFA",
+        "type": "fixative"
+      },
+      {
+        "id": "m2",
+        "name": "blocking solution",
+        "type": "blocking_reagent"
+      },
+      {
+        "id": "m3",
+        "name": "primary antibody solution",
+        "type": "antibody"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "transwell_plate"
+      }
+    ],
+    "equipment": [],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source": "c1",
+          "destination": "c1",
+          "material": "m1",
+          "amount": {
+            "value": 1.0,
+            "unit": "mL"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "label"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "4C_30min"
+          },
+          "device_ref": "c1"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "c1",
+          "destination": "c1",
+          "material": "m2",
+          "amount": {
+            "value": 200.0,
+            "unit": "µL"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "4C_3to5h"
+          },
+          "device_ref": "c1"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": "m3",
+          "destination": "c1",
+          "amount": {
+            "value": 150.0,
+            "unit": "µL"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "4C_16h"
+          },
+          "device_ref": "c1"
+        },
+        "outputs": [],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

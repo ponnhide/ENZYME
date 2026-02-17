@@ -1,0 +1,389 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Fixation and live/dead staining",
+    "source": {
+      "type": "paper",
+      "id": "s41596-021-00603-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "culture medium"
+      },
+      {
+        "id": "m2",
+        "name": "4% (vol/vol) PFA"
+      },
+      {
+        "id": "m3",
+        "name": "PBS"
+      },
+      {
+        "id": "m4",
+        "name": "0.25 µM 194cisplatin/PBS solution"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "well_plate",
+        "name": "culture plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "device_kind": "incubator",
+        "name": "incubator"
+      },
+      {
+        "id": "e2",
+        "device_kind": "rocker",
+        "name": "rocker"
+      },
+      {
+        "id": "e3",
+        "device_kind": "pipette",
+        "name": "pipette"
+      }
+    ],
+    "samples": [
+      {
+        "id": "well",
+        "type": "well",
+        "container_ref": "c1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Remove culture medium by pipetting."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "well"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 200,
+            "unit": "µl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "well"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "well"
+          }
+        ],
+        "params": {
+          "temperature": {
+            "value": 37,
+            "unit": "°C"
+          },
+          "duration": {
+            "value": 60,
+            "unit": "min"
+          },
+          "CO2": "5%"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Remove PFA solution by pipetting, taking care not to disturb the Matrigel."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "well"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "well"
+          }
+        ],
+        "params": {
+          "device_kind": "rocker",
+          "program": "wash",
+          "duration": {
+            "value": 10,
+            "unit": "min"
+          },
+          "temperature": {
+            "value": 20,
+            "unit": "°C"
+          },
+          "speed": "~45 rpm"
+        },
+        "annotations": {
+          "note": "Wash the cells with PBS on a rocker for 10 min at room temperature (~20 °C)."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "well"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "well"
+          }
+        ],
+        "params": {
+          "device_kind": "rocker",
+          "program": "wash",
+          "duration": {
+            "value": 10,
+            "unit": "min"
+          },
+          "temperature": {
+            "value": 20,
+            "unit": "°C"
+          },
+          "speed": "~45 rpm"
+        },
+        "annotations": {
+          "note": "Repeat the wash."
+        }
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Remove PBS by pipetting."
+        }
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "well"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 200,
+            "unit": "µl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "well"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "well"
+          }
+        ],
+        "params": {
+          "device_kind": "rocker",
+          "program": "incubate",
+          "duration": {
+            "value_min": 10,
+            "value_max": 15,
+            "unit": "min"
+          },
+          "temperature": {
+            "value": 20,
+            "unit": "°C"
+          }
+        },
+        "annotations": {
+          "note": "Incubate for 10–15 min on a rocker at room temperature."
+        }
+      },
+      {
+        "id": "s10",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Remove the 194cisplatin solution by pipetting."
+        }
+      },
+      {
+        "id": "s11",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "well"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "well"
+          }
+        ],
+        "params": {
+          "device_kind": "rocker",
+          "program": "wash",
+          "duration": {
+            "value": 10,
+            "unit": "min"
+          },
+          "temperature": {
+            "value": 20,
+            "unit": "°C"
+          },
+          "speed": "~45 rpm"
+        },
+        "annotations": {
+          "note": "Wash cells with PBS on a rocker for 10 min at room temperature."
+        }
+      },
+      {
+        "id": "s12",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "well"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "well"
+          }
+        ],
+        "params": {
+          "device_kind": "rocker",
+          "program": "wash",
+          "duration": {
+            "value": 10,
+            "unit": "min"
+          },
+          "temperature": {
+            "value": 20,
+            "unit": "°C"
+          },
+          "speed": "~45 rpm"
+        },
+        "annotations": {
+          "note": "Repeat the wash."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      }
+    ],
+    "detail_level": 0
+  }
+}

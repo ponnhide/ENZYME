@@ -1,0 +1,157 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41467-021-27464-5",
+      "type": "paper"
+    },
+    "title": "Quantitative RT‑PCR of gene expression"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "RNA_sample",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "cDNA was prepared using Reverse Transcriptase (Thermo Fisher #K1642, Invitrogen)."
+        },
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "RNA_sample",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "cDNA_sample",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "cDNA_sample",
+            "kind": "sample"
+          },
+          {
+            "id": "SYBR_Green_MasterMix",
+            "kind": "material"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "qPCR_results",
+            "kind": "data"
+          }
+        ],
+        "params": {
+          "device_kind": "thermocycler",
+          "device_ref": "LightCycler_480",
+          "program": "2-step protocol with a 60 °C annealing/elongation step, technical triplicates"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Results are given as fold change over undifferentiated hPSCs using housekeeping genes (ACTB and GAPDH) for normalization."
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "qPCR_results",
+            "kind": "data"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      }
+    ]
+  },
+  "resources": {
+    "containers": [],
+    "data": [
+      {
+        "id": "qPCR_results",
+        "name": "qRT‑PCR results"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "LightCycler_480",
+        "name": "LightCycler 480",
+        "type": "thermocycler"
+      }
+    ],
+    "materials": [
+      {
+        "id": "RNeasy_Micro_Kit",
+        "name": "RNeasy Micro Kit",
+        "vendor": "Qiagen"
+      },
+      {
+        "alternate_vendor": "Invitrogen",
+        "catalog_number": "K1642",
+        "id": "Reverse_Transcriptase",
+        "name": "Reverse Transcriptase",
+        "vendor": "Thermo Fisher"
+      },
+      {
+        "catalog_number": "04887352001",
+        "id": "SYBR_Green_MasterMix",
+        "name": "SYBR Green Master mix",
+        "vendor": "Roche"
+      }
+    ],
+    "samples": [
+      {
+        "id": "RNA_sample",
+        "name": "Total RNA"
+      },
+      {
+        "derived_from": "RNA_sample",
+        "id": "cDNA_sample",
+        "name": "cDNA"
+      },
+      {
+        "derived_from": "cDNA_sample",
+        "id": "qPCR_reaction",
+        "name": "qRT‑PCR reaction"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

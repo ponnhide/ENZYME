@@ -1,0 +1,119 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Transfer micromasses to Transwell inserts",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00880-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [
+      {
+        "id": "transwell_insert_1",
+        "type": "transwell_insert"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "pipette_1",
+        "type": "pipette"
+      }
+    ],
+    "samples": [
+      {
+        "id": "micromass_sample",
+        "type": "micromass"
+      },
+      {
+        "id": "transwell_insert_1",
+        "name": "transwell_insert_1"
+      },
+      {
+        "id": "pipette_1",
+        "name": "pipette_1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "micromass_sample"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "transwell_insert_1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "equipment"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "pipette_1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source_ref": "micromass_sample",
+          "dest_ref": "transwell_insert_1",
+          "amount": {
+            "value": 3,
+            "unit": "micromasses"
+          },
+          "method": "pipette",
+          "note": "Allow each micromass to settle into the pipette tip opening before dispensing in a single droplet onto the Transwell membrane."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s4"
+      },
+      {
+        "from": "s2",
+        "to": "s4"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

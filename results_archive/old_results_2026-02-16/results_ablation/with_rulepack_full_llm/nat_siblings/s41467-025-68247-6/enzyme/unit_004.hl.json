@@ -1,0 +1,154 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "FITC‑dextran permeability assay",
+    "source": {
+      "type": "paper",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "FITC‑dextran",
+        "source": {
+          "type": "vendor",
+          "id": "MedChemExpress"
+        }
+      },
+      {
+        "id": "m2",
+        "name": "PBS"
+      },
+      {
+        "id": "m3",
+        "name": "Organoid growth media with 10 µM Y‑27632"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "name": "FITC‑dextran diluted solution"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "description": "Dilute FITC‑dextran to 2 mg/mL in PBS"
+          }
+        },
+        "annotations": {
+          "note": "Exact volumes of FITC‑dextran stock and PBS not specified in source text."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "temperature": {
+            "value": 37,
+            "unit": "°C"
+          },
+          "co2": {
+            "value": 5,
+            "unit": "%"
+          },
+          "duration": {
+            "value": 30,
+            "unit": "min"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m3"
+          },
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "description": "Add organoid growth media containing 10 µM Y‑27632"
+          }
+        },
+        "annotations": {
+          "note": "Exact volume of media added not specified in source text."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

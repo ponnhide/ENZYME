@@ -1,0 +1,176 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Collagen coating of 24-well plates",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00929-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "collagen_sol",
+        "description": "Collagen coating solution (0.03 mg/mL)"
+      },
+      {
+        "id": "pbs_sol",
+        "description": "1× PBS"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate1",
+        "type": "24-well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator1",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "plate1",
+        "name": "plate1"
+      },
+      {
+        "id": "collagen_sol",
+        "name": "collagen_sol"
+      },
+      {
+        "id": "pbs_sol",
+        "name": "pbs_sol"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "plate1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "collagen_sol"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "pbs_sol"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "collagen_sol",
+          "destination": "plate1",
+          "note": "add to each well",
+          "amount": {
+            "value": 500.0,
+            "unit": "µL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator1",
+          "program": {
+            "program_name": "30min_37C"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": "plate1",
+          "destination": "waste",
+          "note": "remove collagen coating solution",
+          "amount": {
+            "value": 500.0,
+            "unit": "µL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "note": "wash wells once with 1× PBS; amount unspecified"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

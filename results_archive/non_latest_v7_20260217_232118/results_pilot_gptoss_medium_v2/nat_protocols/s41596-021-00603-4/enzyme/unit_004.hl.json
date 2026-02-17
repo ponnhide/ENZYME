@@ -1,0 +1,151 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Fixation",
+    "source": {
+      "type": "paper",
+      "id": "s41596-021-00603-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "culture_medium",
+        "kind": "material",
+        "name": "culture medium"
+      },
+      {
+        "id": "PFA_solution",
+        "kind": "material",
+        "name": "4% (vol/vol) PFA",
+        "description": "prewarmed (37 °C)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "well_plate",
+        "kind": "container",
+        "name": "well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "pipette",
+        "kind": "equipment",
+        "name": "pipette"
+      },
+      {
+        "id": "incubator",
+        "kind": "equipment",
+        "name": "CO2 incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample1",
+        "kind": "sample",
+        "name": "cells in well",
+        "container_ref": "well_plate"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Remove culture medium by pipetting, taking care not to disrupt Matrigel."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "PFA_solution"
+          },
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 200,
+            "unit": "µl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "duration": {
+              "value": 60,
+              "unit": "min"
+            },
+            "temperature": {
+              "value": 37,
+              "unit": "°C"
+            },
+            "CO2": {
+              "value": 5,
+              "unit": "%"
+            }
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,212 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Aggregation medium resuspension and cell counting",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-019-0213-z.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "type": "liquid",
+        "name": "aggregation medium"
+      },
+      {
+        "id": "m2",
+        "type": "solution",
+        "name": "0.1% Trypan blue solution"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "pipette",
+        "name": "5-mL serological pipette"
+      },
+      {
+        "id": "c2",
+        "type": "tube",
+        "name": "15-mL Falcon tube"
+      },
+      {
+        "id": "c3",
+        "type": "slide",
+        "name": "counting chamber slide"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "cell_counter",
+        "name": "automated cell counter"
+      },
+      {
+        "id": "e2",
+        "type": "microscope",
+        "name": "microscope"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cell_suspension",
+        "type": "cell_suspension"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "type": "cell_count"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": {
+            "material": "m1"
+          },
+          "destination": {
+            "container": "c2"
+          },
+          "amount": {
+            "value": 5.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "target": {
+            "sample": "cell_suspension"
+          },
+          "container": "c2"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": {
+            "sample": "cell_suspension"
+          },
+          "destination": {
+            "container": "c3"
+          },
+          "amount": {
+            "value": 10.0,
+            "unit": "μL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": {
+            "material": "m2"
+          },
+          "destination": {
+            "container": "c3"
+          },
+          "amount": {
+            "value": 10.0,
+            "unit": "μL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "target": {
+            "container": "c3"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "viable_cell_count"
+          ],
+          "device_ref": "e1"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "note": "Calculate cell suspension volume needed: 2 × 10^5 cells per well."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

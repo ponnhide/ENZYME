@@ -1,0 +1,329 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-023-00814-x.pdf",
+      "type": "paper"
+    },
+    "title": "Stage 0: iPSC culturing and seeding"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "start_step_id": "s1",
+    "step_order": null,
+    "steps": [
+      {
+        "annotations": {
+          "note": "Prepare a Matrigel‑coated dish as described in ‘Reagent setup’. Usually, we culture iPSCs in 60 mm dishes."
+        },
+        "id": "s1",
+        "inputs": [],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "Thaw a vial of human iPSCs of the desired genotype quickly in a 37 °C water bath."
+        },
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "s_cell_vial",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "s_cell_vial",
+            "kind": "sample"
+          },
+          {
+            "id": "m2",
+            "kind": "material"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "s_cell_suspension",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "mL",
+            "value": 10
+          },
+          "device_ref": "e1"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "s_cell_suspension",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "s_cell_pellet",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "duration": {
+              "unit": "min",
+              "value": 3
+            },
+            "speed": {
+              "unit": "g",
+              "value": 700
+            },
+            "temperature": "RT"
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "Aspirate Matrigel solution from the dish and replace it with 3 mL mTeSR1 supplemented with 10 µM Rock inhibitor."
+        },
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "c1",
+            "kind": "container"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "s_cell_pellet",
+            "kind": "sample"
+          },
+          {
+            "id": "m3",
+            "kind": "material"
+          },
+          {
+            "id": "m4",
+            "kind": "material"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "s_resuspended_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend",
+          "amount": {
+            "unit": "mL",
+            "value": 1
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s7",
+        "inputs": [
+          {
+            "id": "s_resuspended_cells",
+            "kind": "sample"
+          },
+          {
+            "id": "c1",
+            "kind": "container"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "s_cultured_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "mL",
+            "value": 1
+          },
+          "note": "Distribute cells dropwise over the whole area of the dish, moving the dish back‑and‑forth."
+        }
+      },
+      {
+        "annotations": {
+          "note": "Place dish in a 37 °C incubator at 5 % CO₂. Do not move the dish for the next 24 h; then perform daily medium changes."
+        },
+        "id": "s8",
+        "inputs": [
+          {
+            "id": "s_cultured_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "s_cultured_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "CO2": {
+              "unit": "%",
+              "value": 5
+            },
+            "temperature": {
+              "unit": "C",
+              "value": 37
+            }
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "Culture the cells until ~90 % confluency (≈7 days after thawing)."
+        },
+        "id": "s9",
+        "inputs": [
+          {
+            "id": "s_cultured_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "c1",
+        "name": "60 mm dish (Matrigel‑coated)"
+      },
+      {
+        "id": "c2",
+        "name": "15 mL Falcon tube"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "37 °C water bath"
+      },
+      {
+        "id": "e2",
+        "name": "centrifuge"
+      },
+      {
+        "id": "e3",
+        "name": "37 °C incubator with 5 % CO₂"
+      }
+    ],
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Matrigel"
+      },
+      {
+        "id": "m2",
+        "name": "DMEM/F12"
+      },
+      {
+        "id": "m3",
+        "name": "mTeSR1"
+      },
+      {
+        "id": "m4",
+        "name": "Rock inhibitor (Y‑27632)"
+      },
+      {
+        "id": "m5",
+        "name": "human iPSCs (cryovial)"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_cell_vial",
+        "name": "iPSC cryovial"
+      },
+      {
+        "id": "s_cell_suspension",
+        "name": "thawed iPSC suspension in DMEM/F12"
+      },
+      {
+        "id": "s_cell_pellet",
+        "name": "cell pellet after centrifugation"
+      },
+      {
+        "id": "s_resuspended_cells",
+        "name": "cells resuspended in mTeSR1 + Rock inhibitor"
+      },
+      {
+        "id": "s_cultured_cells",
+        "name": "iPSCs seeded on Matrigel‑coated dish"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

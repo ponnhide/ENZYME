@@ -1,0 +1,458 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-025-01299-6.pdf",
+      "type": "paper"
+    },
+    "title": "Day 0: preparation of hiPS cells for transduction"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "m_vitronectin_diluted",
+            "kind": "material"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "s_plate_coated",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "ml",
+            "value": 1
+          },
+          "note": "1 ml per well of six‑well plate"
+        }
+      },
+      {
+        "annotations": {
+          "lowered_from": "incubate"
+        },
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "s_plate_coated",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "s_plate_coated_incubated",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": null
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "Aspirate vitronectin just before transferring the cell suspension to the well."
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "s_plate_coated_incubated",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "s_plate_post_aspirate_vitronectin",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "Aspirate culture medium from the hiPS cells cultured in six‑well plates."
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "s_plate_post_aspirate_vitronectin",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "s_plate_no_medium",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "m_DPBS",
+            "kind": "material"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "s_plate_DPBS",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "ml",
+            "value": 1
+          },
+          "note": "Rinse each well with 1 ml DPBS."
+        }
+      },
+      {
+        "annotations": {
+          "note": "Aspirate DPBS rinse."
+        },
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "s_plate_DPBS",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "s_plate_Accutase",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s7",
+        "inputs": [
+          {
+            "id": "m_Accutase",
+            "kind": "material"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "s_plate_Accutase",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "ml",
+            "value": 1
+          },
+          "note": "Add 1 ml Accutase per well."
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s8",
+        "inputs": [
+          {
+            "id": "s_plate_Accutase",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "s_plate_Accutase_incubated",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "CO2": "5 %",
+          "device_kind": "incubator",
+          "duration": {
+            "unit": "min",
+            "value": 7
+          },
+          "program": "37C_5%CO2_7min",
+          "temperature": "37 °C"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s9",
+        "inputs": [
+          {
+            "id": "s_plate_Accutase_incubated",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "s_cell_suspension",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently",
+          "note": "Gentle shaking to detach cells."
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s10",
+        "inputs": [
+          {
+            "id": "m_E8_pre_warmed",
+            "kind": "material"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "s_cell_suspension_E8",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "ml",
+            "value": 1
+          },
+          "note": "Add 1 ml pre‑warmed E8 medium per well."
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s11",
+        "inputs": [
+          {
+            "id": "s_cell_suspension_E8",
+            "kind": "sample"
+          },
+          {
+            "id": "c_tube",
+            "kind": "container"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "s_cell_suspension_in_tube",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "note": "Collect the cell suspension into a 15‑ml conical tube."
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s12",
+        "inputs": [
+          {
+            "id": "s_cell_suspension_in_tube",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "s_cell_suspension_in_tube",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently",
+          "note": "Gently pipette a few times with a serological pipette to dissociate clumps."
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s13",
+        "inputs": [
+          {
+            "id": "s_cell_suspension_in_tube",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "s_cell_pellet",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "duration": {
+            "unit": "min",
+            "value": 5
+          },
+          "program": "200g_5min",
+          "speed": "200 g"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "c_plate",
+        "type": "six-well plate"
+      },
+      {
+        "id": "c_tube",
+        "type": "15‑ml conical tube"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "device_kind": "incubator",
+        "id": "e_incubator"
+      },
+      {
+        "device_kind": "centrifuge",
+        "id": "e_centrifuge"
+      }
+    ],
+    "materials": [
+      {
+        "id": "m_vitronectin_stock",
+        "name": "Vitronectin solution"
+      },
+      {
+        "id": "m_DPBS",
+        "name": "DPBS"
+      },
+      {
+        "id": "m_Accutase",
+        "name": "Accutase"
+      },
+      {
+        "id": "m_E8_pre_warmed",
+        "name": "Pre-warmed E8 medium"
+      },
+      {
+        "id": "m_vitronectin_diluted",
+        "name": "Vitronectin diluted 1:100 with DPBS"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_plate_coated",
+        "name": "Six‑well plate coated with diluted vitronectin"
+      },
+      {
+        "id": "s_plate_coated_incubated",
+        "name": "Coated plate after 1 h room‑temperature incubation"
+      },
+      {
+        "id": "s_plate_post_aspirate_vitronectin",
+        "name": "Plate after vitronectin aspiration"
+      },
+      {
+        "id": "s_plate_no_medium",
+        "name": "Plate after culture medium aspiration"
+      },
+      {
+        "id": "s_plate_DPBS",
+        "name": "Plate after DPBS rinse"
+      },
+      {
+        "id": "s_plate_Accutase",
+        "name": "Plate after addition of Accutase"
+      },
+      {
+        "id": "s_plate_Accutase_incubated",
+        "name": "Plate after 7 min 37 °C incubation with Accutase"
+      },
+      {
+        "id": "s_cell_suspension",
+        "name": "Cell suspension detached by gentle shaking"
+      },
+      {
+        "id": "s_cell_suspension_E8",
+        "name": "Cell suspension after addition of pre‑warmed E8 medium"
+      },
+      {
+        "id": "s_cell_suspension_in_tube",
+        "name": "Cell suspension collected in 15‑ml conical tube"
+      },
+      {
+        "id": "s_cell_pellet",
+        "name": "Cell pellet after centrifugation"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

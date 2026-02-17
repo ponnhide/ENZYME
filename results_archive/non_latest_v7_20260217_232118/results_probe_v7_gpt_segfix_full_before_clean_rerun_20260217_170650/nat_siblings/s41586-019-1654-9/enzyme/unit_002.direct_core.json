@@ -1,0 +1,160 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Loading cells onto 10x microfluidic chip and cDNA synthesis",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-019-1654-9.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_cells"
+      },
+      {
+        "id": "m_rt_mix"
+      },
+      {
+        "id": "m_gel_beads"
+      },
+      {
+        "id": "m_oil"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_chip",
+        "type": "microfluidic_chip"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e_chip_device",
+        "type": "dna_delivery_device"
+      },
+      {
+        "id": "e_thermocycler",
+        "type": "thermocycler"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_cell_rt_mix"
+      },
+      {
+        "id": "m_cells",
+        "name": "m_cells"
+      },
+      {
+        "id": "m_rt_mix",
+        "name": "m_rt_mix"
+      },
+      {
+        "id": "m_gel_beads",
+        "name": "m_gel_beads"
+      },
+      {
+        "id": "m_oil",
+        "name": "m_oil"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m_cells"
+          },
+          {
+            "kind": "material",
+            "id": "m_rt_mix"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_rt_mix"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_rt_mix"
+          },
+          {
+            "kind": "material",
+            "id": "m_gel_beads"
+          },
+          {
+            "kind": "material",
+            "id": "m_oil"
+          }
+        ],
+        "outputs": [],
+        "destination": "c_chip"
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "device_ref": "e_chip_device",
+          "program": {
+            "program_name": "coencapsulation"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "thermocycler",
+          "device_ref": "e_thermocycler",
+          "program": {
+            "profile_name": "cDNA_synthesis"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

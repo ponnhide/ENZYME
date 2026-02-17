@@ -1,0 +1,147 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Establishment of clonal organoids from normal crypts",
+    "source": {
+      "type": "paper",
+      "id": "s41586-018-0024-3"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "matrigel",
+        "name": "Matrigel"
+      },
+      {
+        "id": "hism_medium",
+        "name": "HISM medium"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "incubator",
+        "name": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "crypts",
+        "name": "isolated single crypts"
+      },
+      {
+        "id": "crypts_with_matrigel",
+        "name": "crypts with Matrigel"
+      },
+      {
+        "id": "embedded_crypts",
+        "name": "embedded crypts"
+      },
+      {
+        "id": "organoid_culture",
+        "name": "clonal organoid culture"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "crypts"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "matrigel"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "crypts_with_matrigel"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 10,
+            "unit": "µl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "crypts_with_matrigel"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "embedded_crypts"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Embedded single crypts in Matrigel"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "embedded_crypts"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_culture"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator"
+        },
+        "annotations": {
+          "note": "Cultured in HISM medium"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

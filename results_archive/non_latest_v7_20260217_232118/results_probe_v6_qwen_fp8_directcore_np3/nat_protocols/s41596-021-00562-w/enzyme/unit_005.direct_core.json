@@ -1,0 +1,322 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Organoid passaging with CRS digestion",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00562-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Matrigel"
+      },
+      {
+        "id": "m2",
+        "name": "colon organoid growth medium"
+      },
+      {
+        "id": "m3",
+        "name": "CRS"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "24-well plate"
+      },
+      {
+        "id": "c2",
+        "type": "15 ml conical tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "inverted microscope"
+      },
+      {
+        "id": "e2",
+        "type": "1000 µl pipette"
+      },
+      {
+        "id": "e3",
+        "type": "vacuum system"
+      },
+      {
+        "id": "e4",
+        "type": "Pasteur pipette"
+      },
+      {
+        "id": "e5",
+        "type": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "c1",
+        "name": "c1"
+      },
+      {
+        "id": "s2_out",
+        "name": "s2_out"
+      },
+      {
+        "id": "c2",
+        "name": "c2"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "organoid diameter >100 µm"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "equipment": [
+          "e1"
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "volume": "15 ml",
+          "per_unit": "24-well plate"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2_out"
+          }
+        ],
+        "materials": [
+          "m2"
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "c1",
+          "target": "c2",
+          "amount": {
+            "value": 650.0,
+            "unit": "µl"
+          }
+        },
+        "equipment": [
+          "e2"
+        ],
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c2"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "equipment": [
+          "e2"
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "1000g_5min_4C"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c2"
+          }
+        ],
+        "equipment": [
+          "e5"
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": "c2",
+          "target": "waste",
+          "amount": {
+            "value": 15000.0,
+            "unit": "µl"
+          }
+        },
+        "equipment": [
+          "e4"
+        ],
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c2"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "text": "action_kind missing; converted from manipulate"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c2"
+          }
+        ],
+        "materials": [
+          "m3"
+        ],
+        "equipment": [
+          "e2"
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "ice_bucket_dissolution",
+            "duration": "45-60 min",
+            "temperature": "4 °C"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c2"
+          }
+        ],
+        "equipment": [
+          "e5"
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c2"
+          }
+        ],
+        "equipment": [
+          "e2"
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "1000g_5min_4C"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c2"
+          }
+        ],
+        "equipment": [
+          "e5"
+        ],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      }
+    ],
+    "detail_level": 0
+  }
+}

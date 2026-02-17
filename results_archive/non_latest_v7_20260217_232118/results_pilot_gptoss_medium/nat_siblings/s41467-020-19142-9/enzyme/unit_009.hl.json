@@ -1,0 +1,132 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Ligand intensity comparison across clones",
+    "source": {
+      "type": "paper",
+      "id": "s41467-020-19142-9.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "LC‑MS vial"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "LC‑MS instrument"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_clone_extract",
+        "name": "Ligand extract from tumor organoid clone"
+      },
+      {
+        "id": "sample_JY_preparation",
+        "name": "Peptide ligands from JY cell line (independent preparation)"
+      },
+      {
+        "id": "sample_quantified",
+        "name": "Quantified ligand intensities"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_clone_extract"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_JY_preparation"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_clone_extract"
+          },
+          {
+            "kind": "sample",
+            "id": "sample_JY_preparation"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_quantified"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Ligand intensities were measured by LC‑MS with retention time alignment and label‑free quantification in a pair‑wise manner."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_quantified"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "fold_change",
+            "percentage_variation"
+          ]
+        },
+        "annotations": {
+          "result_summary": "Between 15–25% of all ligands varied in intensity by >2‑fold in each pairwise comparison. Quantitative variations >2‑fold were <1% between two independent JY cell line preparations analyzed months apart with the same LC‑MS settings."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s3"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

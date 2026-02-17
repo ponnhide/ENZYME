@@ -1,0 +1,286 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Organoid lysis, protein quantification and peptide preparation",
+    "source": {
+      "type": "paper",
+      "id": "s41467-020-19142-9"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_organoids",
+        "name": "Organoids"
+      },
+      {
+        "id": "m_urea",
+        "name": "8 M Urea"
+      },
+      {
+        "id": "m_ammonium_bicarbonate",
+        "name": "50 mM ammonium bicarbonate"
+      },
+      {
+        "id": "m_dnasel",
+        "name": "DNAse I (Sigma-Aldrich)"
+      },
+      {
+        "id": "m_rnasel",
+        "name": "RNAse A (Sigma-Aldrich)"
+      },
+      {
+        "id": "m_protease_inhibitor",
+        "name": "1× complete EDTA-free protease inhibitor cocktail (Roche Diagnostics)"
+      },
+      {
+        "id": "m_bradford",
+        "name": "Bradford reagent"
+      },
+      {
+        "id": "m_lys_c",
+        "name": "Lys‑C"
+      },
+      {
+        "id": "m_trypsin",
+        "name": "Trypsin"
+      },
+      {
+        "id": "m_stage_tips",
+        "name": "C18 STAGE‑tips"
+      },
+      {
+        "id": "m_ammonium_formate",
+        "name": "200 mM ammonium formate (pH 10)"
+      },
+      {
+        "id": "m_acetonitrile",
+        "name": "Acetonitrile"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e_vortexer",
+        "name": "Vortex mixer"
+      },
+      {
+        "id": "e_centrifuge",
+        "name": "Centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_organoid_sample",
+        "name": "Organoid sample"
+      },
+      {
+        "id": "s_lysate",
+        "name": "Lysate (post‑vortex)"
+      },
+      {
+        "id": "s_cleared_lysate",
+        "name": "Cleared lysate (post‑centrifugation)"
+      },
+      {
+        "id": "s_protein_solution",
+        "name": "Protein solution (20 µg)"
+      },
+      {
+        "id": "s_peptide_digest",
+        "name": "Peptide digest"
+      },
+      {
+        "id": "s_fraction_1",
+        "name": "Fraction 1 (11% ACN)"
+      },
+      {
+        "id": "s_fraction_2",
+        "name": "Fraction 2"
+      },
+      {
+        "id": "s_fraction_3",
+        "name": "Fraction 3"
+      },
+      {
+        "id": "s_fraction_4",
+        "name": "Fraction 4"
+      },
+      {
+        "id": "s_fraction_5",
+        "name": "Fraction 5 (80% ACN)"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_sample"
+          },
+          {
+            "kind": "material",
+            "id": "m_urea"
+          },
+          {
+            "kind": "material",
+            "id": "m_ammonium_bicarbonate"
+          },
+          {
+            "kind": "material",
+            "id": "m_dnasel"
+          },
+          {
+            "kind": "material",
+            "id": "m_rnasel"
+          },
+          {
+            "kind": "material",
+            "id": "m_protease_inhibitor"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_lysate"
+          }
+        ],
+        "params": {
+          "action_kind": "mix",
+          "method": "gentle vortexing"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "centrifuge",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_lysate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cleared_lysate"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "speed": "18000 g",
+          "duration": "1 h",
+          "temperature": "15 °C"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cleared_lysate"
+          },
+          {
+            "kind": "material",
+            "id": "m_bradford"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cleared_lysate"
+          }
+        ],
+        "params": {
+          "modality": "instrument_readout",
+          "features": "protein concentration (Bradford assay)"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cleared_lysate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_protein_solution"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "For each sample, 20 µg of total protein was reduced, alkylated, and digested sequentially with Lys‑C (1:100) and trypsin (1:75)."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_peptide_digest"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_fraction_1"
+          },
+          {
+            "kind": "sample",
+            "id": "s_fraction_2"
+          },
+          {
+            "kind": "sample",
+            "id": "s_fraction_3"
+          },
+          {
+            "kind": "sample",
+            "id": "s_fraction_4"
+          },
+          {
+            "kind": "sample",
+            "id": "s_fraction_5"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "Peptide digests were loaded on C18 STAGE‑tips in 200 mM ammonium formate (pH 10) and eluted into 5 fractions with 11–80% acetonitrile."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

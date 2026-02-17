@@ -1,0 +1,151 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Wash hPSCs with EDTA",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-019-0213-z.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_edta_solution",
+        "name": "0.5 mM EDTA"
+      },
+      {
+        "id": "m_e8_medium",
+        "name": "E8 medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_6well_plate",
+        "type": "6-well plate"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s_hpscs",
+        "name": "human pluripotent stem cells"
+      },
+      {
+        "id": "m_e8_medium",
+        "name": "m_e8_medium"
+      },
+      {
+        "id": "m_edta_solution",
+        "name": "m_edta_solution"
+      },
+      {
+        "id": "c_6well_plate",
+        "name": "c_6well_plate"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c_6well_plate"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_hpscs"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "m_edta_solution"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "m_e8_medium",
+          "destination": "waste",
+          "amount": "0.6 mL per well"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "m_e8_medium"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "m_edta_solution",
+          "destination": "c_6well_plate",
+          "amount": "0.6 mL per well"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "m_edta_solution"
+          },
+          {
+            "kind": "sample",
+            "id": "c_6well_plate"
+          }
+        ],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

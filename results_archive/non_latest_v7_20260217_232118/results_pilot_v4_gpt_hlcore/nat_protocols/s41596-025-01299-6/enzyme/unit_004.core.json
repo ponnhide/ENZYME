@@ -1,0 +1,241 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-025-01299-6",
+      "type": "paper"
+    },
+    "title": "Day 4: collection of virus‑infected hiPS cells through FACS"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "start_step_id": "s1",
+    "step_order": null,
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "s_bulk",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "s_single",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "dislodge_cells"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "s_single",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "s_resuspended",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Filter the cells with a 50‑μm cell strainer and collect the cells in 15‑ml conical tubes."
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "s_resuspended",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "s_filtered",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "Conduct FACS to collect mCherry+ cells (virus‑infected). Uninfected control cells processed similarly for gating."
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "s_filtered",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "s_sorted",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "Seed the sorted mCherry+ cells at low density in 10‑cm dishes coated with vitronectin in 10 ml of pre‑warmed E8 medium supplemented with 10 μM Y‑27632."
+        },
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "s_sorted",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "s_seeded",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "s_seeded",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "s_seeded",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "37 °C, 5% CO2"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "c_15ml_tube",
+        "name": "15‑ml conical tube"
+      },
+      {
+        "id": "c_10cm_dish",
+        "name": "10‑cm dish"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "device_kind": "incubator",
+        "id": "e_incubator",
+        "name": "Incubator"
+      },
+      {
+        "id": "e_facs",
+        "name": "FACS instrument"
+      }
+    ],
+    "materials": [
+      {
+        "id": "m_accutase",
+        "name": "Accutase"
+      },
+      {
+        "id": "m_bsa",
+        "name": "BSA"
+      },
+      {
+        "id": "m_dpbs",
+        "name": "DPBS"
+      },
+      {
+        "id": "m_y27632",
+        "name": "Y-27632"
+      },
+      {
+        "id": "m_strainer",
+        "name": "50‑μm cell strainer"
+      },
+      {
+        "id": "m_vitronectin",
+        "name": "Vitronectin"
+      },
+      {
+        "id": "m_e8",
+        "name": "E8 medium"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_bulk",
+        "name": "hiPS cells (bulk)"
+      },
+      {
+        "id": "s_single",
+        "name": "hiPS cells (single‑cell suspension)"
+      },
+      {
+        "id": "s_resuspended",
+        "name": "hiPS cells resuspended in 3% BSA/DPBS + 10 μM Y‑27632"
+      },
+      {
+        "id": "s_filtered",
+        "name": "hiPS cells after filtration"
+      },
+      {
+        "id": "s_sorted",
+        "name": "mCherry+ hiPS cells (FACS sorted)"
+      },
+      {
+        "id": "s_seeded",
+        "name": "Sorted hiPS cells seeded in 10‑cm dish"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

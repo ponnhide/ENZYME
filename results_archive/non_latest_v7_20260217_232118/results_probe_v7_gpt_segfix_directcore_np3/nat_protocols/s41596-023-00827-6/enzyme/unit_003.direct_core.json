@@ -1,0 +1,523 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Reverse transcription and RT‑qPCR setup",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00827-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "mSuperMix",
+        "type": "reagent",
+        "name": "qScript XLT cDNA SuperMix"
+      },
+      {
+        "id": "mWater",
+        "type": "reagent",
+        "name": "RNase‑/DNase‑free water"
+      },
+      {
+        "id": "mSybr",
+        "type": "reagent",
+        "name": "Sybr green"
+      },
+      {
+        "id": "mFwd",
+        "type": "reagent",
+        "name": "Forward primer (10 μM stock)"
+      },
+      {
+        "id": "mRev",
+        "type": "reagent",
+        "name": "Reverse primer (10 μM stock)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "cTube",
+        "type": "microtube_0.2ml"
+      },
+      {
+        "id": "cPlate",
+        "type": "384_well_plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "eThermo",
+        "type": "thermocycler"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sRNA",
+        "type": "RNA",
+        "name": "RNA template"
+      },
+      {
+        "id": "sCDNA",
+        "type": "cDNA",
+        "name": "cDNA product"
+      },
+      {
+        "id": "mSuperMix",
+        "name": "mSuperMix"
+      },
+      {
+        "id": "mWater",
+        "name": "mWater"
+      },
+      {
+        "id": "cTube",
+        "name": "cTube"
+      },
+      {
+        "id": "cPlate",
+        "name": "cPlate"
+      },
+      {
+        "id": "mSybr",
+        "name": "mSybr"
+      },
+      {
+        "id": "mFwd",
+        "name": "mFwd"
+      },
+      {
+        "id": "mRev",
+        "name": "mRev"
+      },
+      {
+        "id": "dResult",
+        "name": "dResult"
+      }
+    ],
+    "data": [
+      {
+        "id": "dResult",
+        "type": "qPCR_data"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "mSuperMix"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "mWater"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sRNA"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cTube"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "mSuperMix",
+          "destination": "cTube",
+          "amount": {
+            "value": 4.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "text": "Transfer amount for RNA template (sRNA) to cTube is variable/not specified"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "text": "Transfer amount for water (mWater) to cTube is variable/not specified"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "params": {
+          "text": "unmapped action_kind in source: centrifuge"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "run_device",
+        "params": {
+          "device_kind": "thermocycler",
+          "device_ref": "eThermo",
+          "program": {
+            "profile_name": "RT_profile",
+            "steps": [
+              {
+                "temperature": "25 °C",
+                "duration": "5 min"
+              },
+              {
+                "temperature": "42 °C",
+                "duration": "60 min"
+              },
+              {
+                "temperature": "85 °C",
+                "duration": "5 min"
+              },
+              {
+                "temperature": "4 °C",
+                "duration": "hold"
+              }
+            ]
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sCDNA"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s12",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cPlate"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s13",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "mSybr"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s14",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "mFwd"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s15",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "mRev"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s16",
+        "op": "transfer",
+        "params": {
+          "source": "mSybr",
+          "destination": "cPlate",
+          "amount": {
+            "value": 7.5,
+            "unit": "μl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s17",
+        "op": "transfer",
+        "params": {
+          "source": "mFwd",
+          "destination": "cPlate",
+          "amount": {
+            "value": 0.15,
+            "unit": "μl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s18",
+        "op": "transfer",
+        "params": {
+          "source": "mRev",
+          "destination": "cPlate",
+          "amount": {
+            "value": 0.15,
+            "unit": "μl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s19",
+        "op": "annotate",
+        "params": {
+          "text": "Transfer amount for cDNA (sCDNA) to cPlate is variable/not specified"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s20",
+        "op": "annotate",
+        "params": {
+          "text": "Transfer amount for water (mWater) to cPlate is variable/not specified"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s21",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s22",
+        "op": "run_device",
+        "params": {
+          "device_kind": "thermocycler",
+          "device_ref": "eThermo",
+          "program": {
+            "profile_name": "qPCR_profile",
+            "steps": [
+              {
+                "cycles": 40,
+                "steps": [
+                  {
+                    "temperature": "95 °C",
+                    "duration": "15 s"
+                  },
+                  {
+                    "temperature": "60 °C",
+                    "duration": "1 min"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s23",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "Ct"
+          ]
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "dResult"
+          }
+        ],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      },
+      {
+        "from": "s16",
+        "to": "s17"
+      },
+      {
+        "from": "s17",
+        "to": "s18"
+      },
+      {
+        "from": "s18",
+        "to": "s19"
+      },
+      {
+        "from": "s19",
+        "to": "s20"
+      },
+      {
+        "from": "s20",
+        "to": "s21"
+      },
+      {
+        "from": "s21",
+        "to": "s22"
+      },
+      {
+        "from": "s22",
+        "to": "s23"
+      }
+    ],
+    "detail_level": 0
+  }
+}

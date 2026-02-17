@@ -1,0 +1,202 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Organoid lysis and protein preparation for digestion",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-020-19142-9.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "8 M Urea in 50 mM ammonium bicarbonate",
+        "type": "solution"
+      },
+      {
+        "id": "m2",
+        "name": "DNAse I",
+        "type": "enzyme",
+        "concentration": "50 µg/ml",
+        "vendor": "Sigma-Aldrich"
+      },
+      {
+        "id": "m3",
+        "name": "RNAse A",
+        "type": "enzyme",
+        "concentration": "50 µg/ml",
+        "vendor": "Sigma-Aldrich"
+      },
+      {
+        "id": "m4",
+        "name": "complete EDTA-free protease inhibitor cocktail",
+        "type": "inhibitor",
+        "concentration": "1×",
+        "vendor": "Roche Diagnostics"
+      },
+      {
+        "id": "m5",
+        "name": "Lys-C",
+        "type": "enzyme",
+        "ratio": "1:100"
+      },
+      {
+        "id": "m6",
+        "name": "trypsin",
+        "type": "enzyme",
+        "ratio": "1:75"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "microcentrifuge_tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "vortex_mixer"
+      },
+      {
+        "id": "e2",
+        "type": "centrifuge"
+      },
+      {
+        "id": "e3",
+        "type": "spectrophotometer"
+      }
+    ],
+    "samples": [
+      {
+        "id": "c1",
+        "name": "c1"
+      },
+      {
+        "id": "d1",
+        "name": "d1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "resources_used": [
+          "m1",
+          "m2",
+          "m3",
+          "m4"
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "1 h at 18,000 g at 15 °C"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "resources_used": [
+          "e2"
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "protein_concentration"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d1"
+          }
+        ],
+        "resources_used": [
+          "e3"
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "resources_used": [
+          "m5",
+          "m6"
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

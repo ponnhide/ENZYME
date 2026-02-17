@@ -1,0 +1,186 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Day 13 cell dissociation for organoid generation",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00880-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "CDBLY2 medium"
+      },
+      {
+        "id": "m2",
+        "name": "TrypLE Select"
+      },
+      {
+        "id": "m3",
+        "name": "E6"
+      },
+      {
+        "id": "m4",
+        "name": "FBS"
+      },
+      {
+        "id": "m5",
+        "name": "E6 with 2% FBS"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "six_well_transwell_plate",
+        "name": "six-well Transwell plate"
+      },
+      {
+        "id": "c2",
+        "type": "conical_tube_15ml",
+        "name": "15 mL conical tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator",
+        "name": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cell_sample",
+        "type": "cell_culture",
+        "name": "differentiated hPSC"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_sample"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "params": {
+          "note": "Label the required number of six-well Transwell plates for organoid generation. If performing PT functionality assays and immunofluorescence, 2.5 plates will be required."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "m1",
+          "destination": "waste",
+          "description": "Aspirate CDBLY2 medium from each well of differentiated hPSC.",
+          "amount": {
+            "value": 1.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "m2",
+          "destination": "c1",
+          "description": "Add 1 mL TrypLE Select to each well, then aspirate and replace with a fresh 1 mL TrypLE Select.",
+          "amount": {
+            "value": 1.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "37C_3min"
+          },
+          "description": "Incubate plate at 37 °C for 3 min."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": "m5",
+          "destination": "c2",
+          "description": "Place 1 mL of room‑temperature E6 containing 2 % FBS into a 15 mL conical tube (one tube per 3–4 wells of a 12‑well plate).",
+          "amount": {
+            "value": 1.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "dislodge_cells",
+          "description": "Gently detach the cells by pipetting up and down a maximum of six times with a P1000 pipette to obtain a single‑cell suspension."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

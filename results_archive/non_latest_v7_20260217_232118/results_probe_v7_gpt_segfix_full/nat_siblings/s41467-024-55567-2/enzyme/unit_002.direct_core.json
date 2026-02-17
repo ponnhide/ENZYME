@@ -1,0 +1,179 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Organoid dissociation and EdU proliferation labeling",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-024-55567-2.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "TrypLE",
+        "source": "Gibco"
+      },
+      {
+        "id": "m2",
+        "name": "BME Matrigel"
+      },
+      {
+        "id": "m3",
+        "name": "Organoid culture medium"
+      },
+      {
+        "id": "m4",
+        "name": "EdU (ethynyl-2’-deoxyuridine)",
+        "source": "Beyotime",
+        "concentration": "10 µM"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "48-well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_organoid",
+        "kind": "organoid_culture"
+      },
+      {
+        "id": "s_cells",
+        "kind": "cell_suspension"
+      },
+      {
+        "id": "s_embedded",
+        "kind": "embedded_cells"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "reagents": [
+            {
+              "ref": "m1",
+              "description": "Add TrypLE to organoids for dissociation"
+            }
+          ],
+          "target_sample": "s_organoid",
+          "result_sample": "s_cells"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "1h incubation"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "reagents": [
+            {
+              "ref": "m2",
+              "description": "Embed dissociated cells in fresh BME Matrigel"
+            }
+          ],
+          "target_sample": "s_cells",
+          "result_sample": "s_embedded"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "reagents": [
+            {
+              "ref": "m4",
+              "description": "Supplement culture medium with 10 µM EdU"
+            }
+          ],
+          "target_sample": "s_embedded"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "1h incubation"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

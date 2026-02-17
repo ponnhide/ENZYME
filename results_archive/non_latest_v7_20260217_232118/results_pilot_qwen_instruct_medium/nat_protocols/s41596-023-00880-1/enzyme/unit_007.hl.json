@@ -1,0 +1,119 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Perform CHIR99021 pulse to induce nephrogenesis",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00880-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "cell_pellet",
+        "name": "cell_pellet"
+      },
+      {
+        "id": "micromass_in_transwell",
+        "name": "micromass_in_transwell"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_pellet"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_pellet"
+          }
+        ],
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "annotations": {
+          "method": "use a P200 pipette with a wide-bore tip to gently push each cell pellet down to the base of the tube"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_pellet"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "micromass_in_transwell"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "mL"
+          }
+        },
+        "annotations": {
+          "source": "E6-containing 5 µM CHIR99021",
+          "target": "base of the Transwell"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "micromass_in_transwell"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "micromass_in_transwell"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": 37,
+            "unit": "°C",
+            "duration": 1,
+            "duration_unit": "h"
+          }
+        },
+        "annotations": {
+          "purpose": "incubating the cell micromasses for precisely 1 h"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

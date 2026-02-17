@@ -1,0 +1,151 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Pathway inhibition during organoid culture",
+    "source": {
+      "type": "paper",
+      "id": "s41588-021-00972-2.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Organoids"
+      },
+      {
+        "id": "m2",
+        "name": "DBZ (NOTCH inhibitor)"
+      },
+      {
+        "id": "m3",
+        "name": "DAPT (NOTCH inhibitor)"
+      },
+      {
+        "id": "m4",
+        "name": "IWP-2 (WNT inhibitor)"
+      },
+      {
+        "id": "m5",
+        "name": "XAV939 (WNT inhibitor)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "culture plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_organoid",
+        "material_id": "m1",
+        "container_id": "c1"
+      },
+      {
+        "id": "s_inhibitor",
+        "material_id": "m2",
+        "container_id": "c1"
+      },
+      {
+        "id": "s_organoid_treated",
+        "material_id": "m1",
+        "container_id": "c1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_inhibitor"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_inhibitor"
+          },
+          {
+            "kind": "sample",
+            "id": "s_organoid"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_treated"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Amount of inhibitor not specified; any of DBZ, DAPT, IWP-2, or XAV939 may be used."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_treated"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "timing": "Treatment applied upon initiation of hormonal stimulation."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

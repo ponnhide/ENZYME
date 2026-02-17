@@ -1,0 +1,112 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Train scArches model",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-024-08172-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [
+      {
+        "id": "workstation",
+        "type": "workstation"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "computer",
+        "type": "computer"
+      }
+    ],
+    "samples": [
+      {
+        "id": "model_data",
+        "name": "model_data"
+      },
+      {
+        "id": "wknn_graph",
+        "name": "wknn_graph"
+      }
+    ],
+    "data": [
+      {
+        "id": "model_data"
+      },
+      {
+        "id": "wknn_graph"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "data",
+          "description": "scArches model trained for 500 epochs"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "model_data"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "params": {
+          "note": "Trained scArches model through scPoli for 500 epochs without unlabelled prototype training"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "data",
+          "description": "wkNN graph computed with k=100"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "wknn_graph"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "params": {
+          "note": "Computed wkNN graph using compute_wknn method of mapper instance with k=100"
+        },
+        "outputs": [],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

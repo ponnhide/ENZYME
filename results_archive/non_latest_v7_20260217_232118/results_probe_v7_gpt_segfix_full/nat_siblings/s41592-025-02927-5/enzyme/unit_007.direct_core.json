@@ -1,0 +1,133 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Representative imaging of organoid cultures",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41592-025-02927-5.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "mat_iB",
+        "name": "iB"
+      },
+      {
+        "id": "mat_iPS_Brew",
+        "name": "iPS Brew"
+      },
+      {
+        "id": "mat_SB",
+        "name": "SB431542"
+      },
+      {
+        "id": "mat_Nog",
+        "name": "Noggin"
+      }
+    ],
+    "containers": [
+      {
+        "id": "cont_plate",
+        "type": "well_plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "eq_imager",
+        "type": "imager"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp_organoid",
+        "name": "organoid culture"
+      },
+      {
+        "id": "eq_imager",
+        "name": "eq_imager"
+      },
+      {
+        "id": "data_image",
+        "name": "data_image"
+      }
+    ],
+    "data": [
+      {
+        "id": "data_image",
+        "description": "representative organoid images"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_organoid"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "equipment"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "eq_imager"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "representative images of four organoids per condition"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_organoid"
+          },
+          {
+            "kind": "sample",
+            "id": "eq_imager"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "data_image"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s3"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

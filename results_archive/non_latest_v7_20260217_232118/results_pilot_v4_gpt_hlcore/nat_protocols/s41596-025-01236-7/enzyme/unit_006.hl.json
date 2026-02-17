@@ -1,0 +1,231 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "iNPC dissociation and FACS preparation",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01236-7.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "phaseIII_medium",
+        "name": "phase III medium"
+      },
+      {
+        "id": "PBS",
+        "name": "PBS"
+      },
+      {
+        "id": "Accumax",
+        "name": "Accumax"
+      },
+      {
+        "id": "FBS_medium",
+        "name": "10% (vol/vol) FBS medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "well_plate",
+        "type": "well_plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cells_well",
+        "type": "cell_culture",
+        "container_ref": "well_plate"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_well"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_well"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_well"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Aspirate the phase III medium"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_well"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_well"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          },
+          "material_ref": "PBS"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_well"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_well"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 0.5,
+            "unit": "ml"
+          },
+          "material_ref": "Accumax"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_well"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_well"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "incubate 12 min at 37 °C"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_well"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_well"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 0.5,
+            "unit": "ml"
+          },
+          "material_ref": "FBS_medium"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_well"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_well"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "annotations": {
+          "note": "Pipette up and down gently 10 times to break down cell clusters into single cells"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

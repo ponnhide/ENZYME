@@ -1,0 +1,154 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Phosphatase and protease inhibitor treatment",
+    "source": {
+      "type": "paper",
+      "id": "s41596-021-00603-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Protease inhibitor cocktail (100× stock)"
+      },
+      {
+        "id": "m2",
+        "name": "PhosSTOP (40× stock)"
+      },
+      {
+        "id": "m3",
+        "name": "Culture medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "culture plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s1",
+        "name": "culture plate with medium",
+        "container_ref": "c1",
+        "material_refs": [
+          "m3"
+        ]
+      },
+      {
+        "id": "s2",
+        "name": "culture plate with medium + inhibitors",
+        "container_ref": "c1"
+      },
+      {
+        "id": "s3",
+        "name": "treated culture plate",
+        "container_ref": "c1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "annotations": {
+          "note": "gently rotate the plate by hand five times for 10 s"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 5,
+            "unit": "min"
+          },
+          "temperature": {
+            "value": 37,
+            "unit": "C"
+          },
+          "CO2": "5%",
+          "device_kind": "incubator"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,455 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "H3K27ac CUT&Tag library preparation (modified)",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-021-03209-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_cells",
+        "name": "human cortical cells"
+      },
+      {
+        "id": "m_cut_tag_wash",
+        "name": "CUT&Tag wash buffer",
+        "composition": "20 mM HEPES pH 7.5, 150 mM NaCl, 0.5 mM spermidine, 1× protease inhibitor cocktail (Roche)"
+      },
+      {
+        "id": "m_dig_wash",
+        "name": "dig‑wash buffer"
+      },
+      {
+        "id": "m_primary_ab",
+        "name": "primary antibody"
+      },
+      {
+        "id": "m_secondary_ab",
+        "name": "secondary antibody"
+      },
+      {
+        "id": "m_pA_Tn5",
+        "name": "pA‑Tn5"
+      },
+      {
+        "id": "m_dig_med",
+        "name": "dig‑med buffer",
+        "composition": "0.05% digitonin, 20 mM HEPES pH 7.5, 300 mM NaCl, 0.5 mM spermidine, 1× protease inhibitor cocktail"
+      },
+      {
+        "id": "m_tagmentation",
+        "name": "tagmentation buffer",
+        "composition": "10 mM MgCl2 in dig‑med buffer"
+      },
+      {
+        "id": "m_DNA_binding",
+        "name": "DNA binding buffer",
+        "vendor": "Zymo Research"
+      },
+      {
+        "id": "m_AMPure",
+        "name": "AMPure XP beads"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_tube",
+        "name": "1.5 mL microcentrifuge tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e_shaker",
+        "name": "overhead rotary shaker"
+      },
+      {
+        "id": "e_centrifuge",
+        "name": "centrifuge"
+      },
+      {
+        "id": "e_incubator",
+        "name": "incubator"
+      }
+    ],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "resource": "m_cells",
+          "quantity": 50000,
+          "unit": "cells"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "resource": "c_tube",
+          "quantity": 1,
+          "unit": "tube"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "m_cut_tag_wash",
+          "destination": "c_tube",
+          "amount": {
+            "value": 200.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "m_dig_wash",
+          "destination": "c_tube",
+          "amount": {
+            "value": 200.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "note": "primary antibody added at 1:50 dilution"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": "overnight incubation",
+          "temperature": "4 °C",
+          "shaking_speed": "90 rpm",
+          "duration": "overnight",
+          "device_ref": "e_shaker"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "speed": "600 g",
+          "device_ref": "e_centrifuge",
+          "program": {
+            "speed": "600 g"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "annotate",
+        "params": {
+          "note": "Wash nuclei twice with 200 μl dig‑wash buffer by adding buffer, resuspending, and pelleting at 600 g."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "annotate",
+        "params": {
+          "note": "secondary antibody added at 1:50 dilution in 100 μl dig‑wash buffer"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": "30 min incubation",
+          "temperature": "room temperature",
+          "shaking_speed": "90 rpm",
+          "duration": "30 min",
+          "device_ref": "e_shaker"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s13",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "speed": "600 g",
+          "device_ref": "e_centrifuge",
+          "program": {
+            "speed": "600 g"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s14",
+        "op": "annotate",
+        "params": {
+          "note": "Wash nuclei twice with 200 μl dig‑wash buffer by adding buffer, resuspending, and pelleting at 600 g."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s15",
+        "op": "annotate",
+        "params": {
+          "note": "pA‑Tn5 added at 1:100 dilution in 100 μl dig‑med buffer"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s16",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": "1 h incubation",
+          "temperature": "room temperature",
+          "shaking_speed": "90 rpm",
+          "duration": "1 h",
+          "device_ref": "e_shaker"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s17",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "speed": "300 g",
+          "device_ref": "e_centrifuge",
+          "program": {
+            "speed": "300 g"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s18",
+        "op": "annotate",
+        "params": {
+          "note": "Wash nuclei twice with 200 μl dig‑med buffer by adding buffer, resuspending, and pelleting at 300 g."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s19",
+        "op": "transfer",
+        "params": {
+          "source": "m_tagmentation",
+          "destination": "c_tube",
+          "amount": {
+            "value": 100.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s20",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s21",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": "1 h tagmentation",
+          "temperature": "37 °C",
+          "duration": "1 h",
+          "device_ref": "e_incubator"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s22",
+        "op": "transfer",
+        "params": {
+          "source": "m_DNA_binding",
+          "destination": "c_tube",
+          "amount": {
+            "value": 100.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s23",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s24",
+        "op": "annotate",
+        "params": {
+          "note": "Purify DNA with a 1.5:1 ratio of AMPure XP beads (volume not specified)."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      },
+      {
+        "from": "s16",
+        "to": "s17"
+      },
+      {
+        "from": "s17",
+        "to": "s18"
+      },
+      {
+        "from": "s18",
+        "to": "s19"
+      },
+      {
+        "from": "s19",
+        "to": "s20"
+      },
+      {
+        "from": "s20",
+        "to": "s21"
+      },
+      {
+        "from": "s21",
+        "to": "s22"
+      },
+      {
+        "from": "s22",
+        "to": "s23"
+      },
+      {
+        "from": "s23",
+        "to": "s24"
+      }
+    ],
+    "detail_level": 0
+  }
+}

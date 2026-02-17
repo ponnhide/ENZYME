@@ -1,0 +1,111 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Resuspend cells in aggregation medium",
+    "source": {
+      "type": "paper",
+      "id": "s41596-019-0213-z"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "cells",
+        "name": "cells"
+      },
+      {
+        "id": "agg_medium",
+        "name": "aggregation medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "pipette_5ml",
+        "name": "5‑mL serological pipette"
+      },
+      {
+        "id": "falcon_15ml",
+        "name": "15‑mL Falcon tube"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "cells_initial",
+        "material_id": "cells"
+      },
+      {
+        "id": "cells_with_medium",
+        "material_id": "cells"
+      },
+      {
+        "id": "resuspended_cells",
+        "material_id": "cells"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "agg_medium"
+          },
+          {
+            "kind": "sample",
+            "id": "cells_initial"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_with_medium"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 5,
+            "unit": "mL"
+          },
+          "container_ref": "pipette_5ml",
+          "destination_container_ref": "falcon_15ml"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_with_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "resuspended_cells"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend",
+          "container_ref": "falcon_15ml"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

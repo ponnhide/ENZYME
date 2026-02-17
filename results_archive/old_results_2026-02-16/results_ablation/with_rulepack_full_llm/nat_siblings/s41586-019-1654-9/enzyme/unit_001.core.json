@@ -1,0 +1,117 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41586-019-1654-9",
+      "type": "paper"
+    },
+    "title": "Cell centrifugation and resuspension"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "cells_initial",
+            "kind": "sample"
+          },
+          {
+            "id": "tube1",
+            "kind": "container"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "cells_pellet",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "duration": {
+            "unit": "min",
+            "value": 5
+          },
+          "program": "centrifuge",
+          "speed": {
+            "unit": "g",
+            "value": 200
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "Exact volume of mTeSR1 not specified in source text."
+        },
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "cells_pellet",
+            "kind": "sample"
+          },
+          {
+            "id": "mTeSR1",
+            "kind": "material"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "cells_resuspended",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "tube1",
+        "type": "centrifuge tube"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "device_kind": "centrifuge",
+        "id": "centrifuge1"
+      }
+    ],
+    "materials": [
+      {
+        "id": "mTeSR1",
+        "name": "mTeSR1"
+      }
+    ],
+    "samples": [
+      {
+        "description": "cells before centrifugation",
+        "id": "cells_initial"
+      },
+      {
+        "description": "cell pellet after centrifugation",
+        "id": "cells_pellet"
+      },
+      {
+        "description": "cells resuspended in mTeSR1",
+        "id": "cells_resuspended"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

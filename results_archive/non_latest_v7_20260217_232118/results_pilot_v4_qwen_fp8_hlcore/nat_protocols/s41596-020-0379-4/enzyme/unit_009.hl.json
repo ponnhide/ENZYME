@@ -1,0 +1,206 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Organoid Splitting Using TrypLE",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-0379-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s1_output",
+        "name": "s1_output"
+      },
+      {
+        "id": "s2_output",
+        "name": "s2_output"
+      },
+      {
+        "id": "s3_output",
+        "name": "s3_output"
+      },
+      {
+        "id": "s4_output",
+        "name": "s4_output"
+      },
+      {
+        "id": "s5_output",
+        "name": "s5_output"
+      },
+      {
+        "id": "s6_output",
+        "name": "s6_output"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1_output"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 10,
+            "unit": "ml"
+          }
+        },
+        "annotations": {
+          "source": "top the volume up with 10 ml of ice-cold adDMEM/F12+++ medium"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1_output"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2_output"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "speed": 200,
+            "unit": "g",
+            "duration": "5 min",
+            "temperature": "4 °C"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2_output"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3_output"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: aspirate"
+        },
+        "annotations": {
+          "source": "aspirate the supernatant"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s4_output"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          }
+        },
+        "annotations": {
+          "source": "resuspend the pellet in 1 ml of TrypLE"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s4_output"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s5_output"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "source": "pipette up and down"
+        }
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s5_output"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s6_output"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": "37 °C"
+          }
+        },
+        "annotations": {
+          "source": "incubate at 37 °C until organoids fall apart"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

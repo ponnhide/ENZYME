@@ -1,0 +1,118 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Form iNPC aggregates for organoid generation",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01236-7"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "hNPSR-v2 medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "96-well U-bottom low-attachment plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sp1",
+        "name": "iNPCs cell suspension"
+      },
+      {
+        "id": "sp2",
+        "name": "iNPCs seeded in well"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sp1"
+          },
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sp2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 25000,
+            "unit": "cells"
+          }
+        },
+        "annotations": {
+          "note": "approx 25,000–30,000 iNPCs"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Add 100 µl of hNPSR-v2 medium to the well"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "300g for 5 min"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

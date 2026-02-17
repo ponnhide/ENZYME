@@ -1,0 +1,206 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Organoid Generation in 96‑Well Plates",
+    "source": {
+      "type": "paper",
+      "id": "s41592-025-02927-5"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Pluripotent stem cells (WTC line)"
+      },
+      {
+        "id": "m2",
+        "name": "Pluripotent stem cells (H9 line)"
+      },
+      {
+        "id": "m3",
+        "name": "Pluripotent stem cells (HES3 line, NKX2-1 reporter)"
+      },
+      {
+        "id": "m4",
+        "name": "Minimal neural induction media (MNIM)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "96-well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "Incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_plate",
+        "name": "Empty 96-well plate"
+      },
+      {
+        "id": "sample_cells",
+        "name": "Pluripotent stem cell mixture"
+      },
+      {
+        "id": "sample_plate_filled",
+        "name": "Plate with cells added"
+      },
+      {
+        "id": "sample_embryoid",
+        "name": "Aggregated embryoid bodies"
+      },
+      {
+        "id": "sample_organoid",
+        "name": "Organoids cultured in MNIM"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_plate"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "material",
+            "id": "m3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_cells"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_cells"
+          },
+          {
+            "kind": "sample",
+            "id": "sample_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_plate_filled"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null,
+            "description": "volume of cell suspension added to each well not specified"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_plate_filled"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_embryoid"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "note": "Cells were aggregated into embryoid bodies; exact method (e.g., centrifugation, shaking) not detailed"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_embryoid"
+          },
+          {
+            "kind": "material",
+            "id": "m4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_organoid"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "culture in MNIM"
+        },
+        "annotations": {
+          "note": "Incubation conditions (temperature, CO₂, duration) not specified"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

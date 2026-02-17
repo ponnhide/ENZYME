@@ -1,0 +1,160 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "FITC-dextran permeability assay",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "4kDA FITC-Dextran",
+        "vendor": "MedChemExpress",
+        "concentration": "2 mg/mL",
+        "solvent": "PBS"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "µ-slide",
+        "vendor": "Ibidi"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "spinning disc confocal imager",
+        "name": "Nikon spinning disc confocal"
+      }
+    ],
+    "samples": [
+      {
+        "id": "c1",
+        "name": "c1"
+      },
+      {
+        "id": "m1",
+        "name": "m1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "resource_id": "c1",
+          "quantity": 1
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "m1",
+          "target": "c1",
+          "amount": {
+            "value": "unknown",
+            "unit": "µL"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "m1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "duration": "5 min"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "observe",
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "fluorescence",
+            "DIC"
+          ]
+        },
+        "device_ref": "e1",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "note": "Percentage of intact organoids calculated as number of organoids excluding FITC-dextran from lumen divided by total number of organoids per condition/donor"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

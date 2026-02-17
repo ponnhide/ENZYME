@@ -1,0 +1,393 @@
+{
+  "graph_version": "0.2",
+  "linkable_kinds": [
+    "data",
+    "sample"
+  ],
+  "unit_graphs": [
+    {
+      "unit_id": "unit_001",
+      "title": "Organoid dissociation and reseeding for cytokine treatment",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 7,
+        "edge_count": 6,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "manipulate"
+          },
+          {
+            "id": "s2",
+            "op": "transfer"
+          },
+          {
+            "id": "s3",
+            "op": "annotate"
+          },
+          {
+            "id": "s4",
+            "op": "annotate"
+          },
+          {
+            "id": "s5",
+            "op": "transfer"
+          },
+          {
+            "id": "s6",
+            "op": "annotate"
+          },
+          {
+            "id": "s7",
+            "op": "annotate"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s2"
+          },
+          {
+            "from": "s2",
+            "to": "s3"
+          },
+          {
+            "from": "s3",
+            "to": "s4"
+          },
+          {
+            "from": "s4",
+            "to": "s5"
+          },
+          {
+            "from": "s5",
+            "to": "s6"
+          },
+          {
+            "from": "s6",
+            "to": "s7"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "sample:sample1",
+          "sample:sample2",
+          "sample:sample3"
+        ],
+        "output_refs": [
+          "sample:sample2",
+          "sample:sample3",
+          "sample:sample4"
+        ]
+      }
+    },
+    {
+      "unit_id": "unit_002",
+      "title": "Organoid dissociation for scRNA-seq",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 3,
+        "edge_count": 2,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "run_device"
+          },
+          {
+            "id": "s2",
+            "op": "transfer"
+          },
+          {
+            "id": "s3",
+            "op": "manipulate"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s2"
+          },
+          {
+            "from": "s2",
+            "to": "s3"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "sample:smp1"
+        ],
+        "output_refs": []
+      }
+    },
+    {
+      "unit_id": "unit_003",
+      "title": "scRNA-seq data preprocessing and normalization",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 2,
+        "edge_count": 1,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "annotate"
+          },
+          {
+            "id": "s2",
+            "op": "run_device"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s2"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "sample:d1",
+          "sample:d2"
+        ],
+        "output_refs": [
+          "sample:d2",
+          "sample:d3"
+        ]
+      }
+    },
+    {
+      "unit_id": "unit_004",
+      "title": "Dimensionality reduction and clustering of scRNA-seq data",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 5,
+        "edge_count": 4,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "annotate"
+          },
+          {
+            "id": "s2",
+            "op": "annotate"
+          },
+          {
+            "id": "s3",
+            "op": "annotate"
+          },
+          {
+            "id": "s4",
+            "op": "annotate"
+          },
+          {
+            "id": "s5",
+            "op": "annotate"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s2"
+          },
+          {
+            "from": "s2",
+            "to": "s3"
+          },
+          {
+            "from": "s3",
+            "to": "s4"
+          },
+          {
+            "from": "s4",
+            "to": "s5"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "sample:d1",
+          "sample:d2",
+          "sample:d3",
+          "sample:d4"
+        ],
+        "output_refs": [
+          "sample:d2",
+          "sample:d3",
+          "sample:d4",
+          "sample:d5"
+        ]
+      }
+    }
+  ],
+  "inter_unit_graph": {
+    "nodes": [
+      "unit_001",
+      "unit_002",
+      "unit_003",
+      "unit_004"
+    ],
+    "edges": [
+      {
+        "from_unit": "unit_003",
+        "to_unit": "unit_004",
+        "via_refs": [
+          "sample:d2",
+          "sample:d3"
+        ],
+        "n_refs": 2
+      },
+      {
+        "from_unit": "unit_004",
+        "to_unit": "unit_003",
+        "via_refs": [
+          "sample:d2"
+        ],
+        "n_refs": 1
+      }
+    ]
+  },
+  "integrity": {
+    "pass": false,
+    "isolated_unit_count": 2,
+    "isolated_unit_rate": 0.5,
+    "isolated_units": [
+      "unit_001",
+      "unit_002"
+    ],
+    "issues": [
+      {
+        "code": "INTER_UNIT_ISOLATED_UNIT_MATERIAL",
+        "severity": "warn",
+        "message": "One or more units are isolated in strict material-flow connectivity.",
+        "unit_ids": [
+          "unit_001",
+          "unit_002"
+        ]
+      }
+    ]
+  },
+  "material_flow": {
+    "linkable_kinds": [
+      "data",
+      "sample"
+    ],
+    "inter_unit_graph": {
+      "nodes": [
+        "unit_001",
+        "unit_002",
+        "unit_003",
+        "unit_004"
+      ],
+      "edges": [
+        {
+          "from_unit": "unit_003",
+          "to_unit": "unit_004",
+          "via_refs": [
+            "sample:d2",
+            "sample:d3"
+          ],
+          "n_refs": 2
+        },
+        {
+          "from_unit": "unit_004",
+          "to_unit": "unit_003",
+          "via_refs": [
+            "sample:d2"
+          ],
+          "n_refs": 1
+        }
+      ]
+    },
+    "integrity": {
+      "pass": false,
+      "isolated_unit_count": 2,
+      "isolated_unit_rate": 0.5,
+      "isolated_units": [
+        "unit_001",
+        "unit_002"
+      ],
+      "issues": [
+        {
+          "code": "INTER_UNIT_ISOLATED_UNIT_MATERIAL",
+          "severity": "warn",
+          "message": "One or more units are isolated in strict material-flow connectivity.",
+          "unit_ids": [
+            "unit_001",
+            "unit_002"
+          ]
+        }
+      ]
+    }
+  },
+  "logical_flow": {
+    "method": "heuristic_v0_1",
+    "window_units": 3,
+    "inter_unit_graph": {
+      "nodes": [
+        "unit_001",
+        "unit_002",
+        "unit_003",
+        "unit_004"
+      ],
+      "edges": [
+        {
+          "from_unit": "unit_001",
+          "to_unit": "unit_002",
+          "confidence": 0.55,
+          "signals": [
+            "temporal_adjacency",
+            "shared_target_terms",
+            "continuity_cue"
+          ],
+          "shared_terms": [
+            "culture"
+          ]
+        },
+        {
+          "from_unit": "unit_002",
+          "to_unit": "unit_003",
+          "confidence": 0.4,
+          "signals": [
+            "temporal_adjacency",
+            "continuity_cue"
+          ],
+          "shared_terms": []
+        }
+      ]
+    },
+    "integrity": {
+      "pass": false,
+      "isolated_unit_count": 1,
+      "isolated_unit_rate": 0.25,
+      "isolated_units": [
+        "unit_004"
+      ],
+      "issues": [
+        {
+          "code": "INTER_UNIT_ISOLATED_UNIT_LOGICAL",
+          "severity": "warn",
+          "message": "One or more units are isolated in heuristic logical-flow connectivity.",
+          "unit_ids": [
+            "unit_004"
+          ]
+        }
+      ]
+    }
+  },
+  "combined_integrity": {
+    "pass": true,
+    "isolated_unit_count": 0,
+    "isolated_unit_rate": 0.0,
+    "isolated_units": [],
+    "issues": []
+  }
+}

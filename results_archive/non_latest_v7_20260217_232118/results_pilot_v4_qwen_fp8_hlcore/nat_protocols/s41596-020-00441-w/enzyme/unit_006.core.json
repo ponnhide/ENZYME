@@ -1,0 +1,172 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-020-00441-w.pdf",
+      "type": "paper"
+    },
+    "title": "Anterior-posterior boundary spheroid formation"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "start_step_id": "s1",
+    "step_order": null,
+    "steps": [
+      {
+        "annotations": {
+          "note": "Pipette up and down to suspend spheroid in medium"
+        },
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "posterior_spheroid_well",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "posterior_spheroid_pipetted",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "µl",
+            "value": 200
+          },
+          "source_container": "well_with_posterior_spheroid",
+          "target_container": "pipette_tip_200ul"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Transfer to well containing one anterior spheroid in same 96-well round-bottom ultra-low attachment plate"
+        },
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "posterior_spheroid_pipetted",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "posterior_spheroid_transferred",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "µl",
+            "value": 200
+          },
+          "source_container": "pipette_tip_200ul",
+          "target_container": "well_with_anterior_spheroid"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "96_well_plate_with_two_spheroids",
+            "kind": "container"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "96_well_plate_after_centrifugation",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "duration": "1 min",
+            "speed": "1000 r.p.m."
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "Form fused boundary spheroids (anterior-posterior gut spheroid; A-P spheroids)"
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "96_well_plate_after_centrifugation",
+            "kind": "container"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "96_well_plate_after_incubation",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "duration": "24 h",
+            "temperature": "37 °C"
+          }
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "96_well_plate_with_two_spheroids",
+        "name": "96_well_plate_with_two_spheroids",
+        "type": "generic_container"
+      },
+      {
+        "id": "96_well_plate_after_centrifugation",
+        "name": "96_well_plate_after_centrifugation",
+        "type": "generic_container"
+      },
+      {
+        "id": "96_well_plate_after_incubation",
+        "name": "96_well_plate_after_incubation",
+        "type": "generic_container"
+      }
+    ],
+    "data": [],
+    "equipment": [],
+    "materials": [],
+    "samples": [
+      {
+        "id": "posterior_spheroid_well",
+        "name": "posterior_spheroid_well"
+      },
+      {
+        "id": "posterior_spheroid_pipetted",
+        "name": "posterior_spheroid_pipetted"
+      },
+      {
+        "id": "posterior_spheroid_transferred",
+        "name": "posterior_spheroid_transferred"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

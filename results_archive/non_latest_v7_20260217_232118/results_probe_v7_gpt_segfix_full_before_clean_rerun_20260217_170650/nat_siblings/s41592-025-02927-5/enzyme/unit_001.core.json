@@ -1,0 +1,322 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Neural induction via dual SMAD inhibition and scRNA‑seq collection",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41592-025-02927-5.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "smad_inhibitor_a",
+        "name": "SMAD inhibitor A"
+      },
+      {
+        "id": "smad_inhibitor_b",
+        "name": "SMAD inhibitor B"
+      },
+      {
+        "id": "culture_medium",
+        "name": "Neural induction culture medium"
+      },
+      {
+        "id": "cell_hashing_antibodies",
+        "name": "Cell hashing antibodies"
+      },
+      {
+        "id": "scrna_seq_kit",
+        "name": "scRNA‑seq library preparation kit"
+      }
+    ],
+    "containers": [
+      {
+        "id": "culture_plate",
+        "type": "well_plate"
+      },
+      {
+        "id": "collection_tube",
+        "type": "tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator_1",
+        "type": "incubator"
+      },
+      {
+        "id": "sequencer",
+        "type": "amplicon_readout_system"
+      }
+    ],
+    "samples": [
+      {
+        "id": "mi_str_tissue",
+        "type": "tissue"
+      },
+      {
+        "id": "neural_organoids",
+        "type": "organoid"
+      },
+      {
+        "id": "collected_organoids",
+        "type": "organoid"
+      },
+      {
+        "id": "smad_inhibitor_a",
+        "name": "smad_inhibitor_a"
+      },
+      {
+        "id": "smad_inhibitor_b",
+        "name": "smad_inhibitor_b"
+      },
+      {
+        "id": "culture_medium",
+        "name": "culture_medium"
+      },
+      {
+        "id": "cell_hashing_antibodies",
+        "name": "cell_hashing_antibodies"
+      },
+      {
+        "id": "scrna_seq_kit",
+        "name": "scrna_seq_kit"
+      },
+      {
+        "id": "culture_plate",
+        "name": "culture_plate"
+      },
+      {
+        "id": "collection_tube",
+        "name": "collection_tube"
+      },
+      {
+        "id": "incubator_1",
+        "name": "incubator_1"
+      },
+      {
+        "id": "sequencer",
+        "name": "sequencer"
+      },
+      {
+        "id": "scRNAseq_data",
+        "name": "scRNAseq_data"
+      }
+    ],
+    "data": [
+      {
+        "id": "scRNAseq_data",
+        "type": "data"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "smad_inhibitor_a"
+          },
+          {
+            "kind": "material",
+            "id": "smad_inhibitor_b"
+          },
+          {
+            "kind": "material",
+            "id": "culture_medium"
+          },
+          {
+            "kind": "material",
+            "id": "cell_hashing_antibodies"
+          },
+          {
+            "kind": "material",
+            "id": "scrna_seq_kit"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "culture_plate"
+          },
+          {
+            "kind": "container",
+            "id": "collection_tube"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "equipment"
+        },
+        "outputs": [
+          {
+            "kind": "equipment",
+            "id": "incubator_1"
+          },
+          {
+            "kind": "equipment",
+            "id": "sequencer"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "description": "Mix SMAD inhibitors A and B into culture medium"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "description": "Add mixed medium to culture plate and seed cells",
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator_1",
+          "program": {
+            "program_name": "standard_37C_5%CO2_21d"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s7",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "organoid_collection"
+          ]
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "collected_organoids"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "note": "Cell hashing antibodies applied to collected organoids to enable multiplexed scRNA‑seq"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "device_ref": "sequencer",
+          "program": {
+            "program_name": "scRNAseq_run"
+          }
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "scRNAseq_data"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s10",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "scRNAseq"
+          ]
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "scRNAseq_data"
+          }
+        ],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Live/dead discrimination",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00603-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "pbs",
+        "type": "buffer",
+        "name": "PBS"
+      },
+      {
+        "id": "cisplatin_solution",
+        "type": "reagent",
+        "name": "0.25 µM 194cisplatin/PBS solution"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate",
+        "type": "well_plate",
+        "name": "96-well plate"
+      },
+      {
+        "id": "waste",
+        "type": "waste_container",
+        "name": "Waste container"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "rocker",
+        "type": "rocker",
+        "name": "Rocker"
+      }
+    ],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s0",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s0a",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s0b",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source": {
+            "material": "pbs",
+            "container": "plate"
+          },
+          "destination": {
+            "container": "waste"
+          },
+          "amount": {
+            "value": 200.0,
+            "unit": "µl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": {
+            "material": "cisplatin_solution"
+          },
+          "destination": {
+            "container": "plate"
+          },
+          "amount": {
+            "value": 200.0,
+            "unit": "µl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "params": {
+          "note": "Incubate for 10–15 min on a rocker at room temperature"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s0",
+    "edges": [
+      {
+        "from": "s0",
+        "to": "s0a"
+      },
+      {
+        "from": "s0a",
+        "to": "s0b"
+      },
+      {
+        "from": "s0b",
+        "to": "s1"
+      },
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

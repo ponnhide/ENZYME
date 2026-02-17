@@ -1,0 +1,178 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Dead cell removal and dilution for scRNA‑seq",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00827-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "kit_deadcell_removal",
+        "name": "MiltenyiBiotec dead cell removal kit"
+      },
+      {
+        "id": "diluent",
+        "name": "Diluent (e.g., PBS)"
+      }
+    ],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "cell_suspension_initial",
+        "description": "Cell suspension before dead cell removal"
+      },
+      {
+        "id": "cell_suspension_cleaned",
+        "description": "Cell suspension after dead cell removal"
+      },
+      {
+        "id": "cell_suspension_diluted",
+        "description": "Cell suspension diluted to 5,000 cells/μl"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "kit_deadcell_removal"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension_initial"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension_initial"
+          },
+          {
+            "kind": "material",
+            "id": "kit_deadcell_removal"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension_cleaned"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "diluent"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension_cleaned"
+          },
+          {
+            "kind": "material",
+            "id": "diluent"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension_diluted"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension_diluted"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension_diluted"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s3"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s5"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

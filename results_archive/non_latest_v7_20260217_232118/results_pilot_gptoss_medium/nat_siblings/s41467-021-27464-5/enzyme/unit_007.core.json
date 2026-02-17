@@ -1,0 +1,110 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41467-021-27464-5.pdf",
+      "type": "paper"
+    },
+    "title": "Cell viability assay using CyQuant"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "cells",
+            "value": 50000
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "Cell viability measured using the colorimetric CyQuant cell proliferation assay (Invitrogen), following the manufacturer’s instructions."
+        },
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "observe",
+        "outputs": [],
+        "params": {
+          "device_ref": "plate_reader",
+          "features": [
+            {
+              "range": {
+                "high": 520,
+                "low": 480,
+                "unit": "nm"
+              },
+              "type": "absorbance"
+            }
+          ],
+          "modality": "instrument_readout"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [],
+    "data": [],
+    "equipment": [
+      {
+        "description": "Plate reader for absorbance measurements",
+        "device_kind": "plate_reader",
+        "id": "plate_reader"
+      }
+    ],
+    "materials": [],
+    "samples": [
+      {
+        "description": "Harvested cells",
+        "id": "cells",
+        "type": "cell"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

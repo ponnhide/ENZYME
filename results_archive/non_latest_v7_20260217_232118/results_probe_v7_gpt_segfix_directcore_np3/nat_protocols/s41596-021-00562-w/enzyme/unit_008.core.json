@@ -1,0 +1,220 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Prepare colon organoid growth medium and collect organoid droplets",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00562-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "Matrigel"
+      },
+      {
+        "id": "CRS",
+        "description": "culture recovery solution"
+      },
+      {
+        "id": "colon_organoid_growth_medium_base",
+        "description": "base medium as described in Table 2"
+      }
+    ],
+    "containers": [
+      {
+        "id": "24_well_plate",
+        "type": "plate"
+      },
+      {
+        "id": "conical_tube_15ml",
+        "type": "tube"
+      },
+      {
+        "id": "pipette_1000ul",
+        "type": "pipette"
+      },
+      {
+        "id": "pasteur_pipette",
+        "type": "pipette"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "vacuum_source",
+        "type": "vacuum"
+      },
+      {
+        "id": "pipette_1000ul",
+        "name": "pipette_1000ul",
+        "type": "generic_equipment"
+      },
+      {
+        "id": "pasteur_pipette",
+        "name": "pasteur_pipette",
+        "type": "generic_equipment"
+      }
+    ],
+    "samples": [
+      {
+        "id": "base_medium",
+        "kind": "sample"
+      },
+      {
+        "id": "growth_medium",
+        "kind": "sample"
+      },
+      {
+        "id": "matrigel_droplet",
+        "kind": "sample"
+      },
+      {
+        "id": "waste_supernatant",
+        "kind": "sample"
+      },
+      {
+        "id": "organoid_suspension",
+        "kind": "sample"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "description": "colon organoid growth medium base as described in Table 2"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "base_medium"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "description": "colon organoid growth medium prepared as described in Table 3"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "growth_medium"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "dislodge_cells",
+          "description": "Using a 1,000 µl pipette set to 650 µl, scrape the bottom of the well to dislodge Matrigel"
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "24_well_plate"
+          },
+          {
+            "kind": "equipment",
+            "id": "pipette_1000ul"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "matrigel_droplet"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "description": "Aspirate spent organoid growth medium supernatant with vacuum using a sterile Pasteur pipette",
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "24_well_plate"
+          },
+          {
+            "kind": "equipment",
+            "id": "pasteur_pipette"
+          },
+          {
+            "kind": "equipment",
+            "id": "vacuum_source"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "waste_supernatant"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "description": "Resuspend Matrigel pellet in CRS using a 1:10 dilution (12 ml CRS for a full 24‑well plate) by gently inverting the 15 ml conical tube"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "matrigel_droplet"
+          },
+          {
+            "kind": "material",
+            "id": "CRS"
+          },
+          {
+            "kind": "container",
+            "id": "conical_tube_15ml"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_suspension"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,296 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Lentiviral infection and hygromycin selection of CAG::Cas9 hiPS cells",
+    "source": {
+      "type": "paper",
+      "id": "s41586-023-06564-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "CAG::Cas9 hiPS cells"
+      },
+      {
+        "id": "m2",
+        "name": "Lentivirus Dlxi1/2b::eGFP (hygromycin resistance)"
+      },
+      {
+        "id": "m3",
+        "name": "Essential 8 medium"
+      },
+      {
+        "id": "m4",
+        "name": "Hygromycin B"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "six-well plate"
+      },
+      {
+        "id": "c2",
+        "name": "cryovial"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_cell_initial",
+        "name": "hiPS cells in six-well plate (pre‑infection)"
+      },
+      {
+        "id": "s_cell_infected",
+        "name": "hiPS cells after lentiviral infection"
+      },
+      {
+        "id": "s_cell_prepassage",
+        "name": "hiPS cells after 3‑day culture post‑infection"
+      },
+      {
+        "id": "s_cell_postpassage",
+        "name": "hiPS cells one day after passaging"
+      },
+      {
+        "id": "s_cell_hygro_added",
+        "name": "hiPS cells with hygromycin added"
+      },
+      {
+        "id": "s_cell_selected",
+        "name": "hiPS cells after 9‑day hygromycin selection"
+      },
+      {
+        "id": "s_cell_expanded",
+        "name": "expanded surviving hiPS cells"
+      },
+      {
+        "id": "s_cell_frozen",
+        "name": "cryopreserved hiPS cells"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_initial"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_infected"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null,
+            "annotation": "volume of lentivirus not specified"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_infected"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_infected"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_infected"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_prepassage"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "incubate 3 days"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_prepassage"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_postpassage"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Passaging performed one day later; details not specified"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_postpassage"
+          },
+          {
+            "kind": "material",
+            "id": "m4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_hygro_added"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 200,
+            "unit": "µg/ml"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_hygro_added"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_selected"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "incubate 9 days"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_selected"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_expanded"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Surviving cells were expanded; protocol details not provided"
+        }
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_expanded"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_frozen"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Cells were cryopreserved for later use; cryopreservation method not detailed"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

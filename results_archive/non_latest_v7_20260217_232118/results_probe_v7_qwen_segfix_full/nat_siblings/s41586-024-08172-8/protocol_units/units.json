@@ -1,0 +1,161 @@
+{
+  "units": [
+    {
+      "title": "Construct kNN graph and cluster organoid dataset",
+      "text": "adata column organoid_age_days, constructed a kNN graph (k = 30) in the RSS space and clustered the dataset using the Leiden algorithm83 (resolution 80). For both steps, we used the graphical processing unit (GPU)-accelerated RAPIDS implementation that is provided through scanpy81,84.",
+      "rationale": "This describes a clear, actionable computational protocol step for clustering organoid data using established parameters and tools.",
+      "detected_categories": [
+        {
+          "id": "purification_cleanup",
+          "hits": 1,
+          "confidence": 0.167,
+          "matched_patterns": [
+            "column"
+          ]
+        }
+      ],
+      "split_audit": {
+        "char_count": 285,
+        "word_count": 42,
+        "sentence_count": 2,
+        "category_count": 1,
+        "flags": []
+      }
+    },
+    {
+      "title": "Perform wkNN-based label transfer to HNOCA cells with regional constraints",
+      "text": "wkNN-based primary developing brain atlas label transfer to HNOCA cells\nGiven the wkNN estimated between primary reference27 and query\nneurons, as well as the NTT labels for non-telencephalic neurons, constraints were added to the transfer procedure. For regional labels, only the non-telencephalic regions, namely diencephalon, hypothalamus, thalamus, midbrain, midbrain dorsal, midbrain ventral, hindbrain, cerebellum, pons and medulla, were considered valid categories to be transferred. The label-transfer procedure was only applied to the non-telencephalic NPCs and neurons in HNOCA.",
+      "rationale": "This details a specific, constrained label transfer protocol with defined regional eligibility and cell type restrictions, making it a high-quality procedural unit.",
+      "detected_categories": [
+        {
+          "id": "cell_culture",
+          "hits": 1,
+          "confidence": 0.143,
+          "matched_patterns": [
+            "\\bwell\\b"
+          ]
+        }
+      ],
+      "split_audit": {
+        "char_count": 588,
+        "word_count": 83,
+        "sentence_count": 3,
+        "category_count": 1,
+        "flags": []
+      }
+    },
+    {
+      "title": "Apply hierarchical label transfer with majority voting and support scoring",
+      "text": "Before any major ity voting was done, the support scores of each cell were computed using a random-walk-with-restart procedure (restart probability alpha, 85%). Next, a hierarchical label transfer, which takes into account the structure hierarchy, was applied. First, the considered regions were grouped into diencephalon, midbrain and hindbrain.",
+      "rationale": "This outlines a multi-step hierarchical annotation protocol with defined parameters and structural logic, essential for consistent cell type mapping.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 346,
+        "word_count": 51,
+        "sentence_count": 3,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Transfer hierarchical annotations to disease-modelling atlas via bipartite wkNN",
+      "text": "To compare the disease-modelling atlas with the integrated HNOCA, we used the bipartite wkNN, the majority voting-based label transfer was applied to transfer the four levels of hierarchical cell type annotation and regional identity to the disease-modelling atlas.",
+      "rationale": "This describes a precise method for annotating disease models by transferring hierarchical labels from a reference atlas using a defined graph-based approach.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 265,
+        "word_count": 41,
+        "sentence_count": 1,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Construct HNOCA Community Edition by projecting new datasets using scPoli",
+      "text": "We instantiated a mapping object from the HNOCA-tools package (at commit fe38c52) using the saved scPoli45 model weights from the HNOCA integration. Using the map_query method of the mapper instance, we projected the community datasets to HNOCA. We used the following training hyperparameters: retrain = 'partial', batch_size = 256, unlabeled_prototype_training = False, n_epochs = 10, pretraining_epochs = 9, early_stopping_kwargs = early_stopping_kwargs, eta = 10, alpha_epoch_anneal = 10.",
+      "rationale": "This provides a complete, parameterized protocol for integrating new datasets into HNOCA using a specific software tool and training configuration.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 491,
+        "word_count": 60,
+        "sentence_count": 4,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Compute wkNN graph for HNOCA Community Edition with k=100",
+      "text": "We computed the wkNN graph using the compute_wknn method of the mapper instance with k = 100.\nThe cell ranger-processed scRNA-seq data for the primary atlas27 were obtained from the link provided on its GitHub page (https://storage.googleapis.com/linnarsson-lab-human/human_dev_GRCh38-3.0.0.h5ad). For further quality control, cells with fewer than 300 detected genes were removed and subsequently natural-log transformed.",
+      "rationale": "This is a discrete, actionable step in the protocol for building neighbor relationships in the integrated atlas, with a specified parameter.",
+      "detected_categories": [
+        {
+          "id": "molecular_cloning",
+          "hits": 1,
+          "confidence": 0.143,
+          "matched_patterns": [
+            "transform"
+          ]
+        }
+      ],
+      "split_audit": {
+        "char_count": 422,
+        "word_count": 67,
+        "sentence_count": 3,
+        "category_count": 1,
+        "flags": []
+      }
+    },
+    {
+      "title": "Subset and harmonize community organoid datasets to HNOCA's 3,000 HVGs",
+      "text": "We subset each dataset to the healthy control cells and removed any cells with fewer than 200 genes expressed. We subset the gene space of every dataset to the 3,000 HVGs of HNOCA while filling the expression of missing genes in the community datasets with zeros.",
+      "rationale": "This outlines a critical data harmonization step for integrating multiple datasets into a unified gene space with explicit filtering and imputation rules.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 263,
+        "word_count": 47,
+        "sentence_count": 2,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Perform F-test-based DE analysis on paired transcriptomes",
+      "text": "To compare expression levels of two groups of paired cells, the expression difference per gene of each cell pair is first calculated on the basis of the log-normalized expression values. Next, for each gene to test for DE, its variance over the calculated expression difference per cell pair (σ2) is compared with the sum of squared of expression differences (di for gene i) normalized by the number of cell pairs: s02 = ∑i =1 di / n. Here, an F-test is applied for the comparison, with f = σ2/s20, d.f.1 = n − 1 and d.f.2 = n.",
+      "rationale": "This provides a complete, mathematically defined differential expression protocol with formula and statistical parameters, essential for reproducibility.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 527,
+        "word_count": 99,
+        "sentence_count": 4,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Integrate disease-modelling datasets using scPoli with 500 epochs",
+      "text": "Data integration was then performed using scPoli45. On the basis of the scPoli latent representation, we used scArches through scPoli and trained the model for 500 epochs without unlabelled prototype training.",
+      "rationale": "This specifies a key integration protocol with exact training parameters, enabling replication of the computational workflow.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 209,
+        "word_count": 31,
+        "sentence_count": 2,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    }
+  ],
+  "created_at": "2026-02-17T07:53:45.718834+00:00"
+}

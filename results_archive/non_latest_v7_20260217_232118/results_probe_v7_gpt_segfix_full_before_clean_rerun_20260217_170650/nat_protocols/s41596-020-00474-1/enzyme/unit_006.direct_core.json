@@ -1,0 +1,166 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Pause point: Cryopreservation of isolated cells",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-020-00474-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Recovery Cell Freezing Medium",
+        "type": "material"
+      },
+      {
+        "id": "m2",
+        "name": "BME",
+        "type": "material"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "centrifuge_tube",
+        "name": "centrifuge tube"
+      },
+      {
+        "id": "c2",
+        "type": "cryovial",
+        "name": "cryovial"
+      },
+      {
+        "id": "c3",
+        "type": "waste_container",
+        "name": "waste container"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "centrifuge",
+        "name": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_cell",
+        "type": "cell_pellet",
+        "name": "cell pellet"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "as described in Step 30"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "params": {
+          "text": "aspirate supernatant"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "description": "add Recovery Cell Freezing Medium",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "description": "resuspend pellet in freezing medium"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "text": "transfer total suspension to cryovial"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "description": "add BME",
+          "amount": {
+            "value": 200.0,
+            "unit": "µl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "description": "resuspend pellet in BME"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

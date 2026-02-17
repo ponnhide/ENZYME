@@ -1,0 +1,204 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Seed 5,000 hPSCs per well in 96-U-well plate",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00629-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "E8 medium",
+        "type": "cell_culture_medium"
+      },
+      {
+        "id": "m2",
+        "name": "Y27632",
+        "type": "small_molecule_inhibitor"
+      },
+      {
+        "id": "m3",
+        "name": "Accutase",
+        "type": "enzymatic_detachment_reagent"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "t25_flask"
+      },
+      {
+        "id": "c2",
+        "type": "96_well_u_shape_ultra_low_attachment_plate"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "smp1",
+        "name": "hPSCs",
+        "type": "human_pluripotent_stem_cells"
+      },
+      {
+        "id": "c1",
+        "name": "c1"
+      },
+      {
+        "id": "data1",
+        "name": "data1"
+      },
+      {
+        "id": "m1",
+        "name": "m1"
+      },
+      {
+        "id": "m2",
+        "name": "m2"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          },
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "cell_count"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "data1"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source_container": "c1",
+          "target_container": "c2",
+          "amount": {
+            "value": 100.0,
+            "unit": "µL"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          },
+          {
+            "kind": "sample",
+            "id": "m1"
+          },
+          {
+            "kind": "sample",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source_container": "c2",
+          "target_container": "c2",
+          "amount": {
+            "value": 100.0,
+            "unit": "µL"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

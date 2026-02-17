@@ -1,0 +1,118 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Electroporate hiPS cells with donor and gRNA plasmids",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-023-06564-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "type": "cell_line",
+        "name": "hiPS cells",
+        "quantity": "2e6 cells"
+      },
+      {
+        "id": "m2",
+        "type": "enzyme",
+        "name": "accutase",
+        "vendor": "Innovative Cell Technologies",
+        "catalogue_no": "AT104"
+      },
+      {
+        "id": "m3",
+        "type": "kit",
+        "name": "P3 Primary Cell 4D-NucleofectorTM X Kit L",
+        "vendor": "Lonza",
+        "catalogue_no": "V4XP-3024"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "dna_delivery_device",
+        "name": "4D-nucleofector core unit",
+        "vendor": "Lonza"
+      },
+      {
+        "id": "e2",
+        "type": "dna_delivery_device",
+        "name": "X unit",
+        "vendor": "Lonza"
+      }
+    ],
+    "samples": [
+      {
+        "id": "m1",
+        "name": "m1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "m1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "m1"
+          }
+        ],
+        "resources_used": [
+          "m2"
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "program": "CA-137",
+          "device_ref": [
+            "e1",
+            "e2"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "m1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "m1"
+          }
+        ],
+        "resources_used": [
+          "m3"
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

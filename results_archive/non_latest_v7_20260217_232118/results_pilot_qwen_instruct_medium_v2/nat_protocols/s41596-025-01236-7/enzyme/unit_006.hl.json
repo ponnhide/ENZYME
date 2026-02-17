@@ -1,0 +1,332 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "iNPC expansion in hNPSR-v2 medium",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01236-7.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "hNPSR-v2 medium"
+      },
+      {
+        "id": "m2",
+        "name": "Matrigel"
+      },
+      {
+        "id": "m3",
+        "name": "PBS"
+      },
+      {
+        "id": "m4",
+        "name": "Accumax"
+      },
+      {
+        "id": "m5",
+        "name": "FBS medium (10% vol/vol)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "12-well plate",
+        "coating": "Matrigel"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "device_kind": "cell_counter",
+        "name": "TC20 automated cell counter"
+      },
+      {
+        "id": "e2",
+        "device_kind": "incubator"
+      },
+      {
+        "id": "e3",
+        "device_kind": "imager",
+        "name": "microscope"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s1",
+        "name": "s1"
+      },
+      {
+        "id": "s2",
+        "name": "s2"
+      },
+      {
+        "id": "s3",
+        "name": "s3"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "cell attachment"
+          ]
+        },
+        "annotations": {
+          "note": "Observe iNPCs under the microscope to ensure that the cells are attached to the plate. It is common to find dead cells floating, which is normal from FACS."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          },
+          "source": "hNPSR-v2 medium",
+          "destination": "12-well plate (Matrigel-coated)"
+        },
+        "annotations": {
+          "note": "Change the medium to 1 ml of fresh hNPSR-v2 medium."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "confluence"
+          ]
+        },
+        "annotations": {
+          "note": "Observe iNPCs under the microscope to check confluence. iNPCs should have reached 80–90% confluence and will be ready for passaging or cryopreservation (D4 in Fig. 3a)."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Some iNPC lines might grow faster. On day 3, if the medium turns yellow, change the medium with fresh hNPSR-v2 medium."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "iNPC overgrowth (>100% confluency) leads to dramatic cell death and decreased iNPC quality."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "inputs": [],
+        "outputs": [],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          },
+          "source": "used hNPSR-v2 medium",
+          "destination": "waste"
+        },
+        "annotations": {
+          "note": "Aspirate the used hNPSR-v2 medium"
+        }
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "inputs": [],
+        "outputs": [],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          },
+          "source": "PBS",
+          "destination": "12-well plate"
+        },
+        "annotations": {
+          "note": "Wash the cells with 1 ml of PBS."
+        }
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "inputs": [],
+        "outputs": [],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          },
+          "source": "PBS",
+          "destination": "waste"
+        },
+        "annotations": {
+          "note": "Remove PBS"
+        }
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "inputs": [],
+        "outputs": [],
+        "params": {
+          "amount": {
+            "value": 0.5,
+            "unit": "ml"
+          },
+          "source": "Accumax",
+          "destination": "12-well plate"
+        },
+        "annotations": {
+          "note": "Add 0.5 ml of Accumax"
+        }
+      },
+      {
+        "id": "s10",
+        "op": "run_device",
+        "inputs": [],
+        "outputs": [],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": 37,
+            "unit": "°C",
+            "duration": 8,
+            "duration_unit": "min"
+          }
+        },
+        "annotations": {
+          "note": "Incubate at 37 °C for 8 min."
+        }
+      },
+      {
+        "id": "s11",
+        "op": "transfer",
+        "inputs": [],
+        "outputs": [],
+        "params": {
+          "amount": {
+            "value": 0.5,
+            "unit": "ml"
+          },
+          "source": "10% (vol/vol) FBS medium",
+          "destination": "12-well plate"
+        },
+        "annotations": {
+          "note": "Add 0.5 ml of 10% (vol/vol) FBS medium to neutralize the dissociation reaction"
+        }
+      },
+      {
+        "id": "s12",
+        "op": "manipulate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently",
+          "cycles": 3,
+          "note": "gently pipette up and down three to five times to mix the cells"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      }
+    ],
+    "detail_level": 0
+  }
+}

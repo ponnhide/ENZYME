@@ -1,0 +1,178 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Injury model induction with DSS",
+    "source": {
+      "type": "paper",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "DSS",
+        "source": "MP Biomedicals"
+      },
+      {
+        "id": "m2",
+        "name": "organoid media (without EGF or Nicotinamide)"
+      },
+      {
+        "id": "m3",
+        "name": "Advanced DMEM/F12"
+      }
+    ],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s1_sample",
+        "name": "s1_sample"
+      },
+      {
+        "id": "s2_sample",
+        "name": "s2_sample"
+      },
+      {
+        "id": "s3_sample",
+        "name": "s3_sample"
+      },
+      {
+        "id": "s4_sample",
+        "name": "s4_sample"
+      },
+      {
+        "id": "s5_sample",
+        "name": "s5_sample"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1_sample"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "dissolved in organoid media (without EGF or Nicotinamide)"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2_sample"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "added to organoid wells"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3_sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "overnight for 16 h"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s3_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s4_sample"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "washed twice with Advanced DMEM/F12"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s4_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s5_sample"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "replaced with organoid media"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,205 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Matrigel‑coated plates with Essential8 medium",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-023-06473-y.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "matrigel",
+        "name": "Matrigel",
+        "vendor": "Corning",
+        "catalogue_no": "354277"
+      },
+      {
+        "id": "essential8",
+        "name": "Essential8 Fluids",
+        "vendor": "ThermoFisher",
+        "catalogue_no": "unspecified"
+      },
+      {
+        "id": "lentivirus_stock",
+        "name": "Lentivirus dual gRNA",
+        "vendor": "Fisher",
+        "catalogue_no": "FD0454"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate",
+        "type": "tissue_culture_plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "lentivirus",
+        "type": "viral_vector"
+      },
+      {
+        "id": "matrigel",
+        "name": "matrigel"
+      },
+      {
+        "id": "essential8",
+        "name": "essential8"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "matrigel"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "essential8"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "plate"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "spread_on_plate",
+          "material_ref": "matrigel"
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "plate"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source_ref": "essential8",
+          "destination_ref": "plate",
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "essential8"
+          },
+          {
+            "kind": "container",
+            "id": "plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "plate"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "lentivirus"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "note": "Lentivirus was packaged and used to infect cells; detailed steps not provided in source."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,285 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41593-021-00923-4.pdf",
+      "type": "paper"
+    },
+    "title": "Real-time cell vulnerability assay"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "c1",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "catalog": {
+            "part_number": "CC010",
+            "vendor": "Appleton Woods, Corning"
+          },
+          "container_type": "six-well plate"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "m1",
+            "kind": "material"
+          },
+          {
+            "id": "m2",
+            "kind": "material"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "s_coated_plate",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "%",
+            "value": 1
+          },
+          "description": "Coat each well with 1% Geltrex in DMEM/F-12"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "s_hiPSC_stock",
+            "kind": "sample"
+          },
+          {
+            "id": "m3",
+            "kind": "material"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "s_seeded_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "cells",
+            "value": 100000.0
+          },
+          "per_well": true
+        }
+      },
+      {
+        "annotations": {
+          "lowered_from": "incubate"
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "s_seeded_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "s_seeded_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": null
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "s_seeded_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "d_images",
+            "kind": "data"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "device_ref": "e1",
+          "program": "Real-time cell vulnerability assay on IncuCyte S3"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "s_seeded_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "s_treated_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "description": "Cells either left untreated or treated daily with topotecan at 1.25 nM, 2.5 nM, 5 nM, or 10 nM"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s7",
+        "inputs": [
+          {
+            "id": "d_images",
+            "kind": "data"
+          }
+        ],
+        "op": "observe",
+        "outputs": [
+          {
+            "id": "d_images",
+            "kind": "data"
+          }
+        ],
+        "params": {
+          "duration": {
+            "unit": "day",
+            "value": 5
+          },
+          "features": [
+            "cell confluency (cell body cluster area)"
+          ],
+          "interval": {
+            "unit": "hour",
+            "value": 6
+          },
+          "magnification": "10x",
+          "modality": "instrument_readout"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "catalog_number": "CC010",
+        "id": "c1",
+        "type": "six-well plate",
+        "vendor": "Appleton Woods, Corning"
+      }
+    ],
+    "data": [
+      {
+        "description": "Time‑lapse images acquired by IncuCyte",
+        "id": "d_images"
+      }
+    ],
+    "equipment": [
+      {
+        "catalog_number": "4647",
+        "id": "e1",
+        "name": "IncuCyte S3 Live-Cell Analysis system",
+        "vendor": "Sartorius"
+      }
+    ],
+    "materials": [
+      {
+        "catalog_number": "A1413302",
+        "id": "m1",
+        "name": "Geltrex",
+        "vendor": "Thermo Fisher Scientific"
+      },
+      {
+        "catalog_number": "11514436",
+        "id": "m2",
+        "name": "DMEM/F-12",
+        "vendor": "Fisher Scientific, Gibco"
+      },
+      {
+        "catalog_number": "130-104-368",
+        "id": "m3",
+        "name": "StemMACS iPS-Brew XF medium",
+        "vendor": "Miltenyi Biotec"
+      },
+      {
+        "catalog_number": "B2296",
+        "id": "m4",
+        "name": "topotecan",
+        "vendor": "Apexbio"
+      }
+    ],
+    "samples": [
+      {
+        "description": "hiPSC cell stock",
+        "id": "s_hiPSC_stock"
+      },
+      {
+        "description": "Six-well plate coated with 1% Geltrex in DMEM/F-12",
+        "id": "s_coated_plate"
+      },
+      {
+        "description": "hiPSCs seeded at 1×10^5 cells per well in StemMACS iPS-Brew XF medium",
+        "id": "s_seeded_cells"
+      },
+      {
+        "description": "Cells treated daily with topotecan at specified concentrations",
+        "id": "s_treated_cells"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

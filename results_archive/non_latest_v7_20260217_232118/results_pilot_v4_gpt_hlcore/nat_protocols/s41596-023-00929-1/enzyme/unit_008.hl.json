@@ -1,0 +1,163 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Collagen coating",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00929-1"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "collagen_solution",
+        "description": "collagen coating solution (0.03 mg/mL)"
+      },
+      {
+        "id": "pbs",
+        "description": "1× PBS"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate24",
+        "type": "24-well plate"
+      },
+      {
+        "id": "plate1",
+        "name": "plate1",
+        "type": "generic_container"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator1",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "plate1",
+        "kind": "container",
+        "container_ref": "plate24"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "plate1"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Calculate the amount of collagen coating solution needed. Recommend 500 µL per well."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "collagen_solution"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "plate1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 500,
+            "unit": "µL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "plate1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "plate1"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "30 min at 37 °C"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "After incubation, remove collagen coating solution from all wells."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Wash wells once with 1× PBS. If not using immediately, keep PBS in the wells and store in a 37 °C incubator until the sorted cells are ready to be plated."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

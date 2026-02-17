@@ -1,0 +1,191 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Transfer of aggregates to ultra‑low attachment dishes and initial medium composition",
+    "source": {
+      "type": "paper",
+      "id": "s41586-023-06564-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "essential_6_medium",
+        "name": "Essential 6 medium",
+        "vendor": "Thermo Fisher Scientific",
+        "catalogue_no": "A1516401"
+      },
+      {
+        "id": "dorsomorphin",
+        "name": "dorsomorphin",
+        "concentration": "2.5 µM",
+        "vendor": "Sigma-Aldrich",
+        "catalogue_no": "P5499"
+      },
+      {
+        "id": "sb_431542",
+        "name": "SB-431542",
+        "concentration": "10 µM",
+        "vendor": "R&D Systems",
+        "catalogue_no": "1614"
+      },
+      {
+        "id": "xav_939",
+        "name": "XAV-939",
+        "concentration": "1.25 µM",
+        "vendor": "Tocris",
+        "catalogue_no": "3748"
+      }
+    ],
+    "containers": [
+      {
+        "id": "culture_plate",
+        "type": "plate",
+        "description": "Plate containing cellular aggregates before transfer"
+      },
+      {
+        "id": "ultra_low_attachment_dish",
+        "type": "dish",
+        "vendor": "Corning",
+        "catalogue_no": "3262",
+        "description": "Ultra‑low attachment plastic dish"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge",
+        "device_kind": "centrifuge"
+      },
+      {
+        "id": "incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cell_aggregates_on_plate",
+        "container_ref": "culture_plate",
+        "description": "Cellular aggregates on the original plate"
+      },
+      {
+        "id": "centrifuged_aggregates",
+        "container_ref": "culture_plate",
+        "description": "Aggregates after centrifugation"
+      },
+      {
+        "id": "incubated_aggregates",
+        "container_ref": "culture_plate",
+        "description": "Aggregates after overnight incubation"
+      },
+      {
+        "id": "aggregates_in_dish",
+        "container_ref": "ultra_low_attachment_dish",
+        "description": "Aggregates transferred to ultra‑low attachment dish and cultured in supplemented medium"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_aggregates_on_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "centrifuged_aggregates"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "100 g for 3 min"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "centrifuged_aggregates"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "incubated_aggregates"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "overnight at 37 °C, 5% CO2"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "incubated_aggregates"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "aggregates_in_dish"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "Cellular aggregates were transferred into ultra‑low attachment plastic dishes (Corning, catalogue no. 3262)."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "aggregates_in_dish"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "aggregates_in_dish"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "Cultured in Essential 6 medium (Thermo Fisher Scientific, catalogue no. A1516401) supplemented with dorsomorphin (2.5 µM, Sigma‑Aldrich, catalogue no. P5499), SB‑431542 (10 µM, R&D Systems, catalogue no. 1614) and XAV‑939 (1.25 µM, Tocris, catalogue no. 3748)."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

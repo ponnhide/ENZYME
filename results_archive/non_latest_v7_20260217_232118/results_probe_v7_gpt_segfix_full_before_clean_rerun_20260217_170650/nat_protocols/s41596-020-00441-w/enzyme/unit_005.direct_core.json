@@ -1,0 +1,318 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Anterior/posterior gut spheroid formation (day 7)",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-020-00441-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "TrypLE Express",
+        "type": "reagent"
+      },
+      {
+        "id": "m2",
+        "name": "DMEM/F12",
+        "type": "reagent"
+      },
+      {
+        "id": "m3",
+        "name": "day 7 medium",
+        "type": "reagent"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "96-well round-bottom ultra-low attachment plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator"
+      },
+      {
+        "id": "e2",
+        "type": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_cells",
+        "type": "cell_suspension"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_cells"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer sample_cells to TrypLE Express (m1)"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_cells"
+          },
+          {
+            "kind": "material",
+            "id": "m1"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "37C_5min"
+          },
+          "device_ref": "e1"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_cells"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "amount": {
+            "value": 500.0,
+            "unit": "µl"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_cells"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_cells"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "1000rpm_3min"
+          },
+          "device_ref": "e2"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_cells"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Remove supernatant after centrifugation"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7a",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer sample_cells to day 7 medium (m3)"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_cells"
+          },
+          {
+            "kind": "material",
+            "id": "m3"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s7b",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_cells"
+          }
+        ]
+      },
+      {
+        "id": "s8",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "params": {
+          "amount": {
+            "value": 100.0,
+            "unit": "µl"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_cells"
+          },
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_cells"
+          }
+        ]
+      },
+      {
+        "id": "s10",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "overnight_37C"
+          },
+          "device_ref": "e1"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_cells"
+          },
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_cells"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7a"
+      },
+      {
+        "from": "s7a",
+        "to": "s7b"
+      },
+      {
+        "from": "s7b",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      }
+    ],
+    "detail_level": 0
+  }
+}

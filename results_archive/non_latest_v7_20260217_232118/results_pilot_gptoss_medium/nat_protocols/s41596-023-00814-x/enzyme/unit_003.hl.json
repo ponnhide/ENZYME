@@ -1,0 +1,241 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "PFA fixation of iPSC colonies",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00814-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Matrigel solution"
+      },
+      {
+        "id": "m2",
+        "name": "mTESR1 medium"
+      },
+      {
+        "id": "m3",
+        "name": "Rock inhibitor (Y-27632 2HCl)"
+      },
+      {
+        "id": "m4",
+        "name": "DMEM/F12"
+      },
+      {
+        "id": "m5",
+        "name": "PFA"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "culture plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e_waterbath",
+        "name": "37 °C warm water bath"
+      },
+      {
+        "id": "e_incubator",
+        "name": "incubator (room temperature)"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s0",
+        "name": "iPSC colonies in Matrigel (initial)"
+      },
+      {
+        "id": "s1",
+        "name": "iPSC colonies after mTESR1 + Rock inhibitor addition"
+      },
+      {
+        "id": "s2",
+        "name": "iPSC colonies after DMEM/F12 addition"
+      },
+      {
+        "id": "s3",
+        "name": "iPSC colonies after PFA fixation"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "description": "Aspirate the Matrigel solution from each well."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "sample",
+            "id": "s0"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 500,
+            "unit": "µl"
+          }
+        },
+        "annotations": {
+          "description": "Add 500 µl of mTESR1 medium and 10 µM Rock inhibitor (Y-27632 2HCl) per well."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "description": "Aspirate the medium from each well."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m4"
+          },
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 500,
+            "unit": "µl"
+          }
+        },
+        "annotations": {
+          "description": "Gently add 500 µl DMEM/F12 (prewarmed in a 37 °C warm water bath) to each well."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "description": "Aspirate the DMEM/F12 from each well."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m5"
+          },
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 500,
+            "unit": "µl"
+          }
+        },
+        "annotations": {
+          "description": "Gently add 500 µl PFA (prewarmed in a 37 °C warm water bath) to each well without detaching the cells."
+        }
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e_incubator",
+          "program": "Incubate for 10 min at RT"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

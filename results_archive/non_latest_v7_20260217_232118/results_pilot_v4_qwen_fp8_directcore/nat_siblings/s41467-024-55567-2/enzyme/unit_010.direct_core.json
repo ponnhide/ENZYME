@@ -1,0 +1,187 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "MBD3 knockdown via CRISPR",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-024-55567-2.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "type": "plasmid",
+        "name": "HP180 with SpCas9 and MBD3-targeting sgRNA"
+      },
+      {
+        "id": "m2",
+        "type": "antibody",
+        "name": "MBD3 antibody",
+        "dilution": "1:200",
+        "source": "Santa Cruz"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "electroporation_device"
+      }
+    ],
+    "samples": [
+      {
+        "id": "smp1",
+        "type": "cell_line",
+        "name": "LGR5-mNeonGreen reporter cells"
+      },
+      {
+        "id": "smp2",
+        "name": "smp2"
+      },
+      {
+        "id": "smp3",
+        "name": "smp3"
+      },
+      {
+        "id": "data1",
+        "name": "data1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "from": "m1",
+          "to": "smp1",
+          "amount": "unknown"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "program": "electroporation"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "pick_colony",
+        "params": {
+          "action_kind": "pick_colony"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp2"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp3"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "MBD3 protein expression"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "data1"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Western blotting performed using MBD3 antibody (1:200, Santa Cruz)"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "data1"
+          }
+        ],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

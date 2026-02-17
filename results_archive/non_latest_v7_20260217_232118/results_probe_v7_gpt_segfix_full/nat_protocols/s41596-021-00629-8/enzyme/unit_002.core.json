@@ -1,0 +1,358 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Initiate monolayer culture from frozen monolayer stock",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00629-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "DMEM_F12",
+        "type": "reagent",
+        "name": "DMEM/F12"
+      },
+      {
+        "id": "E8_Y27632",
+        "type": "reagent",
+        "name": "E8 + 10 μM Y27632"
+      }
+    ],
+    "containers": [
+      {
+        "id": "conical_tube",
+        "type": "conical_tube",
+        "volume_ml": 15
+      },
+      {
+        "id": "T25_flask",
+        "type": "flask",
+        "surface_area_cm2": 25
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge",
+        "type": "centrifuge"
+      },
+      {
+        "id": "incubator",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "frozen_hPSC_vial",
+        "type": "cell_sample",
+        "description": "frozen hPSC stock (~3×10^6 cells)"
+      },
+      {
+        "id": "cell_pellet",
+        "type": "cell_sample"
+      },
+      {
+        "id": "cell_suspension",
+        "type": "cell_sample"
+      },
+      {
+        "id": "E8_Y27632",
+        "name": "E8_Y27632"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "frozen_hPSC_vial"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "conical_tube"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "T25_flask"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "DMEM_F12"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "E8_Y27632"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "equipment"
+        },
+        "outputs": [
+          {
+            "kind": "equipment",
+            "id": "centrifuge"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s7",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "equipment"
+        },
+        "outputs": [
+          {
+            "kind": "equipment",
+            "id": "incubator"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer entire content of frozen_hPSC_vial to conical_tube"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "params": {
+          "source": "DMEM_F12",
+          "destination": "conical_tube",
+          "temperature": "4 C",
+          "amount": {
+            "value": 10.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge",
+          "program": {
+            "program_name": "300g_3min_4C"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_pellet"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s12",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "volume": "1 mL"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_pellet"
+          },
+          {
+            "kind": "sample",
+            "id": "E8_Y27632"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension"
+          }
+        ]
+      },
+      {
+        "id": "s13",
+        "op": "transfer",
+        "params": {
+          "source": "E8_Y27632",
+          "destination": "T25_flask",
+          "amount": {
+            "value": 4.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s14",
+        "op": "transfer",
+        "params": {
+          "source": "cell_suspension",
+          "destination": "T25_flask",
+          "amount": {
+            "value": 1.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s15",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator",
+          "program": {
+            "program_name": "standard_37C_5%CO2"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s16",
+        "op": "annotate",
+        "params": {
+          "note": "Flask moved back and forth to ensure even cell distribution"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      }
+    ],
+    "detail_level": 0
+  }
+}

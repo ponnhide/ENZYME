@@ -1,0 +1,515 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Harvesting organoids and removal of matrix",
+    "source": {
+      "type": "paper",
+      "id": "s41467-020-19142-9.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "cell_recovery_solution",
+        "name": "Cell Recovery Solution",
+        "vendor": "Roche Diagnostics"
+      },
+      {
+        "id": "pbs",
+        "name": "PBS"
+      },
+      {
+        "id": "dry_ice",
+        "name": "dry ice"
+      },
+      {
+        "id": "paper_towel",
+        "name": "paper towel"
+      }
+    ],
+    "containers": [
+      {
+        "id": "well_plate",
+        "type": "6-well culture plate"
+      },
+      {
+        "id": "tube",
+        "type": "microcentrifuge tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge",
+        "type": "centrifuge"
+      },
+      {
+        "id": "ice_bucket",
+        "type": "ice bucket"
+      },
+      {
+        "id": "freezer",
+        "type": "-80°C freezer"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoid_sample",
+        "type": "organoid suspension",
+        "source": "well_plate"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "annotations": {
+          "note": "Organoids removed from 6-well plate using a pipette and transferred to a microcentrifuge tube"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "centrifuge",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "params": {
+          "time": {
+            "value": 8,
+            "unit": "min"
+          },
+          "speed": {
+            "value": 500,
+            "unit": "g"
+          },
+          "brakes": "off"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "cell_recovery_solution"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "annotations": {
+          "note": "Add Cell Recovery Solution to the cell pellet"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "params": {
+          "time": {
+            "value": 30,
+            "unit": "min"
+          },
+          "temperature": {
+            "value": 0,
+            "unit": "°C"
+          },
+          "device_kind": "incubator",
+          "note": "on ice"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "pbs"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "annotations": {
+          "note": "First PBS wash: add excess PBS"
+        }
+      },
+      {
+        "id": "s6",
+        "op": "centrifuge",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "params": {
+          "time": {
+            "value": 8,
+            "unit": "min"
+          },
+          "speed": {
+            "value": 500,
+            "unit": "g"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Discard supernatant after first wash"
+        }
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "pbs"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "annotations": {
+          "note": "Second PBS wash: add excess PBS"
+        }
+      },
+      {
+        "id": "s9",
+        "op": "centrifuge",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "params": {
+          "time": {
+            "value": 8,
+            "unit": "min"
+          },
+          "speed": {
+            "value": 500,
+            "unit": "g"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s10",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Discard supernatant after second wash"
+        }
+      },
+      {
+        "id": "s11",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "pbs"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "annotations": {
+          "note": "Third PBS wash: add excess PBS"
+        }
+      },
+      {
+        "id": "s12",
+        "op": "centrifuge",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "params": {
+          "time": {
+            "value": 8,
+            "unit": "min"
+          },
+          "speed": {
+            "value": 500,
+            "unit": "g"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s13",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Discard supernatant after third wash"
+        }
+      },
+      {
+        "id": "s14",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Dry tube opening quickly with paper towel"
+        }
+      },
+      {
+        "id": "s15",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Snap freeze cell pellets in dry ice"
+        }
+      },
+      {
+        "id": "s16",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Store at -80 °C"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      }
+    ],
+    "detail_level": 0
+  }
+}

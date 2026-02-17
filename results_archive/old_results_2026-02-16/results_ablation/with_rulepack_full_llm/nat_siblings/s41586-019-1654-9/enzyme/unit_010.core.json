@@ -1,0 +1,128 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41586-019-1654-9.pdf",
+      "type": "paper"
+    },
+    "title": "Cell counting and loading onto 10x chip"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {
+          "note": "Trypan Blue assay"
+        },
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "cell_suspension",
+            "kind": "sample"
+          },
+          {
+            "id": "m_trypan_blue",
+            "kind": "material"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "cells_stained",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "cells_stained",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "cells_stained",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "cell_counter",
+          "device_ref": "e_countess",
+          "program": "Count cells"
+        }
+      },
+      {
+        "annotations": {
+          "target": "approximately 6,000 cells per lane of a 10x microfluidic chip device"
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "cells_stained",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "cells_diluted",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [],
+    "data": [],
+    "equipment": [
+      {
+        "id": "e_countess",
+        "name": "Countess automated cell counter",
+        "type": "cell_counter"
+      }
+    ],
+    "materials": [
+      {
+        "id": "m_trypan_blue",
+        "name": "Trypan Blue"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cell_suspension",
+        "name": "Cell suspension"
+      },
+      {
+        "id": "cells_stained",
+        "name": "Cells stained with Trypan Blue"
+      },
+      {
+        "id": "cells_diluted",
+        "name": "Diluted cell suspension"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

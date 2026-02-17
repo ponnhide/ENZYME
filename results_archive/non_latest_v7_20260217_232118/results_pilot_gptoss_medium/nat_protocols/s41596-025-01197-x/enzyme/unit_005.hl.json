@@ -1,0 +1,138 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Culture of isolated SNRs in suspension",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01197-x"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "amplification_medium",
+        "name": "fresh amplification medium with 2× FGF2 and EGF"
+      },
+      {
+        "id": "old_medium",
+        "name": "old culture medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "culture_well",
+        "name": "culture vessel for SNR organoids"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "microscope",
+        "device_kind": "imager"
+      }
+    ],
+    "samples": [
+      {
+        "id": "snr_culture",
+        "container_ref": "culture_well"
+      }
+    ],
+    "data": [
+      {
+        "id": "organoid_images",
+        "type": "image"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "snr_culture"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "snr_culture"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 150,
+            "unit": "µL"
+          }
+        },
+        "annotations": {
+          "note": "Remove 50% of the old medium (150 µL)"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "snr_culture"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "snr_culture"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 150,
+            "unit": "µL"
+          }
+        },
+        "annotations": {
+          "note": "Add 150 µL fresh amplification medium with 2× FGF2 and EGF"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "snr_culture"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "organoid_images"
+          }
+        ],
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "image"
+          ]
+        },
+        "annotations": {
+          "note": "Take images of SNR‑derived organoids at 1, 7 and 14 days post‑isolation"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

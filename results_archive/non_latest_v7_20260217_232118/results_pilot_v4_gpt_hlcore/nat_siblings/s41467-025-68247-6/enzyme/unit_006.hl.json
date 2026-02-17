@@ -1,0 +1,378 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "DSS treatment protocol",
+    "source": {
+      "type": "paper",
+      "id": "s41467-025-68247-6"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "dss",
+        "name": "DSS",
+        "source": {
+          "type": "commercial",
+          "id": "MP Biomedicals"
+        }
+      },
+      {
+        "id": "organoid_media",
+        "name": "organoid media (without EGF or Nicotinamide)"
+      },
+      {
+        "id": "advanced_dmem_f12",
+        "name": "Advanced DMEM/F12"
+      }
+    ],
+    "containers": [
+      {
+        "id": "well_plate",
+        "name": "organoid well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "dss_low_solution",
+        "material": "dss"
+      },
+      {
+        "id": "dss_high_solution",
+        "material": "dss"
+      },
+      {
+        "id": "treated_well_low",
+        "container": "well_plate"
+      },
+      {
+        "id": "final_well_low",
+        "container": "well_plate"
+      },
+      {
+        "id": "treated_well_high",
+        "container": "well_plate"
+      },
+      {
+        "id": "final_well_high",
+        "container": "well_plate"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "dss_low_solution"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "0.1% (wt/vol) DSS in organoid media"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "dss_high_solution"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "0.5% (wt/vol) DSS in organoid media"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "dss_low_solution"
+          },
+          {
+            "kind": "container",
+            "id": "well_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "treated_well_low"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "add low‑dose DSS solution to organoid wells"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "treated_well_low"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "treated_well_low"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "overnight 16 h"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "treated_well_low"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "treated_well_low"
+          }
+        ],
+        "params": {
+          "action_kind": "rinse"
+        },
+        "annotations": {
+          "wash_solution": "Advanced DMEM/F12",
+          "note": "first wash"
+        }
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "treated_well_low"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "treated_well_low"
+          }
+        ],
+        "params": {
+          "action_kind": "rinse"
+        },
+        "annotations": {
+          "wash_solution": "Advanced DMEM/F12",
+          "note": "second wash"
+        }
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "organoid_media"
+          },
+          {
+            "kind": "sample",
+            "id": "treated_well_low"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "final_well_low"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "replace with fresh organoid media"
+        }
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "dss_high_solution"
+          },
+          {
+            "kind": "container",
+            "id": "well_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "treated_well_high"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "add high‑dose DSS solution to organoid wells"
+        }
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "treated_well_high"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "treated_well_high"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "overnight 16 h"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s10",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "treated_well_high"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "treated_well_high"
+          }
+        ],
+        "params": {
+          "action_kind": "rinse"
+        },
+        "annotations": {
+          "wash_solution": "Advanced DMEM/F12",
+          "note": "first wash"
+        }
+      },
+      {
+        "id": "s11",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "treated_well_high"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "treated_well_high"
+          }
+        ],
+        "params": {
+          "action_kind": "rinse"
+        },
+        "annotations": {
+          "wash_solution": "Advanced DMEM/F12",
+          "note": "second wash"
+        }
+      },
+      {
+        "id": "s12",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "organoid_media"
+          },
+          {
+            "kind": "sample",
+            "id": "treated_well_high"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "final_well_high"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "replace with fresh organoid media"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s2",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      }
+    ],
+    "detail_level": 0
+  }
+}

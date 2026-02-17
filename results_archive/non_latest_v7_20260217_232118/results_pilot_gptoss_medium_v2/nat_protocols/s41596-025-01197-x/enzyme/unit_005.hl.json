@@ -1,0 +1,309 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "SNR isolation",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01197-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "amplification_medium",
+        "name": "amplification medium"
+      },
+      {
+        "id": "EGF",
+        "name": "EGF"
+      },
+      {
+        "id": "FGF2",
+        "name": "FGF2"
+      },
+      {
+        "id": "glass_pasteur_pipette",
+        "name": "glass Pasteur pipette"
+      },
+      {
+        "id": "Bunsen_burner",
+        "name": "Bunsen burner"
+      },
+      {
+        "id": "glass_hook",
+        "name": "glass hook"
+      },
+      {
+        "id": "amplification_medium_with_EGF_FGF2",
+        "name": "amplification_medium_with_EGF_FGF2"
+      }
+    ],
+    "containers": [
+      {
+        "id": "ultralow_attachment_plate",
+        "name": "ultralow attachment 96-well plate"
+      },
+      {
+        "id": "ultralow_attachment_plate_filled",
+        "name": "ultralow attachment plate filled with medium"
+      },
+      {
+        "id": "ultralow_attachment_plate_in_incubator",
+        "name": "ultralow attachment plate placed in incubator (medium only)"
+      },
+      {
+        "id": "ultralow_attachment_plate_with_SNRs",
+        "name": "ultralow attachment plate with isolated SNRs"
+      },
+      {
+        "id": "ultralow_attachment_plate_in_incubator_SNRs",
+        "name": "ultralow attachment plate with SNRs placed in incubator"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "name": "incubator",
+        "device_kind": "incubator"
+      },
+      {
+        "id": "orbital_shaker",
+        "name": "orbital shaker"
+      },
+      {
+        "id": "stereoscope",
+        "name": "stereoscope"
+      },
+      {
+        "id": "P200_filtered_pipette",
+        "name": "P200 filtered pipette"
+      }
+    ],
+    "samples": [
+      {
+        "id": "tissue_sample",
+        "name": "tissue containing SNRs"
+      },
+      {
+        "id": "isolated_SNRs",
+        "name": "isolated SNRs"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "amplification_medium"
+          },
+          {
+            "kind": "material",
+            "id": "EGF"
+          },
+          {
+            "kind": "material",
+            "id": "FGF2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "amplification_medium_with_EGF_FGF2"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "amplification_medium_with_EGF_FGF2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "ultralow_attachment_plate_filled"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 300,
+            "unit": "µL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "ultralow_attachment_plate_filled"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "ultralow_attachment_plate_in_incubator"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {}
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Prepare a glass hook from a glass Pasteur pipette using a Bunsen burner. Do not reuse the hook."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tissue_sample"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "modality": "microscope",
+          "features": "Identify large SNRs (>200 µm diameter) with a clearly visible single lumen."
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tissue_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "isolated_SNRs"
+          }
+        ],
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "annotations": {
+          "note": "Separate SNRs from adjacent tissue using the glass hook and gently detach each one from the bottom of the dish."
+        }
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "isolated_SNRs"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "ultralow_attachment_plate_with_SNRs"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "SNR"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "ultralow_attachment_plate_with_SNRs"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "ultralow_attachment_plate_in_incubator_SNRs"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {}
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Keep plates with isolated SNRs on an orbital shaker (45 rpm) in the incubator for 14–15 days."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

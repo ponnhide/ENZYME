@@ -1,0 +1,127 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Tissue sectioning and PBS placement",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "pbs++",
+        "name": "PBS++"
+      }
+    ],
+    "containers": [
+      {
+        "id": "dish1",
+        "type": "dish",
+        "description": "15 cm dish"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "tissue_sections",
+        "name": "tissue sections"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material",
+          "material_name": "PBS++"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "pbs++"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "container_type": "dish"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "dish1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "sample_name": "tissue sections"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tissue_sections"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "params": {
+          "note": "Cut tissue into ~2\" x 2\" sections"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "tissue_sections",
+          "destination": "dish1",
+          "material": "pbs++",
+          "amount": {
+            "value": "unknown",
+            "unit": "unspecified"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

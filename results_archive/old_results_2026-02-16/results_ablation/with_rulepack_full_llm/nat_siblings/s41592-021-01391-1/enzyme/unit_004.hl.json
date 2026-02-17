@@ -1,0 +1,167 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Species mixing experiment using DisCo",
+    "source": {
+      "type": "paper",
+      "id": "s41592-021-01391-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "HEK293T_cells_material",
+        "name": "HEK 293T cells"
+      },
+      {
+        "id": "murine_IBA_cells_material",
+        "name": "murine IBA cells"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "DisCo_device",
+        "name": "DisCo workflow device"
+      },
+      {
+        "id": "analysis_software",
+        "name": "Barnyard plot visualization tool"
+      }
+    ],
+    "samples": [
+      {
+        "id": "HEK293T_cells",
+        "material_id": "HEK293T_cells_material"
+      },
+      {
+        "id": "murine_IBA_cells",
+        "material_id": "murine_IBA_cells_material"
+      },
+      {
+        "id": "mixed_cells_processed",
+        "name": "mixed_cells_processed"
+      },
+      {
+        "id": "merged_barcodes",
+        "name": "merged_barcodes"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "HEK293T_cells"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "murine_IBA_cells"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "HEK293T_cells"
+          },
+          {
+            "kind": "sample",
+            "id": "murine_IBA_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "mixed_cells_processed"
+          }
+        ],
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "program": "DisCo workflow for scRNA‑seq",
+          "device_ref": "DisCo_device"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "mixed_cells_processed"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "merged_barcodes"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Barcodes merged"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "merged_barcodes"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "modality": "visual",
+          "features": [
+            "Barnyard plot"
+          ]
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s3"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

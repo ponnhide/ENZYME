@@ -1,0 +1,165 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Prepare bulk ATAC‑seq libraries from nuclei",
+    "source": {
+      "type": "paper",
+      "id": "s41586-021-03209-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "nova_seq",
+        "type": "instrument",
+        "name": "Illumina NovaSeq"
+      }
+    ],
+    "samples": [
+      {
+        "id": "nuclei_50k",
+        "type": "sample",
+        "description": "50,000 nuclei"
+      },
+      {
+        "id": "library",
+        "type": "sample",
+        "description": "tagmented chromatin library"
+      },
+      {
+        "id": "sequenced_library",
+        "type": "sample",
+        "description": "sequenced ATAC‑seq library"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "nuclei_50k"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 50000,
+            "unit": "count"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "nuclei_50k"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "nuclei_50k"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Permeabilize nuclei"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "nuclei_50k"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "nuclei_50k"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Tagment nuclei to generate tagmented chromatin"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "nuclei_50k"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "library"
+          }
+        ],
+        "params": {
+          "description": "tagmented chromatin library"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "library"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sequenced_library"
+          }
+        ],
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": "Illumina NovaSeq sequencing"
+        },
+        "annotations": {
+          "target_sequencing_depth": "50 million reads per library"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

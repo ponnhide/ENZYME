@@ -1,0 +1,164 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Genomic DNA extraction, PCR and sequencing for CRISPR screen analysis",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01299-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "thermocycler1",
+        "type": "thermocycler"
+      },
+      {
+        "id": "sequencer1",
+        "type": "sequencer"
+      }
+    ],
+    "samples": [
+      {
+        "id": "gDNA_sample",
+        "type": "sample"
+      },
+      {
+        "id": "pcr_product",
+        "type": "sample"
+      }
+    ],
+    "data": [
+      {
+        "id": "seq_data",
+        "type": "data"
+      },
+      {
+        "id": "analysis_results",
+        "type": "data"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "gDNA_sample"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "params": {
+          "note": "Extract genomic DNA using the standard protocol for pooled CRISPR screens."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "thermocycler",
+          "device_ref": "thermocycler1",
+          "program": {
+            "profile_name": "standard_PCR"
+          }
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "pcr_product"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "params": {
+          "note": "Submit the PCR product for high‑throughput sequencing."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "data"
+        },
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "seq_data"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Analyze the sequencing data with CasTLE software to obtain gene‑level maximum likelihood estimates."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "data"
+        },
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "analysis_results"
+          }
+        ],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

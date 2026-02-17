@@ -1,0 +1,295 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "M cell differentiation protocol",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-024-55567-2.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "TNF-α",
+        "concentration": "50 ng/mL"
+      },
+      {
+        "id": "m2",
+        "name": "RANKL",
+        "concentration": "100 ng/mL"
+      },
+      {
+        "id": "m3",
+        "name": "DPBS"
+      },
+      {
+        "id": "m4",
+        "name": "EDTA",
+        "concentration": "2.5 mM"
+      },
+      {
+        "id": "m5",
+        "name": "Cultrex RGF BME",
+        "vendor": "R&D Systems"
+      },
+      {
+        "id": "m6",
+        "name": "Y-27632",
+        "concentration": "10 μM",
+        "vendor": "TargetMol"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "48-well plate"
+      }
+    ],
+    "equipment": [],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "rinse"
+        },
+        "inputs": [
+          {
+            "kind": "samples",
+            "id": "tissue"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "samples",
+            "id": "tissue_washed"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "EDTA_treatment_4C_40min"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "samples",
+            "id": "tissue_washed"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "samples",
+            "id": "tissue_edta"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "amount": "unknown"
+        },
+        "inputs": [
+          {
+            "kind": "samples",
+            "id": "tissue_edta"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "samples",
+            "id": "crypt_supernatant"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "count": 48,
+          "volume_per_unit": "10 uL",
+          "content": "crypts"
+        },
+        "outputs": [
+          {
+            "kind": "samples",
+            "id": "crypt_droplets"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "amount": "unknown"
+        },
+        "inputs": [
+          {
+            "kind": "samples",
+            "id": "crypt_supernatant"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "samples",
+            "id": "crypt_droplets"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "spread_on_plate"
+        },
+        "inputs": [
+          {
+            "kind": "samples",
+            "id": "crypt_droplets"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "samples",
+            "id": "crypt_droplets_plated"
+          }
+        ]
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "amount": "unknown"
+        },
+        "inputs": [
+          {
+            "kind": "samples",
+            "id": "crypt_droplets_plated"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "samples",
+            "id": "crypt_droplets_plated"
+          }
+        ]
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "TNF_alpha_4h"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "samples",
+            "id": "crypt_droplets_plated"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "samples",
+            "id": "crypts_treated_tnf"
+          }
+        ]
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "RANKL_3days"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "samples",
+            "id": "crypts_treated_tnf"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "samples",
+            "id": "m_cells_differentiated"
+          }
+        ]
+      },
+      {
+        "id": "s10",
+        "op": "transfer",
+        "params": {
+          "amount": "unknown"
+        },
+        "inputs": [
+          {
+            "kind": "samples",
+            "id": "m_cells_differentiated"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "samples",
+            "id": "m_cells_differentiated"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      }
+    ],
+    "detail_level": 0
+  }
+}

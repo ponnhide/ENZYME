@@ -1,0 +1,74 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "hCO 3D-to-2D image processing for Dlxi1/2b::eGFP analysis",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-023-06564-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "d2_projection",
+        "name": "d2_projection"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "params": {
+          "note": "Boundary of the assembloid in individual frames was manually delineated using the nuclear stain signal (roughly every 40 frames); these boundaries were used to create an Imaris 'surface' to define the hCO (Supplementary Video 1)."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "params": {
+          "device_kind": "imager",
+          "program": {
+            "program_name": "maximum intensity projection"
+          }
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d2_projection"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "params": {
+          "note": "The hCO-hSO boundary was aligned vertically to enable consistent measurement of Dlxi1/2b::eGFP intensity across all samples."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

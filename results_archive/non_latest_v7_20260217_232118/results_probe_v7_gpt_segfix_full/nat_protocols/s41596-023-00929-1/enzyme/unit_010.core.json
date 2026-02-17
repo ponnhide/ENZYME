@@ -1,0 +1,215 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Changing cell culture media",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00929-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "egm2_medium",
+        "name": "EGM-2 medium"
+      },
+      {
+        "id": "pbs_1x",
+        "name": "1× PBS"
+      }
+    ],
+    "containers": [
+      {
+        "id": "conical_tube_50ml",
+        "type": "conical_tube"
+      },
+      {
+        "id": "plate_24well",
+        "type": "24_well_plate"
+      },
+      {
+        "id": "waste_reservoir",
+        "type": "waste_reservoir"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator_37c",
+        "type": "incubator"
+      },
+      {
+        "id": "vacuum_manifold",
+        "type": "vacuum"
+      },
+      {
+        "id": "serological_pipette",
+        "type": "pipette"
+      }
+    ],
+    "samples": [
+      {
+        "id": "aliquoted_medium",
+        "kind": "sample"
+      },
+      {
+        "id": "cell_plate",
+        "kind": "sample"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "aliquoted_medium"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "params": {
+          "note": "Obtain plates with cells from 37 °C incubator."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer waste from cell_plate to waste_reservoir as needed."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source_ref": "pbs_1x",
+          "dest_ref": "cell_plate",
+          "amount": {
+            "value": 0.5,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "target_ref": "cell_plate",
+          "description": "Swirl each plate"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer majority of PBS from cell_plate to waste_reservoir."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "source_ref": "aliquoted_medium",
+          "dest_ref": "cell_plate",
+          "amount": {
+            "value": 0.5,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "target_ref": "cell_plate",
+          "description": "Swirl each plate once"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "params": {
+          "note": "Place entire cell_plate into incubator_37c."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "annotate",
+        "params": {
+          "note": "Repeat steps 70–75 approximately every other day until confluency 75–80%."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      }
+    ],
+    "detail_level": 0
+  }
+}

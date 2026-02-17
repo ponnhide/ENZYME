@@ -1,0 +1,490 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Freezing of organoids",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-0379-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "adDMEM/F12+++"
+      },
+      {
+        "id": "m2",
+        "name": "BME"
+      },
+      {
+        "id": "m3",
+        "name": "cell‑freezing medium"
+      },
+      {
+        "id": "m4",
+        "name": "sterile cryogenic vial"
+      },
+      {
+        "id": "m5",
+        "name": "freezing container"
+      },
+      {
+        "id": "m6",
+        "name": "ice (ice‑cold)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "culture plate (well)"
+      },
+      {
+        "id": "c2",
+        "name": "15 ml conical tube"
+      },
+      {
+        "id": "c3",
+        "name": "10 ml serological pipette"
+      },
+      {
+        "id": "c4",
+        "name": "P1000 filter tip"
+      },
+      {
+        "id": "c5",
+        "name": "cryogenic vial"
+      },
+      {
+        "id": "c6",
+        "name": "liquid nitrogen tank"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "centrifuge"
+      },
+      {
+        "id": "e2",
+        "name": "-80 °C freezer"
+      },
+      {
+        "id": "e3",
+        "name": "liquid nitrogen tank"
+      }
+    ],
+    "samples": [
+      {
+        "id": "org_well",
+        "name": "organoids in wells"
+      },
+      {
+        "id": "org_tube",
+        "name": "organoids in 15 ml tube"
+      },
+      {
+        "id": "org_pellet",
+        "name": "organoid pellet after centrifugation"
+      },
+      {
+        "id": "org_resuspended",
+        "name": "organoids resuspended in freezing medium"
+      },
+      {
+        "id": "org_vial",
+        "name": "organoids in cryogenic vial"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "org_well"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "org_well"
+          }
+        ],
+        "params": {
+          "action_kind": "aspirate"
+        },
+        "annotations": {
+          "note": "Remove the medium from each well."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "sample",
+            "id": "org_well"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "org_well"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 500,
+            "unit": "µl"
+          }
+        },
+        "annotations": {
+          "note": "Add 500 µl of adDMEM/F12+++ medium into each well."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "org_well"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "org_tube"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Break up the BME drops using a P1000 filter tip, and transfer the material to an ice‑cold 15‑ml conical tube."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "org_tube"
+          },
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "container",
+            "id": "c3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "org_tube"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Optional: Fill tube to 12 ml with ice‑cold adDMEM/F12+++ medium, pipette up and down with a pre‑wetted 10‑ml serological pipette, put on ice for 10 min, then pipette up and down again several times."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "centrifuge",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "org_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "org_pellet"
+          }
+        ],
+        "params": {
+          "speed": {
+            "value": 200,
+            "unit": "g"
+          },
+          "time": {
+            "value": 5,
+            "unit": "min"
+          },
+          "temperature": {
+            "value": 4,
+            "unit": "°C"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "org_pellet"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "org_pellet"
+          }
+        ],
+        "params": {
+          "action_kind": "aspirate"
+        },
+        "annotations": {
+          "note": "Aspirate the supernatant without disturbing the pellet."
+        }
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "org_pellet"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "org_pellet"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Optional: If multiple 15‑ml tubes were used, resuspend each pellet in 1 ml adDMEM/F12+++, combine into one tube, centrifuge again at 200 g for 5 min at 4 °C, and aspirate supernatant."
+        }
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m3"
+          },
+          {
+            "kind": "sample",
+            "id": "org_pellet"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "org_resuspended"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "required",
+            "unit": "µl"
+          }
+        },
+        "annotations": {
+          "note": "Add the required volume of cell‑freezing medium and pipette up and down to properly resuspend the organoids."
+        }
+      },
+      {
+        "id": "s9",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "org_resuspended"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "org_resuspended"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "note": "Pipette up and down using a P1000 pipette to mix."
+        }
+      },
+      {
+        "id": "s10",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "org_resuspended"
+          },
+          {
+            "kind": "container",
+            "id": "c5"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "org_vial"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 500,
+            "unit": "µl"
+          }
+        },
+        "annotations": {
+          "note": "Per sterile cryogenic vial, add 500 µl of freezing medium with the resuspended organoids."
+        }
+      },
+      {
+        "id": "s11",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "org_vial"
+          },
+          {
+            "kind": "material",
+            "id": "m5"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "org_vial"
+          }
+        ],
+        "params": {
+          "action_kind": "place"
+        },
+        "annotations": {
+          "note": "Place the cryogenic vial into a freezing container."
+        }
+      },
+      {
+        "id": "s12",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "org_vial"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "org_vial"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "store at -80 °C"
+        },
+        "annotations": {
+          "note": "Store the freezing container with the samples at –80 °C."
+        }
+      },
+      {
+        "id": "s13",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "org_vial"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "org_vial"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "transfer to liquid nitrogen tank after 24 h"
+        },
+        "annotations": {
+          "note": "After 24 h at –80 °C, move vials to the liquid nitrogen tank (≈ –180 °C)."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      }
+    ],
+    "detail_level": 0
+  }
+}

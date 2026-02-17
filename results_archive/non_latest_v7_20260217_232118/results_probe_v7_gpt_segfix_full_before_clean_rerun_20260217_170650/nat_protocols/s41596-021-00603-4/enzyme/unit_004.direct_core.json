@@ -1,0 +1,118 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "In‑situ fixation",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00603-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "culture medium"
+      },
+      {
+        "id": "m2",
+        "name": "4% (vol/vol) PFA",
+        "description": "prewarmed (37 °C)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "well_plate",
+        "description": "culture plate wells"
+      },
+      {
+        "id": "c2",
+        "type": "waste_container",
+        "description": "waste for removed medium"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator",
+        "description": "37 °C, 5% CO2 incubator"
+      }
+    ],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source": {
+            "container_ref": "c1",
+            "description": "culture medium in well"
+          },
+          "destination": {
+            "container_ref": "c2",
+            "description": "waste"
+          },
+          "unit": "µl",
+          "note": "remove culture medium by pipetting, taking care not to disrupt Matrigel",
+          "amount": {
+            "value": 200.0,
+            "unit": "count"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": {
+            "material_ref": "m2"
+          },
+          "destination": {
+            "container_ref": "c1",
+            "description": "well"
+          },
+          "unit": "µl",
+          "note": "add prewarmed 4% PFA, taking care not to disrupt Matrigel",
+          "amount": {
+            "value": 200.0,
+            "unit": "count"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "incubate_60min_37C_5CO2"
+          },
+          "note": "incubate for 60 min at 37 °C and 5% CO2"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

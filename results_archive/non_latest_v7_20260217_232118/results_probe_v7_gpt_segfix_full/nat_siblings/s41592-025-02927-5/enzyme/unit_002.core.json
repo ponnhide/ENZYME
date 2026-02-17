@@ -1,0 +1,199 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Tissue collection and scRNA‑seq after 21 days",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41592-025-02927-5.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "hashing_antibodies"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "amplicon_readout_system"
+      }
+    ],
+    "samples": [
+      {
+        "id": "tissue1",
+        "type": "tissue"
+      },
+      {
+        "id": "organoid1",
+        "type": "organoid"
+      },
+      {
+        "id": "c1",
+        "name": "c1"
+      },
+      {
+        "id": "gene_expression",
+        "name": "gene_expression"
+      }
+    ],
+    "data": [
+      {
+        "id": "seq_raw"
+      },
+      {
+        "id": "gene_expression"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tissue1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "tissue1",
+          "destination": "c1",
+          "amount": {
+            "note": "amount not specified"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "organoid1",
+          "destination": "c1",
+          "amount": {
+            "note": "amount not specified"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Cell hashing and scRNA‑seq library preparation performed on collected tissue and organoids."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "scRNA_seq_run"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "gene_expression_matrix"
+          ]
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "gene_expression"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

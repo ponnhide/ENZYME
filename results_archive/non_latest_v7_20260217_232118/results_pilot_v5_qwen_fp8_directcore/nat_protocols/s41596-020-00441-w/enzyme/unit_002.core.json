@@ -1,0 +1,113 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Change mTeSR medium",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-020-00441-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "mTeSR1",
+        "name": "mTeSR1"
+      },
+      {
+        "id": "Y-27632",
+        "name": "Y-27632"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate_24well",
+        "type": "24-well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator_5pct_co2",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "mTeSR1",
+        "name": "mTeSR1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "params": {
+          "text": "unmapped action_kind in source: aspirate"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "mTeSR1"
+          }
+        ],
+        "containers": [
+          "plate_24well"
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "from": "mTeSR1",
+          "to": "plate_24well",
+          "amount": {
+            "value": 500.0,
+            "unit": "μl"
+          }
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "mTeSR1"
+          }
+        ],
+        "containers": [
+          "plate_24well"
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "overnight_37c_5pct_co2"
+          }
+        },
+        "containers": [
+          "plate_24well"
+        ],
+        "device_ref": "incubator_5pct_co2",
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

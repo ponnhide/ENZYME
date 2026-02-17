@@ -1,0 +1,190 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Isolation of colonic crypts",
+    "source": {
+      "type": "paper",
+      "id": "s41467-020-19142-9"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Chelation solution (5.6 mM Na2HPO4, 8.0 mM KH2PO4, 96.2 mM NaCl, 1.6 mM KCl, 43.4 mM Sucrose, 54.9 mM D‑Sorbitol, Sigma)"
+      },
+      {
+        "id": "m2",
+        "name": "Dithiothreitol (0.5 mM, Sigma)"
+      },
+      {
+        "id": "m3",
+        "name": "EDTA (2 mM, in-house)"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "Incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s1",
+        "name": "Intestinal mucosa (healthy colonic epithelium, ≥10 cm from tumor side)"
+      },
+      {
+        "id": "s2",
+        "name": "Mucosa + chelation solution"
+      },
+      {
+        "id": "s3",
+        "name": "Mucosa + chelation solution + DTT"
+      },
+      {
+        "id": "s4",
+        "name": "Mucosa + chelation solution + DTT + EDTA"
+      },
+      {
+        "id": "s5",
+        "name": "Digested colonic crypts"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Volume of chelation solution not specified in source"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Amount of DTT not specified in source"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m3"
+          },
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s4"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Amount of EDTA not specified in source"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s5"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": "4 °C",
+            "duration": "30 min"
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

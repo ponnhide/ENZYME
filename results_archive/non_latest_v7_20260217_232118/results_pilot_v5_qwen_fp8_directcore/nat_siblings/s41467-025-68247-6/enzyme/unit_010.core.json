@@ -1,0 +1,154 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Quantify apoptosis with Caspase-3/7 reagent",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "CellEvent Caspase-3/7 Detection Reagent",
+        "vendor": "Thermo Fisher"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "microwell_plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "spinning_disc_confocal_microscope"
+      }
+    ],
+    "samples": [
+      {
+        "id": "smp1",
+        "name": "organoids"
+      },
+      {
+        "id": "d1",
+        "name": "d1"
+      },
+      {
+        "id": "c1",
+        "name": "c1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source": "smp1",
+          "destination": "c1",
+          "amount": {
+            "value": 1,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "30_min_incubation"
+          },
+          "device_ref": "e1"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "c1",
+          "destination": "c1",
+          "amount": {
+            "value": 1,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "observe",
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "fluorescence",
+            "DIC"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d1"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "note": "The % area of caspase was quantified using FIJI as the area of organoid stained positive for Caspase-3/7 divided by the total area of the organoid from DIC images."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Apply Click-iT reaction cocktail",
+    "source": {
+      "type": "paper",
+      "id": "s41596-021-00562-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "permeabilization_solution",
+        "name": "permeabilization_solution"
+      },
+      {
+        "id": "bsa_dpbs",
+        "name": "bsa_dpbs"
+      },
+      {
+        "id": "click_it_reaction_cocktail",
+        "name": "click_it_reaction_cocktail"
+      },
+      {
+        "id": "monolayer_with_click_it",
+        "name": "monolayer_with_click_it"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "permeabilization_solution"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "amount": {
+            "value": 0,
+            "unit": "µl"
+          }
+        },
+        "annotations": {
+          "amount": "aspirate"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "bsa_dpbs"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "amount": {
+            "value": 0,
+            "unit": "µl"
+          }
+        },
+        "annotations": {
+          "amount": "3% BSA in DPBS−/−",
+          "repeat": "2"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "click_it_reaction_cocktail"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "monolayer_with_click_it"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 500,
+            "unit": "µl"
+          }
+        },
+        "annotations": {
+          "destination": "apical side of the monolayer"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "monolayer_with_click_it"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "monolayer_with_click_it"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": "room temperature",
+            "duration": "30 min"
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

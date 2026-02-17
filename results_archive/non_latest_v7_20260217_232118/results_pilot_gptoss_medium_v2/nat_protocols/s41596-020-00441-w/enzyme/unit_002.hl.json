@@ -1,0 +1,143 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Remove mTeSR1 and wash wells",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-00441-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "mtesr1",
+        "name": "mTeSR1"
+      },
+      {
+        "id": "dpbs",
+        "name": "sterile DPBS"
+      }
+    ],
+    "containers": [
+      {
+        "id": "six_well_plate",
+        "name": "six-well plate"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "plate_psc",
+        "name": "undifferentiated PSCs in six-well plate",
+        "container_ref": "six_well_plate"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "six_well_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate_psc"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "plate_psc"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate_psc"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Aspirate mTeSR1 from the wells to be passaged"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "dpbs"
+          },
+          {
+            "kind": "sample",
+            "id": "plate_psc"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate_psc"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 2,
+            "unit": "ml"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "plate_psc"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate_psc"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Aspirate the DPBS"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

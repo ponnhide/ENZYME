@@ -1,0 +1,110 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Bulk ATAC-seq library preparation",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-021-03209-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s1_nuclei_sample",
+        "type": "nuclei",
+        "quantity": "50000"
+      },
+      {
+        "id": "d1_sequencing_data",
+        "name": "d1_sequencing_data"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1_sequencing_data",
+        "type": "sequence_read",
+        "metadata": {
+          "target_depth": "50 million reads"
+        }
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "params": {
+          "text": "unmapped action_kind in source: permeabilize"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1_nuclei_sample"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": {
+            "program_name": "ATAC-seq_tagmentation"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1_nuclei_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d1_sequencing_data"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": {
+            "program_name": "Illumina_NovaSeq_sequencing"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d1_sequencing_data"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d1_sequencing_data"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

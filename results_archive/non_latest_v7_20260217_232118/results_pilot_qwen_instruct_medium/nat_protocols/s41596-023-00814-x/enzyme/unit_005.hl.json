@@ -1,0 +1,421 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Prepare OVB organoids for cryosectioning",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00814-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "OVB organoids",
+        "type": "biological_sample"
+      },
+      {
+        "id": "m2",
+        "name": "DMEM/F12",
+        "type": "cell_culture_medium"
+      },
+      {
+        "id": "m3",
+        "name": "PFA",
+        "type": "fixative"
+      },
+      {
+        "id": "m4",
+        "name": "PBS-Glycine",
+        "type": "buffer"
+      },
+      {
+        "id": "m5",
+        "name": "30% sucrose solution",
+        "type": "cryoprotectant"
+      },
+      {
+        "id": "m6",
+        "name": "Tissue-Tek OCT Compound",
+        "type": "embedding_medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "tube",
+        "capacity": "1 ml"
+      },
+      {
+        "id": "c2",
+        "type": "cryomold",
+        "name": "Tissue-Tek Cryomold"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "micropipette",
+        "name": "1,000 µl micropipette tip"
+      },
+      {
+        "id": "e2",
+        "type": "micropipette",
+        "name": "200 µl micropipette tip"
+      },
+      {
+        "id": "e3",
+        "type": "water_bath",
+        "temperature": "37 °C"
+      },
+      {
+        "id": "e4",
+        "type": "incubator",
+        "temperature": "RT"
+      },
+      {
+        "id": "e5",
+        "type": "freezer",
+        "temperature": "-80 °C"
+      },
+      {
+        "id": "e6",
+        "type": "inoculation_loop"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s1",
+        "name": "s1"
+      },
+      {
+        "id": "s2",
+        "name": "s2"
+      },
+      {
+        "id": "s3",
+        "name": "s3"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "up to five organoids",
+            "unit": "organoids"
+          },
+          "source_container": "unknown",
+          "target_container": "c1"
+        },
+        "annotations": {
+          "tool": "cut 1,000 µl micropipette tip",
+          "note": "Collect organoids on day 30 or day 60"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "as much medium as possible",
+            "unit": "volume"
+          },
+          "source_container": "c1",
+          "target_container": "c1"
+        },
+        "annotations": {
+          "tool": "200 µl micropipette tip",
+          "note": "Remove carried-over medium without disturbing organoids"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          },
+          "source_container": "m2",
+          "target_container": "c1"
+        },
+        "annotations": {
+          "temperature": "37 °C",
+          "duration": "3 min"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          },
+          "source_container": "m3",
+          "target_container": "c1"
+        },
+        "annotations": {
+          "temperature": "37 °C",
+          "note": "PFA prewarmed in 37 °C water bath to enhance penetration and preserve cytoskeleton"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": "RT",
+            "duration": "30–60 min"
+          }
+        },
+        "annotations": {
+          "critical_note": "Do not exceed 1 h fixation to avoid high autofluorescence"
+        }
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          },
+          "source_container": "c1",
+          "target_container": "c1"
+        },
+        "annotations": {
+          "note": "Remove PFA"
+        }
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          },
+          "source_container": "m4",
+          "target_container": "c1"
+        },
+        "annotations": {
+          "duration": "3 min",
+          "temperature": "RT",
+          "repeats": 3
+        }
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          },
+          "source_container": "m5",
+          "target_container": "c1"
+        },
+        "annotations": {
+          "temperature": "4 °C",
+          "duration": "overnight",
+          "note": "Organoids sink when fully dehydrated"
+        }
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "one organoid",
+            "unit": "organoid"
+          },
+          "source_container": "c1",
+          "target_container": "c2"
+        },
+        "annotations": {
+          "tool": "cut 200 µl micropipette tip or inoculation loop",
+          "orientation": "pigmented area faces sides, not bottom of mold",
+          "note": "Orient for median or horizontal sectioning"
+        }
+      },
+      {
+        "id": "s10",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "params": {
+          "text": "unmapped device_kind in source: freezer"
+        },
+        "annotations": {
+          "note": "Store until continuing procedure; molds can be stored up to 1 year at -80 °C"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      }
+    ],
+    "detail_level": 0
+  }
+}

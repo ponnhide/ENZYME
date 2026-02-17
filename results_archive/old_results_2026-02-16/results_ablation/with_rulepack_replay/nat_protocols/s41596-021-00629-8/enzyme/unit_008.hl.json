@@ -1,0 +1,198 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "d10: Monitoring and collection of HFOs",
+    "source": {
+      "type": "paper",
+      "id": "s41596-021-00629-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "PBS w/o",
+        "type": "buffer"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "96‑U‑well plate",
+        "type": "plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "inverted microscope",
+        "type": "microscope"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "name": "HFOs in 96‑U‑well plate",
+        "type": "organoid",
+        "container_ref": "c1"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "name": "bright‑field images",
+        "type": "image"
+      },
+      {
+        "id": "d2",
+        "name": "fluorescence images",
+        "type": "image"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "params": {
+          "text": "action_kind missing; converted from manipulate"
+        },
+        "annotations": {
+          "note": "If HFOs were generated using cells expressing a fluorescence marker, remove the medium as described in Step 22."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 200,
+            "unit": "µL"
+          },
+          "per_well": true
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "params": {
+          "text": "action_kind missing; converted from manipulate"
+        },
+        "annotations": {
+          "note": "If HFOs are floating, remove some PBS w/o until the HFOs settle onto the culture plate bottom."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          },
+          {
+            "kind": "equipment",
+            "id": "e1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d1"
+          },
+          {
+            "kind": "data",
+            "id": "d2"
+          }
+        ],
+        "params": {
+          "modality": "visual",
+          "features": [
+            "bright‑field",
+            "fluorescence"
+          ],
+          "magnification_note": "Choose magnification to view entire HFO (~1.5–2 mm diameter)."
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "critical": "Use only successfully formed HFOs for any further experiments; discard aggregates lacking the layered pattern."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

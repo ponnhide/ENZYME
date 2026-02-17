@@ -1,0 +1,101 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Add expansion medium",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-00474-1"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Type 1 or Type 2 medium",
+        "description": "pre‑warmed (RT to 37 °C)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "well",
+        "description": "well of a culture plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "device_kind": "incubator",
+        "description": "incubator set to 37 °C, 5% CO2"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_medium",
+        "material_ref": "m1"
+      },
+      {
+        "id": "well_sample",
+        "container_ref": "c1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "well_sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 750,
+            "unit": "µl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "well_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "well_sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "37 °C, 5% CO2"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

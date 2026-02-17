@@ -1,0 +1,232 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41588-025-02182-6.pdf",
+      "type": "paper"
+    },
+    "title": "Generation of ASC-derived ileal organoids with TNF/RANKL"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "m1",
+            "kind": "material"
+          }
+        ],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "s_control",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "m1",
+            "kind": "material"
+          }
+        ],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "s_treated",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "Add control media to the control organoid culture (exact volume not specified)."
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "s_control",
+            "kind": "sample"
+          },
+          {
+            "id": "m2",
+            "kind": "material"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "s_control",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": null,
+            "value": null
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "Add media supplemented with TNF and RANKL to the treated organoid culture (exact volume not specified)."
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "s_treated",
+            "kind": "sample"
+          },
+          {
+            "id": "m3",
+            "kind": "material"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "s_treated",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": null,
+            "value": null
+          }
+        }
+      },
+      {
+        "annotations": {
+          "lowered_from": "incubate"
+        },
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "s_control",
+            "kind": "sample"
+          },
+          {
+            "id": "s_treated",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "s_control",
+            "kind": "sample"
+          },
+          {
+            "id": "s_treated",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": null
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "Performed scRNA-seq on both control and TNF+RANKL treated organoid cultures after 6 days of treatment."
+        },
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "s_control",
+            "kind": "sample"
+          },
+          {
+            "id": "s_treated",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "d_scRNAseq",
+            "kind": "data"
+          }
+        ],
+        "params": {}
+      }
+    ]
+  },
+  "resources": {
+    "containers": [],
+    "data": [
+      {
+        "id": "d_scRNAseq",
+        "name": "scRNA-seq data"
+      }
+    ],
+    "equipment": [],
+    "materials": [
+      {
+        "id": "m1",
+        "name": "ASC-derived ileal organoids"
+      },
+      {
+        "id": "m2",
+        "name": "control media"
+      },
+      {
+        "id": "m3",
+        "name": "media supplemented with TNF and RANKL"
+      },
+      {
+        "id": "m4",
+        "name": "TNF"
+      },
+      {
+        "id": "m5",
+        "name": "RANKL"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_control",
+        "name": "ASC-derived ileal organoid culture (control)"
+      },
+      {
+        "id": "s_treated",
+        "name": "ASC-derived ileal organoid culture (TNF+RANKL)"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

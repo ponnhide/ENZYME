@@ -1,0 +1,129 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Aggregate formation cell seeding",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-019-0213-z.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "y27632_solution",
+        "name": "Y27632",
+        "description": "50 μM Y27632 solution"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate",
+        "type": "6-well low-attachment plate",
+        "description": "Plate used for cell seeding"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "cells_sample",
+        "type": "cell_culture",
+        "description": "Cells to be seeded at 2×10^5 cells per mL"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_sample"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "plate"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "y27632_solution"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "cells_sample",
+          "destination": "plate",
+          "description": "Seed cells onto the 6-well low-attachment plate at 2×10^5 cells per mL",
+          "amount": "200000 cells per mL"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "y27632_solution",
+          "destination": "plate",
+          "description": "Add 50 μM Y27632 to the seeded cells",
+          "amount": {
+            "value": 50,
+            "unit": "μM"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

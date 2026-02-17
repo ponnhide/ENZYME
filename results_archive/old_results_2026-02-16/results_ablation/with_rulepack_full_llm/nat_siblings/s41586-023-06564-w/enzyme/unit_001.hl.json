@@ -1,0 +1,339 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Generation of CAG::Cas9 hiPS cell line",
+    "source": {
+      "type": "paper",
+      "id": "s41586-023-06564-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "accutase",
+        "name": "Accutase",
+        "vendor": "Innovative Cell Technology"
+      },
+      {
+        "id": "p3_kit",
+        "name": "P3 Primary Cell 4D-NucleofectorTMX Kit L",
+        "vendor": "Lonza",
+        "catalogue": "V4XP-3024"
+      },
+      {
+        "id": "puromycin",
+        "name": "Puromycin"
+      },
+      {
+        "id": "stemflex",
+        "name": "StemFlex medium",
+        "vendor": "Life Technologies",
+        "catalogue": "A3349401"
+      },
+      {
+        "id": "selection_medium",
+        "name": "selection_medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "culture_plate",
+        "type": "culture_plate"
+      },
+      {
+        "id": "electroporation_cuvette",
+        "type": "cuvette"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "nucleofector",
+        "type": "dna_delivery_device",
+        "name": "4D-Nucleofector Core Unit and X Unit",
+        "vendor": "Lonza"
+      },
+      {
+        "id": "incubator",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cells_initial",
+        "description": "2 × 10^6 hiPS cells"
+      },
+      {
+        "id": "cells_dissociated",
+        "description": "Cells after accutase dissociation"
+      },
+      {
+        "id": "cells_electroporated",
+        "description": "Cells after electroporation"
+      },
+      {
+        "id": "selection_medium",
+        "description": "StemFlex medium supplemented with 1 µg/ml puromycin"
+      },
+      {
+        "id": "cells_selected",
+        "description": "Cells cultured in selection medium for 5 days"
+      },
+      {
+        "id": "cells_extended",
+        "description": "Cells cultured in StemFlex medium for additional 5 days"
+      },
+      {
+        "id": "colonies",
+        "description": "Visible colonies after selection"
+      },
+      {
+        "id": "picked_colonies",
+        "description": "Individually picked colonies"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_initial"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_initial"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_dissociated"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Dissociate 2 × 10^6 cells with Accutase (Innovative Cell Technology)."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_dissociated"
+          },
+          {
+            "kind": "material",
+            "id": "p3_kit"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_electroporated"
+          }
+        ],
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "device_ref": "nucleofector",
+          "program": "CA-137"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_electroporated"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_electroporated"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Seed electroporated cells and grow until 70–80% confluency."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "puromycin"
+          },
+          {
+            "kind": "material",
+            "id": "stemflex"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "selection_medium"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "µg/ml"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_electroporated"
+          },
+          {
+            "kind": "material",
+            "id": "selection_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_selected"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 5,
+            "unit": "day"
+          },
+          "device_ref": "incubator"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_selected"
+          },
+          {
+            "kind": "material",
+            "id": "stemflex"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_extended"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 5,
+            "unit": "day"
+          },
+          "device_ref": "incubator"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_extended"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "colonies"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Visible colonies after 5 days of puromycin selection and additional 5 days in StemFlex medium."
+        }
+      },
+      {
+        "id": "s9",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "colonies"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "picked_colonies"
+          }
+        ],
+        "params": {
+          "action_kind": "pick_colony"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

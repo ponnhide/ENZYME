@@ -1,0 +1,108 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "CHIR99021 pulse to micromasses",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00880-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "chir_solution",
+        "name": "E6-containing 5 µM CHIR99021"
+      }
+    ],
+    "containers": [
+      {
+        "id": "transwell",
+        "name": "Transwell"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "name": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "micromasses",
+        "type": "cell_micromasses",
+        "container_ref": "transwell"
+      },
+      {
+        "id": "chir_solution",
+        "type": "solution",
+        "container_ref": null
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "chir_solution"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "micromasses"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "mL"
+          },
+          "target_location": "base of the Transwell"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "micromasses"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "micromasses"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 1,
+            "unit": "h"
+          },
+          "temperature": {
+            "value": 37,
+            "unit": "°C"
+          },
+          "device_kind": "incubator"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

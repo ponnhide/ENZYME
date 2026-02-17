@@ -1,0 +1,274 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Splitting of organoids",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-020-0379-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "mat_BME_Matrigel",
+        "name": "BME or Matrigel"
+      },
+      {
+        "id": "mat_adDMEM",
+        "name": "adDMEM/F12+++ medium"
+      },
+      {
+        "id": "mat_TrypLE",
+        "name": "TrypLE"
+      },
+      {
+        "id": "mat_mechanical_medium",
+        "name": "adDMEM/F12+++ medium (for mechanical disruption)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube_15ml",
+        "type": "conical_tube",
+        "name": "15‑ml conical tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge_1",
+        "type": "centrifuge",
+        "name": "Centrifuge"
+      },
+      {
+        "id": "incubator_37C",
+        "type": "incubator",
+        "name": "Incubator (37 °C)"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_organoid_suspension",
+        "name": "Organoid suspension in BME/MatriGel"
+      },
+      {
+        "id": "sample_pellet",
+        "name": "Organoid pellet after centrifugation"
+      },
+      {
+        "id": "sample_TrypLE_resuspension",
+        "name": "Organoid suspension in TrypLE"
+      },
+      {
+        "id": "sample_mech_resuspension",
+        "name": "Organoid suspension in adDMEM/F12+++ (mechanical disruption)"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "description": "Pipette up and down to disrupt BME or Matrigel"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "description": "Transfer organoid suspension to 15‑ml conical tube",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "description": "Top up tube with ice‑cold adDMEM/F12+++ medium",
+          "amount": {
+            "value": 10.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge_1",
+          "program": {
+            "program_name": "200g_5min_4C"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "note": "Aspirate the supernatant from the tube after centrifugation"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s10",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s11",
+        "op": "annotate",
+        "params": {
+          "note": "Split organoids using either TrypLE (for head and neck, compact breast, colon, pancreatic, liver organoids) or mechanical disruption (ovarian, cystic breast, colon, pancreatic, liver organoids)."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "description": "Resuspend pellet in 1 ml TrypLE, pipette up and down, then incubate at 37 °C until organoids fall apart"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s13",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator_37C",
+          "program": {
+            "program_name": "37C_until_dissociated"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s14",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "description": "Resuspend pellet in 3 ml adDMEM/F12+++ medium, pipette up and down 30 times using pressure to aid disruption"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      }
+    ],
+    "detail_level": 0
+  }
+}

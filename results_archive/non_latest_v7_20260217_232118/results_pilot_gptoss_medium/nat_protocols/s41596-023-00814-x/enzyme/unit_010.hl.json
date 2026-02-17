@@ -1,0 +1,199 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Dehydrate organoids and embed in OCT",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00814-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "30% sucrose solution"
+      },
+      {
+        "id": "m2",
+        "name": "Tissue‑Tek OCT Compound solution"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "tube (sucrose solution)"
+      },
+      {
+        "id": "c2",
+        "name": "Tissue‑Tek Cryomold"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "incubator (4 °C)"
+      },
+      {
+        "id": "e2",
+        "name": "-80 °C freezer"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_organoid",
+        "name": "organoids (initial)"
+      },
+      {
+        "id": "s_dehydrated",
+        "name": "organoids in 30% sucrose solution"
+      },
+      {
+        "id": "s_embedded",
+        "name": "organoid embedded in OCT"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid"
+          },
+          {
+            "kind": "material",
+            "id": "m1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_dehydrated"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_dehydrated"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_dehydrated"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": "4 °C overnight"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "PAUSE POINT: Organoids can be stored for up to 2 weeks in sucrose solution at 4 °C."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Prepare Tissue‑Tek Cryomold containing Tissue‑Tek OCT Compound solution."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_dehydrated"
+          },
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_embedded"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Transfer the dehydrated organoids with a cut 200 µl micropipette tip or an inoculation loop, from the sucrose solution tube into the OCT mold. Place one organoid in the center of the mold and orient it to either cut median or horizontal sections; the pigmented area should face the sides, not the bottom of the mold’s opening."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_embedded"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_embedded"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Place the mold with organoids immediately at −80 °C for deep freezing and store them until continuing the procedure, with a minimum time of 24 h."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

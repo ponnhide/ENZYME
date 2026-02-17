@@ -1,0 +1,292 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-020-0379-4",
+      "type": "paper"
+    },
+    "title": "Split organoids"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "org_susp",
+            "kind": "material"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "org_susp",
+            "kind": "material"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "org_susp",
+            "kind": "material"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "org_susp_in_tube",
+            "kind": "material"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": null,
+            "value": null
+          },
+          "note": "Transfer organoid suspension to a 15‑ml conical tube (volume not specified)"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "medium_adDMEM",
+            "kind": "material"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "org_susp_in_tube",
+            "kind": "material"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "ml",
+            "value": 10
+          }
+        }
+      },
+      {
+        "annotations": {
+          "lowered_from": "centrifuge"
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "org_susp_in_tube",
+            "kind": "material"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "pellet",
+            "kind": "material"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": null
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "Aspirate the supernatant"
+        },
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "pellet",
+            "kind": "material"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "pellet",
+            "kind": "material"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "tryple",
+            "kind": "material"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "pellet_resuspended",
+            "kind": "material"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "ml",
+            "value": 1
+          },
+          "note": "Resuspend the pellet in TrypLE"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s7",
+        "inputs": [
+          {
+            "id": "pellet_resuspended",
+            "kind": "material"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "pellet_resuspended",
+            "kind": "material"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        }
+      },
+      {
+        "annotations": {
+          "lowered_from": "incubate"
+        },
+        "id": "s8",
+        "inputs": [
+          {
+            "id": "pellet_resuspended",
+            "kind": "material"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "dissociated_organoids",
+            "kind": "material"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": null
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "Pipette up and down with a P1000 filter tip with a (non‑filtered) P10 tip on top for ≥10 times every 3–5 min to aid disruption; monitor digestion closely to keep incubation time to a minimum"
+        },
+        "id": "s9",
+        "inputs": [
+          {
+            "id": "dissociated_organoids",
+            "kind": "material"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "dissociated_organoids",
+            "kind": "material"
+          }
+        ],
+        "params": {}
+      }
+    ]
+  },
+  "resources": {
+    "containers": [],
+    "data": [],
+    "equipment": [],
+    "materials": [
+      {
+        "id": "org_susp",
+        "name": "organoid suspension"
+      },
+      {
+        "id": "tube_15ml",
+        "name": "15‑ml conical tube"
+      },
+      {
+        "id": "medium_adDMEM",
+        "name": "ice‑cold adDMEM/F12+++"
+      },
+      {
+        "id": "tryple",
+        "name": "TrypLE"
+      },
+      {
+        "id": "org_susp_in_tube",
+        "name": "org_susp_in_tube"
+      },
+      {
+        "id": "pellet",
+        "name": "pellet"
+      },
+      {
+        "id": "pellet_resuspended",
+        "name": "pellet_resuspended"
+      },
+      {
+        "id": "dissociated_organoids",
+        "name": "dissociated_organoids"
+      }
+    ],
+    "samples": []
+  },
+  "schema_version": "0.4"
+}

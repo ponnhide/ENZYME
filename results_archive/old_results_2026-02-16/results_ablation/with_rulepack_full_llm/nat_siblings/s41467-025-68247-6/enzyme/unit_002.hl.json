@@ -1,0 +1,162 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Plating crypts in Matrigel droplets",
+    "source": {
+      "type": "paper",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Intestinal crypts"
+      },
+      {
+        "id": "m2",
+        "name": "Matrigel"
+      },
+      {
+        "id": "m3",
+        "name": "Organoid growth media",
+        "annotation": {
+          "components": [
+            "Advanced DMEM/F12",
+            "1X Pen‑Strep",
+            "10 mM HEPES",
+            "1X GlutaMAX",
+            "1X B‑27 Supplement",
+            "0.2 nM Wnt Surrogate protein",
+            "5 nM Gastrin‑1",
+            "1.25 mM N‑Acetyl‑L‑Cysteine",
+            "10 mM Nicotinamide",
+            "100 µg/mL Primocin",
+            "500 nM A 83‑01",
+            "50 ng/mL recombinant human EGF",
+            "100 ng/mL recombinant human Noggin",
+            "250 ng/mL recombinant human R‑spondin 3",
+            "100 ng/mL recombinant human IGF1",
+            "50 ng/mL recombinant human FGF2",
+            "10 µM Y‑27632"
+          ]
+        }
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_crypts",
+        "material_id": "m1"
+      },
+      {
+        "id": "s_matrigel_droplets",
+        "material_id": "m2"
+      },
+      {
+        "id": "s_fed_droplets",
+        "material_id": "m2"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_crypts"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_matrigel_droplets"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Transfer 30-50 crypts per droplet into Matrigel."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_matrigel_droplets"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_matrigel_droplets"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "duration": {
+            "value": 30,
+            "unit": "min"
+          },
+          "temperature": {
+            "value": 37,
+            "unit": "°C"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m3"
+          },
+          {
+            "kind": "sample",
+            "id": "s_matrigel_droplets"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_fed_droplets"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Add sufficient organoid growth media to cover the Matrigel droplets (amount unspecified)."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

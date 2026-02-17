@@ -1,0 +1,119 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Plating in ECM Hydrogel",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-0379-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "cell_pellet",
+        "name": "cell_pellet"
+      },
+      {
+        "id": "resuspended_cells",
+        "name": "resuspended_cells"
+      },
+      {
+        "id": "plated_sample",
+        "name": "plated_sample"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_pellet"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "resuspended_cells"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 10000,
+            "unit": "cells"
+          }
+        },
+        "annotations": {
+          "note": "Aspirate the supernatant and resuspend the pellet in BME or Matrigel."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "resuspended_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "resuspended_cells"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "annotations": {
+          "note": "BME should be kept on ice to prevent it from solidifying; thus, work quickly."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "resuspended_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plated_sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 40,
+            "unit": "µl"
+          }
+        },
+        "annotations": {
+          "note": "Approximately 10,000 cells should be plated in 40 µl of BME."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

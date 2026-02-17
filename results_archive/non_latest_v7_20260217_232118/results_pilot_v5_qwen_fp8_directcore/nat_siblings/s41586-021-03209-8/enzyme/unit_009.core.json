@@ -1,0 +1,190 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Cell type labeling via CellWalker",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-021-03209-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "d1",
+        "name": "d1"
+      },
+      {
+        "id": "d2",
+        "name": "d2"
+      },
+      {
+        "id": "d3",
+        "name": "d3"
+      },
+      {
+        "id": "d4",
+        "name": "d4"
+      },
+      {
+        "id": "d5",
+        "name": "d5"
+      },
+      {
+        "id": "d6",
+        "name": "d6"
+      },
+      {
+        "id": "d7",
+        "name": "d7"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "type": "scRNA_seq_labels"
+      },
+      {
+        "id": "d2",
+        "type": "scATAC_seq_data"
+      },
+      {
+        "id": "d3",
+        "type": "cell_to_cell_edge_weights"
+      },
+      {
+        "id": "d4",
+        "type": "label_to_cell_edge_weights"
+      },
+      {
+        "id": "d5",
+        "type": "influence_scores"
+      },
+      {
+        "id": "d6",
+        "type": "smoothed_influence_scores"
+      },
+      {
+        "id": "d7",
+        "type": "final_cell_type_labels"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "label"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d1"
+          },
+          {
+            "kind": "sample",
+            "id": "d2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d3"
+          },
+          {
+            "kind": "sample",
+            "id": "d4"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": {
+            "program_name": "CellWalkR_v0.1.7"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d3"
+          },
+          {
+            "kind": "sample",
+            "id": "d4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d5"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d5"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d6"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "highest_influence_label"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d6"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d7"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

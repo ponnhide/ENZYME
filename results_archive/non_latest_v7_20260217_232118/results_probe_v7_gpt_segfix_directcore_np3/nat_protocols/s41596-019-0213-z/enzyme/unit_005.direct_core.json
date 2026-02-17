@@ -1,0 +1,182 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Embed aggregates in collagen I–Matrigel (first layer)",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-019-0213-z.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "matrigel",
+        "name": "Matrigel",
+        "type": "material"
+      },
+      {
+        "id": "collagen_I_solution",
+        "name": "Collagen I solution (PureCol)",
+        "type": "material"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate_12well",
+        "type": "12-well plate",
+        "name": "12-well plate"
+      },
+      {
+        "id": "falcon_15ml",
+        "type": "15-mL Falcon tube",
+        "name": "15-mL Falcon tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "type": "incubator",
+        "name": "Incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "aggregates",
+        "name": "Aggregates",
+        "type": "sample"
+      },
+      {
+        "id": "collagen_matrigel_solution",
+        "name": "Collagen I–Matrigel solution",
+        "type": "sample"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "params": {
+          "note": "Calculate number of wells needed (40-60 aggregates per well). One full 6-well plate of aggregates fits into one 12-well plate."
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "collagen_matrigel_solution"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source_material": "collagen_I_solution",
+          "destination_container": "falcon_15ml",
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          },
+          "note": "Pipette collagen I solution into a fresh 15‑mL Falcon tube and place on ice."
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source_material": "matrigel",
+          "destination_container": "falcon_15ml",
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          },
+          "note": "Add Matrigel to the collagen I solution in the Falcon tube."
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "target_sample": "collagen_matrigel_solution",
+          "note": "Mix thoroughly by pipetting up and down."
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source_sample": "collagen_matrigel_solution",
+          "destination_container": "plate_12well",
+          "amount": {
+            "value": 0.5,
+            "unit": "mL"
+          },
+          "note": "Add 0.5 mL of collagen I/Matrigel solution per well and swirl plate to distribute."
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator",
+          "program": {
+            "program_name": "solidify_2h_37C"
+          },
+          "note": "Incubate plate at 37 °C for 2 h for solidification."
+        },
+        "outputs": [],
+        "inputs": []
+      }
+    ],
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

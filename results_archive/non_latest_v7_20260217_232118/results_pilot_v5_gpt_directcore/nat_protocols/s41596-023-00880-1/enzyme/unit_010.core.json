@@ -1,0 +1,303 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Fix organoids with PFA",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00880-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_PFA",
+        "type": "material",
+        "name": "cold 4% PFA"
+      },
+      {
+        "id": "m_PBS",
+        "type": "material",
+        "name": "PBS"
+      },
+      {
+        "id": "m_medium",
+        "type": "material",
+        "name": "culture medium"
+      },
+      {
+        "id": "m_waste",
+        "type": "material",
+        "name": "PFA waste container"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_plate",
+        "type": "container",
+        "container_type": "12-well_plate",
+        "name": "organoid plate"
+      },
+      {
+        "id": "c_waste",
+        "type": "container",
+        "container_type": "waste_container",
+        "name": "PFA waste container"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e_incubator",
+        "type": "equipment",
+        "equipment_type": "incubator",
+        "name": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_organoids",
+        "type": "sample",
+        "name": "organoids"
+      },
+      {
+        "id": "c_plate",
+        "name": "c_plate"
+      },
+      {
+        "id": "c_waste",
+        "name": "c_waste"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "container_type": "12-well_plate"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c_plate"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "container_type": "waste_container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c_waste"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "m_medium",
+          "destination": "c_waste",
+          "description": "aspirate medium from transwell",
+          "amount": {
+            "value": 1.0,
+            "unit": "mL",
+            "per_well": true
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "m_PFA",
+          "destination": "c_plate",
+          "description": "add cold 4% PFA",
+          "amount": {
+            "value": 1.0,
+            "unit": "mL",
+            "per_well": true
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e_incubator",
+          "program": {
+            "program_name": "30min_4C"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": "c_plate",
+          "destination": "c_waste",
+          "description": "remove PFA with P1000 pipette",
+          "amount": {
+            "value": 1.0,
+            "unit": "mL",
+            "per_well": true
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "source": "m_PBS",
+          "destination": "c_plate",
+          "description": "first PBS wash",
+          "amount": {
+            "value": 1.0,
+            "unit": "mL",
+            "per_well": true
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e_incubator",
+          "program": {
+            "program_name": "10min_4C"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "params": {
+          "source": "m_PBS",
+          "destination": "c_plate",
+          "description": "second PBS wash",
+          "amount": {
+            "value": 1.0,
+            "unit": "mL",
+            "per_well": true
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e_incubator",
+          "program": {
+            "program_name": "10min_4C"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "transfer",
+        "params": {
+          "source": "m_PBS",
+          "destination": "c_plate",
+          "description": "third PBS wash",
+          "amount": {
+            "value": 1.0,
+            "unit": "mL",
+            "per_well": true
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e_incubator",
+          "program": {
+            "program_name": "10min_4C"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      }
+    ],
+    "detail_level": 0
+  }
+}

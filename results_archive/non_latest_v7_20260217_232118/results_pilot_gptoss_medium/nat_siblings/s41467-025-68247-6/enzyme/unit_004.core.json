@@ -1,0 +1,157 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41467-025-68247-6.pdf",
+      "type": "paper"
+    },
+    "title": "Plating crypts in microwell plates with Matrigel"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {
+          "note": "Added 50 µL of media per well together with the crypts."
+        },
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "s_crypts",
+            "kind": "sample"
+          },
+          {
+            "id": "s_media",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "s_plate",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "cells",
+            "value": 200
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "s_plate",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "s_plate_incubated",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "30-60 min"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Media contains 2% Matrigel."
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "s_media_matrigel",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "s_plate_final",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "µL",
+            "value": 100
+          }
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "c_microwell_plate",
+        "type": "microwell_plate"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "device_kind": "incubator",
+        "id": "e_incubator"
+      }
+    ],
+    "materials": [
+      {
+        "id": "m_crypts",
+        "name": "crypts"
+      },
+      {
+        "id": "m_media",
+        "name": "media"
+      },
+      {
+        "id": "m_media_matrigel",
+        "name": "media with 2% Matrigel"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_crypts",
+        "material_ref": "m_crypts"
+      },
+      {
+        "id": "s_media",
+        "material_ref": "m_media"
+      },
+      {
+        "id": "s_media_matrigel",
+        "material_ref": "m_media_matrigel"
+      },
+      {
+        "container_ref": "c_microwell_plate",
+        "id": "s_plate"
+      },
+      {
+        "container_ref": "c_microwell_plate",
+        "id": "s_plate_incubated"
+      },
+      {
+        "container_ref": "c_microwell_plate",
+        "id": "s_plate_final"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

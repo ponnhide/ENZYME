@@ -1,0 +1,178 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Prepare EdU working solution",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00562-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "EdU stock solution (10 mM)",
+        "type": "reagent"
+      },
+      {
+        "id": "m2",
+        "name": "Base medium",
+        "type": "reagent"
+      },
+      {
+        "id": "m3",
+        "name": "Colon monolayer differentiation medium",
+        "type": "reagent"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "tube",
+        "name": "Tube for EdU working solution in base medium"
+      },
+      {
+        "id": "c2",
+        "type": "tube",
+        "name": "Tube for EdU working solution in differentiation medium"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "sample_base",
+        "name": "sample_base"
+      },
+      {
+        "id": "sample_diff",
+        "name": "sample_diff"
+      },
+      {
+        "id": "sample_base_mixed",
+        "name": "sample_base_mixed"
+      },
+      {
+        "id": "sample_diff_mixed",
+        "name": "sample_diff_mixed"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_base"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_diff"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "m1",
+          "destination": "sample_base",
+          "diluent": "m2",
+          "diluent_volume": "999 μL",
+          "amount": {
+            "value": 1.0,
+            "unit": "μL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_base_mixed"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "m1",
+          "destination": "sample_diff",
+          "diluent": "m3",
+          "diluent_volume": "999 μL",
+          "amount": {
+            "value": 1.0,
+            "unit": "μL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_diff_mixed"
+          }
+        ],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,210 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "iNPC expansion in hNPSR-v2 medium",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01236-7.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "hNPSR-v2 medium"
+      },
+      {
+        "id": "m2",
+        "name": "Accumax"
+      },
+      {
+        "id": "m3",
+        "name": "Matrigel (Cultrex)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "culture_plate"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s1",
+        "name": "hPSC-derived iNPCs"
+      },
+      {
+        "id": "c1",
+        "name": "c1"
+      },
+      {
+        "id": "m1",
+        "name": "m1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source": "s1",
+          "destination": "c1",
+          "note": "immediately cultured in hNPSR-v2 medium after FACS purification",
+          "amount": {
+            "value": "unknown",
+            "unit": null
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "standard_iNPC_culture"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "m1",
+          "destination": "c1",
+          "note": "refresh hNPSR-v2 medium every 1–2 days",
+          "amount": {
+            "value": "unknown",
+            "unit": null
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "m1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "confluency_80-90%"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": "s1",
+          "destination": "c1",
+          "note": "passaged at 1:10 split ratio on Matrigel-coated plates",
+          "amount": {
+            "value": "unknown",
+            "unit": null
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

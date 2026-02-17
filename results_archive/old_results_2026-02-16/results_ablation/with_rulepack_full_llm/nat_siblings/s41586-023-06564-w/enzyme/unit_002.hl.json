@@ -1,0 +1,141 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Passaging hiPS cell colonies",
+    "source": {
+      "type": "paper",
+      "id": "s41586-023-06564-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "EDTA"
+      },
+      {
+        "id": "m2",
+        "name": "Essential 8 medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "six-well plate"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s_cells",
+        "name": "hiPS cell colonies"
+      },
+      {
+        "id": "s_cells_incubated",
+        "name": "s_cells_incubated"
+      },
+      {
+        "id": "s_cells_resuspended",
+        "name": "s_cells_resuspended"
+      },
+      {
+        "id": "s_cells_distributed",
+        "name": "s_cells_distributed"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells_incubated"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 7,
+            "unit": "min"
+          }
+        },
+        "annotations": {
+          "reagent": "EDTA 0.5 mM",
+          "temperature": "room temperature"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells_incubated"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells_resuspended"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend",
+          "reagent": {
+            "kind": "material",
+            "id": "m2"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells_resuspended"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells_distributed"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "annotations": {
+          "destination": "new six-well plates (container c1)",
+          "note": "Transfer volume not specified in source"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

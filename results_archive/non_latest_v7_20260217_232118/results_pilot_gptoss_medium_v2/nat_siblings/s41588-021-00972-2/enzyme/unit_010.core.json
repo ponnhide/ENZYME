@@ -1,0 +1,180 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41588-021-00972-2.pdf",
+      "type": "paper"
+    },
+    "title": "Sample collection strategy"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "sample1",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "sample1",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "sample1",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "device_ref": "device_seq",
+          "program": "scRNA-seq"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "sample1",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "sample1",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "device_ref": "device_seq",
+          "program": "snRNA-seq"
+        }
+      },
+      {
+        "annotations": {
+          "note": "spatial transcriptomics using 10x Genomics Visium slides"
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "sample1",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "sample1",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "sample1",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "sample1",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "device_ref": "device_microscope",
+          "program": "high-resolution microscopy"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "sample1",
+            "kind": "sample"
+          }
+        ],
+        "op": "observe",
+        "outputs": [],
+        "params": {
+          "features": [
+            "spatial transcriptomics image"
+          ],
+          "modality": "microscope"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [],
+    "data": [],
+    "equipment": [
+      {
+        "id": "device_seq",
+        "name": "sequencing platform",
+        "type": "amplicon_readout_system"
+      },
+      {
+        "id": "device_microscope",
+        "name": "high-resolution microscope",
+        "type": "imager"
+      }
+    ],
+    "materials": [],
+    "samples": [
+      {
+        "description": "biological sample",
+        "id": "sample1",
+        "type": "sample"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

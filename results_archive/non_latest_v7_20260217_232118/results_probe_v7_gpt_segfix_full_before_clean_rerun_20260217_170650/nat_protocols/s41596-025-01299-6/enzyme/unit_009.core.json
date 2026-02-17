@@ -1,0 +1,270 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Days 46–49 generation of forebrain assembloids (hFA)",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01299-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_nm",
+        "type": "medium",
+        "description": "NM (neural medium)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_plate",
+        "type": "24-well low-attachment plate",
+        "description": "low-attachment plate"
+      },
+      {
+        "id": "plate",
+        "name": "plate",
+        "type": "generic_container"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e_p1000",
+        "type": "pipette",
+        "description": "P1000 pipette with wide-orifice tip"
+      },
+      {
+        "id": "e_p20",
+        "type": "pipette",
+        "description": "P20 pipette"
+      },
+      {
+        "id": "e_incubator",
+        "type": "incubator",
+        "description": "37 °C incubator with 5% CO2"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_hco",
+        "type": "organoid",
+        "description": "hCO (day-61) from control hiPS cells"
+      },
+      {
+        "id": "s_hso",
+        "type": "organoid",
+        "description": "hSO (day-46)"
+      },
+      {
+        "id": "s_hfa",
+        "type": "assembloid",
+        "description": "forebrain assembloid (hFA)"
+      },
+      {
+        "id": "hco",
+        "name": "hco"
+      },
+      {
+        "id": "hso",
+        "name": "hso"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "resource_id": "s_hco"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "hco"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "resource_id": "s_hso"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "hso"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "resource_id": "c_plate"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "plate"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "hco",
+          "destination": "plate:well1",
+          "equipment_ref": "e_p1000",
+          "description": "Transfer one hCO into a well of the 24-well low-attachment plate",
+          "amount": {
+            "value": 1,
+            "unit": "piece"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "hso",
+          "destination": "plate:well1",
+          "equipment_ref": "e_p1000",
+          "description": "Transfer one hSO into the same well",
+          "amount": {
+            "value": 1,
+            "unit": "piece"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": "m_nm",
+          "destination": "plate:well1",
+          "equipment_ref": "e_p1000",
+          "description": "Fill the well with 2 ml of NM",
+          "amount": {
+            "value": 2.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "equipment_ref": "e_p20",
+          "target": "plate:well1",
+          "description": "Gently position the hCO and hSO so that they are in contact"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e_incubator",
+          "program": {
+            "program_name": "incubate_4d_tilted_37C_5CO2"
+          },
+          "description": "Place the plate in a 37 °C incubator with 5% CO₂, keep tilted for 4 days"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "params": {
+          "source": "plate:well1",
+          "destination": "waste",
+          "equipment_ref": "e_p1000",
+          "description": "Aspirate 2 ml of NM from the well",
+          "amount": {
+            "value": 2.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "transfer",
+        "params": {
+          "source": "m_nm",
+          "destination": "plate:well1",
+          "equipment_ref": "e_p1000",
+          "description": "Replace with 2 ml of fresh NM",
+          "amount": {
+            "value": 2.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      }
+    ],
+    "detail_level": 0
+  }
+}

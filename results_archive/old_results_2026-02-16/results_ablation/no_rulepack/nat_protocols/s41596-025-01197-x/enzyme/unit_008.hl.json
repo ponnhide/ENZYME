@@ -1,0 +1,373 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Immunohistochemistry of organoid sections (Option C)",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01197-x"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "PBS",
+        "name": "Phosphate Buffered Saline"
+      },
+      {
+        "id": "PFA_4pct",
+        "name": "4 % paraformaldehyde"
+      },
+      {
+        "id": "primary_antibodies",
+        "name": "primary antibodies"
+      },
+      {
+        "id": "BSA_3pct",
+        "name": "3 % BSA"
+      },
+      {
+        "id": "TritonX100_0.3pct",
+        "name": "0.3 % Triton‑X 100"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube_1.5ml",
+        "name": "1.5 mL microcentrifuge tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "pipette_P200_cut",
+        "name": "P200 pipette tip (cut to avoid damaging organoids)"
+      },
+      {
+        "id": "humidifying_chamber",
+        "name": "humidifying chamber"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoids",
+        "description": "Organoids before processing"
+      },
+      {
+        "id": "organoids_in_tube",
+        "description": "Organoids transferred to microcentrifuge tube"
+      },
+      {
+        "id": "organoids_in_tube_no_medium",
+        "description": "Organoids after medium aspiration"
+      },
+      {
+        "id": "organoids_in_tube_clean",
+        "description": "Organoids after PBS rinse and supernatant discard"
+      },
+      {
+        "id": "fixed_organoids",
+        "description": "Organoids after addition of 4 % PFA"
+      },
+      {
+        "id": "fixed_organoids_incubated",
+        "description": "Organoids incubated overnight at 4 °C"
+      },
+      {
+        "id": "primary_antibody_solution",
+        "description": "Primary antibodies diluted in 3 % BSA with 0.3 % Triton‑X 100 in PBS"
+      },
+      {
+        "id": "sections",
+        "description": "Organoid sections to be stained"
+      },
+      {
+        "id": "sections_with_antibody",
+        "description": "Sections covered with primary antibody solution"
+      },
+      {
+        "id": "stained_sections",
+        "description": "Sections incubated overnight at 4 °C in humidifying chamber"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoids"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoids_in_tube"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Transfer organoids to a 1.5 mL microcentrifuge tube using a P200 pipette tip cut to avoid damaging the organoids."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoids_in_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoids_in_tube"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "action": "Let organoids settle to the bottom"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoids_in_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoids_in_tube_no_medium"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Aspirate the medium"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoids_in_tube_no_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoids_in_tube_no_medium"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "action": "Rinse once with sterile PBS"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoids_in_tube_no_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoids_in_tube_clean"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Discard the supernatant"
+        }
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoids_in_tube_clean"
+          },
+          {
+            "kind": "material",
+            "id": "PFA_4pct"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "fixed_organoids"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 250,
+            "unit": "μL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "fixed_organoids"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "fixed_organoids_incubated"
+          }
+        ],
+        "params": {
+          "duration": "overnight",
+          "temperature": {
+            "value": 4,
+            "unit": "°C"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s8",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "primary_antibodies"
+          },
+          {
+            "kind": "material",
+            "id": "BSA_3pct"
+          },
+          {
+            "kind": "material",
+            "id": "TritonX100_0.3pct"
+          },
+          {
+            "kind": "material",
+            "id": "PBS"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "primary_antibody_solution"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "note": "Dilute primary antibodies in 3 % BSA with 0.3 % Triton‑X 100 in PBS"
+        }
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "primary_antibody_solution"
+          },
+          {
+            "kind": "sample",
+            "id": "sections"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sections_with_antibody"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Cover the sections with the antibody solution"
+        }
+      },
+      {
+        "id": "s10",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sections_with_antibody"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "stained_sections"
+          }
+        ],
+        "params": {
+          "duration": "overnight",
+          "temperature": {
+            "value": 4,
+            "unit": "°C"
+          }
+        },
+        "annotations": {
+          "device": "humidifying chamber"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      }
+    ],
+    "detail_level": 0
+  }
+}

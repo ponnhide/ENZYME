@@ -1,0 +1,215 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41467-024-55567-2.pdf",
+      "type": "paper"
+    },
+    "title": "Interference with MBD3 expression via CRISPR"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "start_step_id": "s1",
+    "step_order": null,
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "sgRNA_seq",
+            "kind": "sample"
+          },
+          {
+            "id": "hp180_plasmid",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "recombinant_plasmid",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "recombinant_plasmid",
+            "kind": "sample"
+          },
+          {
+            "id": "reporter_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "electroporated_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "program": "electroporation"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "electroporated_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "picked_colonies",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "pick_colony"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Colonies were manually expanded"
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "picked_colonies",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "expanded_colonies",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "expanded_colonies",
+            "kind": "sample"
+          },
+          {
+            "id": "MBD3_antibody",
+            "kind": "material"
+          }
+        ],
+        "op": "observe",
+        "outputs": [
+          {
+            "id": "western_blot_result",
+            "kind": "data"
+          }
+        ],
+        "params": {
+          "features": [
+            "MBD3 expression"
+          ],
+          "modality": "instrument_readout"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [],
+    "data": [
+      {
+        "description": "Western blot screening for MBD3 expression",
+        "id": "western_blot_result"
+      }
+    ],
+    "equipment": [
+      {
+        "device_kind": "dna_delivery_device",
+        "id": "electroporator"
+      }
+    ],
+    "materials": [
+      {
+        "id": "sgRNA_MBD3",
+        "name": "sgRNA sequences targeting MBD3"
+      },
+      {
+        "id": "HP180_plasmid",
+        "name": "SpCas9-equipped HP180 plasmid"
+      },
+      {
+        "id": "LGR5_cells",
+        "name": "LGR5-mNeonGreen reporter cells"
+      },
+      {
+        "id": "MBD3_antibody",
+        "name": "MBD3 antibody (1:200, Santa Cruz)"
+      }
+    ],
+    "samples": [
+      {
+        "derived_from": "sgRNA_MBD3",
+        "id": "sgRNA_seq"
+      },
+      {
+        "derived_from": "HP180_plasmid",
+        "id": "hp180_plasmid"
+      },
+      {
+        "description": "HP180 plasmid with cloned sgRNA",
+        "id": "recombinant_plasmid"
+      },
+      {
+        "derived_from": "LGR5_cells",
+        "id": "reporter_cells"
+      },
+      {
+        "description": "Cells after electroporation",
+        "id": "electroporated_cells"
+      },
+      {
+        "description": "Manually picked colonies",
+        "id": "picked_colonies"
+      },
+      {
+        "description": "Expanded colonies",
+        "id": "expanded_colonies"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

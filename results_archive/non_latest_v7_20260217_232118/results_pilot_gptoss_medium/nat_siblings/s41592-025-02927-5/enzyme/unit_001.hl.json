@@ -1,0 +1,185 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Generate organoids in 96-well plates",
+    "source": {
+      "type": "paper",
+      "id": "s41592-025-02927-5.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "pluripotent stem cells (WTC, H9, HES3 lines)",
+        "type": "cell_line"
+      },
+      {
+        "id": "m2",
+        "name": "minimal neural induction media (MNIM)",
+        "type": "media"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "96-well plate",
+        "type": "plate",
+        "format": "96-well"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_cell",
+        "name": "pluripotent stem cell suspension",
+        "derived_from": "m1"
+      },
+      {
+        "id": "s_embryoid",
+        "name": "embryoid bodies",
+        "derived_from": "s_cell"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell"
+          },
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_embryoid"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "annotations": {
+          "note": "Amount transferred not specified in source."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_embryoid"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Aggregated transferred cells into embryoid bodies."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          },
+          {
+            "kind": "sample",
+            "id": "s_embryoid"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "device_kind": "incubator",
+          "program": "culture in MNIM"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Cultured embryoid bodies in minimal neural induction media to induce neuroectodermal fates."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

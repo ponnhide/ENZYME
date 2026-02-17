@@ -1,0 +1,115 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Establish clonal AFO lines",
+    "source": {
+      "type": "paper",
+      "id": "s41591-024-02807-z.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "afo_original",
+        "name": "AFOs"
+      },
+      {
+        "id": "afo_picked",
+        "name": "Picked AFO"
+      },
+      {
+        "id": "single_cells",
+        "name": "Single cells"
+      },
+      {
+        "id": "replated_cells",
+        "name": "Replated cells"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "afo_original"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "afo_picked"
+          }
+        ],
+        "params": {
+          "action_kind": "pick_colony"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "afo_picked"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "single_cells"
+          }
+        ],
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "annotations": {
+          "note": "Method of dissociation into single cells not specified."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "single_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "replated_cells"
+          }
+        ],
+        "params": {
+          "action_kind": "spread_on_plate"
+        },
+        "annotations": {
+          "note": "Replating conditions (medium, density, plate type) not specified."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41586-023-06564-w.pdf",
+      "type": "paper"
+    },
+    "title": "Real‑time quantitative PCR"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "s_pool",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "mRNA was isolated using the RNeasy Mini Plus kit (Qiagen, catalogue no. 74136)"
+        },
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "s_pool",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "s_mrna",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "cDNA was prepared by reverse transcription using the SuperScript III First‑Strand Synthesis SuperMix"
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "s_mrna",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "s_cdna",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "s_cdna",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "d_qpcr_results",
+            "kind": "data"
+          }
+        ],
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "device_ref": "e_QuantStudio_6_Flex",
+          "program": "real_time_qpcr"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [],
+    "data": [
+      {
+        "id": "d_qpcr_results",
+        "name": "real‑time qPCR data"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e_QuantStudio_6_Flex",
+        "name": "QuantStudio 6 Flex Real‑Time PCR System (Thermo Fisher Scientific, catalogue no. 4366076)"
+      }
+    ],
+    "materials": [
+      {
+        "id": "m_organoid",
+        "name": "organoid"
+      },
+      {
+        "id": "m_RNeasy_kit",
+        "name": "RNeasy Mini Plus kit (Qiagen, catalogue no. 74136)"
+      },
+      {
+        "id": "m_SuperScript_mix",
+        "name": "SuperScript III First‑Strand Synthesis SuperMix"
+      },
+      {
+        "id": "m_SYBR_master_mix",
+        "name": "SYBR Green PCR Master Mix (Thermo Fisher Scientific, catalogue no. 4312704)"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_pool",
+        "name": "pooled organoids (2–3 organoids)"
+      },
+      {
+        "id": "s_mrna",
+        "name": "isolated mRNA"
+      },
+      {
+        "id": "s_cdna",
+        "name": "cDNA (reverse transcription product)"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

@@ -1,0 +1,113 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Metadata curation and harmonization",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-024-08172-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "d1",
+        "name": "d1"
+      },
+      {
+        "id": "d2",
+        "name": "d2"
+      },
+      {
+        "id": "d3",
+        "name": "d3"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "type": "scRNA_seq_count_matrix",
+        "source": "publications_and_authors"
+      },
+      {
+        "id": "d2",
+        "type": "metadata",
+        "source": "sfaira_framework"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "scRNA_seq_count_matrix",
+            "metadata"
+          ]
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d1"
+          },
+          {
+            "kind": "sample",
+            "id": "d2"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "label"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d3"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "params": {
+          "annotation": "organoid_age_days column manually curated according to sfaira standards; see https://sfaira.readthedocs.io/en/latest/adding_datasets.html"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d3"
+          }
+        ],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

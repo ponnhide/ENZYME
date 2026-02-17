@@ -1,0 +1,186 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Long-term colonic organoid culture and RNA extraction",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-018-0024-3.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "hism_material",
+        "name": "tumour stem cell medium (HISM)"
+      },
+      {
+        "id": "admem_material",
+        "name": "advanced DMEM/F12 (AdMEM)"
+      }
+    ],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "organoid_sample",
+        "description": "organoid clone derived from individual"
+      },
+      {
+        "id": "rna_sample",
+        "description": "RNA isolated from organoid sample"
+      },
+      {
+        "id": "hism_material",
+        "name": "hism_material"
+      },
+      {
+        "id": "admem_material",
+        "name": "admem_material"
+      },
+      {
+        "id": "rna_seq_data",
+        "name": "rna_seq_data"
+      }
+    ],
+    "data": [
+      {
+        "id": "rna_seq_data",
+        "description": "RNA‑seq analysis results"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material",
+          "name": "tumour stem cell medium (HISM)"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "hism_material"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material",
+          "name": "advanced DMEM/F12 (AdMEM)"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "admem_material"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "name": "organoid clone"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "name": "RNA"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "rna_sample"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "description": "Isolate RNA from organoid sample using HISM and AdMEM"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          },
+          {
+            "kind": "sample",
+            "id": "hism_material"
+          },
+          {
+            "kind": "sample",
+            "id": "admem_material"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "rna_sample"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "RNA_seq_data"
+          ]
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "rna_seq_data"
+          }
+        ],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

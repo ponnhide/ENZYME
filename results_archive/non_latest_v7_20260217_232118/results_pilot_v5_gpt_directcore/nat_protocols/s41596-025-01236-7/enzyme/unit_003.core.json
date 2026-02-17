@@ -1,0 +1,149 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Accumax dissociation of hPSCs",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01236-7.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "type": "buffer",
+        "name": "PBS"
+      },
+      {
+        "id": "m2",
+        "type": "enzyme",
+        "name": "Accumax solution (pre‑warmed to 37 °C)"
+      },
+      {
+        "id": "m3",
+        "type": "culture_medium",
+        "name": "mTeSR Plus medium supplemented with 10 µM Y27632"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "plate",
+        "name": "culture plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator",
+        "name": "incubator"
+      }
+    ],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source_material": "m1",
+          "destination_container": "c1",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source_material": "m2",
+          "destination_container": "c1",
+          "amount": {
+            "value": 0.5,
+            "unit": "ml"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "incubate_12-18min"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "description": "Tap plate gently every 3–4 min for 12–18 min to facilitate dissociation"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source_material": "m3",
+          "destination_container": "c1",
+          "amount": {
+            "value": 0.5,
+            "unit": "ml"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "description": "Pipette up and down gently 10 times to obtain a single‑cell suspension"
+        },
+        "outputs": [],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

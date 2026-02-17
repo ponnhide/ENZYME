@@ -1,0 +1,162 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Collect primary tissue",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-0379-4"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "adDMEM/F12+++ medium",
+        "type": "media"
+      },
+      {
+        "id": "m2",
+        "name": "ROCK inhibitor",
+        "type": "reagent"
+      },
+      {
+        "id": "m3",
+        "name": "primary human tissue pieces",
+        "type": "tissue"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "50‑ml conical tube",
+        "type": "tube"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s_tube1",
+        "name": "50‑ml conical tube containing ice‑cold adDMEM/F12+++ medium",
+        "type": "liquid",
+        "container_ref": "c1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_tube1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 45,
+            "unit": "ml"
+          },
+          "temperature": "ice-cold"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Optional: add ROCK inhibitor to achieve 10 µM final concentration in the medium."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_tube1"
+          }
+        ],
+        "params": {
+          "action": "place tissue pieces into tube"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_tube1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_tube1"
+          }
+        ],
+        "params": {
+          "temperature": {
+            "value": 4,
+            "unit": "C"
+          },
+          "duration": "until start of isolation"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

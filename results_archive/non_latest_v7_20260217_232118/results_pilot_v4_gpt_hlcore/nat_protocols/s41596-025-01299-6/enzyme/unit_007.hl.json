@@ -1,0 +1,262 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Section 3A: selection for the interneuron generation screen",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01299-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "papain_solution",
+        "name": "Papain solution (10 U/ml)"
+      },
+      {
+        "id": "warmed_papain_solution",
+        "name": "Papain solution warmed to 37 °C"
+      },
+      {
+        "id": "papain_in_well",
+        "name": "Papain solution in well"
+      }
+    ],
+    "containers": [
+      {
+        "id": "six_well_plate",
+        "name": "Six-well plate"
+      },
+      {
+        "id": "well1",
+        "name": "Well of six-well plate"
+      },
+      {
+        "id": "incubated_well",
+        "name": "incubated_well",
+        "type": "generic_container"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "name": "CO2 incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoid_pool",
+        "type": "sample",
+        "description": "Pool of 12 hSO organoids"
+      },
+      {
+        "id": "organoid_in_well",
+        "type": "sample",
+        "description": "Organoids transferred to well"
+      },
+      {
+        "id": "shaken_well",
+        "type": "sample",
+        "description": "Well after shaking incubation"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_pool"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "papain_solution"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "papain_solution"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "warmed_papain_solution"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "37 °C 20 min"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "well1"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_pool"
+          },
+          {
+            "kind": "container",
+            "id": "well1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_in_well"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 12,
+            "unit": "organoid"
+          }
+        },
+        "annotations": {
+          "note": "Pool 12 organoids into the well"
+        }
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "warmed_papain_solution"
+          },
+          {
+            "kind": "container",
+            "id": "well1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "papain_in_well"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 3,
+            "unit": "ml"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "well1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "incubated_well"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "37 °C 5% CO2 15 min"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s8",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "incubated_well"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "shaken_well"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "annotations": {
+          "note": "Gently shake the plate horizontally every 5 min for 15 min to evenly distribute the papain solution"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

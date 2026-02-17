@@ -1,0 +1,155 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Coat Transwells and seed colon monolayer",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00562-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "collagen_I"
+      },
+      {
+        "id": "PBS"
+      }
+    ],
+    "containers": [
+      {
+        "id": "transwell_12well",
+        "type": "transwell"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator_37C",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "coating_solution_sample"
+      },
+      {
+        "id": "seeding_medium_sample"
+      },
+      {
+        "id": "organoid_sample"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "description": "coating solution containing 50 µg/ml collagen I in PBS"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": {
+            "sample_id": "coating_solution_sample"
+          },
+          "destination": {
+            "container_id": "transwell_12well",
+            "location": "apical"
+          },
+          "amount": {
+            "value": 300.0,
+            "unit": "µl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": {
+            "sample_id": "coating_solution_sample"
+          },
+          "destination": {
+            "container_id": "transwell_12well",
+            "location": "basolateral"
+          },
+          "amount": {
+            "value": 1200.0,
+            "unit": "µl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": {
+            "equipment_id": "incubator_37C"
+          },
+          "program": {
+            "program_name": "37C_2h"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "description": "colon monolayer seeding medium"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Collect organoids as described in Steps 20–23"
+        },
+        "outputs": [],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

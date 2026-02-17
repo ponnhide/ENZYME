@@ -1,0 +1,128 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Cell counting and loading onto 10x chip",
+    "source": {
+      "type": "paper",
+      "id": "s41586-019-1654-9.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_trypan_blue",
+        "name": "Trypan Blue"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e_countess",
+        "name": "Countess automated cell counter",
+        "type": "cell_counter"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cell_suspension",
+        "name": "Cell suspension"
+      },
+      {
+        "id": "cells_stained",
+        "name": "Cells stained with Trypan Blue"
+      },
+      {
+        "id": "cells_diluted",
+        "name": "Diluted cell suspension"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension"
+          },
+          {
+            "kind": "material",
+            "id": "m_trypan_blue"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_stained"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "note": "Trypan Blue assay"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_stained"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_stained"
+          }
+        ],
+        "params": {
+          "device_kind": "cell_counter",
+          "program": "Count cells",
+          "device_ref": "e_countess"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_stained"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_diluted"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "target": "approximately 6,000 cells per lane of a 10x microfluidic chip device"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

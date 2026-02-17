@@ -1,0 +1,258 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "FITC‑dextran permeability assay",
+    "source": {
+      "type": "paper",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "fitc_dextran_stock",
+        "name": "FITC‑dextran (MedChemExpress)"
+      },
+      {
+        "id": "pbs",
+        "name": "PBS"
+      },
+      {
+        "id": "six_well_plate",
+        "name": "6‑well plate"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "incubator",
+        "name": "Incubator"
+      },
+      {
+        "id": "confocal",
+        "name": "Nikon spinning disc confocal"
+      }
+    ],
+    "samples": [
+      {
+        "id": "fitc_solution",
+        "description": "FITC‑dextran diluted to 2 mg/mL in PBS"
+      },
+      {
+        "id": "fitc_solution_incubated",
+        "description": "FITC‑dextran solution after 5 min incubation"
+      },
+      {
+        "id": "organoids",
+        "description": "Organoids to be tested"
+      },
+      {
+        "id": "organoids_in_solution",
+        "description": "Organoids placed in 30 µL droplets of FITC‑dextran solution"
+      },
+      {
+        "id": "organoids_incubated",
+        "description": "Organoids after 30 min upside‑down incubation"
+      }
+    ],
+    "data": [
+      {
+        "id": "fluorescence_images",
+        "description": "Fluorescence and DIC images collected on confocal"
+      },
+      {
+        "id": "intact_organoid_percentage",
+        "description": "Calculated percentage of organoids that excluded FITC‑dextran"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "fitc_dextran_stock"
+          },
+          {
+            "kind": "material",
+            "id": "pbs"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "fitc_solution"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 2,
+            "unit": "mg/mL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "fitc_solution"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "fitc_solution_incubated"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 5,
+            "unit": "min"
+          },
+          "temperature": {
+            "value": 37,
+            "unit": "C"
+          },
+          "CO2": {
+            "value": 5,
+            "unit": "%"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoids"
+          },
+          {
+            "kind": "sample",
+            "id": "fitc_solution_incubated"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoids_in_solution"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 30,
+            "unit": "µL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoids_in_solution"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoids_incubated"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 30,
+            "unit": "min"
+          },
+          "temperature": {
+            "value": 37,
+            "unit": "C"
+          },
+          "CO2": {
+            "value": 5,
+            "unit": "%"
+          },
+          "orientation": "upside down"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoids_incubated"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "fluorescence_images"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "device_ref": "Nikon spinning disc confocal",
+          "program": "collect fluorescence and DIC images"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "data",
+            "id": "fluorescence_images"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "intact_organoid_percentage"
+          }
+        ],
+        "params": {
+          "modality": "visual",
+          "features": "percentage of intact organoids (excluded FITC‑dextran from lumen)"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

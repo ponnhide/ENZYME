@@ -1,0 +1,112 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-021-00603-4",
+      "type": "paper"
+    },
+    "title": "TOBis barcoding"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "toc_barcode",
+            "kind": "sample"
+          },
+          {
+            "id": "organoid_sample",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "stained_organoid",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "µl",
+            "value": 200
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "stained_organoid",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "stained_organoid",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "duration": "overnight",
+            "temperature": {
+              "unit": "°C",
+              "value": 4
+            }
+          }
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "plate_96",
+        "type": "96-well plate"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "device_kind": "incubator",
+        "id": "incubator"
+      }
+    ],
+    "materials": [
+      {
+        "id": "toc_barcode_material",
+        "name": "TOBis barcodes"
+      }
+    ],
+    "samples": [
+      {
+        "id": "toc_barcode",
+        "material_ref": "toc_barcode_material"
+      },
+      {
+        "description": "organoid sample in 96-well plate",
+        "id": "organoid_sample"
+      },
+      {
+        "description": "organoid sample after barcode transfer",
+        "id": "stained_organoid"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

@@ -1,0 +1,126 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Prepare monolayers for imaging",
+    "source": {
+      "type": "paper",
+      "id": "s41596-021-00562-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "DPBS−/−"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "imager"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_monolayer",
+        "name": "monolayer"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "sample",
+            "id": "s_monolayer"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_monolayer"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 500,
+            "unit": "µl"
+          },
+          "description": "apply to apical side"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "sample",
+            "id": "s_monolayer"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_monolayer"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1500,
+            "unit": "µl"
+          },
+          "description": "apply to basolateral side"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_monolayer"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_monolayer"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "program": "imaging"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

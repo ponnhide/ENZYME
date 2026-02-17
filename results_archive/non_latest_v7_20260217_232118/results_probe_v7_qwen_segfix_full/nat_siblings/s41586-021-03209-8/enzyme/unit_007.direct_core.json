@@ -1,0 +1,116 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Single-cell data analysis with UMAP and Leiden clustering",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-021-03209-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "d1",
+        "name": "d1"
+      },
+      {
+        "id": "d2",
+        "name": "d2"
+      },
+      {
+        "id": "d3",
+        "name": "d3"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "type": "numeric_array",
+        "description": "latent dimensions from scAlign"
+      },
+      {
+        "id": "d2",
+        "type": "graph",
+        "description": "k-nearest neighbour graph (k=15)"
+      },
+      {
+        "id": "d3",
+        "type": "cluster_labels",
+        "description": "Leiden clustering communities"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "label"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d2"
+          }
+        ],
+        "annotations": [
+          {
+            "key": "method",
+            "value": "k-nearest neighbour graph construction"
+          },
+          {
+            "key": "parameter",
+            "value": "k=15"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": {
+            "program_name": "Leiden clustering"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d3"
+          }
+        ],
+        "annotations": [
+          {
+            "key": "method",
+            "value": "Leiden algorithm for community detection"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,309 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Immunostaining",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00929-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "hbss_bsa_glucose",
+        "type": "reagent",
+        "description": "HBSS/BSA/glucose"
+      },
+      {
+        "id": "master_mix",
+        "type": "reagent",
+        "description": "master mix"
+      }
+    ],
+    "containers": [
+      {
+        "id": "cell_tube",
+        "type": "tube",
+        "description": "tube containing cells"
+      },
+      {
+        "id": "facs_tube",
+        "type": "tube",
+        "description": "FACS tube"
+      },
+      {
+        "id": "filter_70um",
+        "type": "filter",
+        "description": "70 µm filter"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge",
+        "type": "centrifuge",
+        "description": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cells",
+        "description": "cell pellet after spin"
+      },
+      {
+        "id": "cells_resuspended",
+        "description": "cells resuspended in buffer"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source": "cell_tube",
+          "destination": "waste",
+          "note": "Discard supernatant after spin",
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "reagent": "hbss_bsa_glucose",
+          "volume": "~200 µL",
+          "note": "Resuspend cells in ~200 µL of HBSS/BSA/glucose"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_resuspended"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "master_mix",
+          "destination": "cell_tube",
+          "note": "Add master mix into the tube of resuspended cells",
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "params": {
+          "note": "Incubate for 15 min on ice"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "hbss_bsa_glucose",
+          "destination": "cell_tube",
+          "note": "Wash with 5 mL of HBSS/BSA/glucose",
+          "amount": {
+            "value": 5.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "note": "Mix after wash"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge",
+          "program": {
+            "program_name": "5min_300g_4C"
+          },
+          "note": "Spin down for 5 min at 300g, 4 °C"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "note": "Discard supernatant"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "params": {
+          "note": "Note amount of supernatant; add additional HBSS/BSA/glucose if below 500 µL needed to resuspend"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "note": "Resuspend cells"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "facs_tube"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s12",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "filter_70um"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s13",
+        "op": "transfer",
+        "params": {
+          "source": "cells_resuspended",
+          "destination": "facs_tube",
+          "via": "filter_70um",
+          "note": "Dispense resuspended cells through the 70 µm filter into the FACS tube",
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s14",
+        "op": "annotate",
+        "params": {
+          "note": "Seal the tube and place on ice"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s15",
+        "op": "annotate",
+        "params": {
+          "note": "Take samples to FACS"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      }
+    ],
+    "detail_level": 0
+  }
+}

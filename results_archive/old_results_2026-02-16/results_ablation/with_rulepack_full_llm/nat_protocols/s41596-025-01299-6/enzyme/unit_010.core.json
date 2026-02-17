@@ -1,0 +1,112 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-025-01299-6",
+      "type": "paper"
+    },
+    "title": "Validation of KO efficiency"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {
+          "note": "Specific PCR conditions (e.g., cycles, temperatures, reagent volumes) are not provided in the source text."
+        },
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "gDNA_sample",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "pcr_amplicon",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "thermocycler",
+          "program": "PCR amplification of genomic DNA using primers flanking the sgRNA target sites"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Sequencing platform, library preparation, and run parameters are not specified."
+        },
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "pcr_amplicon",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "ngs_data",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": "NGS sequencing of the PCR amplicon for detailed mutation analysis"
+        }
+      },
+      {
+        "annotations": {
+          "description": "Western blotting performed to assess protein expression of the target gene; high KO efficiency is indicated by minimal or absent protein signal."
+        },
+        "id": "s3",
+        "inputs": [],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "western_blot_result",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      }
+    ]
+  },
+  "resources": {
+    "containers": [],
+    "data": [],
+    "equipment": [],
+    "materials": [],
+    "samples": [
+      {
+        "id": "gDNA_sample",
+        "type": "genomic_DNA"
+      },
+      {
+        "id": "pcr_amplicon",
+        "type": "DNA_amplicon"
+      },
+      {
+        "id": "ngs_data",
+        "type": "sequencing_data"
+      },
+      {
+        "id": "western_blot_result",
+        "type": "protein_analysis_result"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

@@ -1,0 +1,184 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Bulk ATAC‑seq library preparation",
+    "source": {
+      "type": "paper",
+      "id": "s41586-021-03209-8"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "nuclei"
+      },
+      {
+        "id": "m2",
+        "name": "permeabilization buffer"
+      },
+      {
+        "id": "m3",
+        "name": "tagmentation enzyme"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "microcentrifuge tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "Illumina NovaSeq"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_nuclei",
+        "name": "50,000 nuclei"
+      },
+      {
+        "id": "s_permeabilized",
+        "name": "permeabilized nuclei"
+      },
+      {
+        "id": "s_tagmented",
+        "name": "tagmented chromatin"
+      },
+      {
+        "id": "s_library",
+        "name": "ATAC‑seq library"
+      },
+      {
+        "id": "s_seq_data",
+        "name": "sequencing reads"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_nuclei"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 50000,
+            "unit": "count"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_nuclei"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_permeabilized"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "permeabilized nuclei"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_permeabilized"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_tagmented"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "tagmented chromatin"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_tagmented"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_library"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "ATAC‑seq library generated"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_library"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_seq_data"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Sequenced on Illumina NovaSeq with target depth of 50 million reads per library"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

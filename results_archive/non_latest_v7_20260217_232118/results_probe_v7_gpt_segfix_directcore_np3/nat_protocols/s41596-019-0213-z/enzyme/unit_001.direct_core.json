@@ -1,0 +1,223 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Maintain and passage hPSCs",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-019-0213-z.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_edta",
+        "name": "0.5 mM EDTA solution"
+      },
+      {
+        "id": "m_accutase",
+        "name": "Accutase"
+      },
+      {
+        "id": "m_e8",
+        "name": "E8 medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_plate",
+        "type": "6-well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e_incubator",
+        "type": "incubator"
+      },
+      {
+        "id": "e_microscope",
+        "type": "tissue culture microscope"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_hpscs",
+        "type": "cell_culture",
+        "description": "human pluripotent stem cells"
+      }
+    ],
+    "data": [
+      {
+        "id": "d_obs1",
+        "type": "observation"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source": {
+            "material_id": "m_e8",
+            "container_id": "c_plate"
+          },
+          "destination": {
+            "type": "discard"
+          },
+          "amount": {
+            "value": 0.6,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": {
+            "material_id": "m_edta",
+            "container_id": "c_plate"
+          },
+          "destination": {
+            "container_id": "c_plate"
+          },
+          "amount": {
+            "value": 0.6,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3a",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "data"
+        },
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d_obs1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3b",
+        "op": "observe",
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "cell_rounding"
+          ]
+        },
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d_obs1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": {
+            "material_id": "m_edta",
+            "container_id": "c_plate"
+          },
+          "destination": {
+            "type": "discard"
+          },
+          "amount": {
+            "value": 0.6,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": {
+            "material_id": "m_accutase",
+            "container_id": "c_plate"
+          },
+          "destination": {
+            "container_id": "c_plate"
+          },
+          "amount": {
+            "value": 0.6,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e_incubator",
+          "program": {
+            "program_name": "37C_3-5min"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "dislodge_cells",
+          "tool": "P1000 pipette",
+          "repetitions": "2-3"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3a"
+      },
+      {
+        "from": "s3a",
+        "to": "s3b"
+      },
+      {
+        "from": "s3b",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

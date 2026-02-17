@@ -1,0 +1,103 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Quality control and outlier filtering",
+    "source": {
+      "type": "paper",
+      "id": "s41586-024-08172-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "cell_sample",
+        "name": "cell_sample"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_sample"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "description": "Removed any cells with fewer than 200 genes expressed."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_sample"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "description": "Removed outlier cells based on two quality control metrics: number of expressed genes and percentage mitochondrial counts."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_sample"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "description": "Applied z-transformation to values of each quality control metric across all cells."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_sample"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "description": "Defined outliers as cells with any z-transformed metric less than -1.96 or greater than 1.96."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

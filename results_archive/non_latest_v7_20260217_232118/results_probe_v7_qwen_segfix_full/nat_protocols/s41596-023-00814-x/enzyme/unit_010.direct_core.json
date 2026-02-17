@@ -1,0 +1,112 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Perform ERG on OVB organoids to test light response",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00814-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "12-well plate"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s1",
+        "type": "organoid"
+      },
+      {
+        "id": "d1",
+        "name": "d1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source": "s1",
+          "destination": "c1",
+          "amount": {
+            "value": 2.0,
+            "unit": "ml"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "dark_incubation_24h_37C_5pctCO2"
+          }
+        },
+        "outputs": [],
+        "device_ref": "incubator_1",
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": {
+            "program_name": "erg_light_stimulation_dose_response"
+          }
+        },
+        "outputs": [],
+        "device_ref": "erg_system_1",
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "electrical_response",
+            "light_intensity_2000_mlux",
+            "light_intensity_20000_mlux",
+            "light_intensity_200000_mlux"
+          ]
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d1"
+          }
+        ],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

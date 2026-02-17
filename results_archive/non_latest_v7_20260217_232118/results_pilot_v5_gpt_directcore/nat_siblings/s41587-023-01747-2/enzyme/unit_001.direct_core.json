@@ -1,0 +1,176 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Place sections on 96‑well coverslip and attach to superstructure",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41587-023-01747-2.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [
+      {
+        "id": "coverslip",
+        "type": "coverslip_96well"
+      },
+      {
+        "id": "superstructure",
+        "type": "superstructure_96well"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "imager",
+        "type": "imager"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sections",
+        "type": "tissue_section"
+      },
+      {
+        "id": "sections_on_coverslip",
+        "type": "tissue_section",
+        "name": "sections_on_coverslip"
+      }
+    ],
+    "data": [
+      {
+        "id": "image_data",
+        "type": "image"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sections"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "coverslip"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "superstructure"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "sections",
+          "destination": "coverslip",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sections_on_coverslip"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "note": "coverslip attached to superstructure"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "imager",
+          "device_ref": "imager",
+          "program": {
+            "program_name": "imaging"
+          }
+        },
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "image_data"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "note": "antibody elution performed"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "TOBis barcoding",
+    "source": {
+      "type": "paper",
+      "id": "s41596-021-00603-4"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "toc_barcode_material",
+        "name": "TOBis barcodes"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate_96",
+        "type": "96-well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "toc_barcode",
+        "material_ref": "toc_barcode_material"
+      },
+      {
+        "id": "organoid_sample",
+        "description": "organoid sample in 96-well plate"
+      },
+      {
+        "id": "stained_organoid",
+        "description": "organoid sample after barcode transfer"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "toc_barcode"
+          },
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "stained_organoid"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 200,
+            "unit": "µl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "stained_organoid"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "stained_organoid"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": {
+              "value": 4,
+              "unit": "°C"
+            },
+            "duration": "overnight"
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

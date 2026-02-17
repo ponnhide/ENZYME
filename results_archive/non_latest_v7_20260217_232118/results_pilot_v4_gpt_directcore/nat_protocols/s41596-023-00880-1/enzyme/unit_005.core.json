@@ -1,0 +1,280 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Albumin uptake assay for megalin/cubilin activity",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00880-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "E6_medium",
+        "name": "E6 medium"
+      },
+      {
+        "id": "TRITC_albumin",
+        "name": "TRITC–albumin"
+      },
+      {
+        "id": "HBSS",
+        "name": "HBSS"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube_test",
+        "type": "15 mL conical tube",
+        "description": "test tube for albumin condition"
+      },
+      {
+        "id": "tube_control",
+        "type": "15 mL conical tube",
+        "description": "control tube without albumin"
+      },
+      {
+        "id": "transwell_plate",
+        "type": "Transwell plate",
+        "description": "six‑well plate with day‑27 PT‑enhanced organoids"
+      },
+      {
+        "id": "imaging_plate",
+        "type": "glass‑bottomed six‑well imaging plate",
+        "description": "plate for imaging"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "name": "37 °C incubator",
+        "device_kind": "incubator"
+      },
+      {
+        "id": "confocal_microscope",
+        "name": "confocal microscope",
+        "device_kind": "imager"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoids",
+        "name": "day‑27 PT‑enhanced organoids",
+        "source": "transwell_plate"
+      }
+    ],
+    "data": [
+      {
+        "id": "image_data",
+        "name": "confocal images of TRITC‑albumin uptake"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "container_ids": [
+            "tube_test",
+            "tube_control"
+          ],
+          "container_type": "15 mL conical tube"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "transfers": [
+            {
+              "source": "E6_medium",
+              "dest": "tube_test",
+              "amount": {
+                "value": 4,
+                "unit": "mL"
+              }
+            },
+            {
+              "source": "E6_medium",
+              "dest": "tube_control",
+              "amount": {
+                "value": 4,
+                "unit": "mL"
+              }
+            }
+          ]
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "TRITC_albumin",
+          "dest": "tube_test",
+          "amount": {
+            "value": 4.0,
+            "unit": "µL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "target": "tube_test",
+          "action_kind": "mix"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "target": "transwell_plate",
+          "action_kind": "label",
+          "labels": [
+            "test",
+            "control"
+          ]
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Add a drop of tube_test to the apical compartment of each organoid well (transwell_well_test) and a drop of E6_medium to the apical compartment of each control well (transwell_well_control)."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "transfers": [
+            {
+              "source": "tube_test",
+              "dest": "transwell_well_test_basolateral",
+              "amount": {
+                "value": 1,
+                "unit": "mL"
+              }
+            },
+            {
+              "source": "E6_medium",
+              "dest": "transwell_well_control_basolateral",
+              "amount": {
+                "value": 1,
+                "unit": "mL"
+              }
+            }
+          ]
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": "overnight incubation",
+          "temperature": "37 °C",
+          "duration": "~16–20 h"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "params": {
+          "note": "Wash organoids three times in HBSS (5 min per wash) by placing a drop of HBSS on top of each organoid and 1 mL in the basolateral compartment of each Transwell."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "transfer",
+        "params": {
+          "source": "transwell_plate",
+          "dest": "imaging_plate",
+          "amount": {
+            "value": 1.0,
+            "unit": "mL"
+          },
+          "note": "HBSS in each well base"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "observe",
+        "params": {
+          "modality": "microscope",
+          "features": "confocal imaging with 594 nm laser, 10–20× Plan Apochromatic long working distance objective, simultaneous transmitted light capture"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      }
+    ],
+    "detail_level": 0
+  }
+}

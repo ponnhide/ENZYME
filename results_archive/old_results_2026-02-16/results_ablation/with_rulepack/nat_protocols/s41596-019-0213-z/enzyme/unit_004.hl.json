@@ -1,0 +1,136 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Embedding aggregates in collagen‑Matrigel",
+    "source": {
+      "type": "paper",
+      "id": "s41596-019-0213-z.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "collagen_solution",
+        "name": "collagen I/Matrigel solution"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate_12well",
+        "type": "12-well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "collagen_solution_sample",
+        "material_ref": "collagen_solution"
+      },
+      {
+        "id": "plate",
+        "container_ref": "plate_12well"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "collagen_solution_sample"
+          },
+          {
+            "kind": "sample",
+            "id": "plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 0.5,
+            "unit": "mL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "note": "Swirl the plate equally to distribute the solution in the wells."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate"
+          }
+        ],
+        "params": {
+          "temperature": {
+            "value": 37,
+            "unit": "°C"
+          },
+          "duration": {
+            "value": 2,
+            "unit": "h"
+          }
+        },
+        "annotations": {
+          "purpose": "solidification"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

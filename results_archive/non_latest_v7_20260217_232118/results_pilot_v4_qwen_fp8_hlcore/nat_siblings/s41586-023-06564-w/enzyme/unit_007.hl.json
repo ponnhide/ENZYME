@@ -1,0 +1,175 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Generate hCO aggregates via AggreWell plate centrifugation",
+    "source": {
+      "type": "paper",
+      "id": "s41586-023-06564-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Essential 8 medium",
+        "annotations": {
+          "supplement": "ROCK inhibitor Y27632 (10 µM)"
+        }
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "AggreWell 800 plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "centrifuge"
+      },
+      {
+        "id": "e2",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s1",
+        "name": "hCO cells",
+        "quantity": {
+          "value": 3000000,
+          "unit": "cells"
+        }
+      },
+      {
+        "id": "s2",
+        "name": "s2"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 3000000,
+            "unit": "cells"
+          },
+          "source_container": "c1",
+          "destination_container": "c1",
+          "medium": "m1"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "e1",
+          "speed": {
+            "value": 100,
+            "unit": "g"
+          },
+          "duration": {
+            "value": 3,
+            "unit": "min"
+          },
+          "program": {
+            "speed": {
+              "value": 100,
+              "unit": "g"
+            },
+            "duration": {
+              "value": 3,
+              "unit": "min"
+            }
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e2",
+          "temperature": {
+            "value": 37,
+            "unit": "°C"
+          },
+          "co2": 5,
+          "duration": {
+            "value": 24,
+            "unit": "h"
+          },
+          "program": {
+            "temperature": {
+              "value": 37,
+              "unit": "°C"
+            },
+            "co2": 5,
+            "duration": {
+              "value": 24,
+              "unit": "h"
+            }
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

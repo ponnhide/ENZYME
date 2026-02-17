@@ -1,0 +1,109 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-023-00827-6.pdf",
+      "type": "paper"
+    },
+    "title": "Centrifuge to remove Matrigel"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "start_step_id": "s1",
+    "step_order": null,
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "sample1",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "supernatant1",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "16,000g for 5 min at 4 °C"
+        }
+      },
+      {
+        "annotations": {
+          "note": "mix with equal amount of 100% ethanol and vortex thoroughly"
+        },
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "supernatant1",
+            "kind": "sample"
+          },
+          {
+            "id": "ethanol_100",
+            "kind": "material"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "mixed1",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "tube1",
+        "type": "microcentrifuge tube"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "device_kind": "centrifuge",
+        "id": "centrifuge1"
+      }
+    ],
+    "materials": [
+      {
+        "id": "ethanol_100",
+        "name": "100% ethanol"
+      }
+    ],
+    "samples": [
+      {
+        "container_ref": "tube1",
+        "id": "sample1",
+        "type": "cell_sample"
+      },
+      {
+        "container_ref": "tube1",
+        "id": "supernatant1",
+        "type": "supernatant"
+      },
+      {
+        "container_ref": "tube1",
+        "id": "mixed1",
+        "type": "mixed_solution"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

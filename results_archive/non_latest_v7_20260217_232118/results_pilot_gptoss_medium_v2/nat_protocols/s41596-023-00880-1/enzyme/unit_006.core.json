@@ -1,0 +1,165 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-023-00880-1.pdf",
+      "type": "paper"
+    },
+    "title": "Centrifuge micromasses and load onto Transwell inserts"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {
+          "note": "Top up the medium volume in each tube to 200 µL with E6/2% FBS."
+        },
+        "id": "s1",
+        "inputs": [],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "Rotate the tubes 180° between each centrifugation step."
+        },
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "s1",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "s2",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "cycles": 3,
+            "duration": "3 min",
+            "speed": "300 g"
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "Use a P200 pipette with a wide-bore tip to gently push each cell pellet down to the base of the tube and aspirate the micromass into the pipette tip opening."
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "s2",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "s2",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "dislodge_cells"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Transfer three micromasses to each Transwell insert, working swiftly without delay. Ensure minimal medium carryover by allowing each micromass to settle into the pipette tip opening before dispensing in a single droplet that is touched onto the Transwell membrane."
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "s2",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "s3",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "micromass",
+            "value": 3
+          }
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "c1",
+        "name": "microcentrifuge tube",
+        "type": "tube"
+      },
+      {
+        "id": "c2",
+        "name": "Transwell insert",
+        "type": "insert"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "device_kind": "centrifuge",
+        "id": "e1",
+        "name": "centrifuge"
+      },
+      {
+        "id": "e2",
+        "name": "P200 pipette with wide-bore tip"
+      }
+    ],
+    "materials": [
+      {
+        "id": "m1",
+        "name": "E6/2% FBS",
+        "type": "liquid"
+      }
+    ],
+    "samples": [
+      {
+        "container_ref": "c1",
+        "id": "s1",
+        "name": "micromass suspension in tube"
+      },
+      {
+        "container_ref": "c1",
+        "id": "s2",
+        "name": "micromass after centrifugation"
+      },
+      {
+        "container_ref": "c2",
+        "id": "s3",
+        "name": "micromass on Transwell insert"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

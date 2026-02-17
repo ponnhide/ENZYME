@@ -1,0 +1,109 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Microvalve‑driven droplet generation",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41592-021-01391-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "Quake-style microvalve system"
+      },
+      {
+        "id": "e2",
+        "name": "machine-vision imaging system"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sp1",
+        "name": "particles"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "name": "image subtraction results"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "resource_id": "e1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "resource_id": "e2"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "params": {
+          "note": "Implement Quake-style microvalves to facilitate flow control during operation."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "imager",
+          "program": "image_subtraction_blob_detection",
+          "device_ref": "e2"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": "particle placement in ~200-μm-wide target region, success rate 95.9%"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

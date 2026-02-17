@@ -1,0 +1,335 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Freezing of organoids",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-020-0379-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "adDMEM/F12+++",
+        "type": "material",
+        "description": "adDMEM/F12+++ medium"
+      },
+      {
+        "id": "BME",
+        "type": "material",
+        "description": "BME matrix"
+      },
+      {
+        "id": "cell_freezing_medium",
+        "type": "material",
+        "description": "cell‑freezing medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "well_plate",
+        "type": "plate",
+        "description": "culture well plate"
+      },
+      {
+        "id": "conical_tube_15ml",
+        "type": "conical_tube",
+        "description": "15 ml conical tube"
+      },
+      {
+        "id": "cryogenic_vial",
+        "type": "vial",
+        "description": "sterile cryogenic vial"
+      },
+      {
+        "id": "freezing_container",
+        "type": "freezing_container",
+        "description": "controlled‑rate freezing container"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge",
+        "type": "centrifuge",
+        "description": "bench‑top centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoid_culture",
+        "type": "sample",
+        "description": "organoid culture"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "description": "organoid culture"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "description": "culture well plate"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "description": "15 ml conical tube"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "description": "sterile cryogenic vial"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "description": "freezing container for -80 °C storage"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source_material": "adDMEM/F12+++",
+          "destination_container": "well_plate",
+          "note": "add medium to each well 2–3 days after splitting",
+          "amount": {
+            "value": 500.0,
+            "unit": "µl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer BME to the 15 ml conical tube: break up BME drops with P1000 filter tip and transfer on ice"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "description": "fill conical tube to 12 ml with ice‑cold adDMEM/F12+++, pipette up/down with pre‑wetted 10‑ml serological pipette, keep on ice 10 min, repeat pipetting"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge",
+          "program": {
+            "program_name": "200g_5min_4C"
+          },
+          "description": "centrifuge organoids at 200 g for 5 min at 4 °C"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "annotate",
+        "params": {
+          "note": "Aspirate supernatant without disturbing the pellet"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "description": "Resuspend pellet in 1 ml adDMEM/F12+++ medium; if multiple tubes, combine into one 15 ml tube"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge",
+          "program": {
+            "program_name": "200g_5min_4C"
+          },
+          "description": "second centrifugation at 200 g for 5 min at 4 °C"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s13",
+        "op": "annotate",
+        "params": {
+          "note": "Aspirate supernatant without disturbing the pellet"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s14",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "description": "Add required volume of cell‑freezing medium and pipette up/down with P1000 to resuspend organoids"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s15",
+        "op": "transfer",
+        "params": {
+          "source_material": "cell_freezing_medium",
+          "destination_container": "cryogenic_vial",
+          "note": "per sterile cryogenic vial, add 500 µl of freezing medium with resuspended organoids",
+          "amount": {
+            "value": 500.0,
+            "unit": "µl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s16",
+        "op": "annotate",
+        "params": {
+          "note": "Place the cryogenic vial into the freezing container"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s17",
+        "op": "annotate",
+        "params": {
+          "note": "Store the freezing container at –80 °C for 24 h"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s18",
+        "op": "annotate",
+        "params": {
+          "note": "After 24 h, transfer vials from the freezing container to the liquid nitrogen tank (≈ –180 °C)"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      },
+      {
+        "from": "s16",
+        "to": "s17"
+      },
+      {
+        "from": "s17",
+        "to": "s18"
+      }
+    ],
+    "detail_level": 0
+  }
+}

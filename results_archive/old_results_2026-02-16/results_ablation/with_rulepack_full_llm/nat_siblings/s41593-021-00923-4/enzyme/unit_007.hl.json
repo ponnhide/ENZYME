@@ -1,0 +1,207 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Repeat-primed PCR",
+    "source": {
+      "type": "paper",
+      "id": "s41593-021-00923-4"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "QIAamp DNA Mini kit",
+        "vendor": "Qiagen",
+        "catalog": "51306"
+      },
+      {
+        "id": "m2",
+        "name": "6-FAM-labeled forward primer MRX-F1",
+        "sequence": "FAM-TGTAAAACGACGGCCAGTCAAGGAGGGAAACAACCGCAGCC"
+      },
+      {
+        "id": "m3",
+        "name": "Reverse primer MRX-R",
+        "sequence": "CAGGAAACAGCTATGACCGGGCCCGCCCCGA"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "Thermocycler",
+        "device_kind": "thermocycler"
+      },
+      {
+        "id": "e2",
+        "name": "Applied Bioscience 3730XL DNA Analyzer",
+        "device_kind": "imager"
+      },
+      {
+        "id": "e3",
+        "name": "GeneMapper v.6 software",
+        "device_kind": "software"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "name": "Biological sample",
+        "type": "tissue"
+      },
+      {
+        "id": "samp2",
+        "name": "Extracted DNA",
+        "type": "DNA"
+      },
+      {
+        "id": "samp3",
+        "name": "PCR product",
+        "type": "DNA"
+      },
+      {
+        "id": "samp4",
+        "name": "Denatured PCR product",
+        "type": "DNA"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "name": "Capillary electrophoresis chromatograph",
+        "type": "electropherogram"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "DNA was extracted from samples using a QIAamp DNA Mini kit (Qiagen, 51306)"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "material",
+            "id": "m3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp3"
+          }
+        ],
+        "params": {
+          "device_kind": "thermocycler",
+          "program": "PCR amplification of C9ORF72 locus with 6-FAM-labeled forward and reverse primers (details as previously described)"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp4"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "The PCR product was denatured"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d1"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "program": "Capillary electrophoresis on Applied Bioscience 3730XL DNA Analyzer"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "data",
+            "id": "d1"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Chromatographs were aligned in GeneMapper v.6 software (Thermo)"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,702 @@
+{
+  "graph_version": "0.2",
+  "linkable_kinds": [
+    "data",
+    "sample"
+  ],
+  "unit_graphs": [
+    {
+      "unit_id": "unit_001",
+      "title": "Construct kNN graph and cluster organoid dataset",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 2,
+        "edge_count": 1,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "run_device"
+          },
+          {
+            "id": "s2",
+            "op": "annotate"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s2"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "sample:d1"
+        ],
+        "output_refs": [
+          "sample:d2"
+        ]
+      }
+    },
+    {
+      "unit_id": "unit_002",
+      "title": "Perform wkNN-based label transfer to HNOCA cells with regional constraints",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 1,
+        "edge_count": 1,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "annotate"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s1"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [],
+        "output_refs": []
+      }
+    },
+    {
+      "unit_id": "unit_003",
+      "title": "Apply hierarchical label transfer with majority voting and support scoring",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 2,
+        "edge_count": 1,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "annotate"
+          },
+          {
+            "id": "s2",
+            "op": "annotate"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s2"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [],
+        "output_refs": []
+      }
+    },
+    {
+      "unit_id": "unit_004",
+      "title": "Transfer hierarchical annotations to disease-modelling atlas via bipartite wkNN",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 1,
+        "edge_count": 1,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "annotate"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s1"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [],
+        "output_refs": []
+      }
+    },
+    {
+      "unit_id": "unit_005",
+      "title": "Construct HNOCA Community Edition by projecting new datasets using scPoli",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 4,
+        "edge_count": 3,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "allocate"
+          },
+          {
+            "id": "s2",
+            "op": "allocate"
+          },
+          {
+            "id": "s3",
+            "op": "allocate"
+          },
+          {
+            "id": "s4",
+            "op": "run_device"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s4"
+          },
+          {
+            "from": "s2",
+            "to": "s4"
+          },
+          {
+            "from": "s3",
+            "to": "s4"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "sample:d1",
+          "sample:d2"
+        ],
+        "output_refs": [
+          "sample:d1",
+          "sample:d2",
+          "sample:d3"
+        ]
+      }
+    },
+    {
+      "unit_id": "unit_006",
+      "title": "Compute wkNN graph for HNOCA Community Edition with k=100",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 4,
+        "edge_count": 3,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "observe"
+          },
+          {
+            "id": "s2",
+            "op": "annotate"
+          },
+          {
+            "id": "s3",
+            "op": "annotate"
+          },
+          {
+            "id": "s4",
+            "op": "run_device"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s2"
+          },
+          {
+            "from": "s2",
+            "to": "s3"
+          },
+          {
+            "from": "s3",
+            "to": "s4"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "sample:d1",
+          "sample:d2",
+          "sample:d3",
+          "sample:d4"
+        ],
+        "output_refs": [
+          "sample:d2",
+          "sample:d3",
+          "sample:d4",
+          "sample:d5"
+        ]
+      }
+    },
+    {
+      "unit_id": "unit_007",
+      "title": "Subset and harmonize community organoid datasets to HNOCA's 3,000 HVGs",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 3,
+        "edge_count": 2,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "annotate"
+          },
+          {
+            "id": "s2",
+            "op": "annotate"
+          },
+          {
+            "id": "s3",
+            "op": "annotate"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s2"
+          },
+          {
+            "from": "s2",
+            "to": "s3"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [],
+        "output_refs": []
+      }
+    },
+    {
+      "unit_id": "unit_008",
+      "title": "Perform F-test-based DE analysis on paired transcriptomes",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 4,
+        "edge_count": 3,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "annotate"
+          },
+          {
+            "id": "s2",
+            "op": "annotate"
+          },
+          {
+            "id": "s3",
+            "op": "annotate"
+          },
+          {
+            "id": "s4",
+            "op": "annotate"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s2"
+          },
+          {
+            "from": "s2",
+            "to": "s3"
+          },
+          {
+            "from": "s3",
+            "to": "s4"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [],
+        "output_refs": []
+      }
+    },
+    {
+      "unit_id": "unit_009",
+      "title": "Integrate disease-modelling datasets using scPoli with 500 epochs",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 2,
+        "edge_count": 1,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "run_device"
+          },
+          {
+            "id": "s2",
+            "op": "annotate"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s2"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "sample:d1"
+        ],
+        "output_refs": [
+          "sample:d2"
+        ]
+      }
+    }
+  ],
+  "inter_unit_graph": {
+    "nodes": [
+      "unit_001",
+      "unit_002",
+      "unit_003",
+      "unit_004",
+      "unit_005",
+      "unit_006",
+      "unit_007",
+      "unit_008",
+      "unit_009"
+    ],
+    "edges": [
+      {
+        "from_unit": "unit_001",
+        "to_unit": "unit_005",
+        "via_refs": [
+          "sample:d2"
+        ],
+        "n_refs": 1
+      },
+      {
+        "from_unit": "unit_001",
+        "to_unit": "unit_006",
+        "via_refs": [
+          "sample:d2"
+        ],
+        "n_refs": 1
+      },
+      {
+        "from_unit": "unit_005",
+        "to_unit": "unit_001",
+        "via_refs": [
+          "sample:d1"
+        ],
+        "n_refs": 1
+      },
+      {
+        "from_unit": "unit_005",
+        "to_unit": "unit_006",
+        "via_refs": [
+          "sample:d1",
+          "sample:d2",
+          "sample:d3"
+        ],
+        "n_refs": 3
+      },
+      {
+        "from_unit": "unit_005",
+        "to_unit": "unit_009",
+        "via_refs": [
+          "sample:d1"
+        ],
+        "n_refs": 1
+      },
+      {
+        "from_unit": "unit_006",
+        "to_unit": "unit_005",
+        "via_refs": [
+          "sample:d2"
+        ],
+        "n_refs": 1
+      },
+      {
+        "from_unit": "unit_009",
+        "to_unit": "unit_005",
+        "via_refs": [
+          "sample:d2"
+        ],
+        "n_refs": 1
+      },
+      {
+        "from_unit": "unit_009",
+        "to_unit": "unit_006",
+        "via_refs": [
+          "sample:d2"
+        ],
+        "n_refs": 1
+      }
+    ]
+  },
+  "integrity": {
+    "pass": false,
+    "isolated_unit_count": 5,
+    "isolated_unit_rate": 0.556,
+    "isolated_units": [
+      "unit_002",
+      "unit_003",
+      "unit_004",
+      "unit_007",
+      "unit_008"
+    ],
+    "issues": [
+      {
+        "code": "INTER_UNIT_ISOLATED_UNIT_MATERIAL",
+        "severity": "warn",
+        "message": "One or more units are isolated in strict material-flow connectivity.",
+        "unit_ids": [
+          "unit_002",
+          "unit_003",
+          "unit_004",
+          "unit_007",
+          "unit_008"
+        ]
+      }
+    ]
+  },
+  "material_flow": {
+    "linkable_kinds": [
+      "data",
+      "sample"
+    ],
+    "inter_unit_graph": {
+      "nodes": [
+        "unit_001",
+        "unit_002",
+        "unit_003",
+        "unit_004",
+        "unit_005",
+        "unit_006",
+        "unit_007",
+        "unit_008",
+        "unit_009"
+      ],
+      "edges": [
+        {
+          "from_unit": "unit_001",
+          "to_unit": "unit_005",
+          "via_refs": [
+            "sample:d2"
+          ],
+          "n_refs": 1
+        },
+        {
+          "from_unit": "unit_001",
+          "to_unit": "unit_006",
+          "via_refs": [
+            "sample:d2"
+          ],
+          "n_refs": 1
+        },
+        {
+          "from_unit": "unit_005",
+          "to_unit": "unit_001",
+          "via_refs": [
+            "sample:d1"
+          ],
+          "n_refs": 1
+        },
+        {
+          "from_unit": "unit_005",
+          "to_unit": "unit_006",
+          "via_refs": [
+            "sample:d1",
+            "sample:d2",
+            "sample:d3"
+          ],
+          "n_refs": 3
+        },
+        {
+          "from_unit": "unit_005",
+          "to_unit": "unit_009",
+          "via_refs": [
+            "sample:d1"
+          ],
+          "n_refs": 1
+        },
+        {
+          "from_unit": "unit_006",
+          "to_unit": "unit_005",
+          "via_refs": [
+            "sample:d2"
+          ],
+          "n_refs": 1
+        },
+        {
+          "from_unit": "unit_009",
+          "to_unit": "unit_005",
+          "via_refs": [
+            "sample:d2"
+          ],
+          "n_refs": 1
+        },
+        {
+          "from_unit": "unit_009",
+          "to_unit": "unit_006",
+          "via_refs": [
+            "sample:d2"
+          ],
+          "n_refs": 1
+        }
+      ]
+    },
+    "integrity": {
+      "pass": false,
+      "isolated_unit_count": 5,
+      "isolated_unit_rate": 0.556,
+      "isolated_units": [
+        "unit_002",
+        "unit_003",
+        "unit_004",
+        "unit_007",
+        "unit_008"
+      ],
+      "issues": [
+        {
+          "code": "INTER_UNIT_ISOLATED_UNIT_MATERIAL",
+          "severity": "warn",
+          "message": "One or more units are isolated in strict material-flow connectivity.",
+          "unit_ids": [
+            "unit_002",
+            "unit_003",
+            "unit_004",
+            "unit_007",
+            "unit_008"
+          ]
+        }
+      ]
+    }
+  },
+  "logical_flow": {
+    "method": "heuristic_v0_1",
+    "window_units": 3,
+    "inter_unit_graph": {
+      "nodes": [
+        "unit_001",
+        "unit_002",
+        "unit_003",
+        "unit_004",
+        "unit_005",
+        "unit_006",
+        "unit_007",
+        "unit_008",
+        "unit_009"
+      ],
+      "edges": [
+        {
+          "from_unit": "unit_001",
+          "to_unit": "unit_002",
+          "confidence": 0.5,
+          "signals": [
+            "temporal_adjacency",
+            "continuity_cue",
+            "implicit_input_dependency"
+          ],
+          "shared_terms": []
+        },
+        {
+          "from_unit": "unit_002",
+          "to_unit": "unit_003",
+          "confidence": 0.55,
+          "signals": [
+            "temporal_adjacency",
+            "shared_context_terms",
+            "continuity_cue"
+          ],
+          "shared_terms": [
+            "applied",
+            "considered",
+            "diencephalon",
+            "hindbrain"
+          ]
+        },
+        {
+          "from_unit": "unit_003",
+          "to_unit": "unit_004",
+          "confidence": 0.35,
+          "signals": [
+            "temporal_adjacency",
+            "shared_context_terms"
+          ],
+          "shared_terms": [
+            "applied",
+            "hierarchical",
+            "label",
+            "majority"
+          ]
+        },
+        {
+          "from_unit": "unit_004",
+          "to_unit": "unit_005",
+          "confidence": 0.4,
+          "signals": [
+            "temporal_adjacency",
+            "continuity_cue"
+          ],
+          "shared_terms": []
+        },
+        {
+          "from_unit": "unit_006",
+          "to_unit": "unit_007",
+          "confidence": 0.45,
+          "signals": [
+            "temporal_adjacency",
+            "shared_context_terms",
+            "implicit_input_dependency"
+          ],
+          "shared_terms": [
+            "community",
+            "fewer",
+            "genes",
+            "hnoca"
+          ]
+        },
+        {
+          "from_unit": "unit_007",
+          "to_unit": "unit_008",
+          "confidence": 0.4,
+          "signals": [
+            "temporal_adjacency",
+            "continuity_cue"
+          ],
+          "shared_terms": []
+        },
+        {
+          "from_unit": "unit_008",
+          "to_unit": "unit_009",
+          "confidence": 0.4,
+          "signals": [
+            "temporal_adjacency",
+            "continuity_cue"
+          ],
+          "shared_terms": []
+        }
+      ]
+    },
+    "integrity": {
+      "pass": true,
+      "isolated_unit_count": 0,
+      "isolated_unit_rate": 0.0,
+      "isolated_units": [],
+      "issues": []
+    }
+  },
+  "combined_integrity": {
+    "pass": true,
+    "isolated_unit_count": 0,
+    "isolated_unit_rate": 0.0,
+    "isolated_units": [],
+    "issues": []
+  }
+}

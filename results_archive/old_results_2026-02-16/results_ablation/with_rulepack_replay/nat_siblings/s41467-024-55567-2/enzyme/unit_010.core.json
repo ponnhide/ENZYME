@@ -1,0 +1,223 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41467-024-55567-2.pdf",
+      "type": "paper"
+    },
+    "title": "RT‑qPCR gene expression analysis"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "total_RNA",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "total_RNA",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "cDNA_reaction",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "µg",
+            "value": 1
+          }
+        }
+      },
+      {
+        "annotations": {
+          "kit": "reverse_transcriptase_kit"
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "cDNA_reaction",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "cDNA",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "cDNA",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "qPCR_reaction",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "master_mix": "qPCR_master_mix"
+        },
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "qPCR_reaction",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "qPCR_data",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "thermocycler",
+          "device_ref": "cfx384",
+          "program": "qPCR"
+        }
+      },
+      {
+        "annotations": {
+          "analysis_method": "ΔΔCt"
+        },
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "qPCR_data",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "tube",
+        "type": "microcentrifuge tube"
+      },
+      {
+        "id": "96_well_plate",
+        "type": "96-well PCR plate"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "device_kind": "thermocycler",
+        "id": "cfx384",
+        "manufacturer": "BioRad",
+        "name": "CFX384 Real‑Time System"
+      }
+    ],
+    "materials": [
+      {
+        "id": "trizol",
+        "name": "Trizol reagent",
+        "source": {
+          "id": "TransGen Biotech",
+          "type": "commercial"
+        }
+      },
+      {
+        "id": "reverse_transcriptase_kit",
+        "name": "NovoScriptPlus Reverse Transcriptase kit",
+        "source": {
+          "id": "NovoProtein",
+          "type": "commercial"
+        }
+      },
+      {
+        "id": "qPCR_master_mix",
+        "name": "ChamQ Universal SYBR qPCR Master Mix",
+        "source": {
+          "id": "Vazyme",
+          "type": "commercial"
+        }
+      }
+    ],
+    "samples": [
+      {
+        "description": "isolated total RNA",
+        "id": "total_RNA"
+      },
+      {
+        "description": "cDNA synthesis reaction mixture",
+        "id": "cDNA_reaction"
+      },
+      {
+        "description": "cDNA product",
+        "id": "cDNA"
+      },
+      {
+        "description": "qPCR reaction mixture",
+        "id": "qPCR_reaction"
+      },
+      {
+        "description": "qPCR fluorescence data",
+        "id": "qPCR_data"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

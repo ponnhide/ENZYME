@@ -1,0 +1,165 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Centrifuge micromasses and load onto Transwell inserts",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00880-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "E6/2% FBS",
+        "type": "liquid"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "microcentrifuge tube",
+        "type": "tube"
+      },
+      {
+        "id": "c2",
+        "name": "Transwell insert",
+        "type": "insert"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "centrifuge",
+        "device_kind": "centrifuge"
+      },
+      {
+        "id": "e2",
+        "name": "P200 pipette with wide-bore tip"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s1",
+        "name": "micromass suspension in tube",
+        "container_ref": "c1"
+      },
+      {
+        "id": "s2",
+        "name": "micromass after centrifugation",
+        "container_ref": "c1"
+      },
+      {
+        "id": "s3",
+        "name": "micromass on Transwell insert",
+        "container_ref": "c2"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Top up the medium volume in each tube to 200 µL with E6/2% FBS."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "speed": "300 g",
+            "duration": "3 min",
+            "cycles": 3
+          }
+        },
+        "annotations": {
+          "note": "Rotate the tubes 180° between each centrifugation step."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "annotations": {
+          "note": "Use a P200 pipette with a wide-bore tip to gently push each cell pellet down to the base of the tube and aspirate the micromass into the pipette tip opening."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 3,
+            "unit": "micromass"
+          }
+        },
+        "annotations": {
+          "note": "Transfer three micromasses to each Transwell insert, working swiftly without delay. Ensure minimal medium carryover by allowing each micromass to settle into the pipette tip opening before dispensing in a single droplet that is touched onto the Transwell membrane."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

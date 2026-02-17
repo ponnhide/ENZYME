@@ -1,0 +1,154 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Prepare EdU solution",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00562-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_edustock",
+        "name": "EdU stock solution (10 mM, component A of the kit)"
+      },
+      {
+        "id": "m_base_medium",
+        "name": "Base medium"
+      },
+      {
+        "id": "m_diff_medium",
+        "name": "Colon monolayer differentiation medium"
+      }
+    ],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s_edustock",
+        "material": "m_edustock"
+      },
+      {
+        "id": "s_base_medium",
+        "material": "m_base_medium"
+      },
+      {
+        "id": "s_diff_medium",
+        "material": "m_diff_medium"
+      },
+      {
+        "id": "s_edusol_base",
+        "material": "m_edustock"
+      },
+      {
+        "id": "s_edusol_diff",
+        "material": "m_edustock"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_edusol_base"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_edusol_diff"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "s_edustock",
+          "destination": "s_edusol_base",
+          "amount": {
+            "description": "calculated to achieve 10 μM (1:1000 dilution of 10 mM stock)"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "s_edustock",
+          "destination": "s_edusol_diff",
+          "amount": {
+            "description": "calculated to achieve 10 μM (1:1000 dilution of 10 mM stock)"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "target": "s_edusol_base"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "target": "s_edusol_diff"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

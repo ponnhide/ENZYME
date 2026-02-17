@@ -1,0 +1,222 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Dissociation and digestion of brain tissue",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00929-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_hbss",
+        "type": "solution",
+        "name": "HBSS/BSA/glucose"
+      },
+      {
+        "id": "m_dnase",
+        "type": "solution",
+        "name": "DNase",
+        "concentration": "10 mg/mL"
+      },
+      {
+        "id": "m_collagenase",
+        "type": "solution",
+        "name": "collagenase/dispase",
+        "concentration": "100 mg/mL"
+      },
+      {
+        "id": "m_brain",
+        "type": "tissue",
+        "name": "human brain tissue"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_dish",
+        "type": "cell_culture_dish",
+        "size": "60 mm"
+      },
+      {
+        "id": "c_tube1",
+        "type": "conical_tube",
+        "volume": "15 mL"
+      },
+      {
+        "id": "c_tube2",
+        "type": "conical_tube",
+        "volume": "15 mL"
+      },
+      {
+        "id": "c_tube3",
+        "type": "conical_tube",
+        "volume": "15 mL"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e_oven",
+        "type": "rotating_oven"
+      },
+      {
+        "id": "e_scalpel",
+        "type": "scalpel"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_brain",
+        "type": "sample",
+        "description": "human brain tissue (~250 mg)"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e_oven",
+          "program": {
+            "program_name": "heat_to_37C"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "m_hbss",
+          "destination": "c_dish",
+          "amount": {
+            "value": 7.0,
+            "unit": "mL"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "m_dnase",
+          "destination": "c_dish",
+          "amount": {
+            "value": 150.0,
+            "unit": "µL"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "description": "human brain tissue (~250 mg)"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "s_brain",
+          "destination": "c_dish",
+          "amount": {
+            "value": 250,
+            "unit": "mg"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Cut tissue into ~2 mm × 2 mm chunks in dish using scalpel in biosafety cabinet."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "note": "Aliquot tissue‑buffer solution from dish into three 15 mL conical tubes, washing dish with extra buffer to make up 5 mL per tube."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "note": "Add 167 µL of collagenase/dispase to each 15 mL tube."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e_oven",
+          "program": {
+            "program_name": "digest_30min_37C"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,377 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "iPSC dissociation and preparation for 10x microfluidic chip",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-019-1654-9.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "TrypLExpress",
+        "source": "Thermo Fisher"
+      },
+      {
+        "id": "m2",
+        "name": "mTeSR1"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "culture_flask"
+      },
+      {
+        "id": "c2",
+        "type": "centrifuge_tube"
+      },
+      {
+        "id": "c3",
+        "type": "centrifuge_tube"
+      },
+      {
+        "id": "c4",
+        "type": "filter_strainer_20um"
+      },
+      {
+        "id": "c5",
+        "type": "microcentrifuge_tube"
+      },
+      {
+        "id": "c6",
+        "type": "microcentrifuge_tube"
+      },
+      {
+        "id": "c7",
+        "type": "microcentrifuge_tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator"
+      },
+      {
+        "id": "e2",
+        "type": "centrifuge"
+      },
+      {
+        "id": "e3",
+        "type": "cell_counter"
+      }
+    ],
+    "samples": [
+      {
+        "id": "c1",
+        "name": "c1"
+      },
+      {
+        "id": "c2",
+        "name": "c2"
+      },
+      {
+        "id": "c3",
+        "name": "c3"
+      },
+      {
+        "id": "c5",
+        "name": "c5"
+      },
+      {
+        "id": "c6",
+        "name": "c6"
+      },
+      {
+        "id": "d1",
+        "name": "d1"
+      },
+      {
+        "id": "c7",
+        "name": "c7"
+      },
+      {
+        "id": "c8",
+        "name": "c8"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "TrypLExpress_incubation_5min"
+          }
+        },
+        "device_ref": "e1",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "c1",
+          "target": "c2",
+          "amount": {
+            "value": 1.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "m2",
+          "target": "c2",
+          "amount": {
+            "value": 5.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "centrifuge_200g_5min"
+          }
+        },
+        "device_ref": "e2",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c2"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c3"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": "c3",
+          "target": "c4",
+          "amount": {
+            "value": 1.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "source": "c4",
+          "target": "c5",
+          "amount": {
+            "value": 1.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "params": {
+          "source": "m2",
+          "target": "c5",
+          "amount": {
+            "value": 5.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "centrifuge_200g_5min"
+          }
+        },
+        "device_ref": "e2",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c5"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c5"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c6"
+          }
+        ]
+      },
+      {
+        "id": "s11",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "cell_count"
+          ]
+        },
+        "device_ref": "e3",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c6"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d1"
+          }
+        ]
+      },
+      {
+        "id": "s12",
+        "op": "transfer",
+        "params": {
+          "source": "c6",
+          "target": "c7",
+          "amount": {
+            "value": 1.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s13",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c7"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c8"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      }
+    ],
+    "detail_level": 0
+  }
+}

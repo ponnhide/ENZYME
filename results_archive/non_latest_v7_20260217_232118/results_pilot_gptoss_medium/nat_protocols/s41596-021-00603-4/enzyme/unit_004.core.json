@@ -1,0 +1,156 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-021-00603-4",
+      "type": "paper"
+    },
+    "title": "Fixation"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {
+          "note": "Transfer of well content to waste container; amount not specified in source"
+        },
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "well_before",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "well_after_removal",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "pfa_solution",
+            "kind": "sample"
+          },
+          {
+            "id": "well_after_removal",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "well_after_fixation",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "µl",
+            "value": 200
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "well_after_fixation",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "well_fixed",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "60 min at 37 °C, 5% CO2"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "plate",
+        "type": "well_plate"
+      },
+      {
+        "id": "waste",
+        "type": "waste_container"
+      },
+      {
+        "id": "pfa_tube",
+        "type": "tube"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "device_kind": "incubator",
+        "id": "inc1",
+        "name": "CO2 incubator"
+      }
+    ],
+    "materials": [
+      {
+        "id": "mat1",
+        "name": "culture medium"
+      },
+      {
+        "id": "mat2",
+        "name": "4% (vol/vol) PFA"
+      }
+    ],
+    "samples": [
+      {
+        "container_ref": "plate",
+        "id": "well_before",
+        "type": "well_content"
+      },
+      {
+        "container_ref": "plate",
+        "id": "well_after_removal",
+        "type": "well_content"
+      },
+      {
+        "container_ref": "pfa_tube",
+        "id": "pfa_solution",
+        "type": "reagent"
+      },
+      {
+        "container_ref": "plate",
+        "id": "well_after_fixation",
+        "type": "well_content"
+      },
+      {
+        "container_ref": "plate",
+        "id": "well_fixed",
+        "type": "well_content"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

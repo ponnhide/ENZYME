@@ -1,0 +1,414 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Initiate monolayer culture from MEF‑grown hPSCs",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00629-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Standard hPSC culture medium with 20% KnockOut Serum Replacement"
+      },
+      {
+        "id": "m2",
+        "name": "PBS without calcium and magnesium"
+      },
+      {
+        "id": "m3",
+        "name": "Accutase"
+      },
+      {
+        "id": "m4",
+        "name": "DMEM/F12"
+      },
+      {
+        "id": "m5",
+        "name": "E8 medium"
+      },
+      {
+        "id": "m6",
+        "name": "Y27632 (10 μM final concentration)"
+      },
+      {
+        "id": "m7",
+        "name": "Geltrex"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "six_well_plate"
+      },
+      {
+        "id": "c2",
+        "type": "conical_tube_15ml"
+      },
+      {
+        "id": "c3",
+        "type": "T25_flask"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator"
+      },
+      {
+        "id": "e2",
+        "type": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_cell_plate",
+        "description": "hPSCs grown on MEFs in six‑well plate (~80% confluency)"
+      },
+      {
+        "id": "s_cell_suspension",
+        "description": "Cell suspension after Accutase treatment and pipetting"
+      },
+      {
+        "id": "s_cell_pellet",
+        "description": "Cell pellet after centrifugation"
+      },
+      {
+        "id": "s_culture_flask",
+        "description": "hPSCs seeded in Geltrex‑coated T25 flask"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_plate"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "params": {
+          "note": "Aspirate medium from six‑well plate"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source_material": "m2",
+          "destination_container": "c1",
+          "amount": {
+            "value": 3.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source_material": "m3",
+          "destination_container": "c1",
+          "amount": {
+            "value": 500.0,
+            "unit": "μL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "37C_3min"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source_material": "m4",
+          "destination_container": "c1",
+          "amount": {
+            "value": 3.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "dislodge_cells",
+          "target_sample": "s_cell_plate"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_suspension"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer cell suspension to conical tube (volume not specified)"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "e2",
+          "program": {
+            "program_name": "300g_3min_4C"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "annotate",
+        "params": {
+          "note": "Remove supernatant from conical tube"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_pellet"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s13",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "target_sample": "s_cell_pellet",
+          "reagent": "m5",
+          "additive": "m6",
+          "volume": "1 mL"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s14",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_culture_flask"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s15",
+        "op": "annotate",
+        "params": {
+          "note": "Aspirate medium from prepared Geltrex‑coated T25 flask"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s16",
+        "op": "transfer",
+        "params": {
+          "source_material": "m5",
+          "additive": "m6",
+          "destination_container": "c3",
+          "amount": {
+            "value": 4.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s17",
+        "op": "transfer",
+        "params": {
+          "source_sample": "s_cell_pellet",
+          "destination_container": "c3",
+          "amount": {
+            "value": 1.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s18",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "standard_culture"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s19",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "target_container": "c3"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s20",
+        "op": "annotate",
+        "params": {
+          "note": "Change medium after 2 days and then daily by aspirating old medium and adding 5 mL fresh E8"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      },
+      {
+        "from": "s16",
+        "to": "s17"
+      },
+      {
+        "from": "s17",
+        "to": "s18"
+      },
+      {
+        "from": "s18",
+        "to": "s19"
+      },
+      {
+        "from": "s19",
+        "to": "s20"
+      }
+    ],
+    "detail_level": 0
+  }
+}

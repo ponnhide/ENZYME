@@ -1,0 +1,231 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Centrifugation and pellet resuspension",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-020-00474-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "D_BSA",
+        "name": "D‑BSA",
+        "kind": "material"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube1",
+        "type": "tube",
+        "name": "tube containing flow‑through"
+      },
+      {
+        "id": "falcon_prewet",
+        "type": "tube",
+        "name": "15‑ml Falcon tube pre‑wetted with D‑BSA"
+      },
+      {
+        "id": "waste",
+        "type": "waste",
+        "name": "waste container"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge1",
+        "type": "centrifuge",
+        "name": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "flow_through",
+        "name": "flow‑through",
+        "kind": "sample"
+      },
+      {
+        "id": "pellet",
+        "name": "tissue pellet",
+        "kind": "sample"
+      },
+      {
+        "id": "pellet2",
+        "name": "pellet after second centrifugation",
+        "kind": "sample"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge1",
+          "program": {
+            "program_name": "450g_5min_8C"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "params": {
+          "note": "Aspirate supernatant, leaving last 4 ml (all but 4 ml)"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4a",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "note": "Resuspend pellet in remaining 4 ml with sterile serological pipette"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4b",
+        "op": "transfer",
+        "params": {
+          "note": "Transfer resuspended pellet to pre‑wetted Falcon tube",
+          "amount": {
+            "value": 4.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5a",
+        "op": "transfer",
+        "params": {
+          "note": "Add 10 ml D‑BSA to Falcon tube",
+          "amount": {
+            "value": 10.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5b",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "note": "Homogenize by pipetting up and down several times"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge1",
+          "program": {
+            "program_name": "450g_5min_8C"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "note": "Aspirate supernatant carefully with vacuum system until 1 ml remains (all but 1 ml)"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "note": "Let the tube rest for 1 min to allow D‑BSA to settle at the bottom"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "params": {
+          "note": "Remove residual D‑BSA with a P1000 pipette",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4a"
+      },
+      {
+        "from": "s4a",
+        "to": "s4b"
+      },
+      {
+        "from": "s4b",
+        "to": "s5a"
+      },
+      {
+        "from": "s5a",
+        "to": "s5b"
+      },
+      {
+        "from": "s5b",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Differentiate epicardioids and track lineage markers over time",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41587-023-01718-7.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s1_sample",
+        "type": "cell_culture",
+        "description": "AAVS1-FRT-flanked STOP-mKate2-HA reporter hiPSC-derived epicardioids"
+      },
+      {
+        "id": "s2_data",
+        "name": "s2_data"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "program": {
+            "program_name": "unknown"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1_sample"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "mKate2-HA expression"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2_data"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

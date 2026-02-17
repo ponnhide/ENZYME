@@ -1,0 +1,105 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Aggregate incubation",
+    "source": {
+      "type": "paper",
+      "id": "s41596-019-0213-z"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "cell_suspension",
+        "description": "cell suspension"
+      }
+    ],
+    "containers": [
+      {
+        "id": "low_attach_plate",
+        "description": "6-well low-attachment plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "description": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cell_suspension_sample",
+        "material_ref": "cell_suspension"
+      },
+      {
+        "id": "cell_suspension_in_plate",
+        "material_ref": "cell_suspension",
+        "container_ref": "low_attach_plate"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension_in_plate"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 3,
+            "unit": "mL"
+          }
+        },
+        "annotations": {
+          "note": "Place 3 mL of cell suspension per well into a 6-well low-attachment plate"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension_in_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension_in_plate"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 1,
+            "unit": "d"
+          }
+        },
+        "annotations": {
+          "condition": "until cell aggregates with smooth borders (>50- to 100-µm diameter) have been formed"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

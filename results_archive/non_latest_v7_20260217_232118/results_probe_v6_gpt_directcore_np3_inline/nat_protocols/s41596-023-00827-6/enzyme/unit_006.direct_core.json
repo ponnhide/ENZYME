@@ -1,0 +1,195 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "RT‑qPCR setup (steps 11‑12)",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00827-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "sybr_green",
+        "type": "reagent"
+      },
+      {
+        "id": "forward_primer",
+        "type": "reagent"
+      },
+      {
+        "id": "reverse_primer",
+        "type": "reagent"
+      },
+      {
+        "id": "cdna",
+        "type": "reagent"
+      },
+      {
+        "id": "water",
+        "type": "reagent"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate384",
+        "type": "384-well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "thermocycler1",
+        "type": "thermocycler"
+      }
+    ],
+    "samples": [
+      {
+        "id": "reaction_mix",
+        "type": "sample"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "sybr_green",
+          "destination": "reaction_mix",
+          "amount": {
+            "value": 7.5,
+            "unit": "μl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "forward_primer",
+          "destination": "reaction_mix",
+          "amount": {
+            "value": 0.15,
+            "unit": "μl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "reverse_primer",
+          "destination": "reaction_mix",
+          "amount": {
+            "value": 0.15,
+            "unit": "μl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "cDNA volume variable, added as needed"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "note": "Water volume variable, added to reach total 15 μl"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "target": "reaction_mix"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "params": {
+          "device_kind": "thermocycler",
+          "device_ref": "thermocycler1",
+          "program": {
+            "profile_name": "40 cycles"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

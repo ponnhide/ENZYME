@@ -1,0 +1,265 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Tagmentation and DNA purification for scATAC-seq",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-021-03209-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "DNA binding buffer",
+        "source": "Zymo Research"
+      },
+      {
+        "id": "m2",
+        "name": "AMPure XP beads",
+        "source": "Beckman"
+      },
+      {
+        "id": "m3",
+        "name": "buffer EB",
+        "composition": "10 mM Tris-Cl, pH 8.5"
+      },
+      {
+        "id": "m4",
+        "name": "indexed i5 primer",
+        "concentration": "10 μM"
+      },
+      {
+        "id": "m5",
+        "name": "indexed i7 primer",
+        "concentration": "10 μM"
+      },
+      {
+        "id": "m6",
+        "name": "NEBNext HiFi 2× PCR Master mix",
+        "source": "NEB"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "microcentrifuge_tube"
+      },
+      {
+        "id": "c2",
+        "type": "microcentrifuge_tube"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s_nuclei",
+        "name": "tagmented nuclei"
+      },
+      {
+        "id": "s_purified_dna",
+        "name": "purified tagmented DNA"
+      },
+      {
+        "id": "s_library",
+        "name": "PCR library"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source": "s_nuclei",
+          "destination": "c1",
+          "material": "m1",
+          "amount": {
+            "value": 100.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "c1",
+          "destination": "c2",
+          "material": "m2",
+          "amount": {
+            "value": 1.5,
+            "unit": ":1 ratio"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program_name": "manufacturer_instructions",
+          "program": {
+            "program_name": "manufacturer_instructions"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "c2",
+          "destination": "c1",
+          "material": "m3",
+          "amount": {
+            "value": 21.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": "m4",
+          "destination": "c1",
+          "amount": {
+            "value": 2.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "source": "m5",
+          "destination": "c1",
+          "amount": {
+            "value": 2.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "params": {
+          "source": "m6",
+          "destination": "c1",
+          "amount": {
+            "value": 25.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "run_device",
+        "params": {
+          "device_kind": "thermocycler",
+          "program": {
+            "profile_name": "scATAC-seq_amplification",
+            "steps": [
+              {
+                "temperature": "72 °C",
+                "duration": "5 min"
+              },
+              {
+                "temperature": "98 °C",
+                "duration": "30 s"
+              },
+              {
+                "temperature": "98 °C",
+                "duration": "10 s",
+                "cycles": 12
+              },
+              {
+                "temperature": "63 °C",
+                "duration": "30 s",
+                "cycles": 12
+              }
+            ]
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      }
+    ],
+    "detail_level": 0
+  }
+}

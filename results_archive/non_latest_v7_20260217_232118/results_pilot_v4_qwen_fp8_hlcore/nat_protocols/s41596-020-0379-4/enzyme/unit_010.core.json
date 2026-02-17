@@ -1,0 +1,196 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-020-0379-4.pdf",
+      "type": "paper"
+    },
+    "title": "Organoid Freezing"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "start_step_id": "s1",
+    "step_order": null,
+    "steps": [
+      {
+        "annotations": {
+          "note": "Add required volume of cell-freezing medium and pipette up and down using a P1000 pipette to resuspend organoids. Use 500 µl for four original wells of a 24-well plate."
+        },
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "cell-freezing-medium",
+            "kind": "material"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "organoid-suspension",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "µl",
+            "value": 500
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "Per sterile cryogenic vial, add 500 µl of freezing medium with resuspended organoids."
+        },
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "organoid-suspension",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "cryogenic-vial",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "µl",
+            "value": 500
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "cryogenic-vial",
+            "kind": "container"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "cryogenic-vial",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: place_into_freezing_container"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "cryogenic-vial",
+            "kind": "container"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "cryogenic-vial",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "store_at_-80°C_for_24h"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "cryogenic-vial",
+            "kind": "container"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "cryogenic-vial",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: remove_from_freezing_container"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Transfer vials to liquid nitrogen tank (approximately –180 °C)."
+        },
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "cryogenic-vial",
+            "kind": "container"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "cryogenic-vial",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: transfer_to_liquid_nitrogen_tank"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "cryogenic-vial",
+        "name": "cryogenic-vial",
+        "type": "generic_container"
+      }
+    ],
+    "data": [],
+    "equipment": [],
+    "materials": [
+      {
+        "id": "cell-freezing-medium",
+        "name": "cell-freezing-medium"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoid-suspension",
+        "name": "organoid-suspension"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

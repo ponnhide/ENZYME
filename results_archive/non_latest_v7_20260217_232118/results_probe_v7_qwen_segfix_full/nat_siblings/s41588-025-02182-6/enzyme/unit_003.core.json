@@ -1,0 +1,100 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "scRNA-seq data preprocessing and normalization",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41588-025-02182-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "d1",
+        "name": "d1"
+      },
+      {
+        "id": "d2",
+        "name": "d2"
+      },
+      {
+        "id": "d3",
+        "name": "d3"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "type": "gene_expression_matrix",
+        "description": "raw scRNA-seq counts"
+      },
+      {
+        "id": "d2",
+        "type": "normalized_gene_expression_matrix",
+        "description": "normalized to 10,000 counts and log-transformed"
+      },
+      {
+        "id": "d3",
+        "type": "highly_variable_genes",
+        "description": "top 3,000 highly variable genes identified by Scanpy"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d1"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: normalize"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d2"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d2"
+          }
+        ],
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": {
+            "program_name": "Scanpy_default_hvg"
+          }
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d3"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

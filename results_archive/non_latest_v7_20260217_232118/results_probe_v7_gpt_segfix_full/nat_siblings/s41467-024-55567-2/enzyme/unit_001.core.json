@@ -1,0 +1,245 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Crypt isolation and organoid culture initiation",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-024-55567-2.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Dulbecco’s phosphate-buffered saline (DPBS)"
+      },
+      {
+        "id": "m2",
+        "name": "EGF (50 ng/mL)"
+      },
+      {
+        "id": "m3",
+        "name": "IGF-I (100 ng/mL)"
+      },
+      {
+        "id": "m4",
+        "name": "FGF-2 (50 ng/mL)"
+      },
+      {
+        "id": "m5",
+        "name": "SJ000291942 (10 μM)"
+      },
+      {
+        "id": "m6",
+        "name": "Gastrin I (10 nM)"
+      },
+      {
+        "id": "m7",
+        "name": "A83-01 (0.5 μM)"
+      },
+      {
+        "id": "m8",
+        "name": "IWR-1 (2 μM)"
+      },
+      {
+        "id": "m9",
+        "name": "VPA (0.75 mM)"
+      },
+      {
+        "id": "m10",
+        "name": "EDTA (2.5 mM)"
+      },
+      {
+        "id": "m11",
+        "name": "TNF-α (50 ng/mL)"
+      },
+      {
+        "id": "m12",
+        "name": "RANKL (100 ng/mL)"
+      },
+      {
+        "id": "m13",
+        "name": "Y-27632 (10 μM)"
+      },
+      {
+        "id": "m14",
+        "name": "Cultrex RGF BME (R&D Systems)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "plate_48_well",
+        "name": "48-well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator",
+        "name": "Incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_tissue",
+        "name": "Intestinal tissue"
+      },
+      {
+        "id": "sample_crypts_supernatant",
+        "name": "Crypt supernatant"
+      },
+      {
+        "id": "sample_embedded_crypts",
+        "name": "Embedded crypts"
+      },
+      {
+        "id": "sample_organoid_culture",
+        "name": "Organoid culture"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source_sample": "sample_tissue",
+          "destination_material": "m1",
+          "note": "Tissues transferred into DPBS and placed on ice",
+          "amount": {
+            "note": "unspecified amount"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "rinse",
+          "target_sample": "sample_tissue",
+          "note": "Tissues washed with DPBS to remove debris"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "4C_40min"
+          },
+          "target_sample": "sample_tissue",
+          "reagent_material": "m10",
+          "note": "Treated with 2.5 mM EDTA at 4 °C for 40 min to release crypts"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "sample_tissue",
+          "destination_sample": "sample_crypts_supernatant",
+          "note": "Supernatant containing crypts collected",
+          "amount": {
+            "note": "unspecified amount"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "spread_on_plate",
+          "sample": "sample_crypts_supernatant",
+          "matrix_material": "m14",
+          "container": "c1",
+          "note": "Crypts embedded in Cultrex RGF BME droplets (~50 crypts/well) in 48‑well plate"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "solidify_30min"
+          },
+          "note": "Droplets solidified"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "source_material": "m13",
+          "destination_sample": "sample_embedded_crypts",
+          "note": "Droplets overlaid with culture medium containing 10 µM Y‑27632",
+          "amount": {
+            "note": "unspecified amount"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "note": "Medium changed every 3 days"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

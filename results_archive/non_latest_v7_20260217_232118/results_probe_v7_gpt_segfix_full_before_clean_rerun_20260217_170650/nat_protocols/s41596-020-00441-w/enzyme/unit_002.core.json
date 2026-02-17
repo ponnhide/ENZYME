@@ -1,0 +1,171 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Change mTeSR medium (day -1)",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-020-00441-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "mteSR1_old",
+        "name": "mTeSR1 with 10 μM Y-27632"
+      },
+      {
+        "id": "mteSR1_fresh",
+        "name": "mTeSR1"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate24",
+        "type": "24-well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator1",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cells",
+        "type": "cell_culture"
+      },
+      {
+        "id": "obs1",
+        "name": "obs1"
+      },
+      {
+        "id": "obs2",
+        "name": "obs2"
+      }
+    ],
+    "data": [
+      {
+        "id": "obs1",
+        "type": "observation"
+      },
+      {
+        "id": "obs2",
+        "type": "observation"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s0",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "data"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "obs1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s1",
+        "op": "annotate",
+        "params": {
+          "note": "Warm mTeSR1 at room temperature (15–25 °C)"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "cell health",
+            "density"
+          ]
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "obs2"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "mteSR1_old",
+          "destination": "waste",
+          "amount": {
+            "value": 500.0,
+            "unit": "μl",
+            "per": "well"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "mteSR1_fresh",
+          "destination": "cells",
+          "amount": {
+            "value": 500.0,
+            "unit": "μl",
+            "per": "well"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator1",
+          "program": {
+            "program_name": "overnight"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s0",
+    "edges": [
+      {
+        "from": "s0",
+        "to": "s1"
+      },
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

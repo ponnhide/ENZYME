@@ -1,0 +1,219 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Re‑plating after split",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-020-0379-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "adDMEM/F12+++ medium"
+      },
+      {
+        "id": "m2",
+        "name": "BME (70% vol/vol)"
+      },
+      {
+        "id": "m3",
+        "name": "organoid medium"
+      },
+      {
+        "id": "m4",
+        "name": "ROCK inhibitor (10 µM)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "culture_plate",
+        "name": "pre‑warmed culture plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator",
+        "name": "humidified incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s1",
+        "name": "organoid pellet"
+      },
+      {
+        "id": "s2",
+        "name": "organoid suspension in BME"
+      },
+      {
+        "id": "s3",
+        "name": "plated organoids in droplets"
+      },
+      {
+        "id": "s4",
+        "name": "pre‑warmed organoid medium with ROCK inhibitor"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source_material": "m1",
+          "destination_sample": "s1",
+          "amount": {
+            "volume_ml": 10
+          }
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "sample": "s1",
+          "material": "m2",
+          "ratio": "70% vol/vol"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "spread_on_plate",
+          "sample": "s2",
+          "container": "c1"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "incubate_30_60min",
+            "temperature_C": 37,
+            "CO2_percent": 5,
+            "duration_min": [
+              30,
+              60
+            ]
+          }
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "description": "organoid medium with 10 µM ROCK inhibitor pre‑warmed at 37 °C"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s4"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source_sample": "s4",
+          "destination_container": "c1",
+          "amount": {
+            "description": "as needed"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "incubate_until_needed",
+            "temperature_C": 37,
+            "CO2_percent": 5
+          }
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s4"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

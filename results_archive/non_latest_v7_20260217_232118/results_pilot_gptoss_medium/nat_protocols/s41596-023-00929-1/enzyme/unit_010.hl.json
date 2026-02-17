@@ -1,0 +1,285 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Plating sorted cells",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00929-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "mat_growth_medium",
+        "name": "growth medium"
+      },
+      {
+        "id": "mat_pbs",
+        "name": "1× PBS"
+      }
+    ],
+    "containers": [
+      {
+        "id": "cont_microcentrifuge_tube",
+        "name": "microcentrifuge tube"
+      },
+      {
+        "id": "cont_culture_plate",
+        "name": "collagen‑coated culture plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "eq_centrifuge",
+        "name": "centrifuge"
+      },
+      {
+        "id": "eq_incubator",
+        "name": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cell_sample",
+        "name": "sorted mural/endothelial cells",
+        "container_ref": "cont_microcentrifuge_tube"
+      },
+      {
+        "id": "growth_medium_sample",
+        "name": "growth medium",
+        "material_ref": "mat_growth_medium"
+      },
+      {
+        "id": "pbs_sample",
+        "name": "1× PBS",
+        "material_ref": "mat_pbs"
+      },
+      {
+        "id": "plate_sample",
+        "name": "culture plate with cells",
+        "container_ref": "cont_culture_plate"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_sample"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "5 min at 300g, 4 °C"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_sample"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Remove supernatant from microcentrifuge tubes containing cells."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "growth_medium_sample"
+          },
+          {
+            "kind": "sample",
+            "id": "cell_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 500,
+            "unit": "µL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_sample"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate_sample"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Add the desired amount of cell solution into collagen‑coated wells (approximately half the well volume)."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "growth_medium_sample"
+          },
+          {
+            "kind": "sample",
+            "id": "plate_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate_sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 500,
+            "unit": "µL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "pbs_sample"
+          },
+          {
+            "kind": "sample",
+            "id": "plate_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate_sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 500,
+            "unit": "µL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "plate_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate_sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "37 °C"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,363 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Protocol",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01299-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "sample_lenti_transduced_hiPS",
+        "name": "sample_lenti_transduced_hiPS"
+      },
+      {
+        "id": "data_mCherry_flow",
+        "name": "data_mCherry_flow"
+      },
+      {
+        "id": "sample_labeled_hiPS",
+        "name": "sample_labeled_hiPS"
+      },
+      {
+        "id": "sample_GFP_negative",
+        "name": "sample_GFP_negative"
+      },
+      {
+        "id": "sample_GFP_positive",
+        "name": "sample_GFP_positive"
+      },
+      {
+        "id": "sample_hSO",
+        "name": "sample_hSO"
+      },
+      {
+        "id": "sample_hSO_differentiated",
+        "name": "sample_hSO_differentiated"
+      },
+      {
+        "id": "sample_hCO",
+        "name": "sample_hCO"
+      },
+      {
+        "id": "sample_hCO_differentiated",
+        "name": "sample_hCO_differentiated"
+      },
+      {
+        "id": "sample_hSO_GFP_positive",
+        "name": "sample_hSO_GFP_positive"
+      },
+      {
+        "id": "sample_hCO_GFP_positive",
+        "name": "sample_hCO_GFP_positive"
+      },
+      {
+        "id": "data_sgRNA_sequencing",
+        "name": "data_sgRNA_sequencing"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "program": {
+            "program_name": "lentiviral_transduction"
+          }
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_lenti_transduced_hiPS"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "mCherry_expression"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_lenti_transduced_hiPS"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "data_mCherry_flow"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "label"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_lenti_transduced_hiPS"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_labeled_hiPS"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "cell_counter",
+          "program": {
+            "program_name": "FACS_sorting"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_labeled_hiPS"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_GFP_negative"
+          },
+          {
+            "kind": "sample",
+            "id": "sample_GFP_positive"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_hSO"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "neural_organoid_differentiation"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_GFP_positive"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_hSO_differentiated"
+          }
+        ]
+      },
+      {
+        "id": "s7",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_hCO"
+          }
+        ]
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "cortical_organoid_differentiation"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_GFP_positive"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_hCO_differentiated"
+          }
+        ]
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "params": {
+          "device_kind": "cell_counter",
+          "program": {
+            "program_name": "FACS_sorting"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_hSO_differentiated"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_hSO_GFP_positive"
+          }
+        ]
+      },
+      {
+        "id": "s10",
+        "op": "run_device",
+        "params": {
+          "device_kind": "cell_counter",
+          "program": {
+            "program_name": "FACS_sorting"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_hCO_differentiated"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_hCO_GFP_positive"
+          }
+        ]
+      },
+      {
+        "id": "s11",
+        "op": "run_device",
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": {
+            "program_name": "gDNA_extraction_and_sequencing"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_hSO_GFP_positive"
+          },
+          {
+            "kind": "sample",
+            "id": "sample_hCO_GFP_positive"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "data_sgRNA_sequencing"
+          }
+        ]
+      },
+      {
+        "id": "s12",
+        "op": "annotate",
+        "params": {
+          "note": "Data analysis identified 46 genes significantly disrupting interneuron development; validation steps performed but not fully detailed in protocol text."
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "data_sgRNA_sequencing"
+          }
+        ],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s4",
+        "to": "s7"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s6",
+        "to": "s9"
+      },
+      {
+        "from": "s8",
+        "to": "s10"
+      },
+      {
+        "from": "s9",
+        "to": "s11"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      }
+    ],
+    "detail_level": 0
+  }
+}

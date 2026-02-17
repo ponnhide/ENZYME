@@ -1,0 +1,255 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Crypt isolation and organoid embedding",
+    "source": {
+      "type": "paper",
+      "id": "s41467-024-55567-2.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "DPBS",
+        "type": "buffer"
+      },
+      {
+        "id": "m2",
+        "name": "EDTA",
+        "concentration": "2.5 mM"
+      },
+      {
+        "id": "m3",
+        "name": "Cultrex RGF BME",
+        "vendor": "R&D Systems"
+      },
+      {
+        "id": "m4",
+        "name": "Y-27632",
+        "concentration": "10 μM",
+        "vendor": "TargetMol"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "well",
+        "format": "48-well plate"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s1",
+        "name": "s1"
+      },
+      {
+        "id": "s2",
+        "name": "s2"
+      },
+      {
+        "id": "s3",
+        "name": "s3"
+      },
+      {
+        "id": "s4",
+        "name": "s4"
+      },
+      {
+        "id": "s5",
+        "name": "s5"
+      },
+      {
+        "id": "s6",
+        "name": "s6"
+      },
+      {
+        "id": "s7",
+        "name": "s7"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "1x volume",
+            "unit": "undefined"
+          },
+          "source_container": "tissue",
+          "target_container": "c1"
+        },
+        "annotations": {
+          "note": "Tissues were washed with DPBS to remove debris"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: incubate"
+        },
+        "annotations": {
+          "note": "Tissues were treated with 2.5 mM EDTA at 4 °C for 40 minutes to release crypts"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s4"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "supernatant",
+            "unit": "undefined"
+          },
+          "source_container": "c1",
+          "target_container": "c1"
+        },
+        "annotations": {
+          "note": "The supernatant containing crypts was collected"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s5"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "~50 crypts",
+            "unit": "count"
+          },
+          "source_container": "c1",
+          "target_container": "c1"
+        },
+        "annotations": {
+          "note": "embedded in Cultrex RGF BME (R&D Systems) droplets in 48-well plates (~50 crypts/well)"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s5"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s6"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: solidify"
+        },
+        "annotations": {
+          "note": "After solidification"
+        }
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s6"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s7"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "overlay",
+            "unit": "undefined"
+          },
+          "source_container": "m4",
+          "target_container": "c1"
+        },
+        "annotations": {
+          "note": "droplets were overlaid with culture medium containing 10 μM Y-27632 (TargetMol)"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

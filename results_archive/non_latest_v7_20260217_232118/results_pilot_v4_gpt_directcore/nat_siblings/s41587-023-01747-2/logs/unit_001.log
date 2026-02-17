@@ -1,0 +1,1048 @@
+[2026-02-16T12:22:30.461497+00:00] repair pass hints=1
+[2026-02-16T12:22:38.436939+00:00] repair pass applied
+[2026-02-16T12:22:39.195449+00:00] stderr: ╭───────────────────── Traceback (most recent call last) ──────────────────────╮
+│ /users/hideto/Project/ENZYME/src/enzyme/cli.py:70 in validate_cmd            │
+│                                                                              │
+│    67 ) -> None:                                                             │
+│    68 │   core_ir = io.load_json(input_path)                                 │
+│    69 │   registry = Registry.from_file(REGISTRY_PATH)                       │
+│ ❱  70 │   validation = validate_core(core_ir, str(SCHEMA_CORE), registry)    │
+│    71 │   io.write_json(output_path, validation)                             │
+│    72 │   console.print(f"Validation results written to {output_path}")      │
+│    73                                                                        │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │     core_ir = {                                                          │ │
+│ │               │   'schema_version': '0.4',                               │ │
+│ │               │   'ir_kind': 'core',                                     │ │
+│ │               │   'metadata': {                                          │ │
+│ │               │   │   'title': 'Mount sections on 96-well                │ │
+│ │               superstructure',                                           │ │
+│ │               │   │   'source': {                                        │ │
+│ │               │   │   │   'type': 'paper_pdf',                           │ │
+│ │               │   │   │   'id': 's41587-023-01747-2.pdf'                 │ │
+│ │               │   │   }                                                  │ │
+│ │               │   },                                                     │ │
+│ │               │   'resources': {                                         │ │
+│ │               │   │   'materials': [],                                   │ │
+│ │               │   │   'containers': [                                    │ │
+│ │               │   │   │   '96-well format coverslip',                    │ │
+│ │               │   │   │   '96-well superstructure'                       │ │
+│ │               │   │   ],                                                 │ │
+│ │               │   │   'equipment': ['imager'],                           │ │
+│ │               │   │   'samples': ['sections'],                           │ │
+│ │               │   │   'data': ['images']                                 │ │
+│ │               │   },                                                     │ │
+│ │               │   'protocol': {                                          │ │
+│ │               │   │   'steps': [                                         │ │
+│ │               │   │   │   {                                              │ │
+│ │               │   │   │   │   'id': 's1',                                │ │
+│ │               │   │   │   │   'op': 'annotate',                          │ │
+│ │               │   │   │   │   'params': {                                │ │
+│ │               │   │   │   │   │   'note': 'Transfer sections onto        │ │
+│ │               96-well format coverslip (amount not specified)'           │ │
+│ │               │   │   │   │   },                                         │ │
+│ │               │   │   │   │   'inputs': [],                              │ │
+│ │               │   │   │   │   'outputs': []                              │ │
+│ │               │   │   │   },                                             │ │
+│ │               │   │   │   {                                              │ │
+│ │               │   │   │   │   'id': 's2',                                │ │
+│ │               │   │   │   │   'op': 'annotate',                          │ │
+│ │               │   │   │   │   'params': {                                │ │
+│ │               │   │   │   │   │   'note': 'coverslip attached to 96-well │ │
+│ │               superstructure'                                            │ │
+│ │               │   │   │   │   },                                         │ │
+│ │               │   │   │   │   'inputs': [],                              │ │
+│ │               │   │   │   │   'outputs': []                              │ │
+│ │               │   │   │   },                                             │ │
+│ │               │   │   │   {                                              │ │
+│ │               │   │   │   │   'id': 's3',                                │ │
+│ │               │   │   │   │   'op': 'run_device',                        │ │
+│ │               │   │   │   │   'params': {                                │ │
+│ │               │   │   │   │   │   'device_kind': 'imager',               │ │
+│ │               │   │   │   │   │   'program': 'imaging'                   │ │
+│ │               │   │   │   │   },                                         │ │
+│ │               │   │   │   │   'inputs': [],                              │ │
+│ │               │   │   │   │   'outputs': []                              │ │
+│ │               │   │   │   },                                             │ │
+│ │               │   │   │   {                                              │ │
+│ │               │   │   │   │   'id': 's4',                                │ │
+│ │               │   │   │   │   'op': 'annotate',                          │ │
+│ │               │   │   │   │   'params': {                                │ │
+│ │               │   │   │   │   │   'note': 'antibody elution performed'   │ │
+│ │               │   │   │   │   },                                         │ │
+│ │               │   │   │   │   'inputs': [],                              │ │
+│ │               │   │   │   │   'outputs': []                              │ │
+│ │               │   │   │   }                                              │ │
+│ │               │   │   ],                                                 │ │
+│ │               │   │   'start_step_id': 's1',                             │ │
+│ │               │   │   'edges': [                                         │ │
+│ │               │   │   │   {'from': 's1', 'to': 's2'},                    │ │
+│ │               │   │   │   {'from': 's2', 'to': 's3'},                    │ │
+│ │               │   │   │   {'from': 's3', 'to': 's4'}                     │ │
+│ │               │   │   ],                                                 │ │
+│ │               │   │   'detail_level': 0                                  │ │
+│ │               │   }                                                      │ │
+│ │               }                                                          │ │
+│ │  input_path = PosixPath('results_pilot_v4_gpt_directcore/nat_siblings/s… │ │
+│ │ output_path = PosixPath('results_pilot_v4_gpt_directcore/nat_siblings/s… │ │
+│ │    registry = Registry(                                                  │ │
+│ │               │   core_ops={                                             │ │
+│ │               │   │   'allocate',                                        │ │
+│ │               │   │   'annotate',                                        │ │
+│ │               │   │   'run_device',                                      │ │
+│ │               │   │   'manipulate',                                      │ │
+│ │               │   │   'dispose',                                         │ │
+│ │               │   │   'observe',                                         │ │
+│ │               │   │   'transfer'                                         │ │
+│ │               │   },                                                     │ │
+│ │               │   action_kinds={                                         │ │
+│ │               │   │   'mix': {                                           │ │
+│ │               │   │   │   'required_settings_keys': [],                  │ │
+│ │               │   │   │   'settings_schema': {                           │ │
+│ │               │   │   │   │   'type': 'object',                          │ │
+│ │               │   │   │   │   'additionalProperties': True               │ │
+│ │               │   │   │   },                                             │ │
+│ │               │   │   │   'description': 'mix by human hand (generic)'   │ │
+│ │               │   │   },                                                 │ │
+│ │               │   │   'mix_gently': {                                    │ │
+│ │               │   │   │   'required_settings_keys': [],                  │ │
+│ │               │   │   │   'settings_schema': {                           │ │
+│ │               │   │   │   │   'type': 'object',                          │ │
+│ │               │   │   │   │   'additionalProperties': True               │ │
+│ │               │   │   │   },                                             │ │
+│ │               │   │   │   'description': 'gentle mixing by human hand'   │ │
+│ │               │   │   },                                                 │ │
+│ │               │   │   'resuspend': {                                     │ │
+│ │               │   │   │   'required_settings_keys': [],                  │ │
+│ │               │   │   │   'settings_schema': {                           │ │
+│ │               │   │   │   │   'type': 'object',                          │ │
+│ │               │   │   │   │   'additionalProperties': True               │ │
+│ │               │   │   │   },                                             │ │
+│ │               │   │   │   'description': 'resuspend pellet or cells'     │ │
+│ │               │   │   },                                                 │ │
+│ │               │   │   'rinse': {                                         │ │
+│ │               │   │   │   'required_settings_keys': [],                  │ │
+│ │               │   │   │   'settings_schema': {                           │ │
+│ │               │   │   │   │   'type': 'object',                          │ │
+│ │               │   │   │   │   'additionalProperties': True               │ │
+│ │               │   │   │   },                                             │ │
+│ │               │   │   │   'description': 'rinse/wash vessel manually'    │ │
+│ │               │   │   },                                                 │ │
+│ │               │   │   'spread_on_plate': {                               │ │
+│ │               │   │   │   'required_settings_keys': [],                  │ │
+│ │               │   │   │   'settings_schema': {                           │ │
+│ │               │   │   │   │   'type': 'object',                          │ │
+│ │               │   │   │   │   'additionalProperties': True               │ │
+│ │               │   │   │   },                                             │ │
+│ │               │   │   │   'description': 'spread sample on plate         │ │
+│ │               manually'                                                  │ │
+│ │               │   │   },                                                 │ │
+│ │               │   │   'pick_colony': {                                   │ │
+│ │               │   │   │   'required_settings_keys': ['pick_target'],     │ │
+│ │               │   │   │   'settings_schema': {                           │ │
+│ │               │   │   │   │   'type': 'object',                          │ │
+│ │               │   │   │   │   'properties': {                            │ │
+│ │               │   │   │   │   │   'pick_target': {'type': 'string'}      │ │
+│ │               │   │   │   │   },                                         │ │
+│ │               │   │   │   │   'required': ['pick_target'],               │ │
+│ │               │   │   │   │   'additionalProperties': True               │ │
+│ │               │   │   │   },                                             │ │
+│ │               │   │   │   'description': 'pick colony from plate         │ │
+│ │               manually'                                                  │ │
+│ │               │   │   },                                                 │ │
+│ │               │   │   'dislodge_cells': {                                │ │
+│ │               │   │   │   'required_settings_keys': [],                  │ │
+│ │               │   │   │   'settings_schema': {                           │ │
+│ │               │   │   │   │   'type': 'object',                          │ │
+│ │               │   │   │   │   'additionalProperties': True               │ │
+│ │               │   │   │   },                                             │ │
+│ │               │   │   │   'description': 'dislodge/detach cells by       │ │
+│ │               gentle tapping/pipetting etc (manual)'                     │ │
+│ │               │   │   },                                                 │ │
+│ │               │   │   'label': {                                         │ │
+│ │               │   │   │   'required_settings_keys': ['text'],            │ │
+│ │               │   │   │   'settings_schema': {                           │ │
+│ │               │   │   │   │   'type': 'object',                          │ │
+│ │               │   │   │   │   'properties': {                            │ │
+│ │               │   │   │   │   │   'text': {'type': 'string'}             │ │
+│ │               │   │   │   │   },                                         │ │
+│ │               │   │   │   │   'required': ['text'],                      │ │
+│ │               │   │   │   │   'additionalProperties': True               │ │
+│ │               │   │   │   },                                             │ │
+│ │               │   │   │   'description': 'label container/sample'        │ │
+│ │               │   │   }                                                  │ │
+│ │               │   },                                                     │ │
+│ │               │   device_kinds={                                         │ │
+│ │               │   │   'incubator': {                                     │ │
+│ │               │   │   │   'required_program_keys': ['program_name'],     │ │
+│ │               │   │   │   'program_schema': {                            │ │
+│ │               │   │   │   │   'type': 'object',                          │ │
+│ │               │   │   │   │   'properties': {                            │ │
+│ │               │   │   │   │   │   'program_name': {'type': 'string'}     │ │
+│ │               │   │   │   │   },                                         │ │
+│ │               │   │   │   │   'required': ['program_name'],              │ │
+│ │               │   │   │   │   'additionalProperties': True               │ │
+│ │               │   │   │   },                                             │ │
+│ │               │   │   │   'description': 'incubator run'                 │ │
+│ │               │   │   },                                                 │ │
+│ │               │   │   'thermocycler': {                                  │ │
+│ │               │   │   │   'required_program_keys': ['profile_name'],     │ │
+│ │               │   │   │   'program_schema': {                            │ │
+│ │               │   │   │   │   'type': 'object',                          │ │
+│ │               │   │   │   │   'properties': {                            │ │
+│ │               │   │   │   │   │   'profile_name': {'type': 'string'}     │ │
+│ │               │   │   │   │   },                                         │ │
+│ │               │   │   │   │   'required': ['profile_name'],              │ │
+│ │               │   │   │   │   'additionalProperties': True               │ │
+│ │               │   │   │   },                                             │ │
+│ │               │   │   │   'description': 'thermocycler run'              │ │
+│ │               │   │   },                                                 │ │
+│ │               │   │   'centrifuge': {                                    │ │
+│ │               │   │   │   'required_program_keys': ['program_name'],     │ │
+│ │               │   │   │   'program_schema': {                            │ │
+│ │               │   │   │   │   'type': 'object',                          │ │
+│ │               │   │   │   │   'properties': {                            │ │
+│ │               │   │   │   │   │   'program_name': {'type': 'string'}     │ │
+│ │               │   │   │   │   },                                         │ │
+│ │               │   │   │   │   'required': ['program_name'],              │ │
+│ │               │   │   │   │   'additionalProperties': True               │ │
+│ │               │   │   │   },                                             │ │
+│ │               │   │   │   'description': 'centrifuge run'                │ │
+│ │               │   │   },                                                 │ │
+│ │               │   │   'plate_reader': {                                  │ │
+│ │               │   │   │   'required_program_keys': ['program_name'],     │ │
+│ │               │   │   │   'program_schema': {                            │ │
+│ │               │   │   │   │   'type': 'object',                          │ │
+│ │               │   │   │   │   'properties': {                            │ │
+│ │               │   │   │   │   │   'program_name': {'type': 'string'}     │ │
+│ │               │   │   │   │   },                                         │ │
+│ │               │   │   │   │   'required': ['program_name'],              │ │
+│ │               │   │   │   │   'additionalProperties': True               │ │
+│ │               │   │   │   },                                             │ │
+│ │               │   │   │   'description': 'plate reader run'              │ │
+│ │               │   │   },                                                 │ │
+│ │               │   │   'imager': {                                        │ │
+│ │               │   │   │   'required_program_keys': ['program_name'],     │ │
+│ │               │   │   │   'program_schema': {                            │ │
+│ │               │   │   │   │   'type': 'object',                          │ │
+│ │               │   │   │   │   'properties': {                            │ │
+│ │               │   │   │   │   │   'program_name': {'type': 'string'}     │ │
+│ │               │   │   │   │   },                                         │ │
+│ │               │   │   │   │   'required': ['program_name'],              │ │
+│ │               │   │   │   │   'additionalProperties': True               │ │
+│ │               │   │   │   },                                             │ │
+│ │               │   │   │   'description': 'imaging device run'            │ │
+│ │               │   │   },                                                 │ │
+│ │               │   │   'cell_counter': {                                  │ │
+│ │               │   │   │   'required_program_keys': ['program_name'],     │ │
+│ │               │   │   │   'program_schema': {                            │ │
+│ │               │   │   │   │   'type': 'object',                          │ │
+│ │               │   │   │   │   'properties': {                            │ │
+│ │               │   │   │   │   │   'program_name': {'type': 'string'}     │ │
+│ │               │   │   │   │   },                                         │ │
+│ │               │   │   │   │   'required': ['program_name'],              │ │
+│ │               │   │   │   │   'additionalProperties': True               │ │
+│ │               │   │   │   },                                             │ │
+│ │               │   │   │   'description': 'cell counter run'              │ │
+│ │               │   │   },                                                 │ │
+│ │               │   │   'dna_delivery_device': {                           │ │
+│ │               │   │   │   'required_program_keys': ['program_name'],     │ │
+│ │               │   │   │   'program_schema': {                            │ │
+│ │               │   │   │   │   'type': 'object',                          │ │
+│ │               │   │   │   │   'properties': {                            │ │
+│ │               │   │   │   │   │   'program_name': {'type': 'string'}     │ │
+│ │               │   │   │   │   },                                         │ │
+│ │               │   │   │   │   'required': ['program_name'],              │ │
+│ │               │   │   │   │   'additionalProperties': True               │ │
+│ │               │   │   │   },                                             │ │
+│ │               │   │   │   'description': 'DNA delivery device run        │ │
+│ │               (abstract)'                                                │ │
+│ │               │   │   },                                                 │ │
+│ │               │   │   'amplicon_readout_system': {                       │ │
+│ │               │   │   │   'required_program_keys': ['program_name'],     │ │
+│ │               │   │   │   'program_schema': {                            │ │
+│ │               │   │   │   │   'type': 'object',                          │ │
+│ │               │   │   │   │   'properties': {                            │ │
+│ │               │   │   │   │   │   'program_name': {'type': 'string'}     │ │
+│ │               │   │   │   │   },                                         │ │
+│ │               │   │   │   │   'required': ['program_name'],              │ │
+│ │               │   │   │   │   'additionalProperties': True               │ │
+│ │               │   │   │   },                                             │ │
+│ │               │   │   │   'description': 'amplicon readout system run    │ │
+│ │               (abstract)'                                                │ │
+│ │               │   │   }                                                  │ │
+│ │               │   },                                                     │ │
+│ │               │   modalities={                                           │ │
+│ │               │   │   'instrument_readout',                              │ │
+│ │               │   │   'microscope',                                      │ │
+│ │               │   │   'visual'                                           │ │
+│ │               │   },                                                     │ │
+│ │               │   observation_features={                                 │ │
+│ │               │   │   'confluency': {                                    │ │
+│ │               │   │   │   'value_type': 'number',                        │ │
+│ │               │   │   │   'constraints': {'min': 0, 'max': 100},         │ │
+│ │               │   │   │   'description': 'confluency percentage'         │ │
+│ │               │   │   },                                                 │ │
+│ │               │   │   'morphology': {                                    │ │
+│ │               │   │   │   'value_type': 'string',                        │ │
+│ │               │   │   │   'constraints': {},                             │ │
+│ │               │   │   │   'description': 'cell morphology category'      │ │
+│ │               │   │   },                                                 │ │
+│ │               │   │   'detached_enough': {                               │ │
+│ │               │   │   │   'value_type': 'bool',                          │ │
+│ │               │   │   │   'constraints': {},                             │ │
+│ │               │   │   │   'description': 'cells detached sufficiently'   │ │
+│ │               │   │   },                                                 │ │
+│ │               │   │   'colonies_present': {                              │ │
+│ │               │   │   │   'value_type': 'bool',                          │ │
+│ │               │   │   │   'constraints': {},                             │ │
+│ │               │   │   │   'description': 'colonies present on plate'     │ │
+│ │               │   │   },                                                 │ │
+│ │               │   │   'approx_count': {                                  │ │
+│ │               │   │   │   'value_type': 'integer',                       │ │
+│ │               │   │   │   'constraints': {'min': 0},                     │ │
+│ │               │   │   │   'description': 'approximate count'             │ │
+│ │               │   │   },                                                 │ │
+│ │               │   │   'pass_fail': {                                     │ │
+│ │               │   │   │   'value_type': 'bool',                          │ │
+│ │               │   │   │   'constraints': {},                             │ │
+│ │               │   │   │   'description': 'pass/fail judgement'           │ │
+│ │               │   │   },                                                 │ │
+│ │               │   │   'cell_count': {                                    │ │
+│ │               │   │   │   'value_type': 'number',                        │ │
+│ │               │   │   │   'constraints': {'min': 0},                     │ │
+│ │               │   │   │   'description': 'cell count'                    │ │
+│ │               │   │   },                                                 │ │
+│ │               │   │   'viability': {                                     │ │
+│ │               │   │   │   'value_type': 'number',                        │ │
+│ │               │   │   │   'constraints': {'min': 0, 'max': 1},           │ │
+│ │               │   │   │   'description': 'viability fraction'            │ │
+│ │               │   │   },                                                 │ │
+│ │               │   │   'band_pattern': {                                  │ │
+│ │               │   │   │   'value_type': 'string',                        │ │
+│ │               │   │   │   'constraints': {},                             │ │
+│ │               │   │   │   'description': 'band pattern category or       │ │
+│ │               description'                                               │ │
+│ │               │   │   },                                                 │ │
+│ │               │   │   'candidate_colonies': {                            │ │
+│ │               │   │   │   'value_type': 'string',                        │ │
+│ │               │   │   │   'constraints': {},                             │ │
+│ │               │   │   │   'description': 'candidate colony locations     │ │
+│ │               (encoded)'                                                 │ │
+│ │               │   │   }                                                  │ │
+│ │               │   }                                                      │ │
+│ │               )                                                          │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+│                                                                              │
+│ /users/hideto/Project/ENZYME/src/enzyme/validator.py:386 in validate_core    │
+│                                                                              │
+│   383 │   issues.extend(_check_core_ops(protocol, registry))                 │
+│   384 │   for step in protocol.get("steps", []):                             │
+│   385 │   │   issues.extend(_check_registry(step, detail_level, registry, cu │
+│ ❱ 386 │   issues.extend(_check_refs(data))                                   │
+│   387 │   issues.extend(_check_graph(protocol))                              │
+│   388 │   issues.extend(_check_units(data))                                  │
+│   389 │   issues.extend(_check_ranges(protocol, registry))                   │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │   custom_registry = {                                                    │ │
+│ │                     │   'action_kinds': {},                              │ │
+│ │                     │   'device_kinds': {},                              │ │
+│ │                     │   'modalities': set(),                             │ │
+│ │                     │   'observation_features': {}                       │ │
+│ │                     }                                                    │ │
+│ │              data = {                                                    │ │
+│ │                     │   'schema_version': '0.4',                         │ │
+│ │                     │   'ir_kind': 'core',                               │ │
+│ │                     │   'metadata': {                                    │ │
+│ │                     │   │   'title': 'Mount sections on 96-well          │ │
+│ │                     superstructure',                                     │ │
+│ │                     │   │   'source': {                                  │ │
+│ │                     │   │   │   'type': 'paper_pdf',                     │ │
+│ │                     │   │   │   'id': 's41587-023-01747-2.pdf'           │ │
+│ │                     │   │   }                                            │ │
+│ │                     │   },                                               │ │
+│ │                     │   'resources': {                                   │ │
+│ │                     │   │   'materials': [],                             │ │
+│ │                     │   │   'containers': [                              │ │
+│ │                     │   │   │   '96-well format coverslip',              │ │
+│ │                     │   │   │   '96-well superstructure'                 │ │
+│ │                     │   │   ],                                           │ │
+│ │                     │   │   'equipment': ['imager'],                     │ │
+│ │                     │   │   'samples': ['sections'],                     │ │
+│ │                     │   │   'data': ['images']                           │ │
+│ │                     │   },                                               │ │
+│ │                     │   'protocol': {                                    │ │
+│ │                     │   │   'steps': [                                   │ │
+│ │                     │   │   │   {                                        │ │
+│ │                     │   │   │   │   'id': 's1',                          │ │
+│ │                     │   │   │   │   'op': 'annotate',                    │ │
+│ │                     │   │   │   │   'params': {                          │ │
+│ │                     │   │   │   │   │   'note': 'Transfer sections onto  │ │
+│ │                     96-well format coverslip (amount not specified)'     │ │
+│ │                     │   │   │   │   },                                   │ │
+│ │                     │   │   │   │   'inputs': [],                        │ │
+│ │                     │   │   │   │   'outputs': []                        │ │
+│ │                     │   │   │   },                                       │ │
+│ │                     │   │   │   {                                        │ │
+│ │                     │   │   │   │   'id': 's2',                          │ │
+│ │                     │   │   │   │   'op': 'annotate',                    │ │
+│ │                     │   │   │   │   'params': {                          │ │
+│ │                     │   │   │   │   │   'note': 'coverslip attached to   │ │
+│ │                     96-well superstructure'                              │ │
+│ │                     │   │   │   │   },                                   │ │
+│ │                     │   │   │   │   'inputs': [],                        │ │
+│ │                     │   │   │   │   'outputs': []                        │ │
+│ │                     │   │   │   },                                       │ │
+│ │                     │   │   │   {                                        │ │
+│ │                     │   │   │   │   'id': 's3',                          │ │
+│ │                     │   │   │   │   'op': 'run_device',                  │ │
+│ │                     │   │   │   │   'params': {                          │ │
+│ │                     │   │   │   │   │   'device_kind': 'imager',         │ │
+│ │                     │   │   │   │   │   'program': 'imaging'             │ │
+│ │                     │   │   │   │   },                                   │ │
+│ │                     │   │   │   │   'inputs': [],                        │ │
+│ │                     │   │   │   │   'outputs': []                        │ │
+│ │                     │   │   │   },                                       │ │
+│ │                     │   │   │   {                                        │ │
+│ │                     │   │   │   │   'id': 's4',                          │ │
+│ │                     │   │   │   │   'op': 'annotate',                    │ │
+│ │                     │   │   │   │   'params': {                          │ │
+│ │                     │   │   │   │   │   'note': 'antibody elution        │ │
+│ │                     performed'                                           │ │
+│ │                     │   │   │   │   },                                   │ │
+│ │                     │   │   │   │   'inputs': [],                        │ │
+│ │                     │   │   │   │   'outputs': []                        │ │
+│ │                     │   │   │   }                                        │ │
+│ │                     │   │   ],                                           │ │
+│ │                     │   │   'start_step_id': 's1',                       │ │
+│ │                     │   │   'edges': [                                   │ │
+│ │                     │   │   │   {'from': 's1', 'to': 's2'},              │ │
+│ │                     │   │   │   {'from': 's2', 'to': 's3'},              │ │
+│ │                     │   │   │   {'from': 's3', 'to': 's4'}               │ │
+│ │                     │   │   ],                                           │ │
+│ │                     │   │   'detail_level': 0                            │ │
+│ │                     │   }                                                │ │
+│ │                     }                                                    │ │
+│ │      detail_level = 0                                                    │ │
+│ │            issues = [                                                    │ │
+│ │                     │   Issue(                                           │ │
+│ │                     │   │   code='SCHEMA_INVALID',                       │ │
+│ │                     │   │   severity='error',                            │ │
+│ │                     │   │   path='/resources/containers/0',              │ │
+│ │                     │   │   message="'96-well format coverslip' is not   │ │
+│ │                     of type 'object'",                                   │ │
+│ │                     │   │   suggested_fix=None                           │ │
+│ │                     │   ),                                               │ │
+│ │                     │   Issue(                                           │ │
+│ │                     │   │   code='SCHEMA_INVALID',                       │ │
+│ │                     │   │   severity='error',                            │ │
+│ │                     │   │   path='/resources/containers/1',              │ │
+│ │                     │   │   message="'96-well superstructure' is not of  │ │
+│ │                     type 'object'",                                      │ │
+│ │                     │   │   suggested_fix=None                           │ │
+│ │                     │   ),                                               │ │
+│ │                     │   Issue(                                           │ │
+│ │                     │   │   code='SCHEMA_INVALID',                       │ │
+│ │                     │   │   severity='error',                            │ │
+│ │                     │   │   path='/resources/equipment/0',               │ │
+│ │                     │   │   message="'imager' is not of type 'object'",  │ │
+│ │                     │   │   suggested_fix=None                           │ │
+│ │                     │   ),                                               │ │
+│ │                     │   Issue(                                           │ │
+│ │                     │   │   code='SCHEMA_INVALID',                       │ │
+│ │                     │   │   severity='error',                            │ │
+│ │                     │   │   path='/resources/samples/0',                 │ │
+│ │                     │   │   message="'sections' is not of type           │ │
+│ │                     'object'",                                           │ │
+│ │                     │   │   suggested_fix=None                           │ │
+│ │                     │   ),                                               │ │
+│ │                     │   Issue(                                           │ │
+│ │                     │   │   code='SCHEMA_INVALID',                       │ │
+│ │                     │   │   severity='error',                            │ │
+│ │                     │   │   path='/resources/data/0',                    │ │
+│ │                     │   │   message="'images' is not of type 'object'",  │ │
+│ │                     │   │   suggested_fix=None                           │ │
+│ │                     │   ),                                               │ │
+│ │                     │   Issue(                                           │ │
+│ │                     │   │   code='MISSING_REQUIRED_PROGRAM_KEY',         │ │
+│ │                     │   │   severity='error',                            │ │
+│ │                     │   │   path='/protocol/steps/s3/params/program',    │ │
+│ │                     │   │   message="Missing required program key        │ │
+│ │                     'program_name' for device_kind 'imager'.",           │ │
+│ │                     │   │   suggested_fix='Add required program keys.'   │ │
+│ │                     │   )                                                │ │
+│ │                     ]                                                    │ │
+│ │          protocol = {                                                    │ │
+│ │                     │   'steps': [                                       │ │
+│ │                     │   │   {                                            │ │
+│ │                     │   │   │   'id': 's1',                              │ │
+│ │                     │   │   │   'op': 'annotate',                        │ │
+│ │                     │   │   │   'params': {                              │ │
+│ │                     │   │   │   │   'note': 'Transfer sections onto      │ │
+│ │                     96-well format coverslip (amount not specified)'     │ │
+│ │                     │   │   │   },                                       │ │
+│ │                     │   │   │   'inputs': [],                            │ │
+│ │                     │   │   │   'outputs': []                            │ │
+│ │                     │   │   },                                           │ │
+│ │                     │   │   {                                            │ │
+│ │                     │   │   │   'id': 's2',                              │ │
+│ │                     │   │   │   'op': 'annotate',                        │ │
+│ │                     │   │   │   'params': {                              │ │
+│ │                     │   │   │   │   'note': 'coverslip attached to       │ │
+│ │                     96-well superstructure'                              │ │
+│ │                     │   │   │   },                                       │ │
+│ │                     │   │   │   'inputs': [],                            │ │
+│ │                     │   │   │   'outputs': []                            │ │
+│ │                     │   │   },                                           │ │
+│ │                     │   │   {                                            │ │
+│ │                     │   │   │   'id': 's3',                              │ │
+│ │                     │   │   │   'op': 'run_device',                      │ │
+│ │                     │   │   │   'params': {                              │ │
+│ │                     │   │   │   │   'device_kind': 'imager',             │ │
+│ │                     │   │   │   │   'program': 'imaging'                 │ │
+│ │                     │   │   │   },                                       │ │
+│ │                     │   │   │   'inputs': [],                            │ │
+│ │                     │   │   │   'outputs': []                            │ │
+│ │                     │   │   },                                           │ │
+│ │                     │   │   {                                            │ │
+│ │                     │   │   │   'id': 's4',                              │ │
+│ │                     │   │   │   'op': 'annotate',                        │ │
+│ │                     │   │   │   'params': {                              │ │
+│ │                     │   │   │   │   'note': 'antibody elution performed' │ │
+│ │                     │   │   │   },                                       │ │
+│ │                     │   │   │   'inputs': [],                            │ │
+│ │                     │   │   │   'outputs': []                            │ │
+│ │                     │   │   }                                            │ │
+│ │                     │   ],                                               │ │
+│ │                     │   'start_step_id': 's1',                           │ │
+│ │                     │   'edges': [                                       │ │
+│ │                     │   │   {'from': 's1', 'to': 's2'},                  │ │
+│ │                     │   │   {'from': 's2', 'to': 's3'},                  │ │
+│ │                     │   │   {'from': 's3', 'to': 's4'}                   │ │
+│ │                     │   ],                                               │ │
+│ │                     │   'detail_level': 0                                │ │
+│ │                     }                                                    │ │
+│ │          registry = Registry(                                            │ │
+│ │                     │   core_ops={                                       │ │
+│ │                     │   │   'allocate',                                  │ │
+│ │                     │   │   'annotate',                                  │ │
+│ │                     │   │   'run_device',                                │ │
+│ │                     │   │   'manipulate',                                │ │
+│ │                     │   │   'dispose',                                   │ │
+│ │                     │   │   'observe',                                   │ │
+│ │                     │   │   'transfer'                                   │ │
+│ │                     │   },                                               │ │
+│ │                     │   action_kinds={                                   │ │
+│ │                     │   │   'mix': {                                     │ │
+│ │                     │   │   │   'required_settings_keys': [],            │ │
+│ │                     │   │   │   'settings_schema': {                     │ │
+│ │                     │   │   │   │   'type': 'object',                    │ │
+│ │                     │   │   │   │   'additionalProperties': True         │ │
+│ │                     │   │   │   },                                       │ │
+│ │                     │   │   │   'description': 'mix by human hand        │ │
+│ │                     (generic)'                                           │ │
+│ │                     │   │   },                                           │ │
+│ │                     │   │   'mix_gently': {                              │ │
+│ │                     │   │   │   'required_settings_keys': [],            │ │
+│ │                     │   │   │   'settings_schema': {                     │ │
+│ │                     │   │   │   │   'type': 'object',                    │ │
+│ │                     │   │   │   │   'additionalProperties': True         │ │
+│ │                     │   │   │   },                                       │ │
+│ │                     │   │   │   'description': 'gentle mixing by human   │ │
+│ │                     hand'                                                │ │
+│ │                     │   │   },                                           │ │
+│ │                     │   │   'resuspend': {                               │ │
+│ │                     │   │   │   'required_settings_keys': [],            │ │
+│ │                     │   │   │   'settings_schema': {                     │ │
+│ │                     │   │   │   │   'type': 'object',                    │ │
+│ │                     │   │   │   │   'additionalProperties': True         │ │
+│ │                     │   │   │   },                                       │ │
+│ │                     │   │   │   'description': 'resuspend pellet or      │ │
+│ │                     cells'                                               │ │
+│ │                     │   │   },                                           │ │
+│ │                     │   │   'rinse': {                                   │ │
+│ │                     │   │   │   'required_settings_keys': [],            │ │
+│ │                     │   │   │   'settings_schema': {                     │ │
+│ │                     │   │   │   │   'type': 'object',                    │ │
+│ │                     │   │   │   │   'additionalProperties': True         │ │
+│ │                     │   │   │   },                                       │ │
+│ │                     │   │   │   'description': 'rinse/wash vessel        │ │
+│ │                     manually'                                            │ │
+│ │                     │   │   },                                           │ │
+│ │                     │   │   'spread_on_plate': {                         │ │
+│ │                     │   │   │   'required_settings_keys': [],            │ │
+│ │                     │   │   │   'settings_schema': {                     │ │
+│ │                     │   │   │   │   'type': 'object',                    │ │
+│ │                     │   │   │   │   'additionalProperties': True         │ │
+│ │                     │   │   │   },                                       │ │
+│ │                     │   │   │   'description': 'spread sample on plate   │ │
+│ │                     manually'                                            │ │
+│ │                     │   │   },                                           │ │
+│ │                     │   │   'pick_colony': {                             │ │
+│ │                     │   │   │   'required_settings_keys': [              │ │
+│ │                     │   │   │   │   'pick_target'                        │ │
+│ │                     │   │   │   ],                                       │ │
+│ │                     │   │   │   'settings_schema': {                     │ │
+│ │                     │   │   │   │   'type': 'object',                    │ │
+│ │                     │   │   │   │   'properties': {                      │ │
+│ │                     │   │   │   │   │   'pick_target': {                 │ │
+│ │                     │   │   │   │   │   │   'type': 'string'             │ │
+│ │                     │   │   │   │   │   }                                │ │
+│ │                     │   │   │   │   },                                   │ │
+│ │                     │   │   │   │   'required': ['pick_target'],         │ │
+│ │                     │   │   │   │   'additionalProperties': True         │ │
+│ │                     │   │   │   },                                       │ │
+│ │                     │   │   │   'description': 'pick colony from plate   │ │
+│ │                     manually'                                            │ │
+│ │                     │   │   },                                           │ │
+│ │                     │   │   'dislodge_cells': {                          │ │
+│ │                     │   │   │   'required_settings_keys': [],            │ │
+│ │                     │   │   │   'settings_schema': {                     │ │
+│ │                     │   │   │   │   'type': 'object',                    │ │
+│ │                     │   │   │   │   'additionalProperties': True         │ │
+│ │                     │   │   │   },                                       │ │
+│ │                     │   │   │   'description': 'dislodge/detach cells by │ │
+│ │                     gentle tapping/pipetting etc (manual)'               │ │
+│ │                     │   │   },                                           │ │
+│ │                     │   │   'label': {                                   │ │
+│ │                     │   │   │   'required_settings_keys': ['text'],      │ │
+│ │                     │   │   │   'settings_schema': {                     │ │
+│ │                     │   │   │   │   'type': 'object',                    │ │
+│ │                     │   │   │   │   'properties': {                      │ │
+│ │                     │   │   │   │   │   'text': {'type': 'string'}       │ │
+│ │                     │   │   │   │   },                                   │ │
+│ │                     │   │   │   │   'required': ['text'],                │ │
+│ │                     │   │   │   │   'additionalProperties': True         │ │
+│ │                     │   │   │   },                                       │ │
+│ │                     │   │   │   'description': 'label container/sample'  │ │
+│ │                     │   │   }                                            │ │
+│ │                     │   },                                               │ │
+│ │                     │   device_kinds={                                   │ │
+│ │                     │   │   'incubator': {                               │ │
+│ │                     │   │   │   'required_program_keys': [               │ │
+│ │                     │   │   │   │   'program_name'                       │ │
+│ │                     │   │   │   ],                                       │ │
+│ │                     │   │   │   'program_schema': {                      │ │
+│ │                     │   │   │   │   'type': 'object',                    │ │
+│ │                     │   │   │   │   'properties': {                      │ │
+│ │                     │   │   │   │   │   'program_name': {                │ │
+│ │                     │   │   │   │   │   │   'type': 'string'             │ │
+│ │                     │   │   │   │   │   }                                │ │
+│ │                     │   │   │   │   },                                   │ │
+│ │                     │   │   │   │   'required': ['program_name'],        │ │
+│ │                     │   │   │   │   'additionalProperties': True         │ │
+│ │                     │   │   │   },                                       │ │
+│ │                     │   │   │   'description': 'incubator run'           │ │
+│ │                     │   │   },                                           │ │
+│ │                     │   │   'thermocycler': {                            │ │
+│ │                     │   │   │   'required_program_keys': [               │ │
+│ │                     │   │   │   │   'profile_name'                       │ │
+│ │                     │   │   │   ],                                       │ │
+│ │                     │   │   │   'program_schema': {                      │ │
+│ │                     │   │   │   │   'type': 'object',                    │ │
+│ │                     │   │   │   │   'properties': {                      │ │
+│ │                     │   │   │   │   │   'profile_name': {                │ │
+│ │                     │   │   │   │   │   │   'type': 'string'             │ │
+│ │                     │   │   │   │   │   }                                │ │
+│ │                     │   │   │   │   },                                   │ │
+│ │                     │   │   │   │   'required': ['profile_name'],        │ │
+│ │                     │   │   │   │   'additionalProperties': True         │ │
+│ │                     │   │   │   },                                       │ │
+│ │                     │   │   │   'description': 'thermocycler run'        │ │
+│ │                     │   │   },                                           │ │
+│ │                     │   │   'centrifuge': {                              │ │
+│ │                     │   │   │   'required_program_keys': [               │ │
+│ │                     │   │   │   │   'program_name'                       │ │
+│ │                     │   │   │   ],                                       │ │
+│ │                     │   │   │   'program_schema': {                      │ │
+│ │                     │   │   │   │   'type': 'object',                    │ │
+│ │                     │   │   │   │   'properties': {                      │ │
+│ │                     │   │   │   │   │   'program_name': {                │ │
+│ │                     │   │   │   │   │   │   'type': 'string'             │ │
+│ │                     │   │   │   │   │   }                                │ │
+│ │                     │   │   │   │   },                                   │ │
+│ │                     │   │   │   │   'required': ['program_name'],        │ │
+│ │                     │   │   │   │   'additionalProperties': True         │ │
+│ │                     │   │   │   },                                       │ │
+│ │                     │   │   │   'description': 'centrifuge run'          │ │
+│ │                     │   │   },                                           │ │
+│ │                     │   │   'plate_reader': {                            │ │
+│ │                     │   │   │   'required_program_keys': [               │ │
+│ │                     │   │   │   │   'program_name'                       │ │
+│ │                     │   │   │   ],                                       │ │
+│ │                     │   │   │   'program_schema': {                      │ │
+│ │                     │   │   │   │   'type': 'object',                    │ │
+│ │                     │   │   │   │   'properties': {                      │ │
+│ │                     │   │   │   │   │   'program_name': {                │ │
+│ │                     │   │   │   │   │   │   'type': 'string'             │ │
+│ │                     │   │   │   │   │   }                                │ │
+│ │                     │   │   │   │   },                                   │ │
+│ │                     │   │   │   │   'required': ['program_name'],        │ │
+│ │                     │   │   │   │   'additionalProperties': True         │ │
+│ │                     │   │   │   },                                       │ │
+│ │                     │   │   │   'description': 'plate reader run'        │ │
+│ │                     │   │   },                                           │ │
+│ │                     │   │   'imager': {                                  │ │
+│ │                     │   │   │   'required_program_keys': [               │ │
+│ │                     │   │   │   │   'program_name'                       │ │
+│ │                     │   │   │   ],                                       │ │
+│ │                     │   │   │   'program_schema': {                      │ │
+│ │                     │   │   │   │   'type': 'object',                    │ │
+│ │                     │   │   │   │   'properties': {                      │ │
+│ │                     │   │   │   │   │   'program_name': {                │ │
+│ │                     │   │   │   │   │   │   'type': 'string'             │ │
+│ │                     │   │   │   │   │   }                                │ │
+│ │                     │   │   │   │   },                                   │ │
+│ │                     │   │   │   │   'required': ['program_name'],        │ │
+│ │                     │   │   │   │   'additionalProperties': True         │ │
+│ │                     │   │   │   },                                       │ │
+│ │                     │   │   │   'description': 'imaging device run'      │ │
+│ │                     │   │   },                                           │ │
+│ │                     │   │   'cell_counter': {                            │ │
+│ │                     │   │   │   'required_program_keys': [               │ │
+│ │                     │   │   │   │   'program_name'                       │ │
+│ │                     │   │   │   ],                                       │ │
+│ │                     │   │   │   'program_schema': {                      │ │
+│ │                     │   │   │   │   'type': 'object',                    │ │
+│ │                     │   │   │   │   'properties': {                      │ │
+│ │                     │   │   │   │   │   'program_name': {                │ │
+│ │                     │   │   │   │   │   │   'type': 'string'             │ │
+│ │                     │   │   │   │   │   }                                │ │
+│ │                     │   │   │   │   },                                   │ │
+│ │                     │   │   │   │   'required': ['program_name'],        │ │
+│ │                     │   │   │   │   'additionalProperties': True         │ │
+│ │                     │   │   │   },                                       │ │
+│ │                     │   │   │   'description': 'cell counter run'        │ │
+│ │                     │   │   },                                           │ │
+│ │                     │   │   'dna_delivery_device': {                     │ │
+│ │                     │   │   │   'required_program_keys': [               │ │
+│ │                     │   │   │   │   'program_name'                       │ │
+│ │                     │   │   │   ],                                       │ │
+│ │                     │   │   │   'program_schema': {                      │ │
+│ │                     │   │   │   │   'type': 'object',                    │ │
+│ │                     │   │   │   │   'properties': {                      │ │
+│ │                     │   │   │   │   │   'program_name': {                │ │
+│ │                     │   │   │   │   │   │   'type': 'string'             │ │
+│ │                     │   │   │   │   │   }                                │ │
+│ │                     │   │   │   │   },                                   │ │
+│ │                     │   │   │   │   'required': ['program_name'],        │ │
+│ │                     │   │   │   │   'additionalProperties': True         │ │
+│ │                     │   │   │   },                                       │ │
+│ │                     │   │   │   'description': 'DNA delivery device run  │ │
+│ │                     (abstract)'                                          │ │
+│ │                     │   │   },                                           │ │
+│ │                     │   │   'amplicon_readout_system': {                 │ │
+│ │                     │   │   │   'required_program_keys': [               │ │
+│ │                     │   │   │   │   'program_name'                       │ │
+│ │                     │   │   │   ],                                       │ │
+│ │                     │   │   │   'program_schema': {                      │ │
+│ │                     │   │   │   │   'type': 'object',                    │ │
+│ │                     │   │   │   │   'properties': {                      │ │
+│ │                     │   │   │   │   │   'program_name': {                │ │
+│ │                     │   │   │   │   │   │   'type': 'string'             │ │
+│ │                     │   │   │   │   │   }                                │ │
+│ │                     │   │   │   │   },                                   │ │
+│ │                     │   │   │   │   'required': ['program_name'],        │ │
+│ │                     │   │   │   │   'additionalProperties': True         │ │
+│ │                     │   │   │   },                                       │ │
+│ │                     │   │   │   'description': 'amplicon readout system  │ │
+│ │                     run (abstract)'                                      │ │
+│ │                     │   │   }                                            │ │
+│ │                     │   },                                               │ │
+│ │                     │   modalities={                                     │ │
+│ │                     │   │   'instrument_readout',                        │ │
+│ │                     │   │   'microscope',                                │ │
+│ │                     │   │   'visual'                                     │ │
+│ │                     │   },                                               │ │
+│ │                     │   observation_features={                           │ │
+│ │                     │   │   'confluency': {                              │ │
+│ │                     │   │   │   'value_type': 'number',                  │ │
+│ │                     │   │   │   'constraints': {'min': 0, 'max': 100},   │ │
+│ │                     │   │   │   'description': 'confluency percentage'   │ │
+│ │                     │   │   },                                           │ │
+│ │                     │   │   'morphology': {                              │ │
+│ │                     │   │   │   'value_type': 'string',                  │ │
+│ │                     │   │   │   'constraints': {},                       │ │
+│ │                     │   │   │   'description': 'cell morphology          │ │
+│ │                     category'                                            │ │
+│ │                     │   │   },                                           │ │
+│ │                     │   │   'detached_enough': {                         │ │
+│ │                     │   │   │   'value_type': 'bool',                    │ │
+│ │                     │   │   │   'constraints': {},                       │ │
+│ │                     │   │   │   'description': 'cells detached           │ │
+│ │                     sufficiently'                                        │ │
+│ │                     │   │   },                                           │ │
+│ │                     │   │   'colonies_present': {                        │ │
+│ │                     │   │   │   'value_type': 'bool',                    │ │
+│ │                     │   │   │   'constraints': {},                       │ │
+│ │                     │   │   │   'description': 'colonies present on      │ │
+│ │                     plate'                                               │ │
+│ │                     │   │   },                                           │ │
+│ │                     │   │   'approx_count': {                            │ │
+│ │                     │   │   │   'value_type': 'integer',                 │ │
+│ │                     │   │   │   'constraints': {'min': 0},               │ │
+│ │                     │   │   │   'description': 'approximate count'       │ │
+│ │                     │   │   },                                           │ │
+│ │                     │   │   'pass_fail': {                               │ │
+│ │                     │   │   │   'value_type': 'bool',                    │ │
+│ │                     │   │   │   'constraints': {},                       │ │
+│ │                     │   │   │   'description': 'pass/fail judgement'     │ │
+│ │                     │   │   },                                           │ │
+│ │                     │   │   'cell_count': {                              │ │
+│ │                     │   │   │   'value_type': 'number',                  │ │
+│ │                     │   │   │   'constraints': {'min': 0},               │ │
+│ │                     │   │   │   'description': 'cell count'              │ │
+│ │                     │   │   },                                           │ │
+│ │                     │   │   'viability': {                               │ │
+│ │                     │   │   │   'value_type': 'number',                  │ │
+│ │                     │   │   │   'constraints': {'min': 0, 'max': 1},     │ │
+│ │                     │   │   │   'description': 'viability fraction'      │ │
+│ │                     │   │   },                                           │ │
+│ │                     │   │   'band_pattern': {                            │ │
+│ │                     │   │   │   'value_type': 'string',                  │ │
+│ │                     │   │   │   'constraints': {},                       │ │
+│ │                     │   │   │   'description': 'band pattern category or │ │
+│ │                     description'                                         │ │
+│ │                     │   │   },                                           │ │
+│ │                     │   │   'candidate_colonies': {                      │ │
+│ │                     │   │   │   'value_type': 'string',                  │ │
+│ │                     │   │   │   'constraints': {},                       │ │
+│ │                     │   │   │   'description': 'candidate colony         │ │
+│ │                     locations (encoded)'                                 │ │
+│ │                     │   │   }                                            │ │
+│ │                     │   }                                                │ │
+│ │                     )                                                    │ │
+│ │       schema_path = '/users/hideto/Project/ENZYME/enzyme_ir/schema_core… │ │
+│ │ schema_ready_data = {                                                    │ │
+│ │                     │   'schema_version': '0.4',                         │ │
+│ │                     │   'ir_kind': 'core',                               │ │
+│ │                     │   'metadata': {                                    │ │
+│ │                     │   │   'title': 'Mount sections on 96-well          │ │
+│ │                     superstructure',                                     │ │
+│ │                     │   │   'source': {                                  │ │
+│ │                     │   │   │   'type': 'paper_pdf',                     │ │
+│ │                     │   │   │   'id': 's41587-023-01747-2.pdf'           │ │
+│ │                     │   │   }                                            │ │
+│ │                     │   },                                               │ │
+│ │                     │   'resources': {                                   │ │
+│ │                     │   │   'materials': [],                             │ │
+│ │                     │   │   'containers': [                              │ │
+│ │                     │   │   │   '96-well format coverslip',              │ │
+│ │                     │   │   │   '96-well superstructure'                 │ │
+│ │                     │   │   ],                                           │ │
+│ │                     │   │   'equipment': ['imager'],                     │ │
+│ │                     │   │   'samples': ['sections'],                     │ │
+│ │                     │   │   'data': ['images']                           │ │
+│ │                     │   },                                               │ │
+│ │                     │   'protocol': {                                    │ │
+│ │                     │   │   'steps': [                                   │ │
+│ │                     │   │   │   {                                        │ │
+│ │                     │   │   │   │   'id': 's1',                          │ │
+│ │                     │   │   │   │   'op': 'annotate',                    │ │
+│ │                     │   │   │   │   'params': {                          │ │
+│ │                     │   │   │   │   │   'note': 'Transfer sections onto  │ │
+│ │                     96-well format coverslip (amount not specified)'     │ │
+│ │                     │   │   │   │   },                                   │ │
+│ │                     │   │   │   │   'inputs': [],                        │ │
+│ │                     │   │   │   │   'outputs': []                        │ │
+│ │                     │   │   │   },                                       │ │
+│ │                     │   │   │   {                                        │ │
+│ │                     │   │   │   │   'id': 's2',                          │ │
+│ │                     │   │   │   │   'op': 'annotate',                    │ │
+│ │                     │   │   │   │   'params': {                          │ │
+│ │                     │   │   │   │   │   'note': 'coverslip attached to   │ │
+│ │                     96-well superstructure'                              │ │
+│ │                     │   │   │   │   },                                   │ │
+│ │                     │   │   │   │   'inputs': [],                        │ │
+│ │                     │   │   │   │   'outputs': []                        │ │
+│ │                     │   │   │   },                                       │ │
+│ │                     │   │   │   {                                        │ │
+│ │                     │   │   │   │   'id': 's3',                          │ │
+│ │                     │   │   │   │   'op': 'run_device',                  │ │
+│ │                     │   │   │   │   'params': {                          │ │
+│ │                     │   │   │   │   │   'device_kind': 'imager',         │ │
+│ │                     │   │   │   │   │   'program': 'imaging'             │ │
+│ │                     │   │   │   │   },                                   │ │
+│ │                     │   │   │   │   'inputs': [],                        │ │
+│ │                     │   │   │   │   'outputs': []                        │ │
+│ │                     │   │   │   },                                       │ │
+│ │                     │   │   │   {                                        │ │
+│ │                     │   │   │   │   'id': 's4',                          │ │
+│ │                     │   │   │   │   'op': 'annotate',                    │ │
+│ │                     │   │   │   │   'params': {                          │ │
+│ │                     │   │   │   │   │   'note': 'antibody elution        │ │
+│ │                     performed'                                           │ │
+│ │                     │   │   │   │   },                                   │ │
+│ │                     │   │   │   │   'inputs': [],                        │ │
+│ │                     │   │   │   │   'outputs': []                        │ │
+│ │                     │   │   │   }                                        │ │
+│ │                     │   │   ],                                           │ │
+│ │                     │   │   'start_step_id': 's1',                       │ │
+│ │                     │   │   'edges': [                                   │ │
+│ │                     │   │   │   {'from': 's1', 'to': 's2'},              │ │
+│ │                     │   │   │   {'from': 's2', 'to': 's3'},              │ │
+│ │                     │   │   │   {'from': 's3', 'to': 's4'}               │ │
+│ │                     │   │   ],                                           │ │
+│ │                     │   │   'detail_level': 0                            │ │
+│ │                     │   }                                                │ │
+│ │                     }                                                    │ │
+│ │              step = {                                                    │ │
+│ │                     │   'id': 's4',                                      │ │
+│ │                     │   'op': 'annotate',                                │ │
+│ │                     │   'params': {                                      │ │
+│ │                     │   │   'note': 'antibody elution performed'         │ │
+│ │                     │   },                                               │ │
+│ │                     │   'inputs': [],                                    │ │
+│ │                     │   'outputs': []                                    │ │
+│ │                     }                                                    │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+│                                                                              │
+│ /users/hideto/Project/ENZYME/src/enzyme/validator.py:211 in _check_refs      │
+│                                                                              │
+│   208 │   resources = data.get("resources", {})                              │
+│   209 │   resource_map = {                                                   │
+│   210 │   │   "material": {item.get("id") for item in resources.get("materia │
+│ ❱ 211 │   │   "container": {item.get("id") for item in resources.get("contai │
+│   212 │   │   "equipment": {item.get("id") for item in resources.get("equipm │
+│   213 │   │   "sample": {item.get("id") for item in resources.get("samples", │
+│   214 │   │   "data": {item.get("id") for item in resources.get("data", [])} │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │      data = {                                                            │ │
+│ │             │   'schema_version': '0.4',                                 │ │
+│ │             │   'ir_kind': 'core',                                       │ │
+│ │             │   'metadata': {                                            │ │
+│ │             │   │   'title': 'Mount sections on 96-well superstructure', │ │
+│ │             │   │   'source': {                                          │ │
+│ │             │   │   │   'type': 'paper_pdf',                             │ │
+│ │             │   │   │   'id': 's41587-023-01747-2.pdf'                   │ │
+│ │             │   │   }                                                    │ │
+│ │             │   },                                                       │ │
+│ │             │   'resources': {                                           │ │
+│ │             │   │   'materials': [],                                     │ │
+│ │             │   │   'containers': [                                      │ │
+│ │             │   │   │   '96-well format coverslip',                      │ │
+│ │             │   │   │   '96-well superstructure'                         │ │
+│ │             │   │   ],                                                   │ │
+│ │             │   │   'equipment': ['imager'],                             │ │
+│ │             │   │   'samples': ['sections'],                             │ │
+│ │             │   │   'data': ['images']                                   │ │
+│ │             │   },                                                       │ │
+│ │             │   'protocol': {                                            │ │
+│ │             │   │   'steps': [                                           │ │
+│ │             │   │   │   {                                                │ │
+│ │             │   │   │   │   'id': 's1',                                  │ │
+│ │             │   │   │   │   'op': 'annotate',                            │ │
+│ │             │   │   │   │   'params': {                                  │ │
+│ │             │   │   │   │   │   'note': 'Transfer sections onto 96-well  │ │
+│ │             format coverslip (amount not specified)'                     │ │
+│ │             │   │   │   │   },                                           │ │
+│ │             │   │   │   │   'inputs': [],                                │ │
+│ │             │   │   │   │   'outputs': []                                │ │
+│ │             │   │   │   },                                               │ │
+│ │             │   │   │   {                                                │ │
+│ │             │   │   │   │   'id': 's2',                                  │ │
+│ │             │   │   │   │   'op': 'annotate',                            │ │
+│ │             │   │   │   │   'params': {                                  │ │
+│ │             │   │   │   │   │   'note': 'coverslip attached to 96-well   │ │
+│ │             superstructure'                                              │ │
+│ │             │   │   │   │   },                                           │ │
+│ │             │   │   │   │   'inputs': [],                                │ │
+│ │             │   │   │   │   'outputs': []                                │ │
+│ │             │   │   │   },                                               │ │
+│ │             │   │   │   {                                                │ │
+│ │             │   │   │   │   'id': 's3',                                  │ │
+│ │             │   │   │   │   'op': 'run_device',                          │ │
+│ │             │   │   │   │   'params': {                                  │ │
+│ │             │   │   │   │   │   'device_kind': 'imager',                 │ │
+│ │             │   │   │   │   │   'program': 'imaging'                     │ │
+│ │             │   │   │   │   },                                           │ │
+│ │             │   │   │   │   'inputs': [],                                │ │
+│ │             │   │   │   │   'outputs': []                                │ │
+│ │             │   │   │   },                                               │ │
+│ │             │   │   │   {                                                │ │
+│ │             │   │   │   │   'id': 's4',                                  │ │
+│ │             │   │   │   │   'op': 'annotate',                            │ │
+│ │             │   │   │   │   'params': {                                  │ │
+│ │             │   │   │   │   │   'note': 'antibody elution performed'     │ │
+│ │             │   │   │   │   },                                           │ │
+│ │             │   │   │   │   'inputs': [],                                │ │
+│ │             │   │   │   │   'outputs': []                                │ │
+│ │             │   │   │   }                                                │ │
+│ │             │   │   ],                                                   │ │
+│ │             │   │   'start_step_id': 's1',                               │ │
+│ │             │   │   'edges': [                                           │ │
+│ │             │   │   │   {'from': 's1', 'to': 's2'},                      │ │
+│ │             │   │   │   {'from': 's2', 'to': 's3'},                      │ │
+│ │             │   │   │   {'from': 's3', 'to': 's4'}                       │ │
+│ │             │   │   ],                                                   │ │
+│ │             │   │   'detail_level': 0                                    │ │
+│ │             │   }                                                        │ │
+│ │             }                                                            │ │
+│ │    issues = []                                                           │ │
+│ │  protocol = {                                                            │ │
+│ │             │   'steps': [                                               │ │
+│ │             │   │   {                                                    │ │
+│ │             │   │   │   'id': 's1',                                      │ │
+│ │             │   │   │   'op': 'annotate',                                │ │
+│ │             │   │   │   'params': {                                      │ │
+│ │             │   │   │   │   'note': 'Transfer sections onto 96-well      │ │
+│ │             format coverslip (amount not specified)'                     │ │
+│ │             │   │   │   },                                               │ │
+│ │             │   │   │   'inputs': [],                                    │ │
+│ │             │   │   │   'outputs': []                                    │ │
+│ │             │   │   },                                                   │ │
+│ │             │   │   {                                                    │ │
+│ │             │   │   │   'id': 's2',                                      │ │
+│ │             │   │   │   'op': 'annotate',                                │ │
+│ │             │   │   │   'params': {                                      │ │
+│ │             │   │   │   │   'note': 'coverslip attached to 96-well       │ │
+│ │             superstructure'                                              │ │
+│ │             │   │   │   },                                               │ │
+│ │             │   │   │   'inputs': [],                                    │ │
+│ │             │   │   │   'outputs': []                                    │ │
+│ │             │   │   },                                                   │ │
+│ │             │   │   {                                                    │ │
+│ │             │   │   │   'id': 's3',                                      │ │
+│ │             │   │   │   'op': 'run_device',                              │ │
+│ │             │   │   │   'params': {                                      │ │
+│ │             │   │   │   │   'device_kind': 'imager',                     │ │
+│ │             │   │   │   │   'program': 'imaging'                         │ │
+│ │             │   │   │   },                                               │ │
+│ │             │   │   │   'inputs': [],                                    │ │
+│ │             │   │   │   'outputs': []                                    │ │
+│ │             │   │   },                                                   │ │
+│ │             │   │   {                                                    │ │
+│ │             │   │   │   'id': 's4',                                      │ │
+│ │             │   │   │   'op': 'annotate',                                │ │
+│ │             │   │   │   'params': {                                      │ │
+│ │             │   │   │   │   'note': 'antibody elution performed'         │ │
+│ │             │   │   │   },                                               │ │
+│ │             │   │   │   'inputs': [],                                    │ │
+│ │             │   │   │   'outputs': []                                    │ │
+│ │             │   │   }                                                    │ │
+│ │             │   ],                                                       │ │
+│ │             │   'start_step_id': 's1',                                   │ │
+│ │             │   'edges': [                                               │ │
+│ │             │   │   {'from': 's1', 'to': 's2'},                          │ │
+│ │             │   │   {'from': 's2', 'to': 's3'},                          │ │
+│ │             │   │   {'from': 's3', 'to': 's4'}                           │ │
+│ │             │   ],                                                       │ │
+│ │             │   'detail_level': 0                                        │ │
+│ │             }                                                            │ │
+│ │ resources = {                                                            │ │
+│ │             │   'materials': [],                                         │ │
+│ │             │   'containers': [                                          │ │
+│ │             │   │   '96-well format coverslip',                          │ │
+│ │             │   │   '96-well superstructure'                             │ │
+│ │             │   ],                                                       │ │
+│ │             │   'equipment': ['imager'],                                 │ │
+│ │             │   'samples': ['sections'],                                 │ │
+│ │             │   'data': ['images']                                       │ │
+│ │             }                                                            │ │
+│ │     steps = {'s4', 's3', 's1', 's2'}                                     │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+╰──────────────────────────────────────────────────────────────────────────────╯
+AttributeError: 'str' object has no attribute 'get'

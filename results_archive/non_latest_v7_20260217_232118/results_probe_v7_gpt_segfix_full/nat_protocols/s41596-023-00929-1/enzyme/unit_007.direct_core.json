@@ -1,0 +1,218 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "FACS setup and sorting",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00929-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "dapi",
+        "type": "stain"
+      }
+    ],
+    "containers": [
+      {
+        "id": "sample_tube",
+        "type": "tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "facs_sorter",
+        "type": "cell_sorter"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cell_sample",
+        "type": "cell_suspension"
+      },
+      {
+        "id": "fluorescence_data",
+        "name": "fluorescence_data"
+      },
+      {
+        "id": "sorting_efficiency_data",
+        "name": "sorting_efficiency_data"
+      }
+    ],
+    "data": [
+      {
+        "id": "laser_settings",
+        "type": "data"
+      },
+      {
+        "id": "fluorescence_data",
+        "type": "data"
+      },
+      {
+        "id": "compensation",
+        "type": "data"
+      },
+      {
+        "id": "gating_scheme",
+        "type": "data"
+      },
+      {
+        "id": "sorting_efficiency_data",
+        "type": "data"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "params": {
+          "note": "Set laser levels for each fluorophore using unstained and single‑color controls."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "fluorescence_intensity_per_fluorophore"
+          ]
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "fluorescence_data"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "params": {
+          "note": "Run compensation using the recorded single‑color control data."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "params": {
+          "note": "Draw gates to eliminate debris based on side scatter (SSC) and forward scatter (FSC)."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "note": "Eliminate doublets using SSC/FSC gating."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Eliminate dead cells using DAPI (or alternative live/dead stain)."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "note": "Set up FACS plots to select populations of interest (e.g., CD45−CD31+ANPEP− endothelial cells, CD45−CD31−ANPEP+ mural cells)."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "note": "Optional: run additional controls such as fluorescence‑minus‑one (FMO) and unstained controls."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "params": {
+          "note": "Perform cell sorting using a 100 µm nozzle (smaller nozzle may damage cells)."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "event_number",
+            "cell_efficiency"
+          ]
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sorting_efficiency_data"
+          }
+        ],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      }
+    ],
+    "detail_level": 0
+  }
+}

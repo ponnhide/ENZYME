@@ -1,0 +1,128 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "DNA extraction and library preparation",
+    "source": {
+      "type": "paper",
+      "id": "s41467-020-19142-9.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "QiaSymphony DSP DNA Mini Kit",
+        "vendor": "Qiagen",
+        "catalog_number": "937236"
+      },
+      {
+        "id": "m2",
+        "name": "TruSeq DNA Nano Library Prep Kit",
+        "catalog_number": "20015964"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "Illumina HiSeq X Ten sequencing system"
+      }
+    ],
+    "samples": [
+      {
+        "id": "org1",
+        "name": "Organoids"
+      },
+      {
+        "id": "dna1",
+        "name": "Extracted DNA"
+      },
+      {
+        "id": "lib1",
+        "name": "DNA Library"
+      },
+      {
+        "id": "seq1",
+        "name": "Sequencing Data"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "org1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "dna1"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Organoids were dissociated and DNA was isolated using the QiaSymphony DSP DNA Mini Kit (Qiagen; 937236)."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "dna1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "lib1"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Libraries were prepared using the TruSeq DNA Nano Library Prep Kit (20015964)."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "lib1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "seq1"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Paired-end sequencing of the generated libraries with 2 × 150 bp on the Illumina HiSeq X Ten sequencing system at 30× coverage."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

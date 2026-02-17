@@ -1,0 +1,275 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Passage organoids: centrifuge, resuspend, and dissolve Matrigel",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00562-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "matrigel",
+        "name": "Matrigel"
+      },
+      {
+        "id": "crs",
+        "name": "CRS (culture recovery solution)"
+      },
+      {
+        "id": "colon_organoid_growth_medium",
+        "name": "Colon organoid growth medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "well_plate_24",
+        "type": "24-well_plate"
+      },
+      {
+        "id": "conical_tube_15ml",
+        "type": "15ml_conical_tube"
+      },
+      {
+        "id": "glass_dish",
+        "type": "glass_dish"
+      },
+      {
+        "id": "ice_bucket",
+        "type": "ice_bucket"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "pipette_1000ul",
+        "type": "pipette"
+      },
+      {
+        "id": "vacuum_pasteur_pipette",
+        "type": "pipette"
+      },
+      {
+        "id": "incubator_ice_bucket",
+        "type": "incubator"
+      },
+      {
+        "id": "centrifuge",
+        "type": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "matrigel_aliquot"
+      },
+      {
+        "id": "growth_medium_sample"
+      },
+      {
+        "id": "crs_sample"
+      },
+      {
+        "id": "organoid_droplets_sample"
+      },
+      {
+        "id": "resuspended_matrigel_sample"
+      },
+      {
+        "id": "incubated_sample"
+      },
+      {
+        "id": "pellet_sample"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "matrigel_aliquot"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "growth_medium_sample"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "crs_sample"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "well_plate_24",
+          "destination": "conical_tube_15ml",
+          "amount": {
+            "value": 650.0,
+            "unit": "µl"
+          }
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_droplets_sample"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "note": "Aspirate supernatant (spent organoid growth medium) with vacuum using a sterile Pasteur pipette."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "reagent": "crs",
+          "dilution": "1:10"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_droplets_sample"
+          },
+          {
+            "kind": "sample",
+            "id": "crs_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "resuspended_matrigel_sample"
+          }
+        ]
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "ice_bucket_45-60min"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "resuspended_matrigel_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "incubated_sample"
+          }
+        ]
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "1000g_5min_4C"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "incubated_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "pellet_sample"
+          }
+        ]
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "params": {
+          "note": "Prepare glass dish with disinfectant and ethanol, add ice, place Matrigel aliquots in cooling block, spray with ethanol, and place in biosafety cabinet."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

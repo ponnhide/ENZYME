@@ -1,0 +1,226 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Set up ERG recording for OVB organoids",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00814-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "ovb_medium",
+        "type": "organism_culture_medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate_12well",
+        "type": "plate_12_well"
+      },
+      {
+        "id": "tube_50ml",
+        "type": "centrifuge_tube_50ml"
+      },
+      {
+        "id": "electrode_chamber",
+        "type": "electrode_chamber"
+      },
+      {
+        "id": "dark_chamber",
+        "type": "dark_chamber"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "type": "incubator"
+      },
+      {
+        "id": "superfusion_system",
+        "type": "superfusion_system"
+      },
+      {
+        "id": "red_light",
+        "type": "light_source"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoids",
+        "type": "organoid_sample"
+      },
+      {
+        "id": "fresh_medium",
+        "type": "medium_sample"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source": "organoids",
+          "destination": "plate_12well",
+          "description": "Transfer 60‑d‑old organoids each to one well of a 12‑well plate",
+          "amount": {
+            "annotation": "unspecified amount"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "ovb_medium",
+          "destination": "plate_12well",
+          "description": "Add 2 ml of OVB‑organoid medium per well",
+          "amount": {
+            "value": 2.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator",
+          "program": {
+            "program_name": "dark_37C_5CO2_24h"
+          },
+          "description": "Incubate plate in absolute darkness at 37 °C, 5 % CO₂ for 24 h"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "target": "fresh_medium",
+          "source_material": "ovb_medium",
+          "container": "tube_50ml",
+          "description": "Prepare fresh OVB organoid medium in 50 ml centrifuge tube"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "annotation": "Oxygenate the OVB organoid medium by pumping air onto the bottom of the tube with a sterile 10 ml serological pipette for 2 min under the clean bench"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "annotation": "Keep the room where organoids are handled and the ERG experiment performed in absolute darkness, using a red light as the sole light source"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "source": "fresh_medium",
+          "destination": "superfusion_system",
+          "description": "Fill the superfusion system with the oxygenated OVB medium",
+          "amount": {
+            "annotation": "unspecified amount"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "params": {
+          "source": "plate_12well",
+          "destination": "electrode_chamber",
+          "description": "Place organoids under red light in the electrode chamber",
+          "amount": {
+            "annotation": "unspecified amount"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "params": {
+          "annotation": "Place electrode chamber into the dark chamber of the ERG aperture and connect it to the superfusion system containing oxygenated OVB medium"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "annotate",
+        "params": {
+          "annotation": "unmapped device_kind in source: superfusion_system"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      }
+    ],
+    "detail_level": 0
+  }
+}

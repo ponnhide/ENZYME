@@ -1,0 +1,221 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Caspase‑3/7 apoptosis measurement",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "CellEvent Caspase-3/7 Detection Reagent",
+        "vendor": "Thermo Fisher"
+      },
+      {
+        "id": "m2",
+        "name": "media",
+        "description": "cell culture media"
+      },
+      {
+        "id": "m3",
+        "name": "PBS",
+        "description": "phosphate-buffered saline"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "culture_dish",
+        "name": "organoid culture dish"
+      },
+      {
+        "id": "c2",
+        "type": "imaging_dish",
+        "name": "imaging dish"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "imager",
+        "name": "Nikon spinning disc confocal"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_organoid",
+        "type": "organoid",
+        "source": "organoids"
+      },
+      {
+        "id": "detection_solution",
+        "name": "detection_solution"
+      },
+      {
+        "id": "m1",
+        "name": "m1"
+      },
+      {
+        "id": "m2",
+        "name": "m2"
+      },
+      {
+        "id": "m3",
+        "name": "m3"
+      },
+      {
+        "id": "s_organoid_washed",
+        "name": "s_organoid_washed"
+      },
+      {
+        "id": "d1",
+        "name": "d1"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "type": "image",
+        "description": "fluorescence and DIC images of organoids"
+      },
+      {
+        "id": "d2",
+        "type": "analysis_result",
+        "description": "% area of caspase-3/7 positive staining"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "detection_solution"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "m1"
+          },
+          {
+            "kind": "sample",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "detection_solution"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "params": {
+          "note": "Incubate organoids with detection_solution for 30 min"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "rinse"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid"
+          },
+          {
+            "kind": "sample",
+            "id": "m3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_washed"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "fluorescence",
+            "DIC"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_washed"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d1"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Quantify % area of caspase-3/7 positive staining using FIJI"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

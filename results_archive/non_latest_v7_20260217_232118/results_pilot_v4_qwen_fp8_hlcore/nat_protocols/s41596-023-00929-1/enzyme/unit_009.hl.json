@@ -1,0 +1,119 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Immunostain cells",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00929-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "cells",
+        "name": "cells"
+      },
+      {
+        "id": "cells_resuspended",
+        "name": "cells_resuspended"
+      },
+      {
+        "id": "master_mix",
+        "name": "master_mix"
+      },
+      {
+        "id": "cells_with_master_mix",
+        "name": "cells_with_master_mix"
+      },
+      {
+        "id": "cells_incubated",
+        "name": "cells_incubated"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_resuspended"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend",
+          "solution": "~200 µL of HBSS/BSA/glucose"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "master_mix"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_with_master_mix"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "transfer_instruction": "add the master mix",
+          "source_container": "master_mix_container",
+          "target_container": "tube_of_resuspended_cells"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_with_master_mix"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_incubated"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "15 min on ice"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

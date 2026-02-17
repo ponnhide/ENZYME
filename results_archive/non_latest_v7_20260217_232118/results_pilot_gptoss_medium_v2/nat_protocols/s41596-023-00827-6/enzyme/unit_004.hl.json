@@ -1,0 +1,165 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "RNA PreWash step",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00827-6"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "mz1",
+        "name": "Direct-zol RNA PreWash"
+      }
+    ],
+    "containers": [
+      {
+        "id": "col1",
+        "name": "spin column"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "eq1",
+        "name": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "col_sample",
+        "name": "RNA column",
+        "container_ref": "col1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "mz1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "col_sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 400,
+            "unit": "μl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "col_sample"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {}
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Discard the flow through"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "mz1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "col_sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 400,
+            "unit": "μl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "col_sample"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {}
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Discard the flow through"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

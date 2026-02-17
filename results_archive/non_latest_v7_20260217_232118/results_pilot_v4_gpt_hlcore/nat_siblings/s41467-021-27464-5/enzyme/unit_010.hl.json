@@ -1,0 +1,211 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Culture organoids under hypoxic conditions",
+    "source": {
+      "type": "paper",
+      "id": "s41467-021-27464-5"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "incubator_normoxia",
+        "kind": "incubator",
+        "name": "standard incubator"
+      },
+      {
+        "id": "hypoxia_chamber",
+        "kind": "incubator",
+        "name": "Binder CB160 hypoxia chamber"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoid_conventional",
+        "type": "organoid",
+        "description": "conventional organoid"
+      },
+      {
+        "id": "organoid_silkVM",
+        "type": "organoid",
+        "description": "silk-VM organoid"
+      },
+      {
+        "id": "organoid_conventional_hypoxia",
+        "type": "organoid",
+        "description": "conventional organoid after hypoxia exposure"
+      },
+      {
+        "id": "organoid_silkVM_hypoxia",
+        "type": "organoid",
+        "description": "silk-VM organoid after hypoxia exposure"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_conventional"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_silkVM"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_conventional"
+          },
+          {
+            "kind": "sample",
+            "id": "organoid_silkVM"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_conventional"
+          },
+          {
+            "kind": "sample",
+            "id": "organoid_silkVM"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator_normoxia",
+          "program": "normoxia_culture",
+          "temperature": "37 °C",
+          "O2": "21%",
+          "CO2": "5%"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_conventional"
+          },
+          {
+            "kind": "sample",
+            "id": "organoid_silkVM"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_conventional_hypoxia"
+          },
+          {
+            "kind": "sample",
+            "id": "organoid_silkVM_hypoxia"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "unspecified",
+            "unit": ""
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_conventional_hypoxia"
+          },
+          {
+            "kind": "sample",
+            "id": "organoid_silkVM_hypoxia"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_conventional_hypoxia"
+          },
+          {
+            "kind": "sample",
+            "id": "organoid_silkVM_hypoxia"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "hypoxia_chamber",
+          "program": "hypoxia",
+          "O2": "1%",
+          "CO2": "5%",
+          "gas_mix": "N2"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Samples collected after 4, 8, and 16 h"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

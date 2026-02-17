@@ -1,0 +1,118 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Count cells and calculate required volume",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00880-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [
+      {
+        "id": "container_hemocytometer",
+        "type": "hemocytometer"
+      },
+      {
+        "id": "container_microtube",
+        "type": "microcentrifuge_tube"
+      },
+      {
+        "id": "container_dispense",
+        "type": "microcentrifuge_tube"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "sample_cell_suspension"
+      },
+      {
+        "id": "container_dispense",
+        "name": "container_dispense"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "params": {
+          "note": "Immediately remove 10 µL of the cell suspension for counting with a hemocytometer."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source_ref": "sample_cell_suspension",
+          "destination_ref": "container_hemocytometer",
+          "amount": {
+            "value": 10.0,
+            "unit": "µL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "params": {
+          "note": "Calculate the cell suspension volume required for 250,000 cells based on the concentration (e.g., 5 × 10⁶ cells per well)."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "container_dispense"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer the calculated volume for 250,000 cells to the microcentrifuge tube (container_dispense)."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

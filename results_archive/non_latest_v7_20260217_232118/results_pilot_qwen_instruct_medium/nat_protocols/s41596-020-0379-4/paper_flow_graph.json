@@ -1,0 +1,540 @@
+{
+  "graph_version": "0.1",
+  "linkable_kinds": [
+    "data",
+    "sample"
+  ],
+  "unit_graphs": [
+    {
+      "unit_id": "unit_001",
+      "title": "Tissue Collection and Processing",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 3,
+        "edge_count": 2,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "transfer"
+          },
+          {
+            "id": "s2",
+            "op": "annotate"
+          },
+          {
+            "id": "s3",
+            "op": "annotate"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s2"
+          },
+          {
+            "from": "s2",
+            "to": "s3"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "sample:s1_sample"
+        ],
+        "output_refs": [
+          "sample:s1_sample"
+        ]
+      }
+    },
+    {
+      "unit_id": "unit_002",
+      "title": "Removal of Non-Epithelial Tissue",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 1,
+        "edge_count": 1,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "annotate"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s1"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "sample:tissue_piece"
+        ],
+        "output_refs": []
+      }
+    },
+    {
+      "unit_id": "unit_003",
+      "title": "Tissue Fragmentation",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 1,
+        "edge_count": 1,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "annotate"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s1"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "sample:tissue_sample"
+        ],
+        "output_refs": [
+          "sample:fragmented_tissue"
+        ]
+      }
+    },
+    {
+      "unit_id": "unit_004",
+      "title": "Enzymatic Digestion of Tissue",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 3,
+        "edge_count": 2,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "annotate"
+          },
+          {
+            "id": "s2",
+            "op": "annotate"
+          },
+          {
+            "id": "s3",
+            "op": "annotate"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s2"
+          },
+          {
+            "from": "s2",
+            "to": "s3"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "sample:tissue_from_step_3"
+        ],
+        "output_refs": []
+      }
+    },
+    {
+      "unit_id": "unit_005",
+      "title": "Cell Filtration and Centrifugation",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 5,
+        "edge_count": 4,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "transfer"
+          },
+          {
+            "id": "s2",
+            "op": "run_device"
+          },
+          {
+            "id": "s3",
+            "op": "resuspend"
+          },
+          {
+            "id": "s4",
+            "op": "annotate"
+          },
+          {
+            "id": "s5",
+            "op": "run_device"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s2"
+          },
+          {
+            "from": "s2",
+            "to": "s3"
+          },
+          {
+            "from": "s3",
+            "to": "s4"
+          },
+          {
+            "from": "s4",
+            "to": "s5"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "material:m1",
+          "sample:s1_out",
+          "sample:s2_out",
+          "sample:s3_out",
+          "sample:s4_out"
+        ],
+        "output_refs": [
+          "sample:s1_out",
+          "sample:s2_out",
+          "sample:s3_out",
+          "sample:s4_out",
+          "sample:s5_out"
+        ]
+      }
+    },
+    {
+      "unit_id": "unit_006",
+      "title": "Plating in ECM Hydrogel",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 3,
+        "edge_count": 2,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "transfer"
+          },
+          {
+            "id": "s2",
+            "op": "manipulate"
+          },
+          {
+            "id": "s3",
+            "op": "transfer"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s2"
+          },
+          {
+            "from": "s2",
+            "to": "s3"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "sample:cell_pellet",
+          "sample:resuspended_cells"
+        ],
+        "output_refs": [
+          "sample:plated_sample",
+          "sample:resuspended_cells"
+        ]
+      }
+    },
+    {
+      "unit_id": "unit_007",
+      "title": "BME Droplet Solidification",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 2,
+        "edge_count": 1,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "transfer"
+          },
+          {
+            "id": "s2",
+            "op": "run_device"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s2"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "container:c1",
+          "sample:s1"
+        ],
+        "output_refs": [
+          "container:c1",
+          "sample:s2"
+        ]
+      }
+    },
+    {
+      "unit_id": "unit_008",
+      "title": "Organoid Medium Addition",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 1,
+        "edge_count": 1,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "transfer"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s1"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "material:organoid_medium"
+        ],
+        "output_refs": [
+          "sample:well_with_bme_drop"
+        ]
+      }
+    },
+    {
+      "unit_id": "unit_009",
+      "title": "Organoid Splitting Using TrypLE",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 7,
+        "edge_count": 6,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "transfer"
+          },
+          {
+            "id": "s2",
+            "op": "run_device"
+          },
+          {
+            "id": "s3",
+            "op": "annotate"
+          },
+          {
+            "id": "s4",
+            "op": "annotate"
+          },
+          {
+            "id": "s5",
+            "op": "transfer"
+          },
+          {
+            "id": "s6",
+            "op": "manipulate"
+          },
+          {
+            "id": "s7",
+            "op": "run_device"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s2"
+          },
+          {
+            "from": "s2",
+            "to": "s3"
+          },
+          {
+            "from": "s3",
+            "to": "s4"
+          },
+          {
+            "from": "s4",
+            "to": "s5"
+          },
+          {
+            "from": "s5",
+            "to": "s6"
+          },
+          {
+            "from": "s6",
+            "to": "s7"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "sample:s1-output",
+          "sample:s2-output",
+          "sample:s3-output",
+          "sample:s4-output",
+          "sample:s5-output",
+          "sample:s6-output"
+        ],
+        "output_refs": [
+          "sample:s1-output",
+          "sample:s2-output",
+          "sample:s3-output",
+          "sample:s4-output",
+          "sample:s5-output",
+          "sample:s6-output",
+          "sample:s7-output"
+        ]
+      }
+    },
+    {
+      "unit_id": "unit_010",
+      "title": "Organoid Freezing",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 6,
+        "edge_count": 5,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "transfer"
+          },
+          {
+            "id": "s2",
+            "op": "transfer"
+          },
+          {
+            "id": "s3",
+            "op": "annotate"
+          },
+          {
+            "id": "s4",
+            "op": "run_device"
+          },
+          {
+            "id": "s5",
+            "op": "annotate"
+          },
+          {
+            "id": "s6",
+            "op": "annotate"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s2"
+          },
+          {
+            "from": "s2",
+            "to": "s3"
+          },
+          {
+            "from": "s3",
+            "to": "s4"
+          },
+          {
+            "from": "s4",
+            "to": "s5"
+          },
+          {
+            "from": "s5",
+            "to": "s6"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "container:cryogenic-vial",
+          "material:cell-freezing-medium",
+          "sample:organoid-suspension"
+        ],
+        "output_refs": [
+          "container:cryogenic-vial",
+          "sample:organoid-suspension"
+        ]
+      }
+    }
+  ],
+  "inter_unit_graph": {
+    "nodes": [
+      "unit_001",
+      "unit_002",
+      "unit_003",
+      "unit_004",
+      "unit_005",
+      "unit_006",
+      "unit_007",
+      "unit_008",
+      "unit_009",
+      "unit_010"
+    ],
+    "edges": []
+  },
+  "integrity": {
+    "pass": false,
+    "isolated_unit_count": 10,
+    "isolated_unit_rate": 1.0,
+    "isolated_units": [
+      "unit_001",
+      "unit_002",
+      "unit_003",
+      "unit_004",
+      "unit_005",
+      "unit_006",
+      "unit_007",
+      "unit_008",
+      "unit_009",
+      "unit_010"
+    ],
+    "issues": [
+      {
+        "code": "INTER_UNIT_ISOLATED_UNIT",
+        "severity": "warn",
+        "message": "One or more units are fully isolated in the inter-unit flow graph.",
+        "unit_ids": [
+          "unit_001",
+          "unit_002",
+          "unit_003",
+          "unit_004",
+          "unit_005",
+          "unit_006",
+          "unit_007",
+          "unit_008",
+          "unit_009",
+          "unit_010"
+        ]
+      }
+    ]
+  }
+}

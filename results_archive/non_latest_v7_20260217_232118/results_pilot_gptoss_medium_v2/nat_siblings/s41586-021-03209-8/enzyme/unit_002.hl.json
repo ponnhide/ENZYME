@@ -1,0 +1,145 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Digest tissue with papain and DNase to obtain single‑cell suspension",
+    "source": {
+      "type": "paper",
+      "id": "s41586-021-03209-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "papain",
+        "type": "reagent",
+        "name": "Papain"
+      },
+      {
+        "id": "dnase_i",
+        "type": "reagent",
+        "name": "DNase I"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube_1",
+        "type": "tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator_1",
+        "type": "incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_1323_4",
+        "type": "tissue",
+        "source": "1323-4"
+      },
+      {
+        "id": "sample_1323_4_in_papain",
+        "type": "tissue",
+        "derived_from": "sample_1323_4"
+      },
+      {
+        "id": "sample_incubated",
+        "type": "tissue",
+        "derived_from": "sample_1323_4_in_papain"
+      },
+      {
+        "id": "single_cell_suspension",
+        "type": "cell_suspension",
+        "derived_from": "sample_incubated"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_1323_4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_1323_4_in_papain"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "annotations": {
+          "note": "Papain containing DNase I added; volume not specified."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_1323_4_in_papain"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_incubated"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "37C_30min"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_incubated"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "single_cell_suspension"
+          }
+        ],
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "annotations": {
+          "note": "Samples were triturated to form a single‑cell suspension."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

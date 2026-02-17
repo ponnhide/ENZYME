@@ -1,0 +1,379 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Organoid lysis and peptide preparation for LC‑MS/MS",
+    "source": {
+      "type": "paper",
+      "id": "s41467-020-19142-9.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "8 M Urea"
+      },
+      {
+        "id": "m2",
+        "name": "50 mM ammonium bicarbonate"
+      },
+      {
+        "id": "m3",
+        "name": "DNAse I",
+        "vendor": "Sigma‑Aldrich"
+      },
+      {
+        "id": "m4",
+        "name": "RNAse A",
+        "vendor": "Sigma‑Aldrich"
+      },
+      {
+        "id": "m5",
+        "name": "1× complete EDTA‑free protease inhibitor cocktail",
+        "vendor": "Roche Diagnostics"
+      },
+      {
+        "id": "m6",
+        "name": "Lys‑C protease"
+      },
+      {
+        "id": "m7",
+        "name": "Trypsin"
+      },
+      {
+        "id": "m8",
+        "name": "200 mM ammonium formate (pH 10)"
+      },
+      {
+        "id": "m9",
+        "name": "Acetonitrile"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "microcentrifuge tube"
+      },
+      {
+        "id": "c2",
+        "type": "C18 STAGE‑tip"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "device_kind": "vortexer",
+        "name": "vortex mixer"
+      },
+      {
+        "id": "e2",
+        "device_kind": "centrifuge",
+        "name": "bench‑top centrifuge"
+      },
+      {
+        "id": "e3",
+        "device_kind": "plate_reader",
+        "name": "Bradford assay plate reader"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "name": "organoid sample"
+      },
+      {
+        "id": "samp2",
+        "name": "lysate"
+      },
+      {
+        "id": "samp3",
+        "name": "cleared lysate"
+      },
+      {
+        "id": "samp4",
+        "name": "protein aliquot (20 µg)"
+      },
+      {
+        "id": "samp5",
+        "name": "digested peptide mixture"
+      },
+      {
+        "id": "samp6_1",
+        "name": "fraction 1"
+      },
+      {
+        "id": "samp6_2",
+        "name": "fraction 2"
+      },
+      {
+        "id": "samp6_3",
+        "name": "fraction 3"
+      },
+      {
+        "id": "samp6_4",
+        "name": "fraction 4"
+      },
+      {
+        "id": "samp6_5",
+        "name": "fraction 5"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          },
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "material",
+            "id": "m3"
+          },
+          {
+            "kind": "material",
+            "id": "m4"
+          },
+          {
+            "kind": "material",
+            "id": "m5"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "annotations": {
+          "note": "Gentle vortexing"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp3"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "duration": {
+              "value": 1,
+              "unit": "h"
+            },
+            "speed": {
+              "value": 18000,
+              "unit": "g"
+            },
+            "temperature": {
+              "value": 15,
+              "unit": "°C"
+            }
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp3"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "protein concentration"
+          ]
+        },
+        "annotations": {
+          "method": "Bradford assay",
+          "device_ref": "e3"
+        }
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp4"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 20,
+            "unit": "µg"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp5"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "note": "Reduced, alkylated, then digested sequentially with Lys‑C (1:100) and trypsin (1:75)."
+        }
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp5"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp6_1"
+          },
+          {
+            "kind": "sample",
+            "id": "samp6_2"
+          },
+          {
+            "kind": "sample",
+            "id": "samp6_3"
+          },
+          {
+            "kind": "sample",
+            "id": "samp6_4"
+          },
+          {
+            "kind": "sample",
+            "id": "samp6_5"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "annotations": {
+          "note": "Peptide digests loaded on C18 STAGE‑tips in 200 mM ammonium formate (pH 10) and eluted into 5 fractions with 11–80 % acetonitrile."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

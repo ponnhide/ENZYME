@@ -1,0 +1,149 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Resuspend and seed organoids in Matrigel",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00562-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "matrigel",
+        "name": "Matrigel",
+        "type": "reagent"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate",
+        "type": "24-well_plate",
+        "name": "Olympus 24-well, tissue culture treated plate"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "organoid_pellet",
+        "name": "organoid pellet"
+      },
+      {
+        "id": "organoid_suspension",
+        "name": "organoid suspension in Matrigel"
+      },
+      {
+        "id": "matrigel",
+        "name": "matrigel"
+      },
+      {
+        "id": "plate",
+        "name": "plate"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "name": "organoid pellet"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_pellet"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material",
+          "name": "Matrigel"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "matrigel"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "type": "24-well_plate",
+          "name": "Olympus 24-well tissue culture treated plate"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "volume": "1.2 ml",
+          "source": "organoid_pellet",
+          "reagent": "matrigel"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_suspension"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "organoid_suspension",
+          "destination": "plate",
+          "description": "seed droplets into each well",
+          "amount": {
+            "value": 50.0,
+            "unit": "µl"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

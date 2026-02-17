@@ -1,0 +1,171 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Micromass preparation and CHIR pulse",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00880-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "E6/2% FBS"
+      },
+      {
+        "id": "m2",
+        "name": "E6 medium with 5 µM CHIR99021"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "microcentrifuge_tube",
+        "name": "24‑tube rotor tube"
+      },
+      {
+        "id": "c2",
+        "type": "transwell_insert",
+        "name": "Transwell insert"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "centrifuge",
+        "name": "Centrifuge"
+      },
+      {
+        "id": "e2",
+        "type": "incubator",
+        "name": "37 °C incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_cells",
+        "name": "Cell suspension"
+      },
+      {
+        "id": "micromass",
+        "name": "Cell micromass"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source": "m1",
+          "destination": "c1",
+          "note": "Top up the medium volume in each tube to 200 µL",
+          "amount": {
+            "value": 200.0,
+            "unit": "µL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "300g_3min_three_spins"
+          },
+          "note": "Centrifuge tubes three times at 300 g for 3 min, rotating 180° between spins"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "pick_colony",
+          "source": "c1",
+          "tool": "P200 pipette with wide‑bore tip",
+          "note": "Gently push each cell pellet to the base and aspirate the micromass"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "micromass",
+          "destination": "c2",
+          "note": "Transfer three micromasses to each Transwell insert, allowing each to settle before dispensing",
+          "amount": {
+            "value": 3,
+            "unit": "micromass"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "m2",
+          "destination": "c2",
+          "note": "Add 1 mL of E6‑containing 5 µM CHIR99021 to the base of the Transwell",
+          "amount": {
+            "value": 1.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e2",
+          "program": {
+            "program_name": "37C_1h"
+          },
+          "note": "Incubate for precisely 1 h at 37 °C"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

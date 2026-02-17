@@ -1,0 +1,166 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "FACS sorting and seeding of LGR5+ and LY6A+ cells",
+    "source": {
+      "type": "paper",
+      "id": "s41592-021-01391-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "matrigel",
+        "name": "Matrigel"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "FACS sorter"
+      },
+      {
+        "id": "e2",
+        "name": "bright-field microscope"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cell_suspension",
+        "name": "cell suspension"
+      },
+      {
+        "id": "isolated_cells",
+        "name": "isolated LGR5+ LY6A− and LGR5− LY6A+ cells"
+      },
+      {
+        "id": "seeded_cells",
+        "name": "cells seeded in Matrigel"
+      },
+      {
+        "id": "cultured_cells",
+        "name": "cultured cells"
+      }
+    ],
+    "data": [
+      {
+        "id": "bright_field_images",
+        "name": "bright‑field microscopy images at S3"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "isolated_cells"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Single LGR5+ LY6A− and LGR5− LY6A+ cells were isolated by FACS."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "isolated_cells"
+          },
+          {
+            "kind": "material",
+            "id": "matrigel"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "seeded_cells"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "annotations": {
+          "note": "Cells were seeded in Matrigel (amount not specified)."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "seeded_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cultured_cells"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Cells were cultured as shown in Fig. 2a (conditions not specified)."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cultured_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "bright_field_images"
+          }
+        ],
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "bright-field image"
+          ]
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

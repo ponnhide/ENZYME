@@ -1,0 +1,568 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Permeabilization",
+    "source": {
+      "type": "paper",
+      "id": "s41596-021-00603-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "triton_solution",
+        "name": "0.1% (vol/vol) Triton X-100/PBS"
+      },
+      {
+        "id": "csb",
+        "name": "CSB"
+      },
+      {
+        "id": "methanol_solution",
+        "name": "ice-cold 50% (vol/vol) methanol/PBS"
+      },
+      {
+        "id": "ice",
+        "name": "ice"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube1",
+        "type": "microcentrifuge tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "rocker1",
+        "type": "rocker"
+      },
+      {
+        "id": "centrifuge1",
+        "type": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cells_initial",
+        "description": "starting cell suspension"
+      },
+      {
+        "id": "cells_triton",
+        "description": "cells after addition of Triton solution"
+      },
+      {
+        "id": "cells_vortexed",
+        "description": "cells after gentle vortex"
+      },
+      {
+        "id": "cells_incubated1",
+        "description": "cells incubated 30 min on rocker at room temperature"
+      },
+      {
+        "id": "cells_CSB1",
+        "description": "cells after first addition of CSB (2 ml)"
+      },
+      {
+        "id": "cells_pellet1",
+        "description": "cell pellet after first centrifugation"
+      },
+      {
+        "id": "cells_wash2",
+        "description": "cells after second addition of CSB (2 ml)"
+      },
+      {
+        "id": "cells_pellet2",
+        "description": "cell pellet after second centrifugation"
+      },
+      {
+        "id": "cells_ice1",
+        "description": "cells placed on ice for 1 min"
+      },
+      {
+        "id": "cells_methanol_resusp",
+        "description": "cells resuspended in 1 ml ice‑cold 50 % methanol/PBS"
+      },
+      {
+        "id": "cells_methanol_vortex",
+        "description": "cells after gentle vortex in methanol solution"
+      },
+      {
+        "id": "cells_methanol_incubated",
+        "description": "cells incubated 10 min on ice"
+      },
+      {
+        "id": "cells_CSB2",
+        "description": "cells after third addition of CSB (2 ml)"
+      },
+      {
+        "id": "cells_pellet3",
+        "description": "cell pellet after third centrifugation"
+      },
+      {
+        "id": "cells_final",
+        "description": "final cell suspension in 50 µl CSB"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_initial"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_triton"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          },
+          "material": "triton_solution"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_triton"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_vortexed"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "annotations": {
+          "note": "gently vortex"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_vortexed"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_incubated1"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 30,
+            "unit": "min"
+          },
+          "temperature": "room temperature",
+          "device_kind": "incubator"
+        },
+        "annotations": {
+          "note": "on a rocker"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_incubated1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_CSB1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 2,
+            "unit": "ml"
+          },
+          "material": "csb"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "centrifuge",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_CSB1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_pellet1"
+          }
+        ],
+        "params": {
+          "speed": {
+            "value": 800,
+            "unit": "g"
+          },
+          "duration": {
+            "value": 5,
+            "unit": "min"
+          },
+          "temperature": "room temperature",
+          "device_kind": "centrifuge"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "discard the supernatant"
+        }
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_pellet1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_wash2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 2,
+            "unit": "ml"
+          },
+          "material": "csb"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s8",
+        "op": "centrifuge",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_wash2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_pellet2"
+          }
+        ],
+        "params": {
+          "speed": {
+            "value": 800,
+            "unit": "g"
+          },
+          "duration": {
+            "value": 5,
+            "unit": "min"
+          },
+          "temperature": "room temperature",
+          "device_kind": "centrifuge"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "discard the supernatant"
+        }
+      },
+      {
+        "id": "s10",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_pellet2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_ice1"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 1,
+            "unit": "min"
+          },
+          "temperature": "0°C",
+          "device_kind": "incubator"
+        },
+        "annotations": {
+          "note": "on ice"
+        }
+      },
+      {
+        "id": "s11",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_ice1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_methanol_resusp"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          },
+          "material": "methanol_solution"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s12",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_methanol_resusp"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_methanol_vortex"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "annotations": {
+          "note": "gently vortex"
+        }
+      },
+      {
+        "id": "s13",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_methanol_vortex"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_methanol_incubated"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 10,
+            "unit": "min"
+          },
+          "temperature": "0°C",
+          "device_kind": "incubator"
+        },
+        "annotations": {
+          "note": "on ice"
+        }
+      },
+      {
+        "id": "s14",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_methanol_incubated"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_CSB2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 2,
+            "unit": "ml"
+          },
+          "material": "csb"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s15",
+        "op": "centrifuge",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_CSB2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_pellet3"
+          }
+        ],
+        "params": {
+          "speed": {
+            "value": 800,
+            "unit": "g"
+          },
+          "duration": {
+            "value": 5,
+            "unit": "min"
+          },
+          "temperature": "room temperature",
+          "device_kind": "centrifuge"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s16",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "discard the supernatant"
+        }
+      },
+      {
+        "id": "s17",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_pellet3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_final"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 50,
+            "unit": "µl"
+          },
+          "material": "csb"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      },
+      {
+        "from": "s16",
+        "to": "s17"
+      }
+    ],
+    "detail_level": 0
+  }
+}

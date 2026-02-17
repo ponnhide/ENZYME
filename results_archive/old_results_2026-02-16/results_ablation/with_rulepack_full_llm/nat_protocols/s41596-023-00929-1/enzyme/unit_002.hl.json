@@ -1,0 +1,429 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Percoll density gradient centrifugation",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00929-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "hbss_solution",
+        "name": "HBSS/BSA/glucose",
+        "type": "solution"
+      },
+      {
+        "id": "dnase_solution",
+        "name": "DNase (10 mg/mL)",
+        "type": "solution"
+      },
+      {
+        "id": "percoll_solution",
+        "name": "22% Percoll",
+        "type": "solution"
+      }
+    ],
+    "containers": [
+      {
+        "id": "sample_tube",
+        "type": "tube",
+        "description": "sample digestion tube"
+      },
+      {
+        "id": "perc_tube",
+        "type": "conical_tube",
+        "capacity": "15 mL",
+        "description": "Percoll filtration tube"
+      },
+      {
+        "id": "combined_tube",
+        "type": "tube",
+        "description": "tube containing combined Percoll fractions"
+      },
+      {
+        "id": "waste_container",
+        "type": "container",
+        "description": "waste container"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge",
+        "type": "centrifuge",
+        "device_kind": "centrifuge"
+      }
+    ],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "sample_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "waste_container"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "action": "Discard supernatant by pouring out the liquid into a waste container."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "hbss_solution"
+          },
+          {
+            "kind": "container",
+            "id": "sample_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "sample_tube"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "mL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "dnase_solution"
+          },
+          {
+            "kind": "container",
+            "id": "sample_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "sample_tube"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 50,
+            "unit": "µL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "sample_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "sample_tube"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently",
+          "repetitions": 50,
+          "note": "Using a micropipette, taking care not to introduce bubbles."
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "perc_tube"
+          }
+        ],
+        "params": {
+          "quantity": 2,
+          "description": "Two additional 15 mL conical tubes per sample tube."
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "percoll_solution"
+          },
+          {
+            "kind": "container",
+            "id": "perc_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "perc_tube"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 4,
+            "unit": "mL"
+          }
+        },
+        "annotations": {
+          "note": "Dispense 4 mL of 22 % Percoll into each new conical tube."
+        }
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "sample_tube"
+          },
+          {
+            "kind": "container",
+            "id": "perc_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "perc_tube"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 0.75,
+            "unit": "mL"
+          }
+        },
+        "annotations": {
+          "note": "Carefully dispense cell suspension (~750 µL per tube) into the Percoll tubes."
+        }
+      },
+      {
+        "id": "s8",
+        "op": "centrifuge",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "perc_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "perc_tube"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge",
+          "program": {
+            "time": {
+              "value": 10,
+              "unit": "min"
+            },
+            "speed": {
+              "value": 500,
+              "unit": "g"
+            },
+            "temperature": {
+              "value": 4,
+              "unit": "°C"
+            },
+            "brake": false
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "perc_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "waste_container"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "action": "Discard supernatant after centrifugation."
+        }
+      },
+      {
+        "id": "s10",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "combined_tube"
+          }
+        ],
+        "params": {
+          "description": "Tube to hold combined Percoll fractions."
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s11",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "perc_tube"
+          },
+          {
+            "kind": "material",
+            "id": "hbss_solution"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "combined_tube"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend",
+          "note": "Reunite contents of all Percoll tubes into one tube by resuspending the cell pellet in the remaining HBSS/BSA/glucose."
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s12",
+        "op": "centrifuge",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "combined_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "combined_tube"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge",
+          "program": {
+            "time": {
+              "value": 5,
+              "unit": "min"
+            },
+            "speed": {
+              "value": 300,
+              "unit": "g"
+            },
+            "temperature": {
+              "value": 4,
+              "unit": "°C"
+            }
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s13",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Do not discard the remaining tubes; they can be used for unstained and DAPI controls."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      }
+    ],
+    "detail_level": 0
+  }
+}

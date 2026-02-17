@@ -1,0 +1,236 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Silk‑scaffold preparation and hPSC integration",
+    "source": {
+      "type": "paper",
+      "id": "s41467-021-27464-5"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Biosilk protein solution",
+        "vendor": "BioLamina",
+        "catalog_number": "BS-0101"
+      },
+      {
+        "id": "m2",
+        "name": "Recombinant human laminin‑111",
+        "vendor": "BioLamina",
+        "catalog_number": "LN111"
+      },
+      {
+        "id": "m3",
+        "name": "Y‑27632 dihydrochloride",
+        "vendor": null,
+        "catalog_number": null
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "24-well plate (hydrophobic culture wells)",
+        "vendor": "Sarstedt",
+        "catalog_number": "833922500"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s1",
+        "type": "droplet",
+        "description": "20 µL Biosilk protein solution placed in a well"
+      },
+      {
+        "id": "s2",
+        "type": "mixture",
+        "description": "Biosilk + laminin‑111 mixture"
+      },
+      {
+        "id": "s3",
+        "type": "mixture",
+        "description": "Biosilk + laminin‑111 + Y‑27632 mixture"
+      },
+      {
+        "id": "s4",
+        "type": "foam",
+        "description": "Foamed silk scaffold after pipetting up and down"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 20,
+            "unit": "µL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Add laminin‑111 to achieve final concentration 10 μg/ml."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 10,
+            "unit": "min"
+          },
+          "temperature": "RT"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m3"
+          },
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Add Y‑27632 to achieve final concentration 10 µM."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s4"
+          }
+        ],
+        "params": {
+          "action_kind": "mix",
+          "strokes": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s4"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Multiple foams are generated in series with uniform shape and size (Supplementary Fig. 7b)."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

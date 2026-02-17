@@ -1,0 +1,195 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Process organoid pellet and calculate splitting ratio",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00562-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "CRS",
+        "name": "CRS"
+      },
+      {
+        "id": "Matrigel",
+        "name": "Matrigel"
+      },
+      {
+        "id": "Matrigel_stock",
+        "name": "Matrigel stock solution"
+      }
+    ],
+    "containers": [
+      {
+        "id": "conical_tube",
+        "type": "tube"
+      },
+      {
+        "id": "glass_dish",
+        "type": "dish"
+      },
+      {
+        "id": "waste_container",
+        "type": "tube"
+      },
+      {
+        "id": "pipette_tip_1000ul",
+        "type": "pipette_tip"
+      },
+      {
+        "id": "Matrigel_stock",
+        "type": "tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "vacuum",
+        "type": "vacuum"
+      },
+      {
+        "id": "pasteur_pipette",
+        "type": "pipette"
+      },
+      {
+        "id": "pipette_1000ul",
+        "type": "pipette"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoid_pellet",
+        "type": "sample"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source": {
+            "material": "CRS",
+            "container": "conical_tube"
+          },
+          "destination": {
+            "container": "waste_container"
+          },
+          "method": "vacuum",
+          "tool": "pasteur_pipette",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "params": {
+          "note": "Place the conical tube into the glass dish containing ice."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "params": {
+          "note": "Calculate the volume of Matrigel needed for the desired splitting ratio (e.g., 1.2 ml for a 24‑well plate, 50 µl per well)."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "sample": "organoid_pellet",
+          "container": "conical_tube",
+          "material": "Matrigel",
+          "max_volume_ml": 1,
+          "added_volume_ul": "variable (e.g., 900 µl if needed)"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "note": "Bend a 1,000 µl pipette tip by pressing it against the inside of the conical tube cap."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": {
+            "material": "Matrigel",
+            "container": "Matrigel_stock"
+          },
+          "destination": {
+            "container": "conical_tube"
+          },
+          "tool": "pipette_1000ul",
+          "amount": {
+            "value": "calculated",
+            "unit": "µl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "container": "conical_tube",
+          "tool": "pipette_1000ul"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

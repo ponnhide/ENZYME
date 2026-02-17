@@ -1,0 +1,148 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "CRISPR-mediated LGR5 reporter knock-in",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-024-55567-2.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "electroporator",
+        "name": "NEPA21",
+        "manufacturer": "Nepa Gene"
+      }
+    ],
+    "samples": [
+      {
+        "id": "electroporation_mixture",
+        "name": "electroporation_mixture"
+      },
+      {
+        "id": "human_intestinal_organoids",
+        "name": "human_intestinal_organoids"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source": "sgRNA_plasmid",
+          "destination": "electroporation_mixture",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "annotations": [
+          {
+            "key": "source",
+            "value": "LGR5 sgRNA plasmids (Supplementary Table 1)"
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "HDR_template",
+          "destination": "electroporation_mixture",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "annotations": [
+          {
+            "key": "source",
+            "value": "HDR template (Supplementary Table 2)"
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "electroporation_mixture"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "electroporation_mixture",
+          "destination": "human_intestinal_organoids",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "annotations": [
+          {
+            "key": "target",
+            "value": "human intestinal organoids"
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "device_ref": "e1",
+          "program": "published_methods"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "human_intestinal_organoids"
+          }
+        ],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

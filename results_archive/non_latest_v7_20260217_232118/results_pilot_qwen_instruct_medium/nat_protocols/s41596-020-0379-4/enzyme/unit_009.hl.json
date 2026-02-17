@@ -1,0 +1,239 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Organoid Splitting Using TrypLE",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-0379-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s1-output",
+        "name": "s1-output"
+      },
+      {
+        "id": "s2-output",
+        "name": "s2-output"
+      },
+      {
+        "id": "s3-output",
+        "name": "s3-output"
+      },
+      {
+        "id": "s4-output",
+        "name": "s4-output"
+      },
+      {
+        "id": "s5-output",
+        "name": "s5-output"
+      },
+      {
+        "id": "s6-output",
+        "name": "s6-output"
+      },
+      {
+        "id": "s7-output",
+        "name": "s7-output"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1-output"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 10,
+            "unit": "ml"
+          }
+        },
+        "annotations": {
+          "source": "top the volume up with 10 ml of ice-cold adDMEM/F12+++ medium"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1-output"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2-output"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "speed": 200,
+            "unit": "g",
+            "duration": "5 min",
+            "temperature": "4 °C"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2-output"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3-output"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: aspirate"
+        },
+        "annotations": {
+          "source": "aspirate the supernatant"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s3-output"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s4-output"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "source": "split organoids using either TrypLE (for head and neck and compact breast, colon, pancreatic and liver organoids) or mechanical disruption (ovarian and cystic breast, colon, pancreatic and liver organoids)"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s4-output"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s5-output"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          }
+        },
+        "annotations": {
+          "source": "resuspend the pellet in 1 ml of TrypLE"
+        }
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s5-output"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s6-output"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "source": "pipette up and down"
+        }
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s6-output"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s7-output"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": "37 °C"
+          }
+        },
+        "annotations": {
+          "source": "incubate at 37 °C until organoids fall apart"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,226 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Tissue sample transfer and documentation",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-020-00474-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "mat1",
+        "name": "D-BSA"
+      }
+    ],
+    "containers": [
+      {
+        "id": "cont1",
+        "type": "falcon_tube_50ml",
+        "name": "50-ml Falcon tube"
+      },
+      {
+        "id": "cont2",
+        "type": "petri_dish_10cm_glass",
+        "name": "10-cm glass Petri dish"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "eq1",
+        "type": "microscope"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample1",
+        "description": "tissue sample (<3–4 cm3)"
+      }
+    ],
+    "data": [
+      {
+        "id": "data1",
+        "type": "image",
+        "description": "microscopic picture of tissue"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "cont1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "cont2"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "mat1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "sample1",
+          "destination": "cont1",
+          "reagent": "mat1",
+          "note": "Transfer tissue sample into 50-ml Falcon tube filled with D-BSA",
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Keep tissues on ice until starting the isolation"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "note": "Register the new sample in the corresponding lab management system"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "note": "(Optional) Generate labels for collecting pieces of tissue for different purposes (DNA, RNA, protein and/or histology)"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "params": {
+          "source": "cont1",
+          "destination": "cont2",
+          "note": "Decant tissue from Falcon tube to 10-cm glass Petri dish",
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "observe",
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "image"
+          ],
+          "note": "Take a microscopic picture of the tissue, including a ruler"
+        },
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "data1"
+          }
+        ],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,283 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Nephron organoid formation – aggregation",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01236-7.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "kind": "material",
+        "id": "medium_hNPSR_v2",
+        "name": "hNPSR‑v2 medium"
+      },
+      {
+        "kind": "material",
+        "id": "plate_96U",
+        "name": "96‑well U‑bottom low‑attachment plate"
+      },
+      {
+        "kind": "material",
+        "id": "transwell_membrane",
+        "name": "Transwell membrane"
+      }
+    ],
+    "equipment": [
+      {
+        "kind": "equipment",
+        "id": "cell_counter_TC20",
+        "name": "TC20 automated cell counter"
+      },
+      {
+        "kind": "equipment",
+        "id": "centrifuge",
+        "name": "centrifuge"
+      },
+      {
+        "kind": "equipment",
+        "id": "incubator",
+        "name": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "kind": "sample",
+        "id": "single_cells",
+        "name": "single iNPC cells after dissociation"
+      },
+      {
+        "kind": "sample",
+        "id": "cell_pellet",
+        "name": "cell pellet after centrifugation"
+      },
+      {
+        "kind": "sample",
+        "id": "resuspended_cells",
+        "name": "resuspended iNPC cells in hNPSR‑v2 medium"
+      },
+      {
+        "kind": "sample",
+        "id": "seeded_plate",
+        "name": "96‑well plate containing seeded iNPCs"
+      },
+      {
+        "kind": "sample",
+        "id": "aggregates",
+        "name": "iNPC aggregates after overnight incubation"
+      },
+      {
+        "kind": "sample",
+        "id": "transwell_culture",
+        "name": "iNPC aggregates on Transwell membrane (air–liquid interface)"
+      }
+    ],
+    "data": [
+      {
+        "kind": "data",
+        "id": "cell_count_data",
+        "name": "cell count from TC20"
+      }
+    ],
+    "containers": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "single_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "cell_count_data"
+          }
+        ],
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "cell count"
+          ]
+        },
+        "annotations": {
+          "device_kind": "cell_counter"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "single_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_pellet"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "300 g for 5 min"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_pellet"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "resuspended_cells"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "annotations": {
+          "note": "Resuspend pellet with volume of hNPSR‑v2 medium such that each 100 µl contains 25,000–30,000 iNPCs"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "resuspended_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "seeded_plate"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 25000,
+            "unit": "cells"
+          }
+        },
+        "annotations": {
+          "approximate_range": "25000-30000 cells",
+          "volume": "100 µl",
+          "destination": "one well of 96‑well U‑bottom low‑attachment plate"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "seeded_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "seeded_plate"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "300 g for 5 min"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "seeded_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "aggregates"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "overnight"
+        },
+        "annotations": {
+          "note": "Allow cells to aggregate overnight"
+        }
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "aggregates"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "transwell_culture"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 25000,
+            "unit": "cells"
+          }
+        },
+        "annotations": {
+          "destination": "membrane of a Transwell for air–liquid interface culture"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

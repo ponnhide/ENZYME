@@ -1,0 +1,168 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Barcode quenching and wash",
+    "source": {
+      "type": "paper",
+      "id": "s41596-021-00603-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "2 mM glutathione/ CSB"
+      },
+      {
+        "id": "m2",
+        "name": "Barcoding solution"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "cell tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "rocker"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp_cells",
+        "name": "cells",
+        "container_ref": "c1"
+      },
+      {
+        "id": "samp_wash",
+        "name": "wash solution",
+        "material_ref": "m1"
+      },
+      {
+        "id": "samp_barcode",
+        "name": "barcoding solution",
+        "material_ref": "m2"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_barcode"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Remove the barcoding solutions by pipetting"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_wash"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_cells"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 200,
+            "unit": "µl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_cells"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Incubate on rocker for 10 min at room temperature"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_wash"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_cells"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 200,
+            "unit": "µl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_cells"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Incubate on rocker for 10 min at room temperature (second wash)"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

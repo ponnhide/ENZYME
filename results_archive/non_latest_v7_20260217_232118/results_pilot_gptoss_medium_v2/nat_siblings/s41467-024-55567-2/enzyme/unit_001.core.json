@@ -1,0 +1,275 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41467-024-55567-2",
+      "type": "paper"
+    },
+    "title": "Crypt isolation and initial organoid culture"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {
+          "note": "Tissues were washed with DPBS to remove debris."
+        },
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "tissue_sample",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "washed_tissue",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "rinse"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Tissues were treated with 2.5 mM EDTA at 4 °C for 40 min to release crypts."
+        },
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "washed_tissue",
+            "kind": "sample"
+          },
+          {
+            "id": "edta_solution",
+            "kind": "material"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "edta_treated_tissue",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "4 °C for 40 minutes"
+        }
+      },
+      {
+        "annotations": {
+          "action": "Collect supernatant containing crypts."
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "edta_treated_tissue",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "crypts_supernatant",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "Embedded in Cultrex RGF BME droplets in 48‑well plates (~50 crypts/well)."
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "crypts_supernatant",
+            "kind": "sample"
+          },
+          {
+            "id": "cultrex_bme",
+            "kind": "material"
+          },
+          {
+            "id": "well_plate",
+            "kind": "container"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "droplets",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "crypts",
+            "value": 50
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "After solidification, droplets were overlaid with culture medium containing 10 μM Y‑27632."
+        },
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "droplets",
+            "kind": "sample"
+          },
+          {
+            "id": "culture_medium",
+            "kind": "material"
+          },
+          {
+            "id": "y27632",
+            "kind": "material"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "cultured_organoid",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "action": "Medium was changed every 3 days."
+        },
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "cultured_organoid",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "tissue_sample",
+        "type": "tissue"
+      },
+      {
+        "id": "washed_tissue",
+        "type": "tissue"
+      },
+      {
+        "id": "edta_treated_tissue",
+        "type": "tissue"
+      },
+      {
+        "id": "crypts_supernatant",
+        "type": "supernatant"
+      },
+      {
+        "id": "well_plate",
+        "type": "48-well plate"
+      },
+      {
+        "id": "droplets",
+        "type": "droplet"
+      },
+      {
+        "id": "cultured_organoid",
+        "type": "organoid culture"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "device_kind": "incubator",
+        "id": "fridge_incubator"
+      }
+    ],
+    "materials": [
+      {
+        "id": "dpbs",
+        "name": "DPBS"
+      },
+      {
+        "concentration": "2.5 mM",
+        "id": "edta_solution",
+        "name": "EDTA"
+      },
+      {
+        "id": "cultrex_bme",
+        "name": "Cultrex RGF BME",
+        "vendor": "R&D Systems"
+      },
+      {
+        "id": "culture_medium",
+        "name": "culture medium"
+      },
+      {
+        "concentration": "10 μM",
+        "id": "y27632",
+        "name": "Y-27632",
+        "vendor": "TargetMol"
+      }
+    ],
+    "samples": [
+      {
+        "id": "tissue_sample",
+        "name": "tissue_sample"
+      },
+      {
+        "id": "washed_tissue",
+        "name": "washed_tissue"
+      },
+      {
+        "id": "edta_treated_tissue",
+        "name": "edta_treated_tissue"
+      },
+      {
+        "id": "crypts_supernatant",
+        "name": "crypts_supernatant"
+      },
+      {
+        "id": "droplets",
+        "name": "droplets"
+      },
+      {
+        "id": "cultured_organoid",
+        "name": "cultured_organoid"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

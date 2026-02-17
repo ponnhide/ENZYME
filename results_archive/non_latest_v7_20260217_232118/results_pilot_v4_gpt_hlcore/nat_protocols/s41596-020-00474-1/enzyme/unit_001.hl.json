@@ -1,0 +1,148 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Tissue preparation",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-00474-1"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "d_bsa",
+        "name": "D-BSA",
+        "type": "reagent"
+      },
+      {
+        "id": "tissue_sample",
+        "name": "tissue sample",
+        "type": "biological_sample"
+      }
+    ],
+    "containers": [
+      {
+        "id": "falcon_50ml_1",
+        "name": "50-ml Falcon tube",
+        "type": "tube"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "tissue_raw_1",
+        "type": "tissue",
+        "source_material": "tissue_sample"
+      },
+      {
+        "id": "tissue_in_falcon_1",
+        "type": "tissue",
+        "container": "falcon_50ml_1"
+      }
+    ],
+    "data": [
+      {
+        "id": "sample_registration_1",
+        "type": "registration_record"
+      },
+      {
+        "id": "labels_1",
+        "type": "label_set"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tissue_raw_1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tissue_in_falcon_1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "<3-4",
+            "unit": "cm3"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s1a",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tissue_in_falcon_1"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Tissue sample volume <3–4 cm3, kept on ice until isolation."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tissue_in_falcon_1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "sample_registration_1"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "action": "Register the new sample in the corresponding lab management system."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "labels_1"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "(Optional) Generate labels for collecting pieces of tissue for different purposes (DNA, RNA, protein and/or histology)."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s1a"
+      },
+      {
+        "from": "s1a",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

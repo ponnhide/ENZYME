@@ -1,0 +1,167 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Immunostain organoids for forebrain and eye markers",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00814-x"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "ab_foxg1",
+        "name": "labeled FOXG1 antibody"
+      },
+      {
+        "id": "ab_pax6",
+        "name": "labeled PAX6 antibody"
+      },
+      {
+        "id": "ab_sox2",
+        "name": "labeled SOX2 antibody"
+      },
+      {
+        "id": "ab_rax",
+        "name": "labeled RAX antibody"
+      },
+      {
+        "id": "ab_vsx2",
+        "name": "labeled VSX2 antibody"
+      },
+      {
+        "id": "cholera_toxin_fluor",
+        "name": "fluorescently tagged Cholera toxin"
+      },
+      {
+        "id": "clearing_reagent",
+        "name": "tissue clearing reagent"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "microscope1",
+        "name": "fluorescence microscope"
+      },
+      {
+        "id": "injection_needle",
+        "name": "microinjection needle"
+      }
+    ],
+    "samples": [
+      {
+        "id": "org1",
+        "name": "organoid sample"
+      },
+      {
+        "id": "org1_stained",
+        "name": "immunostained organoid"
+      }
+    ],
+    "data": [
+      {
+        "id": "image_forebrain_eye",
+        "name": "image of forebrain and eye markers"
+      },
+      {
+        "id": "image_tracing",
+        "name": "image of cholera toxin tracing experiment"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "org1"
+          },
+          {
+            "kind": "material",
+            "id": "ab_foxg1"
+          },
+          {
+            "kind": "material",
+            "id": "ab_pax6"
+          },
+          {
+            "kind": "material",
+            "id": "ab_sox2"
+          },
+          {
+            "kind": "material",
+            "id": "ab_rax"
+          },
+          {
+            "kind": "material",
+            "id": "ab_vsx2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "org1_stained"
+          }
+        ],
+        "params": {
+          "action_kind": "label"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "org1_stained"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "image_forebrain_eye"
+          }
+        ],
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "FOXG1",
+            "PAX6",
+            "SOX2",
+            "RAX",
+            "VSX2"
+          ]
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "(Optional) Conduct a tracing experiment by injecting fluorescently tagged Cholera toxin followed by tissue clearing and imaging as described previously."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,161 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Medium change for organoid culture",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00562-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "PREempt disinfectant solution"
+      },
+      {
+        "id": "m2",
+        "name": "70% ethanol"
+      },
+      {
+        "id": "m3",
+        "name": "organoid growth medium",
+        "properties": {
+          "volume_per_plate": "15 ml",
+          "stability_note": "small molecules and proteins can become unstable if stored long-term"
+        }
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "multiwell_plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "biosafety_cabinet"
+      },
+      {
+        "id": "e2",
+        "type": "vacuum_aspirator"
+      },
+      {
+        "id": "e3",
+        "type": "Pasteur_pipette"
+      }
+    ],
+    "samples": [
+      {
+        "id": "e1",
+        "name": "e1"
+      },
+      {
+        "id": "s1",
+        "name": "s1"
+      },
+      {
+        "id": "c1",
+        "name": "c1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "rinse"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "e1"
+          }
+        ],
+        "resources_used": [
+          "m1",
+          "m2"
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "resources_used": [
+          "m3"
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "m3",
+          "destination": "c1",
+          "amount": {
+            "value": 600.0,
+            "unit": "µl"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "resources_used": [
+          "e2",
+          "e3"
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "resources_used": [
+          "e3"
+        ],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

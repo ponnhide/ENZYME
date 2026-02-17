@@ -1,0 +1,338 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Protocol",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01197-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "matrigel",
+        "name": "Matrigel"
+      },
+      {
+        "id": "bdnf",
+        "name": "brain-derived neurotrophic factor (BDNF)"
+      },
+      {
+        "id": "nt3",
+        "name": "neurotrophin-3 (NT3)"
+      },
+      {
+        "id": "gdnf",
+        "name": "glial-derived neurotrophic factor (GDNF)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate_96well",
+        "type": "96-well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator_1",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoid_initial",
+        "name": "SNR-derived organoid (pre‑embedding)"
+      },
+      {
+        "id": "organoid_embedded",
+        "name": "Organoid embedded in Matrigel droplet"
+      },
+      {
+        "id": "organoid_cultured",
+        "name": "Organoid cultured in Matrigel"
+      },
+      {
+        "id": "organoid_treated",
+        "name": "Organoid after BDNF/NT3/GDNF treatment"
+      },
+      {
+        "id": "matrigel",
+        "name": "matrigel"
+      },
+      {
+        "id": "size_measurements",
+        "name": "size_measurements"
+      },
+      {
+        "id": "microscopy_images",
+        "name": "microscopy_images"
+      },
+      {
+        "id": "bdnf",
+        "name": "bdnf"
+      },
+      {
+        "id": "nt3",
+        "name": "nt3"
+      },
+      {
+        "id": "gdnf",
+        "name": "gdnf"
+      }
+    ],
+    "data": [
+      {
+        "id": "size_measurements",
+        "name": "Organoid size measurements over time"
+      },
+      {
+        "id": "microscopy_images",
+        "name": "Microscopy images of organoids"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_initial"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "matrigel"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_initial"
+          },
+          {
+            "kind": "sample",
+            "id": "matrigel"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_embedded"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator_1",
+          "program": {
+            "program_name": "culture_4months"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_embedded"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_cultured"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "size_growth"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_cultured"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "size_measurements"
+          },
+          {
+            "kind": "sample",
+            "id": "microscopy_images"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "bdnf"
+          },
+          {
+            "kind": "sample",
+            "id": "nt3"
+          },
+          {
+            "kind": "sample",
+            "id": "gdnf"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_cultured"
+          },
+          {
+            "kind": "sample",
+            "id": "bdnf"
+          },
+          {
+            "kind": "sample",
+            "id": "nt3"
+          },
+          {
+            "kind": "sample",
+            "id": "gdnf"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_treated"
+          }
+        ]
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator_1",
+          "program": {
+            "program_name": "post_treatment_culture"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_treated"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_treated"
+          }
+        ]
+      },
+      {
+        "id": "s9",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "morphology",
+            "size"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_treated"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "size_measurements"
+          },
+          {
+            "kind": "sample",
+            "id": "microscopy_images"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

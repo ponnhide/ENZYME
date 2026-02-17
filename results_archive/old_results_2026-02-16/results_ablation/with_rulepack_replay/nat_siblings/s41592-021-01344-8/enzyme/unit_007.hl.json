@@ -1,0 +1,129 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Prepare tissue sections for spatial transcriptomics",
+    "source": {
+      "type": "paper",
+      "id": "s41592-021-01344-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "mat_tissue_section",
+        "name": "tissue section"
+      },
+      {
+        "id": "mat_slide",
+        "name": "slide with 6.5 × 6.5‑mm capture areas"
+      }
+    ],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "sample_tissue_section",
+        "material_id": "mat_tissue_section"
+      },
+      {
+        "id": "sample_slide",
+        "material_id": "mat_slide"
+      },
+      {
+        "id": "sample_adhered_section",
+        "derived_from": [
+          "sample_tissue_section",
+          "sample_slide"
+        ]
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_tissue_section"
+          },
+          {
+            "kind": "sample",
+            "id": "sample_slide"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_adhered_section"
+          }
+        ],
+        "params": {
+          "action_kind": "annotate"
+        },
+        "annotations": {
+          "note": "Tissue sections were adhered to a slide with 6.5 × 6.5‑mm capture areas."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_adhered_section"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_adhered_section"
+          }
+        ],
+        "params": {
+          "action_kind": "annotate"
+        },
+        "annotations": {
+          "note": "The adhered tissue sections were permeabilized."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_adhered_section"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_adhered_section"
+          }
+        ],
+        "params": {
+          "action_kind": "annotate"
+        },
+        "annotations": {
+          "note": "mRNA was captured from the permeabilized tissue sections for spatial transcriptomics."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

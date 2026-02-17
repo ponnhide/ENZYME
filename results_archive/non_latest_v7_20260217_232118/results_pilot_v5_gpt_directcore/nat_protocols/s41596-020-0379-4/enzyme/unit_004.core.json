@@ -1,0 +1,185 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Plating organoids in BME droplets",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-020-0379-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "BME (basement membrane extract)"
+      },
+      {
+        "id": "m2",
+        "name": "Organoid medium"
+      },
+      {
+        "id": "m3",
+        "name": "ROCK inhibitor"
+      },
+      {
+        "id": "m4",
+        "name": "Primocin"
+      },
+      {
+        "id": "m5",
+        "name": "Caspofungin"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "24-well plate",
+        "name": "suspension cell culture plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator",
+        "name": "humidified incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_bme_organoid",
+        "type": "sample",
+        "description": "BME organoid droplet sample"
+      },
+      {
+        "id": "sample_organoid_medium",
+        "type": "sample",
+        "description": "Organoid medium sample"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "material_ref": "m1"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source_sample_ref": "sample_bme_organoid",
+          "dest_container_ref": "c1",
+          "amount": {
+            "value": 10,
+            "unit": "µl"
+          },
+          "drops_per_well": "3-4"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "solidify_BME"
+          },
+          "temperature": "37 °C",
+          "CO2": "5%",
+          "duration": "20-30 min"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "material_ref": "m2"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "sample_ref": "sample_organoid_medium",
+          "additives": [
+            "m3",
+            "m4"
+          ],
+          "optional_additives": [
+            "m5"
+          ]
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source_sample_ref": "sample_organoid_medium",
+          "dest_container_ref": "c1",
+          "amount": {
+            "value": 500,
+            "unit": "µl"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "note": "Flip the plate before adding medium"
+        },
+        "outputs": [],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

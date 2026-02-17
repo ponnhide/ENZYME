@@ -1,0 +1,138 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Cell hashing for multiplexed scRNA‑seq",
+    "source": {
+      "type": "paper",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Cell hashing antibody (TotalSeqA)",
+        "vendor": "BioLegend"
+      },
+      {
+        "id": "m2",
+        "name": "Organoid wash buffer (0.1% Triton X‑100, 0.2% BSA)",
+        "vendor": "Miltenyi"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "Microcentrifuge tube",
+        "type": "tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "Ice",
+        "type": "cold block"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_cells",
+        "name": "Cells",
+        "description": "Cells to be hashed"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "sample",
+            "id": "s_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "µL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 20,
+            "unit": "min"
+          },
+          "temperature": "on ice"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Cells were washed three times with organoid wash buffer (0.1% Triton X‑100, 0.2% BSA) on ice."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

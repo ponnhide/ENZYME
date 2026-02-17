@@ -1,0 +1,22 @@
+# ENZYME Report
+
+**Total Score: 54/100**
+(Total: 0.542)
+
+**Schema version:** 0.4
+**IR kind:** core
+**Validation:** FAIL
+
+## Scores
+- **S_ambiguity**: 1.0
+- **S_exec_env**: 0.5
+- **S_ident**: 0.25
+- **S_param**: 1.0
+- **S_structural**: 0.0
+- **S_vocab**: 0.5
+
+## Issues
+- `SCHEMA_INVALID` (error): 'type' is a required property at /resources/equipment/0
+- `SCHEMA_INVALID` (error): 'allocate_kind' is a required property at /protocol/steps/0/params
+- `UNKNOWN_OBSERVATION_FEATURE` (warn): Unknown registry value: Annexin V fluorescence at /protocol/steps/s5/params/features/Annexin V fluorescence
+- `UNKNOWN_OBSERVATION_FEATURE` (warn): Unknown registry value: TUNEL fluorescence at /protocol/steps/s5/params/features/TUNEL fluorescence

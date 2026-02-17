@@ -1,0 +1,94 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Plate dissociated tumor cells for organoid culture",
+    "source": {
+      "type": "paper",
+      "id": "s41467-020-19142-9.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "dissociated_tumor_cells",
+        "name": "dissociated_tumor_cells"
+      },
+      {
+        "id": "plated_tumor_cells_in_bme",
+        "name": "plated_tumor_cells_in_bme"
+      },
+      {
+        "id": "cultured_organoids",
+        "name": "cultured_organoids"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "dissociated_tumor_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plated_tumor_cells_in_bme"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          },
+          "source_container": "unknown",
+          "target_container": "BME"
+        },
+        "annotations": {
+          "note": "Dissociated tumor cells were plated in BME"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "plated_tumor_cells_in_bme"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cultured_organoids"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": "37 °C",
+            "medium": "HICS minus Wnt conditioned medium supplemented with 10 µM LY27632"
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

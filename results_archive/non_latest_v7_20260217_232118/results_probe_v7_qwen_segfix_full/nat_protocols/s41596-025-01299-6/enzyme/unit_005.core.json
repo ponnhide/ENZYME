@@ -1,0 +1,248 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Assembly and maintenance of human forebrain assembloids (hFA)",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01299-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "NM",
+        "type": "culture_medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "24_well_low_attachment_plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "P1000_pipette"
+      },
+      {
+        "id": "e2",
+        "type": "P20_pipette"
+      },
+      {
+        "id": "e3",
+        "type": "incubator"
+      },
+      {
+        "id": "e4",
+        "type": "fluorescence_microscope"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_hCO",
+        "name": "day-61_hCO",
+        "type": "human_cortical_organoid"
+      },
+      {
+        "id": "s_hSO",
+        "name": "day-46_hSO",
+        "type": "human_striatal_organoid"
+      },
+      {
+        "id": "s_hFA",
+        "name": "human_forebrain_assembloid",
+        "type": "assembloid"
+      },
+      {
+        "id": "c1",
+        "name": "c1"
+      },
+      {
+        "id": "m1",
+        "name": "m1"
+      },
+      {
+        "id": "d1",
+        "name": "d1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "action_kind": "transfer",
+          "source": "s_hCO",
+          "destination": "c1",
+          "tool": "e1",
+          "amount": {
+            "value": 2.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_hCO"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "action_kind": "transfer",
+          "source": "s_hSO",
+          "destination": "c1",
+          "tool": "e1",
+          "amount": {
+            "value": 2.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_hSO"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "params": {
+          "text": "unmapped action_kind in source: position"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "37_C_5_percent_CO2_tilted"
+          },
+          "device_ref": "e3"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "action_kind": "replace_medium",
+          "container": "c1",
+          "medium": "m1",
+          "interval_days": 4,
+          "amount": {
+            "value": 2.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          },
+          {
+            "kind": "sample",
+            "id": "m1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "observe",
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "GFP+_cell_migration_to_hCO"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d1"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,127 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Single‑cell dissociation of organoids for scRNA‑seq",
+    "source": {
+      "type": "paper",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "material_neural_dissociation_kit",
+        "name": "Neural Dissociation‑P kit (Miltenyi)"
+      },
+      {
+        "id": "material_y27632",
+        "name": "Y‑27632"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "equipment_pipette",
+        "name": "Pipette"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_organoids_microwell",
+        "name": "Organoids (microwell plate)"
+      },
+      {
+        "id": "sample_organoids_deepwell",
+        "name": "Organoids (deep‑well 96‑well plate)"
+      },
+      {
+        "id": "sample_enzyme_mix1",
+        "name": "Enzyme mix 1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_organoids_microwell"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_organoids_deepwell"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "annotations": {
+          "note": "Organoids pipetted from microwell plates into a deep‑well 96‑well plate (Thermo Fisher) for dissociation."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "material_neural_dissociation_kit"
+          },
+          {
+            "kind": "material",
+            "id": "material_y27632"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_enzyme_mix1"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "note": "Enzyme mix 1 prepared according to manufacturer protocols with the addition of Y‑27632 for a final volume containing human recombinant proteins."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_organoids_deepwell"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Organoids collected for scRNA‑seq on day 8 post‑seeding."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

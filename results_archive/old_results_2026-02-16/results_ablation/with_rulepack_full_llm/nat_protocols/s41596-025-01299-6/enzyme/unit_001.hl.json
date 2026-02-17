@@ -1,0 +1,408 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Section 1, hiPS cell transduction and gene perturbation (Day 0)",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01299-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "vitronectin",
+        "name": "Vitronectin solution"
+      },
+      {
+        "id": "DPBS",
+        "name": "DPBS"
+      },
+      {
+        "id": "Accutase",
+        "name": "Accutase"
+      },
+      {
+        "id": "E8_medium",
+        "name": "E8 medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "six_well_plate",
+        "type": "six-well plate"
+      },
+      {
+        "id": "conical_tube_15ml",
+        "type": "15‑ml conical tube"
+      },
+      {
+        "id": "waste_container",
+        "type": "waste container"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator_RT",
+        "device_kind": "incubator",
+        "name": "Room temperature incubator"
+      },
+      {
+        "id": "incubator_37C",
+        "device_kind": "incubator",
+        "name": "37 °C 5 % CO₂ incubator"
+      },
+      {
+        "id": "centrifuge",
+        "device_kind": "centrifuge",
+        "name": "Centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "well_sample",
+        "source": "six_well_plate"
+      },
+      {
+        "id": "tube_sample",
+        "source": "conical_tube_15ml"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Prepare diluted vitronectin solution (1:100 dilution with DPBS)."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "vitronectin"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "well_sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          },
+          "destination": "six_well_plate"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "well_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "well_sample"
+          }
+        ],
+        "params": {
+          "temperature": "room temperature",
+          "duration": {
+            "value": 1,
+            "unit": "h"
+          },
+          "device_kind": "incubator",
+          "device_ref": "incubator_RT"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "well_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "well_sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          },
+          "destination": "waste_container"
+        },
+        "annotations": {
+          "note": "Aspirate vitronectin just before adding cell suspension."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Aspirate culture medium from hiPS cells (all)."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "DPBS"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "well_sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          },
+          "destination": "six_well_plate"
+        },
+        "annotations": {
+          "note": "Rinse with 1 ml DPBS."
+        }
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "Accutase"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "well_sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          },
+          "destination": "six_well_plate"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s8",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "well_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "well_sample"
+          }
+        ],
+        "params": {
+          "temperature": "37 °C",
+          "duration": {
+            "value": 7,
+            "unit": "min"
+          },
+          "co2": "5 %",
+          "device_kind": "incubator",
+          "device_ref": "incubator_37C"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s9",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "well_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "well_sample"
+          }
+        ],
+        "params": {
+          "action_kind": "dislodge_cells",
+          "method": "gentle shaking"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s10",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "E8_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "well_sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          },
+          "destination": "six_well_plate"
+        },
+        "annotations": {
+          "note": "Add pre‑warmed E8 medium."
+        }
+      },
+      {
+        "id": "s11",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Transfer all of the well contents to a 15‑ml conical tube."
+        }
+      },
+      {
+        "id": "s12",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tube_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tube_sample"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently",
+          "method": "pipette a few times with a serological pipette"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s13",
+        "op": "centrifuge",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tube_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tube_sample"
+          }
+        ],
+        "params": {
+          "speed": {
+            "value": 200,
+            "unit": "g"
+          },
+          "duration": {
+            "value": 5,
+            "unit": "min"
+          },
+          "device_ref": "centrifuge"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      }
+    ],
+    "detail_level": 0
+  }
+}

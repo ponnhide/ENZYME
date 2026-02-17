@@ -1,0 +1,145 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Quality control and outlier filtering",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-024-08172-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "d1",
+        "name": "d1"
+      },
+      {
+        "id": "d2",
+        "name": "d2"
+      },
+      {
+        "id": "d3",
+        "name": "d3"
+      },
+      {
+        "id": "d4",
+        "name": "d4"
+      },
+      {
+        "id": "d5",
+        "name": "d5"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "type": "single_cell_transcriptome_data",
+        "description": "HNOCA single-cell gene expression data"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "number_of_expressed_genes",
+            "percentage_mitochondrial_counts"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d2"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "params": {
+          "text": "unmapped action_kind in source: filter"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d3"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "params": {
+          "text": "unmapped action_kind in source: transform"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d4"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "params": {
+          "text": "unmapped action_kind in source: filter"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d5"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

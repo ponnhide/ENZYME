@@ -1,0 +1,227 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Differentiation media composition for intestinal organoids",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-024-55567-2.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "CHIR_4uM",
+        "name": "CHIR",
+        "concentration": "4 μM"
+      },
+      {
+        "id": "DAPT_10uM",
+        "name": "DAPT",
+        "concentration": "10 μM"
+      },
+      {
+        "id": "pVc_100ug_per_mL",
+        "name": "pVc",
+        "concentration": "100 μg/mL"
+      },
+      {
+        "id": "IL22_2ng_per_mL",
+        "name": "IL-22",
+        "concentration": "2 ng/mL"
+      },
+      {
+        "id": "TrypLE",
+        "name": "TrypLE"
+      },
+      {
+        "id": "DPBS_ice_cold",
+        "name": "DPBS",
+        "temperature": "ice-cold"
+      },
+      {
+        "id": "A83_01_0_5uM",
+        "name": "A83-01",
+        "concentration": "0.5 μM"
+      },
+      {
+        "id": "CHIR_3uM",
+        "name": "CHIR",
+        "concentration": "3 μM"
+      },
+      {
+        "id": "Hoechst",
+        "name": "Hoechst"
+      }
+    ],
+    "containers": [
+      {
+        "id": "well_plate",
+        "type": "well_plate"
+      },
+      {
+        "id": "wash_container",
+        "type": "tube"
+      },
+      {
+        "id": "facs_tube",
+        "type": "tube"
+      },
+      {
+        "id": "strainer_40um",
+        "type": "cell_strainer",
+        "pore_size": "40 μm"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "organoids"
+      },
+      {
+        "id": "organoids_mixed"
+      },
+      {
+        "id": "single_cells"
+      },
+      {
+        "id": "washed_cells"
+      },
+      {
+        "id": "prepared_cells"
+      },
+      {
+        "id": "stained_cells"
+      },
+      {
+        "id": "facs_data",
+        "name": "facs_data"
+      }
+    ],
+    "data": [
+      {
+        "id": "facs_data"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoids"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "reagents": [
+            "CHIR_4uM",
+            "DAPT_10uM",
+            "pVc_100ug_per_mL",
+            "IL22_2ng_per_ML"
+          ]
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "reagents": [
+            "TrypLE"
+          ]
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer single_cells to wash_container using DPBS_ice_cold (amount not specified)"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer washed_cells to facs_tube with A83_01_0_5uM and CHIR_3uM, filter through strainer_40um (amount not specified)"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "reagents": [
+            "Hoechst"
+          ]
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "cell_population"
+          ]
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "facs_data"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

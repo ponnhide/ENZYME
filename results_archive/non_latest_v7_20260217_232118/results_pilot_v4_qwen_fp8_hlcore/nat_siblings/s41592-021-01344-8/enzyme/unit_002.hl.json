@@ -1,0 +1,157 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Induce Cas9-mediated scarring with doxycycline",
+    "source": {
+      "type": "paper",
+      "id": "s41592-021-01344-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "fluorescent_cells",
+        "name": "fluorescent_cells"
+      },
+      {
+        "id": "iPSCs_for_organoids",
+        "name": "iPSCs_for_organoids"
+      },
+      {
+        "id": "cerebral_organoids",
+        "name": "cerebral_organoids"
+      },
+      {
+        "id": "cerebral_organoids_with_doxycycline",
+        "name": "cerebral_organoids_with_doxycycline"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "fluorescent_cells"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "text": "unmapped modality in source: flow_cytometry"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "fluorescent_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "iPSCs_for_organoids"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 2000,
+            "unit": "cells"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "iPSCs_for_organoids"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cerebral_organoids"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: initiate_cerebral_organoids"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cerebral_organoids"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cerebral_organoids_with_doxycycline"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "microliter"
+          }
+        },
+        "annotations": {
+          "note": "doxycycline introduced into medium at time point of choice"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cerebral_organoids_with_doxycycline"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "doxycycline induces Cas9 expression; Cas9–gRNA complexes form and cause double-stranded breaks in fluorescent reporter region"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

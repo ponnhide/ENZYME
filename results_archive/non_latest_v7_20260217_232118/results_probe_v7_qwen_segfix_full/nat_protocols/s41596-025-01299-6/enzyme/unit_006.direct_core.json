@@ -1,0 +1,1199 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Dissociation and FACS sorting of migrated interneurons from hFA",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01299-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "type": "enzyme_solution",
+        "details": "papain (30 U ml⁻¹)"
+      },
+      {
+        "id": "m2",
+        "type": "low_ovo_solution"
+      },
+      {
+        "id": "m3",
+        "type": "high_ovo_solution"
+      },
+      {
+        "id": "m4",
+        "type": "BSA_solution",
+        "details": "3% BSA (wt/vol) in 1× DPBS with 10 μM Y-27632"
+      },
+      {
+        "id": "m5",
+        "type": "NM_medium",
+        "details": "supplemented with 10% FBS (vol/vol) and 20 μM Y-27632"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "10-cm_dish"
+      },
+      {
+        "id": "c2",
+        "type": "15-ml_conical_tube"
+      },
+      {
+        "id": "c3",
+        "type": "15-ml_low-binding_tube"
+      },
+      {
+        "id": "c4",
+        "type": "15-ml_conical_tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "fluorescence_microscope"
+      },
+      {
+        "id": "e2",
+        "type": "incubator"
+      },
+      {
+        "id": "e3",
+        "type": "centrifuge"
+      },
+      {
+        "id": "e4",
+        "type": "FACS_machine"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_hFA",
+        "type": "hFA_organoid"
+      },
+      {
+        "id": "s_hCO",
+        "type": "hCO_organoid"
+      },
+      {
+        "id": "s_hSO",
+        "type": "hSO_organoid"
+      },
+      {
+        "id": "s_control_hSO",
+        "type": "control_hSO_organoid"
+      },
+      {
+        "id": "s_dissociated_cells",
+        "type": "dissociated_cells"
+      },
+      {
+        "id": "s_sorted_cells",
+        "type": "Dlxi1_2b_eGFP_positive_cells"
+      },
+      {
+        "id": "s_pool_sample",
+        "type": "pool_sample"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "action_kind": "transfer",
+          "source": "s_hFA",
+          "target": "c1",
+          "amount": {
+            "value": 1.0,
+            "unit": "organoid"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_hFA"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "Dlxi1/2b::eGFP+ signal"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [],
+        "equipment": [
+          "e1"
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_hCO"
+          },
+          {
+            "kind": "sample",
+            "id": "s_hSO"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "action_kind": "transfer",
+          "source": "s_hCO",
+          "target": "c2",
+          "amount": {
+            "value": 1.0,
+            "unit": "organoid"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_hCO"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "action_kind": "transfer",
+          "source": "s_hSO",
+          "target": "c3",
+          "amount": {
+            "value": 1.0,
+            "unit": "organoid"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_hSO"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c3"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "store_organoids",
+            "temperature": "37",
+            "co2": "5%"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          },
+          {
+            "kind": "container",
+            "id": "c3"
+          }
+        ],
+        "outputs": [],
+        "equipment": [
+          "e2"
+        ]
+      },
+      {
+        "id": "s7",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "quantity": 8,
+          "unit": "organoids"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_pool_sample"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "params": {
+          "action_kind": "transfer",
+          "source": "s_pool_sample",
+          "target": "c2",
+          "amount": {
+            "value": 8.0,
+            "unit": "organoids"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_pool_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ]
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "params": {
+          "action_kind": "transfer",
+          "source": "s_control_hSO",
+          "target": "c2",
+          "amount": {
+            "value": 1.0,
+            "unit": "organoid"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_control_hSO"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ]
+      },
+      {
+        "id": "s10",
+        "op": "transfer",
+        "params": {
+          "action_kind": "transfer",
+          "source": "c2",
+          "target": "c2",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ]
+      },
+      {
+        "id": "s11",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "activate_papain",
+            "temperature": "37",
+            "duration": "20 min"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          }
+        ],
+        "equipment": [
+          "e2"
+        ]
+      },
+      {
+        "id": "s12",
+        "op": "transfer",
+        "params": {
+          "action_kind": "transfer",
+          "source": "c2",
+          "target": "c2",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ]
+      },
+      {
+        "id": "s13",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "digest_organoids",
+            "temperature": "37",
+            "duration": "45 min",
+            "co2": "5%",
+            "agitation": "swirl every 15 min"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "equipment": [
+          "e2"
+        ]
+      },
+      {
+        "id": "s14",
+        "op": "transfer",
+        "params": {
+          "action_kind": "transfer",
+          "source": "c2",
+          "target": "c2",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ]
+      },
+      {
+        "id": "s15",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "centrifuge_200g_30s",
+            "speed": "200g",
+            "duration": "30 s"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "equipment": [
+          "e3"
+        ]
+      },
+      {
+        "id": "s16",
+        "op": "transfer",
+        "params": {
+          "action_kind": "remove_supernatant",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ]
+      },
+      {
+        "id": "s17",
+        "op": "transfer",
+        "params": {
+          "action_kind": "add_reagent",
+          "reagent": "m2",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ]
+      },
+      {
+        "id": "s18",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "centrifuge_200g_30s",
+            "speed": "200g",
+            "duration": "30 s"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "equipment": [
+          "e3"
+        ]
+      },
+      {
+        "id": "s19",
+        "op": "transfer",
+        "params": {
+          "action_kind": "remove_supernatant",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ]
+      },
+      {
+        "id": "s20",
+        "op": "transfer",
+        "params": {
+          "action_kind": "add_reagent",
+          "reagent": "m2",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ]
+      },
+      {
+        "id": "s21",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "centrifuge_200g_30s",
+            "speed": "200g",
+            "duration": "30 s"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "equipment": [
+          "e3"
+        ]
+      },
+      {
+        "id": "s22",
+        "op": "transfer",
+        "params": {
+          "action_kind": "remove_supernatant",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ]
+      },
+      {
+        "id": "s23",
+        "op": "transfer",
+        "params": {
+          "action_kind": "add_reagent",
+          "reagent": "m2",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ]
+      },
+      {
+        "id": "s24",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_dissociated_cells"
+          }
+        ],
+        "equipment": [
+          "P1000_tip"
+        ]
+      },
+      {
+        "id": "s25",
+        "op": "transfer",
+        "params": {
+          "action_kind": "transfer",
+          "source": "s_dissociated_cells",
+          "target": "c2",
+          "amount": {
+            "value": 800.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_dissociated_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ]
+      },
+      {
+        "id": "s26",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_dissociated_cells"
+          }
+        ],
+        "equipment": [
+          "P200_tip"
+        ]
+      },
+      {
+        "id": "s27",
+        "op": "transfer",
+        "params": {
+          "action_kind": "transfer",
+          "source": "s_dissociated_cells",
+          "target": "c2",
+          "amount": {
+            "value": 180.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_dissociated_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ]
+      },
+      {
+        "id": "s28",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_dissociated_cells"
+          }
+        ],
+        "equipment": [
+          "P20_tip"
+        ]
+      },
+      {
+        "id": "s29",
+        "op": "transfer",
+        "params": {
+          "action_kind": "transfer",
+          "source": "s_dissociated_cells",
+          "target": "c2",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_dissociated_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ]
+      },
+      {
+        "id": "s30",
+        "op": "transfer",
+        "params": {
+          "action_kind": "layer_solution",
+          "solution": "m3",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ]
+      },
+      {
+        "id": "s31",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "centrifuge_200g_5min",
+            "speed": "200g",
+            "duration": "5 min"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "equipment": [
+          "e3"
+        ]
+      },
+      {
+        "id": "s32",
+        "op": "transfer",
+        "params": {
+          "action_kind": "remove_supernatant",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ]
+      },
+      {
+        "id": "s33",
+        "op": "transfer",
+        "params": {
+          "action_kind": "add_reagent",
+          "reagent": "m4",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ]
+      },
+      {
+        "id": "s34",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_dissociated_cells"
+          }
+        ]
+      },
+      {
+        "id": "s35",
+        "op": "transfer",
+        "params": {
+          "action_kind": "filter",
+          "filter_pore_size": "50 μm"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_dissociated_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_dissociated_cells"
+          }
+        ],
+        "equipment": [
+          "c3"
+        ]
+      },
+      {
+        "id": "s36",
+        "op": "run_device",
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": {
+            "program_name": "FACS_sorting",
+            "temperature": "4 °C",
+            "control_sample": "s_control_hSO",
+            "target_marker": "Dlxi1/2b::eGFP"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_dissociated_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_sorted_cells"
+          }
+        ],
+        "equipment": [
+          "e4"
+        ]
+      },
+      {
+        "id": "s37",
+        "op": "transfer",
+        "params": {
+          "action_kind": "transfer",
+          "source": "s_sorted_cells",
+          "target": "c4",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_sorted_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c4"
+          }
+        ]
+      },
+      {
+        "id": "s38",
+        "op": "transfer",
+        "params": {
+          "action_kind": "add_reagent",
+          "reagent": "m5",
+          "amount": {
+            "value": 5.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c4"
+          }
+        ]
+      },
+      {
+        "id": "s39",
+        "op": "annotate",
+        "params": {
+          "note": "Critical: Perform test to determine number of Dlxi1/2b::eGFP+ cells obtainable per hFA to scale experiment."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s3",
+        "to": "s5"
+      },
+      {
+        "from": "s4",
+        "to": "s6"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      },
+      {
+        "from": "s16",
+        "to": "s17"
+      },
+      {
+        "from": "s17",
+        "to": "s18"
+      },
+      {
+        "from": "s18",
+        "to": "s19"
+      },
+      {
+        "from": "s19",
+        "to": "s20"
+      },
+      {
+        "from": "s20",
+        "to": "s21"
+      },
+      {
+        "from": "s21",
+        "to": "s22"
+      },
+      {
+        "from": "s22",
+        "to": "s23"
+      },
+      {
+        "from": "s23",
+        "to": "s24"
+      },
+      {
+        "from": "s24",
+        "to": "s25"
+      },
+      {
+        "from": "s25",
+        "to": "s26"
+      },
+      {
+        "from": "s26",
+        "to": "s27"
+      },
+      {
+        "from": "s27",
+        "to": "s28"
+      },
+      {
+        "from": "s28",
+        "to": "s29"
+      },
+      {
+        "from": "s29",
+        "to": "s30"
+      },
+      {
+        "from": "s30",
+        "to": "s31"
+      },
+      {
+        "from": "s31",
+        "to": "s32"
+      },
+      {
+        "from": "s32",
+        "to": "s33"
+      },
+      {
+        "from": "s33",
+        "to": "s34"
+      },
+      {
+        "from": "s34",
+        "to": "s35"
+      },
+      {
+        "from": "s35",
+        "to": "s36"
+      },
+      {
+        "from": "s36",
+        "to": "s37"
+      },
+      {
+        "from": "s37",
+        "to": "s38"
+      },
+      {
+        "from": "s38",
+        "to": "s39"
+      }
+    ],
+    "detail_level": 0
+  }
+}

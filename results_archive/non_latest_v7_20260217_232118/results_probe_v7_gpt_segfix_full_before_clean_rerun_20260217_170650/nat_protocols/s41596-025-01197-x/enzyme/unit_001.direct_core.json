@@ -1,0 +1,480 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Thawing PS cells",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01197-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "e8_medium",
+        "type": "material",
+        "name": "E8 medium"
+      },
+      {
+        "id": "stem_cell_medium",
+        "type": "material",
+        "name": "Stem cell medium"
+      },
+      {
+        "id": "y27632",
+        "type": "material",
+        "name": "Y-27632"
+      },
+      {
+        "id": "ethanol70",
+        "type": "material",
+        "name": "70% ethanol"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate6w",
+        "type": "container",
+        "name": "6-well plate",
+        "description": "MG-coated wells"
+      },
+      {
+        "id": "falcon15_a",
+        "type": "container",
+        "name": "15 mL Falcon tube",
+        "description": "for E8 medium"
+      },
+      {
+        "id": "falcon15_b",
+        "type": "container",
+        "name": "15 mL Falcon tube",
+        "description": "for stem cell medium"
+      },
+      {
+        "id": "conical15",
+        "type": "container",
+        "name": "15 mL conical tube"
+      },
+      {
+        "id": "serological_pipet",
+        "type": "container",
+        "name": "5 mL serological pipet"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "type": "equipment",
+        "name": "Incubator",
+        "description": "37 °C, 5% CO₂"
+      },
+      {
+        "id": "biosafety_cabinet",
+        "type": "equipment",
+        "name": "Biosafety cabinet"
+      },
+      {
+        "id": "water_bath",
+        "type": "equipment",
+        "name": "Water bath",
+        "description": "37 °C"
+      },
+      {
+        "id": "centrifuge",
+        "type": "equipment",
+        "name": "Centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "ps_cells_frozen",
+        "type": "sample",
+        "name": "Frozen PS cells"
+      },
+      {
+        "id": "ps_cells_thawed",
+        "type": "sample",
+        "name": "Thawed PS cells"
+      },
+      {
+        "id": "plate6w",
+        "name": "plate6w"
+      },
+      {
+        "id": "e8_medium",
+        "name": "e8_medium"
+      },
+      {
+        "id": "falcon15_a",
+        "name": "falcon15_a"
+      },
+      {
+        "id": "stem_cell_medium",
+        "name": "stem_cell_medium"
+      },
+      {
+        "id": "falcon15_b",
+        "name": "falcon15_b"
+      },
+      {
+        "id": "y27632",
+        "name": "y27632"
+      },
+      {
+        "id": "serological_pipet",
+        "name": "serological_pipet"
+      },
+      {
+        "id": "conical15",
+        "name": "conical15"
+      },
+      {
+        "id": "cell_suspension",
+        "name": "cell_suspension"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "ps_cells_thawed"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator",
+          "program": {
+            "program_name": "warm_30min"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "plate6w"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate6w"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "amount": {
+            "value": 6.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "e8_medium"
+          },
+          {
+            "kind": "sample",
+            "id": "falcon15_a"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "falcon15_a"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "amount": {
+            "value": 3.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "stem_cell_medium"
+          },
+          {
+            "kind": "sample",
+            "id": "falcon15_b"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "falcon15_b"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "amount": {
+            "value": 3.0,
+            "unit": "μL"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "y27632"
+          },
+          {
+            "kind": "sample",
+            "id": "falcon15_b"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "falcon15_b"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "text": "unmapped device_kind in source: water_bath"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "ps_cells_frozen"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "ps_cells_thawed"
+          }
+        ]
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "note": "Vial sprayed with 70% ethanol and wiped with napkin before removal to biosafety cabinet."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "text": "Transfer ~7 mL of E8 medium to thawed PS cells using serological pipet into conical tube."
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "e8_medium"
+          },
+          {
+            "kind": "sample",
+            "id": "ps_cells_thawed"
+          },
+          {
+            "kind": "sample",
+            "id": "serological_pipet"
+          },
+          {
+            "kind": "sample",
+            "id": "conical15"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "conical15"
+          }
+        ]
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge",
+          "program": {
+            "program_name": "spin_1000rpm_4min"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "conical15"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "conical15"
+          }
+        ]
+      },
+      {
+        "id": "s10",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "volume": "3 mL",
+          "additives": [
+            "stem_cell_medium",
+            "y27632"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "conical15"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension"
+          }
+        ]
+      },
+      {
+        "id": "s11",
+        "op": "annotate",
+        "params": {
+          "text": "Distribute 3 mL of cell suspension to each well of the 6‑well plate."
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension"
+          },
+          {
+            "kind": "sample",
+            "id": "plate6w"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate6w"
+          }
+        ]
+      },
+      {
+        "id": "s12",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator",
+          "program": {
+            "program_name": "incubate"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "plate6w"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate6w"
+          }
+        ]
+      },
+      {
+        "id": "s13",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "spread_on_plate"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "plate6w"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate6w"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      }
+    ],
+    "detail_level": 0
+  }
+}

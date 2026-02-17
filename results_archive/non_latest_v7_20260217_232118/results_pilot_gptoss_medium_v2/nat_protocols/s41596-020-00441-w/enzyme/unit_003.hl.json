@@ -1,0 +1,132 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Add accutase and incubate",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-00441-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "accutase",
+        "name": "accutase"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate",
+        "type": "well_plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "device_kind": "incubator",
+        "name": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "well",
+        "container_ref": "plate",
+        "description": "well to receive accutase"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "accutase"
+          },
+          {
+            "kind": "sample",
+            "id": "well"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "well"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "well"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "well"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "incubate",
+          "temperature": {
+            "value": 37,
+            "unit": "degC"
+          },
+          "duration": {
+            "value": 5,
+            "unit": "min"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "well"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "well"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "PSC colonies dissociate into single cells"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

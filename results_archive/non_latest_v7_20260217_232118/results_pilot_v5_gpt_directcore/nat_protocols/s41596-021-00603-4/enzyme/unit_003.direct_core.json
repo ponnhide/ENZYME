@@ -1,0 +1,210 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Phosphatase and protease inhibitor treatment",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00603-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "protease_inhibitor_cocktail",
+        "name": "Protease inhibitor cocktail (100× stock)"
+      },
+      {
+        "id": "phosstop",
+        "name": "PhosSTOP (40× stock)"
+      },
+      {
+        "id": "culture_medium",
+        "name": "Culture medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "culture_plate",
+        "type": "culture_plate",
+        "name": "Culture plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator_1",
+        "type": "incubator",
+        "name": "Incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "protease_inhibitor_cocktail",
+        "name": "protease_inhibitor_cocktail"
+      },
+      {
+        "id": "phosstop",
+        "name": "phosstop"
+      },
+      {
+        "id": "culture_medium",
+        "name": "culture_medium"
+      },
+      {
+        "id": "culture_plate",
+        "name": "culture_plate"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "protease_inhibitor_cocktail"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "phosstop"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "culture_medium"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "culture_plate"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "protease_inhibitor_cocktail",
+          "destination": "culture_plate",
+          "method": "add",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": "phosstop",
+          "destination": "culture_plate",
+          "method": "add",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "target": "culture_plate",
+          "repetitions": 5,
+          "duration": "10 s"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator_1",
+          "program": {
+            "program_name": "incubate_5min_37C_5%CO2",
+            "duration": "5 min",
+            "temperature": "37 C",
+            "CO2": "5%"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

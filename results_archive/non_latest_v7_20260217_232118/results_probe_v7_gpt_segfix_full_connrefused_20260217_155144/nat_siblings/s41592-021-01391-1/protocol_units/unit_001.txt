@@ -1,0 +1,1066 @@
+methods rely on stochastic cell capture, systems, such as organoids, which are heterogeneous and small at
+entailing large sample inputs, efficient processing of small samples critical development stages.
+(<1,000 cells) remains challenging. The three main reasons for this In this study we develop a deterministic, mRNA-capture bead
+are, first, the high fixed run costs, which lead to a large expense and cell co-encapsulation dropleting system (DisCo) for low cell
+per cell at low inputs. To reduce scRNA-seq costs, cell hashing input scRNA-seq. DisCo depends on machine-vision to actively
+approaches10–12 were developed that enable sample multiplexing. detect cells and coordinate their capture in droplets, allowing for
+However, these are not applicable to small input samples due to high continuous operation and enabling free per-run scaling and serial
+cell losses during the mandatory cell washing procedures. The sec- processing of samples. We demonstrate that DisCo can efficiently
+ond reason is the requirement of minimum cell inputs. For example, process samples containing only a few hundred cells, a sample
+fluorescence-activated cell sorting (FACS)-based or 10X Chromium type that tends to fall outside the scope of current cell processing
+systems require minimum cell inputs ranging between 10,000 and platforms (Table 1). To illustrate DisCo’s unique capabilities, we
+500 cells, respectively13,14. The third reason is the reduced effective- explored the heterogeneous, early development of individual intesness at low inputs resulting from limited cell capture efficiencies tinal organoids at the single cell level. In total, we processed 31 sinor cell size-selective biases15 when processing small heterogeneous gle organoids using DisCo at four developmental time points after
+samples. To illustrate these limitations, we summarize the perfor- symmetry breaking, and identified striking differences in cell type
+
+Laboratory of Systems Biology and Genetics, Institute of Bioengineering, School of Life Sciences, École Polytechnique Fédérale de Lausanne (EPFL),
+1
+
+Lausanne, Switzerland. 2Swiss Institute of Bioinformatics (SIB), Lausanne, Switzerland. 3Laboratory for Stem Cell Bioengineering, Institute of
+Bioengineering, School of Life Sciences École Polytechnique Fédérale de Lausanne (EPFL), Lausanne, Switzerland. 4Data Mining and Modelling for
+Biomedicine, VIB Center for Inflammation Research, Ghent, Belgium. 5Department of Applied Mathematics, Computer Science and Statistics, Ghent
+University, Ghent, Belgium. 6Internal Medicine I, University Hospital Tübingen, Faculty of Medicine, University of Tübingen, Tübingen, Germany. 7Soft
+Materials Laboratory, Institute of Materials, École Polytechnique Fédérale de Lausanne (EPFL), Lausanne, Switzerland. 8Department of Computer Science,
+University of Tübingen, Tübingen, Germany. 9Roche Institute for Translational Bioengineering (ITB), Roche Pharma Research and Early Development, Basel,
+Switzerland. 10These authors contributed equally: J. Bues, M. Biočanin, J. Pezoldt. ✉e-mail: bart.deplancke@epfl.ch
+
+Nature Methods | VOL 19 | March 2022 | 323–330 | www.nature.com/naturemethods 323
+
+Articles NATuRE METHoDS
+
+Approach Droplets (stochastic) FACS & plate based Traps Microwells Droplets
+ (deterministic)c
+Technology 10X Chromium inDrop Drop-seq Smart-seq2 Cel-seq2 Fluidigm C1 iCell8 Seq-well DisCo (this
+ study)
+Minimum input 500 (HT)/100 (LT) 1,000 50,000 10,000 10,000 <50 1,600 400 <50
+Efficiency 45% /30%
+ a a
+ 25% a
+ 2.3% a
+ – – 30–45% a
+ 43% b
+ 30% a
+ 75%a
+US$ per cell (100 $20/$5.9 $2.1 $6 $10.6 $3.6 $29 (96 cells) $5 $2.2 $1
+output cells)
+US$ per cell (100 input $44.4/$19.8 $8.4 $260.9 – – $62.2 $11.6 $7.5 $1.3
+cells)
+Additional remarks or Multiplexing possible but requires Fluorescent labeling Size-selective High initial
+limitations multiple washing procedures10,11 and thus necessary, expensive to properties15,40. acquisition
+ substantial efficiency losses expected. scale up (automation). cost.
+a
+ Efficiency estimates including cell capture efficiency. bEfficiency estimates excluding cell capture efficiency. Performance metrics were derived from the literature. Noteworthy, as for lack of consensus
+experiments, efficiency metrics represent different values as elaborated in a and b. Furthermore, the cost per cell is calculated for 100 cells (output: 100 single cells that are successfully processed, thus not
+incorporating platform-specific processing inefficiencies; input: a sample of 100 total cells that are processed on the respective system, hence considering platform-specific processing inefficiencies) to
+match the sample size used for the DisCo experiments. (References and the calculation of metrics are detailed in the Methods section.) Performance metrics calculated for the DisCo system in this study.
+
+composition between individual organoids. Among these organoid separation (Fig. 1h) and an increased read-utilization rate comsubtypes, we detected spheroids that are composed of regenerative pared with conventional Drop-seq experiments (Extended Data
+fetal-like stem cells as well as a rare, novel subtype that is predomi- Fig. 2a). In addition, we were able to improve the detectable number
+nantly composed of precursor and mature goblet cells, which is why of transcripts per cell as compared with published Drop-seq datawe named this subtype ‘gobloid’. Finally, we used DisCo to uncover sets on HEK 293T cells2,23 (Fig. 1i) by exploiting the uniquely low
+cellular variation between individual intestinal crypts, providing number of beads in DisCo samples (<500), which enabled us to
+evidence for this technology’s capacity to also process low cell input, identify and merge closely related barcodes (described in Methods)
+in vivo-derived tissues. without compromising single cell purity (Extended Data Fig. 2b,c).
+ Given that DisCo requires a longer time period to process cells (for
+Results example, compared with the 10X Chromium instrument), we also
+Engineering and operational features of DisCo. The main engi- assessed time-dependent effects on the quality of the single cell data
+neering and operational features of our DisCo device are summa- by analyzing HEK 293T cells that were loaded on our system (at 22 °C
+rized in Fig. 1 and Extended Data Fig. 1. The important points are the (room temperature)) for 0–20, 20–40 and 40–60 min. Furthermore,
+implementation of Quake-style microvalves22 to facilitate flow con- we sampled cells that were stored for 120 and 180 min on ice. Based
+trol during operation; the development of a machine-vision-based on cell stress metrics such as mitochondrial read content and heat
+approach utilizing subsequent image subtraction for blob detection shock protein expression as well as further gene expression analy-
+(Extended Data Fig. 1b); the induction of deterministic particle ses, we found artifacts only for cell suspensions that were stored for
+displacement patterns (Extended Data Fig. 1c) to move particles extended periods (>2 h) of time (Extended Data Fig. 2d,e).
+into the target region of interest with 95.9% of particles placed in Given that DisCo actively controls fluid flow on the microfluan ~200-μm-wide region (Extended Data Fig. 1d); and the precise idic device and is capable of efficiently processing cells from the
+pressurization of the dropleting valve to enable accurate control of first cell on, we hypothesized that the system should provide relidroplet volume (Extended Data Fig. 1e and Supplementary Video 1). able performance on small samples of <100 cells. To determine the
+With all components operating in tight orchestration, we were able overall cell capture efficiency of DisCo, we quantified the number of
+to generate monodisperse emulsions with high co-encapsulation input cells using impedance measurements, which enabled accurate
+purity (Fig. 1e and Supplementary Video 2). counting of the number of input cells as validated by microscopy
+ (Extended Data Fig. 2f). We processed cell numbers of between 50
+DisCo efficiently captures cells from low-input samples. As a first and 200 cells, of which 74.9% (s.d. ±10.7%) of input cells had more
+benchmarking experiment, we set out to determine the cell capture than 500 unique molecular identifiers (UMIs) per cell (Fig. 1j). To
+efficiency and the bead and cell co-encapsulation purity of DisCo. contextualize these performance metrics, we performed similar
+We found that on average, 91.4% of all droplets contain a cell and experiments involving 38, 125 and 215 HEK 293T cells on DisCo’s
+a bead, and only 1.7% contain an independent cell doublet (Fig. closest competitor system for low cell input samples: the Fluidigm
+1f). Overall, the system provided high cell capture efficiencies of C1 platform (Table 1). We chose the 96-trap chip given that,
+90% at around 200 cells per hour for a cell concentration of 2 cells according to the user manual, it is the more suitable chip for low
+per μl (Fig. 1g). At a higher cell concentration of 20 cells per μl, the cell inputs. We found that the Fluidigm C1 system achieves absoprocessing speed could be increased to 350 cells per hour, although lute processing efficiencies between 30% and 45% (Extended Data
+with a decreased capture efficiency of approximately 75%. Next, Fig. 2g), matching the performance listed by the manufacturer for
+we benchmarked the performance of DisCo for scRNA-seq. With the 215-cell condition. Overall, these results, together with reported
+drastically reduced bead amounts contained in the generated sam- data, indicate that the DisCo approach outperforms other technolople emulsion, we used our previously developed and characterized gies that are capable of analyzing low input cell samples in terms of
+chip-based complementary DNA generation protocol23. Initially, as processing efficiency.
+a library quality measure, we performed a species mixing experiment of human embryonic kidney (HEK) 293T and murine immor- DisCo on individual intestinal organoids resolves cell types. As a
+talized brown pre-adipocyte (IBA) cells. We observed clear species real-world application, we used DisCo to explore the developmental
+
+324 Nature Methods | VOL 19 | March 2022 | 323–330 | www.nature.com/naturemethods
+
+NATuRE METHoDS Articles
+ a b c
+ Cells Beads Stop particles Stop particles Droplet generation Co-encapsulate
+
+ 1 2
+
+ 3
+ Camera
+
+ Stop point
+
+ Oil Oil Co-encapsulate
+ 4 4
+
+ Sample 6 5 Waste
+
+ e
+ Capture
+ d
+ Stop particles Wash channel Capture
+
+f g Concentration h i j
+ 100 (cells per µl) Species
+ 2 5 10 20 50k Efficiency (%)
+ 90 100 Human Mixed Mouse 200
+ 80–90%
+ 80 100k 70–80%
+
+ DisCo sequenced cells
+ 40k
+ Capture efficiency (%)
+
+ Number of transcripts
+ 50–60%
+ Mouse transcripts
+
+ 150
+Droplets (%)
+
+ 90 30k
+ 10k
+ 100
+ 20k
+ 80
+ 10k 1k 50
+
+ 10
+ 70 0 0
+ 0
+ 200 250 300 350 0 10k 20k 30k 40k 50k DisCo Drop-seq 0 50 100 150 200
+ Speed (cells per h) Human transcripts 1 2 Dispencell quantified cells
+
+channels for cells, beads and oil (shown twice for illustration purposes); two outlets for waste and sample liquids, and several Quake-style microvalves
+(green boxes): 1, cell valve; 2, bead; 3, dropleting; 4, oil; 5, waste; 6, sample. Particles are detected by a camera and are placed at the Stop point. b, DisCo
+co-encapsulation process on the DisCo device (red, closed; green, open; light brown, dropleting pressure (partially closed)). c, The co-encapsulation
+process of two beads as observed on-chip. Dyed liquids were used to examine the liquid interface of the carrier liquids. Channel sections with white
+squares are 100 μm wide. d, The droplet capture process as observed on-chip. Valves are highlighted according to their actuation state (red, closed; green,
+open). e, Image of DisCo droplet contents. Cells (blue circles) and beads (red circles) were co-encapsulated and the captured droplets were imaged.
+Mean bead-size is approximately 30 μm. f, Droplet occupancy of DisCo-processed cells and beads (total encapsulations, n = 1,203). Bars represent the
+mean, and error bars represent ±s.d. g, Cell capture efficiency and speed for varying cell concentrations (2–20 cells per μl, total encapsulations, n = 1,203).
+h, DisCo scRNA-seq species separation experiment. HEK 293T and murine IBA cells were processed with the DisCo workflow for scRNA-seq, the
+barcodes merged and the species separation visualized as a Barnyard plot. i, Comparison of detected transcripts (UMIs) per cell of conventional Drop-seq
+experiments. UMIs per cell from HEK 293T data for conventional Drop-seq experiments (1, from ref. 23; 2, from ref. 2) are compared with the HEK 293T
+DisCo data. Drop-seq datasets were down-sampled to a similar sequencing depth. Box plot elements showing UMI counts per cell represent the following
+values: center line, median; box limits, upper and lower quartiles; whiskers, 1.5-fold the interquartile range; points, UMIs per cell. j, Total cell processing
+efficiency of DisCo at low cell inputs. Input cells (HEK 293T) ranging from 74 to 170 were quantified by impedance measurement. Subsequently, all cells
+were processed with DisCo, sequenced and quality filtered (>500 UMIs). The red line represents 100% efficiency, and samples were colored according to
+the recovery efficiency after sequencing.
+
+heterogeneity of intestinal organoids24. These polarized epithelial by cell-to-cell variability and which results in the generation of the
+tissues are generated by intestinal stem cells in three-dimensional first Paneth cell that is responsible for crypt formation18. Here, we
+matrices through a stochastic self-organization process, and mimic were particularly interested in examining the emergence of heterokey geometric, architectural and cellular hallmarks of the adult geneity between individual organoids subsequent to the symmeintestinal mucosa (for example, a striking crypt–villus-like axis)24. try breaking time point. To do so, we isolated single cells that were
+When grown from single stem cells, organoids of very different positive for LGR5 (leucine-rich repeat-containing G-protein-coupled
+morphologies form under seemingly identical in vitro conditions receptor 5) by FACS, and maintained them in a stem cell state
+(Fig. 2a and overview image in Extended Data Fig. 3a). Pooled tis- using a mixture of CHIR99021 and valproic acid (CV)26. On day
+sue scRNA-seq data have shed light on the in vivo-like cell type com- 3 of culture, CV was removed to induce differentiation. In total,
+position of these organoids18–20,25, but cannot resolve inter-organoid we sampled 31 single intestinal organoids across four time points
+heterogeneity. Critical for organoid development is an early sym- (days 3–6, annotated as S0–S3) (Fig. 2a). These organoids were selected
+metry breaking event at day 2 (16–32-cell stage) that is triggered in a biased manner based on differences in morphology (for example,
+
+Nature Methods | VOL 19 | March 2022 | 323–330 | www.nature.com/naturemethods 325
+
+Articles NATuRE METHoDS
+
+ a
+ Day 0 Day 1 Day 2 Day 3 Day 4 Day 5 Day 6
+ (S0) (S1) (S2) (S3)
+ Single organoid
+ workflow
+ 3 . Pick
+
+ 1. FACS sort 4. Dissociate
+ LGR5+ cells CV
+
+ 5. Process cells
+
+ 2. Seed cells 3. Preculture
+
+ b Stem c
+ Fabp1 Areg Sox9 Ly6a
+ Paneth
+
+ Entero1 6 3 3 2
+
+ PIC1
+ PIC2
+
+ Reg3b Olfm4 Muc2 Tff3
+ RegStem
+
+ 4 4 4 5
+ UMAP 2
+
+ UMAP 2
+
+ Goblet
+ Entero2
+ Olfm4+
+ UMAP 1 UMAP 1
+
+Single LGR5+ intestinal stem cells were isolated via FACS and precultured for 3 days under stem cell maintenance conditions (day 0 seeding, ENR CV days
+0–3). On day 3, CV was removed from the culture, and organoids differentiated under ENR conditions for up to 3 days. For each day during development
+(S0–S3), individual organoids were isolated, dissociated and processed on the DisCo platform. Representative bright-field imaging examples of individual
+organoids for each day are shown on top. Scale bars, 25 μm (days 0–2); 50 μm (days 3–6). Organoids were collected in three replicates. b, UMAP
+embedding of all sequenced cells. All 945 processed cells from 31 organoids were clustered with k-means clustering, after which clusters were annotated
+according to specific marker gene expression. Entero1/2, enterocyte cluster 1/2; PIC1/2, potential intermediate cell cluster 1/230; RegStem, regenerative
+stem cells; Stem, stem cells. c, UMAP-based visualization of the expression of specific markers that were used for cluster annotation.
+
+size variation and cystic versus non-cystic morphologies). As a qual- Fig. 4b), indicating that batch effects between individual organoids
+ity control, we correlated the number of encapsulated cells with the with extended storage times are indeed correctable. These findnumber of retrieved barcodes, which was in approximate accordance ings support the cell type-resolving power of our DisCo platform
+(Extended Data Fig. 3b; for an overview of the number of sequenced (Fig. 2c, extensive heatmap in Extended Data Fig. 5a and list in
+cells per organoid see Supplementary Table 1). The even distribution Supplementary Table 2).
+of the number of reads mapping to ribosomal protein-coding genes In addition to the expected cell types, we observed a distinct
+and the observed low expression of heat shock protein-coding genes cluster marked by high expression of stem cell antigen 1 (Sca1 or
+thereby indicated that most cells were not affected by dissociation Ly6a), Anxa1 and Clu (Extended Data Fig. 3d), as well as increased
+and on-chip processing (Extended Data Fig. 3c). YAP1 target gene expression (Extended Data Fig. 5b), suggesting
+ We first jointly visualized all 945 cells passing the quality thresh- that these cells are most likely regenerative fetal-like stem cells27–29.
+olds using Uniform Manifold Approximation and Projection The two remaining clusters did not show a striking marker gene sig-
+(UMAP). We found that the data were consistent with previously nature, but probably represent stem cells and potential intermediate
+published pooled organoid scRNA-seq read-outs19,25 given that it cells (PICs)30, given their occurrence at early developmental time
+showed expected cell types including Fabp1-expressing entero- points (Fig. 3a). To further leverage the temporal component in the
+cytes, Muc2-expressing goblet cells, Reg3b-positive Paneth cells and DisCo data, we used slingshot trajectory analysis31 to infer lineage
+Olfm4-expressing stem cells (Fig. 2b,c). In addition, a rare subset of relationships between cell types and to identify genes that may be of
+cells had ChgA and ChgB expression, indicating the expected pres- particular significance for waypoints along differentiation (Fig. 3b).
+ence of enteroendocrine cells (Extended Data Fig. 3d). Noteworthy, Beyond the previously utilized marker genes for cell type annotawe found that batch effects are correctable given that neither tion, for example Reg3b and Reg3g for Paneth cells, additional markbatch-based nor cell quality-driven clustering was observed after ers that were validated in previous studies32 were identified, such as
+correction (Extended Data Fig. 3c,e). To further validate that batch Agr2 and Spink4, and Fcgbp for goblet cells (Fig. 3c). Overall, this
+effects between individual organoids can be corrected, we gener- suggests that the meta-data produced with our DisCo platform
+ated an independent dataset of an additional nine individual organ- align with and expand prior knowledge.
+oids (Extended Data Fig. 4a). One of these nine organoids was split
+into two independent samples and processed with a 60 min time DisCo uncovers heterogeneity in intestinal organoids.
+delay in between. We found that the two halves of the split organ- Intriguingly, we observed the maintained presence of the Ly6a+
+oid were overlapping in the denominator UMAP (Extended Data stem cell population at S0, S1 and S3. Given that cells with similar
+
+326 Nature Methods | VOL 19 | March 2022 | 323–330 | www.nature.com/naturemethods
+
+NATuRE METHoDS Articles
+a b
+ S0 S1 S2 S3
+ UMAP 2
+
+ UMAP 2
+ UMAP 1 UMAP 1
+
+c
+ RS PIC1 Stem PIC1 PIC2 Entero1 Entero2 PIC2 Olfm4 PIC1 Goblet Stem Paneth
+ (%)
+ Clustering
+ Agr2
+ Tff3
+ Spink4
+ Rn7sk
+ Olfm4
+ Areg
+ Lpcat1
+ A930004J17Rik
+ Plbd1
+ Ier3
+ Ly6a
+ Anxa1
+ Igfbp4
+ Bex1
+ Irx5
+ 1110028F11Rik
+ Lgals1
+ Pla2g2a
+ Fcgbp
+ Nucb2
+ Clps
+ Anxa2
+ Mt4
+ Reg3g
+ Reg3b
+ Cyp2c29
+ Leap2
+ Fam213a
+ Guca2b
+ Ephx1
+ Gsta1
+ Gm3776
+ Ces2a
+ Mgst2
+ Ndrg1
+ Reg1
+ Khk
+ Fabp2
+ Tkfc
+ Apoa4
+ Adh6a
+ Ces1f
+ Spink1
+ Ccl25
+ Sis
+ Prap1
+ Aldob
+ Apoa1
+ Fabp1
+ Adh1
+
+embedding according to sampling time point (S0–S3). b, Developmental trajectory based on the cluster annotation and the sampling time point derived
+by slingshot31. Cells were annotated in accordance with this clustering. c, Heatmap of differentially expressed genes along the waypoints of the trajectory.
+Waypoints are annotated in accordance with the cell clustering in b. RS, regenerative stem cells.
+
+expression signatures were previously described under fetal-like stem cells33. Furthermore, the fact that LGR5− LY6A+ cells
+alternate culture conditions as belonging to a distinct organoid did not show a propensity towards spheroid formation suggests
+subtype termed “spheroids”33, we next aimed to verify the pres- that environmental conditions (for example, variation in matrix
+ence of such spheroids in the sampled organoids. To do so, we stiffness) rather than the initial cell state dictate the formation
+stratified the cells according to the individual organoids from of spheroids.
+which they were derived by mapping this information onto the Besides the Ly6a+ cell-enriched organoids, the data suggested
+reference scaffold (Fig. 4a). We observed strong heterogene- the presence of additional organoid subtypes in the per-organoid
+ity within single organoids, showing that Ly6a+ cells were indeed mappings (Fig. 4a). The two most striking additional subtypes were
+present in a distinct subset of organoids, predominantly composed three organoids that contained mostly enterocytes (Fig. 4a S2c,
+of these cells (Fig. 4a S1a, S3e). Furthermore, images obtained S3a, S3d), and two that consisted predominantly of immature and
+prior to dissociation showed that Ly6a+ cell-containing organoids mature goblet cells (Fig. 4a S1b and especially S2f). The identity of
+(Fig. 4a S3e) had a larger, cystic-like structure (Extended Data the observed subtypes was further substantiated when visualizing
+we used an RNA fluorescence in situ hybridization assay, RNAscope expression in individual organoids (Extended Data Fig. 7a). Similar
+(Fig. 4b, with controls in Extended Data Fig. 6b), to localize Ly6a, to the spheroids, both subtypes had aberrant morphologies, tending
+Muc2 and Fabp1 expression in organoid sections. These analyses to be small and round, as compared with canonical organoids bearshowed canonical budding organoids, containing few Muc2+ goblet ing a crypt–villus axis (for example, S3c, Extended Data Fig. 6a). To
+cells and Fabp1+ enterocytes, and Ly6a-expressing cells in spheri- detect more subtle molecular differences, we used psupertime34 to
+cal organoids that did not contain differentiated cell types such as identify genes that are dynamically expressed during the developenterocytes or goblet cells. The presence of Ly6a+ cells during the ment of individual organoids. This analysis showed additional genes
+first day of sampling suggested that these cells constitute a second, that are expressed in subsets of organoids, such as Gastric inhibi-
+Lgr5-independent stem cell population in the organoid culture, tory polypeptide (Gip), Zymogen granule protein 16 (Zg16), Vanin
+as further supported by the trajectory analysis (Fig. 3b,c). To test 1 (Vnn1) and Defensin alpha 24 (Defa24) (Extended Data Fig. 7b).
+this, we sorted and differentiated LGR5+ LY6A− cells (3.3% com- Although organoids dominated by enterocytes have been prepared with 24.5% of LGR5− LY6A+ and only 0.4% of double positive viously described as enterocysts18, organoids displaying goblet cell
+cells, Fig. 4c), showing that both LGR5+ LY6A− and LGR5− LY6A+ hyperplasia, here termed ‘gobloids’, were unknown, to our knowlcells can give rise to organoids of similar morphological hetero- edge. To validate the existence of the uncovered organoid subtypes,
+geneity (Fig. 4d). These results indicate that LGR5− LY6A+ cells we used RNAscope to localize the expression of enterocyte (Fabp1)
+have full stem cell potential, similar to that of previously described and goblet cell (Muc2) markers (Fig. 4f, with controls in Extended
+
+Nature Methods | VOL 19 | March 2022 | 323–330 | www.nature.com/naturemethods 327
+
+Articles NATuRE METHoDS
+
+ a
+ S0 S1 S2 S3
+
+ a e a † e a e a e †
+ *
+
+ b f b ‡ f b f ‡ b f
+
+ c g c g c g c g
+ *
+
+ d h d h d d h
+ *
+ UMAP 2
+
+ Cluster Stem RegStem Paneth PIC 1 PIC 2 Goblet Olfm4+ Entero 1 Entero 2
+ UMAP 1
+
+ b Muc2 Fabp1 Ly6a
+ c Dapi– cells e
+
+ te 1
+ 2
+ C h
+
+ Entero
+ ro
+ lf t
+ PI net
+
+ O ble
+ Enm4
+ 5
+
+ R m
+
+ PI 1
+ G 2
+ 10 3.3 0.44
+
+ C
+ e
+ S
+ Pa
+
+ o
+ St
+ a (%)
+ Canonical
+
+ b 0
+ 3 c 25
+ LY6A-PE-Cy7
+
+ 10
+ S0 d 50
+ 0 e 75
+ 24.5 f
+ g 100
+ 0 102 h
+ LGR5-eGFP a
+ Spheroid
+
+ b
+ d c
+ d
+ S1
+ e
+ f
+ LGR5+ LY6A–
+
+ g
+ f h
+ a
+ b
+ Enterocyst
+
+ c
+ d
+ 100 µm S2 e
+ f
+ g
+ a
+ LGR5– LY6A+
+
+ b
+ c
+ d
+ S3 e
+ Gobloid
+
+ f
+ g
+ 100 µm h
+
+Cells per single organoid were colored according to their global clustering and highlighted on the UMAP embedding of all sequenced cells. Projections
+are grouped according to their sampling time. Manually classified organoids were annotated with the following symbols: *, enterocysts; †, spheroids; ‡,
+gobloids. b, In situ RNA detection of Ly6a, Fabp1 and Muc2 expression. A representative canonical and Ly6a-expressing organoid is displayed. Scale bar
+(in f), 50 μm. Data of one out of two replicates are shown. c, Surface LY6A and LGR5-eGFP expression under ENR CV conditions. The dot plot shows
+LGR5-eGFP and LY6A expression in organoid-derived single-cell suspensions. The numbers indicate frequency (%). d, Culturing outcomes of LGR5+ cells
+and LY6A+ cells. Single LGR5+ LY6A− and LGR5− LY6A+ cells were isolated by FACS and seeded in Matrigel. Cells were cultured as shown in Fig. 2a and
+imaged using bright-field microscopy at S3. Red arrows point to spheroid morphologies. Scale bars, 100 μm. Data of one out of three replicates are shown.
+e, Dot plot of the distribution of annotated cell types per organoid. Dot size represents the percentage of cells associated with each cluster per organoid.
+f, In situ RNA detection of Fabp1 and Muc2 expression. Representative images of the enterocyst and gobloid subtypes are shown. Scale bar, 50 μm.
+
+Data Fig. 6b). In agreement with our data and prior research, we analyze individual crypts that were isolated from the small intestine
+detected organoids that exclusively contained Fabp1+ cells, most of adult C57BL/6J mice. However, we found that the dissociation
+likely representing enterocysts. Most importantly, we were able to of these crypts into single cells was more challenging than that of
+identify organoids that contained a high number of Muc2+ goblet in vitro grown organoids, achieving efficiencies of only up to 20%
+cells, confirming the existence of gobloids. with elevated multiplet rates (Supplementary Table 3 and Methods).
+ In total, we analyzed 21 individual crypts involving 372 cells at a
+DisCo reveals compositional differences among intestinal crypts. comparable cell recovery efficiency as for organoids (Extended Data
+Finally, to complement the intestinal organoid data, we set out to Fig. 8a and Supplementary Table 1 for the number of sequenced
+
+328 Nature Methods | VOL 19 | March 2022 | 323–330 | www.nature.com/naturemethods
+
+NATuRE METHoDS Articles
+a b able to identify the latter independent from clustering, namely by
+ Single Bulk
+ their gene expression signature (Extended Data Fig. 8c).
+ Next to the expected cell types, we observed an additional clus-
+ ter marked by the expression of Clu and Anxa1, which are estab-
+ lished markers of regenerative, or revival stem cells28. Interestingly,
+ we found three crypts that contained only these regenerative stem
+ cells and that (providing an accurate compositional representation
+ c
+UMAP 2
+
+ after dissociation) are thus depleted of other intestinal cell types
+ C15 C21 (Fig. 5c and all crypts in Extended Data Fig. 8d). Given that this
+ UMAP 1 observation aligned with our intestinal organoid (spheroid)-based
+ RegStem Goblet
+ findings, we integrated our crypt data with the previously gener-
+ ated organoid data to explore whether spheroids and crypts contain
+ TA-G1 TA-G2
+ similar regenerative stem cells. This integration yielded a common
+ Entero 1 Entero 2
+ dataset of 2,244 cells (Fig. 5d and Extended Data Fig. 9) with over-
+ C17 C6
+ PIC lapping ‘regenerative stem cell’ clusters, suggesting that this cell state
+ can be recovered in both intestinal crypts and organoids, and that
+ thus spheroids and regenerating crypts are compositionally simi-
+ lar (Fig. 5e and all crypts and organoids in Extended Data Fig. 10).
+d
+ Although caution is warranted when interpreting these results given
+ e the encountered dissociation issues, the findings indicate that some
+ C17 C6
+ organoid heterogeneity recapitulates in vivo tissue heterogeneity,
+ but also that crypts that predominantly contain regenerative stem
+ Crypts
+
+ cells are present in the homeostatic intestine. Altogether, the crypt
+ data support DisCo’s capacity to profile in vivo-derived small, indi-
+ vidual tissues, rendering the dissociation efficiency, and no longer
+UMAP 2
+
+ the processing efficiency, as the overall limiting factor.
+ S1a S3e
+ UMAP 1
+ Discussion
+ Organoids
+
+ RegStem Stem A key feature of our DisCo approach is the ability to deterministi-
+ TA PIC cally control the cell capture process. Despite lowering the through-
+ Paneth Goblet put compared with stochastic droplet systems2,3, our approach
+ Entero provides the advantage of being able to process low cell input
+ samples at high efficiency and at a strongly decreased per-cell cost
+UMAP embedding of all cells collected from bulk and individual crypts. in the scRNA-seq toolbox. Another critical feature of DisCo is the
+All 775 processed cells from bulk crypts and 372 cells from individual use of machine-vision to obtain full control of the entire bead and
+crypts were clustered with k-means clustering, after which clusters were cell co-encapsulation process, enabling the correct assembly of most
+annotated according to marker gene expression. b, UMAP representation droplets and virtually eradicating confounding factors that arise due
+of cells derived from bulk or individual crypts. The dotted line highlights to failed co-encapsulation35,36. In concept, DisCo is thus fundamenthe enterocyte cluster. c, UMAP from a superimposed with cells from tally different to passive particle pairing approaches such as traps37–39
+exemplary single crypts. d, UMAP embedding of all sequenced cells and, compared with these technologies, offers the advantage of
+obtained from intestinal organoids (Fig. 2) and crypts. All 2,244 processed requiring simpler and reusable chips without cell or particle size and
+cells were clustered with k-means clustering, after which clusters were shape selection biases15,40. This renders the DisCo approach univerannotated according to marker gene expression. e, UMAP from d stratified sally applicable to any particle co-encapsulation application41,42,
+by exemplary single crypts and organoids that are largely composed of for example, cell–cell encapsulations, with the only limiting factor
+regenerative stem cells. Entero, enterocytes; G1, G1/S cell cycle phase; being particle visibility.
+G2, G2/M cell cycle phase; PIC, potential intermediate cells; RegStem, To demonstrate DisCo’s capacity to process small tissues and
+regenerative stem cells; TA, transit amplifying cells. systems that were so far difficult to access experimentally, we have
+ analyzed the cell heterogeneity of chemosensory organs from
+ Drosophila melanogaster larvae43 and, as shown here, single intesticells). Next, we also used DisCo to generate a reference map of 775 nal organoids and crypts. It is thereby worth noting that, based on
+cells derived from pooled crypts (bulk), which we integrated with our handling of distinct tissues, we found that not DisCo itself, but
+the individual crypt cells to resolve their composition. This enabled instead cell dissociation, has become the efficiency-limiting factor
+us to identify distinct groups of cells: clusters marked by the expres- (see Methods), a well-recognized challenge in the field44,45.
+sion of the cell cycle genes Orc6 and Top2a, suggesting that these scRNA-seq of individual organoids led us to uncover organoid
+represent transit amplifying cells in the G1/S phase and G2/M subtypes of aberrant cell type distribution that were previously
+phase, respectively. We identified two enterocyte clusters, marked not resolved with pooled organoid scRNA-seq18,19,25. Of particuby Fabp1 and Apoa1 expression and a goblet cell cluster marked lar interest among the identified organoid subtypes is one that we
+by Muc2 expression (Fig. 5a and Extended Data Fig. 8b). Most of termed ‘gobloid’ given that it predominantly consists of immature
+these cell types were observed in bulk as well as in individual crypt and mature goblet cells. Another subtype contained predomisamples, except for enterocytes, which were mainly detected in the nantly cells that were strikingly similar to previously described
+bulk proportion, probably reflecting contamination by residual villi fetal-like stem cells or revival stem cells that occur during intestinal
+(Fig. 5b). Globally, the data overlapped with previously reported regeneration27–29. This subtype, previously described under alternate
+single cell data from bulk crypts25, except for the lack of rare entero- culture conditions as spheroid-type organoids20,33,46, was identified
+endocrine cells and tuft cells, which had an expected abundance of here under standard organoid differentiation conditions, indicatonly 1% in bulk crypt isolates25, and Paneth cells. However, we were ing that these organoids are capable of maintaining their unique
+
+Nature Methods | VOL 19 | March 2022 | 323–330 | www.nature.com/naturemethods 329
+
+Articles NATuRE METHoDS
+
+state. Moreover, we found that these LGR5− LY6A+ cells readily 18. Serra, D. et al. Self-organization and symmetry breaking in intestinal
+give rise to canonical organoids, indicating that they are capable organoid development. Nature 562, 66–72 (2019).
+ 19. Grün, D. et al. Single-cell messenger RNA sequencing reveals rare intestinal
+of providing a pool of multipotent stem cells. Interestingly, in our cell types. Nature 525, 251–255 (2015).
+proof-of-principle single intestinal crypt DisCo dataset, we identi- 20. Lukonin, I. et al. Phenotypic landscape of intestinal organoid regeneration.
+fied crypts that largely consisted of cells with a similar regenerative Nature 586, 275–280 (2020).
+gene expression signature. Although crypts with these properties 21. Tirier, S. M. et al. Pheno-seq: linking visual features and gene expression in
+ 3D cell culture systems. Sci. Rep. 9, 12367 (2019).
+have been previously described upon injury, for example, by irradia-
+ 22. Unger, M. A., Chou, H. P., Thorsen, T., Scherer, A. & Quake, S. R. Monolithic
+tion28, our data suggest that such regenerating crypts are also pres- microfabricated valves and pumps by multilayer soft lithography. Science 288,
+ent in the homeostatic intestine. 113–116 (2000).
+ Here, we demonstrate that our DisCo analysis of individual 23. Biocanin, M., Bues, J., Dainese, R., Amstad, E. & Deplancke, B. Simplified
+intestinal organoids and crypts is a powerful approach to explore Drop-seq workflow with minimized bead loss using a bead capture and
+ processing microfluidic chip. Lab Chip 19, 1610–1620 (2019).
+in vitro and in vivo tissue heterogeneity, and to provide new insights 24. Sato, T. et al. Single Lgr5 stem cells build crypt–villus structures in vitro
+into how this heterogeneity arises. As well as catalyzing research without a mesenchymal niche. Nature 459, 262–265 (2009).
+on other tissues or systems of interest, we believe that the technol- 25. Haber, A. L. et al. A single-cell survey of the small intestinal epithelium.
+ogy and findings of this study will contribute to future research on Nature 551, 333–339 (2017).
+(intestinal) organoid development and thus aid the engineering of 26. Yin, X. et al. Niche-independent high-purity cultures of Lgr5+ intestinal stem
+ cells and their progeny. Nat. Methods 11, 106–112 (2014).
+more robust organoid systems. Furthermore, we believe that the 27. Gregorieff, A., Liu, Y., Inanlou, M. R., Khomchuk, Y. & Wrana, J. L.
+utility of the approach described here, extends to research on all Yap-dependent reprogramming of Lgr5+ stem cells drives intestinal
+developing multicellular organisms, and, coupled with lineage trac- regeneration and cancer. Nature 526, 715–718 (2015).
+ing47, might offer an entirely new perspective on interindividual 28. Ayyaz, A. et al. Single-cell transcriptomes of the regenerating intestine reveal
+variation. Finally, we expect this approach to be applicable to rare, a revival stem cell. Nature 569, 121–125 (2019).
+ 29. Roulis, M. et al. Paracrine orchestration of intestinal tumorigenesis by a
+small clinical samples to gain detailed insights into disease-related mesenchymal niche. Nature 580, 524–529 (2020).
+cellular heterogeneity and dynamics. 30. Battich, N. et al. Sequencing metabolically labeled transcripts in single cells
+ reveals mRNA turnover strategies. Science 367, 1151–1156 (2020).
+Online content 31. Street, K. et al. Slingshot: cell lineage and pseudotime inference for single-cell
+Any methods, additional references, Nature Research report- transcriptomics. BMC Genomics 19, 477 (2018).
+ 32. Birchenough, G., Johansson, M., Gustafsson, J., Bergstrom, J. & Hansson, G.
+ing summaries, source data, extended data, supplementary infor- C. New developments in goblet cell mucus secretion and function. Mucosal
+mation, acknowledgements, peer review information; details of Immunol. 8, 712–719 (2015).
+author contributions and competing interests; and statements of 33. Yui, S. et al. YAP/TAZ-dependent reprogramming of colonic epithelium links
+data and code availability are available at https://doi.org/10.1038/ ECM remodeling to tissue regeneration. Cell Stem Cell 22, 35–49 (2018).
+s41592-021-01391-1. 34. Macnair, W. & Claassen, M. psupertime: supervised pseudotime inference for
+ single cell RNA-seq data with sequential labels. Preprint at bioRxiv https://
+ doi.org/10.1101/622001 (2019).
+Received: 2 February 2021; Accepted: 22 December 2021; 35. Lareau, C. A., Ma, S., Duarte, F. M. & Buenrostro, J. D. Inference and effects
+Published online: 14 February 2022 of barcode multiplets in droplet-based single-cell assays. Nat. Commun. 11,
+ 866 (2020).
+References 36. Lun, A. T. L. et al. EmptyDrops: distinguishing cells from empty droplets in
+1. Tang, F. et al. mRNA-Seq whole-transcriptome analysis of a single cell. Nat. droplet-based single-cell RNA sequencing data. Genome Biol. 20, 63 (2019).
+ Methods 6, 377–382 (2009). 37. Chung, M., Núñez, D., Cai, D. & Kurabayashi, K. Deterministic droplet-based
+2. Macosko, E. Z. et al. Highly parallel genome-wide expression profiling of co-encapsulation and pairing of microparticles via active sorting and
+ individual cells using nanoliter droplets. Cell 161, 1202–1214 (2015). downstream merging. Lab Chip 17, 3664–3671 (2017).
+3. Klein, A. M. et al. Droplet barcoding for single-cell transcriptomics applied to 38. Cheng, Y. H. et al. Hydro-Seq enables contamination-free high-throughput
+ embryonic stem cells. Cell 161, 1187–1201 (2015). single-cell RNA-sequencing for circulating tumor cells. Nat. Commun. 10,
+4. Gierahn, T. M. et al. RNA sequencing of single cells at high throughput. Nat. 2163 (2019).
+ Methods 14, 395–398 (2017). 39. Zhang, M. et al. Highly parallel and efficient single cell mRNA sequencing
+5. Han, X. et al. Mapping the mouse cell atlas by Microwell-Seq. Cell 172, with paired picoliter chambers. Nat. Commun. 11, 2118 (2020).
+ 1091–1107 (2018). 40. Pollen, A. A. et al. Low-coverage single-cell mRNA sequencing reveals
+6. Rosenberg, A. B. et al. Single-cell profiling of the developing mouse brain and cellular heterogeneity and activated signaling pathways in developing cerebral
+ spinal cord with split-pool barcoding. Science 360, 176–182 (2018). cortex. Nat. Biotechnol. 32, 1053–1058 (2014).
+7. Li, H. et al. Fly cell atlas: a single-cell transcriptomic atlas of the adult fruit 41. Dura, B. et al. Profiling lymphocyte interactions at the single-cell level by
+ fly. Preprint at bioRxiv https://doi.org/10.1101/2021.07.04.451050 (2021). microfluidic cell pairing. Nat. Commun. 6, 5940 (2015).
+8. Tabula Muris Consortium Single-cell transcriptomics of 20 mouse organs 42. Gérard, A. et al. High-throughput single-cell activity-based screening and
+ creates a Tabula Muris. Nature 562, 367–372 (2018). sequencing of antibodies using droplet microfluidics. Nat. Biotechnol. 38,
+9. Han, X. et al. Construction of a human cell landscape at single-cell level. 715–721 (2020).
+ Nature 581, 303–309 (2020). 43. Maier, G. L. et al. Multimodal and multisensory coding in the Drosophila
+10. Stoeckius, M. et al. Cell Hashing with barcoded antibodies enables multiplexing larval peripheral gustatory center. Preprint at bioRxiv https://doi.
+ and doublet detection for single cell genomics. Genome Biol. 19, 224 (2018). org/10.1101/2020.05.21.109959 (2020).
+11. McGinnis, C. S. et al. MULTI-seq: sample multiplexing for single-cell RNA 44. Haque, A., Engel, J., Teichmann, S. A. & Lönnberg, T. A practical guide to
+ sequencing using lipid-tagged indices. Nat. Methods 16, 619–626 (2019). single-cell RNA-sequencing for biomedical research and clinical applications.
+12. Gehring, J., Hwee Park, J., Chen, S., Thomson, M. & Pachter, L. Highly Genome Med. 9, 75 (2017).
+ multiplexed single-cell RNA-seq by DNA oligonucleotide tagging of cellular 45. Denisenko, E. et al. Systematic assessment of tissue dissociation and storage
+ proteins. Nat. Biotechnol. 38, 35–38 (2020). biases in single-cell and single-nucleus RNA-seq workflows. Genome Biol. 21,
+13. Hwang, B., Lee, J. H. & Bang, D. Single-cell RNA sequencing technologies 130 (2020).
+ and bioinformatics pipelines. Exp. Mol. Med. 50, 1–14 (2018). 46. Mustata, R. C. et al. Identification of Lgr5-independent spheroid-generating
+14. 10X Genomics. Chromium Single Cell 3ʹ Reagent Kits User Guide (v3 progenitors of the mouse fetal intestinal epithelium. Cell Rep. 5, 421–432
+ Chemistry) (CG000183 Rev C) (2018). (2013).
+15. DeLaughter, D. M. The use of the Fluidigm C1 for RNA expression analyses 47. McKenna, A. et al. Whole-organism lineage tracing by combinatorial and
+ of single cells. Curr. Protoc. Mol. Biol. 122, e55 (2018). cumulative genome editing. Science 353, aaf7907 (2016).
+16. Wagner, D. E. et al. Single-cell mapping of gene expression landscapes and
+ lineage in the zebrafish embryo. Science 360, 981–987 (2018). Publisher’s note Springer Nature remains neutral with regard to jurisdictional claims in
+17. Packer, J. S. et al. A lineage-resolved molecular atlas of C. elegans published maps and institutional affiliations.
+ embryogenesis at single-cell resolution. Science 365, eaax1971 (2019). © The Author(s), under exclusive licence to Springer Nature America, Inc. 2022
+
+330 Nature Methods | VOL 19 | March 2022 | 323–330 | www.nature.com/naturemethods
+
+NATuRE METHoDS Articles
+Methods the resulting image converted to a binary image by intensity thresholding. The
+Animal experimentation. Intestinal organoids were generated from mouse small binary image was dilated to fill potential holes. Finally, contours were detected
+intestinal stem cells isolated from 5–10-week-old heterozygous, male/female, using the findContours function, and classified for area and circularity. Upon
+Lgr5‐eGFP‐IRES‐CreERT2 mice (Jackson Laboratory). These experiments were particle detection, the particles were properly positioned by valve oscillation
+approved by the Service de la Consummation et des Affaires Vétérinaires in and monitoring of the ROI at the target zone (Extended Data Fig. 1c). Once two
+Epalinges, Switzerland (license number 2681.0). Intestinal crypts were isolated particles were positioned in their respective target zones, particles were co-ejected
+from 7-week-old male C57BL/6J mice. Crypt isolation was conducted under by pressurization of the dropleting valve, and the droplet was sheared by actuation
+the license VD3406e granted by the local authorities: Direction Générale de of the oil valve.
+l’Agriculture, de la Viticulture et des Affaires Vétérinaires in Epalinges, Switzerland.
+Mice were housed at a temperature of 22 °C ± 2 °C, relative humidity of 55% ± 10%, Microfluidic chip design and fabrication. The design of the microfluidic chip
+and a 12 h–12 h light–dark cycle (light at 7:00 and dark at 19:00). for deterministic co-encapsulation is presented in Extended Data Fig. 1a and the
+ computer-aided design (CAD) files are available in Supplementary Data 1. Chips
+System comparison metrics. Performance metrics for Table 1 were calculated in were designed using Tanner L-Edit CAD software (Mentor, version 2016.2). The
+the following ways. 5-inch chromium masks were exposed in a VPG200 laser writer (Heidelberg
+ instruments) for both the control and flow layers. Masks were developed using
+Minimum cell input estimates. The minimum cell input values were derived from an HMR 900 mask processor (Hamatech). For the control layer, a thick SU8
+the following sources: for 10X Chromium HT/LT48, the lowest cell input number photoresist layer was deposited with an LSM-200 spin coater (Sawatec), exposed
+given in the 10X Chromium manual (HT, CG000183 Rev C; LT, CG000399 Rev on an MJB4 single side mask aligner (SÜSS MicroTec), and manually developed.
+B); for inDrop3, the lowest numbers mentioned in the 1CellBio manual (Single The SU8 processing steps were carried out according to the manufacturer’s
+Cell Encapsulation Protocol, version 2.4); for Drop-seq2, the lowest numbers used instructions for the 3010 series (Microchem). For the flow layer, wafers were
+in ref. 49 (it is probable that lower cell numbers can be processed, but Drop-seq produced using the AZ40XT (Microchem) positive photoresist on the ACS200
+has been suggested to be used “When the sample is abundant”49); for FACS-based coating and developing system (Gen3, SÜSS MicroTec). Developed master-wafers
+methods50,51, the input limits as described in ref. 13; for Fluidigm C1 (ref. 40), the were reflowed for 45–75 s at 120 °C on a hotplate until the channels appeared round
+lowest cell input number used for benchmarking experiments given in the present under an inspection microscope. The control layer master-wafers were used as
+study; for Wafergen iCell8 (ref. 52), the lowest cell numbers derived from the iCell molds for polydimethylsiloxane (PDMS) chips after passivation with 1% silane
+manual (CELL8 Single-Cell ProtocolD07-000025 Rev. C; according to the manual, dissolved in hydrofluoroether (HFE). For the flow layer, master-wafers were used
+80 µl of a suspension of 0.02 cells per nl are prepared for dispensing); for Seq-well4, to generate replica molds for chip production. To this end, the primary replica
+the lowest cell number used for capture in ref. 4; and for DisCo, the lowest cell mold was obtained by mixing PDMS with curing agent at a ratio of 10:1 using a
+number processed in this study. centrifugal mixer (Thinky), degassing for 15 min, and curing for 60 min at 80 °C.
+ The PDMS-based primary replica mold was then sylanized and subsequently used
+Efficiency estimates. Efficiency estimates were derived from varying sources and to obtain secondary replica molds for PDMS flow layer production. The PDMS
+represent different efficiencies. The efficiencies for 10X Chromium HT, inDrop flow layer was fabricated using PDMS and curing agent at a ratio of 5:1, degassed
+and Drop-seq were derived from ref. 49 from quantified cellular inputs (>1,000 and cured at 80 °C for 30 min. The control layer was fabricated by spin coating the
+cells) and sequenced cells passing the quality thresholds. Given that these PDMS and curing agent at a ratio of 20:1 on the flow layer wafer at 650 r.p.m. for
+efficiencies stem from experiments that were performed with optimized cell inputs, 35 s with a 15 s ramp time, followed by baking at 80 °C for 30 min. Cured PDMS
+we can assume lower efficiencies when processing low cell inputs (<1,000). For the was then cut from the flow layer secondary replica mold, and flow layer inlet
+10X Chromium LT kit, efficiencies were derived from the user manual CG000399 holes were punched with a 0.5 mm diameter biopsy punch. The two PDMS layers
+Rev B. The efficiency for the Fluidigm C1 system was determined in the present were manually aligned and bonded at 80 °C for at least 60 min. Assembled and
+study (Extended Data Fig. 1l). For the Wafergen iCell8 system, an efficiency cured PDMS chips were cut from the molds, and the control layer inlet holes were
+estimate was derived from ref. 53 and represents the efficiency of conversion from punched. Finally, chips were oxygen plasma activated (45 s at ~500 mTorr O2) and
+captured to sequenced cells passing the quality thresholds, thus it does not include bonded to a surface-activated glass slide followed by incubation at 80 °C for at least
+cell capture inefficiency. The efficiency for Seq-well was derived from ref. 4 at 2 h. Materials and reagents are listed in the Material and reagent list, point 1.
+an input of 400 cells and represents an inferred efficiency from quantified cell
+input to sequenced cells passing the quality threshold. Specifically, the library Mammalian cell culture handling for the species mixing experiment. For
+conversion efficiency, that is, the percentage of captured cells identified in the benchmarking the DisCo platform, HEK 293T cells (American Type Culture
+sequencing data passing the quality threshold, was calculated based on the species Collection (ATCC) cat. no. SD-3515) and IBA cells (provided by C. Wolfrum’s
+mixing experiment involving 10,000 input cells. The library conversion efficiency, laboratory, ETH Zürich) were used. Cells were cultured to 90% confluency in
+in combination with capture efficiencies at 400 cells, was used to determine the Glutamax DMEM supplemented with FBS and penicillin–streptomycin. Prior to
+efficiency at low cell numbers. Hence, this is inferred from quantified cellular use, the cells were washed with PBS, dissociated with Trypsin-EDTA, washed with
+inputs to sequenced cells passing the quality thresholds. The efficiencies for DisCo cell wash buffer and counted with Trypan blue live–dead stain using a Countess
+were derived in this study and represent mean efficiencies for low cell inputs (50– cell counter (Invitrogen). Cells were mixed in a 1:1 ratio, adjusted to 20 cells per µl,
+200), from quantified cell input to sequenced cells passing the quality thresholds. resuspended in cell loading buffer, and finally loaded on the DisCo chip. Material
+ and reagents are listed in the Material and reagent list, point 11.
+Cost per cell estimates. Two cost estimates are listed for 100 cells: the cost for
+100 cells not considering system efficiencies (US$ per cell, 100 output cells), Droplet content and co-encapsulation performance quantification. As for
+and the cost for 100 input cells considering the listed efficiencies (US$ per cell, conventional DisCo runs, experiments were set up with Chemgen beads and
+100 input cells). The run costs for Smart-seq2, Cel-seq2, inDrop, Drop-seq and varying concentrations of HEK 293T cells. Approximately 100 co-encapsulations
+Seq-well were derived from Supplementary Table 8 in ref. 54. The run costs for were performed and recorded per condition. The recorded video data were
+10X Chromium HT, Fluidigm C1 (96) and Wafergen iCell8 were derived from manually reviewed and the droplet contents, and passing cells were counted
+list of the École Polytechnique Fédérale de Lausanne (EPFL) Gene Expression
+Core Facility (GECF). For the Wafergen iCell8 it was assumed that eight samples Benchmarking DisCo efficiency using the DISPENCELL platform. To
+(one per dispensing nozzle) can be processed on one chip in parallel, thus benchmark single-cell recovery efficiencies throughout the complete DisCo
+decreasing the cost by a factor of 8. The DisCo cost estimate includes reagents for workflow, we quantified HEK 293T cells (ATCC cat. no. SD-3515) using the
+library generation, that is, the cost for beads, oil, reverse transcription reaction, DISPENCELL pipetting robot (SEED Biosciences SA). Prior to use, HEK 293T cells
+exonuclease treatments, polymerase chain reaction (PCR), and library preparation were diluted to 20 cells per µl. Cells were loaded into the DISPENCELL tip and
+(Nextera XT). then dispensed directly into a Prot/Elec gel loading tip containing cell loading
+ buffer. Cells were then processed with DisCo and the libraries prepared as
+DisCo experimental procedure. The experimental setup and all necessary steps described above.
+are described in the step-by-step protocol: https://www.epfl.ch/labs/deplanckelab/
+wp-content/uploads/2021/09/DisCo_protocol.pdf Benchmarking the Fluidigm C1. To benchmark the cell recovery efficiency of
+ the Fluidigm C1 platform, HEK 293T cells (ATCC cat. no. SD-3515) were diluted
+Machine-vision software. The software for cell detection and coordination was with Suspension Reagent (Fluidigm) to reach approximately 10, 20 and 40 cells per
+implemented in C++. Camera images were obtained with the XiApi library µl. The obtained suspensions were generated separately from the same stock and
+(version 4.15). Images were processed in real time using the OpenCV computer then quantified in triplicate using microscopy by examining a volume of 2 × 2.5 µl
+vision library (version 3.4). A schematic visualization of the particle detection of the suspension between two coverslips. Counts of all triplicates were averaged to
+algorithm is given in Extended Data Fig. 1b. In brief, a detection region of determine the cell input for 5 µl Cell Mix, and the same volume was subsequently
+interest (ROI) was extracted by cropping, after which a Gaussian blur was loaded on the C1 integrated fluidic circuit (IFC). The experiments on the C1
+applied to the resulting image. Two subsequent images were subtracted, and machine were performed according to the SMART-Seq v4 Ultra Low Input RNA
+
+Nature Methods | www.nature.com/naturemethods
+
+Articles NATuRE METHoDS
+Kit for the Fluidigm C1 System, IFCs User Manual (Clontech Laboratories) using Split organoid experiment. Organoids for the split organoid experiment were
+10–17 µm 96-trap C1 IFC OpenApp chips. The protocol was run on SMART-Seq cultured in ENR medium as previously described20. Single organoids, derived
+version 4 (1861x/1862x/1863x) programs on the C1 machine. To verify successful from days 2–6 after crypt splitting, were isolated from Matrigel as described above.
+loading and cell trapping, traps were examined using a Cell xCellence (Olympus) Subsequently, single organoids were isolated by hand-picking into a 384-well plate
+microscope. Final cDNA was quantified using the PicoGreen double-stranded (ds) containing single-organoid dissociation mix. As before, single organoids were
+DNA assay and then fragmented and tagged (that is, tagmented) using the Nextera dissociated by combining triaturation using non-filter pipette tips every 5 min and
+XT library preparation kit according to the manufacturer’s instructions. incubation at 37 °C for 15 min in a 100 µl volume. Finally, the dissociation mix was
+ diluted with cell loading buffer. The single-cell suspension of one organoid was
+Material and reagent list for Fluidigm C1 benchmarking. For single-cell chip loading split into two separate samples and introduced subsequently on the system.
+and priming, the C1 Single-Cell mRNA Seq HT Reagent kit version 2 (Fluidigm,
+cat. no. SKU 101-3473) was used as well as the 10–17 µm 96-trap C1 IFC Material and reagent list for the split organoid experiment. Intestinal organoids
+(Fluidigm, cat. no. SKU 100-8134). For cDNA generation, a SMART-Seq v4 were cultured in Matrigel (Corning, cat. no. 356230) with organoid base
+Ultra Low Input RNA Kit (Clontech Laboratories, cat. no. 634888) was used. medium supplemented with ENR (not containing CV). Organoid base medium
+cDNA was quantified using the PicoGreen high-sensitivity dsDNA assay was prepared using DMEM/F12 (Gibco, cat. no. 11320033), 100 mM HEPES
+(Invitrogen, cat. no. P11496) and then libraries were generated using Nextera XT (Gibco, cat. no. 15630056), 100 U per ml penicillin–streptomycin (Gibco, cat. no.
+(Illumina, cat. no. FC-131-1096) and the Nextera XT index kit set A (Illumina, cat. 15140122), 1 µM B27 supplement (Gibco, cat. no. 17504-044), 1 µM N2 supplement
+no. FC-131-2001). (Gibco, cat. no. 17502001) and 1 µM N-acetyl-l-cysteine (Sigma, cat. no. A9165).
+ ENR medium was prepared using base medium (as above), 50 ng per ml epidermal
+Temporal batch effect experiment. A single-cell suspension of HEK 293T (ATCC growth factor (E; LifeTechnologies, cat. no. PMG8043), 100 ng per ml mNoggin (N;
+cat. no. SD-3515) was loaded on the system as described above, and the remaining produced in-house) and 1 µg per ml R-spondin (R; produced in-house).
+volume stored on ice. After 20 min, generated droplets were evacuated from the
+system and sequencing libraries prepared. A new cell loading tip was inserted into Single-cell isolation from the small mouse intestine. Crypts were isolated
+the sample outlet port and the experimental run was resumed. The previous steps from the small intestines of single 7-week-old male C57BL/6J mice following the
+were repeated after 40 and 60 min. After 120 min the system was loaded with cells protocol in ref. 56. In brief, the small intestine of a single mouse was isolated and
+stored on ice and the cells were captured for approximately 20 min. Subsequently, then washed both on the inside and outside with ice-cold PBS. The small intestine
+droplets were evacuated from the system, cDNA was generated, and sequencing was cut open longitudinally and washed again with PBS. The intestine was then
+libraries prepared as described above. The former steps were repeated for cells digested non-enzymatically for 3 min in PBS, EDTA and dithiothreitol (DTT).
+stored for 180 min on ice. Next, the tissue was cut into small pieces and transferred into a 50 ml Falcon tube
+ The material and reagent list for the temporal batch effect experiment is given containing 20 ml ice-cold PBS. The PBS solution containing the tissue pieces
+in the section ‘Mammalian cell culture handling for the species mixing experiment’. was gently triturated 10 times using a 10 ml pipette. After tissue fragments had
+ sedimented, the supernatant was removed and the process was repeated three
+Mouse intestinal organoid culture and handling. The isolation of stem cells more times until the supernatant was clear. Next, the supernatant was removed,
+harboring an enhanced green fluorescent protein expressed from the Lgr5 locus PBS and EDTA were added and the sample incubated for 30 min at 4 °C on a
+(Lgr5-eGFP stem cells) from 5- to 10-week-old Lgr5-eGFP-IRES-CreERT2 mice rocking plate. After incubation, tissue fragments were left for sedimentation (up
+(Jackson Laboratory) and initial culture were performed as previously described55. to 5 min), then the supernatant was removed. Subsequently, tissue fragments were
+For the developmental time-course experiments, organoids were dissociated triturated with ice-cold PBS by pipetting up and down. After large tissue fragments
+to single cells, live LGR5+-eGFP cells were isolated using a FACS ARIA II (BD had sedimented (up to 5 min), the supernatant containing crypts was collected as
+Biosciences) and were embedded in Matrigel. For sorting of LY6A+ LGR5− and fraction 1 (F1). Fraction collection was then repeated four times (F2–F5), followed
+LY6A− LGR5+, cells were surface stained with anti-mouse Anti-Sca1/Ly6A/E (0.2 μg by trituration with ice-cold PBS, while each fraction was stored separately. Each
+per 1 million cells; Biolegend, cat. no. 122514) for 30 min in culture medium at fraction was inspected for cell debris and villus contamination.
+4 °C. Subsequently, cells were washed by centrifugation in a 4 °C cooled centrifuge For single-cell bulk sample preparation, crypts from F2 or F3 were spun
+for 5 min at 774 ×g, and resuspended in organoid culture medium. Live–dead down at 600 ×g for 10 min (brake 5). Following centrifugation the supernatant
+discrimination was carried out using 4,6-diamidino-2-phenylindole (DAPI) added was removed and the cells were enzymatically dissociated for 1 min at 37 °C. Cells
+shortly before sorting. The gating strategy is shown in Supplementary Fig. 1. were then washed twice in PBS containing 0.01% BSA and strained twice using
+ After Matrigel polymerization, cells were cultured in ENR CV medium a Flowmi 40 µm strainer to minimize the amount of multiplets. Cell suspensions
+(epidermal growth factor (E), Noggin mouse (mNoggin; N), R-spondin (R) and were diluted in cell loading buffer and loaded on the DisCo chip.
+CV) supplemented with the ROCK inhibitor, thiazovivin. Growth factors (E, N, R, For single-cell isolation from single crypts, crypts from F3 were transferred to
+C, V) were replenished after 2 days of culture. At day 3 of culture, a full medium FBS-coated 6-well plates. Subsequently, single crypts were isolated by hand-picking,
+change was performed for the differentiation growth medium (ENR only). At day after which they were transferred to a Nunc microwell culture plate containing
+5, growth factors (E, N, R) were replenished. Organoids were sampled at day 3 (S0) single crypt dissociation mix. Single crypts were dissociated by combining
+prior to the medium change, at day 4 (S1), at day 5 (S2) and at day 6 (S3). trituration using non-filter pipette tips every 5 min and incubation at 37 °C for a
+ Single organoids were collected by dissolving Matrigel with ice-cold Cell total of 15 min. As also noted in the Results section, obtaining a true single-cell
+Recovery Solution for approximately 5 min while carefully pipetting up and suspension proved highly challenging, despite testing several dissociation buffer
+down with a 1,000 µl pipette. Subsequently, single organoids were isolated by compositions (Supplementary Table 3), given that many cells were lost or were only
+hand-picking, after which they were transferred to a Nunc microwell culture partially recovered in multiplets or clumps. Following dissociation, cell suspensions
+plate with single-organoid dissociation mix. Single organoids were dissociated by were diluted in cell loading buffer and loaded on the DisCo chip.
+combining trituration using siliconized pipette tips every 5 min and incubation
+at 37 °C for 15 min. Following dissociation, cell suspensions were diluted in cell Material and reagent list for single-cell isolation from mouse intestinal crypts.
+loading buffer in the loading tip connected to the DisCo chip. Materials and For small intestine washing, PBS (Gibco, cat. no. 14190-094) was used. For the
+reagents are listed in the Material and reagent list, points 12–16. non-enzymatic dissociation of small intestinal pieces, PBS (Gibco, cat. no. 14190-
+ Intestinal organoids were cultured in Matrigel (Corning, cat. no. 356230) 094), 3 mM EDTA (Sigma, cat. no. 3690) and 0.5 mM DTT (Applichem, cat. no.
+with organoid base medium (described in point 13) supplemented with ENR A2948,0005) were used. Intestinal pieces were incubated in PBS (Gibco, cat. no.
+(and CV where indicated) and ROCK inhibitor (where indicated; Sigma, cat. 14190-094) and 2 mM EDTA (Sigma, cat. no. 3690), followed by fraction collection
+no. Y0503). Organoid base medium was prepared using DMEM/F12 (Gibco, in PBS (Gibco, cat. no. 14190-094). Bulk single-cell crypt preparations from the
+cat. no. 11320033), 100 mM HEPES (Gibco, cat. no. 15630056), 100 U per ml small intestine were prepared using PBS (Gibco, cat. no. 14190-094), 1X TrypLE
+penicillin–streptomycin (Gibco, cat. no. 15140122), 1 µM B27 supplement (Gibco, select (Gibco, cat. no. A1217701) and 10 mg per ml DNase I (Roche, cat. no. 11 284
+cat. no. 17504-044), 1 µM N2 supplement (Gibco, cat. no. 17502001) and 1 µM 932 001) in a total volume of 500 µl per reaction. Cells were then washed using PBS
+N-acetyl-l-cysteine (Sigma, cat. no. A9165). ENR medium was prepared using base (Gibco, cat. no. 14190-094) and 0.01% BSA (Sigma, cat. no. B8667), and strained
+medium (as above), 50 ng per ml epidermal growth factor (E; LifeTechnologies, using a Flowmi 40 µm strainer (Sigma, cat. no. BAH136800040-50EA) into a 500 µl
+cat. no. PMG8043), 100 ng per ml mNoggin (N; produced in-house) and 1 µg per final volume. Single cells were dissociated from single crypts using PBS (Gibco,
+ml R-spondin (R; produced in-house). ENR CV medium was prepared with the cat. no. 14190-094), 20 mg per ml B. licheniformis protease (Sigma, cat. no. P5380),
+addition of 3 µM CHIR99021 (C; CalBiochem) and 3 mM valproic acid (V; Sigma, 10 mM EDTA (Sigma, cat. no. 03690), 10 mM EGTA (BioWorld, cat. no. 40520008cat. no. P4543) to the ENR medium. Single-organoid, single-cell dissociation 1), 20 µg per ml DNase I (Roche, cat. no. 11 284 932 001) and 0.6X Accutase
+mix was prepared using PBS (Gibco, cat. no. 14190-094), 10 mg per ml Bacillus (Thermo Fisher, cat. no. A1110501) in a total volume of 20 µl per reaction. For
+licheniformis protease (Sigma, cat. no. P5380), 5 mM EDTA (Sigma, cat. no. 03690), single crypt dissociation, Nunc MicroWell plates (cat. no. 438733) and non-filtered
+5 mM EGTA (BioWorld, cat. no. 40520008-1), 10 µg per ml DNase I (Roche, cat. 10 µl pipette tips (VWR, cat. no. 53509-134) were used.
+no. 11 284 932 001) and 0.68X Accutase (Sigma, cat. no. A6964) in a total volume
+of 20 µl per reaction. For single-organoid dissociation, Nunc MicroWell plates (cat. RNA fluorescence in situ hybridization (RNAscope) on intestinal organoids.
+no. 438733) and siliconized p10 pipette tips (VWR, cat. no. 53509-134) were used. For the RNAscope assay, organoids in Matrigel were fixed in paraformaldehyde
+
+ Nature Methods | www.nature.com/naturemethods
+
+NATuRE METHoDS Articles
+(PFA) at 4 °C overnight. The next day, organoids were washed with PBS and but introduced minor annotation discrepancies in similar clusters between the
+embedded in histogel. Histogel blocks were subsequently infiltrated with paraffin individual and merged datasets. For example, cells that were annotated TA-G1 in
+using a standard histological procedure (VIP6, Sakura). RNAscope Multiplex the crypt data (Extended Data Fig. 8d) were annotated as stem cells in the merged
+Fluorescent V2 assay was performed according to the manufacturer’s protocol on data (Extended Data Fig. 10).
+4 μm paraffin sections, hybridized with the probes Mm-Ly6a-C2, Mm-Fabp1-C1, Merged data were visualized using the Seurat intrinsic functions VlnPlot(),
+Mm-Muc2-C2, Mm-PpiB-C2 positive control and Duplex negative control at 40 °C FeaturePlot(), DotPlot() and DimPlot(). Differentially expressed genes per cluster
+for 2 h and revealed with TSA Opal650 for the C1 channel and TSA Opal570 for were identified using FindAllMarkers() using default parameters. The Seurat object
+the C2 channel. Tissues were counterstained with DAPI and mounted with Prolong is accessible via GSE148093. Cumulative Z-scores were calculated based on the
+Diamond Antifade Mountant. Slides were imaged on an Olympus VS120 whole scaled expression per cell across the defined gene signatures18,27. Pie chart, bubble
+slide scanner (Olympus). The resulting images were converted to the TIFF file plot and bar graph visualizations were carried out with ggplot2. The analysis script
+format using the Fiji (version 1.52p) plugin BIOP VSI Reader (version 7). ROIs is available in Supplementary Software 1.
+were extracted using a custom Python (version 2.7.15) script and the PIL library
+(version 6.2.2). Brightness of the extracted ROIs was adjusted in Fiji: images of C1 HEK library processing and analysis. Libraries were sequenced on a
+one target were loaded, stacked, and the brightness adjusted for the whole stack NextSeq500 sequencer (Illumina) in paired-end run format (read 1, 16 bp; read 2,
+using the setMinAndMax() function. Finally, images were unstacked, merged with 59 bp) with an average of 3 × 106 reads per library. The read quality of sequenced
+other channels and exported as PNG files. Materials and reagents are listed in the libraries was evaluated with FastQC. Sequencing reads were aligned to the
+Material and reagent list, points 17, 18. reference human genome assembly GRCh38.90 using STAR58. Reads aligned to
+ annotated genes were quantified with htseq-count60.
+Sequencing, analysis, barcode correction. The data analysis was performed using
+the Drop-seq tools package (version 2.3.0, https://github.com/broadinstitute/ Slingshot analysis. The trajectories were constructed using the Slingshot wrapper
+Drop-seq/releases/tag/v2.3.0)2,57 on the EPFL Scientific IT and Application implemented in the dyno package (https://github.com/dynverse/dyno)61. The
+Support (SCITAS) High Performance Computing (HPC) platform. All data method was provided with the first five dimensions of a multi-dimensional scaling
+pre-processing steps were done according to the Drop-seq tools manual, except as dimensionality reduction, the clustering as described earlier, and the stem cell
+for the DetectBeadSubstitutionErrors function, which was replaced by the cluster as the starting cell population. All other parameters were left as the default
+barcode merging strategy described below. After trimming and sequence tagging, settings. Genes that change along the trajectory were ranked using the calculate_
+reads were aligned to the human (hg38), mouse (GRCm38), or mixed reference overall_feature_importance function from the dynfeature package (version 1.0,
+genomes2 (GSE63269), depending on the origin of the cellular input material, using https://github.com/dynverse/dynfeature), and the top 50 differentially expressed
+STAR (version 2.7.0.e)58. Following alignment, BAM files were processed to obtain genes were selected. The dynplot package (version 1.1, https://github.com/
+initial read-count matrices (RCMs) per sample (note: DGE summary files were dynverse/dynplot) was used to plot the trajectory within a scatterplot and heatmap.
+used for the experiments in Fig. 1h,i). Cell barcodes were prefiltered at >35 UMIs
+(for the species mixing experiment, the sum of 35 UMIs for both species was used Psupertime analysis. Cell labels and sample-day labels were extracted from the
+as a prefiltering criterion). Graphs were built by identifying barcodes connected by merged and batch-corrected meta-data of the Seurat object to run psupertime,
+Levenshtein distance 1. For each graph, the barcode containing the highest number a method of identifying genes relevant to biological processes using cell-level
+of UMIs was identified as the central barcode. The graphs were pruned (barcodes temporal labels to build an L1 regularized ordinal logistic regression model34.
+removed) at a Levenshtein distance >2 to the central barcode, and the remaining Sample-day labels indicating the experimental temporal order were used to
+barcodes in the graph were merged. The script for barcode merging is available in conduct a psupertime analysis on batch-corrected and normalized gene expression
+Supplementary Software 1. data of cells, with selected cell type labels. The analysis was performed including
+ For cell recovery efficiency experiments using the DISPENCELL platform (Fig. all genes and encompassing a 10-fold cross-validation using default settings. Genes
+1j) and for Drop-seq comparison experiments (Fig. 1i), barcodes encompassing with coefficients (beta-values) greater than zero were considered relevant for
+at least 500 UMIs were compiled into the RCMs. Additionally, for the Drop-seq the temporal expression dynamics. Expression of relevant genes was plotted per
+comparison experiments, the processed BAM files were down-sampled to the same organoid per cell.
+read depth using samtools (version 1.9) (http://www.htslib.org/doc/samtools.html).
+ Material and reagent list for all experiments. Material information is listed in the
+ following format: material name (vendor, ordering number). Reagent information
+Time course organoid kinetic analysis. RCMs were further processed via R
+ is listed in the following format: reagent name (final concentration in the solution,
+(version 3.6.2) using Seurat (version 3.1.1) and uwot (version 0.1.3)59. For each
+ vendor, order number).
+individual organoid-RCM, cells with >800 features and <7.5% mitochondrial
+reads were retained in the analysis. The time course kinetics of organoids were 1. For microfluidic device fabrication, SU8 3010 (Microchem) negative phoprocessed in three independent experiments, which were considered as three toresist, AZ40XT (Microchem) positive photoresist, HFE-7500 (3 M, Novec
+individual batches. The three independent experiments were merged using FindI 297730-93-9), Trichloro(1H,1H,2H,2H-perfluorooctyl) silane (1%, Aldrich,
+ntegrationAnchors(list(experimental_batches), anchor.features = 80, dims = 1:12, 448931) and biopsy punchers (Darwin microfluidics, KPUNCH05)
+k.filter = 200, k.anchor = 8) and IntegrateData(). Data were scaled and the principal were used.
+components (PCs) computed using default settings. UMAP dimensional reduction 2. For microfluidic device handling Prot/Elec 200 µl gel loading tips (Biorad,
+via RunUMAP() and FindNeighbors() was performed using the first 12 principal 223-9915), dH2O (Invitrogen, 10977035), Tygon tubing (Cole-Parmer,
+component analysis (PCA) dimensions as input features. FindClusters() was GZ-06420-02), beads (Chemgenes, lot 051917, Macosko-2011-10), droplet
+computed at a resolution of 0.75. generation oil (Biorad, 186-4006), murine RNase inhibitor (100 U, NEB,
+ The intestinal organoids for the split organoid experiment were processed in M0314L) were used. Cell wash buffer was prepared using PBS (1X, Gibco,
+four independent experiments, which were considered as four individual batches, 14190-094) and BSA (0.01%, Sigma, B8667). Cell loading buffer was prepared
+each encompassing at least two independent single intestinal organoids. The four using PBS (1X, Gibco, 14190-094), Optiprep (6%, Sigma, D1556), and BSA
+independent experiments were merged using FindIntegrationAnchors(list(experi (0.01%, Sigma, B8667). Lysis buffer was prepared from Optiprep (28%, Sigma,
+mental_batches), anchor.features = 120, dims = 1:10, k.filter = 100, k.anchor = 12) D1556), Sarkosyl (2.2%, Sigma, L7414), EDTA (20 mM, Sigma, 3690), Tris
+and IntegrateData(). Data were scaled and the PCs computed using default (100 mM, Sigma, T2944) and DTT (50 mM, Applichem, A2948,0005).
+settings. UMAP dimensional reduction via RunUMAP() and FindNeighbors() was 3. For sample washing prior to reverse transcription, SSC (6X, Sigma, S6639)
+performed using the first 14 PCA dimensions as input features. FindClusters() was and dH2O (Invitrogen 10977035) were used.
+computed at a resolution of 0.9. 4. For the reverse transcription (RT) reaction, dH2O (Invitrogen, 10977035),
+ The intestinal crypts were processed in five independent experiments, which Ficoll PM-400 (4%, Sigma, F5415), dNTPs (1 mM, Thermo, R0193), murine
+were considered as five individual batches each encompassing single intestinal RNase inhibitor (100 U, NEB, M0314L), Maxima H Minus Reverse Trancrypts and pooled (bulk) samples. The five independent experiments were merged scriptase (500 U, Thermo Scientific, EP0753) and Template Switching Oligo
+using FindIntegrationAnchors(list(experimental_batches), anchor.features = 150, (AAGCAGTGGTATCAACGCAGAGTGAATrGrGrG, 2.5 µM, IDT) were
+dims = 1:10, k.filter = 150, k.anchor = 10) and IntegrateData(). Data were scaled used in a total volume of 50 µl per reaction.
+and the PCs computed using default settings. UMAP dimensional reduction 5. For the exonuclease I reaction, exonuclease I (100 U, NEB, M0293L) and
+via RunUMAP() and FindNeighbors() was performed using the first 15 PCA exonuclease buffer were used in a total volume of 50 µl per reaction.
+dimensions as input features. FindClusters() was computed at a resolution of 0.8. 6. For cDNA amplification, Kapa HiFi Hot start ready mix 2X (Roche, KK2602),
+ Combined intestinal crypts and organoids were processed as eight independent dH2O (Invitrogen, 10977035) and SMART PCR primer (AAGCAGTGGTATbatches. These eight batches were merged using FindIntegrationAnchors(list(expe CAACGCAGAGT, 0.8 µM, IDT) used in a total volume of 50 µl per reaction.
+rimental_batches), anchor.features = 150, dims = 1:15, k.filter = 150, k.anchor = 10) CleanPCR magnetic beads (0.6X ratio, GC biotech, CPCR-0050), Fragment
+and IntegrateData(). Data were scaled and the PCs computed using default Analyzer (Agilent, DNF-474-0500 kit) and the Qubit High Sensitivity kit
+settings. UMAP dimensional reduction via RunUMAP() and FindNeighbors() was (Invitrogen, Q33231) were used for cDNA purification and quantification.
+performed using the first 15 PCA dimensions as input features. FindClusters() was 7. For library preparation, Tn5 was produced in-house. To stop tagmentation,
+computed at a resolution of 0.9. Merging retained the global grouping of the data SDS was used (0.2%, Sigma, 71736). For library amplification the Kapa HiFi
+
+Nature Methods | www.nature.com/naturemethods
+
+Articles NATuRE METHoDS
+ kit with dNTPs (Roche, KK2102), P5 SMART PCR (AATGATACGGCGAC (GCF_000001405.26), mm10 (GCF_000001635.20) and mixed reference genome
+ CACCGAGATCTACACGCCTGTCCGCGGAAGCAGTGGTATCAA (GSE63269) of hg19 combined with mm10.
+ CGCAGAGT*A*C, 0.3 µM, IDT), custom Nextera oligos62 (0.3 µM, IDT) and
+ dH2O (Invitrogen, 10977035) were used. Libraries were purified and quanti- Code availability
+ fied using CleanPCR magnetic beads (0.6X ratio, GC biotech, CPCR-0050), This technology has been developed as an open source platform, therefore all
+ Fragment Analyzer (Agilent, DNF-474-0500 kit) and Qubit High Sensitivity required information for its implementation is publicly available. The source
+ kit (Invitrogen, Q33231). code for the machine-vision software is available on github (https://github.com/
+8. TE-TW wash buffer was prepared in dH2O (Invitrogen, 10977035) using Tris DeplanckeLab/DisCo_source) and the barcode merging script is supplied as
+ (10 mM, Sigma T2944), EDTA (1 mM, Sigma, 3690), and Tween 20 (0.01%, Supplementary Software 1.
+ Sigma, P9416).
+9. TE-SDS wash buffer was prepared in dH2O (Invitrogen, 10977035) using Tris
+ (10 mM, Sigma, T2944), EDTA (1 mM, Sigma, 03690), and SDS (0.5%, References
+ Sigma, 71736). 48. Zheng, G. X. Y. et al. Massively parallel digital transcriptional profiling of
+10. Tris wash buffer was prepared in dH2O (Invitrogen, 10977035) using Tris single cells. Nat. Commun. 8, 14049 (2016).
+ (10 mM, Sigma, T2944). 49. Zhang, X. et al. Comparative analysis of droplet-based ultra-high-throughput
+11. For mammalian cell culture dissociation and counting, Trypsin-EDTA (Gib- single-cell RNA-seq systems. Mol. Cell 73, 130–142 (2019).
+ co, 25200056) and trypan blue were used (0.4%, Thermo Fisher Scientific, 50. Picelli, S. et al. Full-length RNA-seq from single cells using Smart-seq2. Nat.
+ T10282). Cell culture medium was prepared using DMEM Glutamax (Gibco, Protoc. 9, 171–181 (2014).
+ 10565018), FBS (10%, Gibco, 10270106) and penicillin–streptomycin (100 U 51. Hashimshony, T. et al. CEL-Seq2: sensitive highly-multiplexed single-cell
+ per ml, Gibco, 15140122). Cell wash and cell loading buffers were prepared as RNA-Seq. Genome Biol. 17, 77 (2016).
+ described above. 52. Goldstein, L. D. et al. Massively parallel nanowell-based single-cell gene
+12. Intestinal organoids were cultured in Matrigel (Corning, 356230) with expression profiling. BMC Genomics 18, 519 (2017).
+ organoid base medium (described in point 13) supplemented with ENR (and 53. Wang, Y. et al. Comparative analysis of commercially available single-cell
+ CV where indicated) and ROCK inhibitor (where indicated, Sigma, Y0503). RNA sequencing platforms for their performance in complex human tissues.
+ Matrigel was dissolved with Cell Recovery Solution (Corning, 354253). Preprint at bioRxiv https://doi.org/10.1101/541433 (2019).
+13. Organoid base medium was prepared using DMEM/F12 (Gibco, 54. Ding, J. et al. Systematic comparison of single-cell and single-nucleus
+ 11320033), HEPES (100 mM, Gibco, 15630056), penicillin–streptomycin RNA-sequencing methods. Nat. Biotechnol. 38, 737–746 (2020).
+ (100 U per ml, Gibco, 15140122), B27 supplement (1 µM, Gibco, 17504-044), 55. Gjorevski, N. et al. Designer matrices for intestinal stem cell and organoid
+ N2 supplement (1 µM, Gibco, 17502001) and N-acetyl-l-cysteine (1 µM, culture. Nature 539, 560–564 (2016).
+ Sigma, A9165). 56. Bas, T. & Augenlicht, L. H. Real time analysis of metabolic profile in ex vivo
+14. ENR medium was prepared using base medium (as above), EGF (E, 50 ng mouse intestinal crypt organoid cultures. J. Vis. Exp. 93, e52026 (2014).
+ per ml, LifeTechnologies, PMG8043), mNoggin (N, 100 ng per ml, produced 57. Macosko, E., Goldman, M. & McCarroll, S. Drop-Seq Laboratory Protocol
+ in-house) and R-spondin (R, 1 µg per ml, produced in-house). version 3.1. http://mccarrolllab.org/download/905/ (2015).
+15. ENR CV medium was prepared with the addition of CHIR (C, 3 µM, 58. Dobin, A. et al. STAR: ultrafast universal RNA-seq aligner. Bioinformatics 29,
+ CalBiochem, CHIR99021) and valproic acid (V, 3 mM, Sigma P4543) to 15–21 (2013).
+ ENR medium. 59. Stuart, T. et al. Comprehensive integration of single-dell data. Cell 177,
+16. Single-organoid single-cell dissociation mix was prepared using PBS (Gibco, 1888–1902 (2019).
+ 14190-094), B. licheniformis protease (10 mg per ml, Sigma P5380), EDTA 60. Anders, S., Pyl, P. T. & Huber, W. HTSeq-A Python framework to work with
+ (5 mM, Sigma 03690), EGTA (5 mM, BioWorld, 40520008-1), DNase I (10 µg high-throughput sequencing data. Bioinformatics 31, 166–169 (2015).
+ per ml, Roche 11 284 932 001) and Accutase (0.68X, Sigma, A6964) in a total 61. Saelens, W., Cannoodt, R., Todorov, H. & Saeys, Y. A comparison of
+ volume of 20 µl per reaction. For single-organoid dissociation, Nunc MicroW- single-cell trajectory inference methods. Nat. Biotechnol. 37, 547–554 (2019).
+ ell plates (Nunc, 438733) and siliconized p10 pipette tips (VWR, 53509-134) 62. Buenrostro, J. D., Giresi, P. G., Zaba, L. C., Chang, H. Y. & Greenleaf, W. J.
+ were used. Transposition of native chromatin for fast and sensitive epigenomic profiling
+17. For intestinal organoid preparation for RNAscope, cold Cell Recovery of open chromatin, DNA-binding proteins and nucleosome position. Nat.
+ Solution (Corning, 354253), Histogel (Thermo Scientific, HG-4000-012) Methods 10, 1213–1218 (2013).
+ and paraformaldehyde (4%, PFA, Electron Microscopy Sciences, 15714)
+ were used.
+18. For the RNAscope assay, organoids were stained using RNAscope Multi- Acknowledgements
+ plex Fluorescent V2 assay (ACD Bio-Techne, 323110), Ly6a probe (ACD The authors thank the former members of the Deplancke laboratory (EPFL) for their
+ Bio-Techne, 427571-C2), Fabp1 probe (ACD Bio-Techne, 562831), Muc2 support: W. Chen and P.C. Schwalie for constructive discussions, and V. Braman for
+ probe (ACD Bio-Techne, 315451-C2), PpiB probe (ACD Bio-Techne, help in establishing the intestinal organoid culture. Furthermore, the authors thank
+ 313911-C2), Duplex negative control (ACD Bio-Techne, 320751), TSA G. Sorrentino from K. Schoonjans’ laboratory (EPFL) for valuable advice and support
+ Opal650 (Perkin Elmer, FP1496001KT), TSA Opal570 (Perkin Elmer, during organoid culture establishment; L. Aeberli and G. Muller from SEED Biosciences
+ FP1488001KT) and Prolong Diamond Antifade Mountant (Thermo Fisher, for cell sorting support; and the EPFL CMi, GECF, BIOP, FCCF, Histology Core
+ P36965). Facility, SCITAS, and UNIL VITAL-IT for device fabrication, sequencing, imaging,
+ sorting, histology, and computational support, respectively. The authors also thank J.
+ Sordet-Dessimoz from the Histology Core Facility for her support with the RNAscope
+Reporting Summary. Further information on research design is available in the assay. This research was supported by the Swiss National Science Foundation Grant
+Nature Research Reporting Summary linked to this article. (IZLIZ3_156815) and a Precision Health and Related Technologies (PHRT-502) grant
+ (to B.D.), the Swiss National Science Foundation SPARK initiative (CRSK-3_190627)
+ and the EuroTech PostDoc Programme co-funded by the European Commission
+Data availability under its framework program Horizon 2020 (754462, to J.P.), as well as by the EPFL SV
+The GEO (Gene Expression Omnibus) accession number for scRNA-seq data
+ Interdisciplinary PhD Funding Program (to B.D. and E.A.). Y.S. is an ISAC Marylou
+reported in this paper is GSE148093. The raw data and count matrices for Fig. 1h
+ Ingram scholar.
+and Extended Data Fig. 2c are stored under the access code GSM4454017. The
+raw data and count matrices for Fig. 1i and Extended Data Fig. 2a are available
+under the access code GSM4454017. The raw data and count matrices for Fig. Author contributions
+1j are stored under the access codes GSM4454012–GSM4454016. The raw data B.D., J.B. and M.B. designed the study. B.D., J.B., M.B. and J.P. wrote the manuscript.
+and count matrices for Extended Data Fig. 2e,f are stored under the access codes J.B. and R.D. designed and fabricated the microfluidic chips. J.B. developed the
+GSM5567775–GSM5567779. The raw data and count matrices for Extended Data machine-vision integration for DisCo. J.B. and M.B. benchmarked the system and
+data and count matrices for Extended Data Fig. 4 are stored under the access codes performed data analysis related to single organoid and crypt scRNA-seq experiments.
+GSM5567845–GSM5567854. The raw data for intestinal organoids embedded in J.B., S.R. and M.B. performed all organoid and cell culture assays. J.B., A.C., J.R. and
+7, 9 and 10 are stored under access codes GSM4453981–GSM4454011. The raw picked and dissociated crypts. Y.S. supervised data analysis aspects and reviewed the
+data and count matrices for intestinal crypts embedded in Fig. 5 and Extended manuscript. E.A. provided critical comments regarding microfluidic chip design and
+Data Figs. 8–10 are stored under the access codes GSM5567818–GSM5567844. fabrication. M.C. provided critical comments on intestinal organoid scRNA-seq data
+Additionally, dataset GSM1544799 and data from ref. 23 (https://doi.org/10.1039/ analysis. M.P.L. provided critical comments regarding intestinal organoid scRNA-seq
+C9LC00014C, data available on request) were used for Fig. 1i and Extended data and the design of critical confirmation experiments. All authors read, discussed and
+Data Fig. 2a. In this study the following reference genomes were used: hg38 approved the final manuscript.
+
+ Nature Methods | www.nature.com/naturemethods
+
+NATuRE METHoDS Articles
+Competing interests Supplementary information The online version contains supplementary material
+B.D., J.B., M.B. and R.D. have filed a patent application for the deterministic available at https://doi.org/10.1038/s41592-021-01391-1.
+co-encapsulation system (patent no. US20190240664A1). All other authors have no Correspondence and requests for materials should be addressed to Bart Deplancke.
+competing interests.
+ Peer review information Nature Methods thanks Jarrett Camp and the other,
+ anonymous, reviewer(s) for their contribution to the peer review of this work. Lei Tang
+Additional information was the primary editor on this article and managed its editorial process and peer review
+Extended data are available for this paper at https://doi.org/10.1038/ in collaboration with the rest of the editorial team.
+s41592-021-01391-1. Reprints and permissions information is available at www.nature.com/reprints.
+
+Nature Methods | www.nature.com/naturemethods
+
+Articles NATuRE METHoDS
+
+valve, 2. oil inlet, 3. cell inlet, 4. bead inlet, 5. cell valve, 6. dropleting valve, 7. bead valve, 8. sample valve, 9. waste valve, 10. sample outlet, 11. waste outlet.
+(b) Visualization of real-time image processing for particle detection. (c) Particle positioning by valve oscillation. Approaching particles are detected in the
+detection zone. Once a particle is detected, the channel valve is oscillated to induce discrete movements of particles. Oscillation is terminated once correct
+placement of a particle is achieved. (d) Stopping accuracy in a defined window. Beads (n = 744) were positioned using valve oscillation, their position
+was manually determined within the stopping area. Scale was approximated from channel width. (e) Volume-defined droplet on-demand generation by
+valve pressurization. Droplets (n = 68, ~8 per condition, 1 experiment) were produced by pressurizing the dropleting valve at different pressures. Size was
+determined by imaging the dropleting process. Volumes were calculated from the imaging data based on droplet length and channel geometry. Thus, they
+should be considered an approximation. Points represent mean values, error bars +/-SD. The channel width of displayed images is 250 μm.
+
+ Nature Methods | www.nature.com/naturemethods
+
+NATuRE METHoDS Articles
+
+experiments2,23. (b) Hamming distances between all 12 nt barcodes of a Drop-seq experiment and generated 12 nt random barcode sequences
+representing the probability density for each set of barcodes. (c) Species purity (bars) and doublet ratio (dots) for unmerged (n = 949) and merged
+barcodes (n = 274). Data represent mean values, error bars standard deviation. (d-e) HEK 293T cells were processed with DisCo at 22 °C after 20, 40 or
+60 min or stored on ice for 120 or 180 min and subsequently processed. (d) UMAP embedding of all profiled HEK 293T cells from the five sampling time
+points, color-coded by sampling time. (e) Violin plots showing the percentage of UMIs per cell of heat-shock-protein (HSP), mitochondrial protein-coding
+(MT), or ribosomal protein-coding (RPL) genes. (f) Correlation of the number of manually counted cells by fluorescence microscopy and the number of
+cells quantified by the DISPENCELL platform. (g) A quantified number of HEK 293T cells was processed with the Fluidigm C1 system. Processing efficiency
+was calculated as the percentage of cells retrieved from the sequencing data respective to the quantified number of input cells. The red line represents
+100% efficiency, and samples were colored according to the recovery efficiency after sequencing.
+
+Nature Methods | www.nature.com/naturemethods
+
+Articles NATuRE METHoDS
+
+organoid culture from single LGR5+ cells, as performed for experiments shown in Fig. 2. (b) Correlation of encapsulated cells on-chip with the number
+of cells detected after sequencing (cells passing QC, filtered above 800 genes/cell). (c) UMAP embedding colored by the number of detected genes
+(nFeature) per cell, the number of detected UMIs (nCount) per cell, the percentage of mitochondrial (mt) reads per cell, and the percentage of reads
+mapping to genes coding for respectively heat-shock proteins (Hsp), and ribosomal proteins (Rpl) per cell. (d) UMAP embedding colored by expression
+of selected marker genes (Clu, Anxa1, Spink4, ChgB, ChgA, Agr2, Clca1, and Fcgbp). (e) UMAP embedding for each of the three independent experimental
+batches colored by cluster annotation.
+
+ Nature Methods | www.nature.com/naturemethods
+
+NATuRE METHoDS Articles
+
+individual organoids (under maintenance conditions) for the purpose of evaluating batch effects. Left: All 748 processed cells clustered with k-means
+clustering, after which clusters were annotated according to marker gene expression. Right: Expression dot plot of selected marker genes. (b) Projection of
+cells (colored by cell type) derived from one organoid that was split into two independent samples (split organoid) on the reference UMAP shown in a).
+Organoid ‘S2_2’ was split into two batches, which were processed subsequently, with a one-hour delay, during which the second batch was stored at 4 °C.
+
+Nature Methods | www.nature.com/naturemethods
+
+Articles NATuRE METHoDS
+
+YAP1 target gene activity on a UMAP embedding. The expression of genes that are positively regulated by YAP127 was calculated as the cumulative Z-score
+and projected on the UMAP embedding of all sequenced cells.
+
+ Nature Methods | www.nature.com/naturemethods
+
+NATuRE METHoDS Articles
+
+before dissociation to single cells. Scale bar: 50 μm. (b) RNAscope controls for organoids shown in Fig. 4b,f. Positive control (PpiB), and negative control
+(Duplex negative). Scale bar: 50 μm.
+
+Nature Methods | www.nature.com/naturemethods
+
+Articles NATuRE METHoDS
+
+Reg3b, Ly6a) per organoid. (b) Violin plots showing the expression of selected genes (Defa24, Gip, Vnn1, Zg16) identified via psupertime analysis per
+individual organoid.
+
+ Nature Methods | www.nature.com/naturemethods
+
+NATuRE METHoDS Articles
+
+intestinal crypts. All cells processed with DisCo were manually counted during the experiment, and compared to cell numbers after quality filtering
+(>500 UMIs). The red line represents 100% efficiency, and samples are colored according to sample type. (b) Expression dot plot of marker genes for
+clusters shown in Fig. 5a. (c) Gene activity represented as the cumulative Z-score and projected on the UMAP embedding of all sequenced cells using the
+expression of Top: Paneth cell-associated genes encompassing Lyz1, Defa17, Defa24 and Ang4 and Bottom: genes that are positively regulated by YAP127.
+(d) Projection of cell types onto the reference UMAP of cells derived from the 21 individual crypts. Cells per single crypt were colored according to their
+global clustering and highlighted on the UMAP embedding of all sequenced cells. Enterocytes (Entero), PIC (Potential intermediate cells), RegStem,
+(Regenerative Stem), TA (Transit amplifying cells; G1: G1/S and G2: G2/M cell cycle phase).
+
+Nature Methods | www.nature.com/naturemethods
+
+Articles NATuRE METHoDS
+
+the five individual batches of intestinal crypt samples and the three independent experimental batches of intestinal organoid differentiation samples,
+collectively embedded and colored by cluster annotation. (b) UMAP-based visualization of the expression of specific markers that were used for cluster
+annotation. (c) Bar graph depicting the cumulative Z-score of the expression of genes that are indicated within the respective bar graph. CanStem:
+canonical stem cell, RegStem: regenerative stem cell.
+
+ Nature Methods | www.nature.com/naturemethods
+
+NATuRE METHoDS Articles
+
+vivo cell preparation for the 21 individual intestinal crypts and bulk samples embedded together with the 31 individual intestinal organoids. Cells per single
+crypt or organoid are colored according to their global clustering and highlighted on the UMAP embedding of all sequenced cells.
+
+Nature Methods | www.nature.com/naturemethods
+
+- - -

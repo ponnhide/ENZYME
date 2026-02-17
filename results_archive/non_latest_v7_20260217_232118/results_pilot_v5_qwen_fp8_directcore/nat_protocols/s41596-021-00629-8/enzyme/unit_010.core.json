@@ -1,0 +1,154 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Prepare and use correct Matrigel for embedding",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00629-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Matrigel",
+        "catalog_number": "354234",
+        "properties": {
+          "protein_concentration_range": "9.7-10.7 mg/mL"
+        }
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "scissors",
+        "properties": {
+          "sterilization_temperature": "180 °C",
+          "sterilization_duration": "3 h"
+        }
+      }
+    ],
+    "samples": [
+      {
+        "id": "m1",
+        "name": "m1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "m1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "action": "move_to_ice",
+          "amount": "100 uL"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "m1"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "equipment"
+        },
+        "outputs": [
+          {
+            "kind": "equipment",
+            "id": "e1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "label"
+        },
+        "inputs": [
+          {
+            "kind": "equipment",
+            "id": "e1"
+          }
+        ],
+        "annotations": [
+          "scissors heated to at least 180 °C for at least 3 h"
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "action": "cool_to_room_temperature",
+          "amount": "100 uL"
+        },
+        "inputs": [
+          {
+            "kind": "equipment",
+            "id": "e1"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {},
+        "annotations": [
+          "Ensure Matrigel is not growth-factor-reduced (use cat. no. 354234) and has appropriate protein concentration (9.7–10.7 mg/mL). Do not use Geltrex instead of Matrigel."
+        ],
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

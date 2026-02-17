@@ -1,0 +1,244 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41586-021-03209-8.pdf",
+      "type": "paper"
+    },
+    "title": "Organoid culture conditions post‑day 35"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "organoids_day35",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "description": "At day 35, organoids were split into three conditions: (1) normal medium with vitamin A; (2) normal medium with vitamin A plus 100 μM DEAB; (3) B27 without vitamin A."
+        },
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "organoids_day35",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "cond1",
+            "kind": "sample"
+          },
+          {
+            "id": "cond2",
+            "kind": "sample"
+          },
+          {
+            "id": "cond3",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "DEAB",
+            "kind": "material"
+          },
+          {
+            "id": "cond2",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "cond2",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "μM",
+            "value": 100
+          }
+        }
+      },
+      {
+        "annotations": {
+          "description": "Condition 3 uses B27 without vitamin A as the culture medium."
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "B27_no_vitA",
+            "kind": "material"
+          },
+          {
+            "id": "cond3",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "cond3",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "lowered_from": "incubate",
+          "note": "DEAB treatment was ended after one week; cultures were maintained under the same conditions until day 70."
+        },
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "cond1",
+            "kind": "sample"
+          },
+          {
+            "id": "cond2",
+            "kind": "sample"
+          },
+          {
+            "id": "cond3",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "cond1",
+            "kind": "sample"
+          },
+          {
+            "id": "cond2",
+            "kind": "sample"
+          },
+          {
+            "id": "cond3",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": null
+          }
+        }
+      },
+      {
+        "annotations": {
+          "description": "At day 70, organoids from all three conditions were processed for scRNA‑seq and immunohistochemistry."
+        },
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "cond1",
+            "kind": "sample"
+          },
+          {
+            "id": "cond2",
+            "kind": "sample"
+          },
+          {
+            "id": "cond3",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "culture_plate",
+        "name": "culture plate"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "id": "incubator",
+        "name": "incubator"
+      }
+    ],
+    "materials": [
+      {
+        "id": "normal_medium",
+        "name": "normal medium (with vitamin A)"
+      },
+      {
+        "concentration": "100 μM",
+        "id": "DEAB",
+        "name": "DEAB"
+      },
+      {
+        "id": "B27_no_vitA",
+        "name": "B27 without vitamin A"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoids_day35",
+        "name": "Organoids at day 35"
+      },
+      {
+        "id": "cond1",
+        "name": "Organoids condition 1 (normal medium with vitamin A)"
+      },
+      {
+        "id": "cond2",
+        "name": "Organoids condition 2 (normal medium with vitamin A + DEAB)"
+      },
+      {
+        "id": "cond3",
+        "name": "Organoids condition 3 (B27 without vitamin A)"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

@@ -1,0 +1,381 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Plasmid electroporation into organoids",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-024-55567-2.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "HP180 plasmid"
+      },
+      {
+        "id": "m2",
+        "name": "LGR5-P2AmNeonGreen HDR template plasmid"
+      },
+      {
+        "id": "m3",
+        "name": "CHIR99021",
+        "concentration": "4 μM"
+      },
+      {
+        "id": "m4",
+        "name": "DAPT",
+        "concentration": "10 μM"
+      },
+      {
+        "id": "m5",
+        "name": "pVc",
+        "concentration": "100 μg/mL"
+      },
+      {
+        "id": "m6",
+        "name": "IL-22",
+        "concentration": "2 ng/mL"
+      },
+      {
+        "id": "m7",
+        "name": "Organoid culture media"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c2",
+        "type": "electroporation cuvette"
+      },
+      {
+        "id": "c3",
+        "type": "culture plate"
+      },
+      {
+        "id": "c4",
+        "type": "electroporation cuvette"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "dna_delivery_device",
+        "name": "NEPA21 electroporator"
+      },
+      {
+        "id": "e2",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_plasmid1",
+        "type": "plasmid",
+        "source_material": "m1"
+      },
+      {
+        "id": "s_org1",
+        "type": "organoid",
+        "description": "SpCas9-equipped organoids"
+      },
+      {
+        "id": "s_mix",
+        "type": "sample",
+        "description": "plasmid+organoid+reagents mixture"
+      },
+      {
+        "id": "s_electroporated",
+        "type": "sample",
+        "description": "electroporated organoids"
+      },
+      {
+        "id": "s_cultured",
+        "type": "sample",
+        "description": "organoids in culture media"
+      },
+      {
+        "id": "s_incubated",
+        "type": "sample",
+        "description": "organoids after 3‑day incubation"
+      },
+      {
+        "id": "c4",
+        "name": "c4"
+      },
+      {
+        "id": "m3",
+        "name": "m3"
+      },
+      {
+        "id": "m4",
+        "name": "m4"
+      },
+      {
+        "id": "m5",
+        "name": "m5"
+      },
+      {
+        "id": "m6",
+        "name": "m6"
+      },
+      {
+        "id": "m7",
+        "name": "m7"
+      },
+      {
+        "id": "c3",
+        "name": "c3"
+      },
+      {
+        "id": "d1",
+        "name": "d1"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "type": "observation",
+        "description": "visual morphology after incubation"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s0",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c4"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_mix"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_electroporated"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_plasmid1"
+          },
+          {
+            "kind": "sample",
+            "id": "s_org1"
+          },
+          {
+            "kind": "sample",
+            "id": "m3"
+          },
+          {
+            "kind": "sample",
+            "id": "m4"
+          },
+          {
+            "kind": "sample",
+            "id": "m5"
+          },
+          {
+            "kind": "sample",
+            "id": "m6"
+          },
+          {
+            "kind": "sample",
+            "id": "m7"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_mix"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "program": {
+            "program_name": "standard"
+          },
+          "device_ref": "e1"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_mix"
+          },
+          {
+            "kind": "sample",
+            "id": "c4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_electroporated"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c3"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null,
+            "description": "unknown amount"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_electroporated"
+          },
+          {
+            "kind": "sample",
+            "id": "c3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cultured"
+          }
+        ]
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "3_day"
+          },
+          "device_ref": "e2"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cultured"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_incubated"
+          }
+        ]
+      },
+      {
+        "id": "s8",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "morphology"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_incubated"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d1"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s0",
+    "edges": [
+      {
+        "from": "s0",
+        "to": "s1"
+      },
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

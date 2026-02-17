@@ -1,0 +1,247 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Anterior/posterior gut spheroid formation",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-00441-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "TrypLE Express"
+      },
+      {
+        "id": "m2",
+        "name": "DMEM/F12"
+      },
+      {
+        "id": "m3",
+        "name": "day 7 medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "well",
+        "format": "96-well",
+        "shape": "round-bottom",
+        "properties": [
+          "ultra-low attachment"
+        ]
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator",
+        "settings": {
+          "temperature": "37 °C"
+        }
+      },
+      {
+        "id": "e2",
+        "type": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s1",
+        "name": "s1"
+      },
+      {
+        "id": "s2",
+        "name": "s2"
+      },
+      {
+        "id": "s3",
+        "name": "s3"
+      },
+      {
+        "id": "s4",
+        "name": "s4"
+      },
+      {
+        "id": "s5",
+        "name": "s5"
+      },
+      {
+        "id": "s6",
+        "name": "s6"
+      },
+      {
+        "id": "s7",
+        "name": "s7"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "incubate at 37 °C for 5 min"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 500,
+            "unit": "µl"
+          },
+          "source_container": "well",
+          "target_container": "well"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s4"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "centrifuge at 1000 r.p.m. for 3 min"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s5"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s5"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s6"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 100,
+            "unit": "µl"
+          },
+          "source_container": "well",
+          "target_container": "c1"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s6"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s7"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "incubate at 37 °C overnight"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

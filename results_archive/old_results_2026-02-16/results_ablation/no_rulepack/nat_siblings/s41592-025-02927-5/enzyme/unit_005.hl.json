@@ -1,0 +1,120 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Single‑cell preparation and hashing",
+    "source": {
+      "type": "paper",
+      "id": "s41592-025-02927-5"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_barcoded_antibodies",
+        "name": "Barcoded antibodies"
+      }
+    ],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s_organoids",
+        "name": "Organoids"
+      },
+      {
+        "id": "s_single_cells",
+        "name": "Single‑cell suspension"
+      },
+      {
+        "id": "s_hashed_cells",
+        "name": "Hashed single‑cell suspension"
+      },
+      {
+        "id": "s_processed_cells",
+        "name": "Processed cells for 3′ mRNA sequencing"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoids"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_single_cells"
+          }
+        ],
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_single_cells"
+          },
+          {
+            "kind": "material",
+            "id": "m_barcoded_antibodies"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_hashed_cells"
+          }
+        ],
+        "params": {
+          "action_kind": "label"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_hashed_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_processed_cells"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Processing for single‑cell transcriptome sequencing (3′ mRNA, 10x Genomics)."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

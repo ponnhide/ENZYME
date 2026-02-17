@@ -1,0 +1,381 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Plating sorted cells onto coated wells",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00929-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "growth_medium",
+        "type": "growth_medium",
+        "description": "prewarmed (37 °C) growth medium"
+      },
+      {
+        "id": "pbs_1x",
+        "type": "PBS",
+        "description": "1× PBS"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube",
+        "type": "microcentrifuge_tube",
+        "description": "microcentrifuge tube for cells"
+      },
+      {
+        "id": "plate",
+        "type": "well_plate",
+        "description": "collagen-coated plate"
+      },
+      {
+        "id": "waste",
+        "type": "waste_container",
+        "description": "container for discarded supernatant"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge",
+        "type": "centrifuge",
+        "description": "microcentrifuge"
+      },
+      {
+        "id": "incubator",
+        "type": "incubator",
+        "description": "37 °C incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sorted_cells",
+        "type": "cell_sample",
+        "description": "sorted mural and/or endothelial cells"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sorted_cells"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "tube"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "plate"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "growth_medium"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "pbs_1x"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "waste"
+          }
+        ]
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer sorted cells to microcentrifuge tube"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sorted_cells"
+          },
+          {
+            "kind": "container",
+            "id": "tube"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "5min_300g_4C"
+          },
+          "device_ref": "centrifuge"
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "tube"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "params": {
+          "note": "Remove supernatant after spin"
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "tube"
+          },
+          {
+            "kind": "container",
+            "id": "waste"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "transfer",
+        "params": {
+          "description": "add prewarmed growth medium to tube",
+          "amount": {
+            "value": 500.0,
+            "unit": "µL"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "growth_medium"
+          },
+          {
+            "kind": "container",
+            "id": "tube"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "description": "resuspend cell pellet"
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "tube"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "annotate",
+        "params": {
+          "note": "Add cell solution to collagen-coated wells (≈ half well volume)"
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "tube"
+          },
+          {
+            "kind": "container",
+            "id": "plate"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s13",
+        "op": "transfer",
+        "params": {
+          "description": "add additional growth medium to wells for total 1 mL per well",
+          "amount": {
+            "value": 500.0,
+            "unit": "µL"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "growth_medium"
+          },
+          {
+            "kind": "container",
+            "id": "plate"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s14",
+        "op": "transfer",
+        "params": {
+          "description": "add PBS to empty wells to prevent drying",
+          "amount": {
+            "value": 500.0,
+            "unit": "µL"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "pbs_1x"
+          },
+          {
+            "kind": "container",
+            "id": "plate"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s15",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "37C"
+          },
+          "device_ref": "incubator"
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "plate"
+          }
+        ],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      }
+    ],
+    "detail_level": 0
+  }
+}

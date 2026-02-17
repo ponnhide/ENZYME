@@ -1,0 +1,164 @@
+{
+  "units": [
+    {
+      "title": "Curate organoid datasets",
+      "text": "We curated all neural organoid datasets used in this study through the sfaira78 framework (GitHub dev branch, 18 April 2023).",
+      "rationale": "Establishes the source and version of the raw data for downstream analysis.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 125,
+        "word_count": 20,
+        "sentence_count": 1,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Harmonize metadata",
+      "text": "We harmonized metadata according to the sfaira standards (https://sfaira.readthedocs.io/en/latest/adding_datasets.html) and manually curated an extra metadata column organoid_age_days, which described the number of days the organoid had been in culture before collection.",
+      "rationale": "Ensures consistent sample annotations and adds a key variable for temporal analyses.",
+      "detected_categories": [
+        {
+          "id": "purification_cleanup",
+          "hits": 1,
+          "confidence": 0.167,
+          "matched_patterns": [
+            "column"
+          ]
+        }
+      ],
+      "split_audit": {
+        "char_count": 271,
+        "word_count": 38,
+        "sentence_count": 1,
+        "category_count": 1,
+        "flags": []
+      }
+    },
+    {
+      "title": "Remove non‑applicable subsets",
+      "text": "We next removed any non-applicable subsets of the published datasets: diseased samples or samples expressing disease-associated mutations, fused organoids, primary fetal data, hormone-treated samples and neural induction and share-seq data.",
+      "rationale": "Filters out samples that could confound the reference atlas construction.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 240,
+        "word_count": 34,
+        "sentence_count": 2,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Construct kNN graph and Leiden clustering",
+      "text": "We constructed a kNN graph (k = 30) in the RSS space and clustered the dataset using the Leiden algorithm83 (resolution 80).",
+      "rationale": "Creates a neighborhood structure and defines cell clusters for annotation.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 124,
+        "word_count": 21,
+        "sentence_count": 1,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Generate log‑normalized matrix",
+      "text": "We generated a log-normalized expression matrix by first dividing the counts for each cell by the total counts in that cell and multiplying by a factor of 1,000,000 before taking the natural log of each count + 1.",
+      "rationale": "Standardizes expression values for comparability across cells.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 213,
+        "word_count": 40,
+        "sentence_count": 1,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Select highly variable genes",
+      "text": "We computed 3,000 highly variable features in a batch-aware manner using the scanpy highly_variable_genes function (flavor = ‘seurat_v3’, batch_key = ‘bio_sample’).",
+      "rationale": "Identifies informative genes for dimensionality reduction and integration.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 164,
+        "word_count": 21,
+        "sentence_count": 1,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Provide cell‑type labels for scPoli",
+      "text": "We used the top three levels of the RSS-based snapseed cell type annotation as the cell type label input for the scPoli prototype loss.",
+      "rationale": "Supplies hierarchical labels needed for supervised integration training.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 135,
+        "word_count": 25,
+        "sentence_count": 1,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Integrate organoid datasets with scPoli",
+      "text": "We performed integration of the organoid datasets for HNOCA using the scPoli45 model from the scArches51 package.",
+      "rationale": "Combines multiple datasets into a shared latent space while preserving cell‑type structure.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 113,
+        "word_count": 17,
+        "sentence_count": 1,
+        "category_count": 0,
+        "flags": [
+          "UNIT_TOO_SHORT_CHARS",
+          "UNIT_TOO_SHORT_WORDS",
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Construct bipartite kNN graph",
+      "text": "an unweighted bipartite kNN graph was constructed by identifying 100 nearest neighbours of each query cell in the reference data with either PyNNDescent or RAPIDS-cuML (https://github.com/rapidsai/cuml) in Python, depending on availability of GPU acceleration.",
+      "rationale": "Links organoid cells to reference cells for label transfer and evaluation.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 260,
+        "word_count": 39,
+        "sentence_count": 1,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Real‑time‑informed pseudotime inference",
+      "text": "To infer a global ordering of differentiation state, we sought to infer a real-time-informed pseudotime on the basis of neural optimal transport47 in the scPoli latent space.",
+      "rationale": "Orders cells along developmental trajectories using temporal information.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 174,
+        "word_count": 29,
+        "sentence_count": 1,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    }
+  ],
+  "created_at": "2026-02-16T06:40:52.804869+00:00"
+}

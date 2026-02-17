@@ -1,0 +1,293 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Embed A‑P spheroids in Matrigel drops",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-00441-w"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "matrigel",
+        "name": "Matrigel (100% Phenol Red–Free)"
+      },
+      {
+        "id": "gut_medium",
+        "name": "gut growth medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube_1_5ml",
+        "type": "1.5-ml tube"
+      },
+      {
+        "id": "plate_24well",
+        "type": "24-well tissue culture plate",
+        "manufacturer": "VWR International"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "pipette_widebore",
+        "description": "mechanical pipette with wide-bore 200-µl tip"
+      },
+      {
+        "id": "co2_incubator",
+        "device_kind": "incubator",
+        "description": "CO2 incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "spheroid_tube",
+        "name": "fused A-P spheroid in 1.5-ml tube",
+        "container_ref": "tube_1_5ml"
+      },
+      {
+        "id": "matrigel_drop",
+        "name": "A-P spheroid in Matrigel drop",
+        "container_ref": "plate_24well"
+      },
+      {
+        "id": "hbpo_culture",
+        "name": "HBPO culture",
+        "container_ref": "plate_24well"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "matrigel"
+          },
+          {
+            "kind": "sample",
+            "id": "spheroid_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "spheroid_tube"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 20,
+            "unit": "µl"
+          }
+        },
+        "annotations": {
+          "note": "20–30 µl per well"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "spheroid_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "spheroid_tube"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "spheroid_tube"
+          },
+          {
+            "kind": "container",
+            "id": "plate_24well"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "matrigel_drop"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 20,
+            "unit": "µl"
+          }
+        },
+        "annotations": {
+          "note": "Slowly plate onto 24-well plate to make Matrigel drop"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "matrigel_drop"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "matrigel_drop"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": "37 C",
+            "duration": "5 min"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "matrigel_drop"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "matrigel_drop"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Flip the plate upside down and incubate for a further 5 min to prevent the spheroid from attaching to the bottom."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "matrigel_drop"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "matrigel_drop"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": "37 C",
+            "duration": "5 min"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "gut_medium"
+          },
+          {
+            "kind": "sample",
+            "id": "matrigel_drop"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "hbpo_culture"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Add enough gut growth medium to cover the entire drop"
+        }
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "hbpo_culture"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "hbpo_culture"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": "37 C",
+            "duration": "4 d"
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

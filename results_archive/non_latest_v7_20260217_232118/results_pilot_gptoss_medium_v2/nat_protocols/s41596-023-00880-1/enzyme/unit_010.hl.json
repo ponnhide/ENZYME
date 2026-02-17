@@ -1,0 +1,389 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Albumin uptake assay (TRITC‑albumin) for PT functionality",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00880-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "E6 medium"
+      },
+      {
+        "id": "m2",
+        "name": "TRITC‑albumin"
+      },
+      {
+        "id": "m3",
+        "name": "HBSS"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "15 mL conical tube (test)"
+      },
+      {
+        "id": "c2",
+        "name": "15 mL conical tube (control)"
+      },
+      {
+        "id": "c3",
+        "name": "Transwell plate (six wells, day 27 PT‑enhanced organoids)"
+      },
+      {
+        "id": "c4",
+        "name": "Glass‑bottomed six‑well imaging plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "37 °C incubator"
+      },
+      {
+        "id": "e2",
+        "name": "Confocal microscope"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_test",
+        "name": "Test organoid wells (TRITC‑albumin)"
+      },
+      {
+        "id": "s_control",
+        "name": "Control organoid wells (E6 only)"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          },
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "container",
+            "id": "c1"
+          },
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          },
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 4,
+            "unit": "mL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 4,
+            "unit": "µL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c3"
+          }
+        ],
+        "params": {
+          "action_kind": "label"
+        },
+        "annotations": {
+          "note": "Three wells labeled ‘test’, three wells labeled ‘control’"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "container",
+            "id": "c3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_test"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "mL"
+          }
+        },
+        "annotations": {
+          "note": "Add TRITC‑albumin to test wells: drop on organoid then 1 mL to basolateral compartment"
+        }
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "container",
+            "id": "c3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_control"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "mL"
+          }
+        },
+        "annotations": {
+          "note": "Add plain E6 to control wells: drop on organoid then 1 mL to basolateral compartment"
+        }
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_test"
+          },
+          {
+            "kind": "sample",
+            "id": "s_control"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_test"
+          },
+          {
+            "kind": "sample",
+            "id": "s_control"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "incubate 16-20 h at 37 °C"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_test"
+          },
+          {
+            "kind": "sample",
+            "id": "s_control"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_test"
+          },
+          {
+            "kind": "sample",
+            "id": "s_control"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Wash organoids three times in HBSS (5 min per wash) by placing a drop of HBSS on top of each organoid and 1 mL in the basolateral compartment of each Transwell"
+        }
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c3"
+          },
+          {
+            "kind": "container",
+            "id": "c4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c4"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "mL"
+          }
+        },
+        "annotations": {
+          "note": "Place each Transwell insert into a well of the glass‑bottomed six‑well imaging plate containing 1 mL HBSS"
+        }
+      },
+      {
+        "id": "s10",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_test"
+          },
+          {
+            "kind": "sample",
+            "id": "s_control"
+          },
+          {
+            "kind": "equipment",
+            "id": "e2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d1"
+          }
+        ],
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "TRITC‑albumin fluorescence (594 nm laser, 10–20× Plan Apochromatic long working distance objective)",
+            "transmitted light"
+          ]
+        },
+        "annotations": {
+          "note": "Image immediately after transfer"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      }
+    ],
+    "detail_level": 0
+  }
+}

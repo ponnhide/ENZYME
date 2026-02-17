@@ -1,0 +1,134 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "MEA recording of spontaneous activity",
+    "source": {
+      "type": "paper",
+      "id": "s41593-021-00923-4"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "ALI-CO",
+        "type": "biological_sample"
+      },
+      {
+        "id": "m2",
+        "name": "platinum harp",
+        "type": "tool"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "3D MEA",
+        "type": "device",
+        "details": "Multi Channel Systems, MEA2100, 60–3DMEA200/12iR‑Ti‑gr, 60 electrodes, 12 μm in diameter, 200-μm spacing"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "MEA2100 system",
+        "type": "imager"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "name": "ALI-CO",
+        "material_ref": "m1"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "name": "spontaneous activity recording",
+        "format": "raw MEA data"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "description": "ALI-COs were secured with a platinum harp onto 3D MEAs."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          },
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d1"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "device_ref": "e1",
+          "program": "six‑minute spontaneous activity recording at 37 °C"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "data",
+            "id": "d1"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "description": "Recording exported to Matlab for analysis."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

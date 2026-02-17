@@ -1,0 +1,90 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Fixation",
+    "source": {
+      "type": "paper",
+      "id": "s41596-021-00603-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s1-output",
+        "name": "s1-output"
+      },
+      {
+        "id": "s2-output",
+        "name": "s2-output"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1-output"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 200,
+            "unit": "µl"
+          }
+        },
+        "annotations": {
+          "source": "Remove culture medium by pipetting.",
+          "note": "PFA concentration: 4% (vol/vol); temperature: 37 °C"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1-output"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2-output"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": 37,
+            "temperature_unit": "°C",
+            "co2": 5,
+            "co2_unit": "%",
+            "duration": 60,
+            "duration_unit": "min"
+          }
+        },
+        "annotations": {
+          "note": "PFA added without disrupting Matrigel"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

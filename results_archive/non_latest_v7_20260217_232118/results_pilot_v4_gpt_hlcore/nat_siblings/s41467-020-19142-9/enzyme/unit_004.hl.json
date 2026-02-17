@@ -1,0 +1,140 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Digestion of tumor biopsies into single cells",
+    "source": {
+      "type": "paper",
+      "id": "s41467-020-19142-9"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "collagenase_II",
+        "name": "collagenase II",
+        "vendor": "Gibco, Thermo Fisher Scientific",
+        "concentration": "1 mg/ml"
+      },
+      {
+        "id": "hyaluronidase",
+        "name": "hyaluronidase",
+        "concentration": "10 µg/ml"
+      },
+      {
+        "id": "LY27632",
+        "name": "LY27632",
+        "concentration": "10 µM"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "incubator1",
+        "device_kind": "incubator",
+        "name": "shaking incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "tumor_biopsy",
+        "name": "tumor biopsy"
+      },
+      {
+        "id": "digested_cells",
+        "name": "single cells"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tumor_biopsy"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tumor_biopsy"
+          },
+          {
+            "kind": "material",
+            "id": "collagenase_II"
+          },
+          {
+            "kind": "material",
+            "id": "hyaluronidase"
+          },
+          {
+            "kind": "material",
+            "id": "LY27632"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tumor_biopsy"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Add collagenase II (1 mg/ml, Gibco, Thermo Fisher Scientific), hyaluronidase (10 µg/ml) and LY27632 (10 µM) to the tumor biopsy."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tumor_biopsy"
+          },
+          {
+            "kind": "equipment",
+            "id": "incubator1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "digested_cells"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator1",
+          "program": "digestion",
+          "temperature": "37 C",
+          "duration": "30 min",
+          "shaking": true
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

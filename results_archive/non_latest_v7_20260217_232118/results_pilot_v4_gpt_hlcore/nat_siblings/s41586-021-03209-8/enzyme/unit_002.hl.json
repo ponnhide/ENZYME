@@ -1,0 +1,108 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Nucleus isolation from fresh tissue (lysis and pelleting)",
+    "source": {
+      "type": "paper",
+      "id": "s41586-021-03209-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "wash_buffer",
+        "name": "wash buffer",
+        "composition": "10 mM Tris-HCl pH 7.4, 10 mM NaCl, 3 mM MgCl2, 0.1% Tween-20, 1% BSA"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube",
+        "name": "microcentrifuge tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge",
+        "name": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "lysed_cells",
+        "name": "lysed cells"
+      },
+      {
+        "id": "washed_cells",
+        "name": "washed cells"
+      },
+      {
+        "id": "nuclei_pellet",
+        "name": "pelleted nuclei"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "lysed_cells"
+          },
+          {
+            "kind": "material",
+            "id": "wash_buffer"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "washed_cells"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "washed_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "nuclei_pellet"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge",
+          "program": "500g for 5 min at 4 °C"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

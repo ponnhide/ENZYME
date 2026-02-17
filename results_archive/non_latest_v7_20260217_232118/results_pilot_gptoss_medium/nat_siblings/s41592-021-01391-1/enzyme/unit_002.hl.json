@@ -1,0 +1,99 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Impedance measurement for input cell counting",
+    "source": {
+      "type": "paper",
+      "id": "s41592-021-01391-1"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "kind": "cell_counter",
+        "name": "impedance measurement device"
+      },
+      {
+        "id": "e2",
+        "kind": "imager",
+        "name": "microscope"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_input_cells",
+        "type": "cell_suspension"
+      }
+    ],
+    "data": [
+      {
+        "id": "data_impedance",
+        "type": "measurement"
+      },
+      {
+        "id": "data_microscopy",
+        "type": "image"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_input_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "data_impedance"
+          }
+        ],
+        "params": {
+          "device_kind": "cell_counter",
+          "program": "impedance_measurement"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_input_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "data_microscopy"
+          }
+        ],
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "cell_count"
+          ]
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,255 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Organoid lysis and protein extraction",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-020-19142-9.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "8 M Urea in 50 mM ammonium bicarbonate"
+      },
+      {
+        "id": "m2",
+        "name": "DNAse I (Sigma-Aldrich)"
+      },
+      {
+        "id": "m3",
+        "name": "RNAse A (Sigma-Aldrich)"
+      },
+      {
+        "id": "m4",
+        "name": "1× complete EDTA‑free protease inhibitor cocktail (Roche Diagnostics)"
+      },
+      {
+        "id": "m5",
+        "name": "Bradford reagent"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "tube",
+        "name": "lysis tube"
+      },
+      {
+        "id": "c2",
+        "type": "tube",
+        "name": "centrifuge tube for cleared lysate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "centrifuge",
+        "name": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_sample1",
+        "name": "organoid sample"
+      },
+      {
+        "id": "s_sample2",
+        "name": "lysate"
+      },
+      {
+        "id": "s_sample3",
+        "name": "cleared lysate"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "name": "protein_concentration_measurement"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "description": "organoid sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_sample1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "description": "lysis tube"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "m1",
+          "destination": "c1",
+          "description": "add 8 M Urea in 50 mM ammonium bicarbonate",
+          "amount": {
+            "description": "unspecified amount"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "m2",
+          "destination": "c1",
+          "description": "add DNAse I (50 µg/ml)",
+          "amount": {
+            "description": "unspecified amount"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "m3",
+          "destination": "c1",
+          "description": "add RNAse A (50 µg/ml)",
+          "amount": {
+            "description": "unspecified amount"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": "m4",
+          "destination": "c1",
+          "description": "add 1× complete EDTA‑free protease inhibitor cocktail",
+          "amount": {
+            "description": "unspecified amount"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "target": "c1",
+          "description": "gentle vortex to lyse organoids"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_sample2"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "1h_18000g_15C"
+          },
+          "description": "centrifuge lysate for 1 h at 18,000 g, 15 °C"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_sample3"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s9",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "protein_concentration"
+          ],
+          "sample": "s_sample3",
+          "reagent": "m5",
+          "description": "determine protein concentration with Bradford assay"
+        },
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d1"
+          }
+        ],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

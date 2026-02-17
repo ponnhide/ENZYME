@@ -1,0 +1,159 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Plate single cells for differentiation",
+    "source": {
+      "type": "paper",
+      "id": "s41467-021-27464-5.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "SHH-C24II",
+        "catalog_number": "130-095-727",
+        "vendor": "Miltenyi"
+      },
+      {
+        "id": "m2",
+        "name": "Y-27632",
+        "catalog_number": null,
+        "vendor": null
+      },
+      {
+        "id": "m3",
+        "name": "CHIR99021",
+        "catalog_number": "130-106-539",
+        "vendor": "Miltenyi"
+      },
+      {
+        "id": "m4",
+        "name": "Dihydrochloride",
+        "catalog_number": "130-106-538",
+        "vendor": "Miltenyi"
+      },
+      {
+        "id": "m5",
+        "name": "iPS Brew",
+        "catalog_number": null,
+        "vendor": null
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "96-well U-bottom plate",
+        "catalog_number": "CLS7007",
+        "vendor": "Corning",
+        "type": "plate"
+      },
+      {
+        "id": "c2",
+        "name": "Miltenyi plate",
+        "catalog_number": "130-103-456",
+        "vendor": "Miltenyi",
+        "type": "plate"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s_cells",
+        "name": "single cells",
+        "description": "single cells to be plated"
+      },
+      {
+        "id": "s_plated",
+        "name": "plated cells",
+        "description": "cells after plating in wells"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells"
+          },
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_plated"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 2500,
+            "unit": "cells"
+          },
+          "note": "2500 single cells per well of the 96-well U-bottom plate"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Add SHH-C24II to a final concentration of 400 ng/ml, Y-27632 to 10 µM, CHIR99021 to 1.5 µM, and dihydrochloride to 200 mM in iPS Brew to each well."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s3"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

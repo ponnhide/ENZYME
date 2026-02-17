@@ -1,0 +1,306 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Thawing Matrigel and seeding organoid droplets",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00562-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "matrigel",
+        "name": "Matrigel"
+      },
+      {
+        "id": "washing_medium",
+        "name": "washing medium"
+      },
+      {
+        "id": "base_medium",
+        "name": "base medium"
+      },
+      {
+        "id": "colon_organoid_growth_medium",
+        "name": "colon organoid growth medium"
+      },
+      {
+        "id": "ethanol70",
+        "name": "70% ethanol"
+      },
+      {
+        "id": "disinfectant_solution",
+        "name": "PREempt disinfectant solution"
+      },
+      {
+        "id": "ice",
+        "name": "ice"
+      },
+      {
+        "id": "pasteur_pipette",
+        "name": "sterile Pasteur pipette"
+      }
+    ],
+    "containers": [
+      {
+        "id": "cryovial",
+        "type": "cryovial"
+      },
+      {
+        "id": "conical15ml",
+        "type": "15 mL conical tube"
+      },
+      {
+        "id": "glass_dish",
+        "type": "glass dish"
+      },
+      {
+        "id": "cooling_block",
+        "type": "aluminum cooling block"
+      },
+      {
+        "id": "plate24well",
+        "type": "24-well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "fridge4c",
+        "type": "fridge"
+      },
+      {
+        "id": "biosafety_cabinet",
+        "type": "biosafety cabinet"
+      },
+      {
+        "id": "centrifuge",
+        "type": "centrifuge"
+      },
+      {
+        "id": "co2_incubator",
+        "type": "CO2 incubator"
+      },
+      {
+        "id": "vacuum_aspirator",
+        "type": "vacuum aspirator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "matrigel_aliquot",
+        "type": "sample"
+      },
+      {
+        "id": "centrifuged_pellet",
+        "type": "sample"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "material_ref": "matrigel"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "matrigel_aliquot"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "params": {
+          "note": "Thaw matrigel aliquots in a 4 °C fridge (1.2 ml required for a full 24‑well plate)."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "washing_medium",
+          "destination": "cryovial",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "target": "cryovial",
+          "description": "Resuspend organoids gently"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer the content of the cryovial to the 15 mL conical tube that already contains 10 ml washing medium."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer the washing medium to the 15 mL conical tube that already contains 10 ml washing medium."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge",
+          "program": {
+            "program_name": "500g_5min_4C"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "note": "During centrifugation, sterilize a glass dish with PREempt disinfectant solution and 70% ethanol, add ice (50–70% capacity), spray with ethanol, place dish in biosafety cabinet, put matrigel aliquots into aluminum cooling block, spray block with ethanol, and place gently into the ice‑filled glass dish."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "params": {
+          "note": "Aspirate the supernatant (washing medium) with vacuum using a sterile Pasteur pipette."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "target": "centrifuged_pellet",
+          "reagent": "matrigel",
+          "volume": "1.2 ml"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "transfer",
+        "params": {
+          "source": "centrifuged_pellet",
+          "destination": "plate24well",
+          "amount": {
+            "value": 50.0,
+            "unit": "µl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "co2_incubator",
+          "program": {
+            "program_name": "gelation_15-20min"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s13",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": "gelation",
+          "target": "plate24well"
+        },
+        "outputs": [],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      }
+    ],
+    "detail_level": 0
+  }
+}

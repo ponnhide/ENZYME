@@ -1,0 +1,250 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41467-025-68247-6.pdf",
+      "type": "paper"
+    },
+    "title": "Cell hashing for multiplexed scRNA‑seq"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {
+          "added_material": "cell staining buffer (2% BSA, 0.01% Tween in PBS)"
+        },
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "organoids_initial",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "organoids_buffered",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "µL",
+            "value": 100
+          }
+        }
+      },
+      {
+        "annotations": {
+          "added_material": "cell hashing antibody (TotalSeqA, BioLegend)"
+        },
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "organoids_buffered",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "organoids_stained",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "µL",
+            "value": 1
+          }
+        }
+      },
+      {
+        "annotations": {
+          "incubation": "20 min on ice"
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "organoids_stained",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "organoids_stained",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "method": "pipette mixed 60 times"
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "organoids_stained",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "organoids_stained",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        }
+      },
+      {
+        "annotations": {
+          "wash": "three washes with PBS"
+        },
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "organoids_stained",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "organoids_washed",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "added_material": "organoid wash buffer (0.1% Triton X‑100, 0.2% BSA)"
+        },
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "organoids_washed",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "organoids_final",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "incubation": "overnight at 4 °C on a rocker"
+        },
+        "id": "s7",
+        "inputs": [
+          {
+            "id": "organoids_final",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "organoids_final",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "tube1",
+        "type": "microcentrifuge tube"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "id": "rocker",
+        "type": "rocker"
+      }
+    ],
+    "materials": [
+      {
+        "id": "cell_staining_buffer",
+        "name": "cell staining buffer (2% BSA, 0.01% Tween in PBS)"
+      },
+      {
+        "id": "cell_hashing_antibody",
+        "name": "cell hashing antibody (TotalSeqA, BioLegend)"
+      },
+      {
+        "id": "PBS",
+        "name": "PBS"
+      },
+      {
+        "id": "organoid_wash_buffer",
+        "name": "organoid wash buffer (0.1% Triton X-100, 0.2% BSA)"
+      }
+    ],
+    "samples": [
+      {
+        "description": "Organoids before staining",
+        "id": "organoids_initial"
+      },
+      {
+        "description": "Organoids after addition of cell staining buffer",
+        "id": "organoids_buffered"
+      },
+      {
+        "description": "Organoids after addition of cell hashing antibody",
+        "id": "organoids_stained"
+      },
+      {
+        "description": "Organoids after three PBS washes",
+        "id": "organoids_washed"
+      },
+      {
+        "description": "Organoids resuspended in organoid wash buffer",
+        "id": "organoids_final"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

@@ -1,0 +1,162 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Aspirate medium, wash and add Accutase",
+    "source": {
+      "type": "paper",
+      "id": "s41596-021-00629-8"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "mat_medium",
+        "name": "cell culture medium"
+      },
+      {
+        "id": "mat_pbs",
+        "name": "PBS w/o"
+      },
+      {
+        "id": "mat_accutase",
+        "name": "Accutase"
+      }
+    ],
+    "containers": [
+      {
+        "id": "cont_plate",
+        "name": "cell culture plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "eq_incubator",
+        "name": "humidified incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp_plate",
+        "name": "cell culture plate with cells",
+        "container_ref": "cont_plate"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_plate"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Aspirate the medium"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "mat_pbs"
+          },
+          {
+            "kind": "sample",
+            "id": "samp_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_plate"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 3,
+            "unit": "mL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "mat_accutase"
+          },
+          {
+            "kind": "sample",
+            "id": "samp_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_plate"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 500,
+            "unit": "μL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_plate"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "humidified_37C_3min"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

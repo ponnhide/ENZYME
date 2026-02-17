@@ -1,0 +1,137 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "S phase cell labeling",
+    "source": {
+      "type": "paper",
+      "id": "s41596-021-00603-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "127IdU_stock",
+        "name": "127IdU",
+        "concentration": "0.5 mM"
+      }
+    ],
+    "containers": [
+      {
+        "id": "culture_plate",
+        "type": "plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "culture_plate",
+        "type": "cell_culture"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "127IdU_stock"
+          },
+          {
+            "kind": "sample",
+            "id": "culture_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "culture_plate"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 10,
+            "unit": "µL"
+          }
+        },
+        "annotations": {
+          "note": "Adds 127IdU to achieve a final concentration of 25 µM in 200 µL medium."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "culture_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "culture_plate"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently",
+          "repetitions": 5,
+          "duration": {
+            "value": 10,
+            "unit": "s"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "culture_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "culture_plate"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 25,
+            "unit": "min"
+          },
+          "temperature": {
+            "value": 37,
+            "unit": "°C"
+          },
+          "CO2": "5%"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

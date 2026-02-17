@@ -1,0 +1,117 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Cell centrifugation and resuspension",
+    "source": {
+      "type": "paper",
+      "id": "s41586-019-1654-9"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "mTeSR1",
+        "name": "mTeSR1"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube1",
+        "type": "centrifuge tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge1",
+        "device_kind": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cells_initial",
+        "description": "cells before centrifugation"
+      },
+      {
+        "id": "cells_pellet",
+        "description": "cell pellet after centrifugation"
+      },
+      {
+        "id": "cells_resuspended",
+        "description": "cells resuspended in mTeSR1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_initial"
+          },
+          {
+            "kind": "container",
+            "id": "tube1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_pellet"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "centrifuge",
+          "duration": {
+            "value": 5,
+            "unit": "min"
+          },
+          "speed": {
+            "value": 200,
+            "unit": "g"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_pellet"
+          },
+          {
+            "kind": "material",
+            "id": "mTeSR1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_resuspended"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "annotations": {
+          "note": "Exact volume of mTeSR1 not specified in source text."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

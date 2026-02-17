@@ -1,0 +1,255 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Lentiviral transduction of hiPS cells",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01299-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "E8 medium"
+      },
+      {
+        "id": "m2",
+        "name": "Polybrene",
+        "description": "5 μg ml−1"
+      },
+      {
+        "id": "m3",
+        "name": "Lentivirus encoding sgRNA library"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "96-well plate",
+        "name": "hiPS cell culture plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator",
+        "name": "37 °C, 5 % CO₂ incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s1",
+        "type": "cell_culture",
+        "name": "hiPS cells"
+      },
+      {
+        "id": "c1",
+        "name": "c1"
+      },
+      {
+        "id": "m1",
+        "name": "m1"
+      },
+      {
+        "id": "m2",
+        "name": "m2"
+      },
+      {
+        "id": "m3",
+        "name": "m3"
+      },
+      {
+        "id": "e1",
+        "name": "e1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source_ref": "c1",
+          "destination_ref": "waste",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          },
+          {
+            "kind": "sample",
+            "id": "c1"
+          },
+          {
+            "kind": "sample",
+            "id": "m1"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "material_refs": [
+            "m1",
+            "m2",
+            "m3"
+          ],
+          "destination_ref": "c1",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          },
+          {
+            "kind": "sample",
+            "id": "m1"
+          },
+          {
+            "kind": "sample",
+            "id": "m2"
+          },
+          {
+            "kind": "sample",
+            "id": "m3"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "standard_incubation"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "e1"
+          },
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "material_refs": [
+            "m1"
+          ],
+          "destination_ref": "c1",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          },
+          {
+            "kind": "sample",
+            "id": "m1"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "standard_incubation"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "e1"
+          },
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "material_refs": [
+            "m1"
+          ],
+          "destination_ref": "c1",
+          "note": "daily medium replacement",
+          "amount": {
+            "value": 3.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          },
+          {
+            "kind": "sample",
+            "id": "m1"
+          }
+        ],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

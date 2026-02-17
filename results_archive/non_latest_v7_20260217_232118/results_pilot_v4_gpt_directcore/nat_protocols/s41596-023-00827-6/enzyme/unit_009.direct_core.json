@@ -1,0 +1,211 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Single‑cell suspension generation from organoid",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00827-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "cell recovery reagent"
+      },
+      {
+        "id": "m2",
+        "name": "wash medium"
+      },
+      {
+        "id": "m3",
+        "name": "Accutase"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "24-well plate"
+      },
+      {
+        "id": "c2",
+        "name": "insert"
+      },
+      {
+        "id": "c3",
+        "name": "15 ml centrifuge tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "device_kind": "centrifuge"
+      },
+      {
+        "id": "e2",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "smp1",
+        "name": "organoid"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "params": {
+          "note": "Remove the insert from the 24-well plate, invert it and gently peel off the membrane from the bottom of the insert using forceps."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "params": {
+          "note": "Place the insert with the membrane removed over the mouth of an open, empty 15 ml centrifuge tube."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source_material": "m1",
+          "destination_container": "c3",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "params": {
+          "note": "Close the 15 ml centrifuge tube and immediately place on ice to depolymerize the Matrigel."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "note": "Every 20 min, gently shake the tube to check if the Matrigel has dissolved and place it back on ice."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source_material": "m2",
+          "destination_container": "c3",
+          "amount": {
+            "value": 10.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "200g for 5 min",
+          "device_ref": "e1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "note": "Aspirate the wash medium and cell recovery reagent."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "params": {
+          "source_material": "m3",
+          "destination_container": "c3",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": "37 °C",
+          "device_ref": "e2"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      }
+    ],
+    "detail_level": 0
+  }
+}

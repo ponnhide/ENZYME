@@ -1,0 +1,145 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Single‑cell preparation and hashing",
+    "source": {
+      "type": "paper",
+      "id": "s41592-025-02927-5.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "barcoded_antibodies",
+        "name": "Barcoded antibodies"
+      },
+      {
+        "id": "10x_genomics_kit",
+        "name": "10x Genomics single-cell transcriptome kit"
+      }
+    ],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "pooled_cells",
+        "name": "Pooled cells"
+      },
+      {
+        "id": "single_cell_suspension",
+        "name": "Single-cell suspension"
+      },
+      {
+        "id": "hashed_cells",
+        "name": "Hashed cells"
+      },
+      {
+        "id": "sequencing_ready_cells",
+        "name": "Sequencing‑ready cells"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "pooled_cells"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "pooled_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "single_cell_suspension"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "were pooled and dissociated into single-cell suspensions"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "single_cell_suspension"
+          },
+          {
+            "kind": "material",
+            "id": "barcoded_antibodies"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "hashed_cells"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "cell hashing with barcoded antibodies"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "hashed_cells"
+          },
+          {
+            "kind": "material",
+            "id": "10x_genomics_kit"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sequencing_ready_cells"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "processing for single-cell transcriptome sequencing (3′ mRNA, 10x Genomics)"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

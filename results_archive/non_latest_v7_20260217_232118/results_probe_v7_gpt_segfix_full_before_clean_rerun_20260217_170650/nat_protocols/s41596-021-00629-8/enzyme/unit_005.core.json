@@ -1,0 +1,246 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Matrigel embedding of hPSC aggregates (day‑2)",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00629-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "matrigel",
+        "name": "Matrigel"
+      },
+      {
+        "id": "e8_medium",
+        "name": "E8 medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate",
+        "type": "well_plate",
+        "name": "culture plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "type": "incubator",
+        "name": "incubator"
+      },
+      {
+        "id": "scissors",
+        "type": "scissors",
+        "name": "sterile scissors"
+      },
+      {
+        "id": "pipette",
+        "type": "multichannel_pipette",
+        "name": "multichannel pipette"
+      }
+    ],
+    "samples": [
+      {
+        "id": "hpsc_aggregates",
+        "type": "cell_aggregate",
+        "name": "hPSC aggregates"
+      },
+      {
+        "id": "matrigel_instance",
+        "name": "matrigel_instance"
+      },
+      {
+        "id": "plate_instance",
+        "name": "plate_instance"
+      },
+      {
+        "id": "aggregates_instance",
+        "name": "aggregates_instance"
+      },
+      {
+        "id": "e8_aliquot",
+        "name": "e8_aliquot"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material",
+          "material_ref": "matrigel"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "matrigel_instance"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "params": {
+          "note": "Thaw Matrigel aliquots on ice."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "container_ref": "plate"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate_instance"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "sample_ref": "hpsc_aggregates"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "aggregates_instance"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "spread_on_plate",
+          "sample": "aggregates_instance",
+          "matrix": "matrigel_instance",
+          "container": "plate_instance"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator",
+          "program": {
+            "program_name": "solidify_50-60min"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material",
+          "material_ref": "e8_medium"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "e8_aliquot"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "params": {
+          "source": "e8_aliquot",
+          "destination": "plate_instance",
+          "amount": {
+            "value": 100.0,
+            "unit": "µL",
+            "per_well": true
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "params": {
+          "note": "Add medium slowly, depressing pipette plunger only to the first stop to prevent damage and floating of Matrigel droplets."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator",
+          "program": {
+            "program_name": "post_addition_incubation"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      }
+    ],
+    "detail_level": 0
+  }
+}

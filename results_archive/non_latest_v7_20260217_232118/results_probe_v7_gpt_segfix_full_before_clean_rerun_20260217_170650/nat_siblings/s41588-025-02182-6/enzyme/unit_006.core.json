@@ -1,0 +1,99 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "scRNA-seq data normalization",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41588-025-02182-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [],
+    "data": [
+      {
+        "id": "d_raw_counts",
+        "type": "data"
+      },
+      {
+        "id": "d_norm_counts",
+        "type": "data"
+      },
+      {
+        "id": "d_var_genes",
+        "type": "data"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "data"
+        },
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d_raw_counts"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "params": {
+          "note": "Normalize raw counts to a total count of 10,000 and log-transform."
+        },
+        "inputs": [
+          {
+            "kind": "data",
+            "id": "d_raw_counts"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d_norm_counts"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "params": {
+          "note": "Identify top 3,000 highly variable genes using default Scanpy settings."
+        },
+        "inputs": [
+          {
+            "kind": "data",
+            "id": "d_norm_counts"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d_var_genes"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

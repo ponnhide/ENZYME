@@ -1,0 +1,388 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Protocol",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00880-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "DAPI",
+        "vendor": "Thermo Fisher Scientific",
+        "catalog_number": "D1306"
+      },
+      {
+        "id": "m2",
+        "name": "BMP7",
+        "vendor": "R&D Systems",
+        "catalog_number": "354-BP"
+      },
+      {
+        "id": "m3",
+        "name": "CHIR99021",
+        "vendor": "R&D Systems",
+        "catalog_number": "4423/10"
+      },
+      {
+        "id": "m4",
+        "name": "Cimetidine",
+        "vendor": "Sigma-Aldrich",
+        "catalog_number": "C4522"
+      },
+      {
+        "id": "m5",
+        "name": "Dimethyl sulfoxide",
+        "vendor": "Sigma-Aldrich",
+        "catalog_number": "D2650-100mL"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "12-well plate",
+        "coating": "Laminin"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "c1",
+        "name": "c1"
+      },
+      {
+        "id": "d1",
+        "name": "d1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "sample",
+          "destination": "c1",
+          "note": "Seeding of iPSCs at 25,000 cells per well, 2 days post-passaging at ~80% confluency",
+          "amount": {
+            "value": "unknown",
+            "unit": "cells"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "differentiation_stage_1"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "m3",
+          "destination": "c1",
+          "note": "Addition of 6 µM CHIR99021 in TeSR-E6 medium, 24 h post-seeding",
+          "amount": {
+            "value": "unknown",
+            "unit": "µM"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "chir99021_exposure_5d"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": "m2",
+          "destination": "c1",
+          "note": "Addition of 200 ng/mL FGF9 in TeSR-E6 medium",
+          "amount": {
+            "value": "unknown",
+            "unit": "ng/mL"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "fgf9_exposure_2d"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "params": {
+          "source": "m2",
+          "destination": "c1",
+          "note": "Addition of nephron progenitor maintenance medium with elevated BMP7 (day 8–13)",
+          "amount": {
+            "value": "unknown",
+            "unit": "ng/mL"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "nephron_progenitor_maintenance"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s10",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "organoid_aggregation"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s11",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "organoid_culture_14d"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s12",
+        "op": "transfer",
+        "params": {
+          "source": "c1",
+          "destination": "unknown",
+          "note": "Partitioning organoids for fixation (immunofluorescence) and live assays (substrate uptake)",
+          "amount": {
+            "value": "unknown",
+            "unit": "volume"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s13",
+        "op": "transfer",
+        "params": {
+          "source": "m5",
+          "destination": "unknown",
+          "note": "Preparation of TRITC-conjugated albumin solution for albumin uptake assay",
+          "amount": {
+            "value": "unknown",
+            "unit": "volume"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s14",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "tritc_albumin_incubation"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s15",
+        "op": "transfer",
+        "params": {
+          "source": "m1",
+          "destination": "unknown",
+          "note": "Use of DAPI as surrogate substrate for MATE-1/MATE-2 transport assay",
+          "amount": {
+            "value": "unknown",
+            "unit": "µM"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s16",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "dapi_incubation"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s17",
+        "op": "observe",
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "fluorescent_albumin_uptake",
+            "dapi_uptake",
+            "ltl_binding",
+            "pt_specific_protein_expression"
+          ]
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s18",
+        "op": "annotate",
+        "params": {
+          "note": "Organoids considered successfully patterned if radiating nephrons show TRITC-albumin and DAPI uptake, express PT-specific proteins, and bind LTL on apical membrane."
+        },
+        "outputs": [],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s12",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      },
+      {
+        "from": "s14",
+        "to": "s17"
+      },
+      {
+        "from": "s16",
+        "to": "s17"
+      },
+      {
+        "from": "s17",
+        "to": "s18"
+      }
+    ],
+    "detail_level": 0
+  }
+}

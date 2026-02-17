@@ -1,0 +1,147 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41586-023-06564-w",
+      "type": "paper"
+    },
+    "title": "Preparation of sequencing libraries from sgRNA-integrated DNA"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "start_step_id": "s1",
+    "step_order": null,
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "library_prePCR",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "gDNA_sample",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "library_prePCR",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "thermocycler",
+          "program": "PCR amplification of lentiviral sgRNA spacer using Herculase II Fusion DNA Polymerase"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "library_prePCR",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "pooled_library",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "pooled_library",
+            "kind": "sample"
+          }
+        ],
+        "op": "observe",
+        "outputs": [
+          {
+            "id": "sequencing_data",
+            "kind": "data"
+          }
+        ],
+        "params": {
+          "features": [
+            "Illumina NextSeq 550 sequencing",
+            "read depth 450-1000x"
+          ],
+          "modality": "instrument_readout"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [],
+    "data": [
+      {
+        "id": "sequencing_data",
+        "name": "Illumina NextSeq 550 sequencing output"
+      }
+    ],
+    "equipment": [
+      {
+        "device_kind": "thermocycler",
+        "id": "thermocycler_1"
+      }
+    ],
+    "materials": [
+      {
+        "catalogue_no": "600679",
+        "id": "herculase_ii_fusion_polymerase",
+        "name": "Herculase II Fusion DNA Polymerase",
+        "vendor": "Agilent"
+      }
+    ],
+    "samples": [
+      {
+        "id": "gDNA_sample",
+        "name": "Extracted genomic DNA"
+      },
+      {
+        "id": "library_prePCR",
+        "name": "sgRNA library (pre‑PCR)"
+      },
+      {
+        "id": "pooled_library",
+        "name": "Pooled sgRNA library"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

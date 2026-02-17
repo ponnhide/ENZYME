@@ -1,0 +1,252 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "DNase I digestion on column",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00827-6"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "DNase I",
+        "concentration": {
+          "value": 6,
+          "unit": "U/μl"
+        }
+      },
+      {
+        "id": "m2",
+        "name": "DNA Digestion Buffer"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "RNase‑free tube"
+      },
+      {
+        "id": "c2",
+        "name": "column matrix"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s1",
+        "name": "reaction mixture in tube"
+      },
+      {
+        "id": "col1",
+        "name": "column with mixture"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s0",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "col1"
+          }
+        ],
+        "params": {
+          "container_ref": "c2"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "params": {
+          "container_ref": "c1"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 5,
+            "unit": "μl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 35,
+            "unit": "μl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          },
+          {
+            "kind": "sample",
+            "id": "col1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "col1"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Add the mix directly to the column matrix (volume not specified)."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "col1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "col1"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "temperature": {
+            "value": 25,
+            "unit": "°C"
+          },
+          "duration": {
+            "value": 15,
+            "unit": "min"
+          },
+          "program": {
+            "temperature": {
+              "value": 25,
+              "unit": "°C"
+            },
+            "duration": {
+              "value": 15,
+              "unit": "min"
+            }
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s0",
+    "edges": [
+      {
+        "from": "s0",
+        "to": "s1"
+      },
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

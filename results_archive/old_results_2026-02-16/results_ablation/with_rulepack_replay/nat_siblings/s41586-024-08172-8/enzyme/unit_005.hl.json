@@ -1,0 +1,79 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Quality‑control filtering of cells",
+    "source": {
+      "type": "paper",
+      "id": "s41586-024-08172-8"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "cells_raw",
+        "description": "Original cell expression dataset"
+      },
+      {
+        "id": "cells_filtered",
+        "description": "Cell dataset after QC filtering"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_raw"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_filtered"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Removed any cells with fewer than 200 genes expressed."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_filtered"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_filtered"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Removed outlier cells based on two QC metrics (number of expressed genes and percentage mitochondrial counts). For each metric, values were z‑transformed across all cells; cells with any z‑transformed metric < -1.96 or > 1.96 were defined as outliers and removed."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

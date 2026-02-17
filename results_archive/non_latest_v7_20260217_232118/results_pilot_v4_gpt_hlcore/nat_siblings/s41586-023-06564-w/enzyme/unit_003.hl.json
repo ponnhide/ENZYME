@@ -1,0 +1,263 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Generation of 3D human cortical organoids (hCO)",
+    "source": {
+      "type": "paper",
+      "id": "s41586-023-06564-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "hiPS cells"
+      },
+      {
+        "id": "m2",
+        "name": "Accutase"
+      },
+      {
+        "id": "m3",
+        "name": "Essential 8 medium"
+      },
+      {
+        "id": "m4",
+        "name": "ROCK inhibitor Y27632",
+        "concentration": "10 µM"
+      },
+      {
+        "id": "m5",
+        "name": "Essential 6 medium"
+      },
+      {
+        "id": "m6",
+        "name": "Dorsomorphin",
+        "concentration": "2.5 µM"
+      },
+      {
+        "id": "m7",
+        "name": "SB-431542",
+        "concentration": "10 µM"
+      },
+      {
+        "id": "m8",
+        "name": "XAV-939",
+        "concentration": "1.25 µM"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "AggreWell 800 plate well"
+      },
+      {
+        "id": "c2",
+        "name": "Ultra-low attachment plastic dish (Corning 3262)"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "Centrifuge"
+      },
+      {
+        "id": "e2",
+        "name": "Incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s1",
+        "name": "hiPS cell culture"
+      },
+      {
+        "id": "s2",
+        "name": "Single‑cell suspension"
+      },
+      {
+        "id": "s3",
+        "name": "Cell aggregates in AggreWell 800 well"
+      },
+      {
+        "id": "s4",
+        "name": "Aggregates cultured in ultra‑low attachment dish"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "a1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Dissociate hiPS cells with Accutase to obtain a single‑cell suspension."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          },
+          {
+            "kind": "material",
+            "id": "m3"
+          },
+          {
+            "kind": "material",
+            "id": "m4"
+          },
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 3000000,
+            "unit": "cells"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          },
+          {
+            "kind": "equipment",
+            "id": "e1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "100 g for 3 min"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          },
+          {
+            "kind": "equipment",
+            "id": "e2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "overnight at 37 °C, 5% CO2"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          },
+          {
+            "kind": "material",
+            "id": "m5"
+          },
+          {
+            "kind": "material",
+            "id": "m6"
+          },
+          {
+            "kind": "material",
+            "id": "m7"
+          },
+          {
+            "kind": "material",
+            "id": "m8"
+          },
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s4"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Transfer cell aggregates into Essential 6 medium supplemented with Dorsomorphin, SB-431542, and XAV-939. Amount not specified in source."
+        }
+      }
+    ],
+    "start_step_id": "a1",
+    "edges": [
+      {
+        "from": "a1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

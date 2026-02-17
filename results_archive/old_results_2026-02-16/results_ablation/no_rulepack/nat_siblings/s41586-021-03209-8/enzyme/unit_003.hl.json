@@ -1,0 +1,218 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Single‑cell RNA‑seq library preparation",
+    "source": {
+      "type": "paper",
+      "id": "s41586-021-03209-8"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "10x_kit",
+        "name": "10X Genomics Chromium 3′ Gene Expression Kit"
+      },
+      {
+        "id": "cells_source",
+        "name": "single cells"
+      },
+      {
+        "id": "nova_seq",
+        "name": "Illumina NovaSeq"
+      }
+    ],
+    "containers": [
+      {
+        "id": "chromium_chip",
+        "name": "Chromium chip"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "chromium_instrument",
+        "name": "10X Chromium instrument"
+      },
+      {
+        "id": "nova_seq_instrument",
+        "name": "Illumina NovaSeq"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cells",
+        "name": "cell suspension"
+      },
+      {
+        "id": "loaded_chip",
+        "name": "chip loaded with cells"
+      },
+      {
+        "id": "partitioned_cells",
+        "name": "partitioned cells (GEMs)"
+      },
+      {
+        "id": "library",
+        "name": "single‑cell RNA‑seq library"
+      },
+      {
+        "id": "sequencing_data",
+        "name": "sequencing reads"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 10000,
+            "unit": "cells"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "chromium_chip"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          },
+          {
+            "kind": "container",
+            "id": "chromium_chip"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "loaded_chip"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 10000,
+            "unit": "cells"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "loaded_chip"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "partitioned_cells"
+          }
+        ],
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "program": "10X Chromium 3′ Gene Expression Kit",
+          "device_ref": "chromium_instrument"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "partitioned_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "library"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Libraries were prepared following the provided 10X Genomics Chromium 3′ Gene Expression Kit protocol."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "library"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "sequencing_data"
+          }
+        ],
+        "params": {
+          "modality": "instrument_readout",
+          "features": "sequencing reads"
+        },
+        "annotations": {
+          "instrument": "Illumina NovaSeq",
+          "targeted_depth": "50,000 reads per cell"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

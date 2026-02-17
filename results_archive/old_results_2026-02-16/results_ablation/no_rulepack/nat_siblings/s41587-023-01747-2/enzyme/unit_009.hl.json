@@ -1,0 +1,139 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Pooled loss‑of‑function experiment with iCas9",
+    "source": {
+      "type": "paper",
+      "id": "s41587-023-01747-2.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "iCas9 line"
+      },
+      {
+        "id": "m2",
+        "name": "pooled lentiviral library"
+      }
+    ],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "organoid",
+        "name": "retinal organoids (iCas9 line)"
+      },
+      {
+        "id": "infected_organoid",
+        "name": "retinal organoids infected with pooled lentiviral library"
+      },
+      {
+        "id": "incubated_organoid",
+        "name": "infected organoids after 3–5 weeks"
+      },
+      {
+        "id": "sorted_GFP_positive",
+        "name": "GFP+ sorted cells"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "infected_organoid"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "infected_organoid"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "incubated_organoid"
+          }
+        ],
+        "params": {
+          "duration": "3-5 weeks"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "incubated_organoid"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sorted_GFP_positive"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "GFP+ cells were sorted and used."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

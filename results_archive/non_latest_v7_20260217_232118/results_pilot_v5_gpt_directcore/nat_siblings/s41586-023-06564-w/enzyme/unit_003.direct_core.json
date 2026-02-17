@@ -1,0 +1,230 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Dissociation and seeding for 3D hCO generation",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-023-06564-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "accutase",
+        "type": "reagent",
+        "name": "Accutase"
+      },
+      {
+        "id": "essential8_medium",
+        "type": "reagent",
+        "name": "Essential 8 medium"
+      },
+      {
+        "id": "rock_inhibitor_y27632",
+        "type": "reagent",
+        "name": "ROCK inhibitor Y27632"
+      },
+      {
+        "id": "material_accutase",
+        "name": "material_accutase"
+      },
+      {
+        "id": "material_essential8",
+        "name": "material_essential8"
+      },
+      {
+        "id": "material_rock",
+        "name": "material_rock"
+      }
+    ],
+    "containers": [
+      {
+        "id": "aggrewell_plate",
+        "type": "plate",
+        "name": "AggreWell 800 plate"
+      },
+      {
+        "id": "container_aggrewell",
+        "type": "generic_container",
+        "name": "container_aggrewell"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "hiPS_cells",
+        "type": "cell_line",
+        "name": "hiPS cells"
+      },
+      {
+        "id": "sample_cells",
+        "type": "sample",
+        "name": "sample_cells"
+      },
+      {
+        "id": "sample_cells_suspended",
+        "type": "sample",
+        "name": "sample_cells_suspended"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "description": "hiPS cells"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_cells"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material",
+          "description": "Accutase"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "material_accutase"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material",
+          "description": "Essential 8 medium"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "material_essential8"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material",
+          "description": "ROCK inhibitor Y27632 (10 µM)"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "material_rock"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "description": "AggreWell 800 plate"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "container_aggrewell"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "description": "Dissociate hiPS cells with Accutase to obtain a single‑cell suspension"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_cells"
+          },
+          {
+            "kind": "material",
+            "id": "material_accutase"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_cells_suspended"
+          }
+        ]
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "description": "Seed ~3 × 10^6 cells per AggreWell 800 plate well in Essential 8 medium supplemented with ROCK inhibitor Y27632 (10 µM)"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_cells_suspended"
+          },
+          {
+            "kind": "material",
+            "id": "material_essential8"
+          },
+          {
+            "kind": "material",
+            "id": "material_rock"
+          },
+          {
+            "kind": "container",
+            "id": "container_aggrewell"
+          }
+        ],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

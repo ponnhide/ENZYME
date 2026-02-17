@@ -1,0 +1,124 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Somatic mutation analysis pipeline",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-020-19142-9.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "d1",
+        "name": "d1"
+      },
+      {
+        "id": "d2",
+        "name": "d2"
+      },
+      {
+        "id": "d3",
+        "name": "d3"
+      },
+      {
+        "id": "d4",
+        "name": "d4"
+      },
+      {
+        "id": "d5",
+        "name": "d5"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "type": "sequence_reads"
+      },
+      {
+        "id": "d2",
+        "type": "reference_genome_GRCh37"
+      },
+      {
+        "id": "d3",
+        "type": "tumor_sequencing_data"
+      },
+      {
+        "id": "d4",
+        "type": "genotype_data"
+      },
+      {
+        "id": "d5",
+        "type": "somatic_mutations_calls"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": {
+            "program_name": "BWA-MEM_v0.7.5a"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d1"
+          },
+          {
+            "kind": "sample",
+            "id": "d2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d3"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": {
+            "program_name": "Strelka_v1.0.14"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d3"
+          },
+          {
+            "kind": "sample",
+            "id": "d4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d5"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

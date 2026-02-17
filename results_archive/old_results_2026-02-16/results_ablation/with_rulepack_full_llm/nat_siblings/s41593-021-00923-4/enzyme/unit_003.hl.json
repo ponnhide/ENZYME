@@ -1,0 +1,284 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Real-time cell vulnerability assay",
+    "source": {
+      "type": "paper",
+      "id": "s41593-021-00923-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Geltrex",
+        "vendor": "Thermo Fisher Scientific",
+        "catalog_number": "A1413302"
+      },
+      {
+        "id": "m2",
+        "name": "DMEM/F-12",
+        "vendor": "Fisher Scientific, Gibco",
+        "catalog_number": "11514436"
+      },
+      {
+        "id": "m3",
+        "name": "StemMACS iPS-Brew XF medium",
+        "vendor": "Miltenyi Biotec",
+        "catalog_number": "130-104-368"
+      },
+      {
+        "id": "m4",
+        "name": "topotecan",
+        "vendor": "Apexbio",
+        "catalog_number": "B2296"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "six-well plate",
+        "vendor": "Appleton Woods, Corning",
+        "catalog_number": "CC010"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "IncuCyte S3 Live-Cell Analysis system",
+        "vendor": "Sartorius",
+        "catalog_number": "4647"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_hiPSC_stock",
+        "description": "hiPSC cell stock"
+      },
+      {
+        "id": "s_coated_plate",
+        "description": "Six-well plate coated with 1% Geltrex in DMEM/F-12"
+      },
+      {
+        "id": "s_seeded_cells",
+        "description": "hiPSCs seeded at 1×10^5 cells per well in StemMACS iPS-Brew XF medium"
+      },
+      {
+        "id": "s_treated_cells",
+        "description": "Cells treated daily with topotecan at specified concentrations"
+      }
+    ],
+    "data": [
+      {
+        "id": "d_images",
+        "description": "Time‑lapse images acquired by IncuCyte"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "params": {
+          "container_type": "six-well plate",
+          "catalog": {
+            "vendor": "Appleton Woods, Corning",
+            "part_number": "CC010"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_coated_plate"
+          }
+        ],
+        "params": {
+          "description": "Coat each well with 1% Geltrex in DMEM/F-12",
+          "amount": {
+            "value": 1,
+            "unit": "%"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_hiPSC_stock"
+          },
+          {
+            "kind": "material",
+            "id": "m3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_seeded_cells"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 100000.0,
+            "unit": "cells"
+          },
+          "per_well": true
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_seeded_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_seeded_cells"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 24,
+            "unit": "hour"
+          },
+          "device_kind": "incubator"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_seeded_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d_images"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "device_ref": "e1",
+          "program": "Real-time cell vulnerability assay on IncuCyte S3"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_seeded_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_treated_cells"
+          }
+        ],
+        "params": {
+          "description": "Cells either left untreated or treated daily with topotecan at 1.25 nM, 2.5 nM, 5 nM, or 10 nM"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "data",
+            "id": "d_images"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d_images"
+          }
+        ],
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "cell confluency (cell body cluster area)"
+          ],
+          "interval": {
+            "value": 6,
+            "unit": "hour"
+          },
+          "duration": {
+            "value": 5,
+            "unit": "day"
+          },
+          "magnification": "10x"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

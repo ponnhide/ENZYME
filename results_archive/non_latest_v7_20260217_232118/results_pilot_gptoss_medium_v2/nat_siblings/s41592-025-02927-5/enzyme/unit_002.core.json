@@ -1,0 +1,206 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41592-025-02927-5",
+      "type": "paper"
+    },
+    "title": "Organoid Generation in 96‑Well Plates"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "sample_plate",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "m1",
+            "kind": "material"
+          },
+          {
+            "id": "m2",
+            "kind": "material"
+          },
+          {
+            "id": "m3",
+            "kind": "material"
+          }
+        ],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "sample_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "sample_cells",
+            "kind": "sample"
+          },
+          {
+            "id": "sample_plate",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "sample_plate_filled",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "description": "volume of cell suspension added to each well not specified",
+            "unit": null,
+            "value": null
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "Cells were aggregated into embryoid bodies; exact method (e.g., centrifugation, shaking) not detailed"
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "sample_plate_filled",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "sample_embryoid",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Incubation conditions (temperature, CO₂, duration) not specified"
+        },
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "sample_embryoid",
+            "kind": "sample"
+          },
+          {
+            "id": "m4",
+            "kind": "material"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "sample_organoid",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "culture in MNIM"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "c1",
+        "name": "96-well plate"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "Incubator"
+      }
+    ],
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Pluripotent stem cells (WTC line)"
+      },
+      {
+        "id": "m2",
+        "name": "Pluripotent stem cells (H9 line)"
+      },
+      {
+        "id": "m3",
+        "name": "Pluripotent stem cells (HES3 line, NKX2-1 reporter)"
+      },
+      {
+        "id": "m4",
+        "name": "Minimal neural induction media (MNIM)"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_plate",
+        "name": "Empty 96-well plate"
+      },
+      {
+        "id": "sample_cells",
+        "name": "Pluripotent stem cell mixture"
+      },
+      {
+        "id": "sample_plate_filled",
+        "name": "Plate with cells added"
+      },
+      {
+        "id": "sample_embryoid",
+        "name": "Aggregated embryoid bodies"
+      },
+      {
+        "id": "sample_organoid",
+        "name": "Organoids cultured in MNIM"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

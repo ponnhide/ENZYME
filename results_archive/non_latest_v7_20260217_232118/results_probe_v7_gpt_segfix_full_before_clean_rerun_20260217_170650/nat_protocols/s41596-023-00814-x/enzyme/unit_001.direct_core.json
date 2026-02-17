@@ -1,0 +1,331 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Generation of iPSC-derived human forebrain organoids assembling bilateral eye primordia",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00814-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "mat_iPSC",
+        "name": "induced pluripotent stem cells"
+      },
+      {
+        "id": "mat_neurosphere_medium",
+        "name": "neurosphere medium"
+      },
+      {
+        "id": "mat_OVB_medium",
+        "name": "OVB medium"
+      },
+      {
+        "id": "mat_retinol_acetate",
+        "name": "retinol acetate",
+        "concentration": "60 nM"
+      }
+    ],
+    "containers": [
+      {
+        "id": "cont_flask",
+        "type": "spinner_flask"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "eq_incubator",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp_iPSC"
+      },
+      {
+        "id": "samp_neurospheres"
+      },
+      {
+        "id": "samp_neurospheres_retinol"
+      },
+      {
+        "id": "samp_OVB_organoid"
+      }
+    ],
+    "data": [
+      {
+        "id": "data_pigment_observation"
+      },
+      {
+        "id": "data_ERG_recording"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_iPSC"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "mat_neurosphere_medium"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "mat_retinol_acetate"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "cont_flask"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "equipment"
+        },
+        "outputs": [
+          {
+            "kind": "equipment",
+            "id": "eq_incubator"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_iPSC"
+          },
+          {
+            "kind": "material",
+            "id": "mat_neurosphere_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_neurospheres"
+          }
+        ]
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "eq_incubator",
+          "program": {
+            "program_name": "neural_differentiation_day0-5"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_neurospheres"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_neurospheres"
+          }
+        ]
+      },
+      {
+        "id": "s8",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_neurospheres"
+          },
+          {
+            "kind": "material",
+            "id": "mat_retinol_acetate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_neurospheres_retinol"
+          }
+        ]
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "eq_incubator",
+          "program": {
+            "program_name": "spinner_culture_day10-30"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_neurospheres_retinol"
+          },
+          {
+            "kind": "material",
+            "id": "mat_OVB_medium"
+          },
+          {
+            "kind": "container",
+            "id": "cont_flask"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_OVB_organoid"
+          }
+        ]
+      },
+      {
+        "id": "s10",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "pigmented_dots"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_OVB_organoid"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "data_pigment_observation"
+          }
+        ]
+      },
+      {
+        "id": "s11",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "electrical_activity"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_OVB_organoid"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "data_ERG_recording"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      }
+    ],
+    "detail_level": 0
+  }
+}

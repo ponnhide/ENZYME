@@ -1,0 +1,141 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-020-00441-w.pdf",
+      "type": "paper"
+    },
+    "title": "Change mTeSR medium"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "start_step_id": "s1",
+    "step_order": null,
+    "steps": [
+      {
+        "annotations": {
+          "text": "Warm mTeSR1 at room temperature (15–25 °C)."
+        },
+        "id": "s1",
+        "inputs": [],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "text": "Confirm that the plated cells are healthy and are growing at a uniformly high density."
+        },
+        "id": "s2",
+        "inputs": [],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "text": "Aspirate old mTeSR1 with 10 μM Y-27632 to change the medium. Add fresh mTeSR1 without Y-27632 (Step 16), 500 μl/well for a 24-well plate."
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "plate_24well",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "plate_24well",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action": "add",
+          "amount": {
+            "unit": "microliter",
+            "value": 500
+          },
+          "destination": "plate_24well",
+          "source": "mTeSR1"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "plate_24well",
+            "kind": "container"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "plate_24well",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator_5pct_co2",
+          "program": "overnight at 37 °C with 5% CO2"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "plate_24well",
+        "type": "multiwell_plate",
+        "well_count": 24,
+        "well_volume_ul": 1000
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "conditions": {
+          "co2_percent": 5,
+          "temperature_c": 37
+        },
+        "id": "incubator_5pct_co2",
+        "type": "incubator"
+      }
+    ],
+    "materials": [
+      {
+        "id": "mTeSR1",
+        "name": "mTeSR1",
+        "type": "cell_culture_medium"
+      },
+      {
+        "id": "Y-27632",
+        "name": "Y-27632",
+        "type": "chemical"
+      }
+    ],
+    "samples": [
+      {
+        "id": "plate_24well",
+        "name": "plate_24well"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

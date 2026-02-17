@@ -1,0 +1,123 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Filter cell suspension",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-0379-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "adDMEM_F12_plus_plus_plus",
+        "name": "adDMEM/F12+++ medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube",
+        "type": "tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "cell_strainer",
+        "name": "100-µm cell strainer"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cell_pellet",
+        "name": "cell pellet"
+      },
+      {
+        "id": "resuspended_cells",
+        "name": "resuspended cells"
+      },
+      {
+        "id": "filtered_cells",
+        "name": "filtered cells"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_pellet"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_pellet"
+          },
+          {
+            "kind": "material",
+            "id": "adDMEM_F12_plus_plus_plus"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "resuspended_cells"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend",
+          "amount": {
+            "value": 10,
+            "unit": "ml"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "resuspended_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "filtered_cells"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Filter using a 100-µm cell strainer"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

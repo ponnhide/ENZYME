@@ -1,0 +1,218 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Manual isolation of single neural rosettes (SNRs)",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01197-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "glass Pasteur pipette"
+      },
+      {
+        "id": "m2",
+        "name": "glass hook"
+      },
+      {
+        "id": "m3",
+        "name": "Bunsen burner"
+      },
+      {
+        "id": "m4",
+        "name": "stereoscope"
+      },
+      {
+        "id": "m5",
+        "name": "P200 filtered pipette"
+      },
+      {
+        "id": "m6",
+        "name": "96‑well plate"
+      },
+      {
+        "id": "m7",
+        "name": "incubator"
+      },
+      {
+        "id": "m8",
+        "name": "orbital shaker"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "culture dish"
+      },
+      {
+        "id": "c2",
+        "name": "96‑well plate"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "snr1",
+        "name": "single neural rosette (SNR)"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "Prepare a glass hook from a glass Pasteur pipette using a Bunsen burner"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "modality": "visual",
+          "features": [
+            "large SNR >200 µm diameter",
+            "single lumen"
+          ]
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "snr1"
+          }
+        ],
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "snr1"
+          },
+          {
+            "kind": "material",
+            "id": "m5"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "snr1"
+          },
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "count"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "description": "Return the plate to the incubator"
+        }
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "device_kind": "incubator",
+          "program": "orbital shaker at 45 rpm for 14-15 d"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

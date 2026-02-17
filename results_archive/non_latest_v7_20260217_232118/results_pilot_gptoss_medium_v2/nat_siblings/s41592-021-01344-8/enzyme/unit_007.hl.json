@@ -1,0 +1,82 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Track barcode diversity over development with amplicon sequencing",
+    "source": {
+      "type": "paper",
+      "id": "s41592-021-01344-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [
+      {
+        "kind": "amplicon_readout_system",
+        "id": "dev1",
+        "name": "amplicon sequencing instrument"
+      }
+    ],
+    "samples": [
+      {
+        "kind": "sample",
+        "id": "s_organoid_dna",
+        "name": "organoid DNA sample"
+      }
+    ],
+    "data": [
+      {
+        "kind": "data",
+        "id": "d_seq",
+        "name": "amplicon sequencing results"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_dna"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_dna"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d_seq"
+          }
+        ],
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": "targeted amplicon sequencing of the barcode region"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

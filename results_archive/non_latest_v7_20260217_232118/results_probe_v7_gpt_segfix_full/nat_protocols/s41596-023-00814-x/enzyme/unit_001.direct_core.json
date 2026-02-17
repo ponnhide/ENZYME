@@ -1,0 +1,319 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Generation of iPSC-derived human forebrain organoids assembling bilateral eye primordia",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00814-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "neurosphere_medium"
+      },
+      {
+        "id": "OVB_medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "spinner_flask",
+        "type": "flask"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "type": "incubator"
+      },
+      {
+        "id": "erg_device",
+        "type": "amplicon_readout_system"
+      }
+    ],
+    "samples": [
+      {
+        "id": "iPSC_sample",
+        "type": "cell_culture"
+      },
+      {
+        "id": "neurospheres",
+        "type": "cell_aggregate"
+      },
+      {
+        "id": "forebrain_organoids",
+        "type": "organoid"
+      },
+      {
+        "id": "neurosphere_medium",
+        "name": "neurosphere_medium"
+      },
+      {
+        "id": "OVB_medium",
+        "name": "OVB_medium"
+      },
+      {
+        "id": "spinner_flask",
+        "name": "spinner_flask"
+      },
+      {
+        "id": "neurosphere_obs",
+        "name": "neurosphere_obs"
+      },
+      {
+        "id": "erg_data",
+        "name": "erg_data"
+      }
+    ],
+    "data": [
+      {
+        "id": "neurosphere_obs",
+        "type": "observation"
+      },
+      {
+        "id": "erg_data",
+        "type": "measurement"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "iPSC_sample"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "neurosphere_medium"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "OVB_medium"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "spinner_flask"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "source": "iPSC_sample",
+          "target": "neurosphere_medium"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator",
+          "program": {
+            "program_name": "neural_differentiation_day0-5"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "neurosphere_formation"
+          ]
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "neurosphere_obs"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "params": {
+          "source": "neurospheres",
+          "destination": "neurosphere_medium",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator",
+          "program": {
+            "program_name": "neurosphere_culture_day5-10"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "transfer",
+        "params": {
+          "source": "neurospheres",
+          "destination": "spinner_flask",
+          "medium": "OVB_medium",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator",
+          "program": {
+            "program_name": "spinner_culture_day10-30"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator",
+          "program": {
+            "program_name": "long_term_culture_day30-60"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s13",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "electrical_activity"
+          ]
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "erg_data"
+          }
+        ],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,194 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Add Trizol to organoid",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00827-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "medium"
+      },
+      {
+        "id": "m2",
+        "name": "Trizol"
+      },
+      {
+        "id": "m3",
+        "name": "lung organoid in Matrigel"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "insert with lung organoid"
+      },
+      {
+        "id": "c2",
+        "name": "1.5 ml tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "P1000 pipette"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_insert",
+        "name": "insert content (organism + medium)",
+        "container_ref": "c1"
+      },
+      {
+        "id": "s_tube",
+        "name": "tube content (organoid in Trizol)",
+        "container_ref": "c2"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_insert"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_insert"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Aspirate the medium from the insert with lung organoid."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "sample",
+            "id": "s_insert"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_insert"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 300,
+            "unit": "μl"
+          },
+          "device_ref": "e1"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_insert"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_insert"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "note": "Pipette up and down several times to break the Matrigel and collect the content of the insert."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_insert"
+          },
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_tube"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Transfer the organoid in Trizol into a 1.5 ml tube."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_tube"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Vortex until homogenized."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

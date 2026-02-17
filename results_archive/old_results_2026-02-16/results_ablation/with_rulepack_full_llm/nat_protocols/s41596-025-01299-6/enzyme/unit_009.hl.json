@@ -1,0 +1,322 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Nucleofection of hiPS cells",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01299-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "cell_RNP_mixture",
+        "type": "reagent",
+        "name": "cell‑RNP mixture"
+      },
+      {
+        "id": "pre_warmed_E8_Y27632",
+        "type": "reagent",
+        "name": "pre‑warmed E8 medium supplemented with 10 μM Y‑27632"
+      },
+      {
+        "id": "E8_no_Y27632",
+        "type": "reagent",
+        "name": "E8 medium without Y‑27632"
+      }
+    ],
+    "containers": [
+      {
+        "id": "nucleocuvette_strip",
+        "type": "strip",
+        "name": "Nucleocuvette strip"
+      },
+      {
+        "id": "six_well_plate",
+        "type": "plate",
+        "name": "six‑well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "4D_Nucleofector_X",
+        "type": "device",
+        "name": "4D‑Nucleofector X unit"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cell_RNP_mixture_sample",
+        "type": "sample",
+        "material_id": "cell_RNP_mixture"
+      },
+      {
+        "id": "cell_RNP_in_cuvette",
+        "type": "sample",
+        "material_id": "cell_RNP_mixture"
+      },
+      {
+        "id": "nucleofected_cells",
+        "type": "sample",
+        "material_id": "cell_RNP_mixture"
+      },
+      {
+        "id": "resuspended_cells",
+        "type": "sample",
+        "material_id": "cell_RNP_mixture"
+      },
+      {
+        "id": "well_A_cells",
+        "type": "sample",
+        "container_id": "six_well_plate",
+        "well": "A1"
+      },
+      {
+        "id": "well_B_cells",
+        "type": "sample",
+        "container_id": "six_well_plate",
+        "well": "A2"
+      },
+      {
+        "id": "pre_warmed_E8_Y27632",
+        "name": "pre_warmed_E8_Y27632"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_RNP_mixture_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_RNP_in_cuvette"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 25,
+            "unit": "μl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Click the lid tight."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Gently tap the strip on the benchtop to ensure the sample covers the bottom of the cuvette and that there are no bubbles in the wells."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Place the Nucleocuvette strips with closed lid into the retainer of the 4D‑Nucleofector X unit, checking proper orientation."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_RNP_in_cuvette"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "nucleofected_cells"
+          }
+        ],
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "program": "CA137",
+          "device_ref": "4D_Nucleofector_X"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "After run completion, carefully remove the Nucleocuvette strips from the retainer."
+        }
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "pre_warmed_E8_Y27632"
+          },
+          {
+            "kind": "sample",
+            "id": "nucleofected_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "resuspended_cells"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 70,
+            "unit": "μl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s8",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "resuspended_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "resuspended_cells"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently",
+          "description": "Mix the cells by gently pipetting up and down two to three times."
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "resuspended_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "well_A_cells"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 5,
+            "unit": "μl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s10",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "resuspended_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "well_B_cells"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Add the remaining cell suspension to another well of the six‑well plate."
+        }
+      },
+      {
+        "id": "s11",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Change to E8 medium without Y‑27632 the next day."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      }
+    ],
+    "detail_level": 0
+  }
+}

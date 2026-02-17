@@ -1,0 +1,146 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Pre‑coat plates with GFR Matrigel",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-00441-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "matrigel",
+        "name": "GFR Matrigel"
+      },
+      {
+        "id": "parafilm",
+        "name": "Parafilm"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c24well",
+        "name": "24-well plate"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "plate_uncoated",
+        "name": "24-well plate (uncoated)"
+      },
+      {
+        "id": "plate_coated",
+        "name": "24-well plate (coated with GFR Matrigel)"
+      },
+      {
+        "id": "plate_wrapped",
+        "name": "24-well plate (coated, wrapped in Parafilm)"
+      },
+      {
+        "id": "plate_stored",
+        "name": "24-well plate (coated, wrapped, stored at 4 °C ≤2 weeks)"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate_uncoated"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "plate_uncoated"
+          },
+          {
+            "kind": "material",
+            "id": "matrigel"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate_coated"
+          }
+        ],
+        "params": {
+          "action_kind": "spread_on_plate"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "plate_coated"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate_wrapped"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Wrapped in Parafilm"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "plate_wrapped"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate_stored"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Stored at 4 °C for ≤2 weeks"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,305 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Resuspend organoid pellet in Matrigel and seed droplets",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00562-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "matrigel",
+        "name": "Matrigel"
+      },
+      {
+        "id": "colon_organoid_medium",
+        "name": "colon organoid medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate",
+        "type": "24-well tissue culture treated plate",
+        "name": "Olympus 24-well tissue culture treated plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "type": "CO2 incubator",
+        "name": "CO2 incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoid_pellet",
+        "name": "organoid pellet"
+      },
+      {
+        "id": "organoid_in_matrigel",
+        "name": "organoid in Matrigel"
+      },
+      {
+        "id": "plate_with_droplets",
+        "name": "plate with Matrigel droplets"
+      },
+      {
+        "id": "incubated_plate",
+        "name": "incubated plate"
+      },
+      {
+        "id": "gelation_check",
+        "name": "gelation check"
+      },
+      {
+        "id": "final_plate",
+        "name": "plate with colon organoid medium"
+      },
+      {
+        "id": "matrigel",
+        "name": "matrigel"
+      },
+      {
+        "id": "colon_organoid_medium",
+        "name": "colon_organoid_medium"
+      },
+      {
+        "id": "plate",
+        "name": "plate"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_pellet"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "matrigel"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "colon_organoid_medium"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "volume": "1.2 ml"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_pellet"
+          },
+          {
+            "kind": "sample",
+            "id": "matrigel"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_in_matrigel"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "amount": {
+            "value": 50.0,
+            "unit": "µl"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_in_matrigel"
+          },
+          {
+            "kind": "sample",
+            "id": "plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate_with_droplets"
+          }
+        ]
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "gelation_15-20min"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "plate_with_droplets"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "incubated_plate"
+          }
+        ]
+      },
+      {
+        "id": "s8",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "gelation"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "incubated_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "gelation_check"
+          }
+        ]
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "params": {
+          "amount": {
+            "value": 600.0,
+            "unit": "µl"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "colon_organoid_medium"
+          },
+          {
+            "kind": "sample",
+            "id": "incubated_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "final_plate"
+          }
+        ]
+      },
+      {
+        "id": "s10",
+        "op": "annotate",
+        "params": {
+          "note": "Use Olympus 24-well tissue culture treated plates to keep Matrigel droplets spherical for 3D organoid growth."
+        },
+        "outputs": [],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      }
+    ],
+    "detail_level": 0
+  }
+}

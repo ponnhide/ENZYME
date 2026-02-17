@@ -1,0 +1,234 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "SNR isolation",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01197-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "amplification_medium",
+        "name": "amplification medium"
+      },
+      {
+        "id": "EGF",
+        "name": "EGF"
+      },
+      {
+        "id": "FGF2",
+        "name": "FGF2"
+      }
+    ],
+    "containers": [
+      {
+        "id": "ultralow_plate",
+        "type": "96-well_plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "type": "incubator"
+      },
+      {
+        "id": "orbital_shaker",
+        "type": "shaker"
+      },
+      {
+        "id": "stereoscope",
+        "type": "stereoscope"
+      },
+      {
+        "id": "p200_filtered_pipette",
+        "type": "pipette"
+      },
+      {
+        "id": "bunsen_burner",
+        "type": "heater"
+      }
+    ],
+    "samples": [
+      {
+        "id": "identified_snrs"
+      },
+      {
+        "id": "amplification_medium_sample",
+        "name": "amplification_medium_sample"
+      },
+      {
+        "id": "ultralow_plate_instance",
+        "name": "ultralow_plate_instance"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "amplification_medium_sample"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "details": "Add EGF 10 ng/mL and FGF2 10 ng/mL to amplification medium"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "ultralow_plate_instance"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "amplification_medium",
+          "destination": "ultralow_plate",
+          "amount": {
+            "value": 300.0,
+            "unit": "μL",
+            "per_well": true
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "note": "Prepare a glass hook from a glass Pasteur pipette using a Bunsen burner; not reused"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "size>200 μm",
+            "single_lumen"
+          ]
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "pick_colony",
+          "details": "Separate SNRs using glass hook and gently detach from dish"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "params": {
+          "source": "identified_snrs",
+          "destination": "ultralow_plate",
+          "method": "P200 filtered pipette",
+          "amount": {
+            "description": "one SNR per well"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator",
+          "program": {
+            "program_name": "standard_incubation"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s10",
+        "op": "annotate",
+        "params": {
+          "note": "Incubate on orbital shaker at 45 rpm for 14 days"
+        },
+        "outputs": [],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      }
+    ],
+    "detail_level": 0
+  }
+}

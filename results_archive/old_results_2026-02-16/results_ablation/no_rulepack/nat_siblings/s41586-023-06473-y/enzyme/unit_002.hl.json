@@ -1,0 +1,450 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Cerebral organoid generation (dorsal protocol)",
+    "source": {
+      "type": "paper",
+      "id": "s41586-023-06473-y.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_cells",
+        "name": "human pluripotent stem cells",
+        "description": "cells cultured to 70–80% confluence"
+      },
+      {
+        "id": "m_E8",
+        "name": "Essential8 medium",
+        "description": ""
+      },
+      {
+        "id": "m_Revitacell",
+        "name": "Revitacell",
+        "catalogue": "ThermoFisher A2644501"
+      },
+      {
+        "id": "m_4OHT",
+        "name": "4‑hydroxytamoxifen",
+        "catalogue": "Sigma‑Aldrich H7904"
+      },
+      {
+        "id": "m_Matrigel",
+        "name": "Matrigel",
+        "catalogue": "Corning 3524234"
+      },
+      {
+        "id": "m_CHIR",
+        "name": "CHIR99021",
+        "catalogue": "Merck 361571"
+      },
+      {
+        "id": "m_IDM_A",
+        "name": "Improved differentiation medium (B27 minus vitamin A)",
+        "description": "IDM‑A"
+      },
+      {
+        "id": "m_IDM_plus",
+        "name": "Improved differentiation medium (B27 plus vitamin A)",
+        "description": "IDM+A"
+      },
+      {
+        "id": "m_Brainphys",
+        "name": "BrainPhys medium",
+        "catalogue": "Stemcell Technologies 05790"
+      },
+      {
+        "id": "m_BDNF",
+        "name": "Brain‑derived neurotrophic factor (BDNF)",
+        "catalogue": "Stemcell Technologies 78005.3"
+      },
+      {
+        "id": "m_GDNF",
+        "name": "Glial cell line‑derived neurotrophic factor (GDNF)",
+        "catalogue": "Stemcell Technologies 78005.3"
+      },
+      {
+        "id": "m_bucladesine",
+        "name": "Bucladesine sodium",
+        "catalogue": "MedChemExpress EL0011"
+      },
+      {
+        "id": "m_phenol_chloroform",
+        "name": "Phenol‑chloroform",
+        "description": "reagent for nucleic‑acid cleanup"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_plate",
+        "name": "U‑bottom ultralow attachment 96‑well plate",
+        "catalogue": "Corning CLS3473"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e_incubator",
+        "name": "incubator",
+        "device_kind": "incubator"
+      },
+      {
+        "id": "e_microscope",
+        "name": "microscope",
+        "device_kind": "microscope"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_embryoid",
+        "name": "embryoid bodies in 96‑well plate",
+        "derived_from": [
+          "m_cells",
+          "m_E8",
+          "m_Revitacell"
+        ],
+        "container": "c_plate"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m_cells"
+          },
+          {
+            "kind": "material",
+            "id": "m_E8"
+          },
+          {
+            "kind": "material",
+            "id": "m_Revitacell"
+          },
+          {
+            "kind": "container",
+            "id": "c_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_embryoid"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 150,
+            "unit": "μl"
+          },
+          "cell_count": {
+            "value": 16000,
+            "unit": "cells"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m_4OHT"
+          },
+          {
+            "kind": "sample",
+            "id": "s_embryoid"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_embryoid"
+          }
+        ],
+        "params": {
+          "concentration": {
+            "value": 0.3,
+            "unit": "μg/ml"
+          },
+          "day": 5
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_embryoid"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_embryoid"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Neural induction started on day 6."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_embryoid"
+          },
+          {
+            "kind": "material",
+            "id": "m_Matrigel"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_embryoid"
+          }
+        ],
+        "params": {
+          "action_kind": "embed"
+        },
+        "annotations": {
+          "note": "Embedding performed on day 11 or 12 based on morphology check."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m_CHIR"
+          },
+          {
+            "kind": "sample",
+            "id": "s_embryoid"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_embryoid"
+          }
+        ],
+        "params": {
+          "concentration": {
+            "value": 3,
+            "unit": "μM"
+          },
+          "start_day": 13,
+          "end_day": 16
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m_IDM_A"
+          },
+          {
+            "kind": "sample",
+            "id": "s_embryoid"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_embryoid"
+          }
+        ],
+        "params": {
+          "day": 14,
+          "note": "Medium switched to IDM‑A."
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m_IDM_plus"
+          },
+          {
+            "kind": "sample",
+            "id": "s_embryoid"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_embryoid"
+          }
+        ],
+        "params": {
+          "day": 25,
+          "note": "Medium switched to IDM+A."
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m_Matrigel"
+          },
+          {
+            "kind": "sample",
+            "id": "s_embryoid"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_embryoid"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "1 % Matrigel added to the medium from day 40 to day 90."
+        }
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m_Brainphys"
+          },
+          {
+            "kind": "material",
+            "id": "m_BDNF"
+          },
+          {
+            "kind": "material",
+            "id": "m_GDNF"
+          },
+          {
+            "kind": "material",
+            "id": "m_bucladesine"
+          },
+          {
+            "kind": "sample",
+            "id": "s_embryoid"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_embryoid"
+          }
+        ],
+        "params": {
+          "start_day": 60,
+          "end_day": 70,
+          "gradual_switch": true,
+          "supplements": {
+            "BDNF": {
+              "value": 20,
+              "unit": "ng/ml"
+            },
+            "GDNF": {
+              "value": 20,
+              "unit": "mg/ml"
+            },
+            "bucladesine": {
+              "value": 1,
+              "unit": "mM"
+            }
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s10",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m_phenol_chloroform"
+          },
+          {
+            "kind": "sample",
+            "id": "s_embryoid"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_embryoid"
+          }
+        ],
+        "params": {
+          "action_kind": "clean_up"
+        },
+        "annotations": {
+          "note": "Phenol‑chloroform extraction performed after day 70."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      }
+    ],
+    "detail_level": 0
+  }
+}

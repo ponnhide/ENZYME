@@ -1,0 +1,471 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Initiate monolayer culture from MEF‑grown hPSCs",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00629-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "hPSC_medium",
+        "name": "hPSC culture medium with 20% KnockOut Serum Replacement"
+      },
+      {
+        "id": "PBS",
+        "name": "PBS w/o"
+      },
+      {
+        "id": "Accutase",
+        "name": "Accutase"
+      },
+      {
+        "id": "DMEM_F12",
+        "name": "DMEM/F12"
+      },
+      {
+        "id": "E8_Y27632",
+        "name": "E8 medium + 10 μM Y27632"
+      },
+      {
+        "id": "Geltrex",
+        "name": "Geltrex"
+      }
+    ],
+    "containers": [
+      {
+        "id": "six_well_plate",
+        "type": "six_well_plate"
+      },
+      {
+        "id": "t25_flask",
+        "type": "T25_flask"
+      },
+      {
+        "id": "conical_tube_15ml",
+        "type": "15ml_conical_tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "type": "incubator"
+      },
+      {
+        "id": "centrifuge",
+        "type": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cells_in_well",
+        "type": "cell_sample"
+      },
+      {
+        "id": "cells_rinsed",
+        "type": "cell_sample"
+      },
+      {
+        "id": "cells_accutase",
+        "type": "cell_sample"
+      },
+      {
+        "id": "cells_incubated",
+        "type": "cell_sample"
+      },
+      {
+        "id": "cells_with_DMEM",
+        "type": "cell_sample"
+      },
+      {
+        "id": "cells_dispersed",
+        "type": "cell_sample"
+      },
+      {
+        "id": "cell_suspension_tube",
+        "type": "cell_sample"
+      },
+      {
+        "id": "cell_pellet",
+        "type": "cell_sample"
+      },
+      {
+        "id": "cells_resuspended",
+        "type": "cell_sample"
+      },
+      {
+        "id": "flask_with_medium",
+        "type": "cell_sample"
+      },
+      {
+        "id": "flask_with_cells",
+        "type": "cell_sample"
+      },
+      {
+        "id": "flask_cultured",
+        "type": "cell_sample"
+      },
+      {
+        "id": "t25_flask",
+        "name": "t25_flask"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_in_well"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "rinse"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_in_well"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_rinsed"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "amount": {
+            "value": 500.0,
+            "unit": "µL"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_rinsed"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_accutase"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator",
+          "program": {
+            "program_name": "37C_3min"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_accutase"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_incubated"
+          }
+        ]
+      },
+      {
+        "id": "s5a",
+        "op": "transfer",
+        "params": {
+          "amount": {
+            "value": 3.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_incubated"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_with_DMEM"
+          }
+        ]
+      },
+      {
+        "id": "s5b",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_with_DMEM"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_dispersed"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer amount not specified; assumed appropriate volume to transfer dispersed cells to a tube."
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_dispersed"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension_tube"
+          }
+        ]
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge",
+          "program": {
+            "program_name": "300g_3min_4C"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_pellet"
+          }
+        ]
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "params": {
+          "amount": {
+            "value": 1.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_pellet"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_resuspended"
+          }
+        ]
+      },
+      {
+        "id": "s9",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_resuspended"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_resuspended"
+          }
+        ]
+      },
+      {
+        "id": "s10",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "t25_flask"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s11",
+        "op": "transfer",
+        "params": {
+          "amount": {
+            "value": 4.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "t25_flask"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "flask_with_medium"
+          }
+        ]
+      },
+      {
+        "id": "s12",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer amount not specified; assumed appropriate volume to add resuspended cells to the flask with medium."
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_resuspended"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "flask_with_cells"
+          }
+        ]
+      },
+      {
+        "id": "s13",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator",
+          "program": {
+            "program_name": "standard_incubation"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "flask_with_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "flask_cultured"
+          }
+        ]
+      },
+      {
+        "id": "s14",
+        "op": "annotate",
+        "params": {
+          "note": "Change medium after 2 days and then daily by aspirating old medium and adding 5 mL fresh E8. Continue until cells reach confluence."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5a"
+      },
+      {
+        "from": "s5a",
+        "to": "s5b"
+      },
+      {
+        "from": "s5b",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      }
+    ],
+    "detail_level": 0
+  }
+}

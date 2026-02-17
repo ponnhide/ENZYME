@@ -1,0 +1,98 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Calculating gene activity scores from scATAC-seq",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-021-03209-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "d1",
+        "name": "d1"
+      },
+      {
+        "id": "d2",
+        "name": "d2"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "type": "gene_activity_matrix",
+        "description": "Matrix of gene activity scores for all cells"
+      },
+      {
+        "id": "d2",
+        "type": "imputed_gene_activity_matrix",
+        "description": "MAGIC-imputed gene activity scores using SnapATAC"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "params": {
+          "text": "unmapped action_kind in source: sum"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d1"
+          }
+        ],
+        "annotations": [
+          {
+            "key": "description",
+            "value": "Sum ATAC-seq fragments in gene bodies and 2 kb upstream promoters for each cell to generate gene activity scores"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": {
+            "program_name": "SnapATAC_MAGIC_imputation"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d2"
+          }
+        ],
+        "annotations": [
+          {
+            "key": "description",
+            "value": "Impute gene activity scores using MAGIC method via SnapATAC based on k-nearest neighbor graph"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

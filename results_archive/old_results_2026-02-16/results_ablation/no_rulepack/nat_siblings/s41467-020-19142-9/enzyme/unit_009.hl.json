@@ -1,0 +1,234 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Organoid harvest and cell recovery",
+    "source": {
+      "type": "paper",
+      "id": "s41467-020-19142-9"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Cell Recovery Solution",
+        "vendor": "Roche Diagnostics"
+      },
+      {
+        "id": "m2",
+        "name": "PBS"
+      },
+      {
+        "id": "m3",
+        "name": "paper towel"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "6-well culture plate"
+      },
+      {
+        "id": "c2",
+        "name": "microcentrifuge tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "P1000 pipette"
+      },
+      {
+        "id": "e2",
+        "name": "centrifuge"
+      },
+      {
+        "id": "e3",
+        "name": "dry ice"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "name": "organoids in 6-well plate",
+        "container_ref": "c1"
+      },
+      {
+        "id": "samp2",
+        "name": "cell pellet",
+        "container_ref": "c2"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "params": {
+          "device_ref": "e1",
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "centrifuge",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "time": {
+            "value": 8,
+            "unit": "min"
+          },
+          "speed": {
+            "value": 500,
+            "unit": "g"
+          },
+          "brake": "off"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 30,
+            "unit": "min"
+          },
+          "temperature": {
+            "value": 0,
+            "unit": "°C"
+          },
+          "reagent_ref": "m1"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Wash three times with excess PBS to remove residual BME. Details of wash steps (add PBS, mix, remove supernatant) not specified."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "After the last wash, remove all PBS and quickly dry the tube opening using a paper towel."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Cell pellets snap frozen in dry ice and stored at -80 °C."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

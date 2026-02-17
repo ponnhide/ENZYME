@@ -1,0 +1,229 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Nucleus isolation from frozen primary tissue",
+    "source": {
+      "type": "paper",
+      "id": "s41586-021-03209-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "type": "buffer",
+        "name": "homogenization buffer",
+        "composition": "10 mM Tris pH 7.8, 5 mM CaCl2, 3 mM magnesium acetate, 320 mM sucrose, 0.1 mM EDTA, 0.1% NP40, 167 μM β-mercaptoethanol, 16.7 μM PMSF"
+      },
+      {
+        "id": "m2",
+        "type": "buffer",
+        "name": "wash buffer"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "centrifuge",
+        "device_kind": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "smp1",
+        "name": "smp1"
+      },
+      {
+        "id": "smp2",
+        "name": "smp2"
+      },
+      {
+        "id": "smp3",
+        "name": "smp3"
+      },
+      {
+        "id": "smp4",
+        "name": "smp4"
+      },
+      {
+        "id": "smp5",
+        "name": "smp5"
+      },
+      {
+        "id": "smp6",
+        "name": "smp6"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "annotations": {
+          "text": "Tissue sections were snap frozen and stored at −80 °C."
+        },
+        "params": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "annotations": {
+          "text": "Nuclei were isolated from frozen tissues as described57."
+        },
+        "params": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 2,
+            "unit": "ml"
+          }
+        },
+        "annotations": {
+          "text": "frozen tissue samples were thawed in 2 ml chilled homogenization buffer (10 mM Tris pH 7.8, 5 mM CaCl2, 3 mM magnesium acetate, 320 mM sucrose, 0.1 mM EDTA, 0.1% NP40, 167 μM β-mercaptoethanol, 16.7 μM PMSF)"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp3"
+          }
+        ],
+        "annotations": {
+          "text": "lysed in a pre-chilled dounce"
+        },
+        "params": {}
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp4"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "speed": "3000g",
+            "duration": "20 min",
+            "temperature": "4 °C",
+            "brake": "off",
+            "rotor_type": "swinging bucket"
+          }
+        }
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp5"
+          }
+        ],
+        "annotations": {
+          "text": "The nucleus band was then carefully pipetted"
+        },
+        "params": {}
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp5"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp6"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          }
+        },
+        "annotations": {
+          "text": "nuclei were diluted in wash buffer"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

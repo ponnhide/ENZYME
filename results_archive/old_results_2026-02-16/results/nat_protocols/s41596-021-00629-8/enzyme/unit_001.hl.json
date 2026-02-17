@@ -1,0 +1,619 @@
+{
+  "ir_version": "0.4",
+  "kind": "enzyme_hl_ir",
+  "meta": {
+    "protocol_id": "s41596-021-00629-8",
+    "title": "Generation of heart-forming organoids from human pluripotent stem cells",
+    "source": "https://doi.org/10.1038/s41596-021-00629-8",
+    "language": "en"
+  },
+  "registries": {
+    "custom": {
+      "device_kind": [],
+      "action_kind": [],
+      "modality": [],
+      "features": []
+    }
+  },
+  "settings": {
+    "biosafety_level": "2",
+    "contains_human_or_animal_material": true,
+    "requires_irb_or_iacuc": true,
+    "sterility_required": true,
+    "contamination_control": [
+      "use sterile technique",
+      "work in biosafety cabinet where appropriate"
+    ]
+  },
+  "entities": [
+    {
+      "id": "e_hpsc",
+      "type": "sample",
+      "name": "HES3 NKX2.5‑eGFP human pluripotent stem cells",
+      "properties": {
+        "sex_chromosomes": "XX",
+        "rrid": "CVCL_A8JT"
+      }
+    },
+    {
+      "id": "e_plate",
+      "type": "container",
+      "name": "Ultra‑low attachment 96‑well plate (Nunclon Sphera)",
+      "properties": {
+        "cat_no": "174925"
+      }
+    },
+    {
+      "id": "e_centrifuge",
+      "type": "instrument",
+      "name": "Heraeus Multifuge X3R",
+      "properties": {
+        "cat_no": "Thermo Fisher Scientific"
+      }
+    },
+    {
+      "id": "e_incubator",
+      "type": "instrument",
+      "name": "Humidified incubator (37 °C, 5 % CO₂)",
+      "properties": {
+        "brand": "SANYO"
+      }
+    },
+    {
+      "id": "e_matrigel",
+      "type": "reagent",
+      "name": "Matrigel Basement Membrane Matrix, LDEV‑free",
+      "properties": {
+        "cat_no": "354234",
+        "concentration_range_mg_per_mL": "9.7–10.7"
+      }
+    },
+    {
+      "id": "e_geltrex",
+      "type": "reagent",
+      "name": "Geltrex LDEV‑Free Reduced Growth Factor Basement Membrane Matrix",
+      "properties": {
+        "cat_no": "A1413202"
+      }
+    },
+    {
+      "id": "e_chir_stock",
+      "type": "reagent",
+      "name": "CHIR99021 stock solution (12 mM)",
+      "properties": {
+        "cat_no": "361559",
+        "solvent": "dimethyl sulfoxide",
+        "concentration": "12 mM"
+      }
+    },
+    {
+      "id": "e_chir_working",
+      "type": "reagent",
+      "name": "CHIR99021 working solution (7.5 µM)",
+      "properties": {
+        "final_concentration": "7.5 µM"
+      }
+    },
+    {
+      "id": "e_iwp2_stock",
+      "type": "reagent",
+      "name": "IWP2 stock solution (10 mM)",
+      "properties": {
+        "cat_no": "3533",
+        "solvent": "dimethyl sulfoxide",
+        "concentration": "10 mM"
+      }
+    },
+    {
+      "id": "e_iwp2_working",
+      "type": "reagent",
+      "name": "IWP2 working solution (5 µM)",
+      "properties": {
+        "final_concentration": "5 µM"
+      }
+    },
+    {
+      "id": "e_y27632_stock",
+      "type": "reagent",
+      "name": "Rho‑kinase inhibitor Y27632 stock (10 mM)",
+      "properties": {
+        "cat_no": "1254",
+        "solvent": "water",
+        "concentration": "10 mM"
+      }
+    },
+    {
+      "id": "e_y27632_working",
+      "type": "reagent",
+      "name": "Y27632 working solution (10 µM)",
+      "properties": {
+        "final_concentration": "10 µM"
+      }
+    },
+    {
+      "id": "e_e8_medium",
+      "type": "reagent",
+      "name": "Essential 8 (E8) medium",
+      "properties": {
+        "cat_no": "A1517001"
+      }
+    },
+    {
+      "id": "e_rb_minus",
+      "type": "reagent",
+      "name": "RB− medium (RPMI 1640 + B27‑minus insulin)",
+      "properties": {}
+    },
+    {
+      "id": "e_rb_plus",
+      "type": "reagent",
+      "name": "RB+ medium (RPMI 1640 + B27‑plus insulin)",
+      "properties": {}
+    },
+    {
+      "id": "e_pbs_w_o",
+      "type": "reagent",
+      "name": "PBS w/o (1×, Ca²⁺/Mg²⁺‑free)",
+      "properties": {}
+    },
+    {
+      "id": "e_trypan_blue",
+      "type": "reagent",
+      "name": "Trypan blue solution (1:10 dilution)",
+      "properties": {}
+    },
+    {
+      "id": "e_flow_cytometer",
+      "type": "instrument",
+      "name": "MACSQuant Analyzer 10 flow cytometer",
+      "properties": {
+        "brand": "Miltenyi Biotec"
+      }
+    },
+    {
+      "id": "e_inverted_microscope",
+      "type": "instrument",
+      "name": "Inverted microscope Olympus CKX41",
+      "properties": {
+        "brand": "Olympus"
+      }
+    },
+    {
+      "id": "e_thermomixer",
+      "type": "instrument",
+      "name": "Thermomixer Compact",
+      "properties": {
+        "brand": "Eppendorf"
+      }
+    }
+  ],
+  "steps": [
+    {
+      "id": "s1",
+      "op": "allocate",
+      "inputs": [],
+      "outputs": [
+        "e_chir_stock",
+        "e_iwp2_stock",
+        "e_y27632_stock",
+        "e_geltrex",
+        "e_matrigel",
+        "e_e8_medium",
+        "e_rb_minus",
+        "e_rb_plus",
+        "e_pbs_w_o",
+        "e_trypan_blue"
+      ],
+      "params": {},
+      "notes": "Reagents obtained from manufacturers as listed in the Materials section."
+    },
+    {
+      "id": "s2",
+      "op": "manipulate",
+      "inputs": [
+        "e_chir_stock"
+      ],
+      "outputs": [
+        "e_chir_stock"
+      ],
+      "params": {
+        "action": "prepare_stock",
+        "mass_mg": 10,
+        "solvent_volume_mL": 1.79,
+        "solvent": "dimethyl sulfoxide",
+        "temperature_C": 60,
+        "storage": "-20 °C",
+        "shelf_life": "1 year"
+      },
+      "notes": "Dissolve 10 mg CHIR99021 in 1.79 mL DMSO in a 60 °C water bath, aliquot, store at –20 °C."
+    },
+    {
+      "id": "s3",
+      "op": "manipulate",
+      "inputs": [
+        "e_chir_stock"
+      ],
+      "outputs": [
+        "e_chir_working"
+      ],
+      "params": {
+        "action": "prepare_working_solution",
+        "stock_volume_uL_per_mL_medium": 0.625,
+        "final_concentration_uM": 7.5,
+        "light_protection": true,
+        "storage": "use immediately"
+      },
+      "notes": "Add 0.625 µL CHIR stock per 1 mL E8 medium to obtain 7.5 µM working solution."
+    },
+    {
+      "id": "s4",
+      "op": "manipulate",
+      "inputs": [
+        "e_iwp2_stock"
+      ],
+      "outputs": [
+        "e_iwp2_stock"
+      ],
+      "params": {
+        "action": "prepare_stock",
+        "mass_mg": 10,
+        "solvent_volume_mL": 2.17,
+        "solvent": "dimethyl sulfoxide",
+        "temperature_C": 60,
+        "storage": "-20 °C",
+        "shelf_life": "1 year"
+      },
+      "notes": "Dissolve 10 mg IWP2 in 2.17 mL DMSO at 60 °C, aliquot, store at –20 °C."
+    },
+    {
+      "id": "s5",
+      "op": "manipulate",
+      "inputs": [
+        "e_iwp2_stock"
+      ],
+      "outputs": [
+        "e_iwp2_working"
+      ],
+      "params": {
+        "action": "prepare_working_solution",
+        "stock_volume_uL_per_mL_medium": 0.5,
+        "final_concentration_uM": 5,
+        "storage": "use immediately"
+      },
+      "notes": "Add 0.5 µL IWP2 stock per 1 mL medium to obtain 5 µM working solution."
+    },
+    {
+      "id": "s6",
+      "op": "manipulate",
+      "inputs": [
+        "e_y27632_stock"
+      ],
+      "outputs": [
+        "e_y27632_stock"
+      ],
+      "params": {
+        "action": "prepare_stock",
+        "mass_mg": 50,
+        "solvent_volume_mL": 15.6,
+        "solvent": "water",
+        "filter": true,
+        "storage": "-20 °C",
+        "shelf_life": "3 months"
+      },
+      "notes": "Dissolve 50 mg Y27632 in 15.6 mL water, filter, aliquot, store at –20 °C."
+    },
+    {
+      "id": "s7",
+      "op": "manipulate",
+      "inputs": [
+        "e_y27632_stock"
+      ],
+      "outputs": [
+        "e_y27632_working"
+      ],
+      "params": {
+        "action": "prepare_working_solution",
+        "stock_volume_uL_per_mL_medium": 1,
+        "final_concentration_uM": 10,
+        "storage": "use immediately"
+      },
+      "notes": "Add 1 µL Y27632 stock per 1 mL medium to obtain 10 µM working solution."
+    },
+    {
+      "id": "s8",
+      "op": "manipulate",
+      "inputs": [
+        "e_geltrex"
+      ],
+      "outputs": [
+        "e_geltrex"
+      ],
+      "params": {
+        "action": "thaw",
+        "temperature_C": 4,
+        "duration_h": 12
+      },
+      "notes": "Thaw Geltrex overnight on ice at 4 °C, aliquot 125 µL on ice, store at –80 °C."
+    },
+    {
+      "id": "s9",
+      "op": "manipulate",
+      "inputs": [
+        "e_matrigel"
+      ],
+      "outputs": [
+        "e_matrigel"
+      ],
+      "params": {
+        "action": "thaw",
+        "temperature_C": 4,
+        "duration_h": 12
+      },
+      "notes": "Thaw Matrigel overnight on ice at 4 °C, aliquot, avoid repeated freeze‑thaw cycles."
+    },
+    {
+      "id": "s10",
+      "op": "manipulate",
+      "inputs": [
+        "e_geltrex",
+        "e_e8_medium"
+      ],
+      "outputs": [
+        "e_geltrex_coated_flask"
+      ],
+      "params": {
+        "action": "coat_flask",
+        "flask_type": "T25",
+        "gel_volume_per_flask_uL": 125,
+        "dmem_f12_volume_mL": 50,
+        "incubation_time_min": 60,
+        "incubator_id": "e_incubator",
+        "temperature_C": 37
+      },
+      "notes": "Dissolve 125 µL Geltrex in 50 mL cold DMEM/F12, add 5 mL per T25 flask, incubate 1 h at 37 °C."
+    },
+    {
+      "id": "s11",
+      "op": "manipulate",
+      "inputs": [
+        "e_hpsc",
+        "e_e8_medium"
+      ],
+      "outputs": [
+        "e_hpsc_suspension"
+      ],
+      "params": {
+        "action": "dissociate_cells",
+        "enzyme": "Accutase",
+        "incubation_time_min": 5,
+        "temperature_C": 37
+      },
+      "notes": "Detach hPSCs from Geltrex‑coated flasks using Accutase, collect, and resuspend in E8 medium."
+    },
+    {
+      "id": "s12",
+      "op": "transfer",
+      "inputs": [
+        "e_hpsc_suspension",
+        "e_plate",
+        "e_e8_medium"
+      ],
+      "outputs": [
+        "e_plate_seeded"
+      ],
+      "params": {
+        "cell_number_per_well": 5000,
+        "volume_per_well_uL": 100,
+        "well_type": "ultra‑low attachment 96‑well"
+      },
+      "notes": "Seed 5,000 hPSCs in 100 µL E8 medium per well of the ultra‑low attachment 96‑well plate (day ‑4)."
+    },
+    {
+      "id": "s13",
+      "op": "centrifuge",
+      "inputs": [
+        "e_plate_seeded"
+      ],
+      "outputs": [
+        "e_plate_aggregated"
+      ],
+      "params": {
+        "instrument_id": "e_centrifuge",
+        "speed_g": 200,
+        "time_min": 3,
+        "temperature_C": "room temperature"
+      },
+      "notes": "Centrifuge plate to promote formation of a single aggregate per well (speed and time not explicitly stated; typical 200 g for 3 min)."
+    },
+    {
+      "id": "s14",
+      "op": "incubate",
+      "inputs": [
+        "e_plate_aggregated"
+      ],
+      "outputs": [
+        "e_plate_aggregated"
+      ],
+      "params": {
+        "incubator_id": "e_incubator",
+        "temperature_C": 37,
+        "CO2_percent": 5,
+        "duration_d": 2
+      },
+      "notes": "Culture aggregates for 2 days (d‑4 to d‑2) in E8 medium, changing medium daily if needed."
+    },
+    {
+      "id": "s15",
+      "op": "manipulate",
+      "inputs": [
+        "e_plate_aggregated",
+        "e_matrigel"
+      ],
+      "outputs": [
+        "e_plate_embedded"
+      ],
+      "params": {
+        "action": "embed_in_matrigel",
+        "gel_volume_per_well_uL": "not specified",
+        "temperature_C": 4
+      },
+      "notes": "On day ‑2, embed each aggregate in an individual Matrigel droplet (volume not specified) and incubate to allow gelation."
+    },
+    {
+      "id": "s16",
+      "op": "incubate",
+      "inputs": [
+        "e_plate_embedded"
+      ],
+      "outputs": [
+        "e_plate_embedded"
+      ],
+      "params": {
+        "incubator_id": "e_incubator",
+        "temperature_C": 37,
+        "CO2_percent": 5,
+        "duration_d": 2
+      },
+      "notes": "Culture embedded aggregates for 2 days (d‑2 to d0) in RB‑ medium without insulin."
+    },
+    {
+      "id": "s17",
+      "op": "manipulate",
+      "inputs": [
+        "e_chir_working",
+        "e_plate_embedded"
+      ],
+      "outputs": [
+        "e_plate_chir"
+      ],
+      "params": {
+        "action": "add_chir",
+        "final_concentration_uM": 7.5,
+        "duration_h": 24
+      },
+      "notes": "On day 0, add CHIR99021 working solution to each well to reach 7.5 µM final concentration; culture for 24 h."
+    },
+    {
+      "id": "s18",
+      "op": "incubate",
+      "inputs": [
+        "e_plate_chir"
+      ],
+      "outputs": [
+        "e_plate_chir"
+      ],
+      "params": {
+        "incubator_id": "e_incubator",
+        "temperature_C": 37,
+        "CO2_percent": 5,
+        "duration_h": 24
+      },
+      "notes": "Incubate with CHIR for 24 h (d0–d1)."
+    },
+    {
+      "id": "s19",
+      "op": "manipulate",
+      "inputs": [
+        "e_plate_chir"
+      ],
+      "outputs": [
+        "e_plate_post_chir"
+      ],
+      "params": {
+        "action": "medium_change",
+        "new_medium": "RB‑ medium"
+      },
+      "notes": "At day 1, replace medium with RB‑ medium (no insulin)."
+    },
+    {
+      "id": "s20",
+      "op": "manipulate",
+      "inputs": [
+        "e_iwp2_working",
+        "e_plate_post_chir"
+      ],
+      "outputs": [
+        "e_plate_iwp2"
+      ],
+      "params": {
+        "action": "add_iwp2",
+        "final_concentration_uM": 5,
+        "start_day": 3,
+        "end_day": 5
+      },
+      "notes": "Add IWP2 working solution on day 3 to reach 5 µM; maintain treatment until day 5."
+    },
+    {
+      "id": "s21",
+      "op": "incubate",
+      "inputs": [
+        "e_plate_iwp2"
+      ],
+      "outputs": [
+        "e_plate_iwp2"
+      ],
+      "params": {
+        "incubator_id": "e_incubator",
+        "temperature_C": 37,
+        "CO2_percent": 5,
+        "duration_d": 2
+      },
+      "notes": "Incubate with IWP2 from day 3 to day 5."
+    },
+    {
+      "id": "s22",
+      "op": "manipulate",
+      "inputs": [
+        "e_plate_iwp2"
+      ],
+      "outputs": [
+        "e_plate_rb_plus"
+      ],
+      "params": {
+        "action": "medium_change",
+        "new_medium": "RB+ medium"
+      },
+      "notes": "At day 5, replace medium with RB+ medium (contains insulin) and culture until day 10."
+    },
+    {
+      "id": "s23",
+      "op": "incubate",
+      "inputs": [
+        "e_plate_rb_plus"
+      ],
+      "outputs": [
+        "e_plate_hfo"
+      ],
+      "params": {
+        "incubator_id": "e_incubator",
+        "temperature_C": 37,
+        "CO2_percent": 5,
+        "duration_d": 5
+      },
+      "notes": "Culture HFOs from day 5 to day 10 (completion of differentiation)."
+    },
+    {
+      "id": "s24",
+      "op": "observe",
+      "inputs": [
+        "e_plate_hfo",
+        "e_inverted_microscope"
+      ],
+      "outputs": [],
+      "params": {
+        "instrument_id": "e_inverted_microscope",
+        "objective": "low magnification",
+        "purpose": "verify proper patterning of HFOs"
+      },
+      "notes": "Examine HFOs under an inverted microscope to ensure correct morphology before downstream analyses."
+    },
+    {
+      "id": "s25",
+      "op": "annotate",
+      "inputs": [],
+      "outputs": [],
+      "params": {},
+      "notes": "Further analysis steps (e.g., flow cytometry, immunofluorescence staining, scRNA‑seq) are described in the manuscript but lack detailed procedural parameters; users should refer to the full protocol for those methods."
+    }
+  ]
+}

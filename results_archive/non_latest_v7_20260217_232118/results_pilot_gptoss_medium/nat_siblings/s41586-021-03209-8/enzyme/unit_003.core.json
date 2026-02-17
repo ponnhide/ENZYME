@@ -1,0 +1,129 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41586-021-03209-8.pdf",
+      "type": "paper"
+    },
+    "title": "Bulk ATAC‑seq library preparation and sequencing"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "samp1",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "count",
+            "value": 50000
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "permeabilize and tagment nuclei"
+        },
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "samp1",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "samp2",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        }
+      },
+      {
+        "annotations": {
+          "target_sequencing_depth": "50 million reads per library"
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "samp2",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "d1",
+            "kind": "data"
+          }
+        ],
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": "Illumina NovaSeq"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "c1",
+        "name": "tube"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "name": "sequencing_data"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "Illumina NovaSeq"
+      }
+    ],
+    "materials": [
+      {
+        "id": "m1",
+        "name": "nuclei"
+      }
+    ],
+    "samples": [
+      {
+        "container_ref": "c1",
+        "id": "samp1",
+        "material_ref": "m1",
+        "name": "nuclei_sample"
+      },
+      {
+        "container_ref": "c1",
+        "id": "samp2",
+        "name": "library_sample"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

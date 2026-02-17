@@ -1,0 +1,289 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Manual picking, expansion, and genotyping of organoid colonies",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-024-55567-2.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_tryple",
+        "name": "TrypLE"
+      },
+      {
+        "id": "m_dpbs",
+        "name": "ice-cold DPBS"
+      },
+      {
+        "id": "m_hoechst",
+        "name": "Hoechst (Beyotime)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_well",
+        "type": "well_plate",
+        "name": "culture well"
+      },
+      {
+        "id": "c_facs_tube",
+        "type": "tube",
+        "name": "FACS tube"
+      },
+      {
+        "id": "c_strainer",
+        "type": "filter",
+        "name": "40 μm cell strainer (Falcon)"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e_facs",
+        "type": "flow_cytometer",
+        "name": "BD FACS instrument"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_organoid_colony",
+        "source": "organoid colony in well"
+      },
+      {
+        "id": "s_picked",
+        "source": "picked organoid colony"
+      },
+      {
+        "id": "s_cells",
+        "source": "dissociated cells"
+      },
+      {
+        "id": "s_washed_cells",
+        "source": "DPBS-washed cells"
+      },
+      {
+        "id": "s_filtered_cells",
+        "source": "filtered cells in FACS tube"
+      },
+      {
+        "id": "d_facs_results",
+        "name": "d_facs_results"
+      }
+    ],
+    "data": [
+      {
+        "id": "d_facs_results",
+        "description": "FACS live cell analysis"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_colony"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "pick_colony"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_colony"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_picked"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_picked"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_washed_cells"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "params": {
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_washed_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_filtered_cells"
+          }
+        ]
+      },
+      {
+        "id": "s10",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "live_cells"
+          ]
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d_facs_results"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Downstream multiplexing by pooling dissociated cells",
+    "source": {
+      "type": "paper",
+      "id": "s41592-024-02555-5.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "psc_line_sample",
+        "kind": "sample",
+        "description": "PSC line organoid before dissociation"
+      },
+      {
+        "id": "dissociated_cells_sample",
+        "kind": "sample",
+        "description": "Cells after organoid dissociation"
+      },
+      {
+        "id": "pooled_cells_sample",
+        "kind": "sample",
+        "description": "Pooled cells from multiple PSC lines"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "psc_line_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "dissociated_cells_sample"
+          }
+        ],
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "dissociated_cells_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "pooled_cells_sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          }
+        },
+        "annotations": {
+          "note": "Transfer of cells from dissociated sample to pooled sample; exact amount not specified in source."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "pooled_cells_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "pooled_cells_sample"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Pooled equal amounts of cells per line after organoid dissociation for single-cell library preparation"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

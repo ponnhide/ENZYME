@@ -1,0 +1,578 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Protocol",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01299-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "transduced_hiPS",
+        "name": "transduced_hiPS"
+      },
+      {
+        "id": "cultured_transduced_hiPS",
+        "name": "cultured_transduced_hiPS"
+      },
+      {
+        "id": "perturbed_hiPS",
+        "name": "perturbed_hiPS"
+      },
+      {
+        "id": "mCherry+_hiPS",
+        "name": "mCherry+_hiPS"
+      },
+      {
+        "id": "labelled_hiPS_for_organoid",
+        "name": "labelled_hiPS_for_organoid"
+      },
+      {
+        "id": "eGFP_hiPS",
+        "name": "eGFP_hiPS"
+      },
+      {
+        "id": "hCO",
+        "name": "hCO"
+      },
+      {
+        "id": "hSO",
+        "name": "hSO"
+      },
+      {
+        "id": "FACS_hSO",
+        "name": "FACS_hSO"
+      },
+      {
+        "id": "eGFP+_hSO",
+        "name": "eGFP+_hSO"
+      },
+      {
+        "id": "eGFP+_hCO",
+        "name": "eGFP+_hCO"
+      },
+      {
+        "id": "gDNA_hSO",
+        "name": "gDNA_hSO"
+      },
+      {
+        "id": "gDNA_hCO",
+        "name": "gDNA_hCO"
+      },
+      {
+        "id": "PCR_amplicons",
+        "name": "PCR_amplicons"
+      },
+      {
+        "id": "validated_candidate_KO_lines",
+        "name": "validated_candidate_KO_lines"
+      },
+      {
+        "id": "KO_cell_lines",
+        "name": "KO_cell_lines"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "program": "transduce hiPS cells with lentivirus encoding sgRNAs and mCherry"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "transduced_hiPS"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "mCherry+ expression"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "transduced_hiPS"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "sample:transduced_hiPS",
+          "destination": "container:hiPS_culture",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "transduced_hiPS"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cultured_transduced_hiPS"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": "maintain transduced hiPS cells for gene perturbation"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cultured_transduced_hiPS"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "perturbed_hiPS"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "cell_counter",
+          "program": "count and sort mCherry+ hiPS cells"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "perturbed_hiPS"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "mCherry+_hiPS"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "label"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "mCherry+_hiPS"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "labelled_hiPS_for_organoid"
+          }
+        ]
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "program": "engineer hiPS cells to stably express eGFP under Dlxi1/2b enhancer"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "eGFP_hiPS"
+          }
+        ]
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": "differentiate eGFP_hiPS into human cortical organoids (hCO)"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "eGFP_hiPS"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "hCO"
+          }
+        ]
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": "differentiate eGFP_hiPS into human spinal organoids (hSO)"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "eGFP_hiPS"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "hSO"
+          }
+        ]
+      },
+      {
+        "id": "s10",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "eGFP+ expression"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "hSO"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "transfer",
+        "params": {
+          "source": "sample:hSO",
+          "destination": "container:FACS_collection",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "hSO"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "FACS_hSO"
+          }
+        ]
+      },
+      {
+        "id": "s12",
+        "op": "run_device",
+        "params": {
+          "device_kind": "cell_counter",
+          "program": "FACS sort eGFP+ cells from hSO"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "FACS_hSO"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "eGFP+_hSO"
+          }
+        ]
+      },
+      {
+        "id": "s13",
+        "op": "run_device",
+        "params": {
+          "device_kind": "cell_counter",
+          "program": "FACS sort eGFP+ cells from hCO"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "hCO"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "eGFP+_hCO"
+          }
+        ]
+      },
+      {
+        "id": "s14",
+        "op": "run_device",
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": "extract gDNA from eGFP+_hSO and eGFP+_hCO"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "eGFP+_hSO"
+          },
+          {
+            "kind": "sample",
+            "id": "eGFP+_hCO"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "gDNA_hSO"
+          },
+          {
+            "kind": "sample",
+            "id": "gDNA_hCO"
+          }
+        ]
+      },
+      {
+        "id": "s15",
+        "op": "run_device",
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": "PCR amplify sgRNA regions from gDNA"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "gDNA_hSO"
+          },
+          {
+            "kind": "sample",
+            "id": "gDNA_hCO"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "PCR_amplicons"
+          }
+        ]
+      },
+      {
+        "id": "s16",
+        "op": "run_device",
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": "sequence sgRNA amplicons"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "PCR_amplicons"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "sgRNA_sequences"
+          }
+        ]
+      },
+      {
+        "id": "s17",
+        "op": "annotate",
+        "params": {
+          "note": "data analysis to identify genes with significant sgRNA enrichment or depletion"
+        },
+        "inputs": [
+          {
+            "kind": "data",
+            "id": "sgRNA_sequences"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "candidate_genes"
+          }
+        ]
+      },
+      {
+        "id": "s18",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "label"
+        },
+        "inputs": [
+          {
+            "kind": "data",
+            "id": "candidate_genes"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "validated_candidate_KO_lines"
+          }
+        ]
+      },
+      {
+        "id": "s19",
+        "op": "run_device",
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "program": "generate knockout cell lines for candidate genes"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "validated_candidate_KO_lines"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "KO_cell_lines"
+          }
+        ]
+      },
+      {
+        "id": "s20",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "interneuron generation in hSO",
+            "interneuron migration into hCO"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "KO_cell_lines"
+          },
+          {
+            "kind": "sample",
+            "id": "hSO"
+          },
+          {
+            "kind": "sample",
+            "id": "hCO"
+          }
+        ],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s7",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s8",
+        "to": "s13"
+      },
+      {
+        "from": "s12",
+        "to": "s14"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      },
+      {
+        "from": "s16",
+        "to": "s17"
+      },
+      {
+        "from": "s17",
+        "to": "s18"
+      },
+      {
+        "from": "s18",
+        "to": "s19"
+      },
+      {
+        "from": "s19",
+        "to": "s20"
+      }
+    ],
+    "detail_level": 0
+  }
+}

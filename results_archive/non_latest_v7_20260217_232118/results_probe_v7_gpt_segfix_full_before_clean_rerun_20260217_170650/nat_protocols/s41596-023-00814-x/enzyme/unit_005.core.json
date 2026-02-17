@@ -1,0 +1,422 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Procedure",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00814-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "dm_f12",
+        "name": "DMEM/F12"
+      },
+      {
+        "id": "trypsin_0_05",
+        "name": "0.05% Trypsin"
+      },
+      {
+        "id": "fbs_dmem_20",
+        "name": "20% FBS-DMEM"
+      },
+      {
+        "id": "rpe_medium",
+        "name": "RPE medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube1",
+        "type": "centrifuge_tube_15ml"
+      },
+      {
+        "id": "tube2",
+        "type": "centrifuge_tube_15ml"
+      },
+      {
+        "id": "dish1",
+        "type": "laminin_coated_cell_culture_dish"
+      },
+      {
+        "id": "dish2",
+        "type": "laminin_coated_cell_culture_dish"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "water_bath",
+        "type": "water_bath"
+      },
+      {
+        "id": "centrifuge",
+        "type": "centrifuge"
+      },
+      {
+        "id": "incubator",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoids_day60",
+        "description": "OVB organoids, day 60"
+      },
+      {
+        "id": "pigmented_aggregates",
+        "description": "Darkly pigmented aggregates"
+      },
+      {
+        "id": "rpe_cells",
+        "description": "RPE cells after resuspension"
+      },
+      {
+        "id": "colony_observation",
+        "name": "colony_observation"
+      }
+    ],
+    "data": [
+      {
+        "id": "colony_observation",
+        "description": "Visual observation of expanding pigmented colonies"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "tube1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "tube2"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "dish1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "dish2"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoids_day60"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "description": "Collect 3-5 organoids into tube1 using a cut 1000 µl pipette tip"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "description": "Remove carried-over medium with a 200 µl tip without disturbing organoids"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "params": {
+          "source": "dm_f12",
+          "destination": "tube1",
+          "description": "Add prewarmed DMEM/F12 for washing",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "description": "Incubate 3 min at 37 °C"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "transfer",
+        "params": {
+          "source": "trypsin_0_05",
+          "destination": "tube1",
+          "description": "Add 0.05% Trypsin",
+          "amount": {
+            "value": 3.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator",
+          "program": {
+            "program_name": "37C_20min"
+          },
+          "description": "Incubate tube1 at 37 °C for 20 min"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "transfer",
+        "params": {
+          "source": "fbs_dmem_20",
+          "destination": "tube1",
+          "description": "Add 20% FBS-DMEM to stop trypsin reaction",
+          "amount": {
+            "value": 6.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s13",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "pick_colony",
+          "description": "Collect darkly pigmented aggregates into tube2",
+          "output_sample": "pigmented_aggregates"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "pigmented_aggregates"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s14",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge",
+          "program": {
+            "program_name": "1000g_3min_RT"
+          },
+          "description": "Centrifuge tube2 at 1,000 g for 3 min at room temperature"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s15",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "description": "Resuspend pellet in RPE medium",
+          "output_sample": "rpe_cells"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "rpe_cells"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s16",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "spread_on_plate",
+          "description": "Seed RPE cells onto laminin‑coated dish1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s17",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator",
+          "program": {
+            "program_name": "37C_5%CO2"
+          },
+          "description": "Incubate dish1 at 37 °C, 5 % CO₂"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s18",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "expanding pigmented colonies"
+          ]
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "colony_observation"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s19",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "pick_colony",
+          "description": "Optionally pick pigmented colonies and transfer to new laminin‑coated dish2"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      },
+      {
+        "from": "s16",
+        "to": "s17"
+      },
+      {
+        "from": "s17",
+        "to": "s18"
+      },
+      {
+        "from": "s18",
+        "to": "s19"
+      }
+    ],
+    "detail_level": 0
+  }
+}

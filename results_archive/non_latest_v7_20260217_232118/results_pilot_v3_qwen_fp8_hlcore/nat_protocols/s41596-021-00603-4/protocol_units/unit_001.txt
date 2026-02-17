@@ -1,0 +1,1274 @@
+PROTOCOL
+ https://doi.org/10.1038/s41596-021-00603-4
+
+
+ Multiplexed single-cell analysis of organoid
+ signaling networks
+ Jahangir Suﬁ1,3, Xiao Qin 1,3, Ferran Cardoso Rodriguez 1, Yong Jia Bu2, Petra Vlckova1,
+ María Ramos Zapatero 1, Mark Nitz2 and Christopher J. Tape 1 ✉
+ Organoids are biomimetic tissue models comprising multiple cell types and cell states. Post-translational modiﬁcation
+ (PTM) signaling networks control cellular phenotypes and are frequently dysregulated in diseases such as cancer.
+ Although signaling networks vary across cell types, there are limited techniques to study cell type–speciﬁc PTMs in
+ heterocellular organoids. Here, we present a multiplexed mass cytometry (MC) protocol for single-cell analysis of PTM
+ signaling and cell states in organoids and organoids co-cultured with ﬁbroblasts and leukocytes. We describe how thiol-
+ reactive organoid barcoding in situ (TOBis) enables 35-plex and 126-plex single-cell comparison of organoid cultures and
+ provide a cytometry by time of ﬂight (CyTOF) signaling analysis pipeline (CyGNAL) for computing cell type–speciﬁc PTM
+ signaling networks. The TOBis MC protocol takes ~3 d from organoid ﬁxation to data acquisition and can generate single-
+ cell data for >40 antibodies from millions of cells across 126 organoid cultures in a single MC run.
+1234567890():,;
+1234567890():,;
+
+
+ Introduction
+ Organoids are self-organizing biomimetic 3D structures comprising both stem and differentiated
+ cells1. Organoids recapitulate many core features of tissue biology and are empowering scientists to
+ study both healthy and diseased tissues in vitro2. Healthy organoid models of the intestine3, liver4,
+ brain5 and pancreas6 have been developed, as well as patient-derived organoids (PDOs) as avatars of
+ personalized cancer therapy7–9. Although incredibly powerful, organoids are heterogeneous model
+ systems that are challenging to analyze by using conventional technologies.
+ Cells within an organoid can be classiﬁed with a ‘cell type’ (e.g., stem and differentiated) and a ‘cell
+ state’ (e.g., proliferating and quiescent)—with cell type often relating to cell state. For example, stem
+ cells in small intestinal organoids are often in S, G2 and M phases of the cell cycle, whereas terminally
+ differentiated enterocytes are post-mitotic or apoptotic10. Biological processes within all cells are
+ regulated by protein post-translational modiﬁcation (PTM) signaling networks11. Common PTMs
+ include protein phosphorylation, methylation, acetylation and ubiquitination12. PTM signaling net-
+ works are frequently dysregulated in cancer, and PTM signaling nodes such as kinases are targeted by
+ many anti-cancer drugs13. Because PTM signaling networks are cell type–14 and cell state–speciﬁc15,
+ heterocellular organoids contain several cell type– and cell state–speciﬁc PTM networks simulta-
+ neously (Fig. 1). Experimental manipulation of organoid cultures such as drug treatments and
+ CRISPR-mediated genome edits can further alter the cell types, cell states and PTM signaling net-
+ works in organoids. Unfortunately, low-dimensional technologies commonly applied to organoids
+ cannot measure such high-dimensional changes and therefore fail to capture the complexity of
+ organoid biology16. To fully use organoids in biomedical research, we must be able to quantify and
+ compare multiple organoid PTM signaling networks in a cell type– and cell state–speciﬁc manner.
+ We recently described a mass cytometry (MC) (also known as cytometry by time-of-ﬂight
+ (CyTOF)) method to perform cell type–speciﬁc PTM network analysis of organoids and organoid co-
+ cultures17. Through the use of heavy metal–tagged probes and antibodies, MC enables >40 protein-
+ level measurements at single-cell resolution across millions of cells18. When combined with a thiol-
+ reactive organoid barcoding in situ (TOBis) strategy, this method enabled cell type– and cell
+ state–speciﬁc comparison of 28-node PTM networks between 20 different organoid cultures in a
+ single experiment17. TOBis MC revealed an intimate relationship between cell type, cell state and
+ PTM signaling in small intestinal organoids and uncovered a novel connection between oncogenic
+
+
+ 1
+ Cell Communication Lab, Department of Oncology, University College London Cancer Institute, London, UK. 2Department of Chemistry, University of
+ Toronto, Toronto, Ontario, Canada. 3These authors contributed equally: Jahangir Suﬁ, Xiao Qin. ✉e-mail: c.tape@ucl.ac.uk
+
+ NATURE PROTOCOLS | VOL 16 | OCTOBER 2021 | 4897–4918 | www.nature.com/nprot 4897
+
+PROTOCOL NATURE PROTOCOLS
+
+
+ Cell types
+ Cell state
+
+ Stem M
+ Paneth G2
+ Cell-cycle
+ Transit amplifying S
+ phases
+ Enteroendocrine G1
+ Tuft G0
+ Goblet Apoptosis
+ Enterocyte Dead
+
+
+ PTM signaling
+ networks
+
+ Low High Weak Strong
+
+ PTM nodes PTM-PTM edges
+
+ Fig. 1 | Organoids are high-dimensional systems. Schematic of a small intestinal organoid. Small intestinal organoids
+ contain multiple cell types, each in a unique cell state. Each cell contains cell type– and cell state–speciﬁc post-
+ translational modiﬁcation signaling networks. High-dimensional technologies are needed to simultaneously quantify
+ cell type– and cell state–speciﬁc PTM signaling in organoids.
+
+ and microenvironmental signaling cues in colorectal cancer (CRC) tumor microenvironment orga-
+ noid co-cultures17.
+
+
+ Overview of the procedure
+ Here, we provide a detailed step-by-step protocol to perform TOBis MC analysis of organoids and
+ organoid co-cultures (Fig. 2). The TOBis MC protocol comprises four stages: (i) organoid culture and
+ pretreatment (Steps 1–7), (ii) organoid in situ barcoding with TOBis (Steps 8–10), (iii) organoid
+ single-cell dissociation followed by metal-antibody staining and MC data acquisition (Steps 11–49)
+ and (iv) demultiplexing of TOBis-barcoded experimental conditions and downstream data analysis
+ (Steps 50–70). The protocol was originally established to study cell type–speciﬁc PTM signaling in
+ murine heterocellular organoids by using a 20-plex TOBis barcoding strategy (via a 6-choose-3
+ combination, i.e., 3 isotopes ‘on’ and 3 isotopes ‘off’)17. We have since adapted the method to work
+ with smaller 96-well plate organoid cultures, expanded TOBis MC to higher-throughput 35-plex
+ (7-choose-3) and 126-plex (9-choose-4) formats, demonstrated that the protocol is compatible with
+ human PDOs and developed CyGNAL (CyTOF signaling analysis), a computational pipeline for
+ analyzing high-dimensional PTM signaling MC data.
+
+
+ Comparison with other methods
+ Immunoﬂuorescent technologies are limited by the spectral overlap of reporters, susceptible to
+ autoﬂuorescent artefacts and inherently low dimensional. Immunoﬂuorescent imaging parameters
+
+4898 NATURE PROTOCOLS | VOL 16 | OCTOBER 2021 | 4897–4918 | www.nature.com/nprot
+
+NATURE PROTOCOLS PROTOCOL
+ Live Fix Barcode Pooled Extracellular Permeabilize Intracellular Fix +
+ organoids organoids organoids dissociation metal Abs cells metal Abs intercalate
+ 127 PFA 194
+ IdU Inhib. Cisp
+ TOBis 1
+ Cell-type Abs Triton + PTM Abs FA +
+ Organoid methanol Cell-state Abs
+ 191
+ Ir/193Ir
+ 1
+ culture 1 Cell-type Abs
+ Y Y Y Y
+ TOBis 2 Y YY Y YY
+
+
+ Y
+
+
+ Y
+
+
+ YY Y
+
+
+ YY Y
+ Y YY
+
+
+ Y YY
+ Organoid
+
+
+ Y
+
+
+ Y
+ 2
+ culture 2 Y Y YY YY
+ n n n n
+
+
+ TOBis n
+ Organoid
+ n
+ culture n
+ Dispase II
+ PBS GSH Collagenase IV CSB CSB CSB
+ wash wash DNase I wash wash wash
+
+
+ Single-cell Data Cell type Cell-type specific
+ Single-cell mass cytometry Debarcode organoid data preprocessing + cell state PTM network analysis
+
+ R V
+ Event 1 Culture 1
+
+
+ Frequency
+ Organoid cells Cell type EMD
+ PTMs
+
+
+ UMAP2
+ Quadrupole TOF-MS m/z 191 (nodes)
+ m/z Ir
+ Event 2 Culture 2 1
+ 2
+ PTM x
+ Cells
+ m/z m/z n
+
+
+ PTM y
+ Event n Culture n Ce
+ ll t te DREMI
+ yp ta 193
+ e ll s Ir UMAP1 (edges)
+ Ce
+ Cell state
+ m/z m/z
+ PTM x
+ 127
+Fig. 2 | TOBis MC protocol overview. Live organoids are treated with 5-iodo-2′-deoxyuridine (identifying S-phase cells) and phosphatase and
+protease inhibitors (Procedure Steps 1–3). Organoids are then ﬁxed in situ with paraformaldehyde and stained with 194cisplatin (194Cisp) to identify
+dead/dying cells (Steps 4–7). Organoids from different experimental conditions are barcoded with TOBis reagents while still in Matrigel (Fig. 3),
+washed with reduced glutathione (GSH) and pooled (Steps 8–10). Organoids are dissociated into single cells by using dispase II, collagenase IV and
+DNase I and stained with extracellular cell-type rare earth metal-conjugated antibodies (Abs) (Steps 11–24). Cells are then permeabilized with Triton
+and methanol, stained with intracellular PTM, cell-state and cell-type Abs (Steps 25–33). Abs are cross-linked to their antigens by using formaldehyde
+(FA), and cells are incubated with 191/193Iridium (Ir) DNA intercalators (Steps 34–37). Single cells are analyzed by using a mass cytometer (Steps
+38–49). Different experimental conditions are debarcoded and preprocessed, and single-cell organoid data are visualized by using uniform manifold
+approximation and projection (UMAP) (Steps 50–60). Cell type–speciﬁc PTM node intensity is calculated by using earth mover’s distance (EMD)
+between reference (R) and variable (V) populations, and PTM-PTM connectivity is calculated by using density resampled estimation of mutual
+information (DREMI) (Steps 61–70). CSB, cell staining buffer (see Reagents); m/z, mass-to-charge ratio; TOF-MS, time-of-ﬂight mass spectrometer.
+
+ can be expanded through multiple cycles of staining and quenching19, but this is challenging to
+ implement on heterogeneous and delicate 3D organoid cultures. Although ﬂuorescent ﬂow cytometry
+ parameters can be increased by using compensation strategies, these workﬂows are complex and not
+ well suited to the dozens of intracellular measurements required for routine multiplexed PTM net-
+ work analysis20. In contrast to ﬂuorescent technologies, the Dalton-level mass resolution of MC
+ instruments21 enables >40 extracellular, intracellular and nuclear monoisotopic heavy metal channels
+ to be measured at the single-cell level18.
+ High-throughput drug and CRISPR organoid screens rely on bulk viability measurements such as
+ CellTitre-Glo7,9. Such assays cannot provide cell type–speciﬁc readouts from co-cultures, lack detailed
+ cell-state proﬁling and provide no mechanistic insight into organoid phenotypes. Moreover, bulk
+ -omics and low-dimensional ﬂuorescent technologies also struggle to provide multiplexed cell
+ type–speciﬁc PTM signaling data from organoid co-cultures. In contrast, TOBis MC provides cell
+ type–speciﬁc cell-state quantiﬁcation and PTM signaling networks for every cell in an organoid
+ culture. The high-parameter capacity of MC is particularly suited to analyzing PTM signaling in
+ organoids co-cultured with stromal ﬁbroblasts and leukocytes17.
+ High-dimensional phenotyping of heterocellular systems is commonly performed by using single-
+ cell RNA-seq (scRNA-seq)22,23. Although a mature technology to identify transcriptionally regulated
+ differentiation trajectories, scRNA-seq workﬂows to measure intracellular proteins, PTMs and bio-
+ chemical processes24 are in their infancy. New scRNA-seq methods using intracellular oligo-tagged
+ antibodies have been reported25,26, but such methods have not yet been applied to organoids. In
+ comparison, TOBis MC is explicitly designed for highly multiplexed protein and PTM measurements.
+ Moreover, because viable cells are needed to achieve suitable read depth and reliable data inter-
+ pretation for scRNA-seq, dead cells are usually removed during scRNA-seq sample preparation, and
+
+NATURE PROTOCOLS | VOL 16 | OCTOBER 2021 | 4897–4918 | www.nature.com/nprot 4899
+
+PROTOCOL NATURE PROTOCOLS
+
+ stressed cells are excluded in data analysis. Common scRNA-seq workﬂows are therefore heavily
+ biased toward healthy cells and not well suited to analyzing cell death in organoids (as might be
+ common in a PDO drug screen7). By contrast, MC can analyze viable, stressed and dead cells and is
+ therefore capable of assessing apoptotic mechanisms in perturbed organoid cultures.
+ Cell states and PTM signaling are dynamic processes that are rapidly altered by single-cell dis-
+ sociation27,28. Therefore, organoids should be ﬁxed before dissociation to accurately preserve cell
+ states and labile PTM signals for molecular analysis. Unfortunately, most scRNA-seq methods are
+ incompatible with paraformaldehyde (PFA)-ﬁxed cells23. In contrast, MC is fully compatible with
+ PFA ﬁxation and can accurately measure cell states and PTMs from PFA-ﬁxed organoids. Although
+ droplet-based scRNA-seq methods have greatly improved cell throughput29,30, leading commercial
+ platforms (such as 10x Genomics) are commonly limited to ~1–10 × 103 cells per run. Given that a
+ typical 12-well plate organoid culture contains ~0.5–1 × 106 cells per well, droplet-based scRNA-seq
+ methods can capture only ~0.1–1% of the cells in such an experiment. In comparison, TOBis MC
+ routinely analyzes >1 × 106 single cells and can therefore provide a more holistic view of organoid
+ cultures. Once the protocol is established, data generation is also very rapid. We typically go from
+ ﬁxed organoid cultures to single-cell PTM data in ~3–4 d. Finally, by barcoding organoids very early
+ in the protocol, TOBis reduces technical variation between samples in downstream steps (e.g.,
+ antibody staining) and increases single-cell recovery17.
+
+ Limitations
+ Because TOBis MC requires organoids to be dissociated into a single-cell suspension, all spatial
+ information is lost. Methods such as imaging mass cytometry31, multiplexed ion beam imaging31 or
+ in situ scRNA-seq32 should be considered when high-dimensional spatial phenotyping is required.
+ Although MC can in theory be used to measure any cell sample that can be dissociated into single
+ cells, we have not optimized TOBis for tissue samples. We recommend methods speciﬁcally opti-
+ mized for ﬁxed tissue such as DISSECT28 for measuring PTM signaling in tissue. MC cannot describe
+ intercellular signaling mediated by the thousands of ligand–receptor interactions responsible
+ for transducing signals between cells. We suggest using scRNA-seq ligand–receptor analysis such
+ as CellPhoneDB33,34, NicheNet35 or CellChat36 to study intercellular communication in organoid
+ co-cultures.
+ Although we have expanded the capacity of TOBis multiplexing to up to 126 different organoid
+ cultures, this is still far below the thousands of conditions assessed in high-throughput screening
+ applications7. We therefore still recommend bulk viability measurements when mono-culture assay
+ throughput is paramount.
+ Like all immunostaining methods, MC is heavily dependent on high-quality antibody reagents.
+ Although many PTM and cell-state antibodies are well validated for MC, organoid cell-type iden-
+ tiﬁcation antibodies are typically less established. Users are advised to screen and validate cell-type
+ identiﬁcation antibodies when applying this protocol to novel organoid cultures. Like most MC
+ experiments, the cost of TOBis MC is dominated (75–80%) by the price of metal-conjugated
+ antibodies (Supplementary Table 1).
+
+ Applications
+ We have successfully applied TOBis multiplexing to 6-well, 12-well, 48-well and 96-well organoid
+ culture formats to study cell type–speciﬁc PTM signaling networks in organoids and organoids co-
+ cultured with stromal and immune cells17. The protocol is also well suited to studying how organoid
+ signaling networks can be regulated by stromal and immune cells, including cellular therapies such as
+ chimeric antigen receptor T cells (C.J.T. and Callum Nattress, University College London Cancer
+ Institute, unpublished observations, 2021). We have successfully applied TOBis MC to multiple
+ genotypic and microenvironmental conditions17. Although the workﬂow was developed by using
+ murine intestinal organoids, the protocol is compatible with human PDO drug and perturbation
+ screens7 where mechanisms of cell death and insight into drug resistance are of interest.
+
+ Experimental design
+ Organoid culture
+ This protocol is designed to measure cell type–speciﬁc PTM signaling networks in organoids cultured
+ in a protein-rich extracellular matrix such as Matrigel. Organoids can be grown in 6-well (×7 40-µl
+ droplets), 12-well (×3 30-µl droplets), 48-well (×1 30-µl droplet) and 96-well (×1 50-µl stack) culture
+
+4900 NATURE PROTOCOLS | VOL 16 | OCTOBER 2021 | 4897–4918 | www.nature.com/nprot
+
+NATURE PROTOCOLS PROTOCOL
+ a b Organoid culture 1 Organoid culture 126
+ 122 TOBis 1 TOBis 126
+ Te
+ 123
+ O Te Barcode
+ 124 Ma Ma Ma Cl
+ Te organoids 122 124 128 196
+ TeMal N 125 35-plex TOBis in situ
+ Te 123 125 130 198
+ NH (7-choose-3) Ma Ma Ma Cl
+ 126
+ O Te Te
+ 128
+ Barcodes
+
+
+ O Te
+ 130
+ Te S S S S S S
+ S
+ Thiol Quench S
+ Metal S Ma Ma Ma Cl
+ reactive unbound 122 124 128 196 S
+ 126-plex TOBis barcodes S S
+ S
+ S
+ (9-choose-4) S
+ 123 125
+ Ma
+ 130 198
+ Cl S
+ Ma Ma
+
+ Cl NH3 128
+ 196
+ Pt 124
+ Cisplatin Pt Pooled Ma
+ Ma
+ 198
+ Pt 130 196
+ Cl NH3 single-cell 122 a
+ M
+ 125 Cl
+ Ma
+ Ma
+ dissociation 19
+ 123 a Cl 8
+ M
+ Thiol
+ Single-cell mass cytometry
+ Wash
+
+
+ SH
+ Glutathione O O H O
+
+
+ Intensity
+
+
+ Intensity
+ N Debarcode
+ HO N OH
+ NH2 H O organoid cells
+ m/z m/z
+
+
+ 122
+ 123
+ 124
+ 125
+ 126
+ 128
+ 130
+ 196
+ 198
+
+
+ 122
+ 123
+ 124
+ 125
+ 126
+ 128
+ 130
+ 196
+ 198
+ c 35-plex TOBis d 126-plex TOBis
+ (7-choose-3) (9-choose-4)
+ 122
+ 123
+ 124
+ 125
+ 126
+ 128
+ 130
+
+
+ 122
+ 123
+ 124
+ 125
+ 126
+ 128
+ 130
+
+
+ 122
+ 123
+ 124
+ 125
+ 126
+ 128
+ 130
+ 196
+ 198
+
+
+ 122
+ 123
+ 124
+ 125
+ 126
+ 128
+ 130
+ 196
+ 198
+
+
+ 122
+ 123
+ 124
+ 125
+ 126
+ 128
+ 130
+ 196
+ 198
+
+
+ 122
+ 123
+ 124
+ 125
+ 126
+ 128
+ 130
+ 196
+ 198
+ 1 19 1 33 65 97
+ 2 20 2 34 66 98
+ 3 21 3 35 67 99
+ 4 22 4 36 68 100
+ 5 23 5 37 69 101
+ 6 24 6 38 70 102
+ 7 25 7 39 71 103
+ 8 26 8 40 72 104
+ 9 27 9 41 73 105
+ 10 28 10 42 74 106
+ 11 29 11 43 75 107
+ 12 30 12 44 76 108
+ 13 31 13 45 77 109
+ 14 32 14 46 78 110
+ 15 33 15 47 79 111
+ 16 34 16 48 80 112
+ 17 35 17 49 81 113
+ 18 18 50 82 114
+ 0 0.5 1 1.5 2 2.5
+ 19 51 83 115
+ 20 52 84 116
+ Median intensity
+ 3
+ (×10 )
+ 21 53 85 117
+ 22 54 86 118
+ 23 55 87 119
+ 24 56 88 120
+ Barcode ‘off’ Barcode ‘on’ 25 57 89 121
+ 26 58 90 122
+ Frequency
+
+
+ Frequency
+
+
+ 27 59 91 123
+ 28 60 92 124
+ 29 61 93 125
+ 30 62 94 126
+ 31 63 95 0 0.25 0.5 0.75 1
+ Barcode Barcode 32 64 96
+ intensity intensity Median intensity
+ 3
+ (×10 )
+
+
+Fig. 3 | TOBis multiplexing overview. a, TOBis reagents. Seven thiol-reactive tellurium maleimide (TeMal) isotopologues (122Te, 123Te, 124Te, 125Te,
+126
+ Te, 128Te and 130Te) are combined to form a doublet-ﬁltering 35-plex (7-choose-3) barcoding matrix. Two additional cisplatin isotopologues (196Pt
+and 198Pt) can expand the barcoding matrix to 126-plex (9-choose-4). Reduced glutathione provides a source of free thiols to quench unbound
+barcodes during wash steps. b, TOBis workﬂow schematic. Ma, maleimide. c, Histograms of monoisotopic Te (colored by the median intensity) of 35
+murine shApc/KrasG12D/+ CRC organoid cultures barcoded by using 35-plex (7-choose-3) TOBis (barcode key provided in Supplementary Table 3). The
+x axis represents the signal intensities of the corresponding barcodes. For each TOBis condition, three of the seven Te isotopes need to be ‘on’, and the
+other four isotopes need to be ‘off’ to achieve successful sample demultiplexing. d, Histograms of monoisotopic Te and Pt (colored by the median
+intensity) of 126 murine shApc/KrasG12D/+ CRC organoid cultures barcoded by using 126-plex (9-choose-4) TOBis (barcode key provided in
+Supplementary Table 4). The x axis represents the signal intensities of the corresponding barcodes. For each TOBis condition, four of the nine Te/Pt
+isotopes need to be ‘on’, and the other ﬁve isotopes need to be ‘off’ to achieve successful sample demultiplexing.
+
+
+ formats. Because MC can measure both viable and apoptotic cells, the method can be used to analyze
+ both newly seeded and fully developed organoids17. The current protocol is optimized for intestinal
+ organoids derived from mouse (Fig. 3) and human (Fig. 4) stem cells cultured in conventional
+ organoid media3, but it is theoretically applicable to all Matrigel-based organoid models (e.g., the
+ liver4, pancreas6, lung37, stomach38, uterus39 and various cancers40) and organoid co-cultures (Fig. 5).
+ Given the highly multiplexed nature of TOBis MC, careful consideration should be given to
+
+NATURE PROTOCOLS | VOL 16 | OCTOBER 2021 | 4897–4918 | www.nature.com/nprot 4901
+
+PROTOCOL NATURE PROTOCOLS
+
+ a
+ TeMal Gate
+ CRC PDOs
+
+
+ GFP+
+
+ RFP+
+ 122
+ 123
+ 124
+ 125
+ 126
+ 128
+ 130
+ +H2B-GFP +H2B-RFP TOBis PDO
+
+ 1 GFP
+ 2 RFP
+ 3 Blank
+ 4 GFP
+ 5 RFP
+ 6 Blank
+ 7 GFP
+ 8 RFP
+ 9 Blank
+ b CRC PDOs
+ 10 GFP
+ GFP RFP Blank 11 RFP
+ 12 Blank
+ 1 2 3 4 5 6 7 13 GFP
+ 14 RFP
+ 8 9 10 11 12 13 14
+ Mass 15 Blank
+ 15 16 17 18 19 20 21 16 GFP
+ cytometry
+ 22 23 24 25 26 27 28 17 RFP
+ 29 30 31 32 33 34 35 18 Blank
+ 19 GFP
+ 35-plex TOBis 20 RFP
+ (7-choose-3) 21 Blank
+ 22 GFP
+ 23 RFP
+ c 100% Observed 24 Blank
+ GFP+ 25 GFP
+ 26 RFP
+ RFP+
+ 99% 27 Blank
+ 28 GFP
+ 29 RFP
+ 30 Blank
+ 98%
+ 31 GFP
+ 32 RFP
+ 0% 33 Blank
+ GFP RFP
+ Ground truth 34 GFP
+ PDO PDO
+ 35 RFP
+
+ 0 1 2 3 2
+ GFP+ RFP+
+ 1
+ GFP PDO 99.88% 0.12% Median intensity
+ 2
+ (×10 ) 0
+ RFP PDO 0.47% 99.53% Cells (×104)
+
+ Fig. 4 | TOBis MC barcoding ﬁdelity. a, Confocal microscopy of human CRC PDOs transfected with either H2B-GFP
+ (endogenous, green) or H2B-RFP (endogenous, red) and stained for EpCAM (white). Scale bars, 25 µm.
+ b, Checkerboard plating of GFP PDOs, RFP PDOs or blank wells with only Matrigel. Cells were barcoded with 35-plex
+ (7-choose-3) TOBis and analyzed by MC. c, Percentage of GFP+ and RFP+ cells (‘Observed’) recovered from GFP
+ and RFP PDO cultures (‘Ground truth’) (n = 12 independent samples for each PDO). TOBis achieved a barcoding
+ accuracy of >99%. Error bars represent s.d.
+
+
+ experimental design at the organoid culture stage. We advise users to culture each condition in
+ technical triplicate and to include baseline untreated controls to aid downstream data analysis
+ (see Step 66).
+
+ Organoid preﬁxation treatment
+ After organoid culture, 1275-iodo-2′-deoxyuridine (127IdU) is added to the media of live organoid
+ cultures 30 min before the assay endpoint. 127IdU integrates into the replicating genome of cells in
+ S phase and can be easily monitored by MC41. 5 min before the endpoint, a cocktail of protease and
+ phosphatase inhibitors can be added to the organoid culture media to protect protein and phos-
+ phorylation epitopes, respectively (Supplementary Fig. 1). We advise users to optimize the use of any
+ such pretreatments with their own biological system and antibody panels.
+
+ Organoid ﬁxation and dead-cell staining
+ Dissociation of live tissue can alter cell states27 and PTM signaling proﬁles28. To avoid disruption of
+ in situ cell states and PTMs in organoids, organoids are ﬁxed while still in Matrigel. At the assay
+
+4902 NATURE PROTOCOLS | VOL 16 | OCTOBER 2021 | 4897–4918 | www.nature.com/nprot
+
+NATURE PROTOCOLS PROTOCOL
+
+
+ 1+
+ 68 + PN + AM
+ a b
+
+
+ 80 +
+ C /PD AC
+ e
+
+
+ E
+ ag
+
+
+ 4/
+ FP C
+ ro t
+
+
+ R K /+
+ br id
+ M las
+
+
+ /F
+ ph
+ o
+
+
+ +
+ ob
+ an
+
+
+ nC
+ TOBis TOBis
+
+
+ ac
+ rg
+
+
+ D
+
+
+ Relative intensity
+ Pa
+ PanCK RFP CD68
+
+
+ Fi
+ O
+ + 1 1 TOBis 1
+ + 2 2
+ + 3 3
+ + 4 4
+ + 5 5
+ + 6 6 TOBis 6
+ + 7 7
+ 3D mono-cultures + 8 8
+ + 9 9
+ + 10 10
+ + 11 11 TOBis 11
+ + 12 12
+ + 13 13
+ + 14 14
+ + 15 15
+ + + 16 16 TOBis 16
+ + + 17 17
+ + + 18 Mass 18
+ + + 19 cytometry 19
+ + + 20 20
+ + + 21 21 TOBis 21
+ + + 22 22
+ + + 23 23
+ + + 24 24
+ + + 25 25
+ 3D co-cultures + + 26 26 TOBis 26
+ + + 27 27
+ + + 28 28
+ + + 29 29
+ + + 30 30
+ + + + 31 31 TOBis 31
+ + + + 32 32
+
+
+ UMAP2
+ + + + 33 33
+ + + + 34 34
+ + + + 35 35
+ 0 1 2 3 4 5 Organoid UMAP1
+ 35-plex TOBis
+ (7-choose-3) 3 Fibroblast
+ Cells (×10 )
+ Macrophage
+
+Fig. 5 | TOBis MC for organoid co-cultures. a, Mono- and co-cultures of organoids, ﬁbroblasts and macrophages (n = 5) barcoded by using 35-plex
+(7-choose-3) TOBis and analyzed by MC. The heatmap shows numbers of organoids (pan-cytokeratin (PanCK)+ and CEACAM1+), ﬁbroblasts
+(podoplanin (PDPN)+ and RFP+) and macrophages (CD68+ and F4/80+) recovered from each TOBis barcode. TOBis MC speciﬁcally resolved all the
+conditions and successfully labeled all the cell types within the culture. b, UMAP projections of single cells from representative debarcoded TOBis
+conditions, demonstrating the compatibility of TOBis to organoid co-cultures.
+
+
+ endpoint, culture medium is removed and replaced with 4% (wt/vol) PFA and incubated at 37 °C for
+ 60 min. Fixed organoids are then washed with PBS and stained with monoisotopic cisplatin (e.g.,
+ 194
+ cisplatin or 198cisplatin) for 10–15 min (Supplementary Fig. 2). Cisplatin enters cells with com-
+ promised membranes faster than cells with intact membranes and can therefore be used to identify
+ dead and dying cells in organoid cultures42.
+
+ TOBis multiplexing
+ Mass-tagged cellular barcoding is used in MC experiments to increase sample throughput, reduce
+ technical variation and decrease rare earth metal-conjugated antibody usage43,44. Unfortunately,
+ commercial palladium mass-tagged cellular barcoding reagents (commonly used for barcoding leu-
+ kocytes in suspension) are not suitable for labeling organoids while embedded in Matrigel17. To
+ overcome this, we developed TOBis based on monoisotopic tellurium maleimide (TeMal)45 and
+ cisplatin46 that can label organoids while still in Matrigel17 (Fig. 3a,b). We originally reported a 20-
+ plex doublet-ﬁltering barcoding matrix based on 124Te, 126Te, 128Te, 130Te, 196Pt and 198Pt (using a 6-
+ choose-3 combination strategy, i.e., 3 isotopes ‘on’ and 3 isotopes ‘off’)17. Through the addition of
+ 122
+ Te, 123Te and 125Te TeMals, we have now expanded TOBis to support 35-plex (7-choose-3)
+ (Fig. 3c) or 126-plex (9-choose-4) multiplexing (Fig. 3d).
+ We premix TeMals and cisplatins into TOBis barcodes either by hand or by using an Opentrons
+ OT-2 robot (https://github.com/TAPE-Lab/OT-2-Automated-Barcode-Pipetting) and store as ready-
+ to-use kits. We typically use 35-plex TOBis for day-to-day experiments and reserve 126-plex bar-
+ coding for screening applications. On the day of the experiment, the TOBis barcodes are added to
+ organoid cultures and incubated overnight at 4 °C. The following day, unbound thiol-reactive
+ barcodes are quenched by using reduced glutathione and washed from the cultures (Fig. 3b). These
+ quenching and washing steps avoid unbound barcodes cross-reacting with off-target organoid cells
+
+NATURE PROTOCOLS | VOL 16 | OCTOBER 2021 | 4897–4918 | www.nature.com/nprot 4903
+
+PROTOCOL NATURE PROTOCOLS
+
+ when all cultures are subsequently pooled17. When used as described in this protocol, TOBis
+ achieved a barcoding accuracy of >99% (Fig. 4) and can be used to stain up to 2 million cells per well
+ of a 96-well plate culture (Supplementary Fig. 3). TOBis can be used to multiplex mouse or human
+ organoids and organoids co-cultured with other cell types in 3D, such as stromal ﬁbroblasts and
+ leukocytes (Fig. 5).
+
+
+ Organoid single-cell dissociation and rare earth metal-conjugated antibody staining
+ After TOBis staining, each organoid culture is removed from Matrigel and resuspended in a dis-
+ sociation buffer containing dispase II, collagenase IV and DNase I. During optimization, we found
+ that dispase II breaks cell–cell contacts, collagenase IV digests Matrigel components and DNase I
+ degrades genomic DNA released from dead cells commonly found in organoid cultures. Dissociation
+ enzymes affect cell recovery and antibody staining and should be optimized carefully for each
+ biological system and antibody panel (Supplementary Fig. 4). TOBis barcoded organoids from each
+ condition are pooled into a single master tube and then dissociated into single cells by using a
+ gentleMACS Octo dissociator. After dissociation, single organoid cells are washed and ﬁltered to
+ remove clumps. Cells are then stained for extracellular epitopes with rare earth metal-labeled anti-
+ bodies (hereafter referred to as metal antibodies). Preconjugated metal antibodies can be purchased
+ via Fluidigm or custom conjugated by using established protocols47. Cells are then permeabilized by
+ using 0.1% (vol/vol) Triton X-100, 50% (vol/vol) methanol or both. Permeabilization buffers can
+ greatly alter antibody staining and should be optimized for each biological system and antibody panel
+ (Supplementary Fig. 5). Once permeabilized, cells are stained with a panel of metal antibodies against
+ intracellular proteins and PTMs. Cells are then washed, and antibodies are cross-linked to their
+ epitopes by using 1.6% (wt/vol) formaldehyde (FA). Finally, cells are incubated in DNA intercalator
+ 191/193
+ Ir overnight before MC single-cell data acquisition and analysis.
+
+
+ MC single-cell data acquisition
+ Stained organoid cells are washed into water containing 2 mM EDTA, diluted to 0.8–1.2 × 106 cells/
+ ml and spiked with isotopic EQ beads48. Cells are then loaded into a Super Sampler (Victorian
+ Airships), and single-cell data are acquired by using a mass cytometer (e.g., Fluidigm Helios). During
+ optimization, we found that adding 2 mM EDTA to the running buffer and using the Super Sampler
+ greatly improve the acquisition of epithelial organoid cells by MC (J.S. and X.Q., unpublished
+ observation, 2018).
+
+
+ TOBis MC single-cell data analysis
+ After data acquisition, raw MC data are normalized48 and exported as standard FCS ﬁle(s). Multi-
+ plexed TOBis experiments are debarcoded44 (https://github.com/zunderlab/single-cell-debarcoder)
+ into individual conditions (Fig. 6a), imported into Cytobank (http://www.cytobank.org/) or an
+ equivalent cytometry data analysis platform (e.g., FlowJo) and gated with Gaussian parameters to
+ remove debris, DNA/cisplatin to identify live cells and cell-type markers to remove doublets (Fig. 6b).
+ The fully gated datasets containing cells of interest are further processed with our MC data analysis
+ pipeline, CyGNAL (https://github.com/TAPE-Lab/CyGNAL)49 (Supplementary Fig. 6). The com-
+ ponents of CyGNAL were previously used to analyze the datasets described by Qin et al.17. In brief,
+ the preprocessing step formats and exports the heavy metal channels (based on the naming con-
+ vention of the Fluidigm CyTOF software), embeds the metadata of the experiment and assigns each
+ event within the dataset a unique cell index. Dimensionality reduction (e.g., uniform manifold
+ approximation and projection (UMAP)50) can be performed on cell-comprised datasets and is mainly
+ used as a visualization tool in our workﬂow (Fig. 6c). Cells can be assigned a cell-type identity via
+ biaxial gating (Fig. 6d), followed by cell-state identiﬁcation and PTM analysis in a cell type–speciﬁc
+ manner (Fig. 6e,f). Earth mover’s distance (EMD)51,52 is used to quantify PTM node intensity, and
+ density resampled estimation of mutual information (DREMI)53 is used to score PTM-PTM edge
+ connectivity. Multiple EMD/DREMI values can be visualized with heatmaps and further summarized
+ by using principal component analysis (PCA). When paired with a well-curated antibody panel and
+ robust experimental design, TOBis MC allows multiplexed analysis of cell type–speciﬁc PTM sig-
+ naling of heterocellular organoids17.
+
+
+4904 NATURE PROTOCOLS | VOL 16 | OCTOBER 2021 | 4897–4918 | www.nature.com/nprot
+
+NATURE PROTOCOLS PROTOCOL
+ a Debarcode multiplexed TOBis MC co-culture data
+ d Cell type
+
+
+ Event 1 Organoids
+ TOBis_1.fcs
+
+
+ CEACAM1
+ m/z m/z
+ TOBis_n_Org.fcs
+ Raw.fcs Event 2 TOBis_2.fcs
+ m/z m/z
+ PanCK
+
+ Event n TOBis_35.fcs Fibroblasts
+ m/z m/z
+
+
+ PDPN
+ TOBis_n_Cells.fcs
+ TOBis_n_Cells.fcs
+ TOBis_n_Pro.fcs TOBis_n_Fib.fcs
+ b
+ Single-cell preprocessing
+
+ Debris removal Live-cell gate Doublet removal RFP
+ 9,133
+ 94.6% 87.4% 98.3% RFP Macrophages
+ Event length
+
+
+ 1,174
+
+
+ F4/80
+ Pan-CK
+ TOBis_n_Mac.fcs
+ Ir
+
+
+ 151
+ 193
+
+
+ 19.11
+
+ 0 CD68
+ Center 191 CD68
+ Ir
+ 3,430 e Cell state
+ 97.3% 97.8% 99.7% CD68
+ 563.5
+ Pan-CK
+ Width
+
+
+ Ir
+
+
+ 92.53 TOBis_n_Org.fcs
+ 193
+
+
+ S
+
+
+ IdU
+ 14.8
+ Cell type
+ –specific
+ pRB [S807/S811]
+ 0
+ Center 194
+ Pt RFP cell state
+ 1,592
+ 98.1% 98.0% Pan-CK Pan-CK M 1%
+ 316.9
+ G2 40%
+ CD68
+ Width
+
+
+ pHH3 [S28]
+ 62.99
+ M
+ 12.06
+ Pan-CK S 17%
+ cCaspase 3 [D175]
+
+
+ 0
+ Residual RFP Apoptosis G1 18%
+
+ Pan-CK G0 18%
+ Ap. 6%
+ TOBis_n_Cells.fcs
+ TOBis_n_Cells.fcs Embed TOBis_n_Cells.fcs
+ TOBis_n_Cells.fcs G0 G2
+ TOBis_n_Cells.fcs TOBis_n_Pro.fcs
+ Cyclin B1
+
+
+ metadata
+ + Pan-CK G1
+ Filter Assign Panel_markers.csv
+ channels cell index
+ Pan-CK
+
+ c UMAP visualization f PTM signaling networks
+
+
+ TOBis_n_Cells.fcs
+ Cell-type-specific PTM network
+ TOBis_n_Cells.fcs
+ TOBis_n_Pro.fcs UMAP TOBis_n_Org.fcs EGFR TGF-βR E-cadherin FZD LRP LGR ZNRF BMPR
+ UMAP2
+
+
+ S465 S467 T310 S9 S33 S37 T41 S463 S465
+ GRB2 SMAD2/3 p120-Catenin GSK-3β β-Catenin SMAD1/5/9
+
+
+ Y418 S241 T172
+
+
+ Arcsinh transform RAS SRC PI3K PDPK1 LKB1 AMPKα
+
+
+ Arcsinh Filter S257 Y705 T308 S473
+
+ transform markers MEKK MKK4 STAT3 AKT AKT MTORC2
+
+
+ UMAP1 Filter markers
+ S189
+
+ MKK3/6
+ S207 S221
+
+ MEK1/2
+ T497
+
+ PKCα MTORC1 MTORC1
+ S235
+
+ S6
+ S236
+
+
+ T180 Y182 T202 Y204 S112 T37 T46 S235 S236 T37 T46
+
+ p38 MAPK ERK1/2 BAD 4E-BP1 S6 4E-BP1
+
+
+ T334 T359 Y551 S529
+
+ MAPKAPK2 p90RSK SYK BTK1 IKKα/β/γ NF-KB p65
+
+
+ EMD DREMI S133
+
+ CREB CDK2/4
+ S807
+
+ RB
+ S811 S28
+
+ Histone H3 Caspase-9
+ D175
+
+ Caspase-3
+
+
+ (nodes) (edges)
+ <–1.6 EMD >1.6 <0.1 DREMI >1.2
+
+ Down-regulated Up-regulated Weak Strong
+ PCA Heatmap in cell type in cell type connection connection
+
+
+Fig. 6 | TOBis MC data analysis using CyGNAL. a, TOBis MC raw data are debarcoded44 into individual experimental conditions (TOBis_n.fcs). b, All
+debarcoded data ﬁles are imported into a cytometry data analysis platform for debris removal, live-cell identiﬁcation and doublet removal (percentages
+shown are of the parent population), yielding cells for analysis (TOBis_n_Cells.fcs). The data ﬁles are then processed by the CyGNAL pipeline49, which
+generates preprocessed datasets (TOBis_n_Pro.fcs) and a ﬁle containing the list of markers used in the experiment (panel_markers.csv). c, UMAP50
+dimensionality reduction is performed by using user-deﬁned markers. d, Cell-type identiﬁcation is performed on preprocessed data to generate cell
+type–speciﬁc datasets. e, Cell-state analysis is performed on cell type–speciﬁc data. f, PTM signaling analysis is performed on cell type–speciﬁc data
+via EMD51,52 and DREMI53 calculations. EMD and DREMI scores can be visualized in heatmaps or summarized by using PCA.
+
+
+NATURE PROTOCOLS | VOL 16 | OCTOBER 2021 | 4897–4918 | www.nature.com/nprot 4905
+
+PROTOCOL NATURE PROTOCOLS
+
+Materials
+
+ Biological materials
+ ● Wild-type, Apc knockdown (shApc) and shApc/KrasG12D/+ murine colon organoids54 (gift from
+ L. Dow, Cornell University)
+ ● Wild-type murine small intestinal organoids (gift from V. Li, Crick Institute)
+
+ ●
+ CRC PDOs7 (gift from M. Garnett, Sanger Institute)
+ ● Immortalized wild-type colonic ﬁbroblasts
+ 17
+
+ ● Bone marrow–derived macrophages
+ 17
+
+
+ Reagents
+ Organoid culture
+ ● Growth factor reduced Matrigel (Corning, cat. no. 354230)
+
+ ● Advanced DMEM/F-12 (Thermo Fisher Scientiﬁc, cat. no. 12634010)
+
+ ● L-Glutamine (Thermo Fisher Scientiﬁc, cat. no. 25030081)
+
+ ●
+ N-Acetyl-L-Cysteine (Sigma, cat. no. A9165)
+ ●
+ HEPES (Sigma, cat. no. H3375)
+ ● B-27 supplement (Thermo Fisher Scientiﬁc, cat. no. 17504044)
+
+ ● N-2 supplement (Thermo Fisher Scientiﬁc, cat. no. 17502048)
+
+ ● HyClone penicillin-streptomycin solution (Thermo Fisher Scientiﬁc, cat. no. SV30010)
+
+ ● Murine epidermal growth factor (mEGF) (Thermo Fisher Scientiﬁc, cat. no. PMG8041)
+
+ ● Murine noggin (Peprotech, cat. no. 250-38)
+
+ ● Murine R-spondin-1 (Peprotech, cat. no. 315-32)
+
+ ● Murine Wnt-3a (Peprotech, cat. no. 315-20)
+
+ ● Human R-spondin-1 (Peprotech, cat. no. 120-38)
+
+ ● Gastrin I (Sigma, cat. no. SCP0152)
+
+ ●
+ A83-01 (Generon, cat. no. 04-0014)
+ ●
+ SB202190 (Cayman Chemical, cat. no. 10010399)
+ ● Nicotinamide (Merck, cat. no. N0636)
+
+
+ Mass cytometry
+ 127
+ ●
+ IdU (Fluidigm, cat. no. 201127)
+ ● Protease inhibitor cocktail(Sigma, cat. no. P8340)
+
+ ● PhosSTOP (Sigma, cat. no. 4906845001)
+
+ ● PFA solution, 4% (vol/vol) in PBS (Thermo Scientiﬁc, cat. no. J19943K2) ! CAUTION PFA is a
+
+
+ mutagenic and carcinogenic agent. Avoid eye or skin contact.
+ 194
+ ● Cisplatin (Fluidigm, cat. no. 201194)
+ 196
+ ● Cisplatin (custom order from BuyIsotope)
+ ●
+ 198
+ Cisplatin (Fluidigm, cat. no. 201198) ! CAUTION Cisplatin is mutagenic and carcinogenic. Avoid
+ eye or skin contact.
+ ● L-Glutathione (Sigma, cat. no. G6529)
+
+ ● Dispase II (Thermo Fisher Scientiﬁc, cat. no. 17105041)
+
+ ●
+ Collagenase IV (Thermo Fisher Scientiﬁc, cat. no. 17104019)
+ ● DNase I (Sigma, cat. no. DN25)
+
+ 122
+ ● TeMal ( Te, 123Te, 124Te, 125Te, 126Te, 128Te and 130Te) (see Supplementary Method)
+ ● Metal antibodies (various suppliers; see Supplementary Table 2 for an example antibody panel)
+
+ ● Maxpar cell staining buffer (CSB; Fluidigm, cat. no. 201068)
+
+ ● Maxpar X8 metal labeling kit (Fluidigm, cat. no. 201300)
+
+ ● Maxpar water (Fluidigm, cat. no. 201069)
+
+ ● Maxpar PBS (Fluidigm, cat. no. 201058)
+
+ ● Maxpar Fix and Perm buffer (Fluidigm, cat. no. 201067)
+
+ ● EDTA (Sigma, cat. no. 03690-100ML)
+
+ ● Triton X-100 (Sigma, cat. no. T8787)
+
+ ●
+ Methanol (Fisher, cat. no. 10675112)
+ ● Pierce 16% (wt/vol) FA, methanol free (Pierce, cat. no. 28906)
+
+ ● Cell-ID Intercalator-Ir (Fluidigm, cat. no. 201192A)
+
+ ● EQ four element calibration beads (Fluidigm, cat. no. 201078)
+
+
+4906 NATURE PROTOCOLS | VOL 16 | OCTOBER 2021 | 4897–4918 | www.nature.com/nprot
+
+NATURE PROTOCOLS PROTOCOL
+ Reagent setup
+ Murine colonic organoid monoculture and co-culture medium
+ Murine colonic organoid monoculture and co-cultures are maintained in advanced DMEM/F-
+ 12 supplemented with 2 mM L-glutamine, 1 mM N-acetyl-L-cysteine, 10 mM HEPES, 1× B-27
+ supplement, 1× N-2 supplement, 100 ng/ml murine WNT-3a, 50 ng/ml mEGF, 50 ng/ml murine
+ noggin, 500 ng/mL murine R-spondin-1, 10 mM nicotinamide and 1× HyClone penicillin strepto-
+ mycin solution. CRITICAL TOBis MC is theoretically applicable to all Matrigel-based organoid
+
+
+ c
+ models (see Experimental design), and users should alter the composition of the organoid culture media
+ on the basis of their model system.
+
+
+ CRC PDO culture medium
+ CRC PDOs are cultured in advanced DMEM/F-12 supplemented with 2 mM L-glutamine, 1 mM
+ N-acetyl-L-cysteine, 10 mM HEPES, 1× B-27 supplement, 1× N-2 supplement, 100 ng/ml murine
+ Wnt-3a, 50 ng/ml mEGF, 100 ng/ml murine noggin, 500 ng/ml human R-spondin-1, 10 nM gastrin I,
+ 500 nM A83-01, 10 µM SB202190, 10 mM nicotinamide and 1× HyClone penicillin streptomycin
+ solution. CRITICAL TOBis MC is theoretically applicable to all Matrigel-based organoid models (see
+ c
+
+
+ Experimental design), and users should alter the composition of the organoid culture media on the basis
+ of their model system.
+
+
+ Heavy metal–conjugated antibodies
+ Metal antibodies can be purchased preconjugated from Fluidigm or custom conjugated with
+ monoisotopic heavy metals purchased from Fluidigm or Trace Sciences by using X8 polymers as per
+ established protocols47. We advise users to develop custom metal-conjugated antibody panels spe-
+ ciﬁcally for their biological questions and titrate their panels (using 1 µg of antibody/ml of CSB as a
+ starting point) with prior knowledge such as antigen abundance and heavy metal monoisotopic
+ impurities55,56. In our experience, cell state (e.g., proliferating, quiescent and apoptosis) has a con-
+ siderable inﬂuence on PTM signaling17. We therefore strongly advise users to include cell cycle
+ (e.g., pRB (S807/S811), cyclin B1, geminin, PLK1 and pHistone H3 (S28))15,41,57 and apoptosis
+ (e.g., cCaspase3 (D175) and cPARP (D214)) markers in their panels. Particular care should be taken
+ to validate cell-type identiﬁcation antibodies that have not previously been used in MC. Ideally more
+ than two cell-type identiﬁcation antibodies should be used per cell type. An example metal antibody
+ panel for studying murine small intestinal organoid cells is provided in Supplementary Table 2.
+
+ TOBis
+ Debarcoding efﬁciency is heavily dependent on robust signal intensities of the Te and Pt channels.
+ Because barcode signal intensities can vary between isotopologues, barcode batch and cell types being
+ labeled, we advise titrating TeMal and cisplatin barcodes to achieve an ‘on’ median intensity >5 × 102
+ and an ‘off’ median intensity <1 × 102 in desired cell types (Fig. 3c,d). We use TeMals at
+ 122
+ Te = 2.2 µM, 123Te = 2.0 µM, 124Te = 1.8 µM, 125Te = 1.5 µM, 126Te = 1.5 µM, 128Te = 1.1 µM
+ and 130Te = 0.96 µM and both cisplatins at 196Pt and 198Pt = 125 nM (diluted in PBS). These
+ concentrations offset the differential mass-range sensitivity of MC instruments and the alternative
+ thiol-reactive functional groups of TeMal (maleimide) and cisplatin (chloride).
+ In practice, we prepare TOBis barcodes either by hand or robot (see below) and divide them into
+ aliquots as ready-to-use kits (stored in 96-well PCR plates). TeMals and cisplatins can be mixed at
+ desired concentrations according to the barcoding matrix (Supplementary Tables 3 and 4) manually
+ or by using a liquid-handling robot. Scripts to prepare both 35-plex (7-choose-3) and 126-plex
+ (9-choose-4) TOBis barcodes by using the OT-2 platform (Opentrons) are provided at https://github.
+ com/TAPE-Lab/OT-2-Automated-Barcode-Pipetting. Premixed TOBis barcodes can be kept at
+ −80 °C for long-term storage before use. Although this protocol is designed for TeMal and cisplatin
+ reagents, alternative thiol-reactive heavy metal probes (e.g., lanthanide-conjugated mDOTA
+ (maleimide dodecane tetraacetic acid)17) could also, in theory, be used to perform TOBis.
+
+
+ Equipment
+ ● gentleMACS C-Tube (Miltenyi, cat. no. 130-096-334)
+ ● gentleMACS Octo dissociator (with heaters) (Miltenyi, cat. no. 130-096-427)
+ ● CyTOF Super Sampler (Victorian Airships)
+
+
+NATURE PROTOCOLS | VOL 16 | OCTOBER 2021 | 4897–4918 | www.nature.com/nprot 4907
+
+PROTOCOL NATURE PROTOCOLS
+
+ ●
+ Helios mass cytometer (Fluidigm)
+ ● Invitrogen Countess II automated cell counter (Thermo Fisher)
+
+ Equipment setup
+ gentleMACS Octo dissociator custom programs
+ For organoid single-cell dissociation, the two custom programs listed below were designed for the
+ gentleMACS Octo dissociator.
+
+ Standard protocol custom program.
+ ● Set heater temperature to 37 °C
+
+ ● Forward-spin at 20 rpm for 2 min
+
+ ● Backward-spin at 20 rpm for 2 min
+
+ ● Loop 15×:
+
+
+ ○ Forward-spin at 1,500 rpm for 2 s
+
+ ○ Backward-spin at 1,500 rpm for 2 s
+
+ ○ Forward-spin at 50 rpm for 3 min
+
+
+ Quick protocol custom program.
+ ● Set heater temperature to 37 °C
+ ● Forward-spin at 50 rpm for 1 min
+
+ ● Backward-spin at 50 rpm for 1 min
+
+ ● Loop 10×:
+
+
+ ○ Forward-spin at 1,500 rpm for 2 s
+
+ ○ Backward-spin at 1,500 rpm for 2 s
+
+ ○ Forward-spin at 100 rpm for 1 min
+
+
+ Helios mass cytometer
+ The Helios mass cytometer is maintained by procedures recommended by Fluidigm and tuned on
+ each day of MC experiments. The criteria for successful tuning are as follows:
+ ● Resolution (Mass1) is >400.
+
+ ● The Mean Duals for
+ 159
+ Tb are >600,000 (aim for >1,000,000 if possible).
+ ● The Dual Slopes are between 0.03 and ±0.003.
+
+ ● The R2 is >0.8.
+
+ ● If gas/current optimization was selected, the oxide ratio (M1/M2) displayed in gases should be <0.03.
+
+ ● The percent relative standard deviation values for Cs, La, Tb, Tm and Ir should be <3%.
+
+
+ For single-cell data acquisition, the Helios mass cytometer is operated at the ‘Event’ mode, with a ﬂow
+ rate of 30 µl/min. We recommend using the ‘Wide Bore Injector’ when possible to avoid sample blockage.
+
+ Software
+ ● Fluidigm CyTOF software (version 6.7) (https://www.ﬂuidigm.com/software)
+
+ ● Enterprise Cytobank (version 7.2.0) (https://cytobank.org)
+
+ ● Graphpad Prism (version 7.0) (https://www.graphpad.com)
+
+ ● CyGNAL (version 0.2.1)
+ 49
+ and its dependencies (https://github.com/TAPE-Lab/CyGNAL/releases/tag/
+ v0.2.1)
+ ○ Python >3.6 (https://www.python.org/) with libraries fcsparser, fcswrite, numpy, pandas, plotly, rpy2,
+
+
+ scprep, sklearn and umap-learn
+ ○ R >3.6 (https://www.r-project.org/) with libraries ComplexHeatmap, DT, factoextra, FactoMineR,
+
+
+ ﬂowCore, Ggally, ggrepel, ggplot2, Hmisc, MASS, matrixStats, plotly, psych, RColorBrewer, shiny and
+ tidyverse
+ ●
+ MATLAB (https://www.mathworks.com/products/matlab.html)
+ ●
+ Single Cell Debarcoder (https://github.com/zunderlab/single-cell-debarcoder)

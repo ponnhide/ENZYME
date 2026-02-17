@@ -1,0 +1,125 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Cell counting and volume calculation",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00880-1"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "cell suspension"
+      },
+      {
+        "id": "m2",
+        "name": "hemocytometer"
+      },
+      {
+        "id": "m3",
+        "name": "1.5 mL microcentrifuge tube"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "hemocytometer"
+      },
+      {
+        "id": "c2",
+        "name": "1.5 mL microcentrifuge tube"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "sm1",
+        "material": "m1",
+        "description": "cell suspension"
+      },
+      {
+        "id": "sm2",
+        "material": "m1",
+        "description": "aliquot for hemocytometer counting"
+      },
+      {
+        "id": "sm3",
+        "material": "m1",
+        "description": "aliquot for organoid preparation"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sm1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sm2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 10,
+            "unit": "µL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sm1"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Calculate the cell suspension volume required for 250,000 cells based on the measured cell concentration (e.g., ~5 × 10⁶ cells per well)."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sm1"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Dispense the calculated volume of cell suspension into individual 1.5 mL microcentrifuge tubes, one tube per organoid (prepare extra tubes for 45 organoids as recommended)."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

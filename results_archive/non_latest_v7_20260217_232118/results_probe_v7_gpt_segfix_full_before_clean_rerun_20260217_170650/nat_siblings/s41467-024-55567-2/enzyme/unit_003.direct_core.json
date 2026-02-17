@@ -1,0 +1,93 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Quantitative PCR (qPCR) of gene expression",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-024-55567-2.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "ChamQ Universal SYBR qPCR Master Mix (Vazyme)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "384-well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "thermocycler",
+        "name": "CFX384 Real-Time System (BioRad)"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_mix",
+        "origin": "allocated"
+      }
+    ],
+    "data": [
+      {
+        "id": "data_qpcr",
+        "type": "instrument_readout"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_mix"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "params": {
+          "device_kind": "thermocycler",
+          "program": {
+            "profile_name": "qPCR"
+          },
+          "device_ref": "e1"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_mix"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "data_qpcr"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,228 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Ventralization and LBO formation (days 6–10)",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00827-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Anteriorization medium-2",
+        "type": "medium"
+      },
+      {
+        "id": "m2",
+        "name": "ventralization medium/branching medium",
+        "type": "medium"
+      },
+      {
+        "id": "m3",
+        "name": "P1000 tip",
+        "type": "consumable"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "original plate",
+        "type": "multiwell_plate"
+      },
+      {
+        "id": "c2",
+        "name": "ultralow attachment plate",
+        "type": "six_well_ultralow_attachment_plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "normoxic incubator",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample1",
+        "name": "organoids",
+        "type": "organoid"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source_material_id": "m2",
+          "destination_container_id": "c1",
+          "amount": {
+            "volume": {
+              "value": 2,
+              "unit": "ml"
+            }
+          },
+          "description": "Replace Anteriorization medium-2 with ventralization medium/branching medium (2 ml per well) on day 6"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "normoxic"
+          },
+          "description": "Return the plates to a normoxic incubator"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source_material_id": "m2",
+          "destination_container_id": "c1",
+          "amount": {
+            "volume": {
+              "value": 2,
+              "unit": "ml"
+            }
+          },
+          "description": "On day 8, replace old ventralization medium/branching medium with fresh (2 ml per well)"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "target_sample_id": "sample1",
+          "tool_material_id": "m3",
+          "description": "Suspend the organoids by gently pipetting up and down with P1000 tips"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source_container_id": "c1",
+          "destination_container_id": "c2",
+          "sample_id": "sample1",
+          "amount": {
+            "count": {
+              "value": 1
+            }
+          },
+          "description": "Transfer the suspended organoids to six‑well ultralow‑attachment plates (one well to one well)"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "note": "Rock the plate with a side‑to‑side motion to ensure that cells are evenly distributed"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "normoxic"
+          },
+          "description": "Return the plate to a normoxic incubator"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "params": {
+          "source_material_id": "m2",
+          "destination_container_id": "c2",
+          "amount": {
+            "volume": {
+              "value": 2,
+              "unit": "ml"
+            }
+          },
+          "description": "On day 10, feed organoids: tilt plate, remove old medium without touching organoids, add 2 ml fresh ventralization medium/branching medium"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

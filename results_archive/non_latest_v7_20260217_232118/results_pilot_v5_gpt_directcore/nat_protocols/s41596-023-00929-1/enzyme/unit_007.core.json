@@ -1,0 +1,203 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "FACS",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00929-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "mat_dapi",
+        "type": "live_dead_stain"
+      },
+      {
+        "id": "mat_single_color_control",
+        "type": "control"
+      },
+      {
+        "id": "mat_unstained_control",
+        "type": "control"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "eq_facs",
+        "type": "flow_cytometer"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_cells",
+        "type": "cell_population"
+      }
+    ],
+    "data": [
+      {
+        "id": "data_fluorophore_signals",
+        "type": "fluorescence_data"
+      },
+      {
+        "id": "data_event_number",
+        "type": "event_number"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "params": {
+          "note": "Set laser levels for each fluorophore using unstained and single‑color controls."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "fluorophore_signal"
+          ]
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "params": {
+          "note": "Compensation performed by the machine based on recorded single‑color controls."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "params": {
+          "note": "Draw gates to eliminate debris using side scatter (SSC) and forward scatter (FSC)."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "note": "Eliminate doublets using SSC/FSC gating."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Eliminate dead cells using DAPI live/dead stain."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "note": "Set up FACS plots to select populations of interest (e.g., CD45−CD31+ANPEP− endothelial cells)."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "note": "Optional: run additional controls such as fluorescence‑minus‑one (FMO) and unstained controls."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "params": {
+          "note": "Perform cell sorting using a 100 µm nozzle on the flow cytometer."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "event_number"
+          ]
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s11",
+        "op": "annotate",
+        "params": {
+          "note": "Translate the event number readout into a true cell number (efficiency calculation)."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      }
+    ],
+    "detail_level": 0
+  }
+}

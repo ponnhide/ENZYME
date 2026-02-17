@@ -1,0 +1,167 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Single‑cell dissociation",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00603-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "dispase_ii",
+        "name": "dispase II"
+      },
+      {
+        "id": "collagenase_iv",
+        "name": "collagenase IV"
+      },
+      {
+        "id": "dnase_i",
+        "name": "DNase I"
+      },
+      {
+        "id": "pbs",
+        "name": "PBS"
+      },
+      {
+        "id": "dissociation_solution",
+        "name": "Dissociation solution (0.5 mg/ml dispase II, 0.2 mg/ml collagenase IV, 0.2 mg/ml DNase I in PBS)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "well_plate",
+        "type": "well_plate",
+        "name": "culture wells"
+      },
+      {
+        "id": "c_tube",
+        "type": "tube",
+        "name": "gentleMACS C‑Tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "gentlemacs_octodissociator",
+        "type": "dissociator",
+        "name": "gentleMACS Octo dissociator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "dissociation_solution",
+        "name": "dissociation_solution"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material",
+          "description": "Dissociation solution of 0.5 mg/ml dispase II, 0.2 mg/ml collagenase IV, 0.2 mg/ml DNase I in PBS at room temperature"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "dissociation_solution"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "well_plate",
+          "destination": "waste",
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          },
+          "note": "Remove PBS from wells by pipetting"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "dissociation_solution",
+          "destination": "well_plate",
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          },
+          "note": "Add dissociation solution to wells"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "well_plate",
+          "destination": "c_tube",
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          },
+          "note": "Scrape Matrigel droplets and pool all cells with dissociation solution into C‑Tube"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "note": "Top up the dissociation solution to 5 ml per C‑Tube"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Dissociate organoids into single cells using gentleMACS Octo dissociator with the ‘Standard protocol’ (≈50 min)"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

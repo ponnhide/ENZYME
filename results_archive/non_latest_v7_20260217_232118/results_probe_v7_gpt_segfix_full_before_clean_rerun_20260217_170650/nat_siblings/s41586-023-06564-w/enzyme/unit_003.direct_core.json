@@ -1,0 +1,254 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Prepare cells with sgRNAs for nucleofection",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-023-06564-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_sgRNA",
+        "description": "sgRNAs"
+      },
+      {
+        "id": "m_Cas9",
+        "description": "SpCas9 2NLS Nuclease (1,000 pmol) from Synthego"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_tube",
+        "type": "microcentrifuge_tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e_nucleofector",
+        "type": "dna_delivery_device",
+        "description": "Nucleofection device"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_cells",
+        "description": "0.5 million cells"
+      },
+      {
+        "id": "s_mix",
+        "description": "Cell/sgRNA/Cas9 mixture"
+      },
+      {
+        "id": "s_nucleofected",
+        "description": "Nucleofected cells"
+      }
+    ],
+    "data": [
+      {
+        "id": "d_flow_cytometry",
+        "description": "Flow cytometry data"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "description": "0.5 million cells"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material",
+          "description": "sgRNAs (300 pmol)"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "m_sgRNA"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material",
+          "description": "SpCas9 2NLS Nuclease (1,000 pmol) from Synthego"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "m_Cas9"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "type": "microcentrifuge_tube"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c_tube"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "s_cells",
+          "destination": "c_tube",
+          "amount": {
+            "value": 0.5,
+            "unit": "million cells"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": "m_sgRNA",
+          "destination": "c_tube",
+          "amount": {
+            "value": 300,
+            "unit": "pmol"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "source": "m_Cas9",
+          "destination": "c_tube",
+          "amount": {
+            "value": 1000,
+            "unit": "pmol"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "target": "c_tube"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_mix"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "device_ref": "e_nucleofector",
+          "program": {
+            "program_name": "nucleofection"
+          },
+          "input": "c_tube"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_nucleofected"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s10",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "flow_cytometry"
+          ],
+          "sample": "s_nucleofected"
+        },
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d_flow_cytometry"
+          }
+        ],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      }
+    ],
+    "detail_level": 0
+  }
+}

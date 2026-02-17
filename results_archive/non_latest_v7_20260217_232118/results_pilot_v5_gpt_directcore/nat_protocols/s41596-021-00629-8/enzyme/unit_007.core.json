@@ -1,0 +1,155 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Change medium daily after 2 days",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00629-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "E8 medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "culture_plate",
+        "name": "cell culture plate"
+      },
+      {
+        "id": "c2",
+        "type": "waste_container",
+        "name": "waste container"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "samp1",
+        "name": "human iPSC cells",
+        "type": "cell_culture"
+      },
+      {
+        "id": "sample_cells",
+        "name": "sample_cells"
+      },
+      {
+        "id": "c1",
+        "name": "c1"
+      },
+      {
+        "id": "c1_after_aspiration",
+        "name": "c1_after_aspiration"
+      },
+      {
+        "id": "m1",
+        "name": "m1"
+      },
+      {
+        "id": "c1_filled",
+        "name": "c1_filled"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_cells"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "amount": {
+            "value": 5.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_cells"
+          },
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1_after_aspiration"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "amount": {
+            "value": 5.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "m1"
+          },
+          {
+            "kind": "sample",
+            "id": "c1_after_aspiration"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1_filled"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "params": {
+          "note": "Change medium daily after 2 days by aspirating the existing medium and adding 5 mL of fresh E8 until cells become confluent."
+        },
+        "outputs": [],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

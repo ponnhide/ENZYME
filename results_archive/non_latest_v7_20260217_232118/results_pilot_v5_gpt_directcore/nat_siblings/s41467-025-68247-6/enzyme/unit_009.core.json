@@ -1,0 +1,207 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "FITC‑dextran permeability assay",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "FITC-Dextran",
+        "source": "MedChemExpress"
+      },
+      {
+        "id": "m2",
+        "name": "PBS"
+      },
+      {
+        "id": "m3",
+        "name": "Organoid growth media"
+      },
+      {
+        "id": "m4",
+        "name": "Y-27632"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "microcentrifuge_tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_fixt",
+        "name": "FITC-Dextran stock"
+      },
+      {
+        "id": "s_pbs",
+        "name": "PBS"
+      },
+      {
+        "id": "s_diluted",
+        "name": "FITC-Dextran diluted solution (2 mg/mL)"
+      },
+      {
+        "id": "s_media",
+        "name": "Organoid growth media with 10 µM Y-27632"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_fixt"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_pbs"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "description": "Dilute FITC-Dextran to 2 mg/mL in PBS"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_fixt"
+          },
+          {
+            "kind": "sample",
+            "id": "s_pbs"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_diluted"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "incubate_30min_37C_5CO2"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_diluted"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_diluted"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_media"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "description": "Add organoid growth media with 10 µM Y-27632 to diluted FITC-Dextran solution",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_media"
+          },
+          {
+            "kind": "sample",
+            "id": "s_diluted"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_diluted"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

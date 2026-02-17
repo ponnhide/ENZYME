@@ -1,0 +1,146 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Organoid passage: dissociation and re‑embedding",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-024-55567-2.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "TrypLE (Gibco)",
+        "type": "reagent"
+      },
+      {
+        "id": "m2",
+        "name": "BME",
+        "type": "reagent"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "48-well_plate",
+        "name": "48-well plate"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s_org1",
+        "type": "organoid",
+        "description": "Established organoids"
+      },
+      {
+        "id": "sample1",
+        "type": "sample",
+        "name": "sample1"
+      },
+      {
+        "id": "m1",
+        "name": "m1"
+      },
+      {
+        "id": "m2",
+        "name": "m2"
+      },
+      {
+        "id": "c1",
+        "name": "c1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source_ref": "m1",
+          "destination_ref": "s_org1",
+          "note": "Add TrypLE to organoids for dissociation",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "m1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_org1"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "sample_ref": "s_org1",
+          "note": "Incubate to dissociate organoids into single cells"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_org1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source_ref": "m2",
+          "destination_ref": "c1",
+          "cell_density": "8000 cells per well",
+          "note": "Re‑embed dissociated cells in fresh BME within 48‑well plate",
+          "amount": {
+            "value": 20.0,
+            "unit": "μL"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

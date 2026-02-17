@@ -1,0 +1,686 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Mass cytometry data acquisition",
+    "source": {
+      "type": "paper",
+      "id": "s41596-021-00603-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "cells",
+        "name": "cells"
+      },
+      {
+        "id": "edta_csb",
+        "name": "2 mM EDTA/CSB"
+      },
+      {
+        "id": "csb",
+        "name": "CSB"
+      },
+      {
+        "id": "maxpar_water",
+        "name": "MaxPar water"
+      },
+      {
+        "id": "eq_beads",
+        "name": "EQ beads"
+      },
+      {
+        "id": "edta",
+        "name": "EDTA"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube",
+        "name": "centrifuge tube"
+      },
+      {
+        "id": "strainer_35",
+        "name": "35‑µm cell strainer"
+      },
+      {
+        "id": "strainer_70",
+        "name": "70‑µm cell strainer"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "helios",
+        "name": "Helios mass cytometer"
+      },
+      {
+        "id": "centrifuge",
+        "name": "centrifuge"
+      },
+      {
+        "id": "countess",
+        "name": "Countess II automated cell counter"
+      },
+      {
+        "id": "super_sampler",
+        "name": "Super Sampler (Victorian Airships)"
+      },
+      {
+        "id": "cytof_software",
+        "name": "Fluidigm CyTOF software"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cells",
+        "name": "cells"
+      },
+      {
+        "id": "cells_pellet_1",
+        "name": "cells_pellet_1"
+      },
+      {
+        "id": "cells_after_discard_1",
+        "name": "cells_after_discard_1"
+      },
+      {
+        "id": "cells_wash1",
+        "name": "cells_wash1"
+      },
+      {
+        "id": "cells_pellet_2",
+        "name": "cells_pellet_2"
+      },
+      {
+        "id": "cells_after_discard_2",
+        "name": "cells_after_discard_2"
+      },
+      {
+        "id": "cells_wash2",
+        "name": "cells_wash2"
+      },
+      {
+        "id": "cells_pellet_3",
+        "name": "cells_pellet_3"
+      },
+      {
+        "id": "cells_after_discard_3",
+        "name": "cells_after_discard_3"
+      },
+      {
+        "id": "cells_wash3",
+        "name": "cells_wash3"
+      },
+      {
+        "id": "cells_pellet_4",
+        "name": "cells_pellet_4"
+      },
+      {
+        "id": "cells_after_discard_4",
+        "name": "cells_after_discard_4"
+      },
+      {
+        "id": "cells_resuspended",
+        "name": "cells_resuspended"
+      },
+      {
+        "id": "cells_filtered",
+        "name": "cells_filtered"
+      },
+      {
+        "id": "cells_counted",
+        "name": "cells_counted"
+      },
+      {
+        "id": "cells_diluted",
+        "name": "cells_diluted"
+      },
+      {
+        "id": "cells_with_eq_beads",
+        "name": "cells_with_eq_beads"
+      },
+      {
+        "id": "cells_final",
+        "name": "cells_final"
+      },
+      {
+        "id": "cells_ready_for_acquisition",
+        "name": "cells_ready_for_acquisition"
+      },
+      {
+        "id": "acquired_data",
+        "name": "acquired_data"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Tune the Helios mass cytometer (see Equipment setup)."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "centrifuge",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_pellet_1"
+          }
+        ],
+        "params": {
+          "speed": "800g",
+          "duration": "5 min",
+          "temperature": "room temperature"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_pellet_1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_after_discard_1"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Discard the supernatant."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_after_discard_1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_wash1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 2,
+            "unit": "ml"
+          },
+          "material_ref": "edta_csb"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "centrifuge",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_wash1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_pellet_2"
+          }
+        ],
+        "params": {
+          "speed": "800g",
+          "duration": "5 min",
+          "temperature": "room temperature"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_pellet_2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_after_discard_2"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Discard the supernatant."
+        }
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_after_discard_2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_wash2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 2,
+            "unit": "ml"
+          },
+          "material_ref": "csb"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s8",
+        "op": "centrifuge",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_wash2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_pellet_3"
+          }
+        ],
+        "params": {
+          "speed": "800g",
+          "duration": "5 min",
+          "temperature": "room temperature"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_pellet_3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_after_discard_3"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Discard the supernatant."
+        }
+      },
+      {
+        "id": "s10",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_after_discard_3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_wash3"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 2,
+            "unit": "ml"
+          },
+          "material_ref": "maxpar_water"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s11",
+        "op": "centrifuge",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_wash3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_pellet_4"
+          }
+        ],
+        "params": {
+          "speed": "800g",
+          "duration": "5 min",
+          "temperature": "room temperature"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s12",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_pellet_4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_after_discard_4"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Discard the supernatant."
+        }
+      },
+      {
+        "id": "s13",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_after_discard_4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_resuspended"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend",
+          "volume": {
+            "value": 1,
+            "unit": "ml"
+          },
+          "material_ref": "maxpar_water"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s14",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_resuspended"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_filtered"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Filter through a 35‑µm cell strainer (70 µm when the culture contains fibroblasts)."
+        }
+      },
+      {
+        "id": "s15",
+        "op": "measure",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_filtered"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_counted"
+          }
+        ],
+        "params": {
+          "device_kind": "cell_counter",
+          "instrument": "Countess II",
+          "modality": "instrument_readout",
+          "features": [
+            "cell_count"
+          ]
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s16",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_counted"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_diluted"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Dilute cells to ~0.8–1.2 × 10^6/ml in MaxPar water."
+        }
+      },
+      {
+        "id": "s17",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_diluted"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_with_eq_beads"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Add EQ beads at a 1:5 ratio to the diluted cells."
+        }
+      },
+      {
+        "id": "s18",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_with_eq_beads"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_final"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Add EDTA to reach a final concentration of 2 mM."
+        }
+      },
+      {
+        "id": "s19",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_final"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_ready_for_acquisition"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Set up the ‘Super Sampler’ (Victorian Airships) and acquisition parameters on the Helios mass cytometer."
+        }
+      },
+      {
+        "id": "s20",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_ready_for_acquisition"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "acquired_data"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Acquire events on the Helios mass cytometer using Fluidigm CyTOF software; aim for 100–400 events/s."
+        }
+      },
+      {
+        "id": "s21",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "acquired_data"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "fcs_files"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Process raw data with Fluidigm CyTOF software (signal normalization, removal of EQ beads, concatenation if needed) and export as FCS file(s)."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      },
+      {
+        "from": "s16",
+        "to": "s17"
+      },
+      {
+        "from": "s17",
+        "to": "s18"
+      },
+      {
+        "from": "s18",
+        "to": "s19"
+      },
+      {
+        "from": "s19",
+        "to": "s20"
+      },
+      {
+        "from": "s20",
+        "to": "s21"
+      }
+    ],
+    "detail_level": 0
+  }
+}

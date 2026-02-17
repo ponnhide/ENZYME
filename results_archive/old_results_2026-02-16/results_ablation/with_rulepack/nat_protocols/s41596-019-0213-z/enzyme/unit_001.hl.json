@@ -1,0 +1,112 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Aggregate formation",
+    "source": {
+      "type": "paper",
+      "id": "s41596-019-0213-z.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "cell_suspension_material",
+        "name": "cell suspension"
+      }
+    ],
+    "containers": [
+      {
+        "id": "low_attach_plate",
+        "name": "6-well low-attachment plate",
+        "type": "plate",
+        "well_count": 6,
+        "attachment": "low"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "name": "incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cell_suspension",
+        "derived_from": "cell_suspension_material"
+      },
+      {
+        "id": "well_content",
+        "derived_from": "cell_suspension"
+      },
+      {
+        "id": "cell_aggregates",
+        "derived_from": "well_content"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "well_content"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 3,
+            "unit": "mL"
+          },
+          "target_container": "low_attach_plate"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "well_content"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_aggregates"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 1,
+            "unit": "d"
+          },
+          "device_kind": "incubator"
+        },
+        "annotations": {
+          "note": "until cell aggregates with smooth borders (>50- to 100-µm diameter) have been formed (Fig. 2b)"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

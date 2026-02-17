@@ -1,0 +1,302 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Cortical organoid differentiation setup",
+    "source": {
+      "type": "paper",
+      "id": "s41586-021-03209-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "cuttag_wash_buffer",
+        "name": "CUT&Tag wash buffer (20 mM HEPES pH 7.5, 150 mM NaCl, 0.5 mM spermidine, 1× protease inhibitor cocktail (Roche))"
+      },
+      {
+        "id": "dig_wash_buffer",
+        "name": "dig‑wash buffer"
+      },
+      {
+        "id": "edta_solution",
+        "name": "EDTA solution (2 mM final concentration)"
+      },
+      {
+        "id": "h3k27ac_antibody",
+        "name": "H3K27ac primary antibody (Cell Signaling 8173), 1:50 dilution"
+      },
+      {
+        "id": "dmem_f12_medium",
+        "name": "DMEM/F12‑based medium containing 1× glutamax, 1× N2, 1× B27 without vitamin A and 1× antibiotic–antimycotic"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube1",
+        "type": "microcentrifuge tube"
+      },
+      {
+        "id": "tube2",
+        "type": "microcentrifuge tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator_shaker",
+        "device_kind": "incubator",
+        "name": "overhead rotary shaker incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cell_aliquot",
+        "description": "50 000 dissociated cortical cells"
+      },
+      {
+        "id": "cell_suspension",
+        "description": "Cells reconstituted in CUT&Tag wash buffer"
+      },
+      {
+        "id": "nuclei_resusp1",
+        "description": "Nuclei resuspended in 200 μl dig‑wash buffer"
+      },
+      {
+        "id": "nuclei_resusp2",
+        "description": "Nuclei resuspended in 100 μl dig‑wash buffer"
+      },
+      {
+        "id": "nuclei_resusp3",
+        "description": "Nuclei in dig‑wash buffer with EDTA and H3K27ac antibody"
+      },
+      {
+        "id": "nuclei_incubated",
+        "description": "Nuclei after overnight incubation at 4 °C, 90 rpm"
+      },
+      {
+        "id": "final_culture",
+        "description": "Cells transferred to DMEM/F12‑based medium"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_aliquot"
+          }
+        ],
+        "params": {
+          "quantity": {
+            "value": 50000,
+            "unit": "cells"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_aliquot"
+          },
+          {
+            "kind": "material",
+            "id": "cuttag_wash_buffer"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 200,
+            "unit": "μl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension"
+          },
+          {
+            "kind": "material",
+            "id": "dig_wash_buffer"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "nuclei_resusp1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 200,
+            "unit": "μl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Wash twice in 200 μl dig‑wash buffer (details of removal not specified)."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "nuclei_resusp1"
+          },
+          {
+            "kind": "material",
+            "id": "dig_wash_buffer"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "nuclei_resusp2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 100,
+            "unit": "μl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "nuclei_resusp2"
+          },
+          {
+            "kind": "material",
+            "id": "edta_solution"
+          },
+          {
+            "kind": "material",
+            "id": "h3k27ac_antibody"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "nuclei_resusp3"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "nuclei_resusp3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "nuclei_incubated"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator_shaker",
+          "program": "Overnight incubation at 4 °C on overhead rotary shaker rotating at 90 rpm"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "nuclei_incubated"
+          },
+          {
+            "kind": "material",
+            "id": "dmem_f12_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "final_culture"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Medium change to DMEM/F12‑based medium containing 1× glutamax, 1× N2, 1× B27 without vitamin A and 1× antibiotic–antimycotic (volume not specified)."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

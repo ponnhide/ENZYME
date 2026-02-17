@@ -1,0 +1,222 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Dissociation and digestion",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00929-1"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "HBSS/BSA/glucose solution"
+      },
+      {
+        "id": "m2",
+        "name": "DNase (10 mg/mL)"
+      },
+      {
+        "id": "m3",
+        "name": "human brain tissue"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "60 mm cell culture dish"
+      },
+      {
+        "id": "c2",
+        "name": "microcentrifuge tube for DNase"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "rotating oven"
+      },
+      {
+        "id": "e2",
+        "name": "scalpel"
+      }
+    ],
+    "samples": [
+      {
+        "id": "dish1",
+        "material_id": "m1",
+        "container_id": "c1"
+      },
+      {
+        "id": "dnase1",
+        "material_id": "m2",
+        "container_id": "c2"
+      },
+      {
+        "id": "tissue1",
+        "material_id": "m3"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "description": "Turn on rotating oven and allow it to heat up to 37 °C while preparing the sample."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "dish1"
+          }
+        ],
+        "params": {
+          "container_ref": "c1",
+          "material_ref": "m1",
+          "amount": {
+            "value": 7,
+            "unit": "mL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "dnase1"
+          }
+        ],
+        "params": {
+          "container_ref": "c2",
+          "material_ref": "m2"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "dnase1"
+          },
+          {
+            "kind": "sample",
+            "id": "dish1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "dish1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 150,
+            "unit": "µL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tissue1"
+          }
+        ],
+        "params": {
+          "material_ref": "m3",
+          "amount": {
+            "value": 250,
+            "unit": "mg"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tissue1"
+          },
+          {
+            "kind": "sample",
+            "id": "dish1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "dish1"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "Transfer tissue to the dish (amount not specified in source)."
+        }
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "description": "Using a scalpel, cut the tissue in the dish into ~2 mm × 2 mm chunks in a sterile environment."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

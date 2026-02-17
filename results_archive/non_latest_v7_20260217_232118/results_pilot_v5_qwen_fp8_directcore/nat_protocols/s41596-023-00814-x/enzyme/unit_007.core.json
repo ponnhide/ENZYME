@@ -1,0 +1,503 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Procedure",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00814-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "PBS",
+        "type": "buffer"
+      },
+      {
+        "id": "m2",
+        "name": "Tri-Reagent",
+        "type": "reagent"
+      },
+      {
+        "id": "m3",
+        "name": "Glutaraldehyde solution",
+        "type": "reagent"
+      },
+      {
+        "id": "m4",
+        "name": "Osmium tetroxide solution",
+        "type": "reagent"
+      },
+      {
+        "id": "m5",
+        "name": "Propylene oxide",
+        "type": "reagent"
+      },
+      {
+        "id": "m6",
+        "name": "Epoxy systems Araldit G 2 cast resin",
+        "type": "reagent"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "1.5 ml tube"
+      },
+      {
+        "id": "c2",
+        "type": "micropipette tip"
+      },
+      {
+        "id": "c3",
+        "type": "micropipette tip"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "vortex mixer"
+      },
+      {
+        "id": "e2",
+        "type": "centrifuge"
+      },
+      {
+        "id": "e3",
+        "type": "thermocycler"
+      },
+      {
+        "id": "e4",
+        "type": "ice bath"
+      },
+      {
+        "id": "e5",
+        "type": "dry ice"
+      },
+      {
+        "id": "e6",
+        "type": "-80 °C freezer"
+      },
+      {
+        "id": "e7",
+        "type": "HiSeq4000"
+      },
+      {
+        "id": "e8",
+        "type": "sequencing analysis workstation"
+      }
+    ],
+    "samples": [
+      {
+        "id": "smp1",
+        "name": "OVB organoids",
+        "type": "organoid"
+      },
+      {
+        "id": "c1",
+        "name": "c1"
+      },
+      {
+        "id": "d1",
+        "name": "d1"
+      },
+      {
+        "id": "d2",
+        "name": "d2"
+      },
+      {
+        "id": "d3",
+        "name": "d3"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "name": "RNA sequencing data",
+        "type": "sequence_read"
+      },
+      {
+        "id": "d2",
+        "name": "Differential gene expression results",
+        "type": "gene_expression_matrix"
+      },
+      {
+        "id": "d3",
+        "name": "Clustering and GO enrichment results",
+        "type": "enrichment_analysis"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "action_kind": "transfer",
+          "source": "smp1",
+          "destination": "c1",
+          "tool": "cut 1,000 µl micropipette tip",
+          "amount": {
+            "value": 3,
+            "unit": "organoids"
+          }
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "action_kind": "aspirate",
+          "source": "c1",
+          "tool": "200 µl micropipette tip",
+          "amount": {
+            "value": 1,
+            "unit": "carried-over medium"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "action_kind": "wash",
+          "source": "c1",
+          "reagent": "m1",
+          "tool": "200 µl micropipette tip",
+          "amount": {
+            "value": 1,
+            "unit": "cold PBS"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "action_kind": "add",
+          "destination": "c1",
+          "reagent": "m2",
+          "amount": {
+            "value": 300.0,
+            "unit": "µl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "container": "c1",
+          "duration": "5 s",
+          "cycles": 3
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "RT_5min"
+          },
+          "device_ref": "e2"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "container": "c1",
+          "duration": "5 s",
+          "cycles": 3
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "ice_10min"
+          },
+          "device_ref": "e4"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "container": "c1",
+          "duration": "5 s",
+          "cycles": 3
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "ice_10min"
+          },
+          "device_ref": "e4"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "snap_freeze_on_dry_ice"
+          },
+          "device_ref": "e5"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "thaw_at_RT"
+          },
+          "device_ref": "e2"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s13",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "container": "c1",
+          "duration": "5 s",
+          "cycles": 1
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s14",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "container": "c1",
+          "tool": "200 µl micropipette tip"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s15",
+        "op": "annotate",
+        "params": {
+          "note": "Perform phenol/chloroform extraction to separate nucleic acids from lipids and proteins. Extract RNA with a commercially available RNA extraction kit."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s16",
+        "op": "annotate",
+        "params": {
+          "note": "Use 2 µg of total RNA to subselect poly(A)+ transcripts and generate strand-specific cDNA libraries."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s17",
+        "op": "run_device",
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": {
+            "program_name": "HiSeq4000_sequencing"
+          },
+          "device_ref": "e7"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s18",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "sequencing_quality",
+            "read_mapping"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d2"
+          }
+        ]
+      },
+      {
+        "id": "s19",
+        "op": "annotate",
+        "params": {
+          "note": "Normalize raw read counts with the RUVSeq package in R to remove unwanted variation based on replicate samples (RUVs)."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s20",
+        "op": "annotate",
+        "params": {
+          "note": "Analyze changes in differential gene expression (DGE) with the DESeq2 package. The list of 3,923 significantly DGE genes (log2FC ±1.5 and padj ≤0.05 cutoff) is subjected to affinity propagation clustering based on similarity matrix, with the APcluster package."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s21",
+        "op": "annotate",
+        "params": {
+          "note": "Generate a dendrogram with clusters, cutoff and superclusters, and use these for Gene Ontology term search analysis with clusterProfiler. Classify significant DGE genes in superclusters and subject them to gene set enrichment analysis with GSEA (v3.0) using C5 collection of Gene Ontology gene sets from the Molecular Signatures Database."
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d3"
+          }
+        ],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      },
+      {
+        "from": "s16",
+        "to": "s17"
+      },
+      {
+        "from": "s17",
+        "to": "s18"
+      },
+      {
+        "from": "s18",
+        "to": "s19"
+      },
+      {
+        "from": "s19",
+        "to": "s20"
+      },
+      {
+        "from": "s20",
+        "to": "s21"
+      }
+    ],
+    "detail_level": 0
+  }
+}

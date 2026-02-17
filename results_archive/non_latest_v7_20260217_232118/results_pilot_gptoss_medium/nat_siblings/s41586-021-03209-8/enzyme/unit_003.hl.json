@@ -1,0 +1,129 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Bulk ATAC‑seq library preparation and sequencing",
+    "source": {
+      "type": "paper",
+      "id": "s41586-021-03209-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "nuclei"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "Illumina NovaSeq"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "name": "nuclei_sample",
+        "material_ref": "m1",
+        "container_ref": "c1"
+      },
+      {
+        "id": "samp2",
+        "name": "library_sample",
+        "container_ref": "c1"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "name": "sequencing_data"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 50000,
+            "unit": "count"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "note": "permeabilize and tagment nuclei"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d1"
+          }
+        ],
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": "Illumina NovaSeq"
+        },
+        "annotations": {
+          "target_sequencing_depth": "50 million reads per library"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

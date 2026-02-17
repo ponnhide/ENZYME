@@ -1,0 +1,434 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Cell transplantation",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00929-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Mural and/or endothelial cells (sorted)"
+      },
+      {
+        "id": "m2",
+        "name": "AAV–CMV–GFP (stock, 1 × 10^13 GF/mL)"
+      },
+      {
+        "id": "m3",
+        "name": "1× PBS"
+      },
+      {
+        "id": "m4",
+        "name": "Cell culture medium"
+      },
+      {
+        "id": "m5",
+        "name": "Millicell culture inserts"
+      },
+      {
+        "id": "m6",
+        "name": "6-well flat‑bottom plate"
+      },
+      {
+        "id": "m7",
+        "name": "Wide‑opening pipette tip"
+      },
+      {
+        "id": "m8",
+        "name": "P1000 pipette"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "Well of 6‑well plate"
+      },
+      {
+        "id": "c2",
+        "name": "Transwell insert"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "Incubator",
+        "device_kind": "incubator"
+      },
+      {
+        "id": "e2",
+        "name": "Centrifuge",
+        "device_kind": "centrifuge"
+      },
+      {
+        "id": "e3",
+        "name": "P1000 pipette",
+        "device_kind": "manual_pipette"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "name": "sorted_cells"
+      },
+      {
+        "id": "samp2",
+        "name": "infected_cells"
+      },
+      {
+        "id": "samp3",
+        "name": "mixed_cells"
+      },
+      {
+        "id": "samp4",
+        "name": "incubated_cells"
+      },
+      {
+        "id": "samp5",
+        "name": "washed_cells"
+      },
+      {
+        "id": "samp6",
+        "name": "selected_organoids"
+      },
+      {
+        "id": "samp7",
+        "name": "organoids_on_insert"
+      },
+      {
+        "id": "samp8",
+        "name": "organoids_with_cells"
+      },
+      {
+        "id": "samp9",
+        "name": "organoid_floated"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "µL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp3"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp4"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "temperature": {
+            "value": 37,
+            "unit": "°C"
+          },
+          "duration": {
+            "value": 30,
+            "unit": "min"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp5"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Wash cells three times with 1× PBS, each time spin down at 300 g for 5 min at 4 °C."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp6"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Select organoids for transplantation (spherical shape, clear edges, no debris)."
+        }
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp6"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp7"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Transfer 3-6 organoids per condition using a wide‑opening pipette tip."
+        }
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp7"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp7"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Gently remove as much medium surrounding the organoids using a P1000 pipette."
+        }
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp4"
+          },
+          {
+            "kind": "sample",
+            "id": "samp7"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp8"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Add desired amount of cells to organoids gently on top of organoids."
+        }
+      },
+      {
+        "id": "s10",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp8"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp8"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "temperature": {
+            "value": 37,
+            "unit": "°C"
+          },
+          "duration": {
+            "value": 30,
+            "unit": "min"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s11",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m4"
+          },
+          {
+            "kind": "sample",
+            "id": "samp8"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp9"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 3,
+            "unit": "mL"
+          },
+          "method": "gentle addition until organoid floats off insert"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s12",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp9"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp9"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "temperature": {
+            "value": 37,
+            "unit": "°C"
+          }
+        },
+        "annotations": {
+          "note": "Maintain organoids in a 37 °C incubator; transwell can be removed the day after transplantation."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      }
+    ],
+    "detail_level": 0
+  }
+}

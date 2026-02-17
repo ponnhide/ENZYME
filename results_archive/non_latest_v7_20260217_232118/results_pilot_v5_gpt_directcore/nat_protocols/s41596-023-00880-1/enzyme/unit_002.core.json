@@ -1,0 +1,178 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Detach cells with TrypLE Select",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00880-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "cdbly2_medium",
+        "name": "CDBLY2 medium"
+      },
+      {
+        "id": "trypLE_select",
+        "name": "TrypLE Select"
+      },
+      {
+        "id": "e6_medium",
+        "name": "E6 medium"
+      },
+      {
+        "id": "fbs",
+        "name": "FBS"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate12",
+        "type": "12-well plate"
+      },
+      {
+        "id": "tube15ml",
+        "type": "15 mL conical tube"
+      },
+      {
+        "id": "waste",
+        "type": "waste container"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator1",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "hpsc_cells",
+        "description": "differentiated hPSC cells in plate12"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "params": {
+          "note": "Aspirate the CDBLY2 medium from each well of differentiated hPSC."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "params": {
+          "note": "Wash with 1 mL room temperature TrypLE Select per well, then aspirate and replace with a fresh 1 mL of TrypLE Select."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator1",
+          "program": {
+            "program_name": "37C_3min"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "While the cells are incubating, place 1 mL room temperature E6 containing 2 % FBS into a 15 mL conical tube (one tube for every three or four wells of a 12‑well plate)."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "source": "e6_medium",
+          "additive": "fbs",
+          "destination": "tube15ml",
+          "amount": {
+            "value": 1.0,
+            "unit": "mL"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s8",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "target": "hpsc_cells",
+          "details": "Pipette up and down a maximum of six times using a P1000 pipette to detach cells and obtain a single‑cell suspension."
+        },
+        "outputs": [],
+        "inputs": []
+      }
+    ],
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

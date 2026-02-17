@@ -1,0 +1,201 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "DNase I digestion on column",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00827-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "DNase I (6 U/μl)"
+      },
+      {
+        "id": "m2",
+        "name": "DNA Digestion Buffer"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "RNase-free tube"
+      },
+      {
+        "id": "c2",
+        "name": "Column matrix"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "Incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "smp1",
+        "name": "Reaction tube"
+      },
+      {
+        "id": "smp2",
+        "name": "Column"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 5,
+            "unit": "μl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 35,
+            "unit": "μl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp2"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Add the mix directly to the column matrix"
+        }
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp2"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "room temperature 15 min"
+        },
+        "annotations": {
+          "temperature": "20–30 °C",
+          "duration": "15 min"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

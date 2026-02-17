@@ -1,0 +1,323 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Embedding organoids in Matrigel droplets",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01197-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "type": "pipette_tip",
+        "name": "P200 pipette tips"
+      },
+      {
+        "id": "m2",
+        "type": "gel",
+        "name": "Matrigel (MG)"
+      },
+      {
+        "id": "m3",
+        "type": "ethanol_solution",
+        "name": "70% ethanol"
+      },
+      {
+        "id": "m4",
+        "type": "culture_medium",
+        "name": "organoid propagation medium (without FGF2 and EGF)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "tip_box",
+        "name": "Box of P200 pipette tips"
+      },
+      {
+        "id": "c2",
+        "type": "film",
+        "name": "Parafilm square with dimples"
+      },
+      {
+        "id": "c3",
+        "type": "tip_holder",
+        "name": "P200 pipette tip holder"
+      },
+      {
+        "id": "c4",
+        "type": "petri_dish_lid",
+        "name": "Sterile 10 cm Petri dish lid"
+      },
+      {
+        "id": "c5",
+        "type": "petri_dish",
+        "name": "10 cm Petri dish with organoid propagation medium"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "freezer",
+        "name": "-20 °C freezer"
+      },
+      {
+        "id": "e2",
+        "type": "incubator",
+        "name": "37 °C incubator"
+      },
+      {
+        "id": "e3",
+        "type": "stereoscope",
+        "name": "Stereoscope"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_mg",
+        "type": "sample",
+        "name": "Thawed Matrigel aliquot"
+      },
+      {
+        "id": "s_organoid",
+        "type": "sample",
+        "name": "Individual organoid"
+      },
+      {
+        "id": "s_organoid_in_dimple",
+        "name": "s_organoid_in_dimple"
+      },
+      {
+        "id": "s_mg_in_tip",
+        "name": "s_mg_in_tip"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "params": {
+          "note": "Place a box of P200 pipette tips in a -20 °C freezer for at least 15 min to cool them before use for embedding."
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_mg"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source_sample_id": "s_organoid",
+          "destination_container_id": "c2",
+          "tool": "P200 pipette tip",
+          "amount": {
+            "value": 30.0,
+            "unit": "μL"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid"
+          },
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_in_dimple"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source_material_id": "m2",
+          "destination_container_id": "c1",
+          "tool": "cold P200 tip",
+          "amount": {
+            "value": 30.0,
+            "unit": "μL"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_mg_in_tip"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source_container_id": "c1",
+          "destination_container_id": "c2",
+          "tool": "P200 tip",
+          "amount": {
+            "value": 30.0,
+            "unit": "μL"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          },
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e2",
+          "program": {
+            "program_name": "gelation_30min_37C"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c4"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "organoid_position"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "obs1"
+          }
+        ]
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "params": {
+          "source_container_id": "c5",
+          "destination_container_id": "c2",
+          "tool": "P1000 pipette",
+          "amount": {
+            "value": 1.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c5"
+          },
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": []
+      }
+    ],
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

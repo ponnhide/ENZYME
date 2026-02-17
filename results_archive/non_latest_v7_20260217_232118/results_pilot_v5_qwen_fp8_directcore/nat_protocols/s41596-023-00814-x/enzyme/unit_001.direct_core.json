@@ -1,0 +1,346 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Protocol",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00814-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [
+      {
+        "id": "neurosphere_culture_container",
+        "name": "neurosphere_culture_container",
+        "type": "generic_container"
+      },
+      {
+        "id": "spinner_flask",
+        "name": "spinner_flask",
+        "type": "generic_container"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "iPSC_sample",
+        "name": "iPSC_sample"
+      },
+      {
+        "id": "neurosphere_precursor",
+        "name": "neurosphere_precursor"
+      },
+      {
+        "id": "neurosphere_culture_container",
+        "name": "neurosphere_culture_container"
+      },
+      {
+        "id": "neurosphere_culture",
+        "name": "neurosphere_culture"
+      },
+      {
+        "id": "spinner_flask",
+        "name": "spinner_flask"
+      },
+      {
+        "id": "spinner_culture",
+        "name": "spinner_culture"
+      },
+      {
+        "id": "organoid_phenotype_data",
+        "name": "organoid_phenotype_data"
+      },
+      {
+        "id": "organoid_imaging_data",
+        "name": "organoid_imaging_data"
+      },
+      {
+        "id": "erg_response_data",
+        "name": "erg_response_data"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "iPSC_sample"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "iPSC_maintenance"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "iPSC_sample"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "iPSC_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "neurosphere_precursor"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "neurosphere_culture_container"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "amount": "unknown"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "neurosphere_precursor"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "neurosphere_culture"
+          }
+        ],
+        "sources": [
+          "neurosphere_precursor"
+        ],
+        "destinations": [
+          "neurosphere_culture_container"
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "neurosphere_patterning"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "neurosphere_culture"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "spinner_flask"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "params": {
+          "amount": "unknown"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "neurosphere_culture"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "spinner_culture"
+          }
+        ],
+        "sources": [
+          "neurosphere_culture"
+        ],
+        "destinations": [
+          "spinner_flask"
+        ]
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "OVB_organoid_development"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "spinner_culture"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "pigmented_dots"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "spinner_culture"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "organoid_phenotype_data"
+          }
+        ]
+      },
+      {
+        "id": "s11",
+        "op": "run_device",
+        "params": {
+          "device_kind": "imager",
+          "program": {
+            "program_name": "organoid_imaging"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "spinner_culture"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "organoid_imaging_data"
+          }
+        ]
+      },
+      {
+        "id": "s12",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "electrical_activity"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "spinner_culture"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "erg_response_data"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s9",
+        "to": "s11"
+      },
+      {
+        "from": "s9",
+        "to": "s12"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,162 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Organoid dissociation for screen",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01299-6"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "organoids"
+      },
+      {
+        "id": "m2",
+        "name": "enzyme solution with papain (10 U ml−1)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "six-well plate"
+      },
+      {
+        "id": "c2",
+        "name": "well of six-well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "CO2 incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_org",
+        "material_ref": "m1",
+        "description": "12 organoids"
+      },
+      {
+        "id": "s_enzyme",
+        "material_ref": "m2",
+        "description": "enzyme solution"
+      },
+      {
+        "id": "s_temp",
+        "container_ref": "c2",
+        "description": "well containing organoids"
+      },
+      {
+        "id": "s_combined",
+        "container_ref": "c2",
+        "description": "organoids with enzyme solution"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_org"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_temp"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 12,
+            "unit": "count"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_enzyme"
+          },
+          {
+            "kind": "sample",
+            "id": "s_temp"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_combined"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 3,
+            "unit": "ml"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_combined"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_combined"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": {
+              "value": 37,
+              "unit": "°C"
+            },
+            "duration": {
+              "value": 15,
+              "unit": "min"
+            },
+            "co2": {
+              "value": 5,
+              "unit": "%"
+            }
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

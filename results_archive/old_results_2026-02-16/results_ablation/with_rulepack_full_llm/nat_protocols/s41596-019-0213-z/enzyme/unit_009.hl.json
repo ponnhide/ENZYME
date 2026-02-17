@@ -1,0 +1,125 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Incubate for aggregate formation",
+    "source": {
+      "type": "paper",
+      "id": "s41596-019-0213-z.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "cell_suspension",
+        "name": "cell suspension"
+      }
+    ],
+    "containers": [
+      {
+        "id": "low_attach_plate",
+        "type": "6-well low-attachment plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cell_susp",
+        "material": "cell_suspension"
+      },
+      {
+        "id": "cell_susp_in_plate",
+        "material": "cell_suspension",
+        "container": "low_attach_plate"
+      },
+      {
+        "id": "aggregates",
+        "material": "cell aggregates",
+        "container": "low_attach_plate"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "low_attach_plate"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_susp"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_susp_in_plate"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 3,
+            "unit": "mL"
+          },
+          "destination": "low_attach_plate"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_susp_in_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "aggregates"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 1,
+            "unit": "d"
+          },
+          "device_kind": "incubator"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

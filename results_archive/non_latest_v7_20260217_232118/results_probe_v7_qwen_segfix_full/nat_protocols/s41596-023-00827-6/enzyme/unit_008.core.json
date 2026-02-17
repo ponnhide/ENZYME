@@ -1,0 +1,1088 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "RNA extraction and cDNA synthesis for RT-qPCR",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00827-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Trizol"
+      },
+      {
+        "id": "m2",
+        "name": "100% ethanol"
+      },
+      {
+        "id": "m3",
+        "name": "DNase I (6 U/μl)"
+      },
+      {
+        "id": "m4",
+        "name": "DNA Digestion Buffer"
+      },
+      {
+        "id": "m5",
+        "name": "Direct-zol RNA PreWash"
+      },
+      {
+        "id": "m6",
+        "name": "RNA Wash Buffer"
+      },
+      {
+        "id": "m7",
+        "name": "DNase-/RNase-free water"
+      },
+      {
+        "id": "m8",
+        "name": "qScript XLT cDNA SuperMix"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "insert"
+      },
+      {
+        "id": "c2",
+        "type": "1.5 ml tube"
+      },
+      {
+        "id": "c3",
+        "type": "Zymo-Spin IC Column"
+      },
+      {
+        "id": "c4",
+        "type": "Collection Tube"
+      },
+      {
+        "id": "c5",
+        "type": "RNase-free tube"
+      },
+      {
+        "id": "c6",
+        "type": "0.2 ml microtube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "P1000 pipette"
+      },
+      {
+        "id": "e2",
+        "type": "vortex mixer"
+      },
+      {
+        "id": "e3",
+        "type": "centrifuge"
+      },
+      {
+        "id": "e4",
+        "type": "thermocycler"
+      }
+    ],
+    "samples": [
+      {
+        "id": "c1",
+        "name": "c1"
+      },
+      {
+        "id": "c2",
+        "name": "c2"
+      },
+      {
+        "id": "c4",
+        "name": "c4"
+      },
+      {
+        "id": "c3",
+        "name": "c3"
+      },
+      {
+        "id": "s1",
+        "name": "s1"
+      },
+      {
+        "id": "c5",
+        "name": "c5"
+      },
+      {
+        "id": "s2",
+        "name": "s2"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "action_kind": "aspirate",
+          "source": "c1",
+          "destination": "waste",
+          "amount": {
+            "value": 300.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "action_kind": "add",
+          "source": "m1",
+          "destination": "c1",
+          "amount": {
+            "value": 300.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "action_kind": "transfer",
+          "source": "c1",
+          "destination": "c2",
+          "amount": {
+            "value": 300.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c2"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c2"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "16000g_5min_4C"
+          },
+          "device_ref": "e3"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c2"
+          }
+        ]
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "action_kind": "transfer",
+          "source": "c2",
+          "destination": "c4",
+          "amount": {
+            "value": 300.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c4"
+          }
+        ]
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "params": {
+          "action_kind": "add",
+          "source": "m2",
+          "destination": "c4",
+          "amount": {
+            "value": 300.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c4"
+          }
+        ]
+      },
+      {
+        "id": "s9",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c4"
+          }
+        ]
+      },
+      {
+        "id": "s10",
+        "op": "transfer",
+        "params": {
+          "action_kind": "transfer",
+          "source": "c4",
+          "destination": "c3",
+          "amount": {
+            "value": 600.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c3"
+          }
+        ]
+      },
+      {
+        "id": "s11",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "16000g_30s"
+          },
+          "device_ref": "e3"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c3"
+          }
+        ]
+      },
+      {
+        "id": "s12",
+        "op": "transfer",
+        "params": {
+          "action_kind": "transfer",
+          "source": "c3",
+          "destination": "c4",
+          "amount": {
+            "value": 600.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c4"
+          }
+        ]
+      },
+      {
+        "id": "s13",
+        "op": "transfer",
+        "params": {
+          "action_kind": "discard",
+          "source": "c4",
+          "amount": {
+            "value": 600.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c4"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s14",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "volume": "40 μl"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ]
+      },
+      {
+        "id": "s15",
+        "op": "transfer",
+        "params": {
+          "action_kind": "add",
+          "source": "m3",
+          "destination": "s1",
+          "amount": {
+            "value": 5.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ]
+      },
+      {
+        "id": "s16",
+        "op": "transfer",
+        "params": {
+          "action_kind": "add",
+          "source": "m4",
+          "destination": "s1",
+          "amount": {
+            "value": 35.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ]
+      },
+      {
+        "id": "s17",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ]
+      },
+      {
+        "id": "s18",
+        "op": "transfer",
+        "params": {
+          "action_kind": "add",
+          "source": "s1",
+          "destination": "c3",
+          "amount": {
+            "value": 40.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c3"
+          }
+        ]
+      },
+      {
+        "id": "s19",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "20-30C_15min"
+          },
+          "device_ref": "e3"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c3"
+          }
+        ]
+      },
+      {
+        "id": "s20",
+        "op": "transfer",
+        "params": {
+          "action_kind": "add",
+          "source": "m5",
+          "destination": "c3",
+          "amount": {
+            "value": 400.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c3"
+          }
+        ]
+      },
+      {
+        "id": "s21",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "16000g_30s"
+          },
+          "device_ref": "e3"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c3"
+          }
+        ]
+      },
+      {
+        "id": "s22",
+        "op": "transfer",
+        "params": {
+          "action_kind": "discard",
+          "source": "c3",
+          "amount": {
+            "value": 400.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c3"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s23",
+        "op": "transfer",
+        "params": {
+          "action_kind": "add",
+          "source": "m5",
+          "destination": "c3",
+          "amount": {
+            "value": 400.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c3"
+          }
+        ]
+      },
+      {
+        "id": "s24",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "16000g_30s"
+          },
+          "device_ref": "e3"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c3"
+          }
+        ]
+      },
+      {
+        "id": "s25",
+        "op": "transfer",
+        "params": {
+          "action_kind": "discard",
+          "source": "c3",
+          "amount": {
+            "value": 400.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c3"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s26",
+        "op": "transfer",
+        "params": {
+          "action_kind": "add",
+          "source": "m6",
+          "destination": "c3",
+          "amount": {
+            "value": 700.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c3"
+          }
+        ]
+      },
+      {
+        "id": "s27",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "16000g_1min"
+          },
+          "device_ref": "e3"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c3"
+          }
+        ]
+      },
+      {
+        "id": "s28",
+        "op": "transfer",
+        "params": {
+          "action_kind": "transfer",
+          "source": "c3",
+          "destination": "c5",
+          "amount": {
+            "value": 100.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c5"
+          }
+        ]
+      },
+      {
+        "id": "s29",
+        "op": "transfer",
+        "params": {
+          "action_kind": "add",
+          "source": "m7",
+          "destination": "c5",
+          "amount": {
+            "value": 15.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c5"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c5"
+          }
+        ]
+      },
+      {
+        "id": "s30",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "16000g_30s"
+          },
+          "device_ref": "e3"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c5"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c5"
+          }
+        ]
+      },
+      {
+        "id": "s31",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "volume": "20 μl"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ]
+      },
+      {
+        "id": "s32",
+        "op": "transfer",
+        "params": {
+          "action_kind": "add",
+          "source": "m8",
+          "destination": "s2",
+          "amount": {
+            "value": 4.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ]
+      },
+      {
+        "id": "s33",
+        "op": "transfer",
+        "params": {
+          "action_kind": "add",
+          "source": "c5",
+          "destination": "s2",
+          "amount": {
+            "value": 15.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          },
+          {
+            "kind": "sample",
+            "id": "c5"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ]
+      },
+      {
+        "id": "s34",
+        "op": "transfer",
+        "params": {
+          "action_kind": "add",
+          "source": "m7",
+          "destination": "s2",
+          "amount": {
+            "value": 5.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ]
+      },
+      {
+        "id": "s35",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ]
+      },
+      {
+        "id": "s36",
+        "op": "run_device",
+        "params": {
+          "device_kind": "thermocycler",
+          "program": {
+            "profile_name": "cDNA_synthesis"
+          },
+          "device_ref": "e4"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ]
+      },
+      {
+        "id": "s37",
+        "op": "annotate",
+        "params": {
+          "note": "First-strand cDNA product used for RT-qPCR amplification."
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      },
+      {
+        "from": "s16",
+        "to": "s17"
+      },
+      {
+        "from": "s17",
+        "to": "s18"
+      },
+      {
+        "from": "s18",
+        "to": "s19"
+      },
+      {
+        "from": "s19",
+        "to": "s20"
+      },
+      {
+        "from": "s20",
+        "to": "s21"
+      },
+      {
+        "from": "s21",
+        "to": "s22"
+      },
+      {
+        "from": "s22",
+        "to": "s23"
+      },
+      {
+        "from": "s23",
+        "to": "s24"
+      },
+      {
+        "from": "s24",
+        "to": "s25"
+      },
+      {
+        "from": "s25",
+        "to": "s26"
+      },
+      {
+        "from": "s26",
+        "to": "s27"
+      },
+      {
+        "from": "s27",
+        "to": "s28"
+      },
+      {
+        "from": "s28",
+        "to": "s29"
+      },
+      {
+        "from": "s29",
+        "to": "s30"
+      },
+      {
+        "from": "s30",
+        "to": "s31"
+      },
+      {
+        "from": "s31",
+        "to": "s32"
+      },
+      {
+        "from": "s32",
+        "to": "s33"
+      },
+      {
+        "from": "s33",
+        "to": "s34"
+      },
+      {
+        "from": "s34",
+        "to": "s35"
+      },
+      {
+        "from": "s35",
+        "to": "s36"
+      },
+      {
+        "from": "s36",
+        "to": "s37"
+      }
+    ],
+    "detail_level": 0
+  }
+}

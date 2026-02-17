@@ -1,0 +1,292 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Air–liquid interface culture (Day 13)",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-020-00441-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "well",
+        "description": "well containing Matrigel-embedded HBPO"
+      },
+      {
+        "id": "c2",
+        "type": "spot_plate",
+        "description": "spot plate with DPBS for dissection"
+      },
+      {
+        "id": "c3",
+        "type": "transwell",
+        "description": "six-well Transwell for organoid culture"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "mechanical_pipette",
+        "description": "with wide-bore 200-µl tip"
+      },
+      {
+        "id": "e2",
+        "type": "micro_knife",
+        "description": "two clean micro knives"
+      },
+      {
+        "id": "e3",
+        "type": "pasteur_pipette"
+      },
+      {
+        "id": "e4",
+        "type": "fluorescent_microscope"
+      },
+      {
+        "id": "e5",
+        "type": "co2_incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "smp1",
+        "type": "HBPO",
+        "description": "HBPO embedded in Matrigel"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source": "c1",
+          "destination": "e1",
+          "tool": "e1",
+          "amount": {
+            "value": 200.0,
+            "unit": "µl"
+          }
+        },
+        "notes": "Aspirate the medium from the well using a mechanical pipette with a wide-bore 200-µl tip",
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "c1",
+          "destination": "e1",
+          "tool": "e1",
+          "amount": {
+            "value": 1.0,
+            "unit": "drop"
+          }
+        },
+        "notes": "Pick up the entire Matrigel drop with embedded HBPO; it should dissociate easily from the bottom of the well",
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "params": {
+          "note": "Optional step: If using an HBP anlage specific reporter line (e.g., PROX1 reporter), perform dissection of the boundary region of the HBPO to increase epithelial bifurcation rate"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "e1",
+          "destination": "c2",
+          "tool": "e1",
+          "amount": {
+            "value": 1.0,
+            "unit": "drop"
+          }
+        },
+        "notes": "Transfer the HBPO to a spot plate containing DPBS placed on a fluorescent microscope",
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "observe",
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "fluorescent_activity"
+          ]
+        },
+        "resources": {
+          "equipment": [
+            "e4"
+          ]
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "resources": {
+          "tools": [
+            "e2"
+          ]
+        },
+        "notes": "Carefully dissect the HBPO by studying the fluorescent activity under the microscope using two clean micro knives",
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "source": "c2",
+          "destination": "e3",
+          "tool": "e3",
+          "amount": {
+            "value": 1.0,
+            "unit": "drop"
+          }
+        },
+        "notes": "Pick up the dissected HBPO using a Pasteur pipette",
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "params": {
+          "source": "e3",
+          "destination": "c3",
+          "tool": "e3",
+          "amount": {
+            "value": 1.0,
+            "unit": "drop"
+          }
+        },
+        "notes": "Transfer the (dissected or undissected) HBPO to a six-well Transwell; one HBPO per Transwell",
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "params": {
+          "source": "material",
+          "destination": "c3",
+          "material": "100% Matrigel",
+          "notes": "fresh pre-chilled",
+          "amount": {
+            "value": 10.0,
+            "unit": "µl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": "37 °C",
+            "duration": "3 min",
+            "co2": "5%"
+          },
+          "device_ref": "e5"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "transfer",
+        "params": {
+          "source": "material",
+          "destination": "c3",
+          "material": "gut growth medium",
+          "notes": "add to the bottom of the Transwell; do not wet the upper side of the Transwell membrane",
+          "amount": {
+            "value": 500.0,
+            "unit": "µl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "annotate",
+        "params": {
+          "note": "Maintain organoid cultures at 37 °C in an atmosphere of 5% CO2, 95% air; replace gut growth medium every 2 d. HBPO on Transwell can be cultured for ≤50 d without passaging. Do not wet the upper side of the Transwell membrane during medium exchange."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      }
+    ],
+    "detail_level": 0
+  }
+}

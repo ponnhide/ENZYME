@@ -1,0 +1,220 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41593-021-00923-4.pdf",
+      "type": "paper"
+    },
+    "title": "MEA recordings"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {
+          "note": "ALI-COs were secured with a platinum harp onto 3D MEAs (Multi Channel Systems, MEA2100, 60–3DMEA200/12iR-Ti-gr, 60 electrodes, 200-μm spacing)."
+        },
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "s_ali_co1",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "s_ali_co_on_mea",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "s_ali_co_on_mea",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "d_raw_recording",
+            "kind": "data"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "device_ref": "e_mea2100",
+          "duration": "6 min",
+          "program": "spontaneous_recording_6min",
+          "temperature": "37 °C"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Recordings were acquired and exported to Matlab (MathWorks) for analysis."
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "d_raw_recording",
+            "kind": "data"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "d_exported_matlab",
+            "kind": "data"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "The raw signal was bandpass-filtered (third-order Butterworth, 600–8,000 Hz)."
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "d_exported_matlab",
+            "kind": "data"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "d_filtered",
+            "kind": "data"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "Spikes detected using a threshold of 3 standard deviations above background noise with a 1.5‑ms refractory period."
+        },
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "d_filtered",
+            "kind": "data"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "d_spikes",
+            "kind": "data"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "Correlated activity between electrodes was analyzed using the spike‑time tiling coefficient (STTC) with a synchronicity window of 175 ms."
+        },
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "d_spikes",
+            "kind": "data"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "d_sttc",
+            "kind": "data"
+          }
+        ],
+        "params": {}
+      }
+    ]
+  },
+  "resources": {
+    "containers": [],
+    "data": [
+      {
+        "description": "Six‑minute spontaneous activity recording at 37 °C",
+        "id": "d_raw_recording"
+      },
+      {
+        "description": "Raw recording exported to Matlab",
+        "id": "d_exported_matlab"
+      },
+      {
+        "description": "Bandpass‑filtered signal (third‑order Butterworth, 600–8,000 Hz)",
+        "id": "d_filtered"
+      },
+      {
+        "description": "Detected spikes (threshold 3 SD, refractory 1.5 ms)",
+        "id": "d_spikes"
+      },
+      {
+        "description": "Spike‑time tiling coefficient (STTC) results (window 175 ms)",
+        "id": "d_sttc"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e_mea2100",
+        "manufacturer": "Multi Channel Systems",
+        "name": "MEA2100 system"
+      },
+      {
+        "id": "e_matlab",
+        "manufacturer": "MathWorks",
+        "name": "Matlab"
+      }
+    ],
+    "materials": [
+      {
+        "id": "m_platinum_harp",
+        "name": "platinum harp"
+      },
+      {
+        "id": "m_3d_mea",
+        "name": "3D MEA (Multi Channel Systems, MEA2100, 60–3DMEA200/12iR-Ti-gr, 60 electrodes, 200‑μm spacing)"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_ali_co1",
+        "type": "ALI-CO"
+      },
+      {
+        "id": "s_ali_co_on_mea",
+        "type": "ALI-CO mounted on MEA"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

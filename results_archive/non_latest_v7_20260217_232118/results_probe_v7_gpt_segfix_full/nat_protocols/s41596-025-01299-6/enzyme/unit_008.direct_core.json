@@ -1,0 +1,292 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Dissociation of hSO and preparation for FACS",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01299-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "enzyme solution with papain (10 U/ml)"
+      },
+      {
+        "id": "m2",
+        "name": "low-ovo solution"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "six_well_plate"
+      },
+      {
+        "id": "c2",
+        "type": "conical_tube_15ml"
+      },
+      {
+        "id": "c3",
+        "type": "conical_tube_15ml"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator"
+      },
+      {
+        "id": "e2",
+        "type": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_organoid_pool",
+        "name": "pooled organoids (12 organoids)"
+      },
+      {
+        "id": "s_mix_well",
+        "name": "organoid + enzyme mixture in well"
+      },
+      {
+        "id": "s_tube_mix",
+        "name": "organoid + enzyme mixture in 15‑ml tube"
+      },
+      {
+        "id": "s_new_tube",
+        "name": "supernatant collected in new 15‑ml tube"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source_samples": [
+            "s_organoid_pool"
+          ],
+          "source_materials": [
+            "m1"
+          ],
+          "destination_container": "c1",
+          "destination_location": "well",
+          "description": "Pool 12 organoids into one well of a six‑well plate with 3 ml enzyme solution",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_mix_well"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "37C_15min_5%CO2",
+            "temperature": "37 C",
+            "duration": "15 min",
+            "CO2": "5%"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "description": "Gently shake the plate horizontally every 5 min to evenly distribute the papain solution"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source_container": "c1",
+          "source_location": "well",
+          "destination_container": "c2",
+          "description": "Transfer organoid + enzyme mixture to a 15‑ml conical tube",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_tube_mix"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "e2",
+          "program": {
+            "program_name": "30s_200g",
+            "duration": "30 s",
+            "relative_force": "200 g"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "description": "Remove supernatant and add 1 ml low‑ovo solution to the tube"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "e2",
+          "program": {
+            "program_name": "30s_200g",
+            "duration": "30 s",
+            "relative_force": "200 g"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "description": "Wash once with 1 ml low‑ovo solution, then add another 1 ml low‑ovo solution to the sample"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "description": "Mechanically dissociate organoids by pipetting a few times with a P1000 tip"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "transfer",
+        "params": {
+          "source_container": "c2",
+          "source_location": "supernatant",
+          "destination_container": "c3",
+          "description": "Transfer ~800 μl of supernatant to a new 15‑ml conical tube",
+          "amount": {
+            "value": 800.0,
+            "unit": "μl"
+          }
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_new_tube"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s11",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "description": "Pipette remaining cell chunks a few times with a P200 tip and transfer ~180 μl of supernatant to the same conical tube"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "description": "Pipette a few times with a P20 tip to break leftover debris and transfer the remaining supernatant to the same conical tube"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      }
+    ],
+    "detail_level": 0
+  }
+}

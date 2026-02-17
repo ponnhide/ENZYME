@@ -1,0 +1,252 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "DisCo workflow for individual organoid processing",
+    "source": {
+      "type": "paper",
+      "id": "s41592-021-01391-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "ENR_medium",
+        "type": "reagent",
+        "name": "ENR medium"
+      },
+      {
+        "id": "CV",
+        "type": "reagent",
+        "name": "CV"
+      }
+    ],
+    "containers": [
+      {
+        "id": "culture_plate",
+        "type": "plate",
+        "name": "culture plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "type": "incubator",
+        "name": "standard cell incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "stem_cells_unsorted",
+        "type": "cell_population",
+        "name": "LGR5+ intestinal stem cells (unsorted)"
+      },
+      {
+        "id": "stem_cells_sorted",
+        "type": "cell_population",
+        "name": "LGR5+ intestinal stem cells (sorted via FACS)"
+      },
+      {
+        "id": "organoids_day0",
+        "type": "organoid",
+        "name": "Organoids day 0 (after seeding)"
+      },
+      {
+        "id": "organoids_day1",
+        "type": "organoid",
+        "name": "Organoids day 1"
+      },
+      {
+        "id": "organoids_day2",
+        "type": "organoid",
+        "name": "Organoids day 2"
+      },
+      {
+        "id": "organoids_day3",
+        "type": "organoid",
+        "name": "Organoids day 3"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "stem_cells_unsorted"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "stem_cells_sorted"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Single LGR5+ intestinal stem cells were isolated via FACS."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "stem_cells_sorted"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "stem_cells_sorted"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 3,
+            "unit": "day"
+          },
+          "conditions": "stem cell maintenance (ENR CV)"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "stem_cells_sorted"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "stem_cells_sorted"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "On day 3, CV was removed from the culture."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "stem_cells_sorted"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "stem_cells_sorted"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 3,
+            "unit": "day"
+          },
+          "conditions": "ENR differentiation"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "stem_cells_sorted"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoids_day0"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "For each day during development (S0–S3), individual organoids were isolated."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoids_day0"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoids_day0"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Organoids were dissociated."
+        }
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoids_day0"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoids_day0"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Dissociated organoids were processed on the DisCo platform."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,213 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Immunostaining of vascular networks",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-019-0213-z.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "blocking_buffer",
+        "type": "material",
+        "name": "blocking buffer"
+      },
+      {
+        "id": "primary_antibody_solution",
+        "type": "material",
+        "name": "primary antibody diluted in blocking buffer"
+      },
+      {
+        "id": "PBS_T",
+        "type": "material",
+        "name": "PBS‑T solution"
+      },
+      {
+        "id": "secondary_antibody_solution",
+        "type": "material",
+        "name": "secondary fluorescent antibody in blocking buffer"
+      },
+      {
+        "id": "DAPI_solution",
+        "type": "material",
+        "name": "DAPI (1:1,000 in PBS)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube_rack",
+        "type": "container",
+        "name": "tube rack"
+      },
+      {
+        "id": "wet_chamber",
+        "type": "container",
+        "name": "wet chamber"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator1",
+        "type": "incubator",
+        "name": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample1",
+        "type": "sample",
+        "name": "vessel networks / organoids or sections"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": {
+            "material": "primary_antibody_solution"
+          },
+          "destination": {
+            "sample": "sample1"
+          },
+          "amount": {
+            "value": 50.0,
+            "unit": "µL"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "overnight_4C_rocking"
+          },
+          "device_ref": "incubator1"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "rinse",
+          "solution": "PBS_T",
+          "duration": "10-15 min",
+          "repetitions": 3
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer appropriate amount of secondary antibody solution to sample1"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "2h_RT"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "rinse",
+          "solution": "PBS_T",
+          "duration": "10-15 min",
+          "repetitions": 2
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer appropriate amount of DAPI solution to sample1"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "10-15min_RT"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

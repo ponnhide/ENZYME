@@ -1,0 +1,187 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Generation of clonal tumor organoid lines by FACS",
+    "source": {
+      "type": "paper",
+      "id": "s41467-020-19142-9.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "tryple",
+        "name": "TryPLE",
+        "vendor": "Thermo Fisher Scientific"
+      },
+      {
+        "id": "pbs",
+        "name": "PBS"
+      },
+      {
+        "id": "edta",
+        "name": "EDTA",
+        "concentration": {
+          "value": 2,
+          "unit": "mM"
+        }
+      },
+      {
+        "id": "fcs",
+        "name": "FCS",
+        "percentage": 5
+      },
+      {
+        "id": "dapi",
+        "name": "DAPI"
+      },
+      {
+        "id": "hiscm",
+        "name": "HISCM"
+      },
+      {
+        "id": "ly27632",
+        "name": "LY27632",
+        "concentration": {
+          "value": 10,
+          "unit": "µM"
+        }
+      },
+      {
+        "id": "bme",
+        "name": "BME"
+      }
+    ],
+    "containers": [
+      {
+        "id": "96well_plate",
+        "type": "96-well plate"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "organoid_culture",
+        "description": "Early passage tumor organoids"
+      },
+      {
+        "id": "single_cells",
+        "description": "Single cells after dissociation"
+      },
+      {
+        "id": "single_cells_suspended",
+        "description": "Single cells washed and suspended in FACS buffer"
+      },
+      {
+        "id": "single_cells_DAPI",
+        "description": "Single cells in FACS buffer with DAPI"
+      },
+      {
+        "id": "sorted_cells",
+        "description": "HLA‑A2+ single cells sorted into 96‑well plates"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_culture"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "single_cells"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Dissociate early passage tumor organoids into single cells using TryPLE (Thermo Fisher Scientific)."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "single_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "single_cells_suspended"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Wash and suspend the cells in FACS buffer (PBS with 2 mM EDTA and 5 % FCS)."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "single_cells_suspended"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "single_cells_DAPI"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Add DAPI to the FACS buffer."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "single_cells_DAPI"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sorted_cells"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Sort HLA‑A2+ single cells into separate wells of a 96‑well plate containing 100 µL HISCM with 10 µM LY27632 and coated with BME."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

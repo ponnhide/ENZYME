@@ -1,0 +1,227 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-025-01299-6.pdf",
+      "type": "paper"
+    },
+    "title": "Section 3A: selection for the interneuron generation screen (Day 45)"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {
+          "details": "Mix the enzyme solution with papain to achieve 10 U ml−1 papain concentration."
+        },
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "enzyme_solution_base",
+            "kind": "material"
+          },
+          {
+            "id": "papain",
+            "kind": "material"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "mixed_solution",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        }
+      },
+      {
+        "annotations": {
+          "duration": "20 min",
+          "temperature": "37 °C"
+        },
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "mixed_solution",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "warmed_solution",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "pre-warm 37 °C for 20 min"
+        }
+      },
+      {
+        "annotations": {
+          "organoid_count": "12 organoids pooled into one well of a six-well plate"
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "organoid_sample",
+            "kind": "sample"
+          },
+          {
+            "id": "warmed_solution",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "pooled_sample",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "ml",
+            "value": 3
+          }
+        }
+      },
+      {
+        "annotations": {
+          "CO2": "5 %",
+          "duration": "15 min",
+          "temperature": "37 °C"
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "pooled_sample",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "incubated_sample",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "37 °C for 15 min in 5 % CO₂"
+        }
+      },
+      {
+        "annotations": {
+          "procedure": "Gently shake the plate horizontally every 5 min to evenly distribute the papain solution."
+        },
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "incubated_sample",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "incubated_sample",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "six_well_plate",
+        "type": "six-well plate"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "device_kind": "incubator",
+        "id": "co2_incubator"
+      }
+    ],
+    "materials": [
+      {
+        "id": "human_spinal_organoid",
+        "name": "human spinal organoid (hSO)"
+      },
+      {
+        "id": "enzyme_solution_base",
+        "name": "enzyme solution (base)"
+      },
+      {
+        "description": "10 U ml−1",
+        "id": "papain",
+        "name": "papain"
+      }
+    ],
+    "samples": [
+      {
+        "derived_from": [
+          "human_spinal_organoid"
+        ],
+        "description": "12 hSO pooled for dissociation",
+        "id": "organoid_sample"
+      },
+      {
+        "derived_from": [
+          "enzyme_solution_base",
+          "papain"
+        ],
+        "id": "mixed_solution"
+      },
+      {
+        "derived_from": [
+          "mixed_solution"
+        ],
+        "id": "warmed_solution"
+      },
+      {
+        "container": "six_well_plate",
+        "derived_from": [
+          "organoid_sample",
+          "warmed_solution"
+        ],
+        "id": "pooled_sample"
+      },
+      {
+        "derived_from": [
+          "pooled_sample"
+        ],
+        "id": "incubated_sample"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

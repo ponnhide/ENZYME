@@ -1,0 +1,133 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Intracellular antibody staining",
+    "source": {
+      "type": "paper",
+      "id": "s41596-021-00603-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "intracellular antibody cocktail",
+        "type": "reagent"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "rocker"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_cells",
+        "name": "cells"
+      },
+      {
+        "id": "s_mix1",
+        "name": "cells + intracellular antibody cocktail (pre‑mix)"
+      },
+      {
+        "id": "s_mix2",
+        "name": "cells + intracellular antibody cocktail (mixed)"
+      },
+      {
+        "id": "s_stained",
+        "name": "intracellularly stained cells"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "sample",
+            "id": "s_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_mix1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "annotations": {
+          "note": "Add the intracellular antibody cocktail to the cells (volume/amount not specified)."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_mix1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_mix2"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "note": "Mix thoroughly by pipetting."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_mix2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_stained"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Incubate for 30 min on a rocker at room temperature."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

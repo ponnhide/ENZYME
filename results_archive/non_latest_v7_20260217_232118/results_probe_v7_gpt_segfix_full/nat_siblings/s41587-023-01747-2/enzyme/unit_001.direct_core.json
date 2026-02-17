@@ -1,0 +1,233 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Methods - Iterative Indirect Immunofluorescence Imaging (4i) of Retinal Organoid Sections",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41587-023-01747-2.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Formalin‑fixed paraffin‑embedded (FFPE) retinal organoid tissue"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "plate",
+        "name": "96‑well superstructure coverslip"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "imager",
+        "name": "High‑NA silicone oil objective microscope"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s1",
+        "name": "3 µm‑thick FFPE organoid section"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "name": "Raw fluorescence image (cycle 1)"
+      },
+      {
+        "id": "d2",
+        "name": "Raw fluorescence image (cycle 2)"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer sample s1 to container c1 (amount unspecified)"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "equipment"
+        },
+        "outputs": [
+          {
+            "kind": "equipment",
+            "id": "e1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "imager",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "4i_cycle_1"
+          }
+        },
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "fluorescence"
+          ]
+        },
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "description": "Elute antibodies after cycle 1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "imager",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "4i_cycle_2"
+          }
+        },
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d2"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s9",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "fluorescence"
+          ]
+        },
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d2"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s10",
+        "op": "annotate",
+        "params": {
+          "note": "Repeat staining, elution, and imaging cycles for all 21 antibody cycles as described in the 4i protocol."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      }
+    ],
+    "detail_level": 0
+  }
+}

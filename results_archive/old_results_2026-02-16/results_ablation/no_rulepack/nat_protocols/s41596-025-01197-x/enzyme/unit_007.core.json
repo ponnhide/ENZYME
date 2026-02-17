@@ -1,0 +1,201 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-025-01197-x.pdf",
+      "type": "paper"
+    },
+    "title": "Dissociation of 1‑month‑old organoids for scRNA‑seq (Option A)"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {
+          "note": "Transfer organoids to a 1.5 mL microcentrifuge tube using a P200 pipette tip cut to avoid damaging the organoids."
+        },
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "organoids_pre",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "organoids_in_tube",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": null,
+          "device_ref": "p200_tip_cut"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Let organoids settle to the bottom, aspirate the medium and rinse once with sterile PBS. Discard the papain solution."
+        },
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "organoids_in_tube",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "organoids_in_tube",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "Add 500 µL of trypsin inhibitor to the tube."
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "trypsin_inhibitor",
+            "kind": "material"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "organoids_in_tube",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "µL",
+            "value": 500
+          }
+        }
+      },
+      {
+        "annotations": {
+          "lowered_from": "incubate"
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "organoids_in_tube",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "organoids_in_tube",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator_37C",
+          "program": {
+            "program_name": null
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "Dissociate organoids into single cells by repeated pipetting with a P1000 pipette."
+        },
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "organoids_in_tube",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "organoids_in_tube",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "mix",
+          "device_ref": "p1000_pipette"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "tube_1_5ml",
+        "name": "1.5 mL microcentrifuge tube"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "id": "p200_tip_cut",
+        "name": "P200 pipette tip (cut to avoid damaging organoids)"
+      },
+      {
+        "id": "p1000_pipette",
+        "name": "P1000 pipette"
+      },
+      {
+        "id": "incubator_37C",
+        "name": "Incubator (37 °C)"
+      }
+    ],
+    "materials": [
+      {
+        "id": "organoids",
+        "name": "1‑month‑old organoids (pre‑MG embedding)"
+      },
+      {
+        "id": "pbs",
+        "name": "sterile PBS"
+      },
+      {
+        "id": "trypsin_inhibitor",
+        "name": "trypsin inhibitor"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoids_pre",
+        "material_id": "organoids",
+        "name": "Organoids before transfer"
+      },
+      {
+        "id": "organoids_in_tube",
+        "material_id": "organoids",
+        "name": "Organoids in microcentrifuge tube"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

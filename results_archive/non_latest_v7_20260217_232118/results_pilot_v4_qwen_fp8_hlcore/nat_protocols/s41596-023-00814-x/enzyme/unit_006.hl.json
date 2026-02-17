@@ -1,0 +1,788 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Procedure",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00814-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "type": "organoid",
+        "name": "OVB organoid",
+        "source": "day 30 or day 60"
+      },
+      {
+        "id": "m2",
+        "type": "buffer",
+        "name": "PBS"
+      },
+      {
+        "id": "m3",
+        "type": "enzyme",
+        "name": "Accutase",
+        "components": [
+          {
+            "name": "DNase I",
+            "concentration": "0.2 U/µl"
+          }
+        ]
+      },
+      {
+        "id": "m4",
+        "type": "medium",
+        "name": "DMEM/F12"
+      },
+      {
+        "id": "m5",
+        "type": "medium",
+        "name": "OVB organoid medium"
+      },
+      {
+        "id": "m6",
+        "type": "reagent",
+        "name": "Trypan-blue"
+      },
+      {
+        "id": "m7",
+        "type": "primer",
+        "name": "primer mixture",
+        "description": "contains Illumina R1 sequence, 16 bp 10× barcode, 12 bp UMI, poly-dT primer sequence"
+      },
+      {
+        "id": "m8",
+        "type": "reagent",
+        "name": "master mix"
+      },
+      {
+        "id": "m9",
+        "type": "bead",
+        "name": "silane magnetic beads"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "centrifuge_tube",
+        "capacity": "15 ml",
+        "material": "sterile"
+      },
+      {
+        "id": "c2",
+        "type": "pipette_tip",
+        "volume": "1000 µl",
+        "modified": "cut"
+      },
+      {
+        "id": "c3",
+        "type": "pipette_tip",
+        "volume": "200 µl"
+      },
+      {
+        "id": "c4",
+        "type": "pipette_tip",
+        "volume": "1000 µl",
+        "modified": "uncut"
+      },
+      {
+        "id": "c5",
+        "type": "strainer",
+        "pore_size": "70 µm",
+        "material": "sterile"
+      },
+      {
+        "id": "c6",
+        "type": "tube",
+        "name": "GEM chips"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "water_bath",
+        "temperature": "37 °C"
+      },
+      {
+        "id": "e2",
+        "type": "centrifuge"
+      },
+      {
+        "id": "e3",
+        "type": "cell_counter"
+      },
+      {
+        "id": "e4",
+        "type": "thermal_cycler"
+      },
+      {
+        "id": "e5",
+        "type": "magnetic_bead_separator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s1",
+        "name": "s1"
+      },
+      {
+        "id": "s2",
+        "name": "s2"
+      },
+      {
+        "id": "s3",
+        "name": "s3"
+      },
+      {
+        "id": "s4",
+        "name": "s4"
+      },
+      {
+        "id": "s5",
+        "name": "s5"
+      },
+      {
+        "id": "s6",
+        "name": "s6"
+      },
+      {
+        "id": "s7",
+        "name": "s7"
+      },
+      {
+        "id": "s8",
+        "name": "s8"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "up to three",
+            "unit": "organoids"
+          },
+          "source_container": "organoid culture",
+          "target_container": "c1"
+        },
+        "annotations": {
+          "tool": "cut 1,000 µl micropipette tip"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "as much as possible",
+            "unit": "ml"
+          },
+          "source_container": "c1",
+          "target_container": "waste"
+        },
+        "annotations": {
+          "tool": "200 µl micropipette tip",
+          "note": "carefully remove carried-over medium without disturbing organoids"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 3,
+            "unit": "ml"
+          },
+          "source_container": "m2",
+          "target_container": "c1"
+        },
+        "annotations": {
+          "repeats": 3
+        }
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 2,
+            "unit": "ml"
+          },
+          "source_container": "m3",
+          "target_container": "c1"
+        },
+        "annotations": {
+          "note": "Accutase with 0.2 U/µl DNase I, prewarmed at 37 °C"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "action_kind": "mix",
+          "container": "c1"
+        },
+        "annotations": {
+          "note": "close tube tightly"
+        }
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "text": "unmapped device_kind in source: water_bath"
+        }
+      },
+      {
+        "id": "s7",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "modality": "visual",
+          "features": [
+            "organoid dissociation integrity"
+          ]
+        },
+        "annotations": {
+          "note": "shake tube and watch organoid integrity"
+        }
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "as much as possible",
+            "unit": "ml"
+          },
+          "source_container": "c1",
+          "target_container": "waste"
+        },
+        "annotations": {
+          "tool": "uncut 1,000 µl micropipette tip",
+          "note": "pipette up and down under sterile hood to dissociate organoids"
+        }
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "text": "unmapped device_kind in source: water_bath"
+        }
+      },
+      {
+        "id": "s10",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "modality": "visual",
+          "features": [
+            "organoid dissociation integrity"
+          ]
+        },
+        "annotations": {
+          "note": "repeat dissociation check"
+        }
+      },
+      {
+        "id": "s11",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "text": "unmapped device_kind in source: water_bath"
+        },
+        "annotations": {
+          "note": "do not exceed 45 min total Accutase treatment"
+        }
+      },
+      {
+        "id": "s12",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 8,
+            "unit": "ml"
+          },
+          "source_container": "m4",
+          "target_container": "c1"
+        },
+        "annotations": {
+          "note": "DMEM/F12 prewarmed at 37 °C"
+        }
+      },
+      {
+        "id": "s13",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "all",
+            "unit": "ml"
+          },
+          "source_container": "c1",
+          "target_container": "c5"
+        },
+        "annotations": {
+          "note": "filter to remove undissociated tissue; obtain single-cell suspension"
+        }
+      },
+      {
+        "id": "s14",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s4"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "g_force": "500g",
+            "duration": "5 min",
+            "temperature": "RT"
+          }
+        }
+      },
+      {
+        "id": "s15",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s4"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "as much as possible",
+            "unit": "ml"
+          },
+          "source_container": "c1",
+          "target_container": "waste"
+        },
+        "annotations": {
+          "note": "aspirate supernatant"
+        }
+      },
+      {
+        "id": "s16",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s4"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend",
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          },
+          "solution": "m5"
+        }
+      },
+      {
+        "id": "s17",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s4"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "cell viability"
+          ]
+        },
+        "annotations": {
+          "tool": "Trypan-blue staining",
+          "note": "target 65–95% cell viability"
+        }
+      },
+      {
+        "id": "s18",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "For scRNA library construction, use Chromium Single Cell 3′ Reagent Kits v3; target 2,000–3,000 cells per sample"
+        }
+      },
+      {
+        "id": "s19",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Make primer mixture containing Illumina R1 sequence, 16 bp 10× barcode, 12 bp UMI, poly-dT primer sequence"
+        }
+      },
+      {
+        "id": "s20",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s4"
+          },
+          {
+            "kind": "material",
+            "id": "m7"
+          },
+          {
+            "kind": "material",
+            "id": "m8"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s5"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "all",
+            "unit": "ml"
+          },
+          "source_container": "c1",
+          "target_container": "c6"
+        },
+        "annotations": {
+          "note": "mix primer mixture with cell lysate and master mix"
+        }
+      },
+      {
+        "id": "s21",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s5"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s6"
+          }
+        ],
+        "params": {
+          "device_kind": "thermocycler",
+          "program": "produce barcoded, full-length cDNA from polyadenylated mRNA"
+        },
+        "annotations": {
+          "note": "incubate GEMs (chips); break chips and recover pooled cDNAs"
+        }
+      },
+      {
+        "id": "s22",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s6"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s7"
+          }
+        ],
+        "params": {
+          "text": "unmapped device_kind in source: magnetic_bead_separator"
+        }
+      },
+      {
+        "id": "s23",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s7"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s8"
+          }
+        ],
+        "params": {
+          "device_kind": "thermocycler",
+          "program": "amplify barcoded cDNA by PCR for library construction"
+        },
+        "annotations": {
+          "note": "refer to supporting work5 for details"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      },
+      {
+        "from": "s16",
+        "to": "s17"
+      },
+      {
+        "from": "s17",
+        "to": "s18"
+      },
+      {
+        "from": "s18",
+        "to": "s19"
+      },
+      {
+        "from": "s19",
+        "to": "s20"
+      },
+      {
+        "from": "s20",
+        "to": "s21"
+      },
+      {
+        "from": "s21",
+        "to": "s22"
+      },
+      {
+        "from": "s22",
+        "to": "s23"
+      }
+    ],
+    "detail_level": 0
+  }
+}

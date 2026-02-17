@@ -1,0 +1,284 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Thaw cryopreserved organoids",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-0379-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "freezing_medium",
+        "name": "freezing medium with organoids"
+      },
+      {
+        "id": "adDMEM_F12_plus_plus_plus",
+        "name": "adDMEM/F12+++ medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "cryogenic_vial",
+        "type": "vial"
+      },
+      {
+        "id": "conical_tube_15ml",
+        "type": "conical tube",
+        "capacity": {
+          "value": 15,
+          "unit": "ml"
+        }
+      }
+    ],
+    "equipment": [
+      {
+        "id": "water_bath",
+        "device_kind": "incubator"
+      },
+      {
+        "id": "centrifuge",
+        "device_kind": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoid_sample",
+        "container_ref": "cryogenic_vial",
+        "material_ref": "freezing_medium"
+      },
+      {
+        "id": "adDMEM_sample",
+        "container_ref": "cryogenic_vial",
+        "material_ref": "adDMEM_F12_plus_plus_plus"
+      },
+      {
+        "id": "organoid_in_tube",
+        "name": "organoid_in_tube"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "params": {
+          "temperature": {
+            "value": 37,
+            "unit": "°C"
+          },
+          "duration": {
+            "value": 1,
+            "unit": "min"
+          }
+        },
+        "annotations": {
+          "note": "Incubate for 1–3 min in a water bath at 37 °C"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "adDMEM_sample"
+          },
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          },
+          "mode": "dropwise"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "note": "Mix while adding medium"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_in_tube"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Transfer entire volume to conical_tube_15ml"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "adDMEM_sample"
+          },
+          {
+            "kind": "sample",
+            "id": "organoid_in_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_in_tube"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Add adDMEM sample to organoid_in_tube to reach total volume 10 ml"
+        }
+      },
+      {
+        "id": "s6",
+        "op": "centrifuge",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_in_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_in_tube"
+          }
+        ],
+        "params": {
+          "speed": {
+            "value": 200,
+            "unit": "g"
+          },
+          "duration": {
+            "value": 5,
+            "unit": "min"
+          },
+          "temperature": {
+            "value": 4,
+            "unit": "°C"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_in_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_in_tube"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "action": "Aspirate the supernatant without disturbing the pellet"
+        }
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Follow Steps 22–25, as described above."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

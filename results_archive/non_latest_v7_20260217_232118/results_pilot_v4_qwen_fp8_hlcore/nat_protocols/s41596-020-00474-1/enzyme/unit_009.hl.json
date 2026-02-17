@@ -1,0 +1,157 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "BME Plating for Organoid Culture",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-00474-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [
+      {
+        "id": "12-well plate",
+        "name": "12-well plate",
+        "type": "generic_container"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "sample-1",
+        "name": "sample-1"
+      },
+      {
+        "id": "sample-2",
+        "name": "sample-2"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample-1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample-2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 100,
+            "unit": "µl"
+          },
+          "source_container": "unknown",
+          "target_container": "12-well plate"
+        },
+        "annotations": {
+          "note": "Plate in multiple small drops (<20 µl each) per well"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "12-well plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "12-well plate"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: invert"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "12-well plate"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Leave in biosafety cabinet for 5 min"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "12-well plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "12-well plate"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "unitless"
+          },
+          "source_container": "biosafety cabinet",
+          "target_container": "37 °C incubator"
+        },
+        "annotations": {
+          "note": "Transfer upside down"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "inputs": [],
+        "outputs": [],
+        "params": {
+          "device_kind": "incubator",
+          "program": "37 °C for 30 min"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,195 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Organoid passaging procedure",
+    "source": {
+      "type": "paper",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Cultrex dome"
+      },
+      {
+        "id": "m2",
+        "name": "EDTA solution, 10 mM"
+      },
+      {
+        "id": "m3",
+        "name": "Y-27632, 10 µM (STEMCELL Technologies)"
+      },
+      {
+        "id": "m4",
+        "name": "1X Trypsin (Fisher Scientific)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "15 mL conical tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "P1000 pipette tip"
+      },
+      {
+        "id": "e2",
+        "name": "end-over-end rotator"
+      },
+      {
+        "id": "e3",
+        "name": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s0",
+        "name": "organoids in Cultrex domes"
+      },
+      {
+        "id": "s1",
+        "name": "organoids in cold 10 mM EDTA + 10 µM Y‑27632"
+      },
+      {
+        "id": "s2",
+        "name": "organoids after centrifugation"
+      },
+      {
+        "id": "s3",
+        "name": "organoids resuspended in 1X Trypsin"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s0"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Placed on an end-over-end rotator at 4 °C for 30 min"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "5 min at 500 ×g, 4 °C"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Placed on an end-over-end rotator for 6 min at 37 °C"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,654 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Immunohistochemistry of organoid sections",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01197-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "PBS",
+        "name": "Phosphate Buffered Saline"
+      },
+      {
+        "id": "PFA_4pct",
+        "name": "4% Paraformaldehyde"
+      },
+      {
+        "id": "sucrose_10",
+        "name": "10% sucrose solution"
+      },
+      {
+        "id": "sucrose_20",
+        "name": "20% sucrose solution"
+      },
+      {
+        "id": "sucrose_30",
+        "name": "30% sucrose solution"
+      },
+      {
+        "id": "OCT",
+        "name": "Optimal Cutting Temperature compound"
+      },
+      {
+        "id": "glycine_0.1M",
+        "name": "0.1 M glycine in PBS"
+      },
+      {
+        "id": "block_buffer",
+        "name": "3% BSA + 0.3% Triton‑X100 in PBS"
+      },
+      {
+        "id": "primary_ab_mix",
+        "name": "Primary antibody mixture"
+      },
+      {
+        "id": "secondary_ab_mix",
+        "name": "Secondary antibody mixture"
+      },
+      {
+        "id": "mount_media",
+        "name": "Aqua Poly Mounting Media"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube1",
+        "type": "microcentrifuge_tube_1.5ml"
+      },
+      {
+        "id": "mold",
+        "type": "cryosection_mold"
+      },
+      {
+        "id": "slides",
+        "type": "positively_charged_microscope_slides"
+      },
+      {
+        "id": "coverslip",
+        "type": "coverslip"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "pipette_P200",
+        "type": "pipette"
+      },
+      {
+        "id": "pipette_P20",
+        "type": "pipette"
+      },
+      {
+        "id": "cryostat",
+        "type": "cryostat"
+      },
+      {
+        "id": "dry_ice",
+        "type": "dry_ice"
+      },
+      {
+        "id": "freezer_-80C",
+        "type": "freezer"
+      },
+      {
+        "id": "freezer_-20C",
+        "type": "freezer"
+      },
+      {
+        "id": "incubator",
+        "type": "incubator"
+      },
+      {
+        "id": "humidifying_chamber",
+        "type": "humidifying_chamber"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoid_sample"
+      },
+      {
+        "id": "sectioned_slides"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "tube1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "organoid_sample",
+          "destination": "tube1",
+          "tool": "pipette_P200",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "rinse",
+          "target": "tube1",
+          "reagent": "PBS",
+          "volume": "1 mL",
+          "note": "aspirate medium, add PBS, remove PBS without collecting organoids"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "PFA_4pct",
+          "destination": "tube1",
+          "tool": "pipette_P200",
+          "amount": {
+            "value": 250.0,
+            "unit": "µL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator",
+          "program": {
+            "program_name": "overnight_4C"
+          },
+          "duration": "overnight",
+          "temperature": "4 °C"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "note": "Discard supernatant after fixation"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "rinse",
+          "target": "tube1",
+          "reagent": "PBS",
+          "volume": "1 mL",
+          "repeat": 2,
+          "note": "wash organoids twice, allowing them to settle between washes"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "params": {
+          "source": "sucrose_10",
+          "destination": "tube1",
+          "tool": "pipette_P200",
+          "amount": {
+            "value": 1.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "annotate",
+        "params": {
+          "note": "Allow organoids to settle (~30–40 min), then discard supernatant"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "transfer",
+        "params": {
+          "source": "sucrose_20",
+          "destination": "tube1",
+          "tool": "pipette_P200",
+          "amount": {
+            "value": 1.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "annotate",
+        "params": {
+          "note": "Allow organoids to settle (~30–40 min), then discard supernatant"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s13",
+        "op": "transfer",
+        "params": {
+          "source": "sucrose_30",
+          "destination": "tube1",
+          "tool": "pipette_P200",
+          "amount": {
+            "value": 1.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s14",
+        "op": "annotate",
+        "params": {
+          "note": "Allow organoids to settle (~30–40 min), then discard supernatant"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s15",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "mold"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s16",
+        "op": "annotate",
+        "params": {
+          "text": "unmapped action_kind in source: transfer"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s17",
+        "op": "annotate",
+        "params": {
+          "note": "Flash freeze mold on dry ice"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s18",
+        "op": "annotate",
+        "params": {
+          "note": "Store mold at −80 °C until cryosectioning"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s19",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "slides"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s20",
+        "op": "annotate",
+        "params": {
+          "text": "unmapped device_kind in source: cryostat"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sectioned_slides"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s21",
+        "op": "annotate",
+        "params": {
+          "note": "Use anti‑fold tool to prevent section folding"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s22",
+        "op": "annotate",
+        "params": {
+          "note": "Store slides at −20 °C until immunohistochemistry"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s23",
+        "op": "annotate",
+        "params": {
+          "text": "unmapped action_kind in source: incubate"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s24",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "rinse",
+          "target": "sectioned_slides",
+          "reagent": "glycine_0.1M",
+          "note": "Wash slides with 0.1 M glycine in PBS"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s25",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator",
+          "program": {
+            "program_name": "block_1h_RT"
+          },
+          "duration": "1 h",
+          "temperature": "room temperature",
+          "note": "Block with 3% BSA + 0.3% Triton‑X100 in PBS"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s26",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "humidifying_chamber",
+          "program": {
+            "program_name": "primary_overnight_4C"
+          },
+          "duration": "overnight",
+          "temperature": "4 °C",
+          "note": "Incubate with primary antibodies in blocking buffer"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s27",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "rinse",
+          "target": "sectioned_slides",
+          "reagent": "PBS",
+          "duration": "15 min",
+          "temperature": "room temperature",
+          "note": "Wash after primary antibody incubation"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s28",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator",
+          "program": {
+            "program_name": "secondary_1-2h_RT"
+          },
+          "duration": "1–2 h",
+          "temperature": "room temperature",
+          "note": "Incubate with secondary antibodies in darkness"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s29",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "rinse",
+          "target": "sectioned_slides",
+          "reagent": "PBS",
+          "repeat": 3,
+          "note": "Wash slides three times with PBS"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s30",
+        "op": "transfer",
+        "params": {
+          "source": "mount_media",
+          "destination": "sectioned_slides",
+          "tool": "pipette_P20",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          },
+          "note": "Mount coverslips using Aqua Poly Mounting Media, avoiding bubbles"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s31",
+        "op": "annotate",
+        "params": {
+          "text": "unmapped action_kind in source: incubate"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s32",
+        "op": "annotate",
+        "params": {
+          "note": "Slides can be stored at −20 °C for up to 1 year until imaging"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      },
+      {
+        "from": "s16",
+        "to": "s17"
+      },
+      {
+        "from": "s17",
+        "to": "s18"
+      },
+      {
+        "from": "s18",
+        "to": "s19"
+      },
+      {
+        "from": "s19",
+        "to": "s20"
+      },
+      {
+        "from": "s20",
+        "to": "s21"
+      },
+      {
+        "from": "s21",
+        "to": "s22"
+      },
+      {
+        "from": "s22",
+        "to": "s23"
+      },
+      {
+        "from": "s23",
+        "to": "s24"
+      },
+      {
+        "from": "s24",
+        "to": "s25"
+      },
+      {
+        "from": "s25",
+        "to": "s26"
+      },
+      {
+        "from": "s26",
+        "to": "s27"
+      },
+      {
+        "from": "s27",
+        "to": "s8"
+      },
+      {
+        "from": "s27",
+        "to": "s28"
+      },
+      {
+        "from": "s28",
+        "to": "s29"
+      },
+      {
+        "from": "s29",
+        "to": "s30"
+      },
+      {
+        "from": "s30",
+        "to": "s31"
+      },
+      {
+        "from": "s31",
+        "to": "s32"
+      }
+    ],
+    "detail_level": 0
+  }
+}

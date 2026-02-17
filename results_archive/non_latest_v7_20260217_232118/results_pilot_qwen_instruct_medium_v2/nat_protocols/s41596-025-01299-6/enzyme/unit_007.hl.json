@@ -1,0 +1,170 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Generation of hFA Assembloids",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01299-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "24-well low-attachment plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "P1000 pipette"
+      },
+      {
+        "id": "e2",
+        "type": "P20 pipette"
+      },
+      {
+        "id": "e3",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s1",
+        "type": "hCO"
+      },
+      {
+        "id": "s2",
+        "type": "hSO"
+      },
+      {
+        "id": "s3",
+        "type": "hFA assembloid"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          },
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "each"
+          },
+          "container": "c1"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: position"
+        },
+        "annotations": {
+          "note": "gently position hCO and hSO so that they are in contact with each other (Fig. 3f)"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "params": {
+          "source_location": "bench",
+          "destination_location": "incubator",
+          "device_ref": "e3"
+        },
+        "annotations": {
+          "note": "ensure that the plate remains tilted (Fig. 3g)"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": "37 °C",
+            "co2": "5%",
+            "duration": "4 d"
+          }
+        },
+        "annotations": {
+          "note": "keep the plates in the tilted position for 4 d without disturbing them. Critical: undisturbed for first 4 d after fusion to successfully generate hFA. 100% success rate with 1,008 assembloids."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

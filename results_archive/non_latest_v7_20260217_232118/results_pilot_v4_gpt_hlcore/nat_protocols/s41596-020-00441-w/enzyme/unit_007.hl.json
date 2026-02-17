@@ -1,0 +1,212 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Seed gut cell suspensions in ultra‑low attachment plates",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-00441-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "day7_medium",
+        "name": "day 7 medium"
+      },
+      {
+        "id": "anterior_gut_cells",
+        "name": "anterior gut cell suspension"
+      },
+      {
+        "id": "posterior_gut_cells",
+        "name": "posterior gut cell suspension"
+      }
+    ],
+    "containers": [
+      {
+        "id": "ultra_low_plate",
+        "name": "96-well round-bottom ultra-low attachment plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator1",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "well_anterior",
+        "type": "well"
+      },
+      {
+        "id": "well_post",
+        "type": "well"
+      },
+      {
+        "id": "well_medium",
+        "type": "well"
+      },
+      {
+        "id": "anterior_spheroids",
+        "type": "spheroid"
+      },
+      {
+        "id": "posterior_spheroids",
+        "type": "spheroid"
+      },
+      {
+        "id": "anterior_gut_cells",
+        "name": "anterior_gut_cells"
+      },
+      {
+        "id": "posterior_gut_cells",
+        "name": "posterior_gut_cells"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "ultra_low_plate"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "anterior_gut_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "well_anterior"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 10000,
+            "unit": "cells"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "posterior_gut_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "well_post"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 10000,
+            "unit": "cells"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "day7_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "well_medium"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 100,
+            "unit": "µl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "ultra_low_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "ultra_low_plate"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "37 °C overnight",
+          "device_ref": "incubator1"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Prepare the same number of anterior and posterior spheroids."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,453 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Generation of neural spheroids in AggreWell plates",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01299-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "anti-adherence rinsing solution"
+      },
+      {
+        "id": "m2",
+        "name": "DPBS"
+      },
+      {
+        "id": "m3",
+        "name": "E8 medium"
+      },
+      {
+        "id": "m4",
+        "name": "Y-27632"
+      },
+      {
+        "id": "m5",
+        "name": "Accutase"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "AggreWell plate",
+        "name": "AggreWell plate"
+      },
+      {
+        "id": "c2",
+        "type": "10-cm dish",
+        "name": "10-cm dish"
+      },
+      {
+        "id": "c3",
+        "type": "50-ml conical tube",
+        "name": "50-ml conical tube"
+      },
+      {
+        "id": "c4",
+        "type": "hemacytometer",
+        "name": "Bright-Line hemacytometer"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator",
+        "name": "5% CO2 incubator"
+      },
+      {
+        "id": "e2",
+        "type": "centrifuge",
+        "name": "swinging bucket centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s1",
+        "name": "hiPS cells"
+      },
+      {
+        "id": "s_mix",
+        "name": "E8 medium + 10 μM Y-27632"
+      },
+      {
+        "id": "s2",
+        "name": "cell suspension"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "name": "cell count"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source": {
+            "material_id": "m1"
+          },
+          "destination": {
+            "container_id": "c1",
+            "well": "A1"
+          },
+          "amount": {
+            "value": 500.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "params": {
+          "note": "Incubate the AggreWell plate for 5 min at room temperature."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "e2",
+          "program": {
+            "program_name": "1300g_5min"
+          },
+          "target": {
+            "container_id": "c1"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": {
+            "material_id": "m2"
+          },
+          "destination": {
+            "container_id": "c1",
+            "well": "A1"
+          },
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "description": "E8 medium supplemented with 10 μM Y-27632"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": {
+            "sample_id": "s_mix"
+          },
+          "destination": {
+            "container_id": "c1",
+            "well": "A1"
+          },
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "e2",
+          "program": {
+            "program_name": "1300g_5min"
+          },
+          "target": {
+            "container_id": "c1"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "note": "Aspirate medium from hiPS cell culture plates and rinse the cells with 1 ml DPBS twice."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "params": {
+          "source": {
+            "material_id": "m5"
+          },
+          "destination": {
+            "container_id": "c2"
+          },
+          "amount": {
+            "value": 5.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "37C_7min"
+          },
+          "target": {
+            "container_id": "c2"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "annotate",
+        "params": {
+          "note": "After 7 min, cells should detach easily with gentle shaking."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "transfer",
+        "params": {
+          "source": {
+            "material_id": "m3"
+          },
+          "destination": {
+            "container_id": "c2"
+          },
+          "amount": {
+            "value": 5.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s13",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer all contents from container c2 to container c3."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s14",
+        "op": "annotate",
+        "params": {
+          "note": "Gently pipette the cell suspension a few times with a serological pipette to dissociate clumps."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s15",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "e2",
+          "program": {
+            "program_name": "200g_5min"
+          },
+          "target": {
+            "container_id": "c3"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s16",
+        "op": "annotate",
+        "params": {
+          "note": "Aspirate supernatant and resuspend cells in E8 medium supplemented with 10 μM Y-27632."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s17",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "cell_count"
+          ],
+          "instrument": {
+            "equipment_id": "c4"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s18",
+        "op": "transfer",
+        "params": {
+          "source": {
+            "sample_id": "s2"
+          },
+          "destination": {
+            "container_id": "c1",
+            "well": "A1"
+          },
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s19",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "e2",
+          "program": {
+            "program_name": "100g_3min"
+          },
+          "target": {
+            "container_id": "c1"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s20",
+        "op": "annotate",
+        "params": {
+          "note": "Place the AggreWell plate in a 37 °C, 5 % CO₂ incubator and leave untouched for 24 h for neural spheroid formation."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      },
+      {
+        "from": "s16",
+        "to": "s17"
+      },
+      {
+        "from": "s17",
+        "to": "s18"
+      },
+      {
+        "from": "s18",
+        "to": "s19"
+      },
+      {
+        "from": "s19",
+        "to": "s20"
+      }
+    ],
+    "detail_level": 0
+  }
+}

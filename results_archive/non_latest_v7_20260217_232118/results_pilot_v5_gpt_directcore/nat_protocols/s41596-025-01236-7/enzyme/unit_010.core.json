@@ -1,0 +1,164 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "iNPC cryopreservation",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01236-7.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Bambanker cell freezing medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "cryovial",
+        "type": "cryovial"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "centrifuge",
+        "type": "centrifuge"
+      },
+      {
+        "id": "e2",
+        "name": "-80°C freezer",
+        "type": "freezer"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_cells",
+        "name": "harvested cells",
+        "type": "cell_sample"
+      },
+      {
+        "id": "s_pellet",
+        "name": "cell pellet",
+        "type": "cell_sample"
+      },
+      {
+        "id": "s_suspension",
+        "name": "cell suspension in Bambanker",
+        "type": "cell_sample"
+      },
+      {
+        "id": "s_new",
+        "name": "allocated sample",
+        "type": "cell_sample"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s0",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s1",
+        "op": "annotate",
+        "params": {
+          "note": "Count total number of harvested cells after step 39."
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "params": {
+          "note": "Calculate number of cryovials needed based on total cell count."
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "300g_5min"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "note": "Distribute 0.5‑ml aliquot of cell suspension into each cryovial.",
+          "amount": {
+            "value": 0.5,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Move cryovials to -80 °C freezer."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s0",
+    "edges": [
+      {
+        "from": "s0",
+        "to": "s1"
+      },
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

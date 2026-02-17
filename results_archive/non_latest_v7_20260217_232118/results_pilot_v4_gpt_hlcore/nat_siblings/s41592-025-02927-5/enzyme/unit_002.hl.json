@@ -1,0 +1,146 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Pooling and single‑cell preparation",
+    "source": {
+      "type": "paper",
+      "id": "s41592-025-02927-5.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "10x_genomics",
+        "device_kind": "amplicon_readout_system",
+        "description": "10x Genomics single‑cell transcriptome sequencing platform"
+      }
+    ],
+    "samples": [
+      {
+        "id": "condition_samples",
+        "description": "individual condition samples before pooling"
+      },
+      {
+        "id": "pooled_sample",
+        "description": "pooled sample of all conditions"
+      },
+      {
+        "id": "single_cell_suspension",
+        "description": "single‑cell suspension after dissociation"
+      },
+      {
+        "id": "hashed_cells",
+        "description": "cells after hashing with barcoded antibodies"
+      },
+      {
+        "id": "sequencing_output",
+        "description": "library/output from single‑cell transcriptome sequencing"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "condition_samples"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "pooled_sample"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "pooled_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "single_cell_suspension"
+          }
+        ],
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "single_cell_suspension"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "hashed_cells"
+          }
+        ],
+        "params": {
+          "action_kind": "label"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "hashed_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sequencing_output"
+          }
+        ],
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": "single-cell transcriptome sequencing (3′ mRNA, 10x Genomics)"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

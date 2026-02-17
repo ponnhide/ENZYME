@@ -1,0 +1,112 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Seeding single cells into 96‑well plates",
+    "source": {
+      "type": "paper",
+      "id": "s41586-018-0024-3"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "sorted_cells",
+        "name": "Sorted cells"
+      },
+      {
+        "id": "bme",
+        "name": "Basement membrane extract (BME, Amsbio)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate_96well",
+        "name": "96‑well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge",
+        "device_kind": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sorted_cells",
+        "description": "Cell suspension after sorting"
+      },
+      {
+        "id": "spun_cells",
+        "description": "Cell pellet after centrifugation"
+      },
+      {
+        "id": "bme",
+        "description": "Basement membrane extract"
+      },
+      {
+        "id": "seeded_plate",
+        "description": "96‑well plate seeded with single cells in BME"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "centrifuge",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sorted_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "spun_cells"
+          }
+        ],
+        "params": {
+          "speed": "1000g",
+          "temperature": "4 °C",
+          "time": "5 min"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "spun_cells"
+          },
+          {
+            "kind": "sample",
+            "id": "bme"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "seeded_plate"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Each single cell was embedded into 10 µl of basement membrane extract (BME, Amsbio) and seeded into 96‑well plates at a ratio of 1 cell per well."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

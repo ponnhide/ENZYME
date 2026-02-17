@@ -1,0 +1,173 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Perform Percoll density gradient centrifugation",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00929-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "sample_tube",
+        "name": "sample_tube"
+      },
+      {
+        "id": "conical_tube_with_percoll",
+        "name": "conical_tube_with_percoll"
+      },
+      {
+        "id": "unified_tube",
+        "name": "unified_tube"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "conical_tube_with_percoll"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 750,
+            "unit": "µL"
+          }
+        },
+        "annotations": {
+          "note": "Carefully dispense cell suspension from each sample tube into the new conical tubes containing 22% Percoll in equal amounts. Critical step: The cell suspension should be dispensed on top of the Percoll."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "conical_tube_with_percoll"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "conical_tube_with_percoll"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "speed": "500g",
+            "duration": "10 min",
+            "temperature": "4 °C",
+            "deceleration": "none"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "conical_tube_with_percoll"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "conical_tube_with_percoll"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: discard_supernatant"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "conical_tube_with_percoll"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "unified_tube"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "annotations": {
+          "note": "Reunite contents of all Percoll tubes into one tube by resuspending the cell pellet in the HBSS/BSA/glucose remaining after pouring out the supernatant."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "unified_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "unified_tube"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "speed": "300g",
+            "duration": "5 min",
+            "temperature": "4 °C"
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

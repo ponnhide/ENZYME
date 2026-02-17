@@ -1,0 +1,462 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Section 3A: selection for the interneuron generation screen – dissociation and sorting",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01299-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_organoids",
+        "description": "organoids"
+      },
+      {
+        "id": "m_enzyme_solution",
+        "description": "enzyme solution with papain (10 U ml−1)"
+      },
+      {
+        "id": "m_low_ovo",
+        "description": "low-ovo solution"
+      },
+      {
+        "id": "m_BSA_solution",
+        "description": "3% BSA (wt/vol) in 1× DPBS supplemented with 10 μM Y-27632"
+      },
+      {
+        "id": "m_NM",
+        "description": "NM supplemented with 10% FBS (vol/vol) and 20 μM Y-27632"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_plate",
+        "type": "six_well_plate"
+      },
+      {
+        "id": "c_tube1",
+        "type": "conical_tube_15ml"
+      },
+      {
+        "id": "c_tube2",
+        "type": "conical_tube_15ml"
+      },
+      {
+        "id": "c_low_binding_tube",
+        "type": "low_binding_tube_15ml"
+      },
+      {
+        "id": "c_filter",
+        "type": "filter_50um"
+      },
+      {
+        "id": "c_hemacytometer",
+        "type": "hemacytometer"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e_incubator",
+        "type": "incubator"
+      },
+      {
+        "id": "e_centrifuge",
+        "type": "centrifuge"
+      },
+      {
+        "id": "e_facs",
+        "type": "cell_sorter"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_pool",
+        "description": "pooled organoids"
+      },
+      {
+        "id": "s_cell_suspension",
+        "description": "cell suspension after dissociation"
+      },
+      {
+        "id": "d_cell_count",
+        "name": "d_cell_count"
+      }
+    ],
+    "data": [
+      {
+        "id": "d_cell_count",
+        "type": "cell_count"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source_material": "m_enzyme_solution",
+          "destination_container": "c_plate",
+          "description": "add enzyme solution to pooled organoids",
+          "amount": {
+            "value": 3.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e_incubator",
+          "program": {
+            "program_name": "37C_5%CO2_15min"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "description": "shake plate horizontally every 5 min"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "source_sample": "s_pool",
+          "destination_container": "c_tube1",
+          "description": "transfer organoids and enzyme solution to 15‑ml conical tube",
+          "amount": {
+            "description": "unspecified"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "e_centrifuge",
+          "program": {
+            "program_name": "200g_30s"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "params": {
+          "description": "remove supernatant after first spin"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "transfer",
+        "params": {
+          "source_material": "m_low_ovo",
+          "destination_container": "c_tube1",
+          "description": "add low‑ovo solution",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "e_centrifuge",
+          "program": {
+            "program_name": "200g_30s"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "annotate",
+        "params": {
+          "description": "wash once more with 1 ml low‑ovo solution and add another 1 ml low‑ovo solution"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s13",
+        "op": "transfer",
+        "params": {
+          "source_material": "m_low_ovo",
+          "destination_container": "c_tube1",
+          "description": "second wash addition",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s14",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "description": "mechanically dissociate organoids by pipetting with P1000 tip"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s15",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s16",
+        "op": "transfer",
+        "params": {
+          "source_container": "c_tube1",
+          "destination_container": "c_tube2",
+          "description": "transfer supernatant to new tube",
+          "amount": {
+            "value": 800,
+            "unit": "μl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s17",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "description": "pipette remaining chunks with P200 tip and transfer ~180 μl supernatant to same tube"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s18",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "description": "pipette with P20 tip to break debris and transfer remaining supernatant to same tube"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s19",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "e_centrifuge",
+          "program": {
+            "program_name": "200g_5min_4C"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s20",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "description": "aspirate supernatant and resuspend pellet in 1 ml 3% BSA solution with Y‑27632"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s21",
+        "op": "transfer",
+        "params": {
+          "source_container": "c_tube2",
+          "destination_container": "c_low_binding_tube",
+          "description": "filter cells through 50‑μm filter into low‑binding tube",
+          "amount": {
+            "description": "unspecified"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s22",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "cell_count"
+          ],
+          "description": "count cells manually using Bright‑Line hemacytometer"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d_cell_count"
+          }
+        ]
+      },
+      {
+        "id": "s23",
+        "op": "annotate",
+        "params": {
+          "description": "collect Dlxi1/2b::GFP+ and Dlxi1/2b::GFP− populations by FACS at 4 °C into low‑binding tube containing 5 ml NM with 10% FBS and 20 μM Y‑27632"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      },
+      {
+        "from": "s16",
+        "to": "s17"
+      },
+      {
+        "from": "s17",
+        "to": "s18"
+      },
+      {
+        "from": "s18",
+        "to": "s19"
+      },
+      {
+        "from": "s19",
+        "to": "s20"
+      },
+      {
+        "from": "s20",
+        "to": "s21"
+      },
+      {
+        "from": "s21",
+        "to": "s22"
+      },
+      {
+        "from": "s22",
+        "to": "s23"
+      }
+    ],
+    "detail_level": 0
+  }
+}

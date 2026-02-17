@@ -1,0 +1,252 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-023-00827-6.pdf",
+      "type": "paper"
+    },
+    "title": "Immunofluorescence staining of organoid sections"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {
+          "description": "Aspirate the medium and remove the insert from the 24-well plate. Invert it and gently peel off the membrane from the insert using forceps."
+        },
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "organoid_insert",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [],
+        "params": {
+          "text": "unmapped action_kind in source: peel"
+        }
+      },
+      {
+        "annotations": {
+          "description": "Excise the lung organoid and embed in a cryo-mold on dry ice."
+        },
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "lung_organoid",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [],
+        "params": {
+          "text": "unmapped action_kind in source: embed"
+        }
+      },
+      {
+        "annotations": {
+          "description": "Cut frozen samples on a cryotome at the thickness of 10–12 μm and collect on adhesion microscope slides and air dry."
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "embedded_organoid",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "cryosection",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "text": "unmapped device_kind in source: cryotome"
+        }
+      },
+      {
+        "annotations": {
+          "description": "Fix the samples in 4% paraformaldehyde for 20 min, wash two times for 5 min in 50 mM glycine to inactivate the PFA, followed by washing in PBS."
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "cryosection",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "fixed_cryosection",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "volume",
+            "unit_type": "microliter",
+            "value": 1,
+            "value_type": "exact"
+          },
+          "destination": "sample",
+          "source": "4% paraformaldehyde"
+        }
+      },
+      {
+        "annotations": {
+          "description": "Permeabilize samples for 10 min in 0.2% PBST (PBS + 0.2% Triton X-100) and block by incubating in PBS containing 5% donkey serum for 1 h, then incubate overnight in primary antibody in 0.2% Triton X-100 and 2% donkey serum (for primary antibodies and suggested dilutions, see Table 1)."
+        },
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "fixed_cryosection",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "permeabilized_cryosection",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "volume",
+            "unit_type": "microliter",
+            "value": 1,
+            "value_type": "exact"
+          },
+          "destination": "sample",
+          "source": "0.2% PBST (PBS + 0.2% Triton X-100)"
+        }
+      },
+      {
+        "annotations": {
+          "description": "The next day, wash the samples three times in PBS and 1% donkey serum and incubate with secondary antibody (1:200) for 1 h at the room temperature (for secondary antibodies, see Table 1). Stain nuclei with DAPI (1:500)."
+        },
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "permeabilized_cryosection",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "secondary_antibody_incubated",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "duration": "1 h",
+            "temperature": "room temperature"
+          }
+        }
+      },
+      {
+        "annotations": {
+          "description": "Mount sections with Mounting Reagent and coverslip. Slides are ready for the imaging when the mounting reagent dries properly."
+        },
+        "id": "s7",
+        "inputs": [
+          {
+            "id": "secondary_antibody_incubated",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "mounted_section",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "volume",
+            "unit_type": "microliter",
+            "value": 1,
+            "value_type": "exact"
+          },
+          "destination": "sample",
+          "source": "Mounting Reagent"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [],
+    "data": [],
+    "equipment": [],
+    "materials": [],
+    "samples": [
+      {
+        "id": "organoid_insert",
+        "name": "organoid_insert"
+      },
+      {
+        "id": "lung_organoid",
+        "name": "lung_organoid"
+      },
+      {
+        "id": "embedded_organoid",
+        "name": "embedded_organoid"
+      },
+      {
+        "id": "cryosection",
+        "name": "cryosection"
+      },
+      {
+        "id": "fixed_cryosection",
+        "name": "fixed_cryosection"
+      },
+      {
+        "id": "permeabilized_cryosection",
+        "name": "permeabilized_cryosection"
+      },
+      {
+        "id": "secondary_antibody_incubated",
+        "name": "secondary_antibody_incubated"
+      },
+      {
+        "id": "mounted_section",
+        "name": "mounted_section"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

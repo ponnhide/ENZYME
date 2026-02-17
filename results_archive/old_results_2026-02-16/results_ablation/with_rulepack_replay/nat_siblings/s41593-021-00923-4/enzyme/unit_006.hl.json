@@ -1,0 +1,157 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Organoid cell dissociation",
+    "source": {
+      "type": "paper",
+      "id": "s41593-021-00923-4"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "gentleMACS C tube",
+        "vendor": "Miltenyi",
+        "catalog_number": "130-093-237",
+        "type": "container"
+      },
+      {
+        "id": "m2",
+        "name": "papain solution",
+        "concentration": "20 units per ml",
+        "vendor": "Worthington",
+        "catalog_number": "PAP2",
+        "type": "reagent"
+      },
+      {
+        "id": "m3",
+        "name": "organoid slices",
+        "type": "sample_material"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "gentleMACS C tube",
+        "vendor": "Miltenyi",
+        "catalog_number": "130-093-237",
+        "type": "tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "gentleMACS Octo dissociator",
+        "vendor": "Miltenyi",
+        "type": "dissociator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_slice",
+        "name": "organoid slices"
+      },
+      {
+        "id": "s_tube_with_papain",
+        "name": "gentleMACS C tube with papain solution"
+      },
+      {
+        "id": "s_dissociation_mix",
+        "name": "organoid slices in papain solution"
+      },
+      {
+        "id": "m2",
+        "name": "m2"
+      },
+      {
+        "id": "c1",
+        "name": "c1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "m2"
+          },
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_tube_with_papain"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 2,
+            "unit": "ml"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_slice"
+          },
+          {
+            "kind": "sample",
+            "id": "s_tube_with_papain"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_dissociation_mix"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Amount of organoid slices not specified in source text."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_dissociation_mix"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Ran on a gentleMACS Octo dissociator (Miltenyi) using the default ABDK program."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

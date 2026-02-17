@@ -1,0 +1,196 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "RT‑qPCR reaction preparation",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00827-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "Sybr_green",
+        "name": "Sybr green mix"
+      },
+      {
+        "id": "forward_primer",
+        "name": "Forward primer (10 µM stock)"
+      },
+      {
+        "id": "reverse_primer",
+        "name": "Reverse primer (10 µM stock)"
+      },
+      {
+        "id": "water",
+        "name": "Nuclease‑free water"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate1",
+        "type": "384-well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "thermo1",
+        "type": "thermocycler"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cDNA1",
+        "type": "cDNA"
+      },
+      {
+        "id": "plate1",
+        "name": "plate1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "type": "384-well plate"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "type": "cDNA"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cDNA1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "Sybr_green",
+          "destination": "plate1",
+          "location": "well_A1",
+          "amount": {
+            "value": 7.5,
+            "unit": "µl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "forward_primer",
+          "destination": "plate1",
+          "location": "well_A1",
+          "amount": {
+            "value": 0.15,
+            "unit": "µl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "reverse_primer",
+          "destination": "plate1",
+          "location": "well_A1",
+          "amount": {
+            "value": 0.15,
+            "unit": "µl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer variable amount of cDNA1 to well_A1 of plate1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer variable amount of water to well_A1 of plate1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "thermocycler",
+          "device_ref": "thermo1",
+          "program": {
+            "profile_name": "40 cycles"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

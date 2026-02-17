@@ -1,0 +1,273 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "FACS",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00929-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "mat1",
+        "name": "unstained control"
+      },
+      {
+        "id": "mat2",
+        "name": "single‑color control"
+      },
+      {
+        "id": "mat3",
+        "name": "DAPI (dead‑cell stain)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "cont1",
+        "name": "sample tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "eq1",
+        "kind": "imager",
+        "name": "flow cytometer / FACS instrument"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "name": "cell suspension"
+      }
+    ],
+    "data": [
+      {
+        "id": "data1",
+        "name": "single‑color control recordings"
+      },
+      {
+        "id": "data2",
+        "name": "compensated fluorescence data"
+      },
+      {
+        "id": "data3",
+        "name": "sorted cell population"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "program": "set laser levels using unstained and single‑color controls"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "data1"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "program": "record single‑color controls for each fluorophore"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "data",
+            "id": "data1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "data2"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Compensation performed by the instrument to correct fluorescence spill‑over"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "data",
+            "id": "data2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "data2"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Draw gates to eliminate debris using side scatter (SSC) and forward scatter (FSC) gates"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "data",
+            "id": "data2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "data2"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Eliminate doublets also with SSC or FSC gates"
+        }
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "data",
+            "id": "data2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "data2"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Eliminate dead cells (e.g., using DAPI stain)"
+        }
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "data",
+            "id": "data2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "data2"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Set up FACS plots to select populations of interest (e.g., CD45−CD31+ANPEP− endothelial cells, CD45−CD31−ANPEP+ mural cells)"
+        }
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Optional: run additional controls such as fluorescence‑minus‑one (FMO) and unstained controls to verify gating"
+        }
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "data3"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "program": "cell sorting using 100 µm nozzle"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,146 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Micromass centrifugation and resuspension",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00880-1"
+    },
+    "group": "nat_protocols"
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "e6_fbs",
+        "name": "E6/2% FBS"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube",
+        "type": "tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge",
+        "type": "centrifuge"
+      },
+      {
+        "id": "p200_pipette",
+        "type": "pipette"
+      }
+    ],
+    "samples": [
+      {
+        "id": "tube_sample",
+        "container_ref": "tube",
+        "description": "tube containing cells"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tube_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tube_sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 200,
+            "unit": "µL"
+          },
+          "source_material": "e6_fbs"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tube_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tube_sample"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "speed": {
+            "value": 300,
+            "unit": "g"
+          },
+          "duration": {
+            "value": 3,
+            "unit": "min"
+          },
+          "repeats": 3,
+          "rotation_between": "180°",
+          "program": {
+            "speed": {
+              "value": 300,
+              "unit": "g"
+            },
+            "duration": {
+              "value": 3,
+              "unit": "min"
+            },
+            "repeats": 3,
+            "rotation_between": "180°"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tube_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tube_sample"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Use a P200 pipette with a wide‑bore tip to gently push each cell pellet down to the base of the tube and aspirate the micromass into the pipette tip opening."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Validate sgRNA efficiency via flow cytometry reporter assay",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-023-06473-y.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "params": {
+          "note": "To ensure efficient generation of loss-of-function alleles, we determined the editing efficiency of each sgRNA pair using a flow cytometry-based gRNA reporter assay (Fig. 1b and Extended Data Fig. 1a)."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "params": {
+          "note": "A pre-assembled array of gRNA-targeting sequences fused with TagBFP is used to generate 3T3 fibroblast reporter cell lines."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "program": "delivery of sgRNA and eCas9 into reporter cell lines via lentiviruses"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "params": {
+          "note": "Successful genome editing causes frameshift mutations, resulting in the loss of blue fluorescent protein (BFP) fluorescence, which enables the quantitative evaluation of gRNA efficiency (Fig. 1c and Extended Data Fig. 1b,c), although it does not allow for the determination of whether a heterozygous or homozygous mutation was introduced."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "BFP_fluorescence_loss"
+          ]
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,191 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "RNA extraction from lung organoid (steps 1‑3)",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00827-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "trizol",
+        "name": "Trizol"
+      },
+      {
+        "id": "ethanol_100",
+        "name": "100% ethanol"
+      },
+      {
+        "id": "zymo_spin_column",
+        "name": "Zymo-Spin IC Column"
+      }
+    ],
+    "containers": [
+      {
+        "id": "insert",
+        "type": "insert",
+        "name": "Insert with lung organoid"
+      },
+      {
+        "id": "tube_1_5ml",
+        "type": "tube_1.5ml",
+        "name": "1.5 ml tube"
+      },
+      {
+        "id": "collection_tube",
+        "type": "collection_tube",
+        "name": "Collection tube (with column)"
+      },
+      {
+        "id": "new_collection_tube",
+        "type": "collection_tube",
+        "name": "New collection tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge",
+        "type": "centrifuge",
+        "name": "Centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoid_trizol",
+        "name": "Lung organoid in Trizol"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "description": "Pipette up and down several times to break the Matrigel and collect the content of the insert."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source_container": "insert",
+          "destination_container": "tube_1_5ml",
+          "material": "trizol",
+          "description": "Transfer the organoid in Trizol into a 1.5 ml tube.",
+          "amount": {
+            "value": 300.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "description": "Vortex until homogenized."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge",
+          "program": {
+            "program_name": "16k_5min_4C"
+          },
+          "description": "Centrifuge the sample at 16,000 g for 5 min at 4 °C."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "description": "Take the supernatant and mix with equal amount of 100% ethanol and vortex thoroughly."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge",
+          "program": {
+            "program_name": "16k_30s"
+          },
+          "description": "Centrifuge the mixture for 30 s at 16,000 g."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer the column into a new collection tube and discard the flow‑through. Amount not specified."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

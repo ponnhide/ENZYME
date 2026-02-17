@@ -1,0 +1,185 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "iNPC cryopreservation",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01236-7"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Bambanker cell freezing medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "1.5‑ml Nalgene SYSTEM 100 cryogenic vial"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp_harvested_cells",
+        "name": "harvested cells"
+      },
+      {
+        "id": "samp_cell_pellet",
+        "name": "cell pellet"
+      },
+      {
+        "id": "samp_cell_suspension",
+        "name": "cell suspension in Bambanker"
+      },
+      {
+        "id": "samp_frozen_cell_sample",
+        "name": "frozen cell sample (0.5 ml per cryovial)"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_harvested_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_harvested_cells"
+          }
+        ],
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "cell_count"
+          ]
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_harvested_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_harvested_cells"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Calculate number of cryovials needed based on total cell count."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_harvested_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_cell_pellet"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "300 g for 5 min"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_cell_pellet"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_cell_suspension"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "annotations": {
+          "note": "Resuspend pellet with an appropriate volume of Bambanker cell freezing medium."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_cell_suspension"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_frozen_cell_sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 0.5,
+            "unit": "ml"
+          }
+        },
+        "annotations": {
+          "note": "Distribute a 0.5 ml aliquot of the cell suspension into each cryovial."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

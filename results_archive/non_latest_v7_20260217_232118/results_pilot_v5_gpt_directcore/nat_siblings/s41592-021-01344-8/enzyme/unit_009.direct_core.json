@@ -1,0 +1,146 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Track barcode changes with amplicon sequencing",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41592-021-01344-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "barcode_primers",
+        "type": "primer"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "sequencer",
+        "type": "amplicon_readout_system"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoid_sample",
+        "type": "organoid"
+      },
+      {
+        "id": "barcode_primers",
+        "name": "barcode_primers"
+      },
+      {
+        "id": "sequencer",
+        "name": "sequencer"
+      },
+      {
+        "id": "sequencing_data",
+        "name": "sequencing_data"
+      }
+    ],
+    "data": [
+      {
+        "id": "sequencing_data",
+        "type": "sequencing_results"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "barcode_primers"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "equipment"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sequencer"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "device_ref": "sequencer",
+          "program": {
+            "program_name": "amplicon_sequencing"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "barcode_sequences"
+          ]
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sequencing_data"
+          }
+        ],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

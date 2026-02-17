@@ -1,0 +1,235 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Clonal organoid derivation and FACS sorting",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-020-19142-9.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "tryple",
+        "name": "TryPLE"
+      },
+      {
+        "id": "pbss",
+        "name": "PBS"
+      },
+      {
+        "id": "edta",
+        "name": "EDTA"
+      },
+      {
+        "id": "fcs",
+        "name": "FCS"
+      },
+      {
+        "id": "dapi",
+        "name": "DAPI"
+      },
+      {
+        "id": "facs_buffer",
+        "name": "FACS buffer (PBS with 2 mM EDTA and 5% FCS)"
+      },
+      {
+        "id": "hiscm",
+        "name": "HISCM"
+      },
+      {
+        "id": "ly27632",
+        "name": "LY27632"
+      },
+      {
+        "id": "bme",
+        "name": "BME"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate96",
+        "type": "plate_96_well"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator1",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoid_piece",
+        "name": "early passage tumor organoids"
+      },
+      {
+        "id": "single_cells",
+        "name": "single cells after TryPLE dissociation"
+      },
+      {
+        "id": "single_cells_facs",
+        "name": "single cells suspended in FACS buffer"
+      },
+      {
+        "id": "single_cells_facs_dapi",
+        "name": "single cells in FACS buffer with DAPI"
+      },
+      {
+        "id": "sorted_cells",
+        "name": "HLA‑A2+ single cells sorted into wells"
+      },
+      {
+        "id": "plate96",
+        "name": "plate96"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_piece"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "reagent": "tryple"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "single_cells"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "reagent": "facs_buffer"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "single_cells_facs"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "reagent": "dapi"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "single_cells_facs_dapi"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate96"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "FACS sorting of HLA‑A2+ single cells into separate wells of the 96‑well plate containing 100 µl HISCM with 10 µM LY27632 and coated with BME."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "source": "bme",
+          "destination": "plate96",
+          "amount": {
+            "value": 10.0,
+            "unit": "µl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "37C"
+          },
+          "device_ref": "incubator1"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

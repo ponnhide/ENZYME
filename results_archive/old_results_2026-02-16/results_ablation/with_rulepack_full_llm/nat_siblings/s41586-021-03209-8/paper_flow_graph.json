@@ -1,0 +1,621 @@
+{
+  "graph_version": "0.1",
+  "linkable_kinds": [
+    "data",
+    "sample"
+  ],
+  "unit_graphs": [
+    {
+      "unit_id": "unit_001",
+      "title": "Cell lysis for scRNA-seq",
+      "has_core": true,
+      "status": "skipped_existing",
+      "error": null,
+      "step_graph": {
+        "node_count": 3,
+        "edge_count": 2,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "run_device"
+          },
+          {
+            "id": "s2",
+            "op": "transfer"
+          },
+          {
+            "id": "s3",
+            "op": "run_device"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s2"
+          },
+          {
+            "from": "s2",
+            "to": "s3"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "material:lysis_buffer",
+          "sample:cell_input",
+          "sample:lysate",
+          "sample:pelleted_cells"
+        ],
+        "output_refs": [
+          "sample:lysate",
+          "sample:pelleted_cells"
+        ]
+      }
+    },
+    {
+      "unit_id": "unit_002",
+      "title": "Nucleus isolation from frozen tissue",
+      "has_core": true,
+      "status": "skipped_existing",
+      "error": null,
+      "step_graph": {
+        "node_count": 5,
+        "edge_count": 4,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "allocate"
+          },
+          {
+            "id": "s2",
+            "op": "allocate"
+          },
+          {
+            "id": "s3",
+            "op": "transfer"
+          },
+          {
+            "id": "s4",
+            "op": "annotate"
+          },
+          {
+            "id": "s5",
+            "op": "annotate"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s3"
+          },
+          {
+            "from": "s2",
+            "to": "s3"
+          },
+          {
+            "from": "s3",
+            "to": "s4"
+          },
+          {
+            "from": "s4",
+            "to": "s5"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "sample:buffer",
+          "sample:tissue_frozen",
+          "sample:tissue_thawed",
+          "sample:tissue_with_buffer"
+        ],
+        "output_refs": [
+          "sample:buffer",
+          "sample:nuclei_isolated",
+          "sample:tissue_frozen",
+          "sample:tissue_thawed",
+          "sample:tissue_with_buffer"
+        ]
+      }
+    },
+    {
+      "unit_id": "unit_003",
+      "title": "Single-cell RNA-seq library generation (10X)",
+      "has_core": true,
+      "status": "skipped_existing",
+      "error": null,
+      "step_graph": {
+        "node_count": 3,
+        "edge_count": 2,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "allocate"
+          },
+          {
+            "id": "s2",
+            "op": "transfer"
+          },
+          {
+            "id": "s3",
+            "op": "annotate"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s2"
+          },
+          {
+            "from": "s2",
+            "to": "s3"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "sample:loaded_chip",
+          "sample:single_cells"
+        ],
+        "output_refs": [
+          "sample:loaded_chip",
+          "sample:single_cells"
+        ]
+      }
+    },
+    {
+      "unit_id": "unit_004",
+      "title": "Bulk ATAC-seq library preparation",
+      "has_core": true,
+      "status": "skipped_existing",
+      "error": null,
+      "step_graph": {
+        "node_count": 5,
+        "edge_count": 4,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "allocate"
+          },
+          {
+            "id": "s2",
+            "op": "annotate"
+          },
+          {
+            "id": "s3",
+            "op": "annotate"
+          },
+          {
+            "id": "s4",
+            "op": "annotate"
+          },
+          {
+            "id": "s5",
+            "op": "annotate"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s2"
+          },
+          {
+            "from": "s2",
+            "to": "s3"
+          },
+          {
+            "from": "s3",
+            "to": "s4"
+          },
+          {
+            "from": "s4",
+            "to": "s5"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "sample:library",
+          "sample:nuclei",
+          "sample:permeabilized_nuclei",
+          "sample:tagmented_chromatin"
+        ],
+        "output_refs": [
+          "sample:library",
+          "sample:nuclei",
+          "sample:permeabilized_nuclei",
+          "sample:sequencing_data",
+          "sample:tagmented_chromatin"
+        ]
+      }
+    },
+    {
+      "unit_id": "unit_005",
+      "title": "CUT&Tag library preparation",
+      "has_core": true,
+      "status": "skipped_existing",
+      "error": null,
+      "step_graph": {
+        "node_count": 4,
+        "edge_count": 3,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "annotate"
+          },
+          {
+            "id": "s2",
+            "op": "manipulate"
+          },
+          {
+            "id": "s3",
+            "op": "manipulate"
+          },
+          {
+            "id": "s4",
+            "op": "annotate"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s2"
+          },
+          {
+            "from": "s2",
+            "to": "s3"
+          },
+          {
+            "from": "s3",
+            "to": "s4"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "material:cut_tag_wash_buffer",
+          "material:dig_wash_buffer",
+          "sample:cell_aliquot",
+          "sample:cell_pellet",
+          "sample:nuclei"
+        ],
+        "output_refs": [
+          "sample:cell_suspension",
+          "sample:nuclei"
+        ]
+      }
+    },
+    {
+      "unit_id": "unit_006",
+      "title": "Forebrain organoid seeding and culture initiation",
+      "has_core": true,
+      "status": "skipped_existing",
+      "error": null,
+      "step_graph": {
+        "node_count": 5,
+        "edge_count": 4,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "annotate"
+          },
+          {
+            "id": "s2",
+            "op": "run_device"
+          },
+          {
+            "id": "s3",
+            "op": "manipulate"
+          },
+          {
+            "id": "s4",
+            "op": "manipulate"
+          },
+          {
+            "id": "s5",
+            "op": "transfer"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s2"
+          },
+          {
+            "from": "s2",
+            "to": "s3"
+          },
+          {
+            "from": "s3",
+            "to": "s4"
+          },
+          {
+            "from": "s4",
+            "to": "s5"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "sample:cell_suspension",
+          "sample:pelleted_cells",
+          "sample:washed_cells1",
+          "sample:washed_cells2"
+        ],
+        "output_refs": [
+          "sample:pelleted_cells",
+          "sample:seeded_wells",
+          "sample:washed_cells1",
+          "sample:washed_cells2"
+        ]
+      }
+    },
+    {
+      "unit_id": "unit_007",
+      "title": "Organoid medium transition at day 35",
+      "has_core": true,
+      "status": "skipped_existing",
+      "error": null,
+      "step_graph": {
+        "node_count": 2,
+        "edge_count": 1,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "transfer"
+          },
+          {
+            "id": "s2",
+            "op": "annotate"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s2"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "sample:s_organoid"
+        ],
+        "output_refs": [
+          "sample:s_organoid"
+        ]
+      }
+    },
+    {
+      "unit_id": "unit_008",
+      "title": "pA‑Tn5 tagmentation of nuclei",
+      "has_core": true,
+      "status": "skipped_existing",
+      "error": null,
+      "step_graph": {
+        "node_count": 2,
+        "edge_count": 1,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "transfer"
+          },
+          {
+            "id": "s2",
+            "op": "run_device"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s2"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "material:m1",
+          "material:m2",
+          "sample:s_mix",
+          "sample:s_nuclei"
+        ],
+        "output_refs": [
+          "sample:s_mix"
+        ]
+      }
+    },
+    {
+      "unit_id": "unit_009",
+      "title": "Library PCR amplification protocol",
+      "has_core": true,
+      "status": "skipped_existing",
+      "error": null,
+      "step_graph": {
+        "node_count": 1,
+        "edge_count": 1,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "run_device"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s1"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [],
+        "output_refs": []
+      }
+    },
+    {
+      "unit_id": "unit_010",
+      "title": "Immunohistochemistry staining workflow",
+      "has_core": true,
+      "status": "skipped_existing",
+      "error": null,
+      "step_graph": {
+        "node_count": 8,
+        "edge_count": 7,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "annotate"
+          },
+          {
+            "id": "s2",
+            "op": "annotate"
+          },
+          {
+            "id": "s3",
+            "op": "run_device"
+          },
+          {
+            "id": "s4",
+            "op": "annotate"
+          },
+          {
+            "id": "s5",
+            "op": "annotate"
+          },
+          {
+            "id": "s6",
+            "op": "annotate"
+          },
+          {
+            "id": "s7",
+            "op": "annotate"
+          },
+          {
+            "id": "s8",
+            "op": "annotate"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s2"
+          },
+          {
+            "from": "s2",
+            "to": "s3"
+          },
+          {
+            "from": "s3",
+            "to": "s4"
+          },
+          {
+            "from": "s4",
+            "to": "s5"
+          },
+          {
+            "from": "s5",
+            "to": "s6"
+          },
+          {
+            "from": "s6",
+            "to": "s7"
+          },
+          {
+            "from": "s7",
+            "to": "s8"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "sample:sample1"
+        ],
+        "output_refs": [
+          "sample:sample1"
+        ]
+      }
+    }
+  ],
+  "inter_unit_graph": {
+    "nodes": [
+      "unit_001",
+      "unit_002",
+      "unit_003",
+      "unit_004",
+      "unit_005",
+      "unit_006",
+      "unit_007",
+      "unit_008",
+      "unit_009",
+      "unit_010"
+    ],
+    "edges": [
+      {
+        "from_unit": "unit_001",
+        "to_unit": "unit_006",
+        "via_refs": [
+          "sample:pelleted_cells"
+        ],
+        "n_refs": 1
+      },
+      {
+        "from_unit": "unit_004",
+        "to_unit": "unit_005",
+        "via_refs": [
+          "sample:nuclei"
+        ],
+        "n_refs": 1
+      },
+      {
+        "from_unit": "unit_005",
+        "to_unit": "unit_004",
+        "via_refs": [
+          "sample:nuclei"
+        ],
+        "n_refs": 1
+      },
+      {
+        "from_unit": "unit_005",
+        "to_unit": "unit_006",
+        "via_refs": [
+          "sample:cell_suspension"
+        ],
+        "n_refs": 1
+      },
+      {
+        "from_unit": "unit_006",
+        "to_unit": "unit_001",
+        "via_refs": [
+          "sample:pelleted_cells"
+        ],
+        "n_refs": 1
+      }
+    ]
+  },
+  "integrity": {
+    "pass": false,
+    "isolated_unit_count": 6,
+    "isolated_unit_rate": 0.6,
+    "isolated_units": [
+      "unit_002",
+      "unit_003",
+      "unit_007",
+      "unit_008",
+      "unit_009",
+      "unit_010"
+    ],
+    "issues": [
+      {
+        "code": "INTER_UNIT_ISOLATED_UNIT",
+        "severity": "warn",
+        "message": "One or more units are fully isolated in the inter-unit flow graph.",
+        "unit_ids": [
+          "unit_002",
+          "unit_003",
+          "unit_007",
+          "unit_008",
+          "unit_009",
+          "unit_010"
+        ]
+      }
+    ]
+  }
+}

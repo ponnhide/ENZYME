@@ -1,0 +1,215 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Real‑time qPCR workflow",
+    "source": {
+      "type": "paper",
+      "id": "s41586-023-06564-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "RNeasy Mini Plus kit",
+        "vendor": "Qiagen",
+        "catalogue": "74136"
+      },
+      {
+        "id": "m2",
+        "name": "SuperScript III First-Strand Synthesis System",
+        "vendor": "Thermo Fisher Scientific",
+        "catalogue": "4312704"
+      },
+      {
+        "id": "m3",
+        "name": "SYBR Green PCR Master Mix",
+        "vendor": "Thermo Fisher Scientific",
+        "catalogue": "4312704"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "QuantStudio 6 Flex Real-Time PCR System",
+        "vendor": "Thermo Fisher Scientific",
+        "catalogue": "4312704",
+        "device_kind": "plate_reader"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp2",
+        "name": "Isolated mRNA"
+      },
+      {
+        "id": "samp3",
+        "name": "cDNA"
+      },
+      {
+        "id": "samp4",
+        "name": "qPCR reaction mixture"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "name": "Real‑time qPCR fluorescence data"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Isolate mRNA using the RNeasy Mini Plus kit (Qiagen, catalogue no. 74136)."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp3"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp3"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Reverse transcription using SuperScript III First-Strand Synthesis System (Thermo Fisher Scientific, catalogue no. 4312704) to generate cDNA."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp4"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp4"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Prepare qPCR reaction using SYBR Green PCR Master Mix (Thermo Fisher Scientific, catalogue no. 4312704) with cDNA template."
+        }
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d1"
+          }
+        ],
+        "params": {
+          "device_kind": "plate_reader",
+          "program": "real-time qPCR"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

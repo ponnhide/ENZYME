@@ -1,0 +1,185 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Nucleus isolation from frozen tissue",
+    "source": {
+      "type": "paper",
+      "id": "s41586-021-03209-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "homogenization_buffer",
+        "type": "solution",
+        "description": "10 mM Tris pH 7.8, 5 mM CaCl2, 3 mM magnesium acetate, 320 mM sucrose, 0.1 mM EDTA, 0.1% NP40, 167 μM β-mercaptoethanol, 16.7 μM PMSF"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube",
+        "type": "microcentrifuge_tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge",
+        "type": "device",
+        "device_kind": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "tissue_frozen",
+        "type": "tissue"
+      },
+      {
+        "id": "thawed_mix",
+        "type": "sample"
+      },
+      {
+        "id": "cell_lysate",
+        "type": "sample"
+      },
+      {
+        "id": "centrifuged_lysate",
+        "type": "sample"
+      },
+      {
+        "id": "isolated_nuclei",
+        "type": "sample"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tissue_frozen"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "homogenization_buffer"
+          },
+          {
+            "kind": "sample",
+            "id": "tissue_frozen"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "thawed_mix"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 2,
+            "unit": "ml"
+          }
+        },
+        "annotations": {
+          "note": "Frozen tissue samples were thawed in 2 ml chilled homogenization buffer."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "thawed_mix"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_lysate"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "note": "Lysed in a pre‑chilled dounce."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_lysate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "centrifuged_lysate"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "20 min at 3000 g, 4 °C, swinging bucket, brake off"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "centrifuged_lysate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "isolated_nuclei"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "The nucleus band was carefully pipetted. Amount transferred not specified."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

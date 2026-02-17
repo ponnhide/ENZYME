@@ -1,0 +1,182 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Generation of clonal tumor organoid lines by FACS",
+    "source": {
+      "type": "paper",
+      "id": "s41467-020-19142-9.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "TryPLE",
+        "vendor": "Thermo Fisher Scientific"
+      },
+      {
+        "id": "m2",
+        "name": "PBS"
+      },
+      {
+        "id": "m3",
+        "name": "EDTA",
+        "concentration": "2 mM"
+      },
+      {
+        "id": "m4",
+        "name": "FCS",
+        "percentage": "5%"
+      },
+      {
+        "id": "m5",
+        "name": "DAPI"
+      },
+      {
+        "id": "m6",
+        "name": "HISCM"
+      },
+      {
+        "id": "m7",
+        "name": "LY27632",
+        "concentration": "10 µM"
+      },
+      {
+        "id": "m8",
+        "name": "BME"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "96-well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "FACS sorter"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "name": "early passage tumor organoids"
+      },
+      {
+        "id": "samp2",
+        "name": "single cell suspension (post‑TryPLE)"
+      },
+      {
+        "id": "samp3",
+        "name": "FACS buffer (PBS + 2 mM EDTA + 5 % FCS)"
+      },
+      {
+        "id": "samp4",
+        "name": "DAPI‑supplemented FACS buffer"
+      },
+      {
+        "id": "samp5",
+        "name": "HLA‑A2+ single cells sorted into 96‑well plate"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "Dissociate early passage tumor organoids into single cells by TryPLE (Thermo Fisher Scientific)."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          },
+          {
+            "kind": "material",
+            "id": "m5"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp4"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "Wash the dissociated cells and suspend them in FACS buffer (PBS with 2 mM EDTA and 5 % FCS). Prior to FACS purification, add DAPI to the FACS buffer."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp4"
+          },
+          {
+            "kind": "material",
+            "id": "m6"
+          },
+          {
+            "kind": "material",
+            "id": "m7"
+          },
+          {
+            "kind": "material",
+            "id": "m8"
+          },
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp5"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "Sort HLA‑A2+ single cells into separate wells of a 96‑well plate containing 100 µl HISCM with 10 µM LY27632 and coated with BME using a FACS sorter."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

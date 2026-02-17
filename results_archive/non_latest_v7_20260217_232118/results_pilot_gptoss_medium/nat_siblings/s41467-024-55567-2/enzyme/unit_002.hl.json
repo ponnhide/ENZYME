@@ -1,0 +1,149 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Electroporation of LGR5 reporter constructs",
+    "source": {
+      "type": "paper",
+      "id": "s41467-024-55567-2"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "mat_sgRNA",
+        "name": "LGR5-targeting sgRNA"
+      },
+      {
+        "id": "mat_plasmid_backbone",
+        "name": "SpCas9-equipped HP180 plasmid"
+      },
+      {
+        "id": "mat_hdr_template",
+        "name": "HDR template"
+      },
+      {
+        "id": "mat_organoids",
+        "name": "human intestinal organoids"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "eq_nepa21",
+        "name": "NEPA21 electroporator",
+        "manufacturer": "Nepa Gene"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp_sgRNA_plasmid",
+        "name": "LGR5 sgRNA plasmid"
+      },
+      {
+        "id": "samp_hdr_template",
+        "name": "HDR template sample"
+      },
+      {
+        "id": "samp_organoid",
+        "name": "Human intestinal organoid sample"
+      },
+      {
+        "id": "samp_electroporated_organoid",
+        "name": "Electroporated organoid sample"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_sgRNA_plasmid"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_hdr_template"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_organoid"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_sgRNA_plasmid"
+          },
+          {
+            "kind": "sample",
+            "id": "samp_hdr_template"
+          },
+          {
+            "kind": "sample",
+            "id": "samp_organoid"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_electroporated_organoid"
+          }
+        ],
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "device_ref": "eq_nepa21",
+          "program": {}
+        },
+        "annotations": {
+          "note": "Co-electroporated LGR5 sgRNA plasmids and HDR template into human intestinal organoids using a NEPA21 electroporator following published methods45."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

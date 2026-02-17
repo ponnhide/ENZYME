@@ -1,0 +1,314 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Prepare Matrigel‑coated 24‑well plate and seed iPSCs",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00814-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "matrigel_solution",
+        "name": "Matrigel/DMEM/F12 solution"
+      },
+      {
+        "id": "mtesr1_medium",
+        "name": "mTESR1 medium"
+      },
+      {
+        "id": "rock_inhibitor",
+        "name": "Rock inhibitor (Y-27632 2HCl)"
+      },
+      {
+        "id": "coverslips",
+        "name": "Sterile glass coverslips (12 mm diameter)"
+      },
+      {
+        "id": "iPSC_suspension",
+        "name": "Human iPSC suspension"
+      },
+      {
+        "id": "serological_pipette",
+        "name": "1 ml serological pipette"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate_24well",
+        "name": "Sterile 24‑well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "name": "Incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "plate_empty",
+        "name": "Empty 24‑well plate"
+      },
+      {
+        "id": "plate_with_coverslips",
+        "name": "Plate with coverslips"
+      },
+      {
+        "id": "plate_with_matrigel",
+        "name": "Plate with Matrigel solution"
+      },
+      {
+        "id": "plate_coated",
+        "name": "Matrigel‑coated plate (post‑incubation)"
+      },
+      {
+        "id": "plate_aspirated",
+        "name": "Plate after Matrigel aspiration"
+      },
+      {
+        "id": "plate_ready",
+        "name": "Plate with mTESR1 + Rock inhibitor"
+      },
+      {
+        "id": "seeded_plate",
+        "name": "Plate seeded with iPSCs"
+      },
+      {
+        "id": "iPSC_suspension",
+        "name": "iPSC_suspension"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate_empty"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "plate_empty"
+          },
+          {
+            "kind": "material",
+            "id": "coverslips"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate_with_coverslips"
+          }
+        ],
+        "params": {
+          "action_kind": "place"
+        },
+        "annotations": {
+          "note": "Place sterile glass coverslips onto the bottom of each well (prepare at least six wells)."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "matrigel_solution"
+          },
+          {
+            "kind": "sample",
+            "id": "plate_with_coverslips"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate_with_matrigel"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 300,
+            "unit": "µl",
+            "per_well": true,
+            "wells": 6
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "plate_with_matrigel"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate_coated"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 1,
+            "unit": "h"
+          },
+          "temperature": {
+            "value": 37,
+            "unit": "°C"
+          },
+          "CO2": {
+            "value": 5,
+            "unit": "%"
+          },
+          "device_kind": "incubator",
+          "device_ref": "incubator"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5a",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "plate_coated"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate_aspirated"
+          }
+        ],
+        "params": {
+          "action_kind": "aspirate"
+        },
+        "annotations": {
+          "note": "Aspirate the Matrigel solution from each well."
+        }
+      },
+      {
+        "id": "s5b",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "mtesr1_medium"
+          },
+          {
+            "kind": "material",
+            "id": "rock_inhibitor"
+          },
+          {
+            "kind": "sample",
+            "id": "plate_aspirated"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate_ready"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 500,
+            "unit": "µl",
+            "per_well": true,
+            "wells": 6
+          },
+          "supplement": {
+            "rock_inhibitor_concentration": {
+              "value": 10,
+              "unit": "µM"
+            }
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "iPSC_suspension"
+          },
+          {
+            "kind": "sample",
+            "id": "plate_ready"
+          },
+          {
+            "kind": "material",
+            "id": "serological_pipette"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "seeded_plate"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml",
+            "per_well": true,
+            "wells": 6
+          },
+          "method": "one drop per well using serological pipette"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5a"
+      },
+      {
+        "from": "s5a",
+        "to": "s5b"
+      },
+      {
+        "from": "s5b",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

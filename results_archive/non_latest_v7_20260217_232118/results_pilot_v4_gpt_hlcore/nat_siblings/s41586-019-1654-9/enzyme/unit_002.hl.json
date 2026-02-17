@@ -1,0 +1,110 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "snRNA-seq on adult cortex tissue",
+    "source": {
+      "type": "paper",
+      "id": "s41586-019-1654-9.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "device_1",
+        "device_kind": "amplicon_readout_system",
+        "description": "sequencing instrument for snRNA-seq"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_1",
+        "type": "tissue",
+        "description": "sliced tissue cubes dissected from adult human, chimpanzee, bonobo, and macaque frozen prefrontal cortex tissue"
+      }
+    ],
+    "data": [
+      {
+        "id": "data_1",
+        "type": "sequencing_data",
+        "description": "snRNA-seq data"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_1"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_1"
+          }
+        ],
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": "snRNA-seq",
+          "device_ref": "device_1"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "data_1"
+          }
+        ],
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "snRNA-seq"
+          ]
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

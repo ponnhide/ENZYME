@@ -1,0 +1,155 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Embedding of cell aggregates",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-019-0213-z.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "collagen I–Matrigel matrix"
+      },
+      {
+        "id": "m2",
+        "name": "VEGF-A"
+      },
+      {
+        "id": "m3",
+        "name": "FGF-2"
+      },
+      {
+        "id": "m4",
+        "name": "FBS"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "12-well plate",
+        "name": "12-well plate"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s_agg",
+        "name": "cell aggregates"
+      },
+      {
+        "id": "s_embedded",
+        "name": "embedded cell aggregates"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_embedded"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source_ref": "m1",
+          "destination_ref": "c1",
+          "description": "Add collagen I–Matrigel matrix to each well of the 12-well plate",
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "target_ref": "c1",
+          "reagent_ref": "m2",
+          "concentration": "100 ng/mL"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "target_ref": "c1",
+          "reagent_ref": "m3",
+          "concentration": "100 ng/mL"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "target_ref": "c1",
+          "reagent_ref": "m4",
+          "concentration": "15%"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "target_ref": "c1",
+          "sample_ref": "s_agg",
+          "output_ref": "s_embedded"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

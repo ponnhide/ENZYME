@@ -1,0 +1,147 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "iNPC purification via FACS (reporter-positive lines)",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01236-7.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s1_output",
+        "name": "s1_output"
+      },
+      {
+        "id": "s2_output",
+        "name": "s2_output"
+      },
+      {
+        "id": "s3_output",
+        "name": "s3_output"
+      },
+      {
+        "id": "s4_output",
+        "name": "s4_output"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1_output"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          },
+          "source": "FACS medium containing 0.33 µl of Hoechst 33342 at a ratio of 1:3,000",
+          "destination": "cell pellet"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1_output"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2_output"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend",
+          "details": "pipetting up and down gently three to five times"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2_output"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3_output"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          },
+          "source": "cell suspension",
+          "destination": "Falcon round-bottom tube with strainer cap"
+        },
+        "annotations": {
+          "details": "filter through strainer cap"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s3_output"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s4_output"
+          }
+        ],
+        "params": {
+          "device_kind": "cell_counter",
+          "program": "FACS of iNPCs through BD FACSAria III cell sorter; sort GFP+;mCherry+ iNPCs"
+        },
+        "annotations": {
+          "gating_reference": "Fig. 2c",
+          "supplementary_reference": "Supplementary Fig. 1a"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

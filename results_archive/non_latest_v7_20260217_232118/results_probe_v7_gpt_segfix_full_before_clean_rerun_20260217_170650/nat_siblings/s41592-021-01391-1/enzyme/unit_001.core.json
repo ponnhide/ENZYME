@@ -1,0 +1,253 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Isolation, preculture, and differentiation of LGR5+ intestinal stem cells",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41592-021-01391-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "ENR CV medium",
+        "type": "media"
+      },
+      {
+        "id": "m2",
+        "name": "ENR medium",
+        "type": "media"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "well_plate",
+        "name": "culture plate"
+      },
+      {
+        "id": "c2",
+        "type": "tube",
+        "name": "collection tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator",
+        "name": "incubator"
+      },
+      {
+        "id": "e2",
+        "type": "microfluidic_device",
+        "name": "DisCo platform"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_initial",
+        "name": "LGR5+ intestinal stem cells"
+      },
+      {
+        "id": "sample_organoid",
+        "name": "Organoids"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "name": "FACS isolation data"
+      }
+    ]
+  },
+  "protocol": {
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "description": "LGR5+ intestinal stem cells from tissue"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_initial"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "params": {
+          "note": "Single LGR5+ cells isolated via FACS"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "container_type": "well_plate",
+          "description": "culture plate for preculture"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "sample_initial",
+          "destination": "c1",
+          "material": "m1",
+          "amount": {
+            "value": "X",
+            "unit": "µL"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "target": "c1",
+          "description": "seed cells and mix gently"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "stem_cell_maintenance_3d"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "note": "CV removed from culture on day 3"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "ENR_differentiation_3d"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s9",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "description": "Organoids isolated each day S0–S3"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_organoid"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s10",
+        "op": "transfer",
+        "params": {
+          "source": "c1",
+          "destination": "c2",
+          "material": "m2",
+          "amount": {
+            "value": "X",
+            "unit": "µL"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s11",
+        "op": "annotate",
+        "params": {
+          "note": "Organoids dissociated and processed on DisCo platform"
+        },
+        "outputs": [],
+        "inputs": []
+      }
+    ],
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Calcium imaging of MAP2‑GCamP5 neurons",
+    "source": {
+      "type": "paper",
+      "id": "s41467-021-27464-5.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "eq1",
+        "name": "Inverted Ti2 microscope",
+        "manufacturer": "Nikon"
+      },
+      {
+        "id": "eq2",
+        "name": "CSU‑W1 spinning‑disc system",
+        "manufacturer": "Yokogawa"
+      },
+      {
+        "id": "eq3",
+        "name": "sCMOS camera",
+        "manufacturer": "Teledyne Photometrics"
+      },
+      {
+        "id": "eq4",
+        "name": "20× objective",
+        "manufacturer": "Nikon"
+      },
+      {
+        "id": "eq5",
+        "name": "environment control chamber",
+        "description": "maintains temperature at 37 °C and CO₂ at 5 % during imaging"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_sample1",
+        "name": "MAP2‑GCamP5‑labeled neurons day 120",
+        "description": "VM cultures at day 120 containing the MAP2‑GCamP5 reporter"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "name": "Calcium imaging data",
+        "type": "image series"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_sample1"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_sample1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d1"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "program": "Calcium imaging",
+          "device_ref": [
+            "eq1",
+            "eq2",
+            "eq3",
+            "eq4",
+            "eq5"
+          ],
+          "settings": {
+            "temperature": "37 °C",
+            "CO2": "5%",
+            "exposure_time": "50 ms"
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

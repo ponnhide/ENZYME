@@ -1,0 +1,160 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Phosphatase and protease inhibitor treatment",
+    "source": {
+      "type": "paper",
+      "id": "s41596-021-00603-4"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "protease inhibitor cocktail (100× stock)"
+      },
+      {
+        "id": "m2",
+        "name": "PhosSTOP (40× stock)"
+      },
+      {
+        "id": "m3",
+        "name": "culture medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample1",
+        "description": "culture medium before inhibitor addition"
+      },
+      {
+        "id": "sample1_treated",
+        "description": "culture medium after addition of protease inhibitor cocktail and PhosSTOP"
+      },
+      {
+        "id": "sample1_rotated",
+        "description": "culture medium after gentle rotation of plate"
+      },
+      {
+        "id": "sample1_incubated",
+        "description": "culture medium after incubation"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1_treated"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "annotations": {
+          "note": "Amount of protease inhibitor cocktail and PhosSTOP not specified in source text"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1_treated"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1_rotated"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently",
+          "repetitions": 5,
+          "duration": {
+            "value": 10,
+            "unit": "s"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1_rotated"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1_incubated"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 5,
+            "unit": "min"
+          },
+          "temperature": {
+            "value": 37,
+            "unit": "C"
+          },
+          "CO2": "5%"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

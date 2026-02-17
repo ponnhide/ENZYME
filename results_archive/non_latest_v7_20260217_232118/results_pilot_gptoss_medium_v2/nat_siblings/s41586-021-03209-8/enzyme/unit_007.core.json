@@ -1,0 +1,227 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "group": "nat_siblings",
+    "source": {
+      "id": "s41586-021-03209-8",
+      "type": "paper"
+    },
+    "title": "Perform H3K27ac CUT&Tag on dissociated cells"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "s_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "s1_wash",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "μL",
+            "value": 200
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "s1_wash",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "s2_resuspend200",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend"
+        }
+      },
+      {
+        "annotations": {
+          "details": "Resuspended in 100 μL dig-wash buffer supplemented with 2 mM EDTA and a 1:50 dilution of H3K27ac primary antibody (Cell Signaling 8173)."
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "s2_resuspend200",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "s3_resuspend100",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Incubated overnight at 4 °C on an overhead rotary orbital shaker rotating at 90 rpm."
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "s3_resuspend100",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "s4_incubated",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "Changed to Dulbecco’s modified Eagle’s medium (DMEM)/F12-based medium containing 1× glutamax, 1× N2, 1× B27 without vitamin A and 1× antibiotic–antimycotic."
+        },
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "s4_incubated",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "s5_final",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "c1",
+        "name": "well plate",
+        "type": "well"
+      },
+      {
+        "id": "c2",
+        "name": "microcentrifuge tube",
+        "type": "tube"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "overhead rotary orbital shaker",
+        "type": "shaker"
+      }
+    ],
+    "materials": [
+      {
+        "id": "m1",
+        "name": "human cortical cells"
+      },
+      {
+        "id": "m2",
+        "name": "neural induction medium"
+      },
+      {
+        "details": "20 mM HEPES pH 7.5, 150 mM NaCl, 0.5 mM spermidine, 1× protease inhibitor cocktail (Roche)",
+        "id": "m3",
+        "name": "CUT&Tag wash buffer"
+      },
+      {
+        "id": "m4",
+        "name": "dig-wash buffer"
+      },
+      {
+        "concentration": "2 mM",
+        "id": "m5",
+        "name": "EDTA"
+      },
+      {
+        "id": "m6",
+        "name": "H3K27ac primary antibody (Cell Signaling 8173)"
+      },
+      {
+        "details": "1× glutamax, 1× N2, 1× B27 without vitamin A, 1× antibiotic–antimycotic",
+        "id": "m7",
+        "name": "DMEM/F12-based medium"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_cells",
+        "material": "m1",
+        "name": "cell aliquot",
+        "quantity": {
+          "unit": "cells",
+          "value": 50000
+        }
+      },
+      {
+        "id": "s1_wash",
+        "name": "s1_wash"
+      },
+      {
+        "id": "s2_resuspend200",
+        "name": "s2_resuspend200"
+      },
+      {
+        "id": "s3_resuspend100",
+        "name": "s3_resuspend100"
+      },
+      {
+        "id": "s4_incubated",
+        "name": "s4_incubated"
+      },
+      {
+        "id": "s5_final",
+        "name": "s5_final"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

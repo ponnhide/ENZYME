@@ -1,0 +1,290 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-023-00929-1.pdf",
+      "type": "paper"
+    },
+    "title": "Plating"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "s_cell_tube",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "s_cell_tube",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "duration": "5 min",
+            "speed": "300 g",
+            "temperature": "4 °C"
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "Remove supernatant from microcentrifuge tubes containing cells"
+        },
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "s_cell_tube",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "s_cell_tube",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "m1",
+            "kind": "material"
+          },
+          {
+            "id": "s_cell_tube",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "s_cell_tube",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "µL",
+            "value": 500
+          },
+          "temperature": "37 °C"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "s_cell_tube",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "s_cell_solution",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Add the desired amount of cell solution into collagen-coated wells (approximately half volume of each well)"
+        },
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "s_cell_solution",
+            "kind": "sample"
+          },
+          {
+            "id": "c2",
+            "kind": "container"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "s_well_cell",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "m1",
+            "kind": "material"
+          },
+          {
+            "id": "s_well_cell",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "s_well_cell",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "µL",
+            "value": 500
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "Add to all other empty wells to keep them from drying"
+        },
+        "id": "s7",
+        "inputs": [
+          {
+            "id": "m2",
+            "kind": "material"
+          },
+          {
+            "id": "c2",
+            "kind": "container"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "c2",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "µL",
+            "value": 500
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s8",
+        "inputs": [
+          {
+            "id": "s_well_cell",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "s_well_cell",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": "37 °C"
+          }
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "c1",
+        "name": "microcentrifuge tube"
+      },
+      {
+        "id": "c2",
+        "name": "collagen-coated well"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "centrifuge"
+      },
+      {
+        "id": "e2",
+        "name": "incubator"
+      }
+    ],
+    "materials": [
+      {
+        "id": "m1",
+        "name": "growth medium"
+      },
+      {
+        "id": "m2",
+        "name": "1× PBS"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_cell_tube",
+        "name": "sorted mural and/or endothelial cells in microcentrifuge tube"
+      },
+      {
+        "id": "s_cell_solution",
+        "name": "cell suspension"
+      },
+      {
+        "id": "s_well_cell",
+        "name": "well containing cells"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

@@ -1,0 +1,130 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Silk‑scaffold preparation",
+    "source": {
+      "type": "paper",
+      "id": "s41467-021-27464-5.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "biosilk_protein_solution",
+        "name": "Biosilk protein solution"
+      },
+      {
+        "id": "laminin_111",
+        "name": "Recombinant human laminin-111"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate_24well",
+        "name": "24-well plate",
+        "vendor": "Sarstedt",
+        "catalog_number": "#833922500"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "biosilk_solution",
+        "name": "Biosilk protein solution sample"
+      },
+      {
+        "id": "laminin_solution",
+        "name": "Laminin-111 solution sample"
+      },
+      {
+        "id": "well_content",
+        "name": "Content of a hydrophobic culture well"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "biosilk_solution"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "well_content"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 20,
+            "unit": "µL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "laminin_solution"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "well_content"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Recombinant human laminin-111 added to achieve a final concentration of 10 μg/ml; volume not specified in the source text."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "well_content"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "well_content"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 10,
+            "unit": "min"
+          },
+          "temperature": "RT"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

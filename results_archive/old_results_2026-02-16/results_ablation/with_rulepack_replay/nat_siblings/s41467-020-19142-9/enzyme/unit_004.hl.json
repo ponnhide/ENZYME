@@ -1,0 +1,194 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Digestion of tumor biopsies into single cells",
+    "source": {
+      "type": "paper",
+      "id": "s41467-020-19142-9"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "collagenase II",
+        "vendor": "Gibco, Thermo Fisher Scientific",
+        "concentration": "1 mg/ml"
+      },
+      {
+        "id": "m2",
+        "name": "hyaluronidase",
+        "concentration": "10 µg/ml"
+      },
+      {
+        "id": "m3",
+        "name": "LY27632",
+        "concentration": "10 µM"
+      }
+    ],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "sample_tumor_biopsy",
+        "name": "tumor biopsy"
+      },
+      {
+        "id": "sample_digestion_solution",
+        "name": "digestion solution"
+      },
+      {
+        "id": "sample_biopsy_with_solution",
+        "name": "biopsy with digestion solution"
+      },
+      {
+        "id": "sample_digested_cells",
+        "name": "single cell suspension"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_tumor_biopsy"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_digestion_solution"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "material",
+            "id": "m3"
+          },
+          {
+            "kind": "sample",
+            "id": "sample_digestion_solution"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_digestion_solution"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "details": "Prepared digestion solution with collagenase II (1 mg/ml), hyaluronidase (10 µg/ml) and LY27632 (10 µM)."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_digestion_solution"
+          },
+          {
+            "kind": "sample",
+            "id": "sample_tumor_biopsy"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_biopsy_with_solution"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "annotations": {
+          "note": "Amount not specified in source text."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_biopsy_with_solution"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_digested_cells"
+          }
+        ],
+        "params": {
+          "temperature": {
+            "value": 37,
+            "unit": "°C"
+          },
+          "duration": {
+            "value": 30,
+            "unit": "min"
+          }
+        },
+        "annotations": {
+          "shaking": "while shaking (shaker not specified)."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s4"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

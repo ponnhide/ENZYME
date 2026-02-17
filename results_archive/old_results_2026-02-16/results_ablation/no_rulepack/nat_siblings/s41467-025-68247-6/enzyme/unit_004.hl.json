@@ -1,0 +1,275 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Irradiation and DSS injury treatments",
+    "source": {
+      "type": "paper",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "(137Cs) gamma irradiator"
+      },
+      {
+        "id": "m2",
+        "name": "DSS (MP Biomedicals)"
+      },
+      {
+        "id": "m3",
+        "name": "Organoid media (without EGF or Nicotinamide)"
+      },
+      {
+        "id": "m4",
+        "name": "Advanced DMEM/F12"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "Plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "Gamma irradiator"
+      },
+      {
+        "id": "e2",
+        "name": "Incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_organoid_plate",
+        "name": "Organoid plate"
+      },
+      {
+        "id": "sample_DSS_solution",
+        "name": "DSS solution"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_organoid_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_organoid_plate"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Place plates on centre of rotating table of the (137Cs) gamma irradiator"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_organoid_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_organoid_plate"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Irradiate for dose equivalent to either 6 Gy or 12 Gy"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_organoid_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_organoid_plate"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Further culture in the incubator"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "material",
+            "id": "m3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_DSS_solution"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_DSS_solution"
+          },
+          {
+            "kind": "sample",
+            "id": "sample_organoid_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_organoid_plate"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Add DSS solution to organoid wells overnight for 16 h"
+        }
+      },
+      {
+        "id": "s6",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_organoid_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_organoid_plate"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 16,
+            "unit": "hour"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m4"
+          },
+          {
+            "kind": "sample",
+            "id": "sample_organoid_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_organoid_plate"
+          }
+        ],
+        "params": {
+          "action_kind": "rinse"
+        },
+        "annotations": {
+          "note": "Wash twice with Advanced DMEM/F12"
+        }
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m3"
+          },
+          {
+            "kind": "sample",
+            "id": "sample_organoid_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_organoid_plate"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Replace with organoid media"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,140 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Immunostaining for epithelial identity and mesenchymal exclusion",
+    "source": {
+      "type": "paper",
+      "id": "s41591-024-02807-z.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "EpCAM antibody"
+      },
+      {
+        "id": "m2",
+        "name": "ECAD antibody"
+      },
+      {
+        "id": "m3",
+        "name": "pan-cytokeratin antibody"
+      },
+      {
+        "id": "m4",
+        "name": "PDGFRα antibody"
+      }
+    ],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "sAFO",
+        "name": "AFO sample"
+      },
+      {
+        "id": "sAFO_stained",
+        "name": "AFO sample after immunostaining"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "name": "Immunostaining observation"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sAFO"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sAFO"
+          },
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "material",
+            "id": "m3"
+          },
+          {
+            "kind": "material",
+            "id": "m4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sAFO_stained"
+          }
+        ],
+        "params": {
+          "action_kind": "label"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sAFO_stained"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d1"
+          }
+        ],
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "presence of EpCAM",
+            "presence of ECAD",
+            "presence of pan-cytokeratin",
+            "absence of PDGFRα"
+          ]
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,319 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-023-00880-1.pdf",
+      "type": "paper"
+    },
+    "title": "Albumin uptake assay setup"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "test_tube",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "mL",
+            "value": 4
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "control_tube",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "mL",
+            "value": 4
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "tritc_stock",
+            "kind": "sample"
+          },
+          {
+            "id": "test_tube",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "test_tube",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "µL",
+            "value": 4
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "Remove Transwell plate with six wells of day 27 PT‑enhanced organoids from the incubator and label three wells ‘test’ and three wells ‘control’."
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "organoid_plate",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "organoid_plate",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "Aspirate culture medium from all wells."
+        },
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "organoid_plate",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "organoid_plate",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "Add a drop of TRITC–albumin to each test well."
+        },
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "organoid_plate",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "organoid_plate",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s7",
+        "inputs": [
+          {
+            "id": "test_tube",
+            "kind": "sample"
+          },
+          {
+            "id": "organoid_plate",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "test_tube",
+            "kind": "sample"
+          },
+          {
+            "id": "organoid_plate",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "mL",
+            "value": 1
+          },
+          "note": "Dispense 1 mL to the basolateral compartment of each of the three test wells."
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s8",
+        "inputs": [
+          {
+            "id": "control_tube",
+            "kind": "sample"
+          },
+          {
+            "id": "organoid_plate",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "control_tube",
+            "kind": "sample"
+          },
+          {
+            "id": "organoid_plate",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "mL",
+            "value": 1
+          },
+          "note": "Dispense 1 mL of plain E6 to the basolateral compartment of each of the three control wells."
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s9",
+        "inputs": [
+          {
+            "id": "organoid_plate",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "organoid_plate",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "duration": "~16–20 h",
+          "program": "overnight incubation",
+          "temperature": {
+            "unit": "°C",
+            "value": 37
+          }
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "conical_tube_test",
+        "type": "15 mL conical tube"
+      },
+      {
+        "id": "conical_tube_control",
+        "type": "15 mL conical tube"
+      },
+      {
+        "id": "transwell_plate",
+        "type": "Transwell plate (6 wells)"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "id": "incubator",
+        "type": "incubator"
+      }
+    ],
+    "materials": [
+      {
+        "id": "e6_medium",
+        "name": "E6 medium"
+      },
+      {
+        "id": "tritc_albumin",
+        "name": "TRITC–albumin"
+      }
+    ],
+    "samples": [
+      {
+        "container": "conical_tube_test",
+        "id": "test_tube",
+        "material": "e6_medium"
+      },
+      {
+        "container": "conical_tube_control",
+        "id": "control_tube",
+        "material": "e6_medium"
+      },
+      {
+        "container": null,
+        "id": "tritc_stock",
+        "material": "tritc_albumin"
+      },
+      {
+        "container": "transwell_plate",
+        "id": "organoid_plate",
+        "material": null
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

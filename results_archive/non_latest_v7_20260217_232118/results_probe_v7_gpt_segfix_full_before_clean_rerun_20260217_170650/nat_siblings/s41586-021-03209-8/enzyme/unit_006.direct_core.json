@@ -1,0 +1,177 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "DNA purification with AMPure beads",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-021-03209-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_beads",
+        "name": "AMPure XP beads",
+        "vendor": "Beckman"
+      },
+      {
+        "id": "m_eb",
+        "name": "Buffer EB (10 mM Tris-Cl, pH 8.5)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_tube",
+        "type": "microcentrifuge_tube"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s_input_dna",
+        "name": "DNA sample"
+      },
+      {
+        "id": "s_purified_dna",
+        "name": "Purified DNA"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": {
+            "ref": "m_beads"
+          },
+          "destination": {
+            "ref": "s_input_dna"
+          },
+          "description": "Add AMPure XP beads at 1.5:1 ratio to DNA sample",
+          "amount": {
+            "value": 1.5,
+            "unit": "ratio"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "target": {
+            "ref": "s_input_dna"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": {
+            "ref": "m_eb"
+          },
+          "destination": {
+            "ref": "s_input_dna"
+          },
+          "description": "Elute DNA in 21 μl Buffer EB",
+          "amount": {
+            "value": 21.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "target": {
+            "ref": "s_input_dna"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "note": "Purified DNA obtained after AMPure bead purification and elution in 21 μl Buffer EB",
+          "output_sample_ref": "s_purified_dna"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

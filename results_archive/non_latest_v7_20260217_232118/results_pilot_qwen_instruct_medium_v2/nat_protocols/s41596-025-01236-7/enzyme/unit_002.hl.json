@@ -1,0 +1,210 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "hPSC-to-iNPC differentiation stage I",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01236-7.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "hpsc_culture",
+        "name": "hpsc_culture"
+      },
+      {
+        "id": "pbs",
+        "name": "pbs"
+      },
+      {
+        "id": "phase_i_medium",
+        "name": "phase_i_medium"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "hpsc_culture"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "hpsc_culture"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          },
+          "source": "culture_medium",
+          "target": "waste"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "pbs"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "hpsc_culture"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          },
+          "source": "pbs",
+          "target": "hpsc_culture"
+        },
+        "annotations": {
+          "note": "CRITICAL STEP: The washing step with PBS is critical because mTeSR Plus medium contains growth factors (transforming growth factor-β1 and FGF2) that could potentially have some lingering side effects during differentiations."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "phase_i_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "hpsc_culture"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          },
+          "source": "phase_i_medium",
+          "target": "hpsc_culture"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "CRITICAL STEP: Do not change the medium on day 1 with phase I medium. Excessive WNT signaling activation by CHIR99021 will induce dramatic cell death."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "phase_i_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "hpsc_culture"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1.2,
+            "unit": "ml"
+          },
+          "source": "phase_i_medium",
+          "target": "hpsc_culture"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "CRITICAL STEP: After day 2, the medium will turn bright yellow overnight, indicating that the metabolic activity is high. It is important to change the medium on both day 2 and day 3. Otherwise, drastic cell death will lead to failed differentiation."
+        }
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "phase_i_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "hpsc_culture"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1.2,
+            "unit": "ml"
+          },
+          "source": "phase_i_medium",
+          "target": "hpsc_culture"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

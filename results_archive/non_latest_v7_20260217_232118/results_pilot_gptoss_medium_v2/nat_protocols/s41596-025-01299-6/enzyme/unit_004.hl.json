@@ -1,0 +1,253 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "FACS collection of virus‑infected hiPS cells (Day 4)",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01299-6"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "accutase",
+        "name": "Accutase",
+        "type": "reagent"
+      },
+      {
+        "id": "bsa_dpbs",
+        "name": "3% BSA/DPBS (wt/vol)",
+        "type": "reagent"
+      },
+      {
+        "id": "y27632",
+        "name": "Y-27632",
+        "type": "reagent",
+        "concentration": "10 μM"
+      },
+      {
+        "id": "cell_strainer",
+        "name": "50-μm cell strainer",
+        "type": "consumable"
+      },
+      {
+        "id": "conical_tube",
+        "name": "15-ml conical tube",
+        "type": "container"
+      },
+      {
+        "id": "vitronectin",
+        "name": "vitronectin",
+        "type": "coating"
+      },
+      {
+        "id": "e8_medium",
+        "name": "E8 medium",
+        "type": "reagent"
+      },
+      {
+        "id": "dish_10cm",
+        "name": "10-cm dish coated with vitronectin",
+        "type": "container"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "incubator",
+        "name": "37 °C, 5% CO2 incubator",
+        "type": "device",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "hiPS_cells",
+        "name": "hiPS cells (day 4)",
+        "type": "cell_culture"
+      },
+      {
+        "id": "single_cell_suspension",
+        "name": "single-cell suspension of hiPS cells",
+        "type": "cell_culture",
+        "derived_from": "hiPS_cells"
+      },
+      {
+        "id": "filtered_cells",
+        "name": "filtered hiPS cells in conical tube",
+        "type": "cell_culture",
+        "derived_from": "single_cell_suspension"
+      },
+      {
+        "id": "sorted_mCherry_cells",
+        "name": "FACS-sorted mCherry+ hiPS cells",
+        "type": "cell_culture",
+        "derived_from": "filtered_cells"
+      },
+      {
+        "id": "seeded_cells",
+        "name": "seeded mCherry+ cells in 10-cm dish",
+        "type": "cell_culture",
+        "derived_from": "sorted_mCherry_cells"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "hiPS_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "single_cell_suspension"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "single_cell_suspension"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "single_cell_suspension"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "single_cell_suspension"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "filtered_cells"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "all"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "filtered_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sorted_mCherry_cells"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Conduct FACS to collect mCherry+ cells (infected) and set gate using uninfected control cells."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sorted_mCherry_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "seeded_cells"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "all"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "seeded_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "seeded_cells"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": "37 °C",
+            "co2": "5%"
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

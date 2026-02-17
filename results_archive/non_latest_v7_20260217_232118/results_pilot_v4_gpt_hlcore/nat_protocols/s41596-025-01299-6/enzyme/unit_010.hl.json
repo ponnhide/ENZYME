@@ -1,0 +1,433 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Validation of candidate genes – nucleofection protocol",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01299-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "vitronectin"
+      },
+      {
+        "id": "m2",
+        "name": "E8 medium"
+      },
+      {
+        "id": "m3",
+        "name": "Y-27632",
+        "concentration": {
+          "value": 10,
+          "unit": "μM"
+        }
+      },
+      {
+        "id": "m4",
+        "name": "Nucleofector solution"
+      },
+      {
+        "id": "m5",
+        "name": "Nucleofector supplement"
+      },
+      {
+        "id": "m6",
+        "name": "sgRNA",
+        "stock_concentration": {
+          "value": 100,
+          "unit": "pmol/μL"
+        }
+      },
+      {
+        "id": "m7",
+        "name": "Cas9 protein",
+        "stock_concentration": {
+          "value": 20,
+          "unit": "pmol/μL"
+        }
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "six-well plate"
+      },
+      {
+        "id": "c2",
+        "type": "96-well plate",
+        "description": "sgRNA mix plate"
+      },
+      {
+        "id": "c3",
+        "type": "V-shaped 96-well plate",
+        "description": "RNP assembly plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "device_kind": "incubator"
+      },
+      {
+        "id": "e2",
+        "device_kind": "centrifuge"
+      },
+      {
+        "id": "e3",
+        "device_kind": "vortexer"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "name": "warmed E8 medium with Y-27632 (3.5 mL per sample)"
+      },
+      {
+        "id": "samp2",
+        "name": "Nucleofector solution + supplement mix (20 μL total per sample)"
+      },
+      {
+        "id": "samp3",
+        "name": "sgRNA plate at room temperature"
+      },
+      {
+        "id": "samp4",
+        "name": "RNP complex (5 μL total per sample)"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          },
+          {
+            "kind": "material",
+            "id": "m1"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Coat six-well plates with vitronectin."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "material",
+            "id": "m3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "temperature": {
+            "value": 37,
+            "unit": "°C"
+          },
+          "program": {
+            "temperature": {
+              "value": 37,
+              "unit": "°C"
+            }
+          }
+        },
+        "annotations": {
+          "volume_per_sample": {
+            "value": 3.5,
+            "unit": "mL"
+          }
+        }
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m4"
+          },
+          {
+            "kind": "material",
+            "id": "m5"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "volumes": [
+            {
+              "material_id": "m4",
+              "amount": {
+                "value": 16.4,
+                "unit": "μL"
+              }
+            },
+            {
+              "material_id": "m5",
+              "amount": {
+                "value": 3.6,
+                "unit": "μL"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Leave the mixture on ice until use."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp3"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Warm the sgRNA plate to room temperature."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Vortex the plate at low speed for 30 s."
+        }
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "speed": {
+            "value": 500,
+            "unit": "g"
+          },
+          "duration": {
+            "value": 5,
+            "unit": "min"
+          },
+          "program": {
+            "speed": {
+              "value": 500,
+              "unit": "g"
+            },
+            "duration": {
+              "value": 5,
+              "unit": "min"
+            }
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s8",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m6"
+          },
+          {
+            "kind": "material",
+            "id": "m7"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp4"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "amounts": [
+            {
+              "material_id": "m6",
+              "amount": {
+                "value": 300,
+                "unit": "pmol"
+              }
+            },
+            {
+              "material_id": "m7",
+              "amount": {
+                "value": 40,
+                "unit": "pmol"
+              }
+            }
+          ],
+          "total_volume": {
+            "value": 5,
+            "unit": "μL"
+          }
+        }
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp4"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "temperature": {
+            "value": 22,
+            "unit": "°C"
+          },
+          "duration": {
+            "value": 10,
+            "unit": "min"
+          },
+          "program": {
+            "temperature": {
+              "value": 22,
+              "unit": "°C"
+            },
+            "duration": {
+              "value": 10,
+              "unit": "min"
+            }
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s10",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp4"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Place the RNPs on ice until use."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      }
+    ],
+    "detail_level": 0
+  }
+}

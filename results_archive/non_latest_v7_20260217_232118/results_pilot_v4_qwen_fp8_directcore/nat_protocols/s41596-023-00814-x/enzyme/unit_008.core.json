@@ -1,0 +1,853 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Procedure",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00814-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "type": "chemical",
+        "name": "glutaraldehyde",
+        "concentration": "2.5%",
+        "solvent": "PBS (pH 7.2)"
+      },
+      {
+        "id": "m2",
+        "type": "chemical",
+        "name": "sucrose",
+        "concentration": "1.8%",
+        "solvent": "PBS (pH 7.2)"
+      },
+      {
+        "id": "m3",
+        "type": "chemical",
+        "name": "PBS",
+        "pH": 7.2
+      },
+      {
+        "id": "m4",
+        "type": "chemical",
+        "name": "osmium tetroxide",
+        "concentration": "1%",
+        "solvent": "water"
+      },
+      {
+        "id": "m5",
+        "type": "chemical",
+        "name": "ethanol",
+        "concentration": "50%"
+      },
+      {
+        "id": "m6",
+        "type": "chemical",
+        "name": "ethanol",
+        "concentration": "75%"
+      },
+      {
+        "id": "m7",
+        "type": "chemical",
+        "name": "ethanol",
+        "concentration": "95%"
+      },
+      {
+        "id": "m8",
+        "type": "chemical",
+        "name": "ethanol",
+        "concentration": "absolute"
+      },
+      {
+        "id": "m9",
+        "type": "chemical",
+        "name": "propylene oxide"
+      },
+      {
+        "id": "m10",
+        "type": "chemical",
+        "name": "Epon-Araldite",
+        "concentration": "2:1",
+        "solvent": "propylene oxide"
+      },
+      {
+        "id": "m11",
+        "type": "chemical",
+        "name": "Epon-Araldite",
+        "concentration": "1:1",
+        "solvent": "propylene oxide"
+      },
+      {
+        "id": "m12",
+        "type": "chemical",
+        "name": "Epon-Araldite",
+        "concentration": "pure"
+      },
+      {
+        "id": "m13",
+        "type": "chemical",
+        "name": "uranyl acetate",
+        "concentration": "2%",
+        "solvent": "70% methanol"
+      },
+      {
+        "id": "m14",
+        "type": "chemical",
+        "name": "uranyl acetate",
+        "concentration": "2%",
+        "solvent": "water"
+      },
+      {
+        "id": "m15",
+        "type": "chemical",
+        "name": "methanol",
+        "concentration": "70%"
+      },
+      {
+        "id": "m16",
+        "type": "chemical",
+        "name": "Reynold's lead citrate"
+      },
+      {
+        "id": "m17",
+        "type": "chemical",
+        "name": "water",
+        "purity": "distilled"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "container",
+        "name": "embedding mold",
+        "shape": "flat"
+      },
+      {
+        "id": "c2",
+        "type": "container",
+        "name": "copper grid",
+        "coating": "formvar"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "equipment",
+        "name": "Reichert ultramicrotome"
+      },
+      {
+        "id": "e2",
+        "type": "equipment",
+        "name": "wheel rotator"
+      },
+      {
+        "id": "e3",
+        "type": "equipment",
+        "name": "Tecnai G2 Spirit EM",
+        "manufacturer": "FEI"
+      },
+      {
+        "id": "e4",
+        "type": "equipment",
+        "name": "Morada CCD camera",
+        "manufacturer": "Olympus"
+      }
+    ],
+    "samples": [
+      {
+        "id": "smp1",
+        "type": "sample",
+        "name": "OVB organoid"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source": "smp1",
+          "destination": "container",
+          "material": "m1",
+          "material2": "m2",
+          "amount": {
+            "value": 3.5,
+            "unit": "ml"
+          }
+        },
+        "annotations": [
+          {
+            "key": "note",
+            "value": "Fix the required number of OVB organoids by immersing them in 3–4 ml of 2.5% glutaraldehyde and 1.8% sucrose in PBS (pH 7.2)"
+          },
+          {
+            "key": "critical",
+            "value": "Ensure pH is adjusted to 7.2 to diminish fixation artifacts"
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": "4 °C",
+            "duration": "overnight"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "rinse",
+        "params": {
+          "action_kind": "rinse",
+          "volume": "5 ml",
+          "material": "m3",
+          "repetitions": 5,
+          "duration": "15 min"
+        },
+        "annotations": [
+          {
+            "key": "critical",
+            "value": "This washing step is critical to remove all traces of fixative, as glutaraldehyde and osmium tetroxide (to be used in the next step) form an intermediate compound that can break down to osmium black, a precipitate that can compromise the quality of the sample"
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "rinse",
+        "params": {
+          "action_kind": "rinse",
+          "volume": "unknown",
+          "material": "m17",
+          "repetitions": 2
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "smp1",
+          "destination": "container",
+          "material": "m4",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "annotations": [
+          {
+            "key": "note",
+            "value": "post-fix in 1% aqueous solution of osmium tetroxide for 1–2 h at 4 °C"
+          },
+          {
+            "key": "critical",
+            "value": "Avoid longer exposures to osmium tetroxide as this may extract cytoplasmic components"
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": "4 °C",
+            "duration": "1-2 h"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "source": "smp1",
+          "destination": "container",
+          "material": "m5",
+          "amount": {
+            "value": 5.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "duration": "15 min"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "params": {
+          "source": "smp1",
+          "destination": "container",
+          "material": "m6",
+          "amount": {
+            "value": 5.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "duration": "15 min"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "transfer",
+        "params": {
+          "source": "smp1",
+          "destination": "container",
+          "material": "m7",
+          "amount": {
+            "value": 5.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "duration": "15 min"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s13",
+        "op": "transfer",
+        "params": {
+          "source": "smp1",
+          "destination": "container",
+          "material": "m8",
+          "amount": {
+            "value": 5.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s14",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "duration": "15 min"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s15",
+        "op": "transfer",
+        "params": {
+          "source": "smp1",
+          "destination": "container",
+          "material": "m9",
+          "amount": {
+            "value": 5.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s16",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "duration": "15 min"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s17",
+        "op": "transfer",
+        "params": {
+          "source": "smp1",
+          "destination": "container",
+          "material": "m10",
+          "amount": {
+            "value": 5.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s18",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": "RT",
+            "duration": "30 min"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s19",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "annotations": [
+          {
+            "key": "note",
+            "value": "Agitate the samples very slowly on a wheel rotator"
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s20",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": "4 °C",
+            "duration": "overnight"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s21",
+        "op": "transfer",
+        "params": {
+          "source": "smp1",
+          "destination": "container",
+          "material": "m12",
+          "amount": {
+            "value": 5.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s22",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": "4 °C",
+            "duration": "overnight"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s23",
+        "op": "transfer",
+        "params": {
+          "source": "smp1",
+          "destination": "c1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s24",
+        "op": "annotate",
+        "params": {
+          "note": "Properly orient to maximize cutting the desired area"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s25",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": "60-62 °C",
+            "duration": "48 h"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s26",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "annotations": [
+          {
+            "key": "note",
+            "value": "cut the block with a razor blade to remove the resin around the sample and create a small trapezoidal block"
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s27",
+        "op": "run_device",
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "program": {
+            "device_ref": "e1",
+            "section_thickness": "400-500 nm"
+          }
+        },
+        "annotations": [
+          {
+            "key": "note",
+            "value": "Perform ultrathin sections of uniform thickness of 400–500 nm using a Reichert ultramicrotome"
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s28",
+        "op": "transfer",
+        "params": {
+          "source": "smp1",
+          "destination": "c2"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s29",
+        "op": "transfer",
+        "params": {
+          "source": "c2",
+          "destination": "container",
+          "material": "m13",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s30",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "duration": "7 min"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s31",
+        "op": "annotate",
+        "params": {
+          "note": "However, methanol has been shown to enhance the contrast given by uranyl acetate"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s32",
+        "op": "rinse",
+        "params": {
+          "action_kind": "rinse",
+          "volume": "drop",
+          "material": "m15",
+          "repetitions": 4
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s33",
+        "op": "rinse",
+        "params": {
+          "action_kind": "rinse",
+          "volume": "drop",
+          "material": "m17",
+          "repetitions": 5
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s34",
+        "op": "transfer",
+        "params": {
+          "source": "c2",
+          "destination": "container",
+          "material": "m16",
+          "amount": {
+            "value": 1.0,
+            "unit": "drop"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s35",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "duration": "2-3 min"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s36",
+        "op": "rinse",
+        "params": {
+          "action_kind": "rinse",
+          "volume": "drop",
+          "material": "m17",
+          "repetitions": 5
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s37",
+        "op": "annotate",
+        "params": {
+          "note": "Dry at RT"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s38",
+        "op": "observe",
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "ultrathin section morphology"
+          ]
+        },
+        "annotations": [
+          {
+            "key": "note",
+            "value": "One can perform observations on aTEM. In our case, we used a Tecnai G2 Spirit EM (FEI) equipped with a Morada CCD camera (Olympus)"
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      },
+      {
+        "from": "s16",
+        "to": "s17"
+      },
+      {
+        "from": "s17",
+        "to": "s18"
+      },
+      {
+        "from": "s18",
+        "to": "s19"
+      },
+      {
+        "from": "s19",
+        "to": "s20"
+      },
+      {
+        "from": "s20",
+        "to": "s21"
+      },
+      {
+        "from": "s21",
+        "to": "s22"
+      },
+      {
+        "from": "s22",
+        "to": "s23"
+      },
+      {
+        "from": "s23",
+        "to": "s24"
+      },
+      {
+        "from": "s24",
+        "to": "s25"
+      },
+      {
+        "from": "s25",
+        "to": "s26"
+      },
+      {
+        "from": "s26",
+        "to": "s27"
+      },
+      {
+        "from": "s27",
+        "to": "s28"
+      },
+      {
+        "from": "s28",
+        "to": "s29"
+      },
+      {
+        "from": "s29",
+        "to": "s30"
+      },
+      {
+        "from": "s30",
+        "to": "s31"
+      },
+      {
+        "from": "s31",
+        "to": "s32"
+      },
+      {
+        "from": "s32",
+        "to": "s33"
+      },
+      {
+        "from": "s33",
+        "to": "s34"
+      },
+      {
+        "from": "s34",
+        "to": "s35"
+      },
+      {
+        "from": "s35",
+        "to": "s36"
+      },
+      {
+        "from": "s36",
+        "to": "s37"
+      },
+      {
+        "from": "s37",
+        "to": "s38"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Organoid passaging procedure",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Cultrex domes"
+      },
+      {
+        "id": "m2",
+        "name": "EDTA (10 mM)"
+      },
+      {
+        "id": "m3",
+        "name": "Y-27632 (10 µM, STEMCELL Technologies)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "15 mL conical tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "P1000 pipette tip"
+      },
+      {
+        "id": "e2",
+        "name": "end-over-end rotator"
+      },
+      {
+        "id": "e3",
+        "name": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "smp1",
+        "name": "organoids"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "material": "m1",
+          "sample": "smp1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "dislodge_cells",
+          "tool": "e1",
+          "sample": "smp1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "solution": [
+            "m2",
+            "m3"
+          ],
+          "container": "c1",
+          "temperature": "cold",
+          "sample": "smp1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "params": {
+          "note": "tube placed on end-over-end rotator at 4 °C for 30 min"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "5 min at 500 ×g, 4 °C",
+          "sample": "smp1"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

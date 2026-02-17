@@ -1,0 +1,90 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Prepare nuclei for single‑cell ATAC‑seq using 10X Chromium",
+    "source": {
+      "type": "paper",
+      "id": "s41586-021-03209-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "10X Genomics Chromium single-cell ATAC-seq solution kit (v1.0)"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "Chromium Controller"
+      }
+    ],
+    "samples": [
+      {
+        "id": "nuclei_prepared",
+        "name": "Prepared nuclei suspension"
+      },
+      {
+        "id": "nuclei_loaded",
+        "name": "Nuclei loaded into Chromium"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "nuclei_prepared"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "nuclei_prepared"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "nuclei_loaded"
+          }
+        ],
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "program": "single-cell ATAC-seq",
+          "device_ref": "e1",
+          "capture_target": {
+            "value": 10000,
+            "unit": "count"
+          }
+        },
+        "annotations": {
+          "note": "Protocol followed as outlined in the 10X Genomics Chromium single-cell ATAC-seq solution protocol (v1.0 kit)."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,296 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "hPSC passaging and seeding",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01236-7.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "mteSR_plus",
+        "name": "mTeSR Plus medium"
+      },
+      {
+        "id": "matrigel_coating",
+        "name": "Matrigel-coating medium"
+      },
+      {
+        "id": "dissociation_medium",
+        "name": "dissociation medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "eppendorf_tube",
+        "type": "tube",
+        "description": "1.7-ml Eppendorf tube for cells"
+      },
+      {
+        "id": "eppendorf_tube2",
+        "type": "tube",
+        "description": "1.7-ml Eppendorf tube for fresh medium"
+      },
+      {
+        "id": "waste_container",
+        "type": "tube",
+        "description": "waste container"
+      },
+      {
+        "id": "well_plate",
+        "type": "plate",
+        "description": "12-well plate"
+      },
+      {
+        "id": "fresh_medium_tube",
+        "type": "tube",
+        "description": "new 1.7‑ml Eppendorf tube for fresh medium"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "p1000_pipette",
+        "type": "pipette",
+        "name": "P1000 pipette"
+      },
+      {
+        "id": "microscope",
+        "type": "microscope",
+        "name": "microscope"
+      },
+      {
+        "id": "incubator",
+        "type": "incubator",
+        "name": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "hpsc_cells",
+        "name": "hPSC colonies"
+      },
+      {
+        "id": "detached_cells",
+        "name": "detached hPSC cells"
+      },
+      {
+        "id": "fresh_medium",
+        "name": "fresh mTeSR Plus medium"
+      },
+      {
+        "id": "seeding_medium",
+        "name": "1 ml mTeSR Plus for seeding"
+      },
+      {
+        "id": "morphology_observation",
+        "name": "morphology_observation"
+      },
+      {
+        "id": "fresh_medium_tube",
+        "name": "fresh_medium_tube"
+      }
+    ],
+    "data": [
+      {
+        "id": "morphology_observation",
+        "type": "observation"
+      }
+    ]
+  },
+  "protocol": {
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "id": "s1",
+        "op": "observe",
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "cell morphology"
+          ]
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "morphology_observation"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "params": {
+          "note": "aspirate dissociation medium"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "description": "use 1 ml mTeSR Plus to gently detach cells and break up colonies"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "container_type": "tube",
+          "description": "new 1.7‑ml Eppendorf tube for fresh medium"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "fresh_medium_tube"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "description": "1 ml mTeSR Plus for seeding"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "seeding_medium"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "description": "prepare 1 ml mTeSR Plus in new tube"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "params": {
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "params": {
+          "note": "aspirate Matrigel‑coating medium"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "annotate",
+        "params": {
+          "note": "add passaged cells to well"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "standard_incubation"
+          },
+          "device_ref": "incubator"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "annotate",
+        "params": {
+          "note": "Change medium every other day from day 2 to day 5 with fresh mTeSR Plus; no change on day 1."
+        },
+        "outputs": [],
+        "inputs": []
+      }
+    ],
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      }
+    ],
+    "detail_level": 0
+  }
+}

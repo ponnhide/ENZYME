@@ -1,0 +1,130 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Tumor biopsy digestion into single cells",
+    "source": {
+      "type": "paper",
+      "id": "s41467-020-19142-9.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "collagenase II",
+        "details": "1 mg/ml, Gibco, Thermo Fischer Scientific"
+      },
+      {
+        "id": "m2",
+        "name": "hyaluronidase",
+        "details": "10 µg/ml"
+      },
+      {
+        "id": "m3",
+        "name": "LY27632",
+        "details": "10 µM"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "device_kind": "incubator",
+        "description": "incubator with shaking capability"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_biopsy",
+        "type": "tumor biopsy"
+      },
+      {
+        "id": "s_mix",
+        "type": "intermediate mixture"
+      },
+      {
+        "id": "s_digested",
+        "type": "single cell suspension"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_biopsy"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_biopsy"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_mix"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "reagents": "collagenase II (1 mg/ml, Gibco, Thermo Fischer Scientific), hyaluronidase (10 µg/ml), LY27632 (10 µM)"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_mix"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_digested"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "30 min at 37 °C with shaking"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

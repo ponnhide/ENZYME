@@ -1,0 +1,64 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Process raw sequencing data with Cell Ranger",
+    "source": {
+      "type": "paper",
+      "id": "s41467-021-27464-5.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "inputs": [],
+        "outputs": [],
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": "cellranger mkfastq",
+          "parameters": {
+            "software_version": "bcl2fastq 2.19/cellranger 3.0"
+          }
+        },
+        "annotations": {
+          "description": "Raw base calls were demultiplexed and converted to fastq files using cellranger mkfastq program (bcl2fastq 2.19/cellranger 3.0)."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [],
+        "outputs": [],
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": "cellranger count",
+          "parameters": {
+            "software_version": "v2",
+            "expect_cells": "number of cells added to 10x system",
+            "reference_genome": "GRCh38 (v3.1.0)"
+          }
+        },
+        "annotations": {
+          "description": "Sequencing data were first preprocessed through the Cell Ranger pipeline (10x Genomics, Cellranger count v2) with default parameters (expect-cells set to the number of cells added to 10x system), aligned to GRCh38 (v3.1.0), and the resulting matrix files were used for subsequent bioinformatic analysis."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

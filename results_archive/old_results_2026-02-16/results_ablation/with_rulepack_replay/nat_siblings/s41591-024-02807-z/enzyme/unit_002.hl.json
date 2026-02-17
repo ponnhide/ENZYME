@@ -1,0 +1,115 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Establishing clonal AFO lines",
+    "source": {
+      "type": "paper",
+      "id": "s41591-024-02807-z.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "afo_bulk",
+        "description": "bulk AFO culture"
+      },
+      {
+        "id": "afo_picked",
+        "description": "individual AFO picked for cloning"
+      },
+      {
+        "id": "single_cells",
+        "description": "AFO dissociated into single cells"
+      },
+      {
+        "id": "replated_cells",
+        "description": "single cells replated to establish clonal line"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "afo_bulk"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "afo_picked"
+          }
+        ],
+        "params": {
+          "action_kind": "pick_colony"
+        },
+        "annotations": {
+          "note": "Individual AFOs were manually picked; details of tool and method not specified"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "afo_picked"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "single_cells"
+          }
+        ],
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "annotations": {
+          "note": "AFOs were dissociated into single cells; dissociation method and reagents not specified"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "single_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "replated_cells"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Single cells were replated to establish clonal lines; volume, target container, and plating conditions not specified"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

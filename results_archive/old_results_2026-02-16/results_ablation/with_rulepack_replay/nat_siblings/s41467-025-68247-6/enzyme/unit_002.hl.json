@@ -1,0 +1,114 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "EDTA digestion to release crypts",
+    "source": {
+      "type": "paper",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "edta_solution",
+        "name": "2.5 mM EDTA in PBS"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube1",
+        "name": "microcentrifuge tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "rotator1",
+        "name": "end‑over‑rotator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "tissue_washed",
+        "name": "washed tissue"
+      },
+      {
+        "id": "tissue_resuspended",
+        "name": "tissue resuspended in EDTA solution"
+      },
+      {
+        "id": "tissue_incubated",
+        "name": "tissue incubated in end‑over‑rotator"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tissue_washed"
+          },
+          {
+            "kind": "material",
+            "id": "edta_solution"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tissue_resuspended"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 25,
+            "unit": "mL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tissue_resuspended"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tissue_incubated"
+          }
+        ],
+        "params": {
+          "temperature": {
+            "value": 37,
+            "unit": "C"
+          },
+          "duration": {
+            "value": 12,
+            "unit": "min"
+          }
+        },
+        "annotations": {
+          "device": "end‑over‑rotator"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

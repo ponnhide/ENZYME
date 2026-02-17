@@ -1,0 +1,178 @@
+{
+  "units": [
+    {
+      "title": "Curate and harmonize organoid metadata",
+      "text": "We curated all neural organoid datasets used in this study through the sfaira78 framework (GitHub dev branch, 18 April 2023). We harmonized metadata according to the sfaira standards (https://sfaira.readthedocs.io/en/latest/adding_datasets.html) and manually curated an extra metadata column organoid_age_days, which described the number of days the organoid had been in culture before collection.",
+      "rationale": "Establishes a consistent dataset foundation for downstream analysis.",
+      "detected_categories": [
+        {
+          "id": "purification_cleanup",
+          "hits": 1,
+          "confidence": 0.167,
+          "matched_patterns": [
+            "column"
+          ]
+        }
+      ],
+      "split_audit": {
+        "char_count": 397,
+        "word_count": 58,
+        "sentence_count": 2,
+        "category_count": 1,
+        "flags": []
+      }
+    },
+    {
+      "title": "Construct k‑NN graph and cluster cells",
+      "text": "We constructed a kNN graph (k = 30) in the RSS space and clustered the dataset using the Leiden algorithm83 (resolution 0.8).",
+      "rationale": "Groups similar cells to define clusters for annotation.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 125,
+        "word_count": 22,
+        "sentence_count": 1,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Quality control: filter low‑gene cells",
+      "text": "We removed any cells with fewer than 200 genes expressed.",
+      "rationale": "Eliminates low‑quality cells that could bias results.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 57,
+        "word_count": 10,
+        "sentence_count": 1,
+        "category_count": 0,
+        "flags": [
+          "UNIT_TOO_SHORT_CHARS",
+          "UNIT_TOO_SHORT_WORDS",
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Quality control: remove outlier cells",
+      "text": "We next removed outlier cells in terms of two quality control metrics: number of expressed genes and percentage mitochondrial counts. For any dataset collected using the v.3 chemistry by 10X Genomics, which contains more than 500 cells after the filtering, we fitted a Gaussian distribution to the histogram denoting the number of expressed genes per cell. If a bimodal distribution was detected, we removed any cell with fewer genes expressed than defined by the valley between the two maxima of the distribution. Cells with any z‑transformed metric less than -1.96 or greater than 1.96 are defined as outliers.",
+      "rationale": "Ensures only biologically plausible cells are retained.",
+      "detected_categories": [
+        {
+          "id": "molecular_cloning",
+          "hits": 1,
+          "confidence": 0.143,
+          "matched_patterns": [
+            "transform"
+          ]
+        }
+      ],
+      "split_audit": {
+        "char_count": 612,
+        "word_count": 102,
+        "sentence_count": 5,
+        "category_count": 1,
+        "flags": []
+      }
+    },
+    {
+      "title": "Log‑normalize expression matrix",
+      "text": "We generated a log-normalized expression matrix by first dividing the counts for each cell by the total counts in that cell and multiplying by a factor of 1,000,000 before taking the natural log of each count + 1.",
+      "rationale": "Standardizes expression values for comparative analyses.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 213,
+        "word_count": 40,
+        "sentence_count": 1,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Train scPoli model",
+      "text": "We chose the hidden layer size of the one-layer scPoli encoder and decoder as 1,024, and the latent embedding dimension as ten. We used a value of 100 for the ‘alpha_epoch_anneal’ parameter. We trained the model for a total of seven epochs, five of which were pretraining epochs.",
+      "rationale": "Creates a latent representation for integration and downstream tasks.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 279,
+        "word_count": 50,
+        "sentence_count": 3,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Build bipartite weighted k‑NN graph",
+      "text": "With the primary reference27 and query (HNOCA) data projected to the same latent space, an unweighted bipartite kNN graph was constructed by identifying 100 nearest neighbours of each query cell in the reference. The square of Jaccard index was then assigned as the weight of the edge, exp(4 × (prolif_score − apoptosis_score)) edge, to get the bipartite weighted kNN graph.",
+      "rationale": "Links query and reference cells for transport‑based analyses.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 374,
+        "word_count": 59,
+        "sentence_count": 2,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Solve optimal transport problem",
+      "text": "The optimal transport problem was solved using the following parameters: iterations = 25,000, compute_wasserstein_baseline = False, batch_size = 1,024, patience = 100, pretrain = True, train_size = 1.",
+      "rationale": "Computes cell‑state mappings across developmental time.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 200,
+        "word_count": 24,
+        "sentence_count": 2,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Infer real‑time‑informed pseudotime",
+      "text": "To infer a global ordering of differentiation state, we sought to infer a real-time-informed pseudotime on the basis of neural optimal transport47 in the scPoli latent space. We first grouped organoid age in days into seven bins ((0, 15], (15, 30], (30,60], (60, 90], (90, 120], (120, 150], (150, 450]). Next, we used moscot48 to solve a temporal neural problem. We computed a transition matrix from displacement vectors and used diffusion maps87. Ranks on diffusion component 1 were used as a pseudotemporal ordering.",
+      "rationale": "Orders cells along developmental trajectories.",
+      "detected_categories": [
+        {
+          "id": "molecular_cloning",
+          "hits": 1,
+          "confidence": 0.143,
+          "matched_patterns": [
+            "vector"
+          ]
+        }
+      ],
+      "split_audit": {
+        "char_count": 518,
+        "word_count": 86,
+        "sentence_count": 5,
+        "category_count": 1,
+        "flags": []
+      }
+    },
+    {
+      "title": "Transfer regional labels to non‑telencephalic cells",
+      "text": "For regional labels, only the non-telencephalic regions, namely diencephalon, hypothalamus, thalamus, midbrain, midbrain dorsal, midbrain ventral, hindbrain, cerebellum, pons and medulla, were considered valid categories to be transferred. The label-transfer procedure was only applied to the non-telencephalic NPCs and neurons in HNOCA. Before any major voting was done, the support scores of each valid category across all non-telencephalic NPCs and neurons in HNOCA were smoothed with a random-walk-with-restart procedure (restart probability alpha = 85%). Majority voting was applied to assign each cell to one of the three structures.",
+      "rationale": "Annotates cell origin for downstream comparative analyses.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 639,
+        "word_count": 94,
+        "sentence_count": 4,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    }
+  ],
+  "created_at": "2026-02-15T04:55:15.935583+00:00"
+}

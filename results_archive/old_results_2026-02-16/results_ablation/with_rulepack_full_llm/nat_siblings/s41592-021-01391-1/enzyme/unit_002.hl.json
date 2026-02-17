@@ -1,0 +1,415 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Microfluidic chip fabrication for DisCo",
+    "source": {
+      "type": "paper",
+      "id": "s41592-021-01391-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "pdms",
+        "name": "PDMS"
+      },
+      {
+        "id": "curing_agent",
+        "name": "Curing agent"
+      },
+      {
+        "id": "su8",
+        "name": "SU8 photoresist"
+      },
+      {
+        "id": "biopsy_punch",
+        "name": "0.5 mm biopsy punch"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "incubator",
+        "name": "Incubator / oven"
+      },
+      {
+        "id": "spin_coater",
+        "name": "Spin coater"
+      },
+      {
+        "id": "vacuum_chamber",
+        "name": "Vacuum chamber (degassing)"
+      }
+    ],
+    "samples": [
+      {
+        "id": "primary_replica_mold",
+        "name": "Primary replica mold (silanized)"
+      },
+      {
+        "id": "secondary_replica_mold",
+        "name": "Secondary replica mold"
+      },
+      {
+        "id": "flow_layer_pdms_5to1",
+        "name": "Flow layer PDMS (5:1)"
+      },
+      {
+        "id": "flow_layer_pdms_20to1",
+        "name": "Flow layer PDMS (20:1)"
+      },
+      {
+        "id": "control_layer_su8",
+        "name": "Control layer (SU8)"
+      },
+      {
+        "id": "flow_layer_pdms_5to1_degas",
+        "name": "flow_layer_pdms_5to1_degas"
+      },
+      {
+        "id": "flow_layer_pdms_5to1_cured",
+        "name": "flow_layer_pdms_5to1_cured"
+      },
+      {
+        "id": "flow_layer_pdms_20to1_degas",
+        "name": "flow_layer_pdms_20to1_degas"
+      },
+      {
+        "id": "flow_layer_pdms_20to1_cured",
+        "name": "flow_layer_pdms_20to1_cured"
+      },
+      {
+        "id": "control_layer_su8_baked",
+        "name": "control_layer_su8_baked"
+      },
+      {
+        "id": "control_layer_su8_punched",
+        "name": "control_layer_su8_punched"
+      },
+      {
+        "id": "assembled_device",
+        "name": "assembled_device"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "pdms"
+          },
+          {
+            "kind": "material",
+            "id": "curing_agent"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "flow_layer_pdms_5to1"
+          }
+        ],
+        "params": {
+          "action_kind": "mix",
+          "ratio": "5:1"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "flow_layer_pdms_5to1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "flow_layer_pdms_5to1_degas"
+          }
+        ],
+        "params": {
+          "device_kind": "vacuum_chamber",
+          "program": {
+            "duration": {
+              "value": 15,
+              "unit": "min"
+            }
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "flow_layer_pdms_5to1_degas"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "flow_layer_pdms_5to1_cured"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": {
+              "value": 80,
+              "unit": "C"
+            },
+            "duration": {
+              "value": 60,
+              "unit": "min"
+            }
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "pdms"
+          },
+          {
+            "kind": "material",
+            "id": "curing_agent"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "flow_layer_pdms_20to1"
+          }
+        ],
+        "params": {
+          "action_kind": "mix",
+          "ratio": "20:1"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "flow_layer_pdms_20to1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "flow_layer_pdms_20to1_degas"
+          }
+        ],
+        "params": {
+          "device_kind": "vacuum_chamber",
+          "program": {
+            "duration": {
+              "value": 15,
+              "unit": "min"
+            }
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "flow_layer_pdms_20to1_degas"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "flow_layer_pdms_20to1_cured"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": {
+              "value": 80,
+              "unit": "C"
+            },
+            "duration": {
+              "value": 60,
+              "unit": "min"
+            }
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "su8"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "control_layer_su8"
+          }
+        ],
+        "params": {
+          "device_kind": "spin_coater",
+          "program": {
+            "speed": {
+              "value": 650,
+              "unit": "rpm"
+            },
+            "duration": {
+              "value": 35,
+              "unit": "s"
+            },
+            "ramp_time": {
+              "value": 15,
+              "unit": "s"
+            }
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "control_layer_su8"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "control_layer_su8_baked"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": {
+              "value": 80,
+              "unit": "C"
+            },
+            "duration": {
+              "value": 30,
+              "unit": "min"
+            }
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "control_layer_su8_baked"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "control_layer_su8_punched"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "Holes were punched with a 0.5 mm diameter biopsy punch."
+        }
+      },
+      {
+        "id": "s10",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "flow_layer_pdms_5to1_cured"
+          },
+          {
+            "kind": "sample",
+            "id": "flow_layer_pdms_20to1_cured"
+          },
+          {
+            "kind": "sample",
+            "id": "control_layer_su8_punched"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "assembled_device"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "The two PDMS layers were manually aligned and bonded at 80 °C for at least 60 min."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      }
+    ],
+    "detail_level": 0
+  }
+}

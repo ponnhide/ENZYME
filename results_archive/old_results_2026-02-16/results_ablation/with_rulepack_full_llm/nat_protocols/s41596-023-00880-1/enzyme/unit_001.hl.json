@@ -1,0 +1,103 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Day 5 medium change to FGF9/heparin",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00880-1"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "E6 medium"
+      },
+      {
+        "id": "m2",
+        "name": "FGF9",
+        "description": "200 ng/mL in final medium"
+      },
+      {
+        "id": "m3",
+        "name": "Heparin",
+        "description": "1 µg/mL in final medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "well_plate",
+        "description": "culture plate containing wells"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s_old",
+        "type": "culture",
+        "container_ref": "c1",
+        "description": "cells in existing medium"
+      },
+      {
+        "id": "new_medium",
+        "type": "reagent",
+        "description": "E6 medium supplemented with 200 ng/mL FGF9 and 1 µg/mL heparin"
+      },
+      {
+        "id": "s_new",
+        "type": "culture",
+        "container_ref": "c1",
+        "description": "cells after medium change to FGF9/heparin"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "new_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_new"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "mL"
+          },
+          "destination": "well"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Refresh this medium every 2 days for a further 3 days (to D8 differentiation)."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,340 @@
+{
+  "ir_version": "0.4",
+  "kind": "enzyme_hl_ir",
+  "meta": {
+    "protocol_id": "doi:10.1038/s41596-023-00814-x",
+    "title": "Generation of iPSC-derived human forebrain organoids assembling bilateral eye primordia",
+    "source": "s41596-023-00814-x.pdf",
+    "language": "en"
+  },
+  "registries": {
+    "custom": {
+      "device_kind": [],
+      "action_kind": [],
+      "modality": [],
+      "features": []
+    }
+  },
+  "settings": {
+    "biosafety_level": "2",
+    "contains_human_or_animal_material": true,
+    "requires_irb_or_iacuc": true,
+    "sterility_required": true,
+    "contamination_control": [
+      "sterile technique",
+      "biosafety cabinet"
+    ]
+  },
+  "entities": [
+    {
+      "id": "e1",
+      "type": "sample",
+      "name": "human iPSC line",
+      "properties": {
+        "source": "patient‑derived or commercial iPSC line",
+        "status": "pluripotent"
+      }
+    },
+    {
+      "id": "e2",
+      "type": "reagent",
+      "name": "neurosphere medium",
+      "properties": {}
+    },
+    {
+      "id": "e3",
+      "type": "reagent",
+      "name": "OVB medium",
+      "properties": {}
+    },
+    {
+      "id": "e4",
+      "type": "reagent",
+      "name": "retinol acetate (60 nM)",
+      "properties": {
+        "concentration": "60 nM"
+      }
+    },
+    {
+      "id": "e5",
+      "type": "reagent",
+      "name": "dorsomorphin (BMP inhibitor)",
+      "properties": {}
+    },
+    {
+      "id": "e6",
+      "type": "reagent",
+      "name": "SB431542 (TGFβ inhibitor)",
+      "properties": {}
+    },
+    {
+      "id": "e7",
+      "type": "container",
+      "name": "spinner flask",
+      "properties": {}
+    },
+    {
+      "id": "e8",
+      "type": "instrument",
+      "name": "incubator (37 °C, 5 % CO₂)",
+      "properties": {}
+    },
+    {
+      "id": "e9",
+      "type": "instrument",
+      "name": "electroretinography (ERG) system",
+      "properties": {}
+    }
+  ],
+  "steps": [
+    {
+      "id": "s1",
+      "op": "allocate",
+      "inputs": [],
+      "outputs": [
+        {
+          "entity": "e1",
+          "role": "source"
+        }
+      ],
+      "params": {},
+      "notes": "Start with sterile culture of human iPSCs."
+    },
+    {
+      "id": "s2",
+      "op": "transfer",
+      "inputs": [
+        {
+          "entity": "e1",
+          "role": "sample"
+        }
+      ],
+      "outputs": [
+        {
+          "entity": "e1",
+          "role": "neurosphere_precursor"
+        }
+      ],
+      "params": {
+        "action": "seed cells at low density in defined differentiation medium"
+      },
+      "notes": "Stage 0 (Steps 1–12) – see protocol for exact seeding density and plate type."
+    },
+    {
+      "id": "s3",
+      "op": "incubate",
+      "inputs": [
+        {
+          "entity": "e1",
+          "role": "neurosphere_precursor"
+        }
+      ],
+      "outputs": [
+        {
+          "entity": "e1",
+          "role": "neurospheres_day5"
+        }
+      ],
+      "params": {
+        "duration": "5 d",
+        "temperature": "37 °C",
+        "CO2": "5 %"
+      },
+      "notes": "Neural differentiation (days 0–5) to generate neurospheres."
+    },
+    {
+      "id": "s4",
+      "op": "transfer",
+      "inputs": [
+        {
+          "entity": "e1",
+          "role": "neurospheres_day5"
+        },
+        {
+          "entity": "e2",
+          "role": "reagent"
+        }
+      ],
+      "outputs": [
+        {
+          "entity": "e1",
+          "role": "neurospheres_in_neurosphere_medium"
+        }
+      ],
+      "params": {
+        "action": "collect neurospheres and culture in neurosphere medium"
+      },
+      "notes": "Stage 1 (Steps 13–27) – harvest neurospheres at day 5."
+    },
+    {
+      "id": "s5",
+      "op": "incubate",
+      "inputs": [
+        {
+          "entity": "e1",
+          "role": "neurospheres_in_neurosphere_medium"
+        }
+      ],
+      "outputs": [
+        {
+          "entity": "e1",
+          "role": "primitive_organoids_day10"
+        }
+      ],
+      "params": {
+        "duration": "5 d",
+        "temperature": "37 °C",
+        "CO2": "5 %"
+      },
+      "notes": "Culture neurospheres in neurosphere medium (days 5–10) to initiate patterning."
+    },
+    {
+      "id": "s6",
+      "op": "transfer",
+      "inputs": [
+        {
+          "entity": "e1",
+          "role": "primitive_organoids_day10"
+        },
+        {
+          "entity": "e3",
+          "role": "reagent"
+        },
+        {
+          "entity": "e7",
+          "role": "container"
+        }
+      ],
+      "outputs": [
+        {
+          "entity": "e1",
+          "role": "organoids_in_spinner_flask"
+        }
+      ],
+      "params": {
+        "action": "transfer to spinner flasks containing OVB medium"
+      },
+      "notes": "Stage 2 (Steps 28–34) – transfer to spinner flasks (days 10–30)."
+    },
+    {
+      "id": "s7",
+      "op": "incubate",
+      "inputs": [
+        {
+          "entity": "e1",
+          "role": "organoids_in_spinner_flask"
+        }
+      ],
+      "outputs": [
+        {
+          "entity": "e1",
+          "role": "forebrain_organoids_day30"
+        }
+      ],
+      "params": {
+        "duration": "20 d",
+        "temperature": "37 °C",
+        "CO2": "5 %"
+      },
+      "notes": "Organoids develop forebrain structures and pigmented dots (days 10–30)."
+    },
+    {
+      "id": "s8",
+      "op": "transfer",
+      "inputs": [
+        {
+          "entity": "e1",
+          "role": "forebrain_organoids_day30"
+        },
+        {
+          "entity": "e4",
+          "role": "reagent"
+        }
+      ],
+      "outputs": [
+        {
+          "entity": "e1",
+          "role": "organoids_with_retinol"
+        }
+      ],
+      "params": {
+        "action": "add 60 nM retinol acetate around day 7 (neuroectoderm expansion)"
+      },
+      "notes": "Retinol acetate addition timing inferred from text; exact day may vary."
+    },
+    {
+      "id": "s9",
+      "op": "incubate",
+      "inputs": [
+        {
+          "entity": "e1",
+          "role": "organoids_with_retinol"
+        }
+      ],
+      "outputs": [
+        {
+          "entity": "e1",
+          "role": "OVB_organoids_day60"
+        }
+      ],
+      "params": {
+        "duration": "30 d",
+        "temperature": "37 °C",
+        "CO2": "5 %"
+      },
+      "notes": "Long‑term culture to day 60 yields OVB organoids with optic vesicle structures."
+    },
+    {
+      "id": "s10",
+      "op": "observe",
+      "inputs": [
+        {
+          "entity": "e1",
+          "role": "OVB_organoids_day60"
+        }
+      ],
+      "outputs": [],
+      "params": {
+        "modality": "brightfield microscopy",
+        "features": [
+          "pigmented dots",
+          "lens‑like structures",
+          "optic vesicle morphology"
+        ]
+      },
+      "notes": "Qualitative assessment of organoid morphology."
+    },
+    {
+      "id": "s11",
+      "op": "run_device",
+      "inputs": [
+        {
+          "entity": "e1",
+          "role": "OVB_organoids_day60"
+        },
+        {
+          "entity": "e9",
+          "role": "instrument"
+        }
+      ],
+      "outputs": [
+        {
+          "entity": "e1",
+          "role": "ERG_recordings"
+        }
+      ],
+      "params": {
+        "action": "electroretinography (ERG) stimulation with various light intensities"
+      },
+      "notes": "Measure electrical activity of retina‑like cells within organoids."
+    },
+    {
+      "id": "s12",
+      "op": "annotate",
+      "inputs": [],
+      "outputs": [],
+      "params": {},
+      "notes": "Detailed step‑by‑step instructions (e.g., exact seeding densities, spinner speed, medium composition, immunostaining protocols, RNA‑seq preparation, EM processing, etc.) are described in the full paper but are not reproduced here."
+    }
+  ]
+}

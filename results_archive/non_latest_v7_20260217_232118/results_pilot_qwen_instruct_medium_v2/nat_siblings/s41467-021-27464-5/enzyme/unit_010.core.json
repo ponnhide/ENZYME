@@ -1,0 +1,76 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41467-021-27464-5.pdf",
+      "type": "paper"
+    },
+    "title": "Process raw sequencing data with Cell Ranger"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {
+          "description": "Raw base calls were demultiplexed and converted to fastq files"
+        },
+        "id": "s1",
+        "inputs": [],
+        "op": "run_device",
+        "outputs": [],
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": "cellranger mkfastq",
+          "version": "bcl2fastq 2.19/cellranger 3.0"
+        }
+      },
+      {
+        "annotations": {
+          "description": "Sequencing data were preprocessed through the Cell Ranger pipeline with default parameters, aligned to GRCh38 (v3.1.0)"
+        },
+        "id": "s2",
+        "inputs": [],
+        "op": "run_device",
+        "outputs": [],
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "parameters": {
+            "expect-cells": "number of cells added to 10x system",
+            "reference": "GRCh38 v3.1.0"
+          },
+          "program": "cellranger count",
+          "version": "v2"
+        }
+      },
+      {
+        "annotations": {
+          "description": "The resulting matrix files were used for subsequent bioinformatic analysis"
+        },
+        "id": "s3",
+        "inputs": [],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      }
+    ]
+  },
+  "resources": {
+    "containers": [],
+    "data": [],
+    "equipment": [],
+    "materials": [],
+    "samples": []
+  },
+  "schema_version": "0.4"
+}

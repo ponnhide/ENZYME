@@ -1,0 +1,201 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "FITC‑dextran permeability assay",
+    "source": {
+      "type": "paper",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "FITC-Dextran",
+        "source": {
+          "type": "catalog",
+          "id": "MedChemExpress"
+        }
+      },
+      {
+        "id": "m2",
+        "name": "PBS",
+        "source": {
+          "type": "generic",
+          "id": ""
+        }
+      },
+      {
+        "id": "m3",
+        "name": "Organoid growth media with 10 µM Y-27632",
+        "source": {
+          "type": "generic",
+          "id": ""
+        }
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_fitc_stock",
+        "material_id": "m1",
+        "container_id": "c1"
+      },
+      {
+        "id": "s_pbs",
+        "material_id": "m2",
+        "container_id": "c1"
+      },
+      {
+        "id": "s_media",
+        "material_id": "m3",
+        "container_id": "c1"
+      },
+      {
+        "id": "s_diluted",
+        "container_id": "c1"
+      },
+      {
+        "id": "s_final",
+        "container_id": "c1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s0",
+        "op": "allocate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_media"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_fitc_stock"
+          },
+          {
+            "kind": "sample",
+            "id": "s_pbs"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_diluted"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "note": "Diluted FITC-Dextran to 2 mg/mL in PBS"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_diluted"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_diluted"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "incubate",
+          "temperature": {
+            "value": 37,
+            "unit": "degC"
+          },
+          "co2": {
+            "value": 5,
+            "unit": "%"
+          },
+          "duration": {
+            "value": 30,
+            "unit": "min"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_diluted"
+          },
+          {
+            "kind": "sample",
+            "id": "s_media"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_final"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "note": "Added organoid growth media with 10 µM Y-27632"
+        }
+      }
+    ],
+    "start_step_id": "s0",
+    "edges": [
+      {
+        "from": "s0",
+        "to": "s1"
+      },
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Longitudinal scRNA‑seq profiling of mCBOs",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41592-024-02555-5.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "eq_seq",
+        "type": "sequencer"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_mCBOs",
+        "type": "cell_culture"
+      },
+      {
+        "id": "d_scRNAseq",
+        "name": "d_scRNAseq"
+      }
+    ],
+    "data": [
+      {
+        "id": "d_scRNAseq",
+        "type": "sequencing_data"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "description": "resulting mCBOs"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_mCBOs"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "gene_expression"
+          ],
+          "description": "scRNA-seq profiling at 50, 100, and 300 days of differentiation"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_mCBOs"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d_scRNAseq"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

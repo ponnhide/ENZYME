@@ -1,0 +1,109 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Prepare stock cell suspension for HFO seeding",
+    "source": {
+      "type": "paper",
+      "id": "s41596-021-00629-8"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "E8 + 10 µM Y27632",
+        "type": "medium"
+      },
+      {
+        "id": "m2",
+        "name": "cells from Step 10",
+        "type": "cell_pellet"
+      }
+    ],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "cells_from_step10",
+        "material_ref": "m2"
+      },
+      {
+        "id": "stock_cell_suspension",
+        "material_ref": "m1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_from_step10"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "stock_cell_suspension"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "appropriate amount to achieve 5,000 cells per 100 µL",
+            "unit": null
+          }
+        },
+        "annotations": {
+          "note": "Exact volume not specified; amount should yield 5,000 cells per 100 µL medium."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Add appropriate amount of cells to achieve 5,000 cells per 100 µL medium."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "stock_cell_suspension"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "stock_cell_suspension"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

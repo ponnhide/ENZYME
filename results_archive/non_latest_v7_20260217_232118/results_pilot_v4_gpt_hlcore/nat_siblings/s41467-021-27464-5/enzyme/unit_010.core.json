@@ -1,0 +1,212 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41467-021-27464-5",
+      "type": "paper"
+    },
+    "title": "Culture organoids under hypoxic conditions"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "start_step_id": "s1",
+    "step_order": null,
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "organoid_conventional",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "organoid_silkVM",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "organoid_conventional",
+            "kind": "sample"
+          },
+          {
+            "id": "organoid_silkVM",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "organoid_conventional",
+            "kind": "sample"
+          },
+          {
+            "id": "organoid_silkVM",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "CO2": "5%",
+          "O2": "21%",
+          "device_kind": "incubator",
+          "device_ref": "incubator_normoxia",
+          "program": "normoxia_culture",
+          "temperature": "37 °C"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "organoid_conventional",
+            "kind": "sample"
+          },
+          {
+            "id": "organoid_silkVM",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "organoid_conventional_hypoxia",
+            "kind": "sample"
+          },
+          {
+            "id": "organoid_silkVM_hypoxia",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "",
+            "value": "unspecified"
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "organoid_conventional_hypoxia",
+            "kind": "sample"
+          },
+          {
+            "id": "organoid_silkVM_hypoxia",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "organoid_conventional_hypoxia",
+            "kind": "sample"
+          },
+          {
+            "id": "organoid_silkVM_hypoxia",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "CO2": "5%",
+          "O2": "1%",
+          "device_kind": "incubator",
+          "device_ref": "hypoxia_chamber",
+          "gas_mix": "N2",
+          "program": "hypoxia"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Samples collected after 4, 8, and 16 h"
+        },
+        "id": "s6",
+        "inputs": [],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      }
+    ]
+  },
+  "resources": {
+    "containers": [],
+    "data": [],
+    "equipment": [
+      {
+        "id": "incubator_normoxia",
+        "kind": "incubator",
+        "name": "standard incubator"
+      },
+      {
+        "id": "hypoxia_chamber",
+        "kind": "incubator",
+        "name": "Binder CB160 hypoxia chamber"
+      }
+    ],
+    "materials": [],
+    "samples": [
+      {
+        "description": "conventional organoid",
+        "id": "organoid_conventional",
+        "type": "organoid"
+      },
+      {
+        "description": "silk-VM organoid",
+        "id": "organoid_silkVM",
+        "type": "organoid"
+      },
+      {
+        "description": "conventional organoid after hypoxia exposure",
+        "id": "organoid_conventional_hypoxia",
+        "type": "organoid"
+      },
+      {
+        "description": "silk-VM organoid after hypoxia exposure",
+        "id": "organoid_silkVM_hypoxia",
+        "type": "organoid"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

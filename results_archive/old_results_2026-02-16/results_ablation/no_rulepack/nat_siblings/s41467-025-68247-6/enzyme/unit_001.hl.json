@@ -1,0 +1,226 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Tissue cleaning and crypt isolation",
+    "source": {
+      "type": "paper",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "gauze_fisher_scientific",
+        "name": "gauze",
+        "description": "Fisher Scientific gauze"
+      },
+      {
+        "id": "pbs_plus_plus",
+        "name": "PBS++",
+        "description": "PBS supplemented with 10 mM HEPES, 1X GlutaMAX, 1X Pen‑Strep, and 2.5 μg/mL Amphotericin B (Thermo Fisher Scientific)"
+      },
+      {
+        "id": "dmem_plus_plus",
+        "name": "DMEM++",
+        "description": "Advanced DMEM/F12 supplemented with 10 mM HEPES, 1X GlutaMAX, 1X Pen‑Strep, and 2.5 μg/mL Amphotericin B (Thermo Fisher Scientific)"
+      },
+      {
+        "id": "scalpels_fisher_scientific",
+        "name": "scalpels",
+        "description": "Fisher Scientific scalpels"
+      }
+    ],
+    "containers": [
+      {
+        "id": "dish_15cm",
+        "name": "15 cm dish",
+        "description": "Standard 15 cm cell culture dish"
+      },
+      {
+        "id": "conical_50ml",
+        "name": "50 mL conical tube",
+        "description": "Standard 50 mL conical centrifuge tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge_generic",
+        "device_kind": "centrifuge",
+        "description": "Laboratory centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "colon_tissue",
+        "name": "colon tissue",
+        "description": "Fresh colon tissue specimen"
+      },
+      {
+        "id": "minced_epithelium",
+        "name": "minced epithelium",
+        "description": "Epithelium minced from colon tissue"
+      },
+      {
+        "id": "pelleted_epithelium",
+        "name": "pelleted epithelium",
+        "description": "Epithelium after washing and centrifugation"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "colon_tissue"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "colon_tissue"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "colon_tissue"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Slice the colon tissue open lengthwise and wipe 3–4 times with gauze (Fisher Scientific) to remove waste and mucus."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "colon_tissue"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "colon_tissue"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Cut the tissue into small sections of ~2\" × 2\" and place into a 15 cm dish filled with PBS++."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "colon_tissue"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "minced_epithelium"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Mince the epithelium from tissue segments using scalpels (Fisher Scientific) and collect into 50 mL conical tubes."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "minced_epithelium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "minced_epithelium"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Wash the minced epithelium 3 times with DMEM++."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "centrifuge",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "minced_epithelium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "pelleted_epithelium"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge_generic",
+          "speed": {
+            "value": 500,
+            "unit": "g"
+          },
+          "duration": {
+            "value": 3,
+            "unit": "min"
+          },
+          "temperature": {
+            "value": 4,
+            "unit": "°C"
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Sequence alignment",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-018-0024-3.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [],
+    "data": [
+      {
+        "id": "raw_seq",
+        "type": "data",
+        "description": "Raw sequencing reads"
+      },
+      {
+        "id": "ref_genome",
+        "type": "data",
+        "description": "Human reference genome NCBI build37"
+      },
+      {
+        "id": "aligned_seq",
+        "type": "data",
+        "description": "Sequences aligned with BWA-align"
+      },
+      {
+        "id": "filtered_genes",
+        "type": "data",
+        "description": "Informative genes after applying FPKM and CV filters"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "data"
+        },
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "raw_seq"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "data"
+        },
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "ref_genome"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "params": {
+          "note": "Align sequences to the human reference genome (NCBI build37) using BWA-align"
+        },
+        "inputs": [
+          {
+            "kind": "data",
+            "id": "raw_seq"
+          },
+          {
+            "kind": "data",
+            "id": "ref_genome"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "aligned_seq"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "params": {
+          "note": "Select informative genes for clustering: filter for FPKM > 1 and (coefficient of variation > 0.7 or absolute difference > 5)"
+        },
+        "inputs": [
+          {
+            "kind": "data",
+            "id": "aligned_seq"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "filtered_genes"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

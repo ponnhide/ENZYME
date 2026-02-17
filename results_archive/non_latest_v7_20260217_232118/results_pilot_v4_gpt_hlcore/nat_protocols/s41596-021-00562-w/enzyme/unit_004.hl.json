@@ -1,0 +1,123 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Fix monolayers with paraformaldehyde",
+    "source": {
+      "type": "paper",
+      "id": "s41596-021-00562-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "medium",
+        "name": "cell culture medium"
+      },
+      {
+        "id": "fixative_solution",
+        "name": "4% paraformaldehyde in DPBS−/−"
+      }
+    ],
+    "containers": [
+      {
+        "id": "transwell",
+        "name": "culture insert for monolayer"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "monolayer",
+        "name": "cell monolayer",
+        "container_ref": "transwell"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "monolayer"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "monolayer"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Remove the medium from both sides of the monolayer"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "fixative_solution"
+          },
+          {
+            "kind": "sample",
+            "id": "monolayer"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "monolayer"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 500,
+            "unit": "µl"
+          }
+        },
+        "annotations": {
+          "note": "Apply 500 µl on both the apical and basolateral sides of the monolayer"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "monolayer"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "monolayer"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Incubate at room temperature for 15 min"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

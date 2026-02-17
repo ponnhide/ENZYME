@@ -1,0 +1,155 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "S‑phase cell labeling",
+    "source": {
+      "type": "paper",
+      "id": "s41596-021-00603-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_idu_stock",
+        "name": "127IdU stock",
+        "description": "0.5 mM stock solution of 127IdU"
+      },
+      {
+        "id": "m_culture_medium",
+        "name": "culture medium",
+        "description": "cell culture medium (200 µL per well)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_plate",
+        "type": "plate",
+        "description": "culture plate containing medium"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e_incubator",
+        "device_kind": "incubator",
+        "description": "CO2 incubator set to 37 °C, 5% CO2"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_medium",
+        "name": "culture medium",
+        "container_ref": "c_plate",
+        "material_ref": "m_culture_medium"
+      },
+      {
+        "id": "s_labeled",
+        "name": "s_labeled"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m_idu_stock"
+          },
+          {
+            "kind": "sample",
+            "id": "s_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_labeled"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 10,
+            "unit": "µL"
+          },
+          "description": "Add 10 µL of 0.5 mM 127IdU stock to 200 µL of culture medium to reach 25 µM final concentration"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_labeled"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_labeled"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently",
+          "repetitions": 5,
+          "duration": {
+            "value": 10,
+            "unit": "s"
+          },
+          "description": "Gently rotate the plate by hand five times for 10 seconds to mix the medium"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_labeled"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_labeled"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 25,
+            "unit": "min"
+          },
+          "temperature": {
+            "value": 37,
+            "unit": "°C"
+          },
+          "CO2": {
+            "value": 5,
+            "unit": "%"
+          },
+          "device_ref": "e_incubator",
+          "description": "Incubate the plate for 25 minutes at 37 °C and 5% CO2"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

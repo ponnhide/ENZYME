@@ -1,0 +1,115 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Induce vessel sprouting",
+    "source": {
+      "type": "paper",
+      "id": "s41596-019-0213-z.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "med1",
+        "name": "StemPro‑34 SFM complete medium with 15 % FBS, 100 ng/mL VEGF‑A, 100 ng/mL FGF‑2"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "inc1",
+        "name": "Incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "induced_culture",
+        "name": "Culture after medium addition"
+      },
+      {
+        "id": "sprouted_culture",
+        "name": "Culture after vessel sprouting"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s0",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Amount of medium to transfer not specified in source text"
+        }
+      },
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "med1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "induced_culture"
+          }
+        ],
+        "params": {
+          "amount": {
+            "annotate": "volume not specified"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "induced_culture"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sprouted_culture"
+          }
+        ],
+        "params": {
+          "duration": {
+            "unit": "d",
+            "range": {
+              "min": 1,
+              "max": 3
+            }
+          },
+          "temperature": {
+            "value": 37,
+            "unit": "C"
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s0",
+    "edges": [
+      {
+        "from": "s0",
+        "to": "s1"
+      },
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

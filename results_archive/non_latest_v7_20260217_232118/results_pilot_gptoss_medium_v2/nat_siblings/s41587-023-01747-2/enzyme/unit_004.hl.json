@@ -1,0 +1,99 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Imaging parameters for tiled acquisition",
+    "source": {
+      "type": "paper",
+      "id": "s41587-023-01747-2.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "imager1",
+        "device_kind": "imager",
+        "name": "Microscope"
+      }
+    ],
+    "samples": [
+      {
+        "id": "tiled_images",
+        "type": "image_set"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tiled_images"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tiled_images"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tiled_images"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "program": "tiled acquisition"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tiled_images"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "modality": "microscope",
+          "features": {
+            "magnification": "40x",
+            "objective": "high-numerical-aperture silicone oil",
+            "pixel_size": "0.1625 μm"
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

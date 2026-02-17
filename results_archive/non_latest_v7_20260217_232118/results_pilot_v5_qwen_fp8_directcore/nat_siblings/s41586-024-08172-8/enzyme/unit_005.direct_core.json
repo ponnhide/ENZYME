@@ -1,0 +1,214 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Normalization of Smart-seq2 data",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-024-08172-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "d1",
+        "name": "d1"
+      },
+      {
+        "id": "d2",
+        "name": "d2"
+      },
+      {
+        "id": "d3",
+        "name": "d3"
+      },
+      {
+        "id": "d4",
+        "name": "d4"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "type": "read_count_matrix",
+        "description": "raw Smart-seq2 read counts"
+      },
+      {
+        "id": "d2",
+        "type": "gene_length_map",
+        "description": "maximum gene length per gene from BioMart"
+      },
+      {
+        "id": "d3",
+        "type": "median_gene_length",
+        "description": "median gene length across all genes"
+      },
+      {
+        "id": "d4",
+        "type": "length_normalized_read_counts",
+        "description": "normalized and length-adjusted read counts"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "raw_read_counts"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d1"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "gene_lengths"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d2"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "median_gene_length"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d3"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "params": {
+          "text": "unmapped action_kind in source: normalize_by_division"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d1"
+          },
+          {
+            "kind": "sample",
+            "id": "d2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d4"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "text": "unmapped action_kind in source: scale_by_multiplication"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d4"
+          },
+          {
+            "kind": "sample",
+            "id": "d3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d4"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Length-normalized counts treated equivalently to UMIs-derived raw counts in downstream analyses."
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d4"
+          }
+        ],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s2",
+        "to": "s4"
+      },
+      {
+        "from": "s3",
+        "to": "s5"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

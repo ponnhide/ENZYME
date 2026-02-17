@@ -1,0 +1,93 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Fabrication of control layer",
+    "source": {
+      "type": "paper",
+      "id": "s41592-021-01391-1"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "photoresist",
+        "type": "material",
+        "description": "photoresist used for control layer"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "incubator1",
+        "type": "equipment",
+        "device_kind": "incubator",
+        "description": "Oven/incubator for baking the photoresist layer"
+      }
+    ],
+    "samples": [
+      {
+        "id": "control_layer_uncured",
+        "type": "sample",
+        "description": "Photoresist layer after spin coating"
+      },
+      {
+        "id": "control_layer_cured",
+        "type": "sample",
+        "description": "Photoresist layer after baking"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Spin coat the photoresist layer at 650 r.p.m. for 35 s with a 15 s ramp time."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "control_layer_uncured"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "control_layer_cured"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "bake_80C_30min",
+          "temperature": {
+            "value": 80,
+            "unit": "°C"
+          },
+          "duration": {
+            "value": 30,
+            "unit": "min"
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

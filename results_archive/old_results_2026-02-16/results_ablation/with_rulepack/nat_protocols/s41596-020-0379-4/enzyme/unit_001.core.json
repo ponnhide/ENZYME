@@ -1,0 +1,184 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-020-0379-4.pdf",
+      "type": "paper"
+    },
+    "title": "Collect primary tissue"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "c1",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "quantity": {
+            "unit": "",
+            "value": 1
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "samp1",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "m1",
+            "kind": "material"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "c1",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "ml",
+            "value": 45
+          },
+          "temperature": "ice-cold"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Optional: Add 10 µM ROCK inhibitor to adDMEM/F12+++ medium to increase cell survival."
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "m2",
+            "kind": "material"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "samp1",
+            "kind": "sample"
+          },
+          {
+            "id": "c1",
+            "kind": "container"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "c1",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        }
+      },
+      {
+        "annotations": {
+          "lowered_from": "incubate"
+        },
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "c1",
+            "kind": "container"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "c1",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": null
+          }
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "c1",
+        "name": "50-ml conical tube"
+      }
+    ],
+    "data": [],
+    "equipment": [],
+    "materials": [
+      {
+        "id": "m1",
+        "name": "adDMEM/F12+++ medium"
+      },
+      {
+        "id": "m2",
+        "name": "ROCK inhibitor"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "name": "primary human tissue pieces"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

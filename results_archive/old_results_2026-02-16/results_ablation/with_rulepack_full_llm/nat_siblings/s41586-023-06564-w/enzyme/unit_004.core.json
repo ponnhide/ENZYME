@@ -1,0 +1,289 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41586-023-06564-w.pdf",
+      "type": "paper"
+    },
+    "title": "Generation of 3D human cortical organoids (hCO)"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {
+          "description": "Dissociate hiPS cells with Accutase to obtain a single‑cell suspension."
+        },
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "hiPS_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "single_cell_suspension",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "single_cell_suspension",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "seeded_aggrowell",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "cells",
+            "value": 3000000
+          },
+          "destination": "AggreWell 800 plate well",
+          "supplement": [
+            {
+              "material_id": "essential8"
+            },
+            {
+              "concentration": {
+                "unit": "µM",
+                "value": 10
+              },
+              "material_id": "rock_inhibitor"
+            }
+          ]
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "seeded_aggrowell",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "centrifuged_aggrowell",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "100 g for 3 min"
+        }
+      },
+      {
+        "annotations": {
+          "lowered_from": "incubate"
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "centrifuged_aggrowell",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "incubated_aggrowell",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": null
+          }
+        }
+      },
+      {
+        "annotations": {
+          "description": "Transfer incubated aggregates to Ultra‑low attachment plastic dish (Corning, catalogue no. 3262)."
+        },
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "incubated_aggrowell",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "aggregates_in_dish",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "description": "Culture aggregates in E6 medium supplemented with dorsomorphin (2.5 µM), SB‑431542 (10 µM) and XAV‑939 (1.25 µM)."
+        },
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "aggregates_in_dish",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "aggregates_in_dish",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      }
+    ]
+  },
+  "resources": {
+    "containers": [],
+    "data": [],
+    "equipment": [
+      {
+        "device_kind": "centrifuge",
+        "id": "centrifuge",
+        "type": "device"
+      },
+      {
+        "device_kind": "incubator",
+        "id": "incubator",
+        "type": "device"
+      }
+    ],
+    "materials": [
+      {
+        "id": "accutase",
+        "name": "Accutase",
+        "type": "reagent"
+      },
+      {
+        "id": "essential8",
+        "name": "Essential 8 medium",
+        "type": "medium"
+      },
+      {
+        "concentration": {
+          "unit": "µM",
+          "value": 10
+        },
+        "id": "rock_inhibitor",
+        "name": "Y27632",
+        "type": "reagent"
+      },
+      {
+        "id": "aggrewell800",
+        "name": "AggreWell 800 plate",
+        "type": "container"
+      },
+      {
+        "id": "e6_medium",
+        "name": "E6 medium",
+        "type": "medium"
+      },
+      {
+        "concentration": {
+          "unit": "µM",
+          "value": 2.5
+        },
+        "id": "dorsomorphin",
+        "name": "Dorsomorphin",
+        "type": "reagent"
+      },
+      {
+        "concentration": {
+          "unit": "µM",
+          "value": 10
+        },
+        "id": "sb431542",
+        "name": "SB‑431542",
+        "type": "reagent"
+      },
+      {
+        "concentration": {
+          "unit": "µM",
+          "value": 1.25
+        },
+        "id": "xav939",
+        "name": "XAV‑939",
+        "type": "reagent"
+      },
+      {
+        "catalogue_no": "3262",
+        "id": "ultra_low_dish",
+        "name": "Ultra‑low attachment plastic dish",
+        "type": "container",
+        "vendor": "Corning"
+      }
+    ],
+    "samples": [
+      {
+        "description": "hiPS cells",
+        "id": "hiPS_cells",
+        "type": "cell_line"
+      },
+      {
+        "id": "single_cell_suspension",
+        "type": "cell_suspension"
+      },
+      {
+        "id": "seeded_aggrowell",
+        "type": "culture"
+      },
+      {
+        "id": "centrifuged_aggrowell",
+        "type": "culture"
+      },
+      {
+        "id": "incubated_aggrowell",
+        "type": "culture"
+      },
+      {
+        "id": "aggregates_in_dish",
+        "type": "culture"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

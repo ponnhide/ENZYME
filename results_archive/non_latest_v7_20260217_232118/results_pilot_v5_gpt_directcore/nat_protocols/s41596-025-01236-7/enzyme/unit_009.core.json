@@ -1,0 +1,319 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "iNPC expansion and passaging",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01236-7.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "type": "hNPSR-v2_medium",
+        "name": "hNPSR‑v2 medium"
+      },
+      {
+        "id": "m2",
+        "type": "Matrigel",
+        "name": "Matrigel"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "12-well_plate",
+        "name": "12‑well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "cell_counter",
+        "name": "TC20 automated cell counter"
+      },
+      {
+        "id": "e2",
+        "type": "incubator",
+        "name": "Incubator"
+      },
+      {
+        "id": "e3",
+        "type": "microscope",
+        "name": "Microscope"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "type": "cell_suspension",
+        "name": "iNPC cell suspension"
+      },
+      {
+        "id": "c1",
+        "name": "c1"
+      },
+      {
+        "id": "m1",
+        "name": "m1"
+      },
+      {
+        "id": "m2",
+        "name": "m2"
+      },
+      {
+        "id": "d1",
+        "name": "d1"
+      },
+      {
+        "id": "d2",
+        "name": "d2"
+      },
+      {
+        "id": "d3",
+        "name": "d3"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "type": "cell_count",
+        "name": "Cell count data"
+      },
+      {
+        "id": "d2",
+        "type": "microscope_image",
+        "name": "Day1 microscope image"
+      },
+      {
+        "id": "d3",
+        "type": "microscope_image",
+        "name": "Day4 microscope image"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "m1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "m2"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "cell_counter",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "count_cells"
+          },
+          "input_sample": "samp1"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source_sample": "samp1",
+          "dest_container": "c1",
+          "dest_well": "A1",
+          "amount": {
+            "value": 120000,
+            "unit": "cells"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "source_material": "m1",
+          "dest_container": "c1",
+          "dest_well": "A1",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "params": {
+          "source_container": "c1",
+          "dest_equipment": "e2",
+          "amount": {
+            "value": 1,
+            "unit": "plate"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "observe",
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "attachment"
+          ],
+          "device_ref": "e3",
+          "target_container": "c1",
+          "target_well": "A1"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d2"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s10",
+        "op": "transfer",
+        "params": {
+          "source_material": "m1",
+          "dest_container": "c1",
+          "dest_well": "A1",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "observe",
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "confluence"
+          ],
+          "device_ref": "e3",
+          "target_container": "c1",
+          "target_well": "A1"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d3"
+          }
+        ],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,267 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Cytomix cytokine injury treatment",
+    "source": {
+      "type": "paper",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "human recombinant TNFα",
+        "vendor": "R&D Systems"
+      },
+      {
+        "id": "m2",
+        "name": "human recombinant IFNγ",
+        "vendor": "R&D Systems"
+      },
+      {
+        "id": "m3",
+        "name": "human recombinant IL‑1β",
+        "vendor": "PeproTech"
+      },
+      {
+        "id": "m4",
+        "name": "organoid media"
+      },
+      {
+        "id": "m5",
+        "name": "Advanced DMEM/F12"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "well plate",
+        "description": "organoid wells"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_organoid_wells",
+        "type": "sample",
+        "description": "organoids in wells",
+        "container_ref": "c1"
+      },
+      {
+        "id": "s_TNFα",
+        "type": "sample",
+        "material_ref": "m1"
+      },
+      {
+        "id": "s_IFNg",
+        "type": "sample",
+        "material_ref": "m2"
+      },
+      {
+        "id": "s_IL1b",
+        "type": "sample",
+        "material_ref": "m3"
+      },
+      {
+        "id": "s_media",
+        "type": "sample",
+        "material_ref": "m4"
+      },
+      {
+        "id": "s_DMEM",
+        "type": "sample",
+        "material_ref": "m5"
+      },
+      {
+        "id": "s_cytomix",
+        "type": "sample",
+        "description": "cytomix solution (TNFα+IFNγ+IL‑1β in organoid media)"
+      },
+      {
+        "id": "s_treated",
+        "type": "sample",
+        "description": "organoids after 16 h cytokine exposure"
+      },
+      {
+        "id": "s_washed",
+        "type": "sample",
+        "description": "organoids after two washes with Advanced DMEM/F12"
+      },
+      {
+        "id": "s_final",
+        "type": "sample",
+        "description": "organoids after replacement with fresh organoid media"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_TNFα"
+          },
+          {
+            "kind": "sample",
+            "id": "s_IFNg"
+          },
+          {
+            "kind": "sample",
+            "id": "s_IL1b"
+          },
+          {
+            "kind": "sample",
+            "id": "s_media"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cytomix"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cytomix"
+          },
+          {
+            "kind": "sample",
+            "id": "s_organoid_wells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_treated"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "to each well",
+            "unit": null
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_treated"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_treated"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 16,
+            "unit": "h"
+          },
+          "device_kind": "incubator"
+        },
+        "annotations": {
+          "temperature": "not specified"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_treated"
+          },
+          {
+            "kind": "sample",
+            "id": "s_DMEM"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_washed"
+          }
+        ],
+        "params": {
+          "action_kind": "rinse"
+        },
+        "annotations": {
+          "note": "Wash performed twice as described in the protocol"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_media"
+          },
+          {
+            "kind": "sample",
+            "id": "s_washed"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_final"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "to each well",
+            "unit": null
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

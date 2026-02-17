@@ -1,0 +1,111 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Plate PSCs at defined density",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-020-00441-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Pluripotent stem cells (PSCs)"
+      },
+      {
+        "id": "m2",
+        "name": "mTeSR1 medium"
+      },
+      {
+        "id": "m3",
+        "name": "Y‑27632"
+      },
+      {
+        "id": "m4",
+        "name": "Matrigel"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "24‑well tissue culture plate",
+        "type": "plate",
+        "well_count": 24
+      }
+    ],
+    "equipment": [],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "operation": "allocate",
+        "params": {
+          "resource": "m1",
+          "description": "Pluripotent stem cells (PSCs) to be plated"
+        },
+        "op": "annotate",
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "operation": "allocate",
+        "params": {
+          "resource": "m2",
+          "additive": "10 μM Y‑27632",
+          "description": "mTeSR1 medium supplemented with Y‑27632"
+        },
+        "op": "annotate",
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "operation": "transfer",
+        "params": {
+          "volume": "500 μl",
+          "source": "s2",
+          "destination": "c1 wells",
+          "description": "Add 500 μl of supplemented mTeSR1 to each well of the Matrigel‑coated 24‑well plate"
+        },
+        "op": "annotate",
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "operation": "transfer",
+        "params": {
+          "cell_count": "100,000–150,000 cells",
+          "source": "s1",
+          "destination": "c1 wells",
+          "description": "Plate the PSCs at the specified density in each well"
+        },
+        "op": "annotate",
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

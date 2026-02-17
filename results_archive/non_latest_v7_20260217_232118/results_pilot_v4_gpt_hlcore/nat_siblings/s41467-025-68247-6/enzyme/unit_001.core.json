@@ -1,0 +1,309 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41467-025-68247-6",
+      "type": "paper"
+    },
+    "title": "Tissue cleaning and crypt isolation"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "start_step_id": "s1",
+    "step_order": null,
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "colon_tissue",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "description": "Slice colon tissue lengthwise and wipe 3–4 times with gauze (Fisher Scientific) to remove waste and mucus."
+        },
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "colon_tissue",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "tissue_sliced",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "description": "Cut tissue into small sections of ~2\" × 2\"."
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "tissue_sliced",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "tissue_sections",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "tissue_sections",
+            "kind": "sample"
+          },
+          {
+            "id": "PBS_plus_plus",
+            "kind": "material"
+          },
+          {
+            "id": "dish_15cm",
+            "kind": "container"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "tissue_in_PBS",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "tissue sections"
+          }
+        }
+      },
+      {
+        "annotations": {
+          "description": "Mince epithelium from tissue segments using scalpels (Fisher Scientific) and collect into 50 mL conical tubes."
+        },
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "tissue_in_PBS",
+            "kind": "sample"
+          },
+          {
+            "id": "scalpel",
+            "kind": "material"
+          },
+          {
+            "id": "tube_50ml",
+            "kind": "container"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "minced_epithelium",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "description": "Wash minced epithelium 3 times with DMEM++ (Advanced DMEM/F12 supplemented with 10 mM HEPES, 1X GlutaMAX, 1X Pen‑Strep, and 2.5 μg/mL Amphotericin B)."
+        },
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "minced_epithelium",
+            "kind": "sample"
+          },
+          {
+            "id": "DMEM_plus_plus",
+            "kind": "material"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "washed_epithelium",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s7",
+        "inputs": [
+          {
+            "id": "washed_epithelium",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "epithelium_pellet",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "duration": {
+            "unit": "min",
+            "value": 3
+          },
+          "program": "spin",
+          "speed": {
+            "unit": "g",
+            "value": 500
+          },
+          "temperature": {
+            "unit": "°C",
+            "value": 4
+          }
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "dish_15cm",
+        "size": "15 cm",
+        "type": "dish"
+      },
+      {
+        "id": "tube_50ml",
+        "type": "conical_tube",
+        "volume": "50 mL"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "device_kind": "centrifuge",
+        "id": "centrifuge"
+      }
+    ],
+    "materials": [
+      {
+        "id": "gauze",
+        "name": "gauze",
+        "vendor": "Fisher Scientific"
+      },
+      {
+        "description": "PBS supplemented with 10 mM HEPES, 1X GlutaMAX, 1X Pen-Strep, and 2.5 μg/mL Amphotericin B",
+        "id": "PBS_plus_plus",
+        "name": "PBS++",
+        "vendor": "Thermo Fisher Scientific"
+      },
+      {
+        "concentration": "10 mM",
+        "id": "HEPES",
+        "name": "HEPES",
+        "vendor": "Thermo Fisher Scientific"
+      },
+      {
+        "id": "GlutaMAX",
+        "name": "GlutaMAX",
+        "vendor": "Thermo Fisher Scientific"
+      },
+      {
+        "id": "Pen_Strep",
+        "name": "Pen-Strep",
+        "vendor": "Thermo Fisher Scientific"
+      },
+      {
+        "concentration": "2.5 μg/mL",
+        "id": "Amphotericin_B",
+        "name": "Amphotericin B",
+        "vendor": "Thermo Fisher Scientific"
+      },
+      {
+        "id": "scalpel",
+        "name": "scalpel",
+        "vendor": "Fisher Scientific"
+      },
+      {
+        "description": "Advanced DMEM/F12 supplemented with 10 mM HEPES, 1X GlutaMAX, 1X Pen-Strep, and 2.5 μg/mL Amphotericin B",
+        "id": "DMEM_plus_plus",
+        "name": "DMEM++",
+        "vendor": "Thermo Fisher Scientific"
+      }
+    ],
+    "samples": [
+      {
+        "description": "Colon tissue",
+        "id": "colon_tissue"
+      },
+      {
+        "derived_from": "colon_tissue",
+        "id": "tissue_sliced"
+      },
+      {
+        "derived_from": "tissue_sliced",
+        "id": "tissue_sections"
+      },
+      {
+        "derived_from": "tissue_sections",
+        "id": "tissue_in_PBS"
+      },
+      {
+        "derived_from": "tissue_in_PBS",
+        "id": "minced_epithelium"
+      },
+      {
+        "derived_from": "minced_epithelium",
+        "id": "washed_epithelium"
+      },
+      {
+        "derived_from": "washed_epithelium",
+        "id": "epithelium_pellet"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

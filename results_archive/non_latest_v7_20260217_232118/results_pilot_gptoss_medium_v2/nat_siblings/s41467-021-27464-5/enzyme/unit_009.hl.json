@@ -1,0 +1,126 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Single‑cell RNA‑seq library preparation",
+    "source": {
+      "type": "paper",
+      "id": "s41467-021-27464-5.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "single-cell suspension"
+      },
+      {
+        "id": "m2",
+        "name": "10x Genomics Single Cell 3′ Chip"
+      },
+      {
+        "id": "m3",
+        "name": "mastermix"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "NextSeq500"
+      },
+      {
+        "id": "e2",
+        "name": "NovaSeq 6000"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sm1",
+        "name": "cell_suspension"
+      },
+      {
+        "id": "sm2",
+        "name": "loaded_library"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "name": "sequencing data"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sm1"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sm1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sm2"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "single-cell suspensions were loaded onto 10x Genomics Single Cell 3′ Chips along with the mastermix as per the manufacturer’s protocol"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sm2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d1"
+          }
+        ],
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": "sequencing"
+        },
+        "annotations": {
+          "note": "sequencing performed on either a NextSeq500 or a NovaSeq 6000"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

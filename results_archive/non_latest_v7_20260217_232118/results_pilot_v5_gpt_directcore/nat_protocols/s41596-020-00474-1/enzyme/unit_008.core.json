@@ -1,0 +1,234 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Embedding in BME and plating",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-020-00474-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "bme",
+        "name": "BME"
+      },
+      {
+        "id": "medium",
+        "name": "Type 1 or Type 2 medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate12",
+        "type": "12-well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator1",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cell_pellet",
+        "description": "cell pellet"
+      },
+      {
+        "id": "cell_suspension",
+        "description": "cells resuspended in BME"
+      },
+      {
+        "id": "bme",
+        "name": "bme"
+      },
+      {
+        "id": "plate12",
+        "name": "plate12"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_pellet"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "bme"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "source_sample": "cell_pellet",
+          "material": "bme",
+          "volume": "200 µl"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate12"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "cell_suspension",
+          "destination": "plate12",
+          "description": "Plate cells in multiple small drops (<20 µl each) per well",
+          "amount": {
+            "value": 100.0,
+            "unit": "µl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Turn the plate upside down and leave in the biosafety cabinet for 5 min"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator1",
+          "program": {
+            "program_name": "solidify_30min_37C"
+          },
+          "duration": "30 min",
+          "temperature": "37 °C",
+          "target": "plate12"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate12"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "params": {
+          "source": "medium",
+          "destination": "plate12",
+          "description": "Add pre‑warmed medium to each well",
+          "amount": {
+            "value": 750.0,
+            "unit": "µl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator1",
+          "program": {
+            "program_name": "culture_37C_5CO2"
+          },
+          "temperature": "37 °C",
+          "CO2": "5%",
+          "target": "plate12"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate12"
+          }
+        ],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

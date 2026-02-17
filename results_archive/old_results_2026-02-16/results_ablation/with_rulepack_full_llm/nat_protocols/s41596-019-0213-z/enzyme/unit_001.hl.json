@@ -1,0 +1,105 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Aggregate formation (Day -1)",
+    "source": {
+      "type": "paper",
+      "id": "s41596-019-0213-z.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "cells",
+        "name": "cells",
+        "type": "cell_line",
+        "description": "unspecified cell line"
+      },
+      {
+        "id": "y27632",
+        "name": "Y27632",
+        "type": "chemical",
+        "description": "ROCK inhibitor",
+        "concentration": "50 μM"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate",
+        "type": "6-well low-attachment plate",
+        "name": "6-well low-attachment plate"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "cell_suspension",
+        "material_id": "cells",
+        "description": "cell suspension at 2 × 10^5 cells per mL"
+      },
+      {
+        "id": "seeded_plate",
+        "container_id": "plate",
+        "description": "6-well low-attachment plate seeded with cells in 50 μM Y27632"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension"
+          },
+          {
+            "kind": "container",
+            "id": "plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "seeded_plate"
+          }
+        ],
+        "params": {
+          "amount": "200000 cells per mL"
+        },
+        "annotations": {
+          "note": "Add 50 μM Y27632 to the plate."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

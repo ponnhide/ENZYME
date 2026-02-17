@@ -1,0 +1,195 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Cytokine treatment of ASC‑derived ileum organoids",
+    "source": {
+      "type": "paper",
+      "id": "s41588-025-02182-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "ASC-derived ileal organoids"
+      },
+      {
+        "id": "m2",
+        "name": "control media"
+      },
+      {
+        "id": "m3",
+        "name": "media supplemented with TNF and RANKL"
+      },
+      {
+        "id": "m4",
+        "name": "TNF"
+      },
+      {
+        "id": "m5",
+        "name": "RANKL"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "scRNA‑seq platform",
+        "device_kind": "amplicon_readout_system"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_control",
+        "name": "ASC‑derived ileal organoids in control media"
+      },
+      {
+        "id": "s_treated",
+        "name": "ASC‑derived ileal organoids in media with TNF and RANKL"
+      }
+    ],
+    "data": [
+      {
+        "id": "d_control",
+        "name": "scRNA‑seq data from control organoids"
+      },
+      {
+        "id": "d_treated",
+        "name": "scRNA‑seq data from cytokine‑treated organoids"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_control"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "material",
+            "id": "m4"
+          },
+          {
+            "kind": "material",
+            "id": "m5"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_treated"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_control"
+          },
+          {
+            "kind": "sample",
+            "id": "s_treated"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_control"
+          },
+          {
+            "kind": "sample",
+            "id": "s_treated"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 6,
+            "unit": "day"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_control"
+          },
+          {
+            "kind": "sample",
+            "id": "s_treated"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d_control"
+          },
+          {
+            "kind": "data",
+            "id": "d_treated"
+          }
+        ],
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": "scRNA-seq"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

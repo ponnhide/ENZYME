@@ -1,0 +1,203 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Live/dead discrimination",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00603-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_pbs",
+        "name": "PBS"
+      },
+      {
+        "id": "m_cisplatin_solution",
+        "name": "0.25 µM 194cisplatin/PBS solution"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_plate",
+        "type": "well_plate",
+        "name": "96-well plate"
+      },
+      {
+        "id": "c_waste",
+        "type": "waste_container",
+        "name": "Waste container"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e_rocker",
+        "type": "rocker",
+        "name": "rocker"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_well",
+        "type": "sample"
+      },
+      {
+        "id": "c_plate",
+        "name": "c_plate"
+      },
+      {
+        "id": "m_pbs",
+        "name": "m_pbs"
+      },
+      {
+        "id": "m_cisplatin_solution",
+        "name": "m_cisplatin_solution"
+      },
+      {
+        "id": "c_waste",
+        "name": "c_waste"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c_plate"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "m_pbs"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "m_cisplatin_solution"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c_waste"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "note": "Remove PBS by pipetting."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_well"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "source": "m_cisplatin_solution",
+          "destination": "sample_well",
+          "amount": {
+            "value": 200.0,
+            "unit": "µl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "note": "Incubate for 10–15 min on a rocker at room temperature."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

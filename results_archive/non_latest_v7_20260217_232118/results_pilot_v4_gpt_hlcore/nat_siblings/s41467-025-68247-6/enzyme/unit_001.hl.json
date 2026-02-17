@@ -1,0 +1,308 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Tissue cleaning and crypt isolation",
+    "source": {
+      "type": "paper",
+      "id": "s41467-025-68247-6"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "gauze",
+        "name": "gauze",
+        "vendor": "Fisher Scientific"
+      },
+      {
+        "id": "PBS_plus_plus",
+        "name": "PBS++",
+        "description": "PBS supplemented with 10 mM HEPES, 1X GlutaMAX, 1X Pen-Strep, and 2.5 μg/mL Amphotericin B",
+        "vendor": "Thermo Fisher Scientific"
+      },
+      {
+        "id": "HEPES",
+        "name": "HEPES",
+        "concentration": "10 mM",
+        "vendor": "Thermo Fisher Scientific"
+      },
+      {
+        "id": "GlutaMAX",
+        "name": "GlutaMAX",
+        "vendor": "Thermo Fisher Scientific"
+      },
+      {
+        "id": "Pen_Strep",
+        "name": "Pen-Strep",
+        "vendor": "Thermo Fisher Scientific"
+      },
+      {
+        "id": "Amphotericin_B",
+        "name": "Amphotericin B",
+        "concentration": "2.5 μg/mL",
+        "vendor": "Thermo Fisher Scientific"
+      },
+      {
+        "id": "scalpel",
+        "name": "scalpel",
+        "vendor": "Fisher Scientific"
+      },
+      {
+        "id": "DMEM_plus_plus",
+        "name": "DMEM++",
+        "description": "Advanced DMEM/F12 supplemented with 10 mM HEPES, 1X GlutaMAX, 1X Pen-Strep, and 2.5 μg/mL Amphotericin B",
+        "vendor": "Thermo Fisher Scientific"
+      }
+    ],
+    "containers": [
+      {
+        "id": "dish_15cm",
+        "type": "dish",
+        "size": "15 cm"
+      },
+      {
+        "id": "tube_50ml",
+        "type": "conical_tube",
+        "volume": "50 mL"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge",
+        "device_kind": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "colon_tissue",
+        "description": "Colon tissue"
+      },
+      {
+        "id": "tissue_sliced",
+        "derived_from": "colon_tissue"
+      },
+      {
+        "id": "tissue_sections",
+        "derived_from": "tissue_sliced"
+      },
+      {
+        "id": "tissue_in_PBS",
+        "derived_from": "tissue_sections"
+      },
+      {
+        "id": "minced_epithelium",
+        "derived_from": "tissue_in_PBS"
+      },
+      {
+        "id": "washed_epithelium",
+        "derived_from": "minced_epithelium"
+      },
+      {
+        "id": "epithelium_pellet",
+        "derived_from": "washed_epithelium"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "colon_tissue"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "colon_tissue"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tissue_sliced"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "Slice colon tissue lengthwise and wipe 3–4 times with gauze (Fisher Scientific) to remove waste and mucus."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tissue_sliced"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tissue_sections"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "Cut tissue into small sections of ~2\" × 2\"."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tissue_sections"
+          },
+          {
+            "kind": "material",
+            "id": "PBS_plus_plus"
+          },
+          {
+            "kind": "container",
+            "id": "dish_15cm"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tissue_in_PBS"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "tissue sections"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tissue_in_PBS"
+          },
+          {
+            "kind": "material",
+            "id": "scalpel"
+          },
+          {
+            "kind": "container",
+            "id": "tube_50ml"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "minced_epithelium"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "Mince epithelium from tissue segments using scalpels (Fisher Scientific) and collect into 50 mL conical tubes."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "minced_epithelium"
+          },
+          {
+            "kind": "material",
+            "id": "DMEM_plus_plus"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "washed_epithelium"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "Wash minced epithelium 3 times with DMEM++ (Advanced DMEM/F12 supplemented with 10 mM HEPES, 1X GlutaMAX, 1X Pen‑Strep, and 2.5 μg/mL Amphotericin B)."
+        }
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "washed_epithelium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "epithelium_pellet"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "spin",
+          "speed": {
+            "value": 500,
+            "unit": "g"
+          },
+          "temperature": {
+            "value": 4,
+            "unit": "°C"
+          },
+          "duration": {
+            "value": 3,
+            "unit": "min"
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

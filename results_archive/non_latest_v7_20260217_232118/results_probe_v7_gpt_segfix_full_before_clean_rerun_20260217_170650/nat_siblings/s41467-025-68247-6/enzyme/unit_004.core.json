@@ -1,0 +1,142 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Microwell plate seeding and PBS wash",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "pbs"
+      },
+      {
+        "id": "primary_antibody"
+      }
+    ],
+    "containers": [
+      {
+        "id": "microwell_plate",
+        "type": "microwell_plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator1",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoid_sample"
+      },
+      {
+        "id": "primary_antibody_diluted"
+      },
+      {
+        "id": "organoid_resuspended"
+      },
+      {
+        "id": "microwell_plate",
+        "name": "microwell_plate"
+      },
+      {
+        "id": "pbs",
+        "name": "pbs"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator1",
+          "program": {
+            "program_name": "30_min"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "microwell_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "microwell_plate"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer of PBS to microwell plate amount unspecified"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "primary_antibody_diluted"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          },
+          {
+            "kind": "sample",
+            "id": "primary_antibody_diluted"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_resuspended"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

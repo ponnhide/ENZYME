@@ -1,0 +1,203 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "SNR-derived organoid propagation in suspension",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01197-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "fresh_amplification_medium",
+        "name": "fresh amplification medium"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "imager",
+        "name": "Imaging system"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoid_culture",
+        "name": "SNR-derived organoid suspension"
+      }
+    ],
+    "data": [
+      {
+        "id": "image_day1",
+        "name": "Organoid image at 1 d post-isolation"
+      },
+      {
+        "id": "image_day7",
+        "name": "Organoid image at 7 d post-isolation"
+      },
+      {
+        "id": "image_day14",
+        "name": "Organoid image at 14 d post-isolation"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_culture"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_culture"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 150,
+            "unit": "μL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "fresh_amplification_medium"
+          },
+          {
+            "kind": "sample",
+            "id": "organoid_culture"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_culture"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 150,
+            "unit": "μL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Medium change performed every other day for 2 weeks (50% removal, 150 μL added)."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_culture"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "image_day1"
+          }
+        ],
+        "params": {
+          "modality": "visual",
+          "features": "organoid images"
+        },
+        "annotations": {
+          "timepoint": "1 d post-isolation"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_culture"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "image_day7"
+          }
+        ],
+        "params": {
+          "modality": "visual",
+          "features": "organoid images"
+        },
+        "annotations": {
+          "timepoint": "7 d post-isolation"
+        }
+      },
+      {
+        "id": "s6",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_culture"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "image_day14"
+          }
+        ],
+        "params": {
+          "modality": "visual",
+          "features": "organoid images"
+        },
+        "annotations": {
+          "timepoint": "14 d post-isolation"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

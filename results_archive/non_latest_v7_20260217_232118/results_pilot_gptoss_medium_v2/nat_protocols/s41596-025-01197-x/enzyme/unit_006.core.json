@@ -1,0 +1,169 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-025-01197-x.pdf",
+      "type": "paper"
+    },
+    "title": "SNR propagation in suspension culture"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "s_culture",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "container_ref": "c_well"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "s_culture",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "s_culture",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "µL",
+            "value": 150
+          },
+          "direction": "remove"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "m_fresh_amp_medium",
+            "kind": "material"
+          },
+          {
+            "id": "s_culture",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "s_culture",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "µL",
+            "value": 150
+          },
+          "direction": "add"
+        }
+      },
+      {
+        "annotations": {
+          "timepoints": "1, 7, and 14 days post‑isolation"
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "s_culture",
+            "kind": "sample"
+          },
+          {
+            "id": "e_microscope",
+            "kind": "equipment"
+          }
+        ],
+        "op": "observe",
+        "outputs": [
+          {
+            "id": "d_images",
+            "kind": "data"
+          }
+        ],
+        "params": {
+          "features": [
+            "organoid development"
+          ],
+          "modality": "microscope"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "c_well",
+        "name": "culture well"
+      }
+    ],
+    "data": [
+      {
+        "id": "d_images",
+        "name": "organoid images",
+        "type": "image"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e_microscope",
+        "name": "microscope"
+      }
+    ],
+    "materials": [
+      {
+        "id": "m_old_medium",
+        "name": "old medium"
+      },
+      {
+        "id": "m_fresh_amp_medium",
+        "name": "fresh amplification medium with 2× FGF2 and EGF"
+      },
+      {
+        "id": "m_waste",
+        "name": "waste"
+      }
+    ],
+    "samples": [
+      {
+        "container_ref": "c_well",
+        "id": "s_culture",
+        "name": "SNR-derived organoid culture"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

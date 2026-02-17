@@ -1,0 +1,150 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Calcium imaging of MAP2‑GCamP5 neurons",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-021-27464-5.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "eq_microscope",
+        "type": "imager",
+        "description": "Inverted Ti2 microscope (Nikon) with CSU‑W1 spinning‑disc system and Andor Neo sCMOS camera"
+      },
+      {
+        "id": "eq_env_chamber",
+        "type": "incubator",
+        "description": "Environment control chamber maintaining 37 °C and 5 % CO₂"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_neurons",
+        "description": "MAP2‑GCamP5‑labeled neurons, day 120 of VM culture"
+      },
+      {
+        "id": "eq_microscope",
+        "name": "eq_microscope"
+      },
+      {
+        "id": "eq_env_chamber",
+        "name": "eq_env_chamber"
+      },
+      {
+        "id": "d_images",
+        "name": "d_images"
+      }
+    ],
+    "data": [
+      {
+        "id": "d_images",
+        "description": "Calcium imaging data (image series)"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "description": "MAP2‑GCamP5‑labeled neurons, day 120 of VM culture"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_neurons"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "equipment",
+          "description": "Inverted Ti2 microscope (Nikon) with CSU‑W1 spinning‑disc system and Andor Neo sCMOS camera"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "eq_microscope"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "equipment",
+          "description": "Environment control chamber maintaining 37 °C and 5 % CO₂"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "eq_env_chamber"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "imager",
+          "device_ref": "eq_microscope",
+          "program": {
+            "program_name": "calcium_imaging"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "image"
+          ]
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d_images"
+          }
+        ],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

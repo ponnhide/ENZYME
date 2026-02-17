@@ -1,0 +1,64 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Bipartite weighted kNN graph reconstruction",
+    "source": {
+      "type": "paper",
+      "id": "s41586-024-08172-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "description": "With the primary reference27 and query (HNOCA) data projected to the same latent space, an unweighted bipartite kNN graph was constructed by identifying 100 nearest neighbours of each query cell in the reference data with either PyNNDescent or RAPIDS-cuML (https://github.com/rapidsai/cuml) in Python, depending on availability of GPU acceleration."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "description": "Similarly, a reference kNN graph was also built by identifying 100 nearest neighbours of each reference cell in the reference data."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "description": "For each edge in the reference-query bipartite graph, the similarity between the reference neighbours of the two linked cells, defined as A and B, is represented by the Jaccard index."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

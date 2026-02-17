@@ -1,0 +1,232 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Isolation of colonic crypts for organoid generation",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-020-19142-9.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "chelation_solution",
+        "description": "Chelation solution (5.6 mM Na2HPO4, 8.0 mM KH2PO4, 0.5 mM DTT, 2 mM EDTA)"
+      },
+      {
+        "id": "BME",
+        "description": "Basement membrane extract (Cultrex PC BME RGF type 2, Amsbio)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube1",
+        "type": "microcentrifuge_tube"
+      },
+      {
+        "id": "plate1",
+        "type": "culture_plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator1",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "colonic_mucosa"
+      },
+      {
+        "id": "colonic_crypts"
+      },
+      {
+        "id": "chelation_solution",
+        "name": "chelation_solution"
+      },
+      {
+        "id": "tube1",
+        "name": "tube1"
+      },
+      {
+        "id": "BME",
+        "name": "BME"
+      },
+      {
+        "id": "plate1",
+        "name": "plate1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material",
+          "description": "Chelation solution (5.6 mM Na2HPO4, 8.0 mM KH2PO4, 0.5 mM DTT, 2 mM EDTA)"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "chelation_solution"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "description": "Colonic mucosa tissue (healthy portion, ≥10 cm from tumor side)"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "colonic_mucosa"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "type": "microcentrifuge_tube"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tube1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "chelation_solution",
+          "destination": "colonic_mucosa",
+          "container": "tube1",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator1",
+          "program": {
+            "program_name": "30 min at 4°C"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material",
+          "description": "Basement membrane extract (Cultrex PC BME RGF type 2, Amsbio)"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "BME"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s7",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "type": "culture_plate"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s8",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "input_sample": "colonic_mucosa"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "params": {
+          "source": "colonic_crypts",
+          "destination": "BME",
+          "container": "plate1",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

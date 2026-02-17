@@ -1,0 +1,217 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Nucleus isolation from cerebral organoids",
+    "source": {
+      "type": "paper",
+      "id": "s41586-021-03209-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_papain",
+        "name": "papain"
+      },
+      {
+        "id": "m_dnase",
+        "name": "DNase I"
+      },
+      {
+        "id": "m_lysis_buffer",
+        "name": "lysis buffer (100 μl chilled)",
+        "description": "10 mM Tris‑HCl pH 7.4, 10 mM NaCl, 3 mM MgCl₂, 0.1% Tween‑20, 0.1% Igepal CA‑630, 0.01% digitonin, 1% BSA"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_tube",
+        "name": "microcentrifuge tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e_incubator",
+        "device_kind": "incubator",
+        "name": "incubator"
+      },
+      {
+        "id": "e_centrifuge",
+        "device_kind": "centrifuge",
+        "name": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_organoid",
+        "name": "cerebral organoids"
+      },
+      {
+        "id": "s_digested",
+        "name": "organoids in papain/DNase I digestion"
+      },
+      {
+        "id": "s_cells",
+        "name": "single‑cell suspension"
+      },
+      {
+        "id": "s_pellet",
+        "name": "cell pellet"
+      },
+      {
+        "id": "s_lysate",
+        "name": "lysate (nuclei) after lysis"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid"
+          },
+          {
+            "kind": "material",
+            "id": "m_papain"
+          },
+          {
+            "kind": "material",
+            "id": "m_dnase"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_digested"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_digested"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_digested"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "37 °C for 30 min"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_digested"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "annotations": {
+          "note": "Trituration to form a single‑cell suspension"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_pellet"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {}
+        },
+        "annotations": {
+          "note": "Centrifugation conditions (speed, time) not specified in source"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_pellet"
+          },
+          {
+            "kind": "material",
+            "id": "m_lysis_buffer"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_lysate"
+          }
+        ],
+        "params": {
+          "action_kind": "mix",
+          "amount": {
+            "value": 100,
+            "unit": "μl"
+          }
+        },
+        "annotations": {
+          "note": "Lysis performed for 3 min on ice (temperature not explicitly given)"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,235 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Single organoid workflow steps",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41592-021-01391-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "mat1",
+        "name": "Dissociation reagent"
+      }
+    ],
+    "containers": [
+      {
+        "id": "cont1",
+        "type": "well_plate",
+        "name": "culture plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "eq1",
+        "type": "incubator",
+        "name": "Incubator"
+      },
+      {
+        "id": "eq2",
+        "type": "cell_sorter",
+        "name": "FACS sorter"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sorted_cells",
+        "type": "cell_sample"
+      },
+      {
+        "id": "dissociated_cells",
+        "type": "cell_sample"
+      },
+      {
+        "id": "processed_cells",
+        "type": "cell_sample"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sorted_cells"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "params": {
+          "description": "FACS sort to isolate LGR5+ cells"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "dissociated_cells"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sorted_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "dissociated_cells"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "cont1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "description": "Seed dissociated cells into culture plate",
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "dissociated_cells"
+          },
+          {
+            "kind": "container",
+            "id": "cont1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "cont1"
+          }
+        ]
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "preculture"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "cont1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "cont1"
+          }
+        ]
+      },
+      {
+        "id": "s8",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "processed_cells"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "params": {
+          "description": "Process cells (further downstream steps)"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

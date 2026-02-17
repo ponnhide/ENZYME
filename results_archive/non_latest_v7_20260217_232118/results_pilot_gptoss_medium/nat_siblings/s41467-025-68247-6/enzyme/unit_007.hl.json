@@ -1,0 +1,221 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "DSS treatment protocol",
+    "source": {
+      "type": "paper",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "DSS",
+        "source": {
+          "type": "vendor",
+          "id": "MP Biomedicals"
+        }
+      },
+      {
+        "id": "m2",
+        "name": "organoid media (without EGF or Nicotinamide)"
+      },
+      {
+        "id": "m3",
+        "name": "Advanced DMEM/F12"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "organoid well plate"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "sample_organoids",
+        "name": "organoids in wells",
+        "container_ref": "c1"
+      },
+      {
+        "id": "sample_DSS_solution",
+        "name": "DSS solution in organoid media"
+      },
+      {
+        "id": "sample_treated_organoids",
+        "name": "organoids after DSS addition"
+      },
+      {
+        "id": "sample_treated_organoids_incubated",
+        "name": "organoids after 16 h incubation with DSS"
+      },
+      {
+        "id": "sample_washed_organoids",
+        "name": "organoids washed with Advanced DMEM/F12"
+      },
+      {
+        "id": "sample_final_organoids",
+        "name": "organoids after media replacement"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_DSS_solution"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "note": "Low dose 0.1% and high dose 0.5% (wt/vol) DSS in organoid media"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_organoids"
+          },
+          {
+            "kind": "sample",
+            "id": "sample_DSS_solution"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_treated_organoids"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          }
+        },
+        "annotations": {
+          "note": "Amount of DSS solution added not specified in source"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_treated_organoids"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_treated_organoids_incubated"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "overnight 16 h"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_treated_organoids_incubated"
+          },
+          {
+            "kind": "material",
+            "id": "m3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_washed_organoids"
+          }
+        ],
+        "params": {
+          "action_kind": "rinse"
+        },
+        "annotations": {
+          "wash_cycles": 2
+        }
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_washed_organoids"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_final_organoids"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          }
+        },
+        "annotations": {
+          "note": "Volume of fresh organoid media added not specified in source"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

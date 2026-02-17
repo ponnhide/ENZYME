@@ -1,0 +1,212 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Dissociation and digestion",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00929-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "HBSS/BSA/glucose solution",
+        "description": "cell culture buffer"
+      },
+      {
+        "id": "m2",
+        "name": "DNase",
+        "concentration": "10 mg/mL"
+      },
+      {
+        "id": "m3",
+        "name": "collagenase/dispase",
+        "concentration": "100 mg/mL"
+      },
+      {
+        "id": "m4",
+        "name": "human brain tissue",
+        "description": "≈250 mg per sample"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "cell culture dish",
+        "size": "60 mm",
+        "volume": "~7 mL"
+      },
+      {
+        "id": "c2",
+        "type": "15 mL conical tube",
+        "quantity": 3
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator",
+        "name": "rotating oven"
+      }
+    ],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "operation": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": "heat to 37 °C"
+        },
+        "equipment": [
+          "e1"
+        ],
+        "op": "annotate",
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "operation": "allocate",
+        "params": {
+          "resource_type": "container",
+          "container_id": "c1"
+        },
+        "op": "annotate",
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "operation": "transfer",
+        "params": {
+          "volume": "150 µL",
+          "source": "m2",
+          "destination": "c1"
+        },
+        "op": "annotate",
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "operation": "allocate",
+        "params": {
+          "resource_type": "material",
+          "material_id": "m4"
+        },
+        "op": "annotate",
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "operation": "transfer",
+        "params": {
+          "source": "m4",
+          "destination": "c1"
+        },
+        "op": "annotate",
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "operation": "annotate",
+        "params": {
+          "note": "Cut tissue into ~2 mm × 2 mm chunks with scalpel in sterile environment"
+        },
+        "op": "annotate",
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "operation": "transfer",
+        "params": {
+          "source": "c1",
+          "destination": [
+            "c2[1]",
+            "c2[2]",
+            "c2[3]"
+          ],
+          "method": "distribute equally"
+        },
+        "op": "annotate",
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "operation": "transfer",
+        "params": {
+          "volume": "167 µL",
+          "source": "m3",
+          "destination": [
+            "c2[1]",
+            "c2[2]",
+            "c2[3]"
+          ]
+        },
+        "op": "annotate",
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "operation": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": "digest for 30 min at 37 °C"
+        },
+        "equipment": [
+          "e1"
+        ],
+        "op": "annotate",
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

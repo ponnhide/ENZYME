@@ -1,0 +1,190 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Cell detachment and single‑cell suspension",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00880-1"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "material_E6_2%FBS",
+        "name": "E6 medium containing 2% FBS"
+      }
+    ],
+    "containers": [
+      {
+        "id": "container_plate12well",
+        "type": "12-well plate"
+      },
+      {
+        "id": "container_tube15ml",
+        "type": "15 mL conical tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "equipment_incubator",
+        "device_kind": "incubator"
+      },
+      {
+        "id": "equipment_P1000_pipette",
+        "device_kind": "pipette"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_plate",
+        "container_ref": "container_plate12well"
+      },
+      {
+        "id": "sample_medium",
+        "material_ref": "material_E6_2%FBS"
+      },
+      {
+        "id": "sample_tube",
+        "container_ref": "container_tube15ml"
+      },
+      {
+        "id": "sample_cell_suspension",
+        "origin": "plate"
+      },
+      {
+        "id": "sample_final_suspension",
+        "origin": "resuspension"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_plate"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "incubate",
+          "temperature": {
+            "value": 37,
+            "unit": "degC"
+          },
+          "duration": {
+            "value": 3,
+            "unit": "min"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_medium"
+          },
+          {
+            "kind": "sample",
+            "id": "sample_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_tube"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "mL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_cell_suspension"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently",
+          "repetitions_max": 6,
+          "tool": "P1000 pipette"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_cell_suspension"
+          },
+          {
+            "kind": "sample",
+            "id": "sample_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_final_suspension"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend",
+          "final_volume": {
+            "value": 2,
+            "unit": "mL"
+          },
+          "addition_method": "gradual",
+          "tool": "P1000 pipette"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

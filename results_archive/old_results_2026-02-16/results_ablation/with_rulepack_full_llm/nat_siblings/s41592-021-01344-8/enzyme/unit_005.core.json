@@ -1,0 +1,200 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41592-021-01344-8.pdf",
+      "type": "paper"
+    },
+    "title": "Long‑term 4D light‑sheet imaging of organoids"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "m1",
+            "kind": "material"
+          }
+        ],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "samp1",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "Transfer Matrigel into the imaging chamber (amount not specified)"
+        },
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "m2",
+            "kind": "material"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "c1",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": null,
+            "value": null
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "Embed EBs in Matrigel within the imaging chamber (action_kind not in controlled vocabulary)"
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "samp1",
+            "kind": "sample"
+          },
+          {
+            "id": "c1",
+            "kind": "container"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "samp2",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "None"
+        }
+      },
+      {
+        "annotations": {
+          "lowered_from": "incubate",
+          "note": "Culture in neural‑induction medium (temperature and duration not specified)"
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "samp2",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "samp2",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": null
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "samp2",
+            "kind": "sample"
+          },
+          {
+            "id": "e1",
+            "kind": "equipment"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "d1",
+            "kind": "data"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "program": "Capture images every 30 min for 100 h"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "c1",
+        "name": "Imaging chamber"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "name": "Time‑lapse image series"
+      }
+    ],
+    "equipment": [
+      {
+        "device_kind": "imager",
+        "id": "e1",
+        "name": "4D light‑sheet microscope"
+      }
+    ],
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Embryoid bodies (EBs)"
+      },
+      {
+        "id": "m2",
+        "name": "Matrigel"
+      },
+      {
+        "id": "m3",
+        "name": "Neural‑induction medium"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "name": "Cerebral organoid EB"
+      },
+      {
+        "id": "samp2",
+        "name": "Embedded organoid in Matrigel"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

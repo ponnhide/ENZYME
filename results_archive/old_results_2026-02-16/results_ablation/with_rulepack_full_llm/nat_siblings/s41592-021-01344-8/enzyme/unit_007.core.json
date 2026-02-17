@@ -1,0 +1,163 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41592-021-01344-8.pdf",
+      "type": "paper"
+    },
+    "title": "Microdissection and scRNA‑seq of selected regions"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "section1",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "description": "One 200‑µm section was cut"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Selecting two spatially distant regions for microdissection"
+        },
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "section1",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "regions",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "Microdissection of the selected regions"
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "regions",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "microdissected_regions",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "Isolation of single cells from microdissected regions"
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "microdissected_regions",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "single_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "Processing isolated cells for scRNA‑seq separately"
+        },
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "single_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "scRNA_seq_library",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      }
+    ]
+  },
+  "resources": {
+    "containers": [],
+    "data": [],
+    "equipment": [],
+    "materials": [],
+    "samples": [
+      {
+        "description": "200‑µm tissue section",
+        "id": "section1",
+        "type": "section"
+      },
+      {
+        "description": "Two spatially distant regions selected for microdissection",
+        "id": "regions",
+        "type": "region_set"
+      },
+      {
+        "description": "Microdissected tissue regions",
+        "id": "microdissected_regions",
+        "type": "region_set"
+      },
+      {
+        "description": "Isolated single cells from microdissected regions",
+        "id": "single_cells",
+        "type": "cell_population"
+      },
+      {
+        "description": "Prepared scRNA‑seq library",
+        "id": "scRNA_seq_library",
+        "type": "library"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

@@ -1,0 +1,161 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Change mTeSR medium",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-00441-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "mTeSR1",
+        "name": "mTeSR1",
+        "properties": {}
+      },
+      {
+        "id": "Y-27632",
+        "name": "Y-27632",
+        "properties": {}
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate_24well",
+        "type": "well_plate",
+        "well_count": 24,
+        "properties": {}
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator_5pct_co2",
+        "type": "incubator",
+        "properties": {
+          "co2_level": "5%",
+          "temperature": "37 °C"
+        }
+      }
+    ],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "mTeSR1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "mTeSR1"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: warm"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "plate_24well"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "modality": "visual",
+          "features": [
+            "cell health",
+            "cell density"
+          ]
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "plate_24well"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "plate_24well"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 500,
+            "unit": "μl",
+            "per_well": true,
+            "well_plate_id": "plate_24well"
+          },
+          "source": {
+            "kind": "material",
+            "id": "mTeSR1"
+          },
+          "destination": {
+            "kind": "container",
+            "id": "plate_24well"
+          }
+        },
+        "annotations": {
+          "note": "Aspirate old mTeSR1 with 10 μM Y-27632; add fresh mTeSR1 without Y-27632"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "plate_24well"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "plate_24well"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator_5pct_co2",
+          "program": "overnight at 37 °C with 5% CO2"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

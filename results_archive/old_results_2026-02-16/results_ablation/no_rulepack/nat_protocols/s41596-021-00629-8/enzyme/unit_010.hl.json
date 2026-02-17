@@ -1,0 +1,299 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Dissociation of HFOs for scRNAseq or replating (option B)",
+    "source": {
+      "type": "paper",
+      "id": "s41596-021-00629-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "STEMdiff Cardiomyocyte Support Medium"
+      },
+      {
+        "id": "m2",
+        "name": "Y27632"
+      },
+      {
+        "id": "m3",
+        "name": "STEMdiff Cardiomyocyte Dissociation Medium"
+      },
+      {
+        "id": "m4",
+        "name": "appropriate buffer for scRNAseq analysis"
+      },
+      {
+        "id": "m5",
+        "name": "RB+ supplemented with 10 µM Y27632"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "conical tube"
+      },
+      {
+        "id": "c2",
+        "name": "96-U-well plate"
+      },
+      {
+        "id": "c3",
+        "name": "Geltrex‑coated cell culture plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "hfo1",
+        "name": "HFO"
+      },
+      {
+        "id": "tube1",
+        "name": "Conical tube with support medium + Y27632"
+      },
+      {
+        "id": "plate1",
+        "name": "96‑U‑well plate with dissociated HFOs"
+      },
+      {
+        "id": "pellet1",
+        "name": "Cell pellet after centrifugation"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {
+          "note": "Thaw an aliquot of STEMdiff Cardiomyocyte Support Medium at room temperature."
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tube1"
+          }
+        ],
+        "params": {
+          "container_type": "conical tube"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tube1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 500,
+            "unit": "µL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {
+          "note": "Supplement the 500 µL of support medium in tube1 with 10 µM Y27632."
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate1"
+          }
+        ],
+        "params": {
+          "container_type": "96-U-well plate"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "hfo1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate1"
+          }
+        ],
+        "params": {
+          "note": "Dissociate the HFOs in the 96‑U‑well plate using STEMdiff Cardiomyocyte Dissociation Medium as described in option A steps (i–vii)."
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "plate1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tube1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tube1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "pellet1"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "e1",
+          "program": {
+            "speed": {
+              "value": 300,
+              "unit": "g"
+            },
+            "duration": {
+              "value": 3,
+              "unit": "min"
+            },
+            "temperature": {
+              "value": 4,
+              "unit": "°C"
+            }
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "pellet1"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "note": "Remove the supernatant."
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s10",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "pellet1"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "note": "Resuspend the cell pellet in an appropriate buffer for scRNAseq analysis or in RB+ supplemented with 10 µM Y27632 for replating onto a Geltrex‑coated cell culture plate."
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      }
+    ],
+    "detail_level": 0
+  }
+}

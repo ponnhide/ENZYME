@@ -1,0 +1,206 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Seed AF cells in Matrigel",
+    "source": {
+      "type": "paper",
+      "id": "s41591-024-02807-z"
+    },
+    "group": "nat_siblings"
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "mat_af_cells",
+        "name": "viable AF cells"
+      },
+      {
+        "id": "mat_matrigel",
+        "name": "Matrigel"
+      },
+      {
+        "id": "mat_generic_epithelial_medium",
+        "name": "generic epithelial medium"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "incubator1",
+        "name": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "af_cells",
+        "material_id": "mat_af_cells"
+      },
+      {
+        "id": "matrigel",
+        "material_id": "mat_matrigel"
+      },
+      {
+        "id": "medium",
+        "material_id": "mat_generic_epithelial_medium"
+      },
+      {
+        "id": "af_cells_in_matrigel",
+        "derived_from": [
+          "af_cells",
+          "matrigel"
+        ]
+      },
+      {
+        "id": "afo_culture",
+        "derived_from": [
+          "af_cells_in_matrigel",
+          "medium"
+        ]
+      },
+      {
+        "id": "afo_culture_incubated",
+        "derived_from": [
+          "afo_culture"
+        ]
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "af_cells"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "matrigel"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "medium"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "af_cells"
+          },
+          {
+            "kind": "sample",
+            "id": "matrigel"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "af_cells_in_matrigel"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "Seed viable AF cells in Matrigel droplets"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "af_cells_in_matrigel"
+          },
+          {
+            "kind": "sample",
+            "id": "medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "afo_culture"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "Culture the Matrigel droplets in generic epithelial medium without tissue-specific signals"
+        }
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "afo_culture"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "afo_culture_incubated"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "culture"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

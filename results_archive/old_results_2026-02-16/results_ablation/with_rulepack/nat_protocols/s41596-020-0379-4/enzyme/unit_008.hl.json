@@ -1,0 +1,286 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Freeze organoids",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-0379-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "cell_freezing_medium",
+        "name": "cell‑freezing medium"
+      },
+      {
+        "id": "cryogenic_vial",
+        "name": "sterile cryogenic vial"
+      },
+      {
+        "id": "freezing_container",
+        "name": "freezing container"
+      },
+      {
+        "id": "liquid_nitrogen_tank",
+        "name": "liquid nitrogen tank"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "p1000_pipette",
+        "name": "P1000 pipette"
+      },
+      {
+        "id": "freezer_minus80",
+        "name": "-80 °C freezer"
+      },
+      {
+        "id": "liqn2_tank",
+        "name": "liquid nitrogen tank"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoids_initial",
+        "name": "organoids (pre‑freezing)"
+      },
+      {
+        "id": "organoids_with_medium",
+        "name": "organoids + cell‑freezing medium (unresuspended)"
+      },
+      {
+        "id": "organoids_resuspended",
+        "name": "resuspended organoids"
+      },
+      {
+        "id": "vial_with_organoids",
+        "name": "cryogenic vial containing organoids in freezing medium"
+      },
+      {
+        "id": "vial_in_container",
+        "name": "vial placed in freezing container"
+      },
+      {
+        "id": "vial_frozen_minus80",
+        "name": "vial stored at –80 °C"
+      },
+      {
+        "id": "vial_removed",
+        "name": "vial removed from freezing container"
+      },
+      {
+        "id": "vial_in_liqn2",
+        "name": "vial stored in liquid nitrogen tank"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoids_initial"
+          },
+          {
+            "kind": "material",
+            "id": "cell_freezing_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoids_with_medium"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "annotations": {
+          "note": "Required volume of cell‑freezing medium not specified in the text."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoids_with_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoids_resuspended"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "equipment": "P1000 pipette",
+          "method": "pipette up and down to properly resuspend the organoids"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoids_resuspended"
+          },
+          {
+            "kind": "material",
+            "id": "cryogenic_vial"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "vial_with_organoids"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 500,
+            "unit": "µl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "vial_with_organoids"
+          },
+          {
+            "kind": "material",
+            "id": "freezing_container"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "vial_in_container"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "action": "Place the cryogenic vial into a freezing container."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "vial_in_container"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "vial_frozen_minus80"
+          }
+        ],
+        "params": {
+          "temperature": "-80 °C",
+          "duration": "24 h"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "vial_frozen_minus80"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "vial_removed"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "action": "Remove the vials from the freezing container."
+        }
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "vial_removed"
+          },
+          {
+            "kind": "material",
+            "id": "liquid_nitrogen_tank"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "vial_in_liqn2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "annotations": {
+          "note": "Transfer vials to the liquid nitrogen tank (approximately –180 °C)."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

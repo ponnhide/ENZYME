@@ -1,0 +1,150 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Caspase‑3/7 apoptosis detection assay",
+    "source": {
+      "type": "paper",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "CellEvent Caspase-3/7 Detection Reagent",
+        "source": {
+          "type": "company",
+          "id": "Thermo Fisher"
+        }
+      },
+      {
+        "id": "m2",
+        "name": "media",
+        "source": {}
+      },
+      {
+        "id": "m3",
+        "name": "PBS",
+        "source": {}
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "Nikon spinning disc confocal"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_org1",
+        "name": "organoids",
+        "container_ref": "c1"
+      },
+      {
+        "id": "s_treated",
+        "name": "treated organoids"
+      },
+      {
+        "id": "s_washed",
+        "name": "washed organoids"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_org1"
+          },
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_treated"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Organoids were incubated in CellEvent Caspase-3/7 Detection Reagent (Thermo Fisher) diluted in media according to manufacturer protocols for 30 min"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_treated"
+          },
+          {
+            "kind": "material",
+            "id": "m3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_washed"
+          }
+        ],
+        "params": {
+          "action_kind": "rinse"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_washed"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "fluorescence",
+            "DIC"
+          ]
+        },
+        "annotations": {
+          "device": "Nikon spinning disc confocal"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

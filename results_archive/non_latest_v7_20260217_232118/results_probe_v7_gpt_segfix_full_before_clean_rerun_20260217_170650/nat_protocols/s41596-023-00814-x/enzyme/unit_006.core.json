@@ -1,0 +1,389 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Procedure",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00814-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "pbs",
+        "type": "material",
+        "name": "PBS"
+      },
+      {
+        "id": "accutase_dnase",
+        "type": "material",
+        "name": "Accutase with 0.2 U/µl DNase I"
+      },
+      {
+        "id": "dmem_f12",
+        "type": "material",
+        "name": "DMEM/F12"
+      },
+      {
+        "id": "chromium_kit",
+        "type": "material",
+        "name": "Chromium Single Cell 3′ Reagent Kit v3"
+      },
+      {
+        "id": "primers",
+        "type": "material",
+        "name": "Primer mixture"
+      },
+      {
+        "id": "master_mix",
+        "type": "material",
+        "name": "Master mix"
+      },
+      {
+        "id": "magnetic_beads",
+        "type": "material",
+        "name": "Silane magnetic beads"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube15ml",
+        "type": "container",
+        "name": "15 ml centrifuge tube"
+      },
+      {
+        "id": "strainer70um",
+        "type": "container",
+        "name": "70 µm sterile strainer"
+      },
+      {
+        "id": "waste",
+        "type": "container",
+        "name": "Waste container"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator_waterbath",
+        "type": "equipment",
+        "name": "Water bath incubator"
+      },
+      {
+        "id": "centrifuge",
+        "type": "equipment",
+        "name": "Centrifuge"
+      },
+      {
+        "id": "thermocycler",
+        "type": "equipment",
+        "name": "Thermocycler"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoids",
+        "type": "sample",
+        "name": "OVB organoids"
+      },
+      {
+        "id": "cell_suspension",
+        "type": "sample",
+        "name": "Single‑cell suspension"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoids"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "organoids",
+          "destination": "tube15ml",
+          "tool": "cut 1000 µl micropipette tip",
+          "amount": {
+            "value": 3,
+            "unit": "organoid"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "tube15ml",
+          "destination": "waste",
+          "tool": "200 µl micropipette tip",
+          "amount": {
+            "description": "carried‑over medium as needed"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "rinse",
+          "container": "tube15ml",
+          "solution": "pbs",
+          "volume": "3 ml",
+          "repetitions": 3
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "accutase_dnase",
+          "destination": "tube15ml",
+          "prewarmed": true,
+          "amount": {
+            "value": 2.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator_waterbath",
+          "program": {
+            "program_name": "37C_water_bath"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "organoid dissociation"
+          ],
+          "time": "15 min"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s8",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "container": "tube15ml",
+          "tool": "uncut 1000 µl micropipette tip",
+          "description": "pipette up and down to dissociate organoids"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator_waterbath",
+          "program": {
+            "program_name": "37C_water_bath_15min"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "organoid dissociation"
+          ],
+          "time": "15 min"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s11",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator_waterbath",
+          "program": {
+            "program_name": "37C_water_bath_15min"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "transfer",
+        "params": {
+          "source": "dmem_f12",
+          "destination": "tube15ml",
+          "prewarmed": true,
+          "amount": {
+            "value": 8.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s13",
+        "op": "annotate",
+        "params": {
+          "text": "unmapped action_kind in source: filter"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s14",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge",
+          "program": {
+            "program_name": "500g_5min_RT"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s15",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "container": "tube15ml",
+          "volume": "1 ml",
+          "medium": "OVB organoid medium"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s16",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "cell_count",
+            "viability"
+          ],
+          "method": "Trypan‑blue staining"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s17",
+        "op": "annotate",
+        "params": {
+          "note": "Subsequent scRNA‑seq library construction steps (Chromium kit usage, primer mix preparation, GEM incubation, cDNA cleanup, PCR amplification) are performed according to manufacturer instructions."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      },
+      {
+        "from": "s16",
+        "to": "s17"
+      }
+    ],
+    "detail_level": 0
+  }
+}

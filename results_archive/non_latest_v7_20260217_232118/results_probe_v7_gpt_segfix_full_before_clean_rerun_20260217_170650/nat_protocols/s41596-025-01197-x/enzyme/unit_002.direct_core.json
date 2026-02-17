@@ -1,0 +1,400 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "PS cell maintenance and propagation",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01197-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "type": "material",
+        "name": "stem cell medium"
+      },
+      {
+        "id": "m2",
+        "type": "material",
+        "name": "Y-27632"
+      },
+      {
+        "id": "m3",
+        "type": "material",
+        "name": "dispase"
+      },
+      {
+        "id": "m4",
+        "type": "material",
+        "name": "Essential 8 medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "plate",
+        "name": "culture plate"
+      },
+      {
+        "id": "c2",
+        "type": "tube",
+        "name": "15 mL conical tube"
+      },
+      {
+        "id": "c3",
+        "type": "plate",
+        "name": "MG-coated plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator",
+        "name": "incubator"
+      },
+      {
+        "id": "e2",
+        "type": "scraper",
+        "name": "cell scraper"
+      },
+      {
+        "id": "e3",
+        "type": "pipette",
+        "name": "pipette"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s1",
+        "type": "sample",
+        "name": "PS cells"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "material_ref": "m1",
+          "volume": "3 mL"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer approximately 90% of volume from container c1 well A1 to waste."
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": {
+            "sample_ref": "sm_fresh1"
+          },
+          "destination": {
+            "container_ref": "c1",
+            "well": "A1"
+          },
+          "amount": {
+            "value": 3.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "material_ref": "m3",
+          "volume": "1 mL"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "material_ref": "m4",
+          "volume": "6 mL"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "material_ref": "m1",
+          "volume": "9 mL"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "reagent_ref": "m2",
+          "reagent_volume": "4.5 μL",
+          "target_sample_ref": "sm_stem"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "params": {
+          "source": {
+            "container_ref": "c1",
+            "well": "A1"
+          },
+          "destination": {
+            "type": "waste"
+          },
+          "amount": {
+            "value": 100.0,
+            "unit": "%"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "params": {
+          "source": {
+            "sample_ref": "sm_dispase"
+          },
+          "destination": {
+            "container_ref": "c1",
+            "well": "A1"
+          },
+          "amount": {
+            "value": 1.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "incubate_5-8min_37C"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer remaining volume from container c1 well A1 to waste."
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s12",
+        "op": "annotate",
+        "params": {
+          "note": "Wash cells three times with Essential 8 medium, 2 mL per wash."
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s13",
+        "op": "transfer",
+        "params": {
+          "source": {
+            "sample_ref": "sm_stem"
+          },
+          "destination": {
+            "container_ref": "c1",
+            "well": "A1"
+          },
+          "amount": {
+            "value": 3.0,
+            "unit": "mL"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s14",
+        "op": "annotate",
+        "params": {
+          "text": "unmapped action_kind in source: scrape"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s15",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "equipment_ref": "e3",
+          "target_container_ref": "c1",
+          "well": "A1",
+          "repetitions": "5"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s16",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer all volume from container c1 well A1 to the bottom of container c2 tube."
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s17",
+        "op": "annotate",
+        "params": {
+          "note": "Adjust total volume in 15 mL tube to 9 mL with stem cell medium containing Y‑27632."
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s18",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer 3.0 mL per well from container c2 to multiple wells of container c3."
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s19",
+        "op": "annotate",
+        "params": {
+          "note": "Place MG‑coated plate in incubator and gently move back‑forth and left‑to‑right to evenly spread cells."
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s20",
+        "op": "annotate",
+        "params": {
+          "note": "Change medium daily by removing ~90% of old media and adding 3 mL fresh stem cell medium without Y‑27632 until cells reach ~90% confluency."
+        },
+        "outputs": [],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      },
+      {
+        "from": "s16",
+        "to": "s17"
+      },
+      {
+        "from": "s17",
+        "to": "s18"
+      },
+      {
+        "from": "s18",
+        "to": "s19"
+      },
+      {
+        "from": "s19",
+        "to": "s20"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Impedance‑based input cell counting",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41592-021-01391-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "eq1",
+        "type": "cell_counter",
+        "name": "impedance measurement device"
+      },
+      {
+        "id": "eq2",
+        "type": "imager",
+        "name": "microscope"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample1",
+        "type": "cells",
+        "name": "input cells"
+      },
+      {
+        "id": "sample2",
+        "type": "emulsion",
+        "name": "monodisperse emulsion"
+      }
+    ],
+    "data": [
+      {
+        "id": "data1",
+        "type": "impedance_data",
+        "name": "impedance measurement results"
+      },
+      {
+        "id": "data2",
+        "type": "microscopy_images",
+        "name": "microscopy validation images"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "params": {
+          "note": "Generate monodisperse emulsions with high co‑encapsulation purity (Fig. 1e and Supplementary Video 2)."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "params": {
+          "note": "Count number of input cells using impedance measurements."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "cell_counter",
+          "program": "impedance_measurement",
+          "device_ref": "eq1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "observe",
+        "params": {
+          "modality": "microscope",
+          "features": "validation of cell count by microscopy"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,402 @@
+{
+  "graph_version": "0.2",
+  "linkable_kinds": [
+    "data",
+    "sample"
+  ],
+  "unit_graphs": [
+    {
+      "unit_id": "unit_001",
+      "title": "Perform scATAC-seq",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 1,
+        "edge_count": 1,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "annotate"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s1"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [],
+        "output_refs": []
+      }
+    },
+    {
+      "unit_id": "unit_002",
+      "title": "snRNA-seq on adult cortex tissue",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 3,
+        "edge_count": 2,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "allocate"
+          },
+          {
+            "id": "s2",
+            "op": "run_device"
+          },
+          {
+            "id": "s3",
+            "op": "observe"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s2"
+          },
+          {
+            "from": "s2",
+            "to": "s3"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "sample:sample_1"
+        ],
+        "output_refs": [
+          "data:data_1",
+          "sample:sample_1"
+        ]
+      }
+    },
+    {
+      "unit_id": "unit_003",
+      "title": "Link DA peaks to nearest gene",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 1,
+        "edge_count": 1,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "annotate"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s1"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [],
+        "output_refs": []
+      }
+    },
+    {
+      "unit_id": "unit_004",
+      "title": "Detect differentially accessible peaks between species",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 1,
+        "edge_count": 1,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "annotate"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s1"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [],
+        "output_refs": []
+      }
+    },
+    {
+      "unit_id": "unit_005",
+      "title": "Peak enrichment analysis",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 1,
+        "edge_count": 1,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "annotate"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s1"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "sample:go_terms",
+          "sample:peaks"
+        ],
+        "output_refs": []
+      }
+    },
+    {
+      "unit_id": "unit_006",
+      "title": "Classify peaks by genomic region",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 1,
+        "edge_count": 1,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "annotate"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s1"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [],
+        "output_refs": []
+      }
+    },
+    {
+      "unit_id": "unit_007",
+      "title": "t-SNE embedding of cell populations",
+      "has_core": true,
+      "status": "ok",
+      "error": null,
+      "step_graph": {
+        "node_count": 3,
+        "edge_count": 2,
+        "nodes": [
+          {
+            "id": "s1",
+            "op": "allocate"
+          },
+          {
+            "id": "s2",
+            "op": "allocate"
+          },
+          {
+            "id": "s3",
+            "op": "annotate"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s1",
+            "to": "s2"
+          },
+          {
+            "from": "s2",
+            "to": "s3"
+          }
+        ]
+      },
+      "io_summary": {
+        "input_refs": [
+          "sample:chimp_cells",
+          "sample:human_cells"
+        ],
+        "output_refs": [
+          "sample:chimp_cells",
+          "sample:human_cells"
+        ]
+      }
+    }
+  ],
+  "inter_unit_graph": {
+    "nodes": [
+      "unit_001",
+      "unit_002",
+      "unit_003",
+      "unit_004",
+      "unit_005",
+      "unit_006",
+      "unit_007"
+    ],
+    "edges": []
+  },
+  "integrity": {
+    "pass": false,
+    "isolated_unit_count": 7,
+    "isolated_unit_rate": 1.0,
+    "isolated_units": [
+      "unit_001",
+      "unit_002",
+      "unit_003",
+      "unit_004",
+      "unit_005",
+      "unit_006",
+      "unit_007"
+    ],
+    "issues": [
+      {
+        "code": "INTER_UNIT_ISOLATED_UNIT_MATERIAL",
+        "severity": "warn",
+        "message": "One or more units are isolated in strict material-flow connectivity.",
+        "unit_ids": [
+          "unit_001",
+          "unit_002",
+          "unit_003",
+          "unit_004",
+          "unit_005",
+          "unit_006",
+          "unit_007"
+        ]
+      }
+    ]
+  },
+  "material_flow": {
+    "linkable_kinds": [
+      "data",
+      "sample"
+    ],
+    "inter_unit_graph": {
+      "nodes": [
+        "unit_001",
+        "unit_002",
+        "unit_003",
+        "unit_004",
+        "unit_005",
+        "unit_006",
+        "unit_007"
+      ],
+      "edges": []
+    },
+    "integrity": {
+      "pass": false,
+      "isolated_unit_count": 7,
+      "isolated_unit_rate": 1.0,
+      "isolated_units": [
+        "unit_001",
+        "unit_002",
+        "unit_003",
+        "unit_004",
+        "unit_005",
+        "unit_006",
+        "unit_007"
+      ],
+      "issues": [
+        {
+          "code": "INTER_UNIT_ISOLATED_UNIT_MATERIAL",
+          "severity": "warn",
+          "message": "One or more units are isolated in strict material-flow connectivity.",
+          "unit_ids": [
+            "unit_001",
+            "unit_002",
+            "unit_003",
+            "unit_004",
+            "unit_005",
+            "unit_006",
+            "unit_007"
+          ]
+        }
+      ]
+    }
+  },
+  "logical_flow": {
+    "method": "heuristic_v0_1",
+    "window_units": 3,
+    "inter_unit_graph": {
+      "nodes": [
+        "unit_001",
+        "unit_002",
+        "unit_003",
+        "unit_004",
+        "unit_005",
+        "unit_006",
+        "unit_007"
+      ],
+      "edges": []
+    },
+    "integrity": {
+      "pass": false,
+      "isolated_unit_count": 7,
+      "isolated_unit_rate": 1.0,
+      "isolated_units": [
+        "unit_001",
+        "unit_002",
+        "unit_003",
+        "unit_004",
+        "unit_005",
+        "unit_006",
+        "unit_007"
+      ],
+      "issues": [
+        {
+          "code": "INTER_UNIT_ISOLATED_UNIT_LOGICAL",
+          "severity": "warn",
+          "message": "One or more units are isolated in heuristic logical-flow connectivity.",
+          "unit_ids": [
+            "unit_001",
+            "unit_002",
+            "unit_003",
+            "unit_004",
+            "unit_005",
+            "unit_006",
+            "unit_007"
+          ]
+        }
+      ]
+    }
+  },
+  "combined_integrity": {
+    "pass": false,
+    "isolated_unit_count": 7,
+    "isolated_unit_rate": 1.0,
+    "isolated_units": [
+      "unit_001",
+      "unit_002",
+      "unit_003",
+      "unit_004",
+      "unit_005",
+      "unit_006",
+      "unit_007"
+    ],
+    "issues": [
+      {
+        "code": "INTER_UNIT_ISOLATED_UNIT_COMBINED",
+        "severity": "warn",
+        "message": "One or more units are isolated in combined material/logical flow connectivity.",
+        "unit_ids": [
+          "unit_001",
+          "unit_002",
+          "unit_003",
+          "unit_004",
+          "unit_005",
+          "unit_006",
+          "unit_007"
+        ]
+      }
+    ]
+  }
+}

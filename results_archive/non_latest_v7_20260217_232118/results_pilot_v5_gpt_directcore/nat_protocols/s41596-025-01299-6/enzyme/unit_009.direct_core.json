@@ -1,0 +1,323 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Nucleofection of hiPS cells",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01299-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "E8_plus_Y27632",
+        "type": "reagent",
+        "description": "pre-warmed E8 supplemented with 10 μM Y-27632"
+      },
+      {
+        "id": "E8_without_Y27632",
+        "type": "reagent",
+        "description": "E8 medium without Y-27632"
+      }
+    ],
+    "containers": [
+      {
+        "id": "nucleocuvette_strip",
+        "type": "strip"
+      },
+      {
+        "id": "six_well_plate",
+        "type": "plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "nucleofector_X",
+        "type": "dna_delivery_device"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cell_RNP_mixture"
+      },
+      {
+        "id": "nucleocuvette_strip",
+        "name": "nucleocuvette_strip"
+      },
+      {
+        "id": "E8_plus_Y27632",
+        "name": "E8_plus_Y27632"
+      },
+      {
+        "id": "E8_without_Y27632",
+        "name": "E8_without_Y27632"
+      },
+      {
+        "id": "six_well_plate",
+        "name": "six_well_plate"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_RNP_mixture"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "nucleocuvette_strip"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "cell_RNP_mixture",
+          "destination": "nucleocuvette_strip",
+          "amount": {
+            "value": 25.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_RNP_mixture"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "nucleocuvette_strip"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "note": "Place the Nucleocuvette strips with closed lid into the retainer of the 4D-Nucleofector X unit and check orientation."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "device_ref": "nucleofector_X",
+          "program": {
+            "program_name": "CA137"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7a",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "E8_plus_Y27632"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s7b",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "E8_without_Y27632"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "params": {
+          "source": "E8_plus_Y27632",
+          "destination": "nucleocuvette_strip",
+          "amount": {
+            "value": 70.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "E8_plus_Y27632"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "nucleocuvette_strip"
+          }
+        ]
+      },
+      {
+        "id": "s9",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "six_well_plate"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s11",
+        "op": "transfer",
+        "params": {
+          "source": "nucleocuvette_strip",
+          "destination": "six_well_plate",
+          "amount": {
+            "value": 5.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "nucleocuvette_strip"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "six_well_plate"
+          }
+        ]
+      },
+      {
+        "id": "s12",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer remaining volume from nucleocuvette strip to six-well plate."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s13",
+        "op": "annotate",
+        "params": {
+          "note": "Change to E8 medium without Y-27632 the next day."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7a"
+      },
+      {
+        "from": "s7a",
+        "to": "s7b"
+      },
+      {
+        "from": "s7b",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      }
+    ],
+    "detail_level": 0
+  }
+}

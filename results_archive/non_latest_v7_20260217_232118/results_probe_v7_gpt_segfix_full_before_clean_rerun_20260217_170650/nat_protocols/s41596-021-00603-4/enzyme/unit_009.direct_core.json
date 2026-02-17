@@ -1,0 +1,350 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Extracellular antibody staining",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00603-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "csb",
+        "type": "buffer"
+      },
+      {
+        "id": "antibody_panel",
+        "type": "antibody_mix"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube1",
+        "type": "microcentrifuge_tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge1",
+        "type": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cells",
+        "type": "cell_suspension"
+      },
+      {
+        "id": "pellet",
+        "type": "cell_pellet"
+      },
+      {
+        "id": "resuspended_cells",
+        "type": "cell_suspension"
+      },
+      {
+        "id": "antibody_cocktail",
+        "type": "antibody_solution"
+      },
+      {
+        "id": "stained_cells",
+        "type": "cell_suspension"
+      },
+      {
+        "id": "final_pellet",
+        "type": "cell_pellet"
+      },
+      {
+        "id": "csb",
+        "name": "csb"
+      },
+      {
+        "id": "tube1",
+        "name": "tube1"
+      },
+      {
+        "id": "antibody_panel",
+        "name": "antibody_panel"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "csb"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tube1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge1",
+          "program": {
+            "program_name": "800g_5min_RT"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          },
+          {
+            "kind": "sample",
+            "id": "tube1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "pellet"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "volume": "50 µl"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "pellet"
+          },
+          {
+            "kind": "sample",
+            "id": "csb"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "resuspended_cells"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "antibody_cocktail"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "note": "Prepare extracellular antibody cocktail by mixing antibody panel in CSB up to 50 µl"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "antibody_panel"
+          },
+          {
+            "kind": "sample",
+            "id": "csb"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "antibody_cocktail"
+          }
+        ]
+      },
+      {
+        "id": "s8",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "note": "Add extracellular antibody cocktail to cells, mix thoroughly by pipetting"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "resuspended_cells"
+          },
+          {
+            "kind": "sample",
+            "id": "antibody_cocktail"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "stained_cells"
+          }
+        ]
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "params": {
+          "note": "Incubate stained cells for 30 min on a rocker at room temperature"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "note": "Add 2 ml of CSB to the cells"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "stained_cells"
+          },
+          {
+            "kind": "sample",
+            "id": "csb"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "stained_cells"
+          }
+        ]
+      },
+      {
+        "id": "s11",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge1",
+          "program": {
+            "program_name": "800g_5min_RT"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "stained_cells"
+          },
+          {
+            "kind": "sample",
+            "id": "tube1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "final_pellet"
+          }
+        ]
+      },
+      {
+        "id": "s12",
+        "op": "annotate",
+        "params": {
+          "note": "Discard supernatant after final centrifugation"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      }
+    ],
+    "detail_level": 0
+  }
+}

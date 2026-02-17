@@ -1,0 +1,188 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Intracellular antibody staining",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00603-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "antibody_panel",
+        "name": "antibody panel"
+      },
+      {
+        "id": "CSB",
+        "name": "CSB buffer"
+      }
+    ],
+    "containers": [
+      {
+        "id": "cell_tube",
+        "type": "microcentrifuge_tube"
+      },
+      {
+        "id": "waste_container",
+        "type": "waste"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge",
+        "type": "centrifuge"
+      },
+      {
+        "id": "rocker",
+        "type": "rocker"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cells",
+        "name": "cell suspension"
+      },
+      {
+        "id": "cocktail",
+        "name": "cocktail"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cocktail"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "description": "Prepare intracellular antibody cocktail by mixing the antibody panel in CSB (total volume up to 50 µl)."
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cocktail"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "cocktail",
+          "destination": "cells",
+          "description": "Add the intracellular antibody cocktail to the cells."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "description": "Mix thoroughly by pipetting."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "note": "Incubate for 30 min on a rocker at room temperature."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": "CSB",
+          "destination": "cells",
+          "description": "Add 2 ml of CSB to the cells.",
+          "amount": {
+            "value": 2.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge",
+          "program": {
+            "program_name": "800g_5min_RT"
+          },
+          "description": "Centrifuge at 800g for 5 min at room temperature."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "dispose",
+        "params": {
+          "target": "waste_container",
+          "description": "Discard the supernatant."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

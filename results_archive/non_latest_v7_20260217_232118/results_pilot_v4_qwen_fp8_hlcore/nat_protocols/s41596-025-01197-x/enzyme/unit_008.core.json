@@ -1,0 +1,494 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-025-01197-x.pdf",
+      "type": "paper"
+    },
+    "title": "Protocol"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      },
+      {
+        "from": "s16",
+        "to": "s17"
+      },
+      {
+        "from": "s17",
+        "to": "s18"
+      }
+    ],
+    "start_step_id": "s1",
+    "step_order": null,
+    "steps": [
+      {
+        "annotations": {
+          "description": "Use an online CRISPR design tool to identify single guide RNA (sgRNA) sequences targeting the 5′ and 3′ regions of SHANK3. Tools include CHOPCHOP, Benchlin and CRISPick. We used crispr.mit.edu (currently unavailable) to identify sgRNA sequences flanking SHANK3: sgRNA#1R (ATACCACAAGAAGGACGTCCGGG), sgRNA#2F (ACCCTTAAACACGGTTATGATGG), sgRNA#3R (ATTTAAAAGCAACCGGACGCTGG), sgRNA#4F (TGAGCCGCTATGACGCTTCAGGG), sgRNA#7 (AGAGGTGTGCGTTCAGTTACAGG), and sgRNA#9F (TCTGGGCGTCTGACACGTCAGGG)."
+        },
+        "id": "s1",
+        "inputs": [],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "description": "Synthesize DNA fragments and subclone them into the plasmid pSpCas9(BB)-2A-Puro (PX459, Addgene cat. no. 48139) following standard procedures."
+        },
+        "id": "s2",
+        "inputs": [],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "description": "Transfect HEK293 cells with each sgRNA plasmid using standard transfection procedures to assess Cas9 cutting efficiency."
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "unknown_sample_1",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "unknown_sample_2",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "μM",
+            "value": 5
+          }
+        }
+      },
+      {
+        "annotations": {
+          "description": "At 72 h post-transfection, extract genomic DNA (gDNA) and perform PCR with primers targeting the region of interest for next-generation sequencing. Primers for SHANK3: Primer 1F (CAGACACTTCACGAAAGAAGC). Efficiency was ~24.9% for sgRNA#1 and 20.1% for sgRNA#4."
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "unknown_sample_2",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "unknown_sample_3",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": "next-generation_sequencing"
+        }
+      },
+      {
+        "annotations": {
+          "description": "Dissociate human stem cells into single cells by Accutase treatment for 5–15 min."
+        },
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "human_h9_stem_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "dissociated_stem_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "dislodge_cells"
+        }
+      },
+      {
+        "annotations": {
+          "description": "Resuspend cells in stem cell medium with ROCK inhibitor and electroporate with 5 μM of validated sgRNA-containing plasmids per 3 × 10^6 cells using the Amaxa Nucleofector System (program A023)."
+        },
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "dissociated_stem_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "electroporated_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "e6",
+            "value": 3
+          }
+        }
+      },
+      {
+        "annotations": {
+          "description": "Plate cells onto MG-coated plates post-electroporation."
+        },
+        "id": "s7",
+        "inputs": [],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "description": "Change the medium to puromycin-containing (0.25 μg/mL) stem cell medium the following day to select transfected cells expressing the puromycin resistance cassette."
+        },
+        "id": "s8",
+        "inputs": [
+          {
+            "id": "electroporated_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "puromycin_selected_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "μg/mL",
+            "value": 0.25
+          }
+        }
+      },
+      {
+        "annotations": {
+          "description": "After 48 h in puromycin-containing medium, manually isolate and expand antibiotic-resistant single stem cell colonies on MG-coated plates."
+        },
+        "id": "s9",
+        "inputs": [
+          {
+            "id": "puromycin_selected_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "isolated_colonies",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "pick_colony"
+        }
+      },
+      {
+        "annotations": {
+          "description": "When stem cell colonies reach 60–80% confluency, passage them and use half of the cells for gDNA extraction and half for cryopreservation and propagation."
+        },
+        "id": "s10",
+        "inputs": [],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "description": "Perform PCR on extracted gDNA using primers targeting the region of interest. For SHANK3, two pairs of forward and reverse primers were used. Of 64 colonies screened, 4 were identified with a complete hemizygous SHANK3 deletion."
+        },
+        "id": "s11",
+        "inputs": [
+          {
+            "id": "gDNA_sample",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "pcr_amplified_product",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "thermocycler",
+          "program": "PCR_with_primers_targeting_SHANK3"
+        }
+      },
+      {
+        "annotations": {
+          "description": "Expand selected clones with correct deletions, extract gDNA and validate the deletion by PCR and Sanger sequencing."
+        },
+        "id": "s12",
+        "inputs": [
+          {
+            "id": "pcr_amplified_product",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "sanger_sequencing_result",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": "Sanger_sequencing"
+        }
+      },
+      {
+        "annotations": {
+          "description": "Start neural induction with PS cells that achieved 80–90% confluency. Replate cells at 1:1 ratio onto MG-coated plates. Change stem cell medium to induction medium the next day after replating. Duration of neural induction is line dependent, spanning 5–10 d."
+        },
+        "id": "s13",
+        "inputs": [],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "description": "Assess daily the progression of neural induction and remove floating dead cells during medium changes. Stop neural induction when tissue thickening, curling, and detachments are observed, which are hallmarks of successful acquisition of neuroectodermal fate."
+        },
+        "id": "s14",
+        "inputs": [
+          {
+            "id": "neural_induction_culture",
+            "kind": "sample"
+          }
+        ],
+        "op": "observe",
+        "outputs": [],
+        "params": {
+          "features": [
+            "tissue_thickening",
+            "tissue_curling",
+            "detachments"
+          ],
+          "modality": "visual"
+        }
+      },
+      {
+        "annotations": {
+          "description": "Replate successfully induced cultures using Dispase to detach neuroectodermal cell clusters. The clusters give rise to NRs."
+        },
+        "id": "s15",
+        "inputs": [
+          {
+            "id": "neural_induction_culture",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "neuroectodermal_clusters",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "dislodge_cells"
+        }
+      },
+      {
+        "annotations": {
+          "description": "Switch to amplification medium with EGF (10 ng/mL) and FGF2 (10 ng/mL)."
+        },
+        "id": "s16",
+        "inputs": [
+          {
+            "id": "neuroectodermal_clusters",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "amplified_nr_culture",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "ng/mL",
+            "value": 10
+          }
+        }
+      },
+      {
+        "annotations": {
+          "description": "Exchange half the medium every other day with fresh medium containing 2× EGF (20 ng/mL) and 2× FGF2 (20 ng/mL) to maintain final concentration at 10 ng/mL. Limit FGF2 exposure to 5 d (two medium changes) to avoid potential tissue caudalization."
+        },
+        "id": "s17",
+        "inputs": [
+          {
+            "id": "amplified_nr_culture",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "amplified_nr_culture",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "ng/mL",
+            "value": 20
+          }
+        }
+      },
+      {
+        "annotations": {
+          "description": "Continue including EGF until NRs become apparent. Use glass Pasteur pipettes bent for handling."
+        },
+        "id": "s18",
+        "inputs": [],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      }
+    ]
+  },
+  "resources": {
+    "containers": [],
+    "data": [],
+    "equipment": [],
+    "materials": [],
+    "samples": [
+      {
+        "id": "unknown_sample_1",
+        "name": "unknown_sample_1"
+      },
+      {
+        "id": "unknown_sample_2",
+        "name": "unknown_sample_2"
+      },
+      {
+        "id": "unknown_sample_3",
+        "name": "unknown_sample_3"
+      },
+      {
+        "id": "human_h9_stem_cells",
+        "name": "human_h9_stem_cells"
+      },
+      {
+        "id": "dissociated_stem_cells",
+        "name": "dissociated_stem_cells"
+      },
+      {
+        "id": "electroporated_cells",
+        "name": "electroporated_cells"
+      },
+      {
+        "id": "puromycin_selected_cells",
+        "name": "puromycin_selected_cells"
+      },
+      {
+        "id": "isolated_colonies",
+        "name": "isolated_colonies"
+      },
+      {
+        "id": "gDNA_sample",
+        "name": "gDNA_sample"
+      },
+      {
+        "id": "pcr_amplified_product",
+        "name": "pcr_amplified_product"
+      },
+      {
+        "id": "sanger_sequencing_result",
+        "name": "sanger_sequencing_result"
+      },
+      {
+        "id": "neural_induction_culture",
+        "name": "neural_induction_culture"
+      },
+      {
+        "id": "neuroectodermal_clusters",
+        "name": "neuroectodermal_clusters"
+      },
+      {
+        "id": "amplified_nr_culture",
+        "name": "amplified_nr_culture"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

@@ -1,0 +1,235 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Organoid initiation in 96-well plates",
+    "source": {
+      "type": "paper",
+      "id": "s41592-025-02927-5.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Pluripotent stem cells (WTC line)"
+      },
+      {
+        "id": "m2",
+        "name": "Pluripotent stem cells (H9 line)"
+      },
+      {
+        "id": "m3",
+        "name": "Pluripotent stem cells (HES3 line)"
+      },
+      {
+        "id": "m4",
+        "name": "Minimal neural induction media (MNIM)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "96-well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "Incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_cells",
+        "name": "sample_cells"
+      },
+      {
+        "id": "sample_media",
+        "name": "sample_media"
+      },
+      {
+        "id": "embryoid_bodies",
+        "name": "embryoid_bodies"
+      },
+      {
+        "id": "cultured_organoids",
+        "name": "cultured_organoids"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "material",
+            "id": "m3"
+          },
+          {
+            "kind": "material",
+            "id": "m4"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "material",
+            "id": "m3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_cells"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "annotations": {
+          "note": "Pluripotent stem cells transferred into wells of the 96-well plate; exact volume not specified"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_media"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "annotations": {
+          "note": "Minimal neural induction media (MNIM) added to wells; volume not specified"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_cells"
+          },
+          {
+            "kind": "sample",
+            "id": "sample_media"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "embryoid_bodies"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "note": "Cells aggregated into embryoid bodies"
+        }
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "embryoid_bodies"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cultured_organoids"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "culture"
+        },
+        "annotations": {
+          "note": "Cultured in minimal neural induction media to induce neuroectodermal fates"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

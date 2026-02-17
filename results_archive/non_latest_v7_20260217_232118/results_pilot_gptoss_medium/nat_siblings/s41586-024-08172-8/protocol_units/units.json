@@ -1,0 +1,157 @@
+{
+  "units": [
+    {
+      "title": "Project HNOCA to single-cell atlas",
+      "text": "First, we projected the HNOCA to a single-cell atlas of the developing human brain27 using reference similarity spectrum (RSS)3.",
+      "rationale": "Describes the initial projection of the dataset onto a reference atlas.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 128,
+        "word_count": 21,
+        "sentence_count": 1,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Construct cell type hierarchy",
+      "text": "We constructed a hierarchy of cell types including progenitor, neuron and non-neural types, each defined by a set of marker genes (Supplementary Data 1).",
+      "rationale": "Defines the hierarchical framework for cell type annotation.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 153,
+        "word_count": 25,
+        "sentence_count": 1,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Represent data in RSS space",
+      "text": "Next, we represented the data by the RSS3 to average expression profiles of cell clusters in the recently published human developing brain cell atlas27.",
+      "rationale": "Maps the data to a common reference space for integration.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 152,
+        "word_count": 24,
+        "sentence_count": 1,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Build kNN graph and Leiden clustering",
+      "text": "We then constructed a kNN graph (k = 30) in the RSS space and clustered the dataset using the Leiden algorithm83 (resolution 80).",
+      "rationale": "Performs neighborhood graph construction and clustering of cells.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 129,
+        "word_count": 22,
+        "sentence_count": 1,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Quality control: filter low gene cells",
+      "text": "For quality control and filtering of HNOCA, we removed any cells with fewer than 200 genes expressed.",
+      "rationale": "Removes low-quality cells based on gene count.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 101,
+        "word_count": 17,
+        "sentence_count": 1,
+        "category_count": 0,
+        "flags": [
+          "UNIT_TOO_SHORT_CHARS",
+          "UNIT_TOO_SHORT_WORDS",
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Quality control: filter outlier metrics",
+      "text": "We next removed outlier cells in terms of two quality control metrics: number of expressed genes and percentage mitochondrial counts.",
+      "rationale": "Eliminates cells that are statistical outliers in QC metrics.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 133,
+        "word_count": 20,
+        "sentence_count": 2,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Log-normalize expression matrix",
+      "text": "As a next step we generated a log-normalized expression matrix by first dividing the counts for each cell by the total counts in that cell and multiplying by a factor of 1,000,000 before taking the natural log of each count + 1.",
+      "rationale": "Creates a normalized expression matrix for downstream analysis.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 228,
+        "word_count": 44,
+        "sentence_count": 1,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Select highly variable genes",
+      "text": "We computed 3,000 highly variable features in a batch-aware manner using the scanpy highly_variable_genes function (flavor = ‘seurat_v3’, batch_key = ‘bio_sample’).",
+      "rationale": "Identifies informative genes for dimensionality reduction.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 164,
+        "word_count": 21,
+        "sentence_count": 1,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Train scPoli model",
+      "text": "We chose the hidden layer size of the one-layer scPoli encoder and decoder as 1,024, and the latent embedding dimension as ten. We used a value of 100 for the ‘alpha_epoch_anneal’ parameter. We did not use the unlabelled prototype pretraining. We trained the model for a total of seven epochs, five of which were pretraining epochs.",
+      "rationale": "Specifies architecture and training regime for the scPoli integration model.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 332,
+        "word_count": 58,
+        "sentence_count": 4,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Remove duplicate cells",
+      "text": "This procedure removed a total of 3,293 duplicate cells (0.002% of the whole dataset) and was required for the benchmarking algorithm to complete without errors.",
+      "rationale": "Deduplicates the dataset to avoid errors in downstream benchmarking.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 161,
+        "word_count": 27,
+        "sentence_count": 1,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    }
+  ],
+  "created_at": "2026-02-15T11:42:26.054615+00:00"
+}

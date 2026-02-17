@@ -1,0 +1,122 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Establishing clonal AFO lines",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41591-024-02807-z.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s_AFO"
+      },
+      {
+        "id": "s_picked_AFO"
+      },
+      {
+        "id": "s_single_cells"
+      },
+      {
+        "id": "s_clonal_line"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_AFO"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "pick_colony"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_AFO"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_picked_AFO"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_picked_AFO"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_single_cells"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "spread_on_plate"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_single_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_clonal_line"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

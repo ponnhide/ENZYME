@@ -1,0 +1,157 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Vascular induction with VEGF‑A and forskolin",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-019-0213-z.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "N2B27 medium"
+      },
+      {
+        "id": "m2",
+        "name": "VEGF-A"
+      },
+      {
+        "id": "m3",
+        "name": "forskolin"
+      },
+      {
+        "id": "m4",
+        "name": "N2B27 medium + VEGF-A + forskolin"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "low_attachment_6_well_plate",
+        "name": "low-attachment 6-well plate"
+      },
+      {
+        "id": "c2",
+        "type": "falcon_tube_15ml",
+        "name": "15-mL Falcon tube"
+      },
+      {
+        "id": "c3",
+        "type": "waste_container",
+        "name": "waste container"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator",
+        "name": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "agg",
+        "name": "cell_aggregates"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "params": {
+          "note": "transfer aggregates to 15‑mL Falcon tube and allow to settle by gravitation"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "params": {
+          "note": "carefully aspirate medium after aggregates have settled"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material",
+          "description": "N2B27 medium + 100 ng/mL VEGF-A + 2 µM forskolin"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "sample_ref": "agg",
+          "container_ref": "c2",
+          "material_ref": "m4",
+          "volume_per_well": "3 mL per well",
+          "note": "resuspend aggregates in the prepared medium mixture"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "note": "transfer aggregates back to low‑attachment 6‑well plate"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "2_day_incubation"
+          },
+          "duration": "2 days",
+          "container_ref": "c1",
+          "note": "incubate for 2 more days"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

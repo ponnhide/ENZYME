@@ -1,0 +1,224 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Passage organoids by fragmentation",
+    "source": {
+      "type": "paper",
+      "id": "s41596-021-00562-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [
+      {
+        "id": "conical_tube",
+        "name": "conical_tube",
+        "type": "generic_container"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "organoid_fragment suspension",
+        "name": "organoid_fragment suspension"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "conical_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "conical_tube"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: bend"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "conical_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "conical_tube"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "unitless"
+          },
+          "repetitions": 25
+        },
+        "annotations": {
+          "condition": "if organoids are in the first passage after thawing"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "conical_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "conical_tube"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "unitless"
+          },
+          "repetitions": 50
+        },
+        "annotations": {
+          "condition": "otherwise (not first passage after thawing)"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_fragment suspension"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "level of organoid fragmentation"
+          ]
+        },
+        "annotations": {
+          "device": "inverted microscope"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "condition": "if further dissociation is needed",
+          "action": "return conical tube to ice in the biosafety cabinet"
+        }
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "conical_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "conical_tube"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "unitless"
+          },
+          "repetitions": 25
+        },
+        "annotations": {
+          "condition": "continue pipetting with bent pipette tip after returning to ice"
+        }
+      },
+      {
+        "id": "s7",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_fragment suspension"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "level of organoid fragmentation"
+          ]
+        },
+        "annotations": {
+          "device": "inverted microscope"
+        }
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "condition": "repeat until mostly fragments remain"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s4"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

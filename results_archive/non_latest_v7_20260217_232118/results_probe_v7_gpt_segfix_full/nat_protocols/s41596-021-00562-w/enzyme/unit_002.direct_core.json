@@ -1,0 +1,207 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Fix and wash monolayers after EdU labeling",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00562-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_fixative",
+        "name": "4% paraformaldehyde in DPBS−/−"
+      },
+      {
+        "id": "m_bsa_wash",
+        "name": "3% BSA in DPBS−/−"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_transwell",
+        "type": "transwell"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e_incubator",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "monolayer",
+        "type": "cell_monolayer"
+      },
+      {
+        "id": "fixative_solution",
+        "name": "fixative_solution"
+      },
+      {
+        "id": "bsa_wash_solution",
+        "name": "bsa_wash_solution"
+      },
+      {
+        "id": "transwell",
+        "name": "transwell"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material",
+          "material_id": "m_fixative"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "fixative_solution"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material",
+          "material_id": "m_bsa_wash"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "bsa_wash_solution"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "container_id": "c_transwell"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "transwell"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "params": {
+          "note": "Remove medium from both apical and basolateral sides of the monolayer."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "fixative_solution",
+          "destination": "monolayer",
+          "amount": {
+            "apical": {
+              "value": 500.0,
+              "units": "µl"
+            },
+            "basolateral": {
+              "value": 500,
+              "units": "µl"
+            }
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e_incubator",
+          "program": {
+            "program_name": "RT_15min"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "note": "Aspirate the fixative solution."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "params": {
+          "source": "bsa_wash_solution",
+          "destination": "monolayer",
+          "repeat": 2,
+          "amount": {
+            "apical": {
+              "value": 1.0,
+              "units": "ml"
+            },
+            "basolateral": {
+              "value": 2,
+              "units": "ml"
+            }
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

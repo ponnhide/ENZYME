@@ -1,0 +1,203 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41587-023-01747-2",
+      "type": "paper"
+    },
+    "title": "Mount sections on 96-well superstructure"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "start_step_id": "s1",
+    "step_order": null,
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "sample_sections",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "sample_sections",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "sample_on_coverslip",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "description": "sections placed onto 96-well format coverslip",
+            "unit": null,
+            "value": null
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "coverslip subsequently attached to a 96-well superstructure"
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "sample_on_coverslip",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "sample_on_coverslip",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "immunohistological treatment performed on the mounted sections"
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "sample_on_coverslip",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "sample_attached",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "sample_attached",
+            "kind": "sample"
+          }
+        ],
+        "op": "observe",
+        "outputs": [
+          {
+            "id": "d_image",
+            "kind": "data"
+          }
+        ],
+        "params": {
+          "features": [
+            "image"
+          ],
+          "modality": "microscope"
+        }
+      },
+      {
+        "annotations": {
+          "note": "antibody elution performed after imaging"
+        },
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "sample_attached",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "sample_attached",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      }
+    ]
+  },
+  "resources": {
+    "containers": [],
+    "data": [
+      {
+        "id": "d_image",
+        "type": "image"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "microscope"
+      }
+    ],
+    "materials": [
+      {
+        "id": "m1",
+        "name": "sections"
+      },
+      {
+        "id": "m2",
+        "name": "96-well format coverslip"
+      },
+      {
+        "id": "m3",
+        "name": "96-well superstructure"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_sections",
+        "material_ref": "m1"
+      },
+      {
+        "id": "sample_on_coverslip",
+        "material_ref": "m1"
+      },
+      {
+        "id": "sample_attached",
+        "material_ref": "m1"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

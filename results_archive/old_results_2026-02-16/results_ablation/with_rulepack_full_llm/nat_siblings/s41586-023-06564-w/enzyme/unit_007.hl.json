@@ -1,0 +1,281 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Generation of SMAD4 HET hiPS cells",
+    "source": {
+      "type": "paper",
+      "id": "s41586-023-06564-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "cells_1205_4",
+        "type": "cell_line",
+        "name": "1205-4 cells"
+      },
+      {
+        "id": "sgRNA_aaaaagagcaa_utgaaaguu",
+        "type": "oligo",
+        "name": "sgRNA (AAAAAGAGCAAUUGAAAGUU)"
+      },
+      {
+        "id": "cas9_altR",
+        "type": "protein",
+        "name": "Alt‑R S.p. Cas9 Nuclease V3"
+      },
+      {
+        "id": "pbs",
+        "type": "buffer",
+        "name": "PBS"
+      },
+      {
+        "id": "reddot_40061T",
+        "type": "dye",
+        "name": "RedDot Biotium 40061‑T"
+      },
+      {
+        "id": "nacl",
+        "type": "salt",
+        "name": "NaCl"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "incubator",
+        "type": "incubator",
+        "name": "Incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cells_1205_4_sample",
+        "type": "cell_population"
+      },
+      {
+        "id": "reaction_mix",
+        "type": "sample"
+      },
+      {
+        "id": "washed_cells",
+        "type": "sample"
+      },
+      {
+        "id": "stained_cells",
+        "type": "sample"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_1205_4_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "reaction_mix"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 500000,
+            "unit": "cells"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "sgRNA_aaaaagagcaa_utgaaaguu"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "reaction_mix"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 40,
+            "unit": "pmol"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "cas9_altR"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "reaction_mix"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 5,
+            "unit": "µg"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "reaction_mix"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "reaction_mix"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "reaction_mix"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "reaction_mix"
+          }
+        ],
+        "params": {
+          "temperature": {
+            "value": 37,
+            "unit": "°C"
+          },
+          "duration": {
+            "value": 18,
+            "unit": "h"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "reaction_mix"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "washed_cells"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Wash with PBS three times, each wash 2 h at 37 °C."
+        }
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Prepare nuclear staining solution: 1:150 dilution of RedDot Biotium 40061‑T in PBS containing 500 mM NaCl."
+        }
+      },
+      {
+        "id": "s8",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "washed_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "stained_cells"
+          }
+        ],
+        "params": {
+          "temperature": {
+            "value": 37,
+            "unit": "°C"
+          },
+          "duration": {
+            "value": 1,
+            "unit": "overnight"
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

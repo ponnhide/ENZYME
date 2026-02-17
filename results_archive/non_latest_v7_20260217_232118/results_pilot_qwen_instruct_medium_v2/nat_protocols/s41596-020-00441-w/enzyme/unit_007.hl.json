@@ -1,0 +1,404 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "HBPO culture",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-00441-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "matrigel",
+        "name": "Matrigel (Phenol Red–Free)",
+        "type": "extracellular_matrix"
+      },
+      {
+        "id": "gut_growth_medium",
+        "name": "gut growth medium",
+        "type": "culture_medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "centrifuge_tube_1_5ml",
+        "type": "centrifuge_tube",
+        "capacity": "1.5 ml"
+      },
+      {
+        "id": "24well_plate",
+        "type": "tissue_culture_plate",
+        "well_count": 24,
+        "manufacturer": "VWR International"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "mechanical_pipette_wide_bore_200ul",
+        "type": "pipette",
+        "tip_size": "200 µl",
+        "bore": "wide"
+      },
+      {
+        "id": "sterile_filter_pipette_tip",
+        "type": "pipette_tip",
+        "filter": true
+      },
+      {
+        "id": "co2_incubator",
+        "type": "incubator"
+      },
+      {
+        "id": "dissecting_microscope",
+        "type": "imager"
+      }
+    ],
+    "samples": [
+      {
+        "id": "ap_spheroid",
+        "name": "ap_spheroid"
+      },
+      {
+        "id": "ap_spheroid_in_tube",
+        "name": "ap_spheroid_in_tube"
+      },
+      {
+        "id": "matrigel_drop",
+        "name": "matrigel_drop"
+      },
+      {
+        "id": "spheroid_in_matrigel",
+        "name": "spheroid_in_matrigel"
+      },
+      {
+        "id": "matrigel_drop_in_plate",
+        "name": "matrigel_drop_in_plate"
+      },
+      {
+        "id": "matrigel_drop_inverted",
+        "name": "matrigel_drop_inverted"
+      },
+      {
+        "id": "matrigel_drop_in_medium",
+        "name": "matrigel_drop_in_medium"
+      },
+      {
+        "id": "hbpo_culture",
+        "name": "hbpo_culture"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "ap_spheroid"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "ap_spheroid_in_tube"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "spheroid"
+          },
+          "source_container": "culture_container",
+          "target_container": "centrifuge_tube_1_5ml"
+        },
+        "annotations": {
+          "tool": "mechanical pipette with wide-bore 200-µl tip"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "ap_spheroid_in_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "ap_spheroid_in_tube"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "spin_down"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "ap_spheroid_in_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "ap_spheroid_in_tube"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "supernatant",
+            "unit": "unknown"
+          },
+          "source_container": "centrifuge_tube_1_5ml",
+          "target_container": "waste"
+        },
+        "annotations": {
+          "tool": "regular sterile filter pipette tip",
+          "note": "Organoids may be visible but difficult to see; a dissecting microscope will help with visibility and handling."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "matrigel"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "matrigel_drop"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 20,
+            "unit": "µl"
+          },
+          "source_container": "material_container",
+          "target_container": "centrifuge_tube_1_5ml"
+        },
+        "annotations": {
+          "note": "Add 20–30 µl/well of 100% Matrigel (Phenol Red–Free) on ice"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "ap_spheroid_in_tube"
+          },
+          {
+            "kind": "sample",
+            "id": "matrigel_drop"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "spheroid_in_matrigel"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend",
+          "tool": "mechanical pipette with wide-bore 200-µl tip"
+        },
+        "annotations": {
+          "note": "Gently re-suspend the single A-P spheroid"
+        }
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "spheroid_in_matrigel"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "matrigel_drop_in_plate"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "drop"
+          },
+          "source_container": "centrifuge_tube_1_5ml",
+          "target_container": "24well_plate"
+        },
+        "annotations": {
+          "note": "Slowly plate it on a 24-well tissue culture plate (VWR International) to make a Matrigel drop. To avoid solidification of Matrigel, this step should be performed quickly. The tissue culture plate does not need to be on ice."
+        }
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "matrigel_drop_in_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "matrigel_drop_in_plate"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "incubate_5min_37c_5co2"
+        },
+        "annotations": {
+          "note": "Incubate the drop in a CO2 incubator at 37 °C for 5 min."
+        }
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "matrigel_drop_in_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "matrigel_drop_inverted"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: invert_plate"
+        },
+        "annotations": {
+          "note": "Flip the plate upside down and incubate for a further 5 min to prevent the spheroid from attaching to the bottom."
+        }
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "gut_growth_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "matrigel_drop_in_medium"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "enough to cover the entire drop",
+            "unit": "unknown"
+          },
+          "source_container": "medium_container",
+          "target_container": "24well_plate"
+        },
+        "annotations": {
+          "note": "Add enough gut growth medium to cover the entire drop and culture for 4 d to generate HBPOs."
+        }
+      },
+      {
+        "id": "s10",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "matrigel_drop_in_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "hbpo_culture"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "culture_4d_37c_5co2"
+        },
+        "annotations": {
+          "note": "Cultures for spheroids should be maintained at 37 °C in an atmosphere of 5% CO2, 95% air, and the gut growth medium should be replaced every 4 d."
+        }
+      },
+      {
+        "id": "s11",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "CRITICAL: Organoids may be visible but difficult to see; a dissecting microscope will help with visibility and handling."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s3",
+        "to": "s11"
+      }
+    ],
+    "detail_level": 0
+  }
+}

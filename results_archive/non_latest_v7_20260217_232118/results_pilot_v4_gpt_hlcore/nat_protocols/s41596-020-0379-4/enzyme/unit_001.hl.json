@@ -1,0 +1,255 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Collect primary tissue",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-0379-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "primary human tissue pieces"
+      },
+      {
+        "id": "m2",
+        "name": "adDMEM/F12+++ medium (ice‑cold)"
+      },
+      {
+        "id": "m3",
+        "name": "ROCK inhibitor",
+        "description": "10 µM"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "50‑ml conical tube"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "sample_tissue",
+        "name": "tissue pieces sample",
+        "derived_from": "m1"
+      },
+      {
+        "id": "sample_medium",
+        "name": "adDMEM/F12+++ medium (45 ml)",
+        "derived_from": "m2"
+      },
+      {
+        "id": "sample_tube_medium",
+        "name": "tube with 45 ml medium",
+        "derived_from": "c1"
+      },
+      {
+        "id": "sample_collected",
+        "name": "tube with medium and tissue pieces",
+        "derived_from": "c1"
+      },
+      {
+        "id": "sample_inhibitor",
+        "name": "ROCK inhibitor aliquot",
+        "derived_from": "m3"
+      },
+      {
+        "id": "sample_final",
+        "name": "tube with medium, tissue pieces, and ROCK inhibitor",
+        "derived_from": "c1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_tissue"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_medium"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_tube_medium"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 45,
+            "unit": "ml"
+          }
+        },
+        "annotations": {
+          "container": "c1",
+          "note": "Add 45 ml of ice‑cold adDMEM/F12+++ medium to a 50‑ml conical tube."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_tissue"
+          },
+          {
+            "kind": "sample",
+            "id": "sample_tube_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_collected"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "annotations": {
+          "note": "Add primary tissue pieces to the tube containing medium."
+        }
+      },
+      {
+        "id": "s5a",
+        "op": "allocate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_inhibitor"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "(Optional) Prepare ROCK inhibitor at 10 µM."
+        }
+      },
+      {
+        "id": "s5b",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_inhibitor"
+          },
+          {
+            "kind": "sample",
+            "id": "sample_collected"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_final"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 10,
+            "unit": "µM"
+          }
+        },
+        "annotations": {
+          "note": "(Optional) Add ROCK inhibitor to increase cell survival."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_final"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Keep the tube at 4 °C until the start of the isolation."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5a"
+      },
+      {
+        "from": "s5a",
+        "to": "s5b"
+      },
+      {
+        "from": "s5b",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

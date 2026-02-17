@@ -1,0 +1,345 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Alkaline comet assay",
+    "source": {
+      "type": "paper",
+      "id": "s41593-021-00923-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "topotecan",
+        "name": "topotecan",
+        "source": "Selleck Chemicals",
+        "description": "10 μM"
+      },
+      {
+        "id": "ATMi",
+        "name": "AZD0156",
+        "source": "Selleck Chemicals",
+        "description": "30 nM"
+      },
+      {
+        "id": "trypsin",
+        "name": "trypsin",
+        "source": "Sigma-Aldrich, T4049",
+        "description": "0.25%"
+      },
+      {
+        "id": "PBS",
+        "name": "1× PBS (Mg/Ca-free)"
+      },
+      {
+        "id": "LMAgarose",
+        "name": "LMAgarose",
+        "source": "Trevigen, 4250-050-02"
+      },
+      {
+        "id": "agarose_slides",
+        "name": "1% agarose-coated glass slides"
+      },
+      {
+        "id": "alkaline_solution",
+        "name": "alkaline electrophoresis solution",
+        "description": "200 mM NaOH, 1 mM EDTA, pH > 13"
+      },
+      {
+        "id": "ethanol70",
+        "name": "70% ethanol"
+      },
+      {
+        "id": "SYBR_green",
+        "name": "SYBR green I",
+        "source": "Invitrogen, D2650"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "pipette",
+        "name": "pipette"
+      },
+      {
+        "id": "incubator",
+        "name": "incubator",
+        "description": "37 °C"
+      },
+      {
+        "id": "electrophoresis_unit",
+        "name": "electrophoresis apparatus"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cells",
+        "name": "hiPSC cells",
+        "description": "control and C9 ALS/FTD hiPSC lines"
+      },
+      {
+        "id": "cells_resuspended",
+        "name": "resuspended cells"
+      },
+      {
+        "id": "cell_agarose_mix",
+        "name": "cell‑agarose mixture"
+      },
+      {
+        "id": "slides_with_mixture",
+        "name": "agarose‑coated slides with mixture"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "text": "Cells were seeded overnight before topotecan (10 μM for 1 h) treatment in the presence or absence of an ATMi (Selleck Chemicals, AZD0156, 30 nM)."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "text": "Half of the plates were trypsinized (0.25%, Sigma-Aldrich, T4049) for 1 h."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_resuspended"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend",
+          "concentration": {
+            "value": 200000.0,
+            "unit": "cells per ml"
+          },
+          "buffer": "PBS"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_resuspended"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_agarose_mix"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 500,
+            "unit": "μL"
+          },
+          "material": "LMAgarose"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_agarose_mix"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_agarose_mix"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_agarose_mix"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "slides_with_mixture"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 70,
+            "unit": "μL"
+          },
+          "target": "agarose_slides"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "slides_with_mixture"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "slides_with_mixture"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "text": "Slides were subjected to electrophoresis at 35 V for 10 min in the alkaline electrophoresis solution (200 mM NaOH, 1 mM EDTA, pH > 13)."
+        }
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "slides_with_mixture"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "slides_with_mixture"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "text": "After fixation with 70% ethanol and drying at 37 °C, slides were stained with SYBR green I (Invitrogen, D2650)."
+        }
+      },
+      {
+        "id": "s10",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "slides_with_mixture"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "tail percentage"
+          ],
+          "method": "OpenComet plugin for ImageJ (>50 cells per condition)"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,329 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-025-01299-6.pdf",
+      "type": "paper"
+    },
+    "title": "Protocol"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      }
+    ],
+    "start_step_id": "s1",
+    "step_order": null,
+    "steps": [
+      {
+        "annotations": {
+          "note": "hiPS cells seeded in an AggreWell plate."
+        },
+        "id": "s1",
+        "inputs": [],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "Neural spheroid formation in the AggreWell plate after 24 h of culturing."
+        },
+        "id": "s2",
+        "inputs": [],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "spheroid_sample",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "dislodged_spheroid_sample",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "dislodge_cells"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Transfer into a 100-mm ultra-low-attachment plate."
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "dislodged_spheroid_sample",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "ultra_low_attachment_plate_sample",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "mm",
+            "value": 1
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "Flow cytometry analysis of the percentage of Dlxi1/2b::eGFP+ cells in hSO. Negative control: hSO without GFP expression. x-axis: GFP fluorescence intensity; y-axis: cell counts."
+        },
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "ultra_low_attachment_plate_sample",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [],
+        "params": {
+          "device_kind": "plate_reader",
+          "program": "flow_cytometry_analysis_for_GFP"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "ultra_low_attachment_plate_sample",
+            "kind": "sample"
+          }
+        ],
+        "op": "observe",
+        "outputs": [],
+        "params": {
+          "features": [
+            "GFP_fluorescence_intensity",
+            "cell_count"
+          ],
+          "modality": "instrument_readout"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Percentage of Dlxi1/2b::GFP+ cells in hSO derived from a control hiPS cell line. Each dot represents data from an individual hSO. Data presented as mean ± s.e.m."
+        },
+        "id": "s7",
+        "inputs": [],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "One hCO and one hSO transferred into a well of a 24-well low-attachment plate to generate an hFA."
+        },
+        "id": "s8",
+        "inputs": [
+          {
+            "id": "hCO_sample",
+            "kind": "sample"
+          },
+          {
+            "id": "hSO_sample",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "hFA_sample",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "each",
+            "value": 1
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "Plate was tilted in the incubator to facilitate hFA formation."
+        },
+        "id": "s9",
+        "inputs": [
+          {
+            "id": "hFA_sample",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [],
+        "params": {
+          "text": "unmapped action_kind in source: tilt"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Schematic and representative image of the hFA at 30 d after assembly. hSO derived from CAG::Cas9;Dlxi1/2b::eGFP hiPS cell line."
+        },
+        "id": "s10",
+        "inputs": [],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "hFA transferred to a plate for separation of hCO from hSO."
+        },
+        "id": "s11",
+        "inputs": [
+          {
+            "id": "hFA_sample",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [],
+        "params": {
+          "amount": {
+            "unit": "each",
+            "value": 1
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "For day-45 hSO dissociation: 10 U ml−1 papain with 15-min incubation. For ~day-75 hSO dissociation: 30 U ml−1 papain with 45-min incubation. Include step to remove debris generated during dissociation."
+        },
+        "id": "s12",
+        "inputs": [
+          {
+            "id": "hSO_sample",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [],
+        "params": {
+          "text": "unmapped action_kind in source: dissociate"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Optimizing screen duration: experimental readout should be conducted at an early time point to maximize signal-to-noise ratio."
+        },
+        "id": "s13",
+        "inputs": [],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "Genome integrity of hiPS cells should be verified by single-nucleotide polymorphism or comparative genomic hybridization arrays after genetic engineering."
+        },
+        "id": "s14",
+        "inputs": [],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      }
+    ]
+  },
+  "resources": {
+    "containers": [],
+    "data": [],
+    "equipment": [],
+    "materials": [],
+    "samples": [
+      {
+        "id": "spheroid_sample",
+        "name": "spheroid_sample"
+      },
+      {
+        "id": "dislodged_spheroid_sample",
+        "name": "dislodged_spheroid_sample"
+      },
+      {
+        "id": "ultra_low_attachment_plate_sample",
+        "name": "ultra_low_attachment_plate_sample"
+      },
+      {
+        "id": "hCO_sample",
+        "name": "hCO_sample"
+      },
+      {
+        "id": "hSO_sample",
+        "name": "hSO_sample"
+      },
+      {
+        "id": "hFA_sample",
+        "name": "hFA_sample"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

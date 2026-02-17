@@ -1,0 +1,128 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Nucleus isolation from cerebral organoids",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-021-03209-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "papain with DNase"
+      },
+      {
+        "id": "m2",
+        "name": "chilled wash buffer",
+        "composition": "10 mM Tris-HCl pH 7.4, 10 mM NaCl, 3 mM MgCl2, 0.1% Tween-20, 1% BSA"
+      }
+    ],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "smp1",
+        "name": "cerebral organoids"
+      },
+      {
+        "id": "smp2",
+        "name": "smp2"
+      },
+      {
+        "id": "smp3",
+        "name": "smp3"
+      },
+      {
+        "id": "smp4",
+        "name": "smp4"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp2"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "m2",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp3"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "pellet_nuclei",
+            "speed": "500g",
+            "duration": "5 min",
+            "temperature": "4 °C"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp4"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

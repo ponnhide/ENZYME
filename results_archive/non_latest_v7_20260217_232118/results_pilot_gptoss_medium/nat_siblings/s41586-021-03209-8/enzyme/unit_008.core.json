@@ -1,0 +1,217 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41586-021-03209-8.pdf",
+      "type": "paper"
+    },
+    "title": "Nucleus isolation from cerebral organoids"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "s_organoid",
+            "kind": "sample"
+          },
+          {
+            "id": "m_papain",
+            "kind": "material"
+          },
+          {
+            "id": "m_dnase",
+            "kind": "material"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "s_digested",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "s_digested",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "s_digested",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "37 °C for 30 min"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Trituration to form a single‑cell suspension"
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "s_digested",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "s_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Centrifugation conditions (speed, time) not specified in source"
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "s_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "s_pellet",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {}
+        }
+      },
+      {
+        "annotations": {
+          "note": "Lysis performed for 3 min on ice (temperature not explicitly given)"
+        },
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "s_pellet",
+            "kind": "sample"
+          },
+          {
+            "id": "m_lysis_buffer",
+            "kind": "material"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "s_lysate",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "mix",
+          "amount": {
+            "unit": "μl",
+            "value": 100
+          }
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "c_tube",
+        "name": "microcentrifuge tube"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "device_kind": "incubator",
+        "id": "e_incubator",
+        "name": "incubator"
+      },
+      {
+        "device_kind": "centrifuge",
+        "id": "e_centrifuge",
+        "name": "centrifuge"
+      }
+    ],
+    "materials": [
+      {
+        "id": "m_papain",
+        "name": "papain"
+      },
+      {
+        "id": "m_dnase",
+        "name": "DNase I"
+      },
+      {
+        "description": "10 mM Tris‑HCl pH 7.4, 10 mM NaCl, 3 mM MgCl₂, 0.1% Tween‑20, 0.1% Igepal CA‑630, 0.01% digitonin, 1% BSA",
+        "id": "m_lysis_buffer",
+        "name": "lysis buffer (100 μl chilled)"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_organoid",
+        "name": "cerebral organoids"
+      },
+      {
+        "id": "s_digested",
+        "name": "organoids in papain/DNase I digestion"
+      },
+      {
+        "id": "s_cells",
+        "name": "single‑cell suspension"
+      },
+      {
+        "id": "s_pellet",
+        "name": "cell pellet"
+      },
+      {
+        "id": "s_lysate",
+        "name": "lysate (nuclei) after lysis"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

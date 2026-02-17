@@ -1,0 +1,129 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Apply Click-iT reaction cocktail",
+    "source": {
+      "type": "paper",
+      "id": "s41596-021-00562-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "permeabilization_solution",
+        "name": "permeabilization_solution"
+      },
+      {
+        "id": "3%_BSA_in_DPBS--",
+        "name": "3%_BSA_in_DPBS--"
+      },
+      {
+        "id": "Click-iT_reaction_cocktail",
+        "name": "Click-iT_reaction_cocktail"
+      },
+      {
+        "id": "monolayer_with_Click-iT_cocktail",
+        "name": "monolayer_with_Click-iT_cocktail"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "permeabilization_solution"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "action": "aspirate"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "3%_BSA_in_DPBS--"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "action": "wash_at_least_twice"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "Click-iT_reaction_cocktail"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "monolayer_with_Click-iT_cocktail"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 500,
+            "unit": "µl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "monolayer_with_Click-iT_cocktail"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "monolayer_with_Click-iT_cocktail"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "room_temperature_for_30_min"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

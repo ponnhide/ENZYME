@@ -1,0 +1,171 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Fluorescent reporter knock‑in construction",
+    "source": {
+      "type": "paper",
+      "id": "s41467-024-55567-2.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "mat_cells",
+        "name": "Target cells (e.g., organoid or cell line)"
+      },
+      {
+        "id": "mat_sgRNA",
+        "name": "sgRNA (previously published)"
+      },
+      {
+        "id": "mat_reporter",
+        "name": "LGR5-P2A-mNeonGreen knock‑in reporter construct"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "eq_electroporator",
+        "name": "Electroporator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cells",
+        "name": "cells"
+      },
+      {
+        "id": "sgRNA",
+        "name": "sgRNA"
+      },
+      {
+        "id": "reporter_plasmid",
+        "name": "reporter_plasmid"
+      },
+      {
+        "id": "electroporation_mix",
+        "name": "electroporation_mix"
+      },
+      {
+        "id": "electroporated_cells",
+        "name": "electroporated_cells"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sgRNA"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "reporter_plasmid"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          },
+          {
+            "kind": "sample",
+            "id": "sgRNA"
+          },
+          {
+            "kind": "sample",
+            "id": "reporter_plasmid"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "electroporation_mix"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "electroporation_mix"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "electroporated_cells"
+          }
+        ],
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "program": {}
+        },
+        "annotations": {
+          "note": "Electroporation conditions (voltage, pulse length, etc.) are not specified in the source text."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s4"
+      },
+      {
+        "from": "s2",
+        "to": "s4"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

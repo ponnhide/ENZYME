@@ -1,0 +1,55 @@
+{
+  "units": [
+    {
+      "title": "Metadata curation and harmonization",
+      "text": "We curated all neural organoid datasets used in this study through the sfaira78 framework (GitHub dev branch, 18 April 2023). For In this study, we used snapseed to obtain initial annotations for label-aware integration. First, we constructed a hierarchy of cell types from the location provided in the data availability section for every included publication or directly from the authors in case of unpublished data. We harmonized metadata according to the sfaira standards (https://sfaira.readthedocs.io/en/latest/adding_datasets.html) and manually curated an extra metadata column organoid_age_days, which described the number of days the organoid had been in culture before collection.",
+      "rationale": "Describes the initial data curation and metadata standardization steps."
+    },
+    {
+      "title": "Cell‑type hierarchy construction",
+      "text": "We constructed a hierarchy of cell types (including progenitor, neuron and non‑neural types), each defined by a set of marker genes (Supplementary Data 1).",
+      "rationale": "Specifies how the cell‑type hierarchy used for annotation is built."
+    },
+    {
+      "title": "Data representation and clustering",
+      "text": "We represented the data by the RSS3 to average expression profiles of cell clusters in the recently published human developing brain cell atlas27. We then constructed a kNN graph (k = 30) in the RSS space and clustered the dataset using the Leiden algorithm83 (resolution 0.8).",
+      "rationale": "Outlines the creation of a similarity graph and clustering of cells."
+    },
+    {
+      "title": "Removal of non‑applicable dataset subsets",
+      "text": "We next removed any non‑applicable subsets of the published datasets: diseased samples or samples expressing disease‑associated mutations (refs. 14–16,18,19,26), fused organoids (ref. 1), primary fetal data (ref. 10,23), hormone‑treated samples (ref. 22), data collected before neural induction (refs. 3,20) and share‑seq data (ref. 23).",
+      "rationale": "Filters out datasets that are irrelevant for the intended analysis."
+    },
+    {
+      "title": "Quality‑control filtering of cells",
+      "text": "We removed any cells with fewer than 200 genes expressed. We removed outlier cells in terms of two quality control metrics: the number of expressed genes and percentage mitochondrial counts. To define outlier cells on the basis of each quality control metric, a list of cell types with defined marker genes, a z‑transformation is first applied to values across all cells. Cells with any z‑transformed metric less than −1.96 or greater than 1.96 are defined as outliers.",
+      "rationale": "Specifies thresholds and statistical criteria for discarding low‑quality cells."
+    },
+    {
+      "title": "Normalization of Smart‑seq2 counts",
+      "text": "We normalized the raw read counts for all Smart‑seq2 data by dividing it by the maximum gene length for each gene obtained from BioMart. We next multiplied these normalized read counts by the median gene length across all genes and treated those length‑normalized counts equivalently to raw counts from the datasets obtained with the help of unique molecular identifiers in our downstream analyses.",
+      "rationale": "Details length‑aware normalization of count data."
+    },
+    {
+      "title": "Log‑normalization of expression matrix",
+      "text": "We generated a log‑normalized expression matrix by first dividing the counts for each cell by the total counts in that cell and multiplying by a factor of 1,000,000 before taking the natural log of each count + 1.",
+      "rationale": "Creates a scaled, log‑transformed matrix for downstream analysis."
+    },
+    {
+      "title": "Selection of highly variable genes and dimensionality reduction",
+      "text": "We computed 3,000 highly variable features in a batch‑aware manner using the scanpy highly_variable_genes function (flavor = ‘seurat_v3’, batch_key = ‘bio_sample’). We used these 3,000 features to compute a 50‑dimensional representation of the data using principal component analysis (PCA), which in turn we used to compute a k‑nearest‑neighbour (kNN) graph (n_neighbors = 30, metric = ‘cosine’).",
+      "rationale": "Identifies informative genes and reduces dimensionality for graph construction."
+    },
+    {
+      "title": "Integration with scPoli",
+      "text": "We performed integration of the organoid datasets for HNOCA using the scPoli45 model from the scArches51 package. We defined the batch covariate as a concatenation of the dataset identifier (annotation column ‘id’), the annotation of biological replicates (annotation column ‘bio_sample’) as well as technical replicates (annotation column ‘tech_sample’). This resulted in 396 individual batches. The batch covariate is represented in the model as a learned vector of size five. The top three levels of the RSS‑based snapseed cell type annotation were used as the cell type label input for the scPoli prototype loss. We chose the hidden layer size of the one‑layer scPoli encoder and decoder as 1,024, and the latent embedding dimension as ten. We used a value of 100 for the ‘alpha_epoch_anneal’ parameter. We trained the model for a total of seven epochs, five of which were pretraining epochs.",
+      "rationale": "Describes the deep‑learning based integration workflow and its hyperparameters."
+    },
+    {
+      "title": "Real‑time‑informed pseudotime inference",
+      "text": "To infer a global ordering of differentiation state, we sought to infer a real‑time‑informed pseudotime on the basis of neural optimal transport47 in the scPoli latent space. We first grouped organoid age in days into seven bins ((0, 15], (15, 30], (30,60], (60, 90], (90, 120], (120, 150], (150, 450]). Next, we used moscot48 to solve a temporal neural optimal transport problem. The optimal transport problem was solved using the following parameters: iterations = 25,000, compute_wasserstein_baseline = False, batch_size = 1,024, patience = 100, pretrain = True, train_size = 1.",
+      "rationale": "Provides the steps and parameters for constructing a pseudotime trajectory using optimal transport."
+    }
+  ],
+  "created_at": "2026-02-14T10:12:52.595363+00:00"
+}

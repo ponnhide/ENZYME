@@ -1,0 +1,185 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Puromycin selection of edited hiPS colonies",
+    "source": {
+      "type": "paper",
+      "id": "s41586-023-06564-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Puromycin",
+        "source": {}
+      },
+      {
+        "id": "m2",
+        "name": "StemFlex medium",
+        "source": {
+          "vendor": "Life Technologies",
+          "catalogue_no": "A3349401"
+        }
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "culture plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s0",
+        "name": "hiPS cells (pre‑selection)"
+      },
+      {
+        "id": "s1",
+        "name": "hiPS cells (puromycin selected)"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "name": "colony observation"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s0"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s0"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s0"
+          }
+        ],
+        "params": {
+          "modality": "visual",
+          "features": [
+            "confluency"
+          ]
+        },
+        "annotations": {
+          "note": "cells reached 70–80% confluency"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s0"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "supplemented with 1 µg ml⁻¹ puromycin in StemFlex medium"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "5 days"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "params": {
+          "modality": "visual",
+          "features": [
+            "colonies"
+          ]
+        },
+        "annotations": {
+          "note": "colonies visible at the end of 5 days of puromycin selection"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Dead cell removal and cell concentration adjustment",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00827-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "dead_cell_removal_kit",
+        "name": "MiltenyiBiotec dead cell removal kit"
+      },
+      {
+        "id": "diluent",
+        "name": "PBS diluent"
+      }
+    ],
+    "containers": [
+      {
+        "id": "cell_tube",
+        "type": "tube"
+      },
+      {
+        "id": "diluent_tube",
+        "type": "tube"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "cell_suspension",
+        "container_ref": "cell_tube"
+      },
+      {
+        "id": "dead_cell_removal_kit",
+        "name": "dead_cell_removal_kit"
+      },
+      {
+        "id": "diluent",
+        "name": "diluent"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "dead_cell_removal_kit"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "params": {
+          "note": "Remove dead cells from the cell suspension using the MiltenyiBiotec dead cell removal kit."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "diluent"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "note": "Add diluent to cell suspension (amount unspecified)."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "target_sample": "cell_suspension"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Cell viability assay using CyQuant",
+    "source": {
+      "type": "paper",
+      "id": "s41467-021-27464-5.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "plate_reader",
+        "device_kind": "plate_reader",
+        "description": "Plate reader for absorbance measurements"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cells",
+        "type": "cell",
+        "description": "Harvested cells"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 50000,
+            "unit": "cells"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Cell viability measured using the colorimetric CyQuant cell proliferation assay (Invitrogen), following the manufacturer’s instructions."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            {
+              "type": "absorbance",
+              "range": {
+                "low": 480,
+                "high": 520,
+                "unit": "nm"
+              }
+            }
+          ],
+          "device_ref": "plate_reader"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

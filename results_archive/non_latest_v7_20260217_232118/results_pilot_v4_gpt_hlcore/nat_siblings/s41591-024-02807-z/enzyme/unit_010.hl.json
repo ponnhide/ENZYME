@@ -1,0 +1,95 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Flow cytometry sorting of live epithelial cells",
+    "source": {
+      "type": "paper",
+      "id": "s41591-024-02807-z"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "eq_flow_cytometer",
+        "name": "flow cytometer",
+        "device_kind": "imager"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_epithelial_cells",
+        "name": "live epithelial cells",
+        "description": "cells analyzed for EpCAM, ECAD (CDH1), PI and Hoechst positivity"
+      }
+    ],
+    "data": [
+      {
+        "id": "data_flow_cytometry",
+        "name": "flow cytometry results"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_epithelial_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_epithelial_cells"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "program": "flow cytometry acquisition",
+          "device_ref": "eq_flow_cytometer"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_epithelial_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "data_flow_cytometry"
+          }
+        ],
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "EpCAM (58,964 cells)",
+            "ECAD (CDH1) (38,389 cells)",
+            "propidium iodide (PI)",
+            "Hoechst positive"
+          ]
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

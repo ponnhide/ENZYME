@@ -1,0 +1,197 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Split organoids into three culture conditions at day 35",
+    "source": {
+      "type": "paper",
+      "id": "s41586-021-03209-8"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_organoid",
+        "name": "organoids"
+      },
+      {
+        "id": "m_medium_vitA",
+        "name": "normal medium (with vitamin A)"
+      },
+      {
+        "id": "m_medium_noVitA",
+        "name": "normal medium (without vitamin A)"
+      },
+      {
+        "id": "m_DEAB",
+        "name": "DEAB",
+        "annotations": {
+          "concentration": "100 μM"
+        }
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_cond1",
+        "name": "culture dish for condition 1"
+      },
+      {
+        "id": "c_cond2",
+        "name": "culture dish for condition 2"
+      },
+      {
+        "id": "c_cond3",
+        "name": "culture dish for condition 3"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s_organoid_original",
+        "name": "organoids at day 35"
+      },
+      {
+        "id": "s_cond1",
+        "name": "organoids in normal medium with vitamin A"
+      },
+      {
+        "id": "s_cond2",
+        "name": "organoids in normal medium with vitamin A + 100 μM DEAB"
+      },
+      {
+        "id": "s_cond3",
+        "name": "organoids in normal medium without vitamin A"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m_organoid"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_original"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_original"
+          },
+          {
+            "kind": "material",
+            "id": "m_medium_vitA"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cond1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "annotations": {
+          "note": "Amount of organoid and medium not specified"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_original"
+          },
+          {
+            "kind": "material",
+            "id": "m_medium_vitA"
+          },
+          {
+            "kind": "material",
+            "id": "m_DEAB"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cond2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "annotations": {
+          "note": "Amount of organoid, medium, and DEAB not specified; DEAB concentration intended at 100 μM"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_original"
+          },
+          {
+            "kind": "material",
+            "id": "m_medium_noVitA"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cond3"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "annotations": {
+          "note": "Amount of organoid and medium not specified"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

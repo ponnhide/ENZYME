@@ -1,0 +1,192 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "FACS setup and sorting",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00929-1"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [
+      {
+        "kind": "equipment",
+        "id": "eq1",
+        "name": "flow cytometer"
+      }
+    ],
+    "samples": [
+      {
+        "kind": "sample",
+        "id": "sample1",
+        "description": "cell suspension for FACS"
+      },
+      {
+        "kind": "sample",
+        "id": "sorted_cells",
+        "description": "sorted cell population"
+      }
+    ],
+    "data": [
+      {
+        "kind": "data",
+        "id": "efficiency_data",
+        "description": "cell sorting efficiency calculation"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "program": "set_laser_levels"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "program": "record_single_color_controls"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Compensation performed after single-color controls"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Draw gates to eliminate debris (SSC/FSC), doublets, dead cells (DAPI), then select populations (e.g., CD45−CD31+ANPEP− for endothelial cells)"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Optional fluorescence minus one (FMO) and unstained controls may be run to verify gating"
+        }
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sorted_cells"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "program": "cell_sorting",
+          "nozzle": "100 µm"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sorted_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "efficiency_data"
+          }
+        ],
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "event_number",
+            "cell_number",
+            "efficiency"
+          ]
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

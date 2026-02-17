@@ -1,0 +1,126 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-019-0213-z.pdf",
+      "type": "paper"
+    },
+    "title": "Incubate for aggregate formation"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "low_attach_plate",
+            "kind": "container"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "cell_susp",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "cell_susp_in_plate",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "mL",
+            "value": 3
+          },
+          "destination": "low_attach_plate"
+        }
+      },
+      {
+        "annotations": {
+          "lowered_from": "incubate"
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "cell_susp_in_plate",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "aggregates",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": null
+          }
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "low_attach_plate",
+        "type": "6-well low-attachment plate"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "device_kind": "incubator",
+        "id": "incubator"
+      }
+    ],
+    "materials": [
+      {
+        "id": "cell_suspension",
+        "name": "cell suspension"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cell_susp",
+        "material": "cell_suspension"
+      },
+      {
+        "container": "low_attach_plate",
+        "id": "cell_susp_in_plate",
+        "material": "cell_suspension"
+      },
+      {
+        "container": "low_attach_plate",
+        "id": "aggregates",
+        "material": "cell aggregates"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

@@ -1,0 +1,210 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Caspase‑3/7 apoptosis assay",
+    "source": {
+      "type": "paper",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "CellEvent Caspase‑3/7 Detection Reagent (Thermo Fisher)"
+      },
+      {
+        "id": "m2",
+        "name": "media"
+      },
+      {
+        "id": "m3",
+        "name": "PBS"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "Nikon spinning disc confocal"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoid",
+        "type": "organoid"
+      },
+      {
+        "id": "image",
+        "type": "image"
+      },
+      {
+        "id": "quant_result",
+        "type": "data"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2a",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Prepare detection reagent solution by diluting CellEvent Caspase‑3/7 Detection Reagent in media according to manufacturer protocols."
+        }
+      },
+      {
+        "id": "s2b",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid"
+          },
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 30,
+            "unit": "min"
+          }
+        },
+        "annotations": {
+          "note": "Incubation temperature not specified."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid"
+          },
+          {
+            "kind": "material",
+            "id": "m3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid"
+          }
+        ],
+        "params": {
+          "action_kind": "rinse"
+        },
+        "annotations": {
+          "note": "Wash volume and number of washes not specified."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "image"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "device_ref": "e1",
+          "program": "collect fluorescence and DIC images"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "measure",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "image"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "quant_result"
+          }
+        ],
+        "params": {
+          "program": "FIJI area quantification of % Caspase‑3/7 positive staining"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2a"
+      },
+      {
+        "from": "s2a",
+        "to": "s2b"
+      },
+      {
+        "from": "s2b",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

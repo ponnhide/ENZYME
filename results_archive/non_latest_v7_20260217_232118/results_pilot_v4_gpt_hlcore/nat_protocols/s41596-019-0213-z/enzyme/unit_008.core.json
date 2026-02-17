@@ -1,0 +1,149 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-019-0213-z.pdf",
+      "type": "paper"
+    },
+    "title": "Plate cell suspension for aggregate formation"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "start_step_id": "s1",
+    "step_order": null,
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "plate1",
+            "kind": "container"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "cell_suspension",
+            "kind": "sample"
+          },
+          {
+            "id": "plate1",
+            "kind": "container"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "cell_suspension_in_plate",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "mL",
+            "value": 3
+          },
+          "note": "per well"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "plate1",
+            "kind": "container"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "plate1",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "incubate 1 d"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "plate1",
+            "kind": "container"
+          }
+        ],
+        "op": "observe",
+        "outputs": [
+          {
+            "id": "aggregate_image",
+            "kind": "data"
+          }
+        ],
+        "params": {
+          "features": [
+            "cell aggregates with smooth borders (>50- to 100-µm diameter)"
+          ],
+          "modality": "visual"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "plate1",
+        "type": "6-well low-attachment plate"
+      }
+    ],
+    "data": [
+      {
+        "id": "aggregate_image",
+        "source": "Fig. 2b",
+        "type": "image"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator1",
+        "type": "incubator"
+      }
+    ],
+    "materials": [],
+    "samples": [
+      {
+        "id": "cell_suspension",
+        "type": "cell suspension"
+      },
+      {
+        "id": "cell_suspension_in_plate",
+        "type": "cell suspension"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

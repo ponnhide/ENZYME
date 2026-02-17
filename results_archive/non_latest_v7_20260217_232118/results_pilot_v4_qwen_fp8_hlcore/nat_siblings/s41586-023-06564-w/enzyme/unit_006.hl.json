@@ -1,0 +1,159 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Infect cells with lentivirus expressing Dlxi1/2b::eGFP and select with hygromycin",
+    "source": {
+      "type": "paper",
+      "id": "s41586-023-06564-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s1_sample",
+        "name": "s1_sample"
+      },
+      {
+        "id": "s2_sample",
+        "name": "s2_sample"
+      },
+      {
+        "id": "s3_sample",
+        "name": "s3_sample"
+      },
+      {
+        "id": "s4_sample",
+        "name": "s4_sample"
+      },
+      {
+        "id": "s5_sample",
+        "name": "s5_sample"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "description": "CAG::Cas9 hiPS cells cultured in a six-well plate were infected with lentivirus expressing Dlxi1/2b::eGFP with a hygromycin resistance gene."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2_sample"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: incubate"
+        },
+        "annotations": {
+          "medium": "Essential 8 medium"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3_sample"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: passage"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s4_sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 200,
+            "unit": "µg ml−1"
+          },
+          "source": "hygromycin stock",
+          "destination": "culture medium"
+        },
+        "annotations": {
+          "timing": "one day after passaging"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s4_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s5_sample"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: incubate"
+        },
+        "annotations": {
+          "selection_agent": "hygromycin"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

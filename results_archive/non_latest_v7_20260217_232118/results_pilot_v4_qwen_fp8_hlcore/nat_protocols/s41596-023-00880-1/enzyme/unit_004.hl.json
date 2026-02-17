@@ -1,0 +1,529 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Protocol",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00880-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "DAPI",
+        "vendor": "Thermo Fisher Scientific",
+        "catalog_number": "D1306"
+      },
+      {
+        "id": "m2",
+        "name": "BMP7",
+        "vendor": "R&D Systems",
+        "catalog_number": "354-BP"
+      },
+      {
+        "id": "m3",
+        "name": "CHIR99021",
+        "vendor": "R&D Systems",
+        "catalog_number": "4423/10"
+      },
+      {
+        "id": "m4",
+        "name": "Cimetidine",
+        "vendor": "Sigma-Aldrich",
+        "catalog_number": "C4522"
+      },
+      {
+        "id": "m5",
+        "name": "Dimethyl sulfoxide",
+        "vendor": "Sigma-Aldrich",
+        "catalog_number": "D2650-100mL"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "12-well plate",
+        "coating": "Laminin"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s_hPSC",
+        "type": "human pluripotent stem cells",
+        "source": "iPSC culture"
+      },
+      {
+        "id": "s_organoid",
+        "type": "metanephric mesenchyme-derived organoid"
+      },
+      {
+        "id": "s_hPSC_seeded",
+        "name": "s_hPSC_seeded"
+      },
+      {
+        "id": "s_hPSC_differentiating",
+        "name": "s_hPSC_differentiating"
+      },
+      {
+        "id": "s_hPSC_day8",
+        "name": "s_hPSC_day8"
+      },
+      {
+        "id": "s_organoid_aggregated",
+        "name": "s_organoid_aggregated"
+      },
+      {
+        "id": "s_organoid_cultured",
+        "name": "s_organoid_cultured"
+      },
+      {
+        "id": "s_organoid_fixed",
+        "name": "s_organoid_fixed"
+      },
+      {
+        "id": "s_organoid_live",
+        "name": "s_organoid_live"
+      },
+      {
+        "id": "s_organoid_tritc",
+        "name": "s_organoid_tritc"
+      },
+      {
+        "id": "s_organoid_dapi",
+        "name": "s_organoid_dapi"
+      },
+      {
+        "id": "s_organoid_tritc_incubated",
+        "name": "s_organoid_tritc_incubated"
+      },
+      {
+        "id": "s_organoid_dapi_incubated",
+        "name": "s_organoid_dapi_incubated"
+      },
+      {
+        "id": "s_organoid_fixed_processed",
+        "name": "s_organoid_fixed_processed"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_hPSC"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_hPSC_seeded"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 25000,
+            "unit": "cells"
+          }
+        },
+        "annotations": {
+          "container": "12-well plate coated with Laminin",
+          "timing": "2 d post-passaging, when culture is ~80% confluent"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_hPSC_seeded"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_hPSC_differentiating"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "24 h post-seeding, then expose to TeSR-E6 with 6 µM CHIR99021 for 5 d, followed by 200 ng/mL FGF9 for 2 d"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_hPSC_differentiating"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_hPSC_day8"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "well"
+          }
+        },
+        "annotations": {
+          "medium": "nephron progenitor maintenance medium with increased BMP7 levels",
+          "timing": "day 8 to day 13 of differentiation"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_hPSC_day8"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_aggregated"
+          }
+        ],
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "annotations": {
+          "method": "standard centrifugation technique",
+          "medium": "TeSR-E6",
+          "timing": "day 13 of differentiation"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_aggregated"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_cultured"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "culture for 14 days (until day 27)"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_cultured"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_fixed"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 0.5,
+            "unit": "fraction"
+          }
+        },
+        "annotations": {
+          "timing": "14 d post-aggregation (day 27)",
+          "purpose": "for immunofluorescence"
+        }
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_cultured"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_live"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 0.5,
+            "unit": "fraction"
+          }
+        },
+        "annotations": {
+          "timing": "14 d post-aggregation (day 27)",
+          "purpose": "for fluorescent substrate uptake assays"
+        }
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_live"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_tritc"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "well"
+          }
+        },
+        "annotations": {
+          "reagent": "TRITC-conjugated albumin",
+          "purpose": "to measure megalin–cubilin activity",
+          "duration": "longer duration assay"
+        }
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_live"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_dapi"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "well"
+          }
+        },
+        "annotations": {
+          "reagent": "DAPI",
+          "purpose": "to assay MATE-1/MATE-2 activity"
+        }
+      },
+      {
+        "id": "s10",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_tritc"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_tritc_incubated"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "incubation with TRITC-conjugated albumin"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s11",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_dapi"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_dapi_incubated"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "incubation with DAPI"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s12",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_tritc_incubated"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "fluorescent albumin uptake"
+          ]
+        },
+        "annotations": {
+          "instrument": "laser scanning confocal microscopy",
+          "step": "Step 61"
+        }
+      },
+      {
+        "id": "s13",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_dapi_incubated"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "DAPI uptake"
+          ]
+        },
+        "annotations": {
+          "instrument": "laser scanning confocal microscopy",
+          "step": "Step 73"
+        }
+      },
+      {
+        "id": "s14",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_fixed"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_fixed_processed"
+          }
+        ],
+        "params": {
+          "action_kind": "rinse"
+        },
+        "annotations": {
+          "step": "Step 53",
+          "purpose": "for immunofluorescence"
+        }
+      },
+      {
+        "id": "s15",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_fixed_processed"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "PT-specific protein expression",
+            "Lotus tetragonobulus lectin (LTL) binding"
+          ]
+        },
+        "annotations": {
+          "instrument": "laser scanning confocal microscopy",
+          "step": "Step 91"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s5",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s7",
+        "to": "s9"
+      },
+      {
+        "from": "s8",
+        "to": "s10"
+      },
+      {
+        "from": "s9",
+        "to": "s11"
+      },
+      {
+        "from": "s10",
+        "to": "s12"
+      },
+      {
+        "from": "s11",
+        "to": "s13"
+      },
+      {
+        "from": "s6",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      }
+    ],
+    "detail_level": 0
+  }
+}

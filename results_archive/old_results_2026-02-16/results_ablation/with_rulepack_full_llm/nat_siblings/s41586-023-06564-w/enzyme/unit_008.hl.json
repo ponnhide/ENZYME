@@ -1,0 +1,201 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Dissociation of hCO and hSO",
+    "source": {
+      "type": "paper",
+      "id": "s41586-023-06564-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "papain",
+        "name": "papain",
+        "vendor": "Worthington",
+        "catalogue_no": "LS003127"
+      },
+      {
+        "id": "glucose",
+        "name": "d(+)-glucose"
+      },
+      {
+        "id": "nahco3",
+        "name": "NaHCO3"
+      },
+      {
+        "id": "edta",
+        "name": "EDTA"
+      },
+      {
+        "id": "earles_solution",
+        "name": "Earle’s balanced salt solution"
+      },
+      {
+        "id": "trypsin_inhibitor",
+        "name": "trypsin inhibitor",
+        "vendor": "Worthington",
+        "catalogue_no": "LS003086"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_organoid",
+        "type": "tube"
+      },
+      {
+        "id": "c_solution",
+        "type": "tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator1",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoid_sample",
+        "description": "hCO and hSO organoids"
+      },
+      {
+        "id": "enzyme_solution",
+        "description": "Enzyme solution for dissociation"
+      },
+      {
+        "id": "organoid_with_solution",
+        "description": "Organoids after addition of enzyme solution"
+      },
+      {
+        "id": "dissociated_organoid",
+        "description": "Dissociated hCO and hSO"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "enzyme_solution"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "enzyme_solution"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Enzyme solution contains 10 U ml−1 papain (Worthington, catalogue no. LS003127), 0.36% d(+)-glucose, 26 mM NaHCO3, 0.5 mM EDTA, 1× Earle’s balanced salt solution, 0.2% trypsin inhibitor (Worthington, catalogue no. LS003086)."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "enzyme_solution"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_with_solution"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null,
+            "description": "sufficient to cover organoids"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_with_solution"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "dissociated_organoid"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": {
+              "value": 37,
+              "unit": "°C"
+            },
+            "CO2": {
+              "value": 5,
+              "unit": "%"
+            },
+            "duration": {
+              "value": 15,
+              "unit": "min"
+            }
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

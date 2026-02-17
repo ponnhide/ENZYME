@@ -1,0 +1,151 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "CUT&Tag library preparation",
+    "source": {
+      "type": "paper",
+      "id": "s41586-021-03209-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "cut_tag_wash_buffer",
+        "name": "CUT&Tag wash buffer",
+        "description": "20 mM HEPES pH 7.5, 150 mM NaCl, 0.5 mM spermidine, 1× protease inhibitor cocktail (Roche)"
+      },
+      {
+        "id": "dig_wash_buffer",
+        "name": "dig-wash buffer",
+        "description": ""
+      }
+    ],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "cell_aliquot",
+        "name": "50,000 cells",
+        "description": "Aliquot of dissociated cells"
+      },
+      {
+        "id": "cell_suspension",
+        "name": "Cell suspension",
+        "description": "50,000 cells resuspended in CUT&Tag wash buffer"
+      },
+      {
+        "id": "cell_pellet",
+        "name": "Cell pellet",
+        "description": "Pellet after dissociation of cortical tissue"
+      },
+      {
+        "id": "nuclei",
+        "name": "Isolated nuclei",
+        "description": "Nuclei isolated after resuspension in dig‑wash buffer"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {
+          "description": "Dissociate cells from human cortical tissue as described above."
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_aliquot"
+          },
+          {
+            "kind": "material",
+            "id": "cut_tag_wash_buffer"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension"
+          }
+        ],
+        "params": {
+          "action_kind": "mix",
+          "amount": {
+            "value": 200,
+            "unit": "μl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_pellet"
+          },
+          {
+            "kind": "material",
+            "id": "dig_wash_buffer"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "nuclei"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend",
+          "amount": {
+            "value": 200,
+            "unit": "μl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "nuclei"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "description": "Wash nuclei twice."
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

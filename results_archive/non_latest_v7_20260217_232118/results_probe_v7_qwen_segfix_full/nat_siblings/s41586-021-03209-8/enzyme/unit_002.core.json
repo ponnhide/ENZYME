@@ -1,0 +1,239 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Neural induction medium preparation and cell plating",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-021-03209-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Knockout Serum Replacer (KSR)",
+        "concentration": "20%"
+      },
+      {
+        "id": "m2",
+        "name": "non-essential amino acids",
+        "concentration": "1×"
+      },
+      {
+        "id": "m3",
+        "name": "sodium pyruvate",
+        "concentration": "0.11 mg/ml"
+      },
+      {
+        "id": "m4",
+        "name": "penicillin-streptomycin",
+        "concentration": "1×"
+      },
+      {
+        "id": "m5",
+        "name": "β-mercaptoethanol",
+        "concentration": "0.1 mM"
+      },
+      {
+        "id": "m6",
+        "name": "SB431542",
+        "concentration": "5 μM"
+      },
+      {
+        "id": "m7",
+        "name": "IWR1-endo",
+        "concentration": "3 μM"
+      },
+      {
+        "id": "m8",
+        "name": "Rock inhibitor Y-27632",
+        "concentration": "20 μM"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "96-well v-bottom low-adhesion plate"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s1",
+        "name": "neural induction medium",
+        "source": "m1,m2,m3,m4,m5,m6,m7"
+      },
+      {
+        "id": "s2",
+        "name": "cells",
+        "density": "10000 cells/well"
+      },
+      {
+        "id": "c1",
+        "name": "c1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "quantity": 1
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "quantity": 1
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "material",
+            "id": "m3"
+          },
+          {
+            "kind": "material",
+            "id": "m4"
+          },
+          {
+            "kind": "material",
+            "id": "m5"
+          },
+          {
+            "kind": "material",
+            "id": "m6"
+          },
+          {
+            "kind": "material",
+            "id": "m7"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "s1",
+          "destination": "c1",
+          "per_well": true,
+          "amount": {
+            "value": 100.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "s2",
+          "destination": "c1",
+          "per_well": true,
+          "amount": {
+            "value": 1,
+            "unit": "well"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Medium supplemented with 20 μM Rock inhibitor Y-27632 for the first 6 days."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

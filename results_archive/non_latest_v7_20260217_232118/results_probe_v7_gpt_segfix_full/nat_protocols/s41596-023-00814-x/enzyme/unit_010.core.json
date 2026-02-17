@@ -1,0 +1,138 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Protocol",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00814-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_imr90_1",
+        "name": "IMR90-1 iPSC line",
+        "type": "cell_line"
+      },
+      {
+        "id": "m_crx_ipsc",
+        "name": "Crx-iPSC line",
+        "type": "cell_line"
+      },
+      {
+        "id": "m_f13535_1",
+        "name": "F13535.1 iPSC line",
+        "type": "cell_line"
+      },
+      {
+        "id": "m_gm25256",
+        "name": "GM25256 iPSC line",
+        "type": "cell_line"
+      },
+      {
+        "id": "m_f14536_2",
+        "name": "F14536.2 iPSC line",
+        "type": "cell_line"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_well_plate",
+        "type": "well_plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "eq_incubator",
+        "type": "incubator"
+      },
+      {
+        "id": "eq_microscope",
+        "type": "microscope"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_iPSC_pool",
+        "derived_from": [
+          "m_imr90_1",
+          "m_crx_ipsc",
+          "m_f13535_1",
+          "m_gm25256",
+          "m_f14536_2"
+        ]
+      }
+    ],
+    "data": [
+      {
+        "id": "d_quality_check",
+        "type": "image"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "eq_incubator",
+          "program": {
+            "program_name": "OVB differentiation protocol (50-60 days)"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "observe",
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "pigmented areas visible"
+          ],
+          "device_ref": "eq_microscope"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "note": "Statistical design: at least 3 independent batches, each batch with ≥3 organoids per timepoint; for multiple analyses (IF, western blot, ERG, qRT‑PCR) use n=12 organoids per method."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "CHIR99021 pulse for organoid patterning",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00880-1"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "chir_solution",
+        "name": "E6-containing 5 µM CHIR99021"
+      }
+    ],
+    "containers": [
+      {
+        "id": "transwell",
+        "name": "Transwell"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "name": "37 °C incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cell_micromasses",
+        "name": "cell micromasses on membrane"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "chir_solution"
+          },
+          {
+            "kind": "container",
+            "id": "transwell"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "transwell"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "mL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "transwell"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "transwell"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "incubate 1 h at 37 °C"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

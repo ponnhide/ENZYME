@@ -1,0 +1,100 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Construct k‑NN graph and cluster cells",
+    "source": {
+      "type": "paper",
+      "id": "s41586-024-08172-8"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "ds1",
+        "name": "raw dataset"
+      },
+      {
+        "id": "ds2",
+        "name": "kNN graph (k=30) in RSS space"
+      },
+      {
+        "id": "ds3",
+        "name": "clustered dataset (Leiden resolution 0.8)"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "ds1"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "ds1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "ds2"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "Construct kNN graph (k = 30) in the RSS space"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "ds2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "ds3"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "Cluster dataset using Leiden algorithm (resolution 0.8)"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

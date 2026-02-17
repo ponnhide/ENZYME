@@ -1,0 +1,227 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41467-024-55567-2.pdf",
+      "type": "paper"
+    },
+    "title": "Colony‑forming efficiency assay"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "organoid_sample",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "single_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "note": "Organoids were dissociated into single cells (method not specified)."
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "single_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "plated_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "cells",
+            "value": 8000
+          },
+          "destination": {
+            "container_id": "plate48",
+            "well": "each well"
+          },
+          "medium": "BME"
+        }
+      },
+      {
+        "annotations": {
+          "lowered_from": "incubate"
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "plated_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "cultured_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator",
+          "program": {
+            "program_name": null
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "cultured_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "cultured_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "note": "Colonies were fixed (fixation method not specified)."
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "cultured_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "cultured_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "note": "Stained with DAPI (staining protocol not specified)."
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "cultured_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "observe",
+        "outputs": [
+          {
+            "id": "colony_count",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "features": [
+            "colony count"
+          ],
+          "modality": "visual"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "plate48",
+        "type": "48-well plate"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "device_kind": "incubator",
+        "id": "incubator"
+      }
+    ],
+    "materials": [
+      {
+        "id": "organoids",
+        "name": "organoids"
+      },
+      {
+        "id": "bme",
+        "name": "BME"
+      },
+      {
+        "id": "dapi",
+        "name": "DAPI"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoid_sample",
+        "kind": "sample"
+      },
+      {
+        "id": "single_cells",
+        "kind": "sample"
+      },
+      {
+        "id": "plated_cells",
+        "kind": "sample"
+      },
+      {
+        "id": "cultured_cells",
+        "kind": "sample"
+      },
+      {
+        "id": "colony_count",
+        "kind": "sample"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

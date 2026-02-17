@@ -1,0 +1,167 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Detect apoptosis by flow cytometry",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-021-27464-5.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Alexa Fluor 647 Annexin V conjugate",
+        "vendor": "BD Pharmingen",
+        "catalog": "A23204"
+      },
+      {
+        "id": "m2",
+        "name": "Click-iT plus TUNEL assay",
+        "vendor": "Invitrogen",
+        "catalog": "C10617"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "tube",
+        "name": "staining tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "flow_cytometer",
+        "name": "flow cytometer"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample1",
+        "type": "cell_suspension",
+        "description": "cells for apoptosis detection"
+      }
+    ],
+    "data": [
+      {
+        "id": "data1",
+        "type": "flow_cytometry_data",
+        "description": "apoptosis measurement"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer of m1 (Alexa Fluor 647 Annexin V conjugate) to sample1; amount unspecified"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer of m2 (Click-iT plus TUNEL assay) to sample1; amount unspecified"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "target": "sample1"
+        },
+        "outputs": [],
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "Annexin V fluorescence",
+            "TUNEL signal"
+          ]
+        },
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "data1"
+          }
+        ],
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

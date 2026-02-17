@@ -1,0 +1,294 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Days 46–49: generation of hFA by integrating hSO with hCO",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01299-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "hCO"
+      },
+      {
+        "id": "m2",
+        "name": "hSO"
+      },
+      {
+        "id": "m3",
+        "name": "NM"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "24-well low-attachment plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "P1000 pipette"
+      },
+      {
+        "id": "e2",
+        "name": "P20 pipette"
+      },
+      {
+        "id": "e3",
+        "name": "37 °C incubator with 5% CO2"
+      },
+      {
+        "id": "e4",
+        "name": "fluorescence microscope"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_hCO",
+        "name": "hCO"
+      },
+      {
+        "id": "s_hSO",
+        "name": "hSO"
+      },
+      {
+        "id": "s_assembloid",
+        "name": "assembloid (hCO + hSO)"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_hCO"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_hCO"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "count"
+          }
+        },
+        "annotations": {
+          "note": "Transfer one hCO into a well of the 24-well low‑attachment plate using P1000 pipette tips with wide orifice."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_hSO"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_hSO"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "count"
+          }
+        },
+        "annotations": {
+          "note": "Transfer one hSO into the same well using P1000 pipette tips with wide orifice."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "m3"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 2,
+            "unit": "ml"
+          }
+        },
+        "annotations": {
+          "note": "Fill the well with 2 ml of NM."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "annotations": {
+          "note": "Tilt the plate slightly to guide both organoids toward the edge of the well."
+        },
+        "params": {},
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "annotations": {
+          "note": "Using a P20 pipette tip, gently position the hCO and hSO so that they are in contact with each other."
+        },
+        "params": {},
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "params": {
+          "temperature": {
+            "value": 37,
+            "unit": "C"
+          },
+          "CO2": "5%",
+          "duration": {
+            "value": 4,
+            "unit": "day"
+          }
+        },
+        "annotations": {
+          "note": "Place the plate in a 37 °C incubator with 5 % CO₂, keeping the plate tilted for 4 days."
+        }
+      },
+      {
+        "id": "s7a",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m3"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "amount": {
+            "value": 2,
+            "unit": "ml"
+          }
+        },
+        "annotations": {
+          "note": "Aspirate 2 ml of NM from the well (medium change)."
+        }
+      },
+      {
+        "id": "s7b",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "m3"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 2,
+            "unit": "ml"
+          }
+        },
+        "annotations": {
+          "note": "Refill the well with 2 ml of fresh NM. Change medium every 4 days, handling aspiration and refilling carefully to avoid disrupting the assembloids."
+        }
+      },
+      {
+        "id": "s8",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_assembloid"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "modality": "microscope",
+          "features": "GFP+ cells migrated to the hCO region"
+        },
+        "annotations": {
+          "note": "Assess interneuron migration 30 days after assembloid formation using a fluorescence microscope. hFA with minimal migration (~10 % of total) were excluded from analysis."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7a"
+      },
+      {
+        "from": "s7a",
+        "to": "s7b"
+      },
+      {
+        "from": "s7b",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

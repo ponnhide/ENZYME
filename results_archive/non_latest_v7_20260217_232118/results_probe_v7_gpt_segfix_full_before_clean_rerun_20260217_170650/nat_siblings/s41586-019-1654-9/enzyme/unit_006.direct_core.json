@@ -1,0 +1,327 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Papain digestion of organoid pieces",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-019-1654-9.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_papain",
+        "name": "Papain",
+        "vendor": "Thermo Fisher",
+        "catalog": "A11008"
+      },
+      {
+        "id": "m_antibody",
+        "name": "Alexa Fluor 546-conjugated anti-mouse",
+        "vendor": "<unspecified>",
+        "catalog": "<unspecified>"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_tube",
+        "type": "tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e_incubator",
+        "type": "incubator"
+      },
+      {
+        "id": "e_microscope",
+        "type": "microscope"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_organoid",
+        "type": "organoid_pieces"
+      },
+      {
+        "id": "m_papain",
+        "name": "m_papain"
+      },
+      {
+        "id": "m_antibody",
+        "name": "m_antibody"
+      },
+      {
+        "id": "c_tube",
+        "name": "c_tube"
+      },
+      {
+        "id": "d_image",
+        "name": "d_image"
+      }
+    ],
+    "data": [
+      {
+        "id": "d_image",
+        "type": "image"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "m_papain"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "m_antibody"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c_tube"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "description": "Transfer organoid pieces into incubation tube",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid"
+          },
+          {
+            "kind": "sample",
+            "id": "c_tube"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "description": "Add papain solution to achieve 1:1000 dilution",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "m_papain"
+          },
+          {
+            "kind": "sample",
+            "id": "c_tube"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c_tube"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "37C"
+          },
+          "device_ref": "e_incubator"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c_tube"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "params": {
+          "description": "Add Alexa Fluor 546-conjugated anti-mouse antibody",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "m_antibody"
+          },
+          {
+            "kind": "sample",
+            "id": "c_tube"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c_tube"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "data"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d_image"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s11",
+        "op": "observe",
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "fluorescence"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d_image"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s11"
+      }
+    ],
+    "detail_level": 0
+  }
+}

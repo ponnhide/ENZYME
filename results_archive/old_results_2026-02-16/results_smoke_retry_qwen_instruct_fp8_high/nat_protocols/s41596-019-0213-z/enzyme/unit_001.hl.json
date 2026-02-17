@@ -1,0 +1,802 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Generation of blood vessel organoids from hPSCs",
+    "source": {
+      "type": "paper",
+      "id": "s41596-019-0213-z.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "E8 medium",
+        "type": "cell culture medium"
+      },
+      {
+        "id": "m2",
+        "name": "0.5 mM EDTA",
+        "type": "chemical"
+      },
+      {
+        "id": "m3",
+        "name": "Accutase",
+        "type": "enzymatic dissociation reagent"
+      },
+      {
+        "id": "m4",
+        "name": "aggregation medium",
+        "type": "cell culture medium"
+      },
+      {
+        "id": "m5",
+        "name": "0.1% Trypan blue solution",
+        "type": "viability stain"
+      },
+      {
+        "id": "m6",
+        "name": "N2B27 medium",
+        "type": "cell culture medium"
+      },
+      {
+        "id": "m7",
+        "name": "Y-27632",
+        "type": "chemical",
+        "concentration": "50 μM"
+      },
+      {
+        "id": "m8",
+        "name": "CHIR99021",
+        "type": "chemical",
+        "concentration": "12 μM"
+      },
+      {
+        "id": "m9",
+        "name": "BMP-4",
+        "type": "protein",
+        "concentration": "30 ng/mL"
+      },
+      {
+        "id": "m10",
+        "name": "VEGF-A",
+        "type": "protein",
+        "concentration": "100 ng/mL"
+      },
+      {
+        "id": "m11",
+        "name": "forskolin",
+        "type": "chemical",
+        "concentration": "2 μM"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "6-well plate",
+        "material": "plastic",
+        "label": "tissue culture plate"
+      },
+      {
+        "id": "c2",
+        "type": "15-mL Falcon tube",
+        "material": "polypropylene"
+      },
+      {
+        "id": "c3",
+        "type": "6-well low-attachment plate",
+        "material": "plastic"
+      },
+      {
+        "id": "c4",
+        "type": "counting chamber slide",
+        "material": "glass"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "P1000 pipette",
+        "device_kind": "pipette"
+      },
+      {
+        "id": "e2",
+        "type": "5-mL serological pipette",
+        "device_kind": "pipette"
+      },
+      {
+        "id": "e3",
+        "type": "10-mL serological pipette",
+        "device_kind": "pipette"
+      },
+      {
+        "id": "e4",
+        "type": "centrifuge",
+        "device_kind": "centrifuge"
+      },
+      {
+        "id": "e5",
+        "type": "incubator",
+        "device_kind": "incubator"
+      },
+      {
+        "id": "e6",
+        "type": "tissue culture microscope",
+        "device_kind": "microscope"
+      },
+      {
+        "id": "e7",
+        "type": "automated cell counter",
+        "device_kind": "cell_counter"
+      }
+    ],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 0.6,
+            "unit": "mL"
+          },
+          "source": "E8 medium",
+          "destination": "0.5 mM EDTA"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 0.6,
+            "unit": "mL"
+          },
+          "source": "0.5 mM EDTA",
+          "destination": "Accutase"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": 37,
+            "unit": "°C",
+            "duration": "3–5 min"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "cell rounding"
+          ]
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "params": {
+          "action_kind": "dislodge_cells",
+          "device_ref": "e1",
+          "repetitions": 2
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 5,
+            "unit": "mL"
+          },
+          "source": "c1",
+          "destination": "aggregation medium"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c4"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 10,
+            "unit": "μL"
+          },
+          "source": "c2",
+          "destination": "0.1% Trypan blue solution"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c4"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "amount": {
+            "value": 10,
+            "unit": "μL"
+          },
+          "source": "c4",
+          "destination": "counting chamber slide"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s9",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c4"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "viable cell count"
+          ]
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s10",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Calculate the cell suspension volume needed for the experiment (2 × 10^5 cells per well). The cell number required for aggregate formation varies by hPSC line. For cell lines that are poor at forming aggregates, the cell number must be adjusted to between 5 × 10^5 and 1 × 10^6 cells per well."
+        }
+      },
+      {
+        "id": "s11",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "g_force": 300,
+            "duration": "5 min",
+            "temperature": "22–23 °C"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s12",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 3,
+            "unit": "mL"
+          },
+          "source": "centrifuged pellet",
+          "destination": "aggregation medium + 50 μM Y-27632"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s13",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c3"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 3,
+            "unit": "mL"
+          },
+          "source": "c2",
+          "destination": "c3"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s14",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c3"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "duration": "1 d"
+          }
+        },
+        "annotations": {
+          "note": "Incubate until cell aggregates with smooth borders (>50- to 100-µm diameter) have been formed. Aggregation capacity varies between hPSC lines, and thus the incubation time may need to be adjusted from 1 d to 2 or even 3 d."
+        }
+      },
+      {
+        "id": "s15",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 3,
+            "unit": "mL"
+          },
+          "source": "c3",
+          "destination": "c2"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s16",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Wait for the aggregates to settle down by gravitation. Do not discard the 6-well plate; save it for later aggregate replating. Gentle treatment of aggregates is important. Always collect aggregates by gravitation. Centrifugation of cell aggregates is not recommended at any point in the protocol."
+        }
+      },
+      {
+        "id": "s17",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 3,
+            "unit": "mL"
+          },
+          "source": "supernatant",
+          "destination": "N2B27 medium + 12 μM CHIR99021 + 30 ng/mL BMP-4"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s18",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c3"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 3,
+            "unit": "mL"
+          },
+          "source": "c2",
+          "destination": "c3"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s19",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c3"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend",
+          "device_ref": "e1",
+          "frequency": "once per day"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s20",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c3"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "duration": "3 d"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s21",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 3,
+            "unit": "mL"
+          },
+          "source": "c3",
+          "destination": "c2"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s22",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "After cell aggregates have collected at the bottom of the 15-mL Falcon tube, carefully aspirate the medium. Do not discard the 6-well plate; save it for later aggregate replating."
+        }
+      },
+      {
+        "id": "s23",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 3,
+            "unit": "mL"
+          },
+          "source": "supernatant",
+          "destination": "N2B27 medium + 100 ng/mL VEGF-A + 2 μM forskolin"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s24",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c3"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 3,
+            "unit": "mL"
+          },
+          "source": "c2",
+          "destination": "c3"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s25",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c3"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "duration": "2 d"
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      },
+      {
+        "from": "s16",
+        "to": "s17"
+      },
+      {
+        "from": "s17",
+        "to": "s18"
+      },
+      {
+        "from": "s18",
+        "to": "s19"
+      },
+      {
+        "from": "s19",
+        "to": "s20"
+      },
+      {
+        "from": "s20",
+        "to": "s21"
+      },
+      {
+        "from": "s21",
+        "to": "s22"
+      },
+      {
+        "from": "s22",
+        "to": "s23"
+      },
+      {
+        "from": "s23",
+        "to": "s24"
+      },
+      {
+        "from": "s24",
+        "to": "s25"
+      }
+    ],
+    "detail_level": 0
+  }
+}

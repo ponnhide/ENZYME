@@ -1,0 +1,119 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Embed fused spheroid in Matrigel drop",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-020-00441-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "matrigel_100pct",
+        "name": "100% Matrigel (Phenol Red-Free)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube_1_5ml",
+        "type": "tube",
+        "description": "1.5‑ml tube"
+      },
+      {
+        "id": "plate_24well",
+        "type": "plate",
+        "description": "24‑well tissue culture plate (VWR International)"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator_co2",
+        "type": "incubator",
+        "description": "CO₂ incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "spheroid_ap",
+        "type": "spheroid",
+        "description": "fused A‑P spheroid"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source_material": "matrigel_100pct",
+          "destination_container": "tube_1_5ml",
+          "note": "Add Matrigel on ice to the fused A‑P spheroid",
+          "amount": {
+            "value": 20.0,
+            "unit": "-30 µl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "target_container": "tube_1_5ml",
+          "tool": "mechanical pipette with wide‑bore 200‑µl tip",
+          "note": "Gently re‑suspend the single A‑P spheroid"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "spread_on_plate",
+          "source_container": "tube_1_5ml",
+          "destination_container": "plate_24well",
+          "note": "Slowly plate onto 24‑well plate to make a Matrigel drop"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator_co2",
+          "program": {
+            "program_name": "37C_5min"
+          },
+          "note": "Incubate the drop at 37 °C for 5 min"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

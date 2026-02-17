@@ -1,0 +1,1581 @@
+Article
+
+Single-cell epigenomics reveals mechanisms
+of human cortical development
+
+https://doi.org/10.1038/s41586-021-03209-8 Ryan S. Ziffra1,2,3,4,5, Chang N. Kim1,2,3, Jayden M. Ross1,2,3, Amy Wilfert6, Tychele N. Turner7,
+ Maximilian Haeussler8, Alex M. Casella9,10, Pawel F. Przytycki11, Kathleen C. Keough12,13,
+Received: 31 December 2019
+ David Shin1,2,3, Derek Bogdanoff1,2,3, Anat Kreimer4,5,14,15, Katherine S. Pollard11,12,16,17,18,
+Accepted: 7 January 2021 Seth A. Ament9,19, Evan E. Eichler6,20, Nadav Ahituv4,5 & Tomasz J. Nowakowski1,2,3,18 ✉
+
+Published online: 6 October 2021
+
+Open access During mammalian development, differences in chromatin state coincide with
+ Check for updates cellular differentiation and reflect changes in the gene regulatory landscape1. In the
+ developing brain, cell fate specification and topographic identity are important for
+ defining cell identity2 and confer selective vulnerabilities to neurodevelopmental
+ disorders3. Here, to identify cell-type-specific chromatin accessibility patterns in the
+ developing human brain, we used a single-cell assay for transposase accessibility by
+ sequencing (scATAC-seq) in primary tissue samples from the human forebrain. We
+ applied unbiased analyses to identify genomic loci that undergo extensive cell-type-
+ and brain-region-specific changes in accessibility during neurogenesis, and an
+ integrative analysis to predict cell-type-specific candidate regulatory elements. We
+ found that cerebral organoids recapitulate most putative cell-type-specific enhancer
+ accessibility patterns but lack many cell-type-specific open chromatin regions that
+ are found in vivo. Systematic comparison of chromatin accessibility across brain
+ regions revealed unexpected diversity among neural progenitor cells in the cerebral
+ cortex and implicated retinoic acid signalling in the specification of neuronal lineage
+ identity in the prefrontal cortex. Together, our results reveal the important
+ contribution of chromatin state to the emerging patterns of cell type diversity and cell
+ fate specification and provide a blueprint for evaluating the fidelity and robustness of
+ cerebral organoids as a model for cortical development.
+
+
+Cell types of the cerebral cortex (Fig. 1a) have traditionally been classi- accessibility across distinct cell types6,7. Identifying the highly dynamic
+fied on the basis of a handful of morphological, anatomical, and physi- and cell-type-specific patterns of enhancer activity could provide critiological features. Recent innovations in single-cell transcriptomics, cal insights into the molecular mechanisms that govern cell fate speciincluding single-cell RNA sequencing (scRNA-seq), have enabled mas- fication. Although chromatin accessibility represents a fundamental
+sively parallel profiling of thousands of molecular features in individual feature of cell identity, relatively few studies have profiled chromatin
+cells and uncovered distinctions among closely related cell types, such state changes during brain development1,8–11. Recently, innovations in
+as excitatory neurons located in different areas of the cerebral cortex2,4. single-cell genomics have enabled scalable profiling of chromatin state
+Despite these advances, the developmental mechanisms that underlie with cellular resolution using scATAC-seq12. In the developing mouse
+the emergence of distinct neuronal lineages in the human cerebral brain13, scATAC-seq has revealed highly dynamic changes in chromatin
+cortex remain largely unknown5. accessibility that underlie neurodevelopmental processes. It will be
+ Chromatin state defines the functional architecture of the genome necessary to extend these studies to human primary tissue in order to
+by modulating the accessibility of gene regulatory elements, such as better understand how mutations in non-coding regulatory elements,
+enhancers, which serve as binding sites for transcriptional regulators. including human-specific neurodevelopmental enhancers, interfere
+During development, sequential cascades of transcription factors with normal developmental processes and contribute to genetic burden
+progressively remodel and refine differential patterns of chromatin in psychiatric neurodevelopmental disorders14,15.
+1
+ Department of Anatomy, University of California, San Francisco, San Francisco, CA, USA. 2Department of Psychiatry, University of California, San Francisco, San Francisco, CA, USA. 3Eli and
+Edythe Broad Center for Regeneration Medicine and Stem Cell Research, University of California, San Francisco, San Francisco, CA, USA. 4Department of Bioengineering and Therapeutic
+Sciences, University of California, San Francisco, San Francisco, CA, USA. 5Institute for Human Genetics, University of California, San Francisco, San Francisco, CA, USA. 6Department of
+Genome Sciences, University of Washington School of Medicine, Seattle, WA, USA. 7Department of Genetics, Washington University School of Medicine, St. Louis, MO, USA. 8Genomics
+Institute, University of California, Santa Cruz, Santa Cruz, CA, USA. 9Institute for Genome Sciences, University of Maryland School of Medicine, Baltimore, MD, USA. 10Medical Scientist Training
+Program, University of Maryland School of Medicine, Baltimore, MD, USA. 11Gladstone Institutes, San Francisco, CA, USA. 12Institute for Computational Health Sciences, University of California,
+San Francisco, San Francisco, CA, USA. 13University of California, San Francisco, San Francisco, CA, USA. 14Department of Electrical Engineering and Computer Sciences, University of
+California, Berkeley, Berkeley, CA, USA. 15Center for Computational Biology, University of California, Berkeley, Berkeley, CA, USA. 16Department of Epidemiology and Biostatistics, University of
+California, San Francisco, San Francisco, CA, USA. 17Quantitative Biology Institute, University of California, San Francisco, San Francisco, CA, USA. 18Chan Zuckerberg Biohub, San Francisco,
+San Francisco, CA, USA. 19Department of Psychiatry, University of Maryland School of Medicine, Baltimore, MD, USA. 20Howard Hughes Medical Institute, University of Washington, Seattle,
+WA, USA. ✉e-mail: tomasz.nowakowski@ucsf.edu
+
+
+ Nature | Vol 598 | 7 October 2021 | 205
+
+Article
+a b Dissection Nuclear Tn5 transposition Clustering Peak calling
+ Radial glia
+ extraction and capture
+ Postmitotic
+
+
+ Intermediate Parietal Interneurons
+ Somatosensory
+ zones
+
+
+ progenitors Visual Neurons
+ Motor
+ Astrocytes
+
+
+ UMAP2
+ PFC MGE
+ Excitatory neurons
+ Germinal
+ zones
+
+
+ Interneurons Insula Radial glia
+ Microglia Temporal
+ UMAP1 P1 P2 P3 P4 P5
+ c d e GFAP EOMES f
+ 21 Radial glia
+ 10 Newborn excitatory
+ 25 neurons
+ 17
+ 13
+
+
+ Gene activity score
+ 5 100 CGE interneurons
+ 12 7 MGE interneurons
+ 20 14
+ 1 18 8
+ 4
+ 6 24
+ 16 0 DLX1 NEUROD2 Upper layer excitatory
+ 11 neurons
+ 2 Deep layer excitatory
+ 15 neurons
+ 9 PFC
+ 22 Insula
+ Som. Motor
+ 23 Insula Astrocytes/oligodendrocytes
+ UMAP-2
+
+
+ MGE
+ UMAP-2
+
+
+ 3 Parietal Microglia
+ Cortex Temporal MGE progenitors
+
+
+ UMAP-2
+ UMAP-1 (unknown) V1 Endothelial/mural
+ UMAP-1
+ Intermediate progenitors
+ UMAP-1
+ g h hs145 hs122
+
+ RG
+ Endo/mural
+
+
+ Astro/oligo
+
+
+ Radial glia
+ progenitor
+
+
+ Microglia
+ neruons
+
+
+ IN-MGE
+
+
+ IN-CGE
+ Insular
+
+
+ Inferred IPC
+ MGE
+ dlEN
+
+
+ ulEN
+
+
+ nEN
+
+
+ IPC
+
+
+ cell types nEN
+ dlEN
+ ulEN
+
+ Clusters 10 2113 1 5 12 2014 25 15 2 17 9 18 1119 23 4 6 16 8 22 3 7 24 TF motifs ARX
+ hs122 hs145
+ TBR1 i j Gene set k
+ 10
+
+
+ POU3F2
+ 21
+
+
+ sfari_845
+ DDD299
+ Dataset
+
+
+ coe253
+ dlEN
+ NEUROG2
+ 13
+
+
+ Early EN Cell
+
+
+ PLAC–seq
+ TGIF1 type
+ 1
+
+
+ peaks
+
+
+ SCZ1
+ SCZ2
+ IN-CGE
+
+
+ MDD
+ *
+
+
+ ASD
+ MEF2C
+ 5
+
+
+ IN-MGE *
+
+
+ BP
+ Astro/oligo
+ MEF2C * *
+ 12
+
+
+ IPC
+ NFIL3
+ 20
+
+
+ TGIF1
+ RG dlEN * * * ulEN * *
+ 14
+
+
+ ulEN *
+ scATAC–seq cluster DA peaks
+
+
+ ERG nEN * *
+ 25
+
+
+ Astro/oligo Early EN * *
+ Cell-type-specific
+
+ TCF12 dlEN
+ 15
+
+
+ Early EN
+ * IN-CGE *
+ SOX6 Endo/mural *
+ Endo/mural
+ 2
+
+
+ *
+ peaks
+
+
+ SOX9 IN-CGE IN-MGE
+ 17
+
+
+ IN-MGE IN-CGE * *
+ ASCL1
+ 9
+
+
+ IPC dlEN
+ 18
+
+
+ NF1 Microglia
+ *
+ RG IN-MGE * *
+ 11
+
+
+ DLX3 ulEN Astro/oligo
+ 19
+
+
+ OLIG2 IPC * * IPC
+ 23
+
+
+ TGIF1 dlEN
+ TGIF1 Early EN Microglia * *
+ 4
+
+
+ RG
+ Specific and
+ PLAC–seq
+
+
+ LHX2
+ 6
+
+
+ IN-CGE RG Endo/mural
+ 16
+
+
+ NEUROD1 IN-MGE
+ IPC
+ EOMES
+ 8
+
+
+ ulEN * * Microglia
+ 22
+
+
+ NKX2.1 RG
+ –log10P
+ ulEN
+ NKX2.1
+ 3
+
+
+ PAX6 0 1 2 3 Odds 0 1 2 3 1 4
+ 7
+
+
+ Odds ratio ratio
+ 24
+
+
+ IRF8
+
+Fig. 1 | Single-cell chromatin state atlas of the developing human brain. hs122 and hs145 in embryonic day (E)12.5 mouse embryos, depicting activity in
+a, Schematic cross-section of developing cortex, highlighting major cell types. the forebrain6,55 (images reproduced with permission from VISTA Enhancer
+b, Experimental workflow. c, Uniform manifold approximation and Browser; https://enhancer.lbl.gov/). At E12.5, embryos have an average
+projection (UMAP) of primary scATAC-seq cells (n = 6 individuals, 77,354 cells) crown-rump length of 8.6 mm. i, Enrichment and depletion of peaks that overlap
+coloured by clusters. d, UMAP projection of primary scATAC-seq cells coloured with promoter-interacting regions21, cell-type-specific peaks, and peaks that
+by brain region. Som., somatosensory cortex. e, UMAP projections of gene meet both criteria in copy number variant (CNV) regions enriched in children
+activity scores for GFAP (marking glia), EOMES (IPCs), DLX1 (interneuron lineage with NDD30 (n = 70 NDD-associated CNVs; Fisher’s exact, two-sided, P < 0.05).
+cells), and NEUROD2 (excitatory lineage cells). f, UMAP projection of primary Asterisks, Bonferroni-corrected significance. Error bars, 95% confidence interval
+scATAC-seq cells coloured by broad cell type. g, Top, Sankey plot linking (CI). j, Enrichment and depletion of peaks that overlap with predicted enhancers
+scATAC-seq clusters and cell-type predictions. Endo, endothelial; astro/oligo, in promoter and gene regions of genes associated with ASD and NDD, including
+astrocyte/oligodendrocyte precursors; nEN, newborn excitatory neurons. genes enriched in de novo non-coding mutations (SFARI845; https://gene.sfari.
+Bottom left, pile-ups of ATAC-seq signal for each cluster within sets of the top org/database/human-gene/, DDD29956, COE25330) (Fisher’s exact, two-sided).
+1,000 enriched peaks for each cluster (Fisher’s exact, two-sided). Pile-ups are Asterisks, Bonferroni-corrected significance. k, Heat map of heritability
+centred on peak centres and the ±10-kb flanking region is depicted. Bottom right, enrichment based on linkage disequilibrium (LD) score regression analysis of
+significantly enriched transcription factor (TF) motifs for each cluster-specific genome-wide association study (GWAS) summary statistics in cell-type-specific
+peak set (hypergeometric test, one-sided). h, Left, predicted enhancer–gene peak sets coloured by −log10(P). Asterisks, FDR < 0.05. From left to right:
+interactions for RGs (pink curves) overlayed with ATAC-seq signal tracks and Psychiatric Genomics Consortium (PGC) schizophrenia (SCZ) GWAS27; an
+peaks for RGs, IPCs, nENs, dlENs, and ulENs. Red boxes highlight predicted additional PGC schizophrenia GWAS32; PGC bipolar (BP) disorder35; PGC major
+enhancers of ARX that overlap with validated VISTA forebrain enhancers25. Right, depressive disorder (MDD) GWAS34; PGC ASD GWAS33.
+LacZ staining marking regions of enhancer activity for the enhancer candidates
+
+
+206 | Nature | Vol 598 | 7 October 2021
+
+identified peaks that are differentially accessible between the eight
+Chromatin states of the developing brain brain regions used in this study (Extended Data Fig. 3g, Supplementary
+To characterize the chromatin state landscape of the developing Table 8). To identify putative enhancers in our dataset, we integrated
+human brain at single-cell resolution, we performed scATAC-seq on our ATAC-seq peaks with cleavage under targets and tagmentation
+primary samples of human forebrain at mid-gestation (n = 6 individu- (CUT&Tag) data for acetylation of lysine 27 on histone H3 (H3K27ac)
+als), including samples of dorsolateral prefrontal cortex (PFC), primary generated from similar samples (Methods), Hi-C chromosome conforvisual cortex (V1), primary motor cortex (M1), primary somatosensory mation capture data generated from developing human cortex19, and
+cortex, dorsolateral parietal cortex, temporal cortex, insular cortex, gene expression data2, and used the activity-by-contact algorithm20
+and the medial ganglionic eminence (MGE) (Fig. 1b, Supplementary to predict enhancer–gene interactions (Methods) for all cortical cell
+Table 1). types. In total, we predicted 25,659 gene-linked enhancers across the
+ We generated data from 77,354 cells that passed quality control whole dataset (Extended Data Fig. 4d, f, Supplementary Table 5). We
+criteria (Methods, Extended Data Fig. 1a–c). Aggregated signal from intersected our peaks with promoter-interacting regions identified
+single-cell libraries correlated strongly with bulk ATAC-seq libraries using trimethylation of lysine 4 on histone H3 (H3K4me3) proximity
+generated in parallel (Extended Data Fig. 1d), and data from biological ligation-assisted chromatin immunoprecipitation with sequencing
+replicates were highly correlated (Extended Data Fig. 1e, f). To reduce (PLAC–seq) on sorted cells from developing human cortex21, and found
+the dimensionality of the dataset, we performed latent semantic index- 67,493 peaks and 10,050 predicted enhancers with physical evidence of
+ing followed by singular value decomposition (see Methods). Batch promoter interaction (Extended Data Fig. 4d, Supplementary Table 15).
+correction was performed using the deep neural network-based tool Genes linked to predicted cell-type-specific enhancers were enriched
+scAlign16 to correct for technical sources of variance, including indi- for biological processes strongly associated with cell-type identity
+vidual variation and processing method (Extended Data Figs. 1g–k, 2, (Methods, Extended Data Fig. 4g, h).
+Methods). We identified 25 distinct clusters using the Leiden commu- To further support our annotations, we intersected our peak set
+nity detection algorithm (Fig. 1c, Extended Data Fig. 1l, m; Methods). with publicly available datasets generated from human cortical tissue
+This analysis robustly separated cortical and subcortical (MGE) cells samples9,22,23 (Extended Data Fig. 5a–c, Supplementary Table 15). We
+(Fig. 1d). found that scATAC-seq recovered most of the peaks that were anno-
+ To infer the identities of cell clusters, we calculated ‘gene activity tated using bulk tissue datasets, and also recovered many putative
+scores’, which represent a proxy for gene expression13, by summing cell-type-specific peaks that were not captured in bulk datasets, espefragments in the gene body and promoter regions (Methods). We cially those enriched in rarer cell populations such as microglia and
+identified the major cell classes, including radial glia (RGs), intermedi- endothelial cells (Supplementary Table 4). We intersected our predicted
+ate progenitor cells (IPCs), deep layer (cortical layers V–VI) excitatory enhancers with other enhancer predictions derived from previously
+neurons (dlENs), upper layer (cortical layers II–IV) excitatory neurons published datasets11,23,24. Unexpectedly, we did not find strong con-
+(ulENs), MGE- and CGE-derived cortical interneurons (IN-MGEs and cordance between predicted enhancers from these studies (Extended
+IN-CGEs, respectively), insular neurons, progenitors from the MGE, Data Fig. 5d). Among functionally validated forebrain enhancers25, the
+microglia, oligodendrocyte progenitor cells (OPCs), endothelial majority (304 out of 319) overlapped chromatin accessibility peaks,
+cells, and mural cells (Fig. 1e, f, Extended Data Fig. 3a). In addition, but only 67 overlapped enhancers predicted using activity-by-contact
+we used CellWalker17 to assign cell-type labels to scATAC-seq cells on (Fig. 1h, Extended Data Fig. 5e). Together, these analyses suggest that
+the basis of previously published scRNA-seq data (Methods, Extended scATAC-seq is a robust method for detecting chromatin accessibility
+Data Fig. 3b, c). CellWalker identified cell types at a finer resolution, patterns from heterogeneous tissue samples. However, limited overlap
+including subtypes of broader cell classes. For example, RGs form a of predicted enhancers with previously published studies indicates that
+single cluster, but CellWalker identified multiple RG subtypes (divid- a better understanding of the relevant feature set for computationally
+ing (dRGs), ventricular (vRGs), outer (oRGs), and truncated (tRGs)) as predicting regulatory potential is urgently needed.
+sub-clusters (Extended Data Fig. 3d). Furthermore, we could identify To characterize the regulatory ‘grammar’ of cell types, we calcudifferentially accessible peaks between two subtypes (tRGs and oRGs) lated the enrichment of known transcription factor binding motifs in
+that differ in their expression of CRYAB and HOPX, respectively2, sug- cell-type-specific peak sets (Methods, Fig. 1g, Supplementary Table 20).
+gesting that scATAC-seq is sensitive enough to distinguish cellular Transcription factor motif enrichments were strongly associated with
+subtypes at high resolution (Extended Data Fig. 3e, f, Supplementary cell-type annotations from marker gene body enrichments. To examine
+Tables 12, 13, 22). transcription factor motif enrichments at the single-cell level, we used
+ ChromVAR26 (Methods) and found substantial agreement with top
+ motif enrichments for each cluster (Extended Data Fig. 4i). Together,
+Identifying cell-type-specific enhancers these findings ascertain that scATAC-seq identifies chromatin acces-
+To identify candidate gene regulatory elements, we called peaks on sibility patterns consistent with known transcription factor expresaggregate single cells from each broad cell class (Methods). We subse- sion patterns across cell types and provides a roadmap towards the
+quently merged overlapping peaks to a total union set of 459,953 peaks discovery of a transcription factor ‘code’ that underlies cell lineage
+(Supplementary Tables 2, 3). Annotation of our peak set in genomic fea- and cell fate specification.
+tures showed enrichment in intronic and distal intergenic regions and in
+the flanking regions of transcription start sites, suggesting enrichment
+on gene regulatory elements, such as enhancers (Extended Data Fig. 4a, Disease risk in the regulatory landscape
+b). We intersected our peak set with the imputed 25-state chromatin Mutations in non-coding genomic regions, as well as de novo
+model from Roadmap Epigenomics18 and found strong enrichment loss-of-function mutations in chromatin regulators, have been implifor promoter and enhancer states and depletion of transcribed, het- cated in a wide range of neurodevelopmental and psychiatric disorders,
+erochromatin, and quiescent states (Methods, Extended Data Fig. 4c, including schizophrenia27 and autism spectrum disorder (ASD)3,28,29.
+Supplementary Table 14). We identified cell-type-specific differen- Cellular-resolution datasets of chromatin state across developmentially accessible peaks for each cell type, resulting in a set of 265,123 tal stages and differentiation states may provide an important link
+peaks, with most cell types having on the order of thousands of spe- between these mutations and selective vulnerabilities among the
+cific peaks (Fisher’s exact test, false discovery rate (FDR) <0.05; Fig. 1g, diverse cell types of the developing human brain, as was seen with
+Extended Data Fig. 4d, e, Supplementary Tables 4, 6, 7). In addition, we recent studies using single-cell transcriptomic data3,22. Towards that
+
+
+ Nature | Vol 598 | 7 October 2021 | 207
+
+Article
+ a scATAC–seq b c Correlation
+ 13 Excitatory ATAC–seq RNA–seq
+
+
+ 0.4
+ –0.4
+ 0
+ 8 lineage cells clusters clusters
+ 3 Variable gene ulEN 1
+ activity scores 2 2 ulEN
+ Visual 8
+ cortex 10 1 ulEN 3 3 ulEN
+ 5 Multi-CCA 13
+ co-embedding 2 1
+ 6 IN
+ 7 5
+ 4 ulEN 5
+ 1 Early EN
+ 6 1 7 3 1
+ 9 ulEN10
+
+
+ ATAC clusters
+ 2 3
+ 5 ulEN
+ 5 5
+ Early EN 4 4 Early EN 7
+ 15 11 10 3
+ 10 8 IPC 4
+ Early EN 9 8
+ 2 8 9 IPC 9
+ 3 6 4
+ Early EN 7
+ 4 ATAC–seq IPC 2 4 7 RG
+ 10
+ 5 12 IPC
+
+
+ UMAP-2
+ 6 RNA–seq
+ 1 11 RG 6 6 10 RG 2
+ 14 Highly variable 11 13 OPC
+ scRNA–seq 8 genes dlEN 8 11 dlEN 6
+ 7 UMAP-1 dlEN 13 7
+ Excitatory 15 dlEN 7 10 13 9 12 1 8 2 3 11 4 5 15 6 14
+ 10 9 lineage cells Co-embedded RNA clusters
+ 13 clusters
+ 12
+ d Excitatory neurogenesis SOX2 EOMES SATB2 CRYM e Pseudotime
+ NEUROD2
+ SATB2
+ CRYM
+
+
+ EOMES
+
+
+ Pseudotime
+ Normalized
+
+
+ Normalized
+
+
+ Normalized
+
+
+ Normalized
+ expression
+
+
+ expression
+
+
+ expression
+
+
+ expression
+ 2.5 6
+ 2.0 4 6
+ 1.5 3 4 20
+ 4
+ 10
+ UMAP-2
+
+
+ 1.0 2
+ SOX2 0.5 1 2 2
+ 0
+ 0
+ HES1
+ UMAP-1
+ f g h i Gene expression Gene activity score
+ HES1 enhancer
+ 60 20
+ 40 15
+ 20 10 1.0 1.0
+ 5
+ 0 0.5 0.5
+ 0
+ Cells with
+ peak (%)
+
+
+ Pseudotime
+ HES1 0 0
+ EOMES enhancer
+
+
+ Normalized
+ expression
+ Temporally dynamic peaks
+
+
+ Normalized
+ activity score
+ Normalized peak accessibility
+
+
+ 10
+ 5
+ 0
+ Pseudotime
+ EOMES
+
+ TGFB2 enhancer
+ 4
+ 3
+ 2
+ 1
+ 0
+ Pseudotime TGFB2
+
+ FEZF2 enhancer
+ 15
+ 10
+ 5
+ 0
+ Pseudotime
+ FEZF2 Pseudotime Pseudotime
+ Pseudotime
+ j PAX6 EOMES MEF2C
+ Gene activity score
+ Normalized score
+
+
+ Normalized score
+
+
+ Normalized score
+
+
+ 1.00 1.00 1.00
+ Gene expression
+ 0.75 0.75 0.75
+ Motif enrichment
+ 0.50 0.50 0.50
+ 0.25 0.25 0.25
+ 0 0 0
+ 0 10 20 30 0 10 20 30 0 10 20 30
+ Pseudotime Pseudotime Pseudotime
+
+
+Fig. 2 | Dynamic changes in chromatin accessibility during human cortical space for SOX2 (RGs), EOMES (IPCs), SATB2 (ulENs), and CRYM (dlENs). e, UMAP
+neurogenesis. a, Workflow for co-embedding scATAC-seq and scRNA-seq data projection of co-embedded cells coloured by pseudotime with principal graph
+from the same samples. Left, experimental workflow. Top middle left, UMAP overlaid. f, Heat map depicting the average proportion of cells with peaks that
+projection of scATAC-seq cells from visual cortex (n = 3 individuals) coloured are differentially accessible across pseudotime (n = 25,415). Cells are binned by
+by leiden clusters. Bottom middle left, UMAP projection of scRNA-seq cells pseudotime into ten equally sized bins. g, Peak accessibility for four individual
+from visual cortex (n = 2 individuals) colored by Leiden clusters. Middle right, peaks across ten pseudotime bins with regression line overlaid. h, Predicted
+UMAP projection of co-embedded cells coloured by assay. Right, UMAP enhancer–gene interactions (pink curves) overlaying ATAC-seq signal tracks
+projection of co-embedded scATAC-seq and scRNA-seq cells coloured by and peaks with each of the four enhancers in g highlighted in red. i, Heat maps
+Leiden clusters. b, Sankey plot depicting mappings between scATAC-seq depicting gene expression (left) and gene activity scores derived from open
+clusters, scRNA-seq clusters, and co-embedded clusters. c, Heat map of chromatin (right) for 615 cell-type marker genes. Values are averaged within 20
+correlations between scATAC-seq and scRNA-seq clusters based on a set of equally sized bins of pseudotime. j, Comparison of moving averages of
+cell-type marker genes (Methods). d, Left, schematic depicting cell-type normalized gene activity scores (red), gene expression (blue), and motif
+marker genes in the cortical excitatory neuronal lineage. Right, projection of enrichment (green) across pseudotime for PAX6 (left), EOMES (middle), and
+log-normalized gene expression and gene activity scores in co-embedded MEF2C (right).
+
+
+end, we intersected cell-type-specific ATAC-seq peaks and putative with genomic regions that were enriched for copy number variants
+enhancers with disease-linked common and rare non-coding variants in individuals with developmental delay30; we identified significant
+(Methods). We first intersected cell-type-specific peak sets, predicted enrichment in dlEN, endothelial/mural, and microglia-specific peaks,
+enhancers, and peaks that overlapped promoter-interacting regions21 as well as peaks that overlapped promoter-interacting regions in
+
+
+208 | Nature | Vol 598 | 7 October 2021
+
+a V1
+ Maturing c d e f
+ neurons scATAC–seq scRNA-seq
+ Newborn
+ PFC neurons
+ Intermediate
+ progenitor cells
+ Radial glia
+
+
+ Pseudotime
+
+
+ Pseudotime
+ Max Max
+
+
+ UMAP-2
+
+
+ UMAP-2
+ PFC
+ PFC V1
+ UMAP-1 V1 Min Min
+ UMAP-1
+
+ scATAC–seq scRNA-seq
+ b g PFC V1 h PFC V1
+ Astrocyte
+ Excitatory EN-PFC-1
+ EN-PFC-2
+ lineage EN-PFC-3
+ EN-V1-1
+
+ Inferred cell type
+ EN-V1-2
+ EN-V1-3
+ Endothelial
+
+
+ Pseudotime
+
+
+ Pseudotime
+ IN-CGE-1
+ IN-CGE-2
+ IN-MGE-2
+ IN-STR
+ IPC-nEN-1
+ IPC-nEN-3
+ Microglia
+ UMAP-2
+
+
+ Max Max
+
+
+ accessibility
+
+
+ expression
+ Mural
+
+
+ EOMES
+ Early nEN-2
+
+
+ EOMES
+ OPC
+ oRG
+ UMAP-1 dRG-2
+ tRG
+ Min Min
+
+
+ i PFC signal V1 signal j TF P l m
+ scRNA–seq
+ PFCDA
+
+
+ TGIF1 1 × 10–104
+ peaks
+
+
+ PFC-enriched
+
+
+ +Vitamin A
+ (day 70)
+ motifs
+
+
+ RXR 1 × 10–9
+ RAR 1 × 10–7
+ RAR:RXR 1 × 10–4
+
+ k TGIF1 motif enrichment
+
+
+ –Vitamin A
+ peaks
+ V1DA
+
+
+ +Vitamin A
+
+
+ Max
+ +DEAB
+ UMAP-2
+
+
+ Deviation
+
+
+ VA
+ No VA
+
+
+ UMAP-2
+ Min DEAB
+ UMAP-1
+ kb
+
+ tre
+
+
+ –1 kb
+ kb
+
+ tre
+
+ kb
+ en
+
+
+ en
+ 0
+
+
+ 10
+
+ 0
+
+
+ 10
+ –1
+
+
+ UMAP-1
+ C
+
+
+ C
+
+
+ n o NEUROD2 TBR1
+ +Vitamin A –Vitamin A
+ PFC V1
+ CP GW19 50 μm 50 μm
+ CTIP2/SATB2
+
+
+ CTIP2/SATB2
+
+
+ PFC
+ V1
+ Expression
+
+
+ Max
+ 100 μm 100 μm
+ BCL11B/SATB2 NR2F2 Min SATB2
+ CP GW16 50 μm 50 μm
+ AUTS2/NR2F1
+
+
+ AUTS2/NR2F1
+
+
+ AUTS2/NR2F1
+
+
+ 100 μm 100 μm
+
+
+Fig. 3 | Areal differences in chromatin state of progenitor cells foreshadow apparent in IPCs (h). i, Pile-ups of PFC and V1 signal in PFC and V1 differentially
+the emergence of area-specific types of excitatory neurons. a, Differentiation accessible (DA) peak sets. Pileups are centred on peaks and show ±10-kb flanking
+trajectories for excitatory neurons from the PFC (left) and V1 (right). b, UMAP regions. j, Transcription factor motif enrichments of RA-related transcription
+projection of PFC and V1 scATAC-seq cells (n = 3 individuals) coloured by cell type factors in set of 4,176 PFC-specific peaks (Fisher’s exact, two-sided, FDR < 0.05).
+predictions. Cells from the excitatory lineage are outlined. IN-STR, striatal k, UMAP projection of deviation scores of motif enrichment for TGIF1.
+interneurons. Suffixes 1–3 denote subclusters from Nowakowski et al.2. l, Experimental design to test role of RA in organoid area identity. m, UMAP
+c, d, UMAP projections of PFC and V1 scATAC-seq excitatory lineage cells projection of scRNA-seq data from day 70 organoids (n = 11,415 cells). Cells
+coloured by area of origin (c) and pseudotime value (d). e, f, UMAP projections coloured by treatment. VA, vitamin A. n, Left, schematic of expected expression
+of PFC and V1 scRNA-seq excitatory lineage cells (n = 2 individuals) coloured by patterns of BCL11B, SATB2, AUTS2, and NR2F1 in primary human cortex. Right,
+area of origin (e) and pseudotime value (f). g, h, Left, PFC and V1 scATAC-seq (g) images of primary developing human cortex from the PFC (left) and V1 (right)
+and scRNA-seq (h) excitatory lineage cells ordered from bottom to top by immunostained for CTIP2 and SATB2 (top) or AUTS2 and NR2F1 (bottom).
+pseudotime value with PFC–V1 divergence branch point shown (Methods). Cells Representative images shown from n = 2 specimens. o, Left, UMAP projection of
+coloured by EOMES gene activity score (g) or expression (h), highlighting IPCs. cells coloured by expression of NEUROD2, TBR1, SATB2, and NR2F2. Right, images
+Right, schematic illustrating the excitatory neuron differentiation trajectory of organoids cultured without (left) or with vitamin A (right) immunostained for
+based on chromatin accessibility, in which PFC–V1 divergence becomes apparent CTIP2 and SATB2 (top) or AUTS2 and NR2F1 (bottom). Representative images
+at the level of IPCs (g), or gene expression, in which PFC–V1 divergence is not shown from n = 3 lines.
+
+
+interneurons (Fig. 1i, Extended Data Fig. 6f; Fisher’s exact, two-sided, identified peak sets that were significantly enriched or depleted in these
+P < 0.05). Because such regions do not provide specificity with respect regions for most cell types (Fig. 1j, Extended Data Fig. 6a–c; Fisher’s
+to individual regulatory elements or genes, we next tested for enrich- exact, two-sided, P < 0.05). We also intersected our cell-type-specific
+ment of cell-type-specific peaks, predicted enhancers, and peaks that peak sets and predicted enhancers with de novo non-coding mutations
+overlapped promoter-interacting regions in the flanking regions of (DNMs) identified from individuals with ASD and NDD, but no peak
+genes associated with ASD and neurodevelopmental delay (NDD) and sets were significantly enriched for the currently annotated DNMs in
+
+
+ Nature | Vol 598 | 7 October 2021 | 209
+
+Article
+ a b 14 e
+ iPS cells Primary
+ 3 clusters
+ 2 10
+ dlEN
+ 1 21
+ 3D in vitro 5
+ 12 13
+ differentiation 7 11
+ 5 12 ulEN
+ 9
+ 1
+ 8
+ 6 20
+ Microglia
+
+
+ UMAP-2
+ Cerebral organoid 24
+ 10 25 Endo/mural
+ 19
+ 15 4 4
+ scATAC–seq UMAP-1
+ 18 Early EN
+ 6
+ c GFAP DLX1 d 16
+ 8 IPC
+ 13234, 9 weeks MGE-RG/IPC
+ 3
+ 13234, 17 weeks RG
+ 7
+ H28126, 9 weeks Astro/OPC 0.8
+ 17
+ H28126, 24 weeks MGE IN
+ 23
+ H1, 9 weeks 0.6
+ 15 IN-MGE
+ 9
+ 0.4
+ 22 Early IN
+ EOMES NEUROD2 11 IN-CGE 0.2
+ 2
+ 14 Insula 0
+ Organoid 3 2 12 6 16 4 10 15 7 14 8 13 5 9 1 11 Correlation
+ clusters
+ RG-specific peaks
+ UMAP-2
+
+
+ h Primary Organoid
+ 2.5
+ UMAP-1 3
+ Gene activity score 2.0
+ Min Max
+ 1.5
+ Cluster 7 2
+ f g Primary/organoid 1.0
+ overlapping peaks
+ 1 0.5
+ 1
+ 0
+ Primary 0
+ (full) Primary –0.5
+ (downsampled)
+ 103,625 Z-score Z-score
+ 0 Cluster 4
+ 9,682 i
+ Cell-type-specific peaks Gene-linked enhancer peaks
+ Proportion of peaks overlapping
+
+
+ 112,771
+ 0.8 0.8
+ 203,888 –1
+
+ 786
+ 0.4 0.4
+ 35,773
+ –2
+ 109,960
+ 0 0
+ UMAP-2
+
+
+ Astro/OPC
+ dlEN
+ Early EN
+ Endo/mural
+ IN-CGE
+ IN-MGE
+ IPC
+ Microglia
+ RG
+ ulEN
+ MGE
+ Insula
+
+
+ Astro/OPC
+ dlEN
+ Early EN
+ Endo/mural
+ IN-CGE
+ IN-MGE
+ IPC
+ Microglia
+ RG
+ ulEN
+ Organoid
+
+ UMAP-1 Z-score
+
+
+Fig. 4 | Cell type-specific differences in chromatin accessibility between common peak set. MGE IN, interneurons identified in the MGE. f, Venn diagram
+cerebral organoids and the developing human brain. a, Schematic depicting of overlap between the full primary peak set (red), a down-sampled primary
+experimental workflow. iPS cells, induced pluripotent stem cells. b, UMAP peak set (blue), and the organoid peak set. g, UMAP projection of enrichment
+projection of all organoid scATAC-seq cells (n = 5 organoids from 3 different Z-scores of peaks that overlap between primary and organoid datasets on the
+lines and 3 different time points; 23,555 cells) coloured by Leiden clusters. primary scATAC-seq dataset. h, UMAP projections of enrichment Z-scores of
+(Cluster 16 not depicted, see Extended Data Fig. 10e.) c, UMAP projections of RG-specific peaks (Fisher’s exact, two-sided, FDR < 0.05) in all primary
+gene activity scores for GFAP marking RGs, EOMES marking IPCs, DLX1 marking scATAC-seq cells (left) and all organoid scATAC-seq cells (right). i, Left,
+interneurons, and NEUROD2 marking excitatory neurons. d, UMAP projection proportion of cell-type-specific primary peaks in the organoid peak set.
+of all organoid scATAC-seq cells coloured by sample. e, Heat map of Pearson Right, proportion of gene-linked enhancers for each cell type in the organoid
+correlations between primary and organoid scATAC-seq clusters based on a peak set.
+
+
+probands compared to sibling controls (Extended Data Fig. 6d, e). In with schizophrenia, confirming previous findings of neuronal involveaddition, we intersected predicted enhancers with topological associ- ment27 (Fig. 1k). Together, our prenatal cell-type-specific chromatin
+ated domains (TADs) that contain genes associated with neurodevel- state data have the potential to identify specific regulatory programs
+opmental diseases24,31, and found significant colocalization in TADs during cortical development that confer the greatest risk for neurodein several cell types (Extended Data Fig. 6g; Fisher’s exact, two-sided, velopmental disorders, particularly as improved disease-associated
+P < 0.05). variant annotations become available.
+ Finally, we sought to assess the enrichment of common variants associated with neuropsychiatric disease risk in our predicted enhancers
+for each cell type. To do this, we performed a partitioned heritability Dynamic chromatin states in neurogenesis
+linkage disequilibrium (LD) score regression analysis using summary To better understand how transcriptomic and epigenomic changes
+statistics from large-scale genome-wide association studies of schizo- may regulate cell fate decisions during neurogenesis, we co-embedded
+phrenia27,32, ASD33, major depressive disorder34, and bipolar disorder35 scRNA-seq and scATAC-seq datasets for the relevant cell types gener-
+(Methods). We found that excitatory and inhibitory neuron putative ated from the visual cortex (Fig. 2a–c, Methods). Projections of gene
+enhancers were enriched (FDR <0.05) for common variants associated expression and gene activity scores in the co-embedded space revealed
+
+
+210 | Nature | Vol 598 | 7 October 2021
+
+that clustering of distinct cell types is preserved irrespective of the RA synthesis). In parallel, we treated organoids that were cultured with
+profiling modality (Fig. 2d). To identify the trajectories of chroma- vitamin A with 4-diethylamniobenzaldehyde (DEAB), a potent inhibitin accessibility that underlie the differentiation and maturation of tor of RA synthesis41 (Methods, Fig. 3l). At week 10 of differentiation,
+excitatory neurons, we performed pseudotemporal ordering of cells which corresponds to deep layer neurogenesis, we profiled organoids
+in the co-embedded space, which recovered the known developmental using scRNA-seq. We found that excitatory forebrain neurons (FOXG1/
+sequence of cell types undergoing excitatory neuron differentiation NEUROD2 double-positive) cultured in the presence of vitamin A clus-
+(Fig. 2e, Methods). We identified more than 25,000 peaks with transient tered separately from those derived from organoids cultured without
+accessibility across pseudotime, including more than 5,000 predicted vitamin A or in the presence of DEAB (Fig. 3m, n, Extended Data Fig. 9e).
+enhancers, many of which are predicted to interact with genes linked Among the top differentially expressed genes, we found signatures that
+to cell type identity (Fig. 2f–h, Supplementary Table 9). distinguished PFC and V1 cortical neurons, including SATB2, NR2F1,
+ Consistent with recent reports36,37, for genes with variable expression and NR2F22 (Fig. 3n, Extended Data Fig. 9h, i). We applied a previously
+across pseudotime, gene activity scores derived from chromatin acces- developed classifier for annotating PFC and V1 neuronal identities
+sibility in the cis-regulatory region around genes were highly correlated among organoid neurons42, and found consistently higher proporwith gene expression (Fig. 2i, Extended Data Fig. 7, Methods). Finally, by tion of neurons classified as PFC-like among organoids cultured with
+calculating transcription factor binding site enrichment across peaks vitamin A compared with those cultured without vitamin A or treated
+that showed dynamic changes in accessibility along pseudotime, we with DEAB (Extended Data Fig. 9f, g; χ2 test, one-sided, P < 0.00001).
+reconstructed the known hierarchy of transcription factors involved The differential expression of gene products, including co-expression
+in cortical neurogenesis, including sequential enrichment for PAX6, among excitatory neurons of SATB2, CTIP2 and AUTS2 in prefrontal
+EOMES, and MEF2C binding sites among transiently accessible loci cortex and enriched expression of NR2F1 in the visual cortex2,43–45,
+(Fig. 2j). Together, these results underscore the highly dynamic states was confirmed by immunostaining and found to be consistent with
+of chromatin accessibility during human cortical neurogenesis. a PFC-like identity of organoids cultured in the presence of vitamin A
+ (Fig. 3n, o, Extended Data Fig. 9j). Together, these findings suggest that
+ the RA signalling pathway contributes to the specification of the PFC
+Area-specific chromatin states neuronal lineage during human cortical development; further studies
+Area-specific types of cortical excitatory neurons emerge during early are required to determine how the RA pathway interfaces with other
+neurogenesis, but only limited transcriptomic differences have been signalling pathways, such as the fibroblast growth factor pathway, to
+found among progenitors from different regions2. Given that changes promote this neuronal fate46.
+in the accessibility of regulatory elements often precede gene expression, we investigated whether epigenomic signatures could foreshadow
+the emergence of area-specific excitatory neurons. Specifically, we Benchmarking cerebral organoids
+compared scRNA-seq and scATAC-seq profiles of excitatory lineage Owing to the scarcity of primary human tissue, studies of human
+cells sampled from the extremes of the rostral–caudal axis, PFC and neural development require suitable in vitro models, such as cer-
+V1 (Fig. 3a, b, Extended Data Fig. 8a–h). For each modality, we ordered ebral organoids. Previous studies have emphasized the similarities
+the cells in pseudotime to approximate the differentiation trajectory between cerebral organoid cells and their in vivo counterparts using
+and identified the ‘branch’ point along this trajectory at which tran- single-cell transcriptomics47,48 and bulk epigenomics10,11,49. We generscriptomic or chromatin state differences between PFC and V1 lineages ated scATAC-seq data for 23,555 cells from cortical organoids derived by
+become apparent (Fig. 3c–f, Methods). In contrast to transcriptomic directed differentiation from three genetically normal individuals47,50 at
+data, which have revealed area-specific clusters of excitatory neurons three time points of differentiation (Fig. 4a–c, Extended Data Fig. 10a–e,
+(Fig. 3h), chromatin state signatures revealed a notable divergence Supplementary Table 1, Methods). To validate our organoid lines, we
+between PFC and V1 intermediate progenitor populations (Fig. 3g, also generated scRNA-seq data from organoids derived from the same
+Extended Data Fig. 8i, j). Transcriptomically, PFC and V1 IPCs differ- lines and cultured in parallel and showed that all lines expressed FOXG1
+entially expressed only a handful of genes, including NR2F1 (Supple- and markers of major cell types (Extended Data Fig. 10j–n). Using gene
+mentary Table 24), whereas chromatin accessibility analysis identified activity scores, we identified the major classes of cell types among
+more than 1,800 differentially accessible peaks between these cell types scATAC-seq data, including RGs, IPCs, interneurons, and excitatory neu-
+(Extended Data Fig. 8k, l, Supplementary Table 25). rons, although individual clusters contained fewer cell-type-specific
+ Next, to identify putative regulatory programs that could underlie peaks than clusters derived from primary cells (Fig. 4d, Supplementary
+the divergence of the PFC and V1 lineages, we performed transcription Table 17).
+factor binding site enrichment analysis on peaks that were differentially Next, we quantified chromatin accessibility among organoid cells
+accessible between PFC and V1 cells (Fisher’s exact test, two-sided, FDR across peaks defined from primary cells (Methods, Fig. 4e) and found
+< 0.05; Fig. 3i–k, Extended Data Fig. 9a–d, Supplementary Tables 10, organoid cells homologous to RGs, IPCs, interneurons, and excitatory
+11). This analysis identified several transcription factors that had been neurons. Across organoid cells, we identified 377,448 peaks (Supplepredicted on the basis of transcriptomic studies2,38, including enrich- mentary Table 16), and intersected them with the primary cell peaks,
+ment of POU3F2, MEIS1, TBR1, NEUROD1, NEUROG2, and TBX21 binding as well as with a down-sampled set to match the cell abundance of
+motifs among PFC cells. Notably, this analysis also identified compo- the organoid dataset (Methods, Fig. 4f). Of the 459,953 peaks in the
+nents of the retinoic acid (RA) signalling pathway, including RXR, RAR full primary dataset, 239,661 were also called in the organoid dataset
+and TGIF1, among PFC cells, consistent with recent evidence that RA (Fig. 4g, Extended Data Fig. 10f, Supplementary Table 18). The set of
+activity is increased in the PFC during mid-gestation39 (Fig. 3j, k, Sup- peaks not detected in organoids was strongly enriched for peaks speplementary Table 21). cific to cell types not found in substantial numbers in our organoids,
+ including microglia, endothelial cells, astrocytes, and OPCs (Extended
+ Data Fig. 10h). After we removed these peaks from the analysis, the
+Retinoic acid in cortical arealization remaining peaks not found in organoids were enriched among V1 excita-
+Retinoic acid signalling has an important role in patterning of the neural tory neurons. While cell-type-specific peaks identified in primary cells
+tissue during mammalian brain development39,40. To test whether RA maintained cell-type specificity in homologous organoid cell types,
+promotes the differentiation of human PFC lineages, we cultured corti- many of the cell-type-specific peaks were not detected (Fig. 4h, i).
+cal organoids in the presence or absence of vitamin A (the precursor for However, the majority (more than 80%) of predicted enhancers were
+
+
+ Nature | Vol 598 | 7 October 2021 | 211
+
+Article
+also identified in organoids, except for microglial enhancers (Fig. 4i, 12. Buenrostro, J. D. et al. Single-cell chromatin accessibility reveals principles of regulatory
+ variation. Nature 523, 486–490 (2015).
+Extended Data Fig. 10h). We also identified 109,960 organoid peaks 13. Preissl, S. et al. Single-nucleus analysis of accessible chromatin in developing mouse
+that were not found in the primary cell dataset (Fig. 4f, Extended Data forebrain reveals cell-type-specific transcriptional regulation. Nat. Neurosci. 1, 432–439
+Fig. 10g). Transcription factor motif enrichment analysis revealed (2018).
+ 14. Capra, J. A., Erwin, G. D., McKinsey, G., Rubenstein, J. L. R. & Pollard, K. S. Many human
+that these organoid-specific peaks were enriched for HIF1A, HIF1B, accelerated regions are developmental enhancers. Philos. Trans. R. Soc. Lond. B Biol. Sci.
+and p53, which is consistent with the reported higher levels of cellular 368, 20130025 (2013).
+stress in organoids42 (Supplementary Table 23). To further explore 15. Doan, R. N. et al. Mutations in human accelerated regions disrupt cognition and social
+ behavior. Cell 167, 341–354.e12 (2016).
+the robustness of our findings, we integrated our data with published 16. Johansen, N. & Quon, G. scAlign: a tool for alignment, integration, and rare cell
+epigenomic datasets generated from organoids11,49. This integrative identification from scRNA-seq data. Genome Biol. 20, 166 (2019).
+analysis revealed that 20,066 out of the 77,573 peaks found in orga- 17. Przytycki, P. F. & Pollard, K. S. CellWalker integrates single-cell and bulk data to resolve
+ regulatory elements across cell types in complex tissues. Preprint at https://doi.org/
+noids, but not primary tissue, were also detected in other published 10.1101/847657 (2020).
+datasets (Extended Data Fig. 10f, Supplementary Table 19), suggesting 18. Kundaje, A. et al. Integrative analysis of 111 reference human epigenomes. Nature 518,
+that our findings can be independently validated. 317–330 (2015).
+ 19. Won, H. et al. Chromosome conformation elucidates regulatory relationships in
+ developing human brain. Nature 538, 523–527 (2016).
+ 20. Fulco, C. P. et al. Activity-by-contact model of enhancer-promoter regulation from
+Discussion thousands of CRISPR perturbations. Nat. Genet. 51, 1664–1669 (2019).
+ 21. Song, M. et al. Cell-type-specific 3D epigenomes in the developing human cortex. Nature
+In this study, we profiled the chromatin state of single cells in the 587, 644–649 (2020).
+developing human brain and found thousands of transiently acces- 22. Li, M. et al. Integrative functional genomic analysis of human brain development and
+sible loci that track with neuronal differentiation. These states may neuropsychiatric risks. Science 362, eaat7615 (2018).
+ 23. Markenscoff-Papadimitriou, E. et al. A chromatin accessibility atlas of the developing
+reveal mechanisms that govern the establishment of cell fate during human telencephalon. Cell 182, 754–769.e18 (2020).
+neurogenesis, and intersecting them with comparable datasets from 24. Wang, D. et al. Comprehensive functional genomic resource and integrative model for
+the adult human brain may enable the complete reconstruction of the the adult brain. Science 362, eaat8464 (2018).
+ 25. Visel, A., Minovitsky, S., Dubchak, I. & Pennacchio, L. A. VISTA enhancer browser—a
+epigenomic neurodevelopmental trajectory51. Consistent with previ- database of tissue-specific human enhancers. Nucleic Acids Res. 35, D88–D92 (2006).
+ous studies52, intersection of the chromatin state landscape with dis- 26. Schep, A. N., Wu, B., Buenrostro, J. D. & Greenleaf, W. J. chromVAR: inferring
+ transcription-factor-associated accessibility from single-cell epigenomic data. Nat.
+ease variants implicated post-mitotic, developing cortical excitatory
+ Methods 14, 975–978 (2017).
+neurons in the aetiopathogenesis of neuropsychiatric disorders9,22,53. 27. Schizophrenia Working Group of the Psychiatric Genomics Consortium. Biological
+Future studies are needed to probe how disease-associated variants in insights from 108 schizophrenia-associated genetic loci. Nature 511, 421–427 (2014).
+ 28. Turner, T. N. et al. Genomic patterns of de novo mutation in simplex autism. Cell 171,
+these regulatory regions modify cell fate decisions in the developing
+ 710–722.e12 (2017).
+cortex. By comparing the regulatory landscapes of different cortical 29. Stessman, H. A. F. et al. Targeted sequencing identifies 91 neurodevelopmental-disorder
+areas during development (V1 and PFC), we found distinct sets of risk genes with autism and developmental-disability biases. Nat. Genet. 49, 515–526
+ (2017).
+transcription factor binding motifs that were differentially enriched
+ 30. Coe, B. P. et al. Refining analyses of copy number variation identifies specific genes
+between these two lineages. Our findings extend the established role associated with developmental delay. Nat. Genet. 46, 1063–1071 (2014).
+of RA signalling in forebrain development39,45 and suggest that RA 31. Gandal, M. J. et al. Shared molecular neuropathology across major psychiatric disorders
+ parallels polygenic overlap. Science 359 693–697 (2018).
+signalling contributes to the specification of excitatory neurons of
+ 32. Pardiñas, A. F. et al. Common schizophrenia alleles are enriched in mutation-intolerant
+the human PFC. Dysregulation of RA signalling has been implicated genes and in regions under strong background selection. Nat. Genet. 50, 381–389
+in a range of neurodevelopmental and psychiatric disorders54, and (2018).
+ 33. Grove, J. et al. Identification of common genetic risk variants for autism spectrum
+therefore our findings may have implications for studies of these disorder. Nat. Genet. 51, 431–444 (2019).
+disorders. 34. Howard, D. M. et al. Genome-wide meta-analysis of depression identifies 102
+ independent variants and highlights the importance of the prefrontal brain regions. Nat.
+ Neurosci. 22, 343–352 (2019).
+ 35. Stahl, E. A. et al. Genome-wide association study identifies 30 loci associated with
+Online content bipolar disorder. Nat. Genet. 51, 793–803 (2019).
+Any methods, additional references, Nature Research reporting sum- 36. Zhu, C. et al. An ultra high-throughput method for single-cell joint analysis of open
+ chromatin and transcriptome. Nat. Struct. Mol. Biol. 26, 1063–1070 (2019).
+maries, source data, extended data, supplementary information, 37. Inoue, F., Kreimer, A., Ashuach, T., Ahituv, N. & Yosef, N. Identification and massively
+acknowledgements, peer review information; details of author contri- parallel characterization of regulatory elements driving neural induction. Cell Stem Cell
+butions and competing interests; and statements of data and code avail- 25, 713–727.e10 (2019).
+ 38. Miller, J. A. et al. Transcriptional landscape of the prenatal human brain. Nature 508,
+ability are available at https://doi.org/10.1038/s41586-021-03209-8. 199–206 (2014).
+ 39. Shibata, M. et al. Regulation of prefrontal patterning, connectivity and synaptogenesis by
+1. Nord, A. S. et al. Rapid and pervasive changes in genome-wide enhancer usage during retinoic acid. Preprint at https://doi.org/10.1101/2019.12.31.891036 (2019).
+ mammalian development. Cell 155, 1521–1531 (2013). 40. Molotkova, N., Molotkov, A. & Duester, G. Role of retinoic acid during forebrain
+2. Nowakowski, T. J. et al. Spatiotemporal gene expression trajectories reveal development begins late when Raldh3 generates retinoic acid in the ventral
+ developmental hierarchies of the human cortex. Science 358, 1318–1323 (2017). subventricular zone. Dev. Biol. 303, 601–610 (2007).
+3. Satterstrom, F. K. et al. Large-scale exome sequencing study implicates both 41. Shabtai, Y., Bendelac, L., Jubran, H., Hirschberg, J. & Fainsod, A. Acetaldehyde inhibits
+ developmental and functional changes in the neurobiology of autism. Cell 180, 568–584. retinoic acid biosynthesis to mediate alcohol teratogenicity. Sci. Rep. 8, 347 (2018).
+ e23 (2020). 42. Bhaduri, A. et al. Cell stress in cortical organoids impairs molecular subtype specification.
+4. Hodge, R. D. et al. Conserved cell types with divergent features in human versus mouse Nature 578, 142–148 (2020).
+ cortex. Nature 573, 61–68 (2019). 43. Armentano, M. et al. COUP-TFI regulates the balance of cortical patterning between
+5. Nowakowski, T. J., Pollen, A. A., Sandoval-Espinosa, C. & Kriegstein, A. R. Transformation frontal/motor and sensory areas. Nat. Neurosci. 10, 1277–1286 (2007).
+ of the radial glia scaffold demarcates two stages of human cerebral cortex development. 44. Bedogni, F. et al. Autism susceptibility candidate 2 (Auts2) encodes a nuclear protein
+ Neuron 91, 1219–1227 (2016). expressed in developing brain regions implicated in autism neuropathology. Gene Expr.
+6. Visel, A. et al. A high-resolution enhancer atlas of the developing telencephalon. Cell 152, Patterns 10, 9–15 (2010).
+ 895–908 (2013). 45. Cadwell, C. R., Bhaduri, A., Mostajo-Radji, M. A., Keefe, M. G. & Nowakowski, T. J.
+7. Pattabiraman, K. et al. Transcriptional regulation of enhancers active in protodomains of Development and arealization of the cerebral cortex. Neuron 103, 980–1004 (2019).
+ the developing cerebral cortex. Neuron 82, 989–1003 (2014). 46. Cederquist, G. Y. et al. A multiplex human pluripotent stem cell platform defines
+8. Mo, A. et al. Epigenomic signatures of neuronal diversity in the mammalian brain. Neuron molecular and functional subclasses of autism-related genes. Cell Stem Cell 27, 35–49.
+ 86, 1369–1384 (2015). e6 (2020).
+9. de la Torre-Ubieta, L. et al. The dynamic landscape of open chromatin during human 47. Pollen, A. A. et al. Establishing cerebral organoids as models of human-specific brain
+ cortical neurogenesis. Cell 172, 289–304.e18 (2018). evolution. Cell 176, 743–756.e17 (2019).
+10. Luo, C. et al. Cerebral organoids recapitulate epigenomic signatures of the human fetal 48. Camp, J. G. et al. Human cerebral organoids recapitulate gene expression programs of
+ brain. Cell Rep. 17, 3369–3384 (2016). fetal neocortex development. Proc. Natl Acad. Sci. 112, 15672–15677 (2015).
+11. Amiri, A. et al. Transcriptome and epigenome landscape of human cortical development 49. Trevino, A. E. et al. Chromatin accessibility dynamics in a model of human forebrain
+ modeled in organoids. Science 362, eaat6720 (2018). development. Science 367, eaay1645 (2020).
+
+
+212 | Nature | Vol 598 | 7 October 2021
+
+50. Burrows, C. K. et al. Genetic variation, not cell type of origin, underlies the majority of Publisher’s note Springer Nature remains neutral with regard to jurisdictional claims in
+ identifiable regulatory differences in iPSCs. PLoS Genet. 12, e1005793 (2016). published maps and institutional affiliations.
+51. Lake, B. B. et al. Integrative single-cell analysis of transcriptional and epigenetic states in
+ the human adult brain. Nat. Biotechnol. 36, 70–80 (2018). Open Access This article is licensed under a Creative Commons Attribution
+52. Ramaswami, G. et al. Integrative genomics identifies a convergent molecular subtype 4.0 International License, which permits use, sharing, adaptation, distribution
+ that links epigenomic with transcriptomic differences in autism. Nat. Commun. 11, 4873 and reproduction in any medium or format, as long as you give appropriate
+ (2020). credit to the original author(s) and the source, provide a link to the Creative Commons license,
+53. Skene, N. G. et al. Genetic identification of brain cell types underlying schizophrenia. Nat. and indicate if changes were made. The images or other third party material in this article are
+ Genet. 50, 825–833 (2018). included in the article’s Creative Commons license, unless indicated otherwise in a credit line
+54. van Neerven, S., Kampmann, E. & Mey, J. RAR/RXR and PPAR/RXR signaling in to the material. If material is not included in the article’s Creative Commons license and your
+ neurological and psychiatric diseases. Prog. Neurobiol. 85, 433–451 (2008). intended use is not permitted by statutory regulation or exceeds the permitted use, you will
+55. Dickel, D. E. et al. Ultraconserved enhancers are required for normal development. Cell need to obtain permission directly from the copyright holder. To view a copy of this license,
+ 172, 491–499 (2018). visit http://creativecommons.org/licenses/by/4.0/.
+56. Kaplanis, J. et al. Integrating healthcare and research genetic data empowers the discovery
+ of 28 novel developmental disorders. Preprint at https://doi.org/10.1101/797787 (2020). © The Author(s) 2021
+
+
+ Nature | Vol 598 | 7 October 2021 | 213
+
+Article
+Methods
+ Cortical organoid arealization experiment
+Tissue source Two genetically normal iPS cell lines (1323-4 and H28126) were differ-
+De-identified tissue samples were collected with previous patient con- entiated into cortical organoids following the above protocol up to day
+sent in strict observance of the legal and institutional ethical regula- 35. At day 35, organoids from each line were split into three different
+tions. Protocols were approved by the Human Gamete, Embryo, and conditions: 1) normal medium conditions for day 35 and beyond as
+Stem Cell Research Committee (institutional review board) at the Uni- described above (with vitamin A); 2) normal medium conditions for
+versity of California, San Francisco. day 35 and beyond (with vitamin A) plus 100 μM DEAB, an inhibitor of
+ RA synthesis; or 3) normal medium conditions for day 35 and beyond as
+Nucleus isolation from fresh primary tissue described above except using B27 without vitamin A. DEAB treatment
+Cortical areas were microdissected from three specimens of was ended after one week, and culture conditions remained othermid-gestation human cortex, in addition to three specimens of wise the same until day 70, at which time organoids were processed
+non-area-specific mid-gestation human cortex. Tissue was dissociated for scRNA-seq and fixed for immunohistochemistry. We used 1323-4
+in Papain containing DNase I (DNase) for 30 min at 37 °C and samples organoids for scRNA-seq (one for each of the three conditions) and
+were triturated to form a single-cell suspension. Cells (106) were pel- both 1323-4 and H28126 organoids were used for immunostaining.
+leted and lysed for 3 min in 100 μl chilled lysis buffer (10 mM Tris-HCl Organoids processed for scRNA-seq were multiplexed using multi-seq
+pH 7.4, 10 mM NaCl, 3 mM MgCl2, 0.1% Tween-20, 0.1% Igepal CA-630, oligonucleotide barcoding59 and pooled for library preparation and
+0.01% digitonin, 1% bovine serum albumin (BSA)). Lysed cells were then sequencing to reduce potential batch effects.
+washed with 1 ml chilled wash buffer (10 mM Tris-HCl pH 7.4, 10 mM
+NaCl, 3 mM MgCl2, 0.1% Tween-20, 1% BSA) and nuclei were pelleted at Single-cell RNA-seq library preparation and sequencing
+500g for 5 min at 4 °C. Single-cell RNA-seq libraries were generated using the 10X Genomics
+ Chromium 3′ Gene Expression Kit. In brief, single cells were loaded
+Nucleus isolation from frozen primary tissue onto chromium chips with a capture target of 10,000 cells per sample.
+Tissue sections were snap frozen and stored at −80 °C. Nuclei were iso- Libraries were prepared following the provided protocol and sequenced
+lated from frozen tissues as described57. In brief, frozen tissue samples on an Illumina NovaSeq with a targeted sequencing depth of 50,000
+were thawed in 2 ml chilled homogenization buffer (10 mM Tris pH 7.8, reads per cell. BCL files from sequencing were then used as inputs to
+5 mM CaCl2, 3 mM magnesium acetate, 320 mM sucrose, 0.1 mM EDTA, the 10X Genomics Cell Ranger pipeline.
+0.1% NP40, 167 μM β-mercaptoethanol, 16.7 μM PMSF) and lysed in a
+pre-chilled dounce. Cell lysates were then centrifuged in an iodixanol Bulk ATAC-seq library preparation and sequencing
+gradient for 20 min at 3,000g at 4 °C in a swinging bucket centrifuge Bulk ATAC-seq libraries were generated as described57. In brief, 50,000
+with the brake turned off. The nucleus band was then carefully pipetted nuclei were permeablized and tagmented. Tagmented chromatin
+and nuclei were diluted in wash buffer. libraries were generated and sequenced on an Illumina NovaSeq with
+ a target sequencing depth of 50 million reads per library. Sequencing
+Cortical organoid differentiation data were used as an input to the ENCODE ATAC-seq analysis pipeline
+Cortical organoids were cultured using a forebrain-directed differentia- (https://github.com/ENCODE-DCC/atac-seq-pipeline).
+tion protocol47,58. In brief, two genetically normal human iPS cell lines
+(H28126 (Gilad Laboratory, University of Chicago) and 1323-4 (Conklin Bulk H3K27ac CUT&Tag library preparation and sequencing
+Laboratory, Gladstone Institutes)), which were previously authenti- H3K27ac CUT&Tag libraries were prepared as previously described60,
+cated47, and the embryonic stem cell line H1 (WiCell, authenticated at with modifications. In brief, cells were dissociated from human developsource), were expanded and dissociated into single cells using accutase. ing cortical tissue as described above. Fifty thousand cell aliquots were
+Cells tested negative for mycoplasma. After dissociation, cells were pelleted at 600g in a swinging bucket rotor centrifuge and washed twice
+reconstituted in neural induction medium at a density of 10,000 cells per in 200 μl CUT&Tag wash buffer (20 mM HEPES pH 7.5, 150 mM NaCl,
+well in 96-well v-bottom low-adhesion plates. Glasgow’s modified Eagle’s 0.5 mM spermidine, 1× protease inhibitor cocktail (Roche)). Nuclei
+medium (GMEM)-based neural induction medium includes 20% Knock- were isolated by resuspending cell pellets in 200 μl dig-wash buffer
+out Serum Replacer (KSR), 1× non-essential amino acids, 0.11 mg/ml (CUT&Tag wash buffer supplemented with 0.05% digitonin and 0.05%
+sodium pyruvate, 1× penicillin-streptomycin, 0.1 mM β-mercaptoethanol, IGEPAL CA-630). Nucleus pellets were washed twice in 200 μl dig-wash
+5 μM SB431542 and 3 μM IWR1-endo. Medium was supplemented with buffer before resuspension in 100 μl dig-wash buffer supplemented
+20 μM Rock inhibitor Y-27632 for the first 6 days. After 18 days, organoids with 2 mM EDTA and a 1:50 dilution of H3K27ac primary antibody (Cell
+were transferred from 96- to 6-well low-adhesion plates, moved to an Signaling 8173), and incubated overnight at 4 °C on an overhead rotaorbital shaker rotating at 90 rpm, and changed to Dulbecco’s modified tor. Excess primary antibody was removed by pelleting the nuclei at
+Eagle’s medium (DMEM)/F12-based medium containing 1× glutamax, 600g and washing twice in 200 μl dig-wash buffer. Secondary antibody
+1× N2, 1× B27 without vitamin A and 1× antibiotic–antimycotic (anti-anti). (Novex A16031) was added at a dilution of 1:50 in 100 μl dig-wash buffer
+At 35 days, organoids were moved into DMEM/F12-based medium con- and nuclei were incubated at room temperature for 30 min while rotattaining 1× N2, 1× B27 with vitamin A and 1× anti-anti. Throughout the ing. Excess secondary antibody was removed by pelleting the nuclei at
+culture duration, organoids were fed every other day. 600g and washing twice in 200 μl dig-wash buffer. pA-Tn5 was added
+ at a dilution of 1:100 in 100 μl dig-med buffer (0.05% digitonin, 20 mM
+Nucleus isolation from cerebral organoids HEPES, pH 7.5, 300 mM NaCl, 0.5 mM spermidine, 1× protease inhibitor
+Cerebral organoids were dissociated in papain containing DNase cocktail), and nuclei were incubated at room temperature for 1 h while
+I (DNase) for 30 min at 37 °C and samples were triturated to form a rotating. Unbound pA-Tn5 was removed by pelleting the nuclei at 300g
+single-cell suspension. Cells (106) were pelleted and lysed for 3 min in and washing twice in 200 μl dig-med buffer. Nuclei were resuspended
+100 μl chilled lysis buffer (10 mM Tris-HCl pH 7.4, 10 mM NaCl, 3 mM in 100 μl tagmentation buffer (10 mM MgCl2 in dig-med buffer) and
+MgCl2, 0.1% Tween-20, 0.1% Igepal CA-630, 0.01% digitonin, 1% BSA). incubated for 1 h at 37 °C. After tagmentation, nuclei were lysed with the
+Lysed cells were then washed with 1 ml chilled wash buffer (10 mM addition of 100 μl DNA binding buffer (Zymo Research), and tagmented
+Tris-HCl pH 7.4, 10 mM NaCl, 3 mM MgCl2, 0.1% Tween-20, 1% BSA) and DNA was purified with a 1.5:1 ratio of AMPure XP beads (Beckman) folnuclei were pelleted at 500g for 5 min at 4 °C. lowing the manufacturer’s instructions. Purified DNA was eluted in
+
+21 μl buffer EB (10 mM Tris-Cl, pH 8.5) and mixed with 2 μl each 10 μM A k-nearest neighbour graph was constructed from the latent dimenindexed i5 and i7 primers and 25 μl NEBNext HiFi 2 × PCR Master mix. sions from scAlign using k = 15. The Leiden algorithm was then used to
+Libraries were amplified with the cycling conditions: 72 °C for 5 min; identify ‘communities’, or clusters, in the sample, representing groups
+98 °C for 30 s; 12 cycles of 98 °C for 10 s and 63 °C for 30 s; final exten- of cells likely to be of the same cell type using resolution 0.8.
+sion at 72 °C for 1 min and hold at 4 °C. Libraries were purified with a
+1:1 ratio of AMPure XP beads and eluted in 15 μl EB. CUT&Tag libraries Calculating gene activity scores. To create a proxy for gene expreswere quantified by Agilent Bioanalyzer, and sequenced paired-end to sion, ATACseq fragments in the gene body plus promoter (2 kb upstream
+a depth of 15 million reads on an Illumina NovaSeq 6000 system, with from transcription start sites) of all protein-coding genes were summed
+read lengths 50 × 8 × 8 × 50. for each cell to generate ‘gene activity scores’. A matrix was constructed
+ for all gene activity scores by all cells. Owing to the sparsity of scATAC-
+Single-cell ATAC-seq library preparation and sequencing seq data, the MAGIC63 imputation method was used, as implemented
+Nuclei were prepared as outlined in the 10X Genomics Chromium in the SnapATAC package, to impute gene activity scores based on the
+single-cell ATAC-seq solution protocol (v1.0 kit was used). Nuclei were k-nearest neighbour graph.
+loaded with a capture target of 10,000 nuclei per sample. scATAC-seq
+libraries were prepared for sequencing following the 10X Genomics Assigning cell type labels to scATAC-seq cells. Broad cell-type
+single-cell ATAC–seq solution protocol. scATAC-seq libraries were classes were assigned to cells on the basis of the gene activity scores
+sequenced using PE150 sequencing on an Illumina NovaSeq with a of previously described cell-type marker genes2 (Extended Data Fig. 2a).
+target depth of 25,000 reads per nucleus (Supplementary Table 1). To identify cell types at a higher resolution, we assigned cell-type labels
+ using the CellWalker17 method, as implemented in CellWalkR (v0.1.7).
+Single-cell ATAC-seq analysis pipeline In brief, we used CellWalker to integrate scRNA-seq derived labels2 with
+Cell Ranger. BCL files generated from sequencing were used as inputs scATAC-seq data by building a network of label-to-cell and cell-to-cell
+to the 10X Genomics Cell Ranger ATAC pipeline. In brief, FASTQ files edges and diffusing label information over this combined network
+were generated and aligned to GRCh38 using BWA. Fragment files were to compensate for data sparsity in single-cell data. We calculated
+generated containing all unique properly paired and aligned fragments cell-to-cell edge weight using the Jaccard similarity between cells.
+with mapping quality (MAPQ) >30. Each unique fragment was associ- Label-to-cell weight was calculated as the sum of the products of the
+ated with a single cell barcode. gene activity scores for that cell and the log fold-change in expression
+ of each marker for that cell label. We tuned label edge weight using cell
+SnapATAC. Fragment files generated from the Cell Ranger ATAC pipe- homogeneity as described17. Diffusion resulted in a vector of influence
+line were loaded into the SnapATAC61 pipeline (https://github.com/ scores of each label for each cell. We then smoothed these vectors
+r3fang/SnapATAC) and Snap files were generated. A cell-by-bin matrix for each cell by taking a weighted average of its scores with those of
+was then generated for each sample by segmenting the genome into each of its ten closest neighbours (weighted such that each neighbour
+5-kb windows and scoring each cell for reads in each window. Cells were contributed one-fifth as much as the cell in question) in UMAP space.
+filtered based on log(reads passed filters) between 3 and 5 and fraction Finally, we assigned cell-type labels to each cell using the label with
+of reads in promoters between 10 and 60% to obtain cells with high the highest influence.
+quality libraries. Bins were then filtered, removing bins overlapping EN-
+CODE blacklist regions (http://mitra.stanford.edu/kundaje/akundaje/ Peak calling. Fragments from cells were grouped together by broad
+release/blacklists/). This matrix was then binarized and coverage of cell class (RG, IPC, ulEN, dlEN, endo/mural, astro/oligo, nEN, IN-MGE,
+each bin was calculated and normalized by log10(count + 1). Z-scores IN-CGE, MGE progenitor, insular, microglia) and peaks were called on
+were calculated from normalized bin coverages and bins with a Z-score all cluster fragments using MACS2 (https://github.com/taoliu/MACS)
+beyond ± 2 were filtered from further analysis. Cells with coverage of with the parameters ‘--nomodel --shift -37 --ext 73 --qval 5e-2 -B --SPMR
+<500 bins were removed from the downstream analysis. A cell-by-cell --call-summits’. Peaks from each cell type were then combined, mergsimilarity matrix was generated by calculating the latent semantic ing overlapping peaks, to form a master peak set, and a cell-by-peak
+index (LSI) of the binarized bin matrix. Singular value decomposition matrix was constructed. This matrix was binarized for all downstream
+(SVD) was performed on the log (term frequency – inverse document applications.
+frequency) (TF − IDF) matrix. The top 50 reduced dimensions were
+used for batch correction through scAlign. Determination of differentially accessible peaks. Differentially
+ accessible peaks for each cell type were determined by performscAlign batch correction. Multiple batches were integrated using the ing a two-sided Fisher’s exact test and selecting peaks that had
+scAlign package16 (https://github.com/quon-titative-biology/scAlign). log-transformed fold-change >0, and FDR-corrected P < 0.05, using
+The ATAC batches were first merged together to calculate the latent the built in function in snapATAC ‘findDAR’.
+semantic index (LSI) with the transcription factor matrix log-scaled for
+input into SVD. The 50 reduced dimensions of LSI were used as inputs Visualizing cluster signal in peaks. The deeptools suite64 (https://
+to the encoder. The latent dimension was set at 32 and ran with all-pairs deeptools.readthedocs.io/en/develop/) was used to visualize pileups of
+alignment of all batches. The input dimension to the encoder was set cluster-specific ATAC-seq signal (output from MACS2) in DA peak sets.
+to 50 to match the input dimensions and trained to 15,000 iterations
+using the small architecture setting with batch normalization. The Intersection with 25-chromatin-state model. To comprehensively
+32 dimensions were used for downstream analysis for finding neigh- categorize our peaks in genomic features genome-wide, we intersected
+bours. The scRNA-seq were processed using Seurat and computed our peak set with the 25-state model from the Roadmap Epigenomthe top 15 components from CCA for input into scAlign, and the latent ics Project18, specifically using the data generated from sample E081,
+dimension was set to 20 using the small architecture with batch nor- which was a sample of developing human brain. Enrichment of peaks
+malization and 15,000 iterations. All alignments were unsupervised. within annotated regions of the genome was calculated using the ratio
+ between the (number of bases in state AND overlap feature)/(number of
+Clustering and visualization. To visualize the high-dimensionality bases in genome) and the [(number of bases overlap feature)/(number
+dataset in 2D space, the latent dimensions for the ATAC and RNA data of bases in genome) × (number of bases in state)/(number of bases in
+from scAlign were used to construct UMAP62 graphs from Seurat. genome)] as previously described18.
+
+Article
+ ignoring duplicates and unmapped reads. Heat maps were then gener-
+Intersection with epigenomic datasets. We intersected our peak ated using the ‘plotCorrelation’ function.
+sets with several epigenomic datasets including ATAC-seq peaks
+from de la Torre-Ubieta et al.9 (GEO: GSE95023), ATAC-seq peaks from scRNA-seq/scATAC-seq co-embedding. To anchor mRNA expression
+Markenscoff-Papadimitriou et al.23 (GEO: GSE149268), H3K4me3 PLAC– and chromatin state profiles in the same map of cell diversity, we apseq promoter-interacting regions, generated from ENs, INs, IPCs, and plied scAlign on datasets where we profiled scRNA-seq and scATAC-seq
+RGs sorted from samples of developing human cortex21 that were gra- in parallel in the same sample. This was achieved by linking gene expresciously provided by the author, H3K27ac peaks from Amiri et al.11 (taken sion data to gene activity scores derived from chromatin accessibility
+from supplementary tables of publication), ATAC-seq peaks from Trevi- data. The gene activity scores were logRPM values derived from gene
+no et al.49 (GEO: GSE132403), H3K27ac peaks from Li et al.22 (obtained activity scores generated by the SnapATAC pipeline. Then the gene
+from http://development.psychencode.org), and high-confidence expression and gene activity scores were processed using Seurat, and
+enhancer predictions from Wang et al.24 (obtained from http://resource. then split into batches for input into scAlign. The encoder space was
+psychencode.org/). Any peaks not already mapped to hg38 were lifted computed using multi CCA of the 10 dimensions with latent dimensions
+over using the UCSC LiftOver tool. Overlaps between peak sets were at 20 using the ‘small’ architecture.
+determined using the ‘findOverlaps’ function in R.
+ Pseudotime analysis. The Monocle 3 R package68 (https://cole-
+Transcription factor motif enrichment analysis. The findMotifsGe- trapnell-lab.github.io/monocle3/) was used for pseudotime calculanome.pl tool from the HOMER suite65 (http://homer.ucsd.edu/homer/) tion of the co-embedded RNA and ATAC dataset. The RG cells were
+was used to identify transcription factor motif enrichments in peak set as the root cells. The minimum branch length was 9 in the graph
+sets. The ChromVAR26 R package was used to identify transcription building. Monocle 3 was also used for the pseudotime calculation
+factor motif enrichments at the single-cell level in scATAC-seq data. In of the scRNA-seq PFC/V1 dataset. The Cicero package69 (https://
+brief, the peak-by-cell matrix from the snap object was used as an input, cole-trapnell-lab.github.io/cicero-release/) was used for the pseudofiltering for peaks open in at least 10 cells. Biased-corrected transcrip- time calculation of the scATAC-seq PFC/V1 dataset.
+tion factor motif deviations were calculated for the set of 1,764 human
+transcription factor motifs for each cell. Identification of temporally dynamic peaks in the excitatory
+ neuronal lineage. scATAC-seq cells from V1 samples used in the
+Predicted enhancer–gene interactions. The activity-by-contact co-embedding analysis were divided into ten equal bins by pseudo-
+(ABC) model20 (https://github.com/broadinstitute/ABC-Enhancer- time. Average accessibility for each peak for each bin was determined.
+Gene-Prediction) was used for prediction of enhancer–gene interac- Peaks were considered temporally dynamic if they met the following
+tions from scATAC-seq data. Cell-type-specific ATAC-seq signal and criteria: accessible in a minimum of 10% of cells in the bin with the highpeak outputs from MACS2 were used as inputs. Bulk H3K27ac CUT&Tag est accessibility; accessible in a maximum of 20% of cells in the bin
+libraries generated from similar samples (see ‘Bulk H3K27ac CUT&Tag with the lowest accessibility; at least a difference of 10% in proportion
+library preparation and sequencing’ above) were used as a mark for ac- of cells where the peak was accessible between the lowest and highest
+tive enhancers. Publicly available Hi-C data generated from similar sam- accessibility bins; and had an increase in proportion of accessibility in
+ples19 were used to demarcate regulatory neighbourhoods, using the cells of at least 3× between the lowest and highest accessibility bins. In
+highest resolution available for each chromosome. Cell-type-specific total 25,415 out of 459,953 peaks met these criteria and were deemed
+gene expression profiles were generated from publicly available to be temporally dynamic in the cortical excitatory neuronal lineage.
+scRNA-seq data generated from similar samples2 by averaging expression across each cell type. The default threshold of 0.02 was used for Comparison of accessibility, gene expression, and transcription
+calling enhancer–gene interactions. factor motif enrichment across pseudotime. As pseudotime was
+ calculated on the co-embedded space of ATAC and RNA cells, we can
+VISTA enhancer intersections. VISTA enhancers were taken from the directly compare temporal changes in gene expression, gene activity
+VISTA Enhancer Browser25 (https://enhancer.lbl.gov/) and filtered for scores calculated from open chromatin, and transcription factor motif
+human sequences found to be active in the forebrain. Enhancers were enrichment. For each of the genes, we calculated gene activity scores
+lifted over to Hg38 using the UCSC LiftOver tool (https://genome.ucsc. using Cicero69 and calculated a 1,000-cell moving average across pseuedu/cgi-bin/hgLiftOver) and overlapping regions were merged, result- dotime from the ATAC cells. This value was normalized to represent a
+ing in 319 unique regions. These regions were intersected with the peak proportion of the maximum value. For gene expression, we calculated a
+set from all primary scATAC-seq cells and 304 peaks that overlapped 1,000-cell moving average across pseudotime from the RNA cells. This
+with VISTA forebrain enhancer regions were identified. value was normalized to represent a proportion of the maximum value.
+ For transcription factor motif enrichment, using Z-scores from Chrom-
+Genomic feature annotations. The ChIPSeeker R package66 (https:// VAR, we calculated a 1,000-cell moving average of the motif enrichment
+bioconductor.org/packages/release/bioc/html/ChIPseeker.html) was across pseudotime from the ATAC cells. LOESS regression lines were fit
+used to annotate all peak sets in genomic features. to the moving average data. For the generation of heat maps, a similar
+ approach was used, except values were averaged within 20 equally sized
+Gene ontology. Identification of enriched biological processes in genes bins of pseudotime and normalized the maximum value.
+near to sets of cell-type-specific enhancer predictions was performed
+using the GREAT alogrithm67. For each cell type, peaks that were both Branchpoint analysis. URD70 (https://github.com/farrellja/URD/) was
+predicted enhancers and cell-type-specific were identified, and en- used to compare the branchpoints of ATAC and RNA independently.
+richment of biological processes in the flanking genes of the regions Deep-layer neurons were not considered during this analysis owing
+relative to a background set of the full primary peak set was identified. to obfuscating identities, and the batch-corrected values were used
+ as input to the diffusion map calculations to combat batch effects.
+Calculating sample correlations. Correlation between samples was Diffusion parameters were set to 150 nearest neighbours, and sigma
+determined using the ‘multiBamSummary’ function from the deeptools was autocalculated from the data. The tree was constructed using
+python suite64 on sample bam files. Bam file comparison was limited to 200 cells per pseudotime bin, 6 bins per pseudotime window, and
+the genomic space of the merged primary peak set (n = 459,953 peaks), branch point P value threshold of 0.001.
+
+transcription start sites. Gene regions were defined using Gencode
+Identification of homologous cell types in primary and organoid V27. The total number of peaks in each gene plus upstream regulatory
+samples. To identify homologous cell types between primary and or- region was quantified per gene for each cell type and compared to the
+ganoid scATAC-seq datasets, reads from organoid cells were counted in number of peaks in the merged peak set for each gene set using Fisher’s
+peaks defined in the primary dataset, providing matching peak-by-cell exact test. The peaks in the remaining gene plus promoter regions were
+matrices for primary and organoid datasets. DA peaks were then identi- used as background. Gene sets from Coe et al.30 (COE253), Kaplanis
+fied in each dataset for each cluster as described above, and the inter- et al.56 (DDD299) and SFARI gene (https://gene.sfari.org/database/
+section of this DA peak set was used to calculate correlations between human-gene/) were used for enrichment testing. P values were Bonferprimary and organoid clusters after averaging peak accessibility across roni corrected for multiple tests (number of peak sets).
+all cells in each cluster. Homologous cell types were then determined
+on the basis of the highest correlation values for each cluster. Morbidity map CNV enrichment. CNVs enriched in NDD cases from
+ Coe et al.30 (n = 70) were intersected with peak sets using bedtools
+Single-cell RNA-seq analysis 2.24.0; peaks were required to have a 50% overlap with the CNV region.
+Seurat. For primary samples used in Figs. 2, 3, scRNA-seq data were The total number of peaks overlapping a CNV were compared to the
+preprocessed using a minimum of 500 genes and 5% mitochondrial number of peaks that did not overlap with a CNV for each cell type.
+cutoff and Scrublet71 for doublet removal. The SCTransform72 workflow The full primary peak set was used as background and compared by
+in Seurat73 was run separately on each batch. Canonical component Fisher’s exact test. P values were Bonferroni corrected for multiple
+analysis (CCA) on the Pearson residuals from SCTransform was used as tests (number of peak sets).
+input into scAlign for batch correction. Dimensionality reduction and
+clustering were performed using PCA and Leiden, respectively, using Cell-type-specific GWAS enrichment testing. We retrieved GWAS
+the default parameters of the Seurat pipeline. For organoid samples summary statistics for schizophrenia (Ripke et al.27), bipolar disorder
+used in the arealization experiment in Fig. 3, libraries from different (Stahl et al.35), and ASD (Grove et al.33) from the Psychiatric Genomics
+conditions were demultiplexed using the Multi-seq pipeline (https:// Consortium data portal (https://www.med.unc.edu/pgc). We also obgithub.com/chris-mcginnis-ucsf/MULTI-seq). The normal SCTrans- tained GWAS summary statistics for schizophrenia (Pardiñas et al.32)
+form workflow was then applied, as described above. Genes that were from http://walters.psycm.cf.ac.uk/. GWAS summary statistics for
+differentially expressed between conditions were identified using the major depression (Howard et al.34) were obtained from the authors
+‘FindMarkers’ function with ‘MAST’ selected as the method. For orga- under the auspices of a Data Use Agreement between 23AndMe and
+noid samples used for validation (Extended Data Fig. 10), scRNA-seq the University of Maryland Baltimore. We applied stratified LD score
+data were integrated following the Seurat SCTransform integration regression (LDSC version 1.0.175,76) to these summary statistics to evaluworkflow using default parameters. ate the enrichment of trait heritability in each of ten predicted enhancer
+ sets. These associations were adjusted for the union of the peak sets as
+Classification of area identity of organoid cells. To systematically well as for 52 annotations from version 1.2 of the LDSC baseline model
+determine whether organoid cells had a transcriptomic identity more (including genic regions, enhancer regions and conserved regions76).
+closely aligned with human PFC or V1 cells, we implemented a previ- Associations that met a cutoff of FDR <0.05 were considered significant.
+ously described classifier method42. In brief, area gene modules defined
+on the basis of area-associated gene expression patterns2,42 were gener- TAD enrichment. Odds ratios were calculated as the likelihood of a
+ated and module eigengene values were determined for each organoid TAD containing an ATAC peak if it also contained a gene from the set
+excitatory neuron using the ‘moduleEigengenes’ function from the denoted by the subplot title, with significance identified using a Fisher’s
+WGCNA R package74. Organoid cells were then assigned an identity of exact test. The magenta dotted line indicates a significance threshold
+‘PFC’ or ‘V1’ using the higher module eigengene value for each module. of P < 0.05. Gene sets were obtained from http://resource.psychen-
+The significance of differences in proportions of identity labels between code.org/24,31. TAD sets were from human brain, germinal zone (GZ)
+treatments was determined using a two-sided χ2 test (P < 0.05). and cortical plate (CP)19.
+
+Disease intersection Immunohistochemistry
+DNM enrichment. Peak sets were intersected with DNMs from 2,708 Samples used for immunostaining were fixed in 4% PFA for 45 min,
+probands and 1,876 siblings using bedtools v2.24.0. DNMs were identi- washed out with PBS, and incubated overnight in a 30% sucrose solution
+fied using an in-house pipeline. In brief, variants from whole-genome at 4 °C. Samples were then embedded in a 1:1 solution of OCT and 30%
+sequencing data were called using four independent callers: GATK v3.8, sucrose and frozen at −80 °C until ready for sectioning. Cryosections
+FreeBayes, Strelka, and Platypus. Variant calls from each caller were were prepared at a thickness of 16 μm. Heat-induced antigen retrieval
+intersected, and filtered for read depth (>9), allele balance (>0.25), was performed in 10 mM sodium citrate (pH 6.0) for 15 min. Permeaabsence of reads supporting the mutation in parents, and identified bilization was performed in PBS (pH 7.4) supplemented with 2% Triton
+by at least three of the four callers. X-100. Primary and secondary antibodies were diluted and incubated
+ Sets of cell-type-specific peaks and peaks that overlapped with PLAC– in PBS (pH 7.4) supplemented with 10% donkey serum, 2% Triton X-100,
+seq promoter-interacting regions were tested for enrichment of DNMs and 0.2% gelatin. Primary antibodies used in this study included: mouse
+in probands as compared to a background peak set which contained all anti-AUTS2 (1:200, Abcam ab243036), rabbit anti-NR2F1 (1:100, Novus
+primary peaks. We used Fisher’s exact test to compare the number of Biologicals NBP1-31259), mouse anti-SATB2 (1:250, Santa Cruz Biopeaks with one or more DNMs between the cell-type-specific peak set technology SC-81376), rat anti-CTIP2 (1:500, abcam AB18465), rabbit
+and the background peak set. We also performed a Wilcoxon rank sum anti-FOXG1 (1:500, Abcam ab196868), and rabbit anti-PAX6 (1:200,
+test comparing the number of DNMs per peak in the cell-type-specific Biolegend 901301). Secondary antibodies used were AlexaFluor secset to the background peak set. We applied a Bonferroni multiple test ondary antibodies. Images were collected using Leica SP5 confocal
+correction to all P values. system and processed using ImageJ/Fiji.
+
+ASD/NDD gene set enrichment. We created gene plus upstream Reporting summary
+regulatory regions using bedtools v2.24.0, where we defined the up- Further information on research design is available in the Nature
+stream regulatory region as the 100-kb region upstream of the gene Research Reporting Summary linked to this paper.
+
+Article
+ 67. McLean, C. Y. et al. GREAT improves functional interpretation of cis-regulatory regions.
+Data availability Nat. Biotechnol. 28, 495–501 (2010).
+ 68. Cao, J. et al. The single-cell transcriptional landscape of mammalian organogenesis.
+scATAC-seq and scRNA-seq data derived from primary human samples Nature 566, 496–502 (2019).
+are available on the NeMO archive (https://assets.nemoarchive.org/ 69. Pliner, H. A. et al. Cicero predicts cis-regulatory DNA interactions from single-cell
+ chromatin accessibility data. Mol. Cell 71, 858–871.e8 (2018).
+dat-gnot1gb) and the psychENCODE Knowledge Portal (https://www. 70. Farrell, J. A. et al. Single-cell reconstruction of developmental trajectories during
+synapse.org/#!Synapse:syn21392931). scATAC-seq and scRNA-seq data zebrafish embryogenesis. Science 360, eaar3131 (2018).
+derived from cortical organoids are also available on the psychENCODE 71. Wolock, S. L., Lopez, R. & Klein, A. M. Scrublet: computational identification of cell
+ doublets in single-cell transcriptomic data. Cell Syst. 8, 281–291.e9 (2019).
+Knowledge Portal (https://www.synapse.org/#!Synapse:syn21392931) 72. Hafemeister, C. & Satija, R. Normalization and variance stabilization of single-cell RNA-seq
+and GEO (GSE163018). Peak level scATAC-seq primary and organoid data using regularized negative binomial regression. Genome Biol. 20, 296 (2019).
+ATAC-seq data are available through the UCSC Cell Browser (https:// 73. Butler, A., Hoffman, P., Smibert, P., Papalexi, E. & Satija, R. Integrating single-cell
+ transcriptomic data across different conditions, technologies, and species. Nat.
+cortex-atac.cells.ucsc.edu/) and UCSC Genome Browser (https://urlde- Biotechnol. 36, 411–420 (2018).
+fense.proofpoint.com/v2/url?u=https-3A__genome.ucsc.edu_s_Max_ 74. Langfelder, P. & Horvath, S. WGCNA: an R package for weighted correlation network
+cortex-2Datac&d=DwIBaQ&c=iORugZls2LlYyCAZRB3XLg&r=wIGwA analysis. BMC Bioinformatics 9, 559 (2008).
+ 75. Finucane, H. K. et al. Heritability enrichment of specifically expressed genes identifies
+13tJ0H_yBH_8fGR_aHDv_Lb9BdBvaGRmKuMfC8&m=C-AKivMuKdU- disease-relevant tissues and cell types. Nat. Genet. 50, 621–629 (2018).
+2JxBfFMIkS53e2NDAh9SJrG2tdmW5_MU&s=Sg2BoS6TTUoAMLyXia 76. Finucane, H. K. et al. Partitioning heritability by functional annotation using genome-wide
+M6hGHhNtG9LqaUBpXoPQxWBuQ&e=). association summary statistics. Nat. Genet. 47, 1228–1235 (2015).
+
+
+ Acknowledgements We thank A. Bhaduri for help with generation of scRNA-seq data and its
+Code availability analysis, and discussions throughout the project; M. Andrews for sharing organoid cultures;
+ M. Song and Y. Shen for sharing PLAC–seq promoter-interacting regions for intersection with
+Custom codes used in this study are available at the following GitHub our data; and J. Rubenstein for reading of the manuscript. This study was supported by NIH
+repository: https://github.com/NOW-Lab/scATACcortex. awards: psychENCODE award U01MH116438, Brain Initiative award U01MH114825, and the
+ Psychiatric Cell Map Initiative Convergence Neuroscience award U01MH115747, NIMH award
+ R01MH109907 (N.A. and K.S.P.), an Autism Speaks Predoctoral Fellowship (11874 to R.S.Z.),
+57. Corces, M. R. et al. An improved ATAC-seq protocol reduces background and enables
+ a Simons Foundation grant (SFARI 491371 to T.J.N.), an NARSAD Young Investigator Grant
+ interrogation of frozen tissues. Nat. Methods 14, 959–962 (2017).
+ (to T.J.N.), gifts from Schmidt Futures and the William K. Bowes Jr Foundation, the Gladstone
+58. Kadoshima, T. et al. Self-organization of axial polarity, inside-out layer pattern, and
+ Institutes, the National Institute of Mental Health (1K99MH117165 to T.N.T.), the US NIH
+ species-specific progenitor dynamics in human ES cell–derived neocortex. Proc. Natl
+ (R01 MH101221 to E.E.E.) and 5U41HG002371-19 to M.H.
+ Acad. Sci. 110, 20284–20289 (2013).
+59. McGinnis, C. et al. MULTI-seq: Scalable sample multiplexing for single-cell RNA
+ Author contributions R.S.Z. and T.J.N. designed the experiments. R.S.Z. and J.M.R. performed
+ sequencing using lipid-tagged indices. Nat. Methods 16, 619–626 (2019).
+ all experiments. D.B. generated CUT&TAG data. D.S. assisted in organoid differentiation. R.S.Z.
+60. Kaya-Okur, H. S. et al. CUT&Tag for efficient epigenomic profiling of small samples and
+ and C.N.K. performed the majority of data analysis. P.F.P., K.C.K., and K.S.P. contributed to
+ single cells. Nat. Commun. 10, 1930 (2019).
+ study design and performed data analysis. A.W., T.N.T., A.K., A.M.C., S.A.A., and E.E.E.
+61. Fang, R. et al. Comprehensive analysis of single cell ATAC-seq data with SnapATAC. Nat.
+ performed the disease intersection analyses. R.S.Z., C.N.K., N.A, and T.J.N. wrote the paper
+ Commun. 112, 1337 (2021).
+ with input from all authors. M.H. built the cell browser interface. T.J.N. and N.A. supervised the
+62. McInnes, L., Healy, J. & Melville, J. UMAP: uniform manifold approximation and projection
+ project.
+ for dimension reduction. Preprint at https://arxiv.org/abs/1802.03426 (2018).
+63. van Dijk, D. et al. Recovering gene interactions from single-cell data using data diffusion.
+ Cell 174, 716–729.e27 (2018). Competing interests The authors declare no competing interests.
+64. Ramírez, F. et al. deepTools2: a next generation web server for deep-sequencing data
+ analysis. Nucleic Acids Res. 44, W160–W165 (2016). Additional information
+65. Heinz, S. et al. Simple combinations of lineage-determining transcription factors prime Supplementary information The online version contains supplementary material available at
+ cis-regulatory elements required for macrophage and B cell identities. Mol. Cell 38, https://doi.org/10.1038/s41586-021-03209-8.
+ 576–589 (2010). Correspondence and requests for materials should be addressed to T.J.N.
+66. Yu, G., Wang, L.-G. & He, Q.-Y. ChIPseeker: an R/Bioconductor package for ChIP Peer review information Nature thanks Flora Vaccarino, Christopher Walsh, Wing H. Wong and
+ peak annotation, comparison and visualization. Bioinformatics 31, 2382–2383 Qiangfeng Zhang for their contribution to the peer review of this work.
+ (2015). Reprints and permissions information is available at http://www.nature.com/reprints.
+
+Extended Data Fig. 1 | See next page for caption.
+
+Article
+Extended Data Fig. 1 | Batch correction and quality control metrics for calculated in the space of the merged primary peak set (n = 459,953 peaks).
+primary scATAC-seq data. a, Density curve of fragment size distribution for f, Heat map of all-by-all correlations between primary single-cell data
+deduplicated, uniquely mapped fragments that passed quality filters for each aggregated by area of origin. Correlation was calculated in the space of the
+sample. b, Plot of promoter ratio against ln(read depth) for all cell barcodes merged primary peak set (n = 459,953 peaks). g, h, UMAP projections of all
+detected. Cells were included in downstream analysis that had a promoter primary scATAC-seq cells before (g) and after (h) batch correction coloured by
+ration of 10–60% and ln(read depth) of 3–5. Red lines indicate upper and lower sample (see Methods). i, UMAP projection of log(read depth) for deduplicated,
+thresholds. c, Histogram of cellular coverage in 5-kb genomic bins for all cells. uniquely mapped reads that passed quality filters on all primary scATAC-seq
+Cells with reads in fewer than 500 bins were removed from downstream cells. j, UMAP projection of fraction of fragments in peaks on all primary
+analysis. d, Heat map of all-by-all Pearson correlations between all samples that scATAC-seq cells. k, UMAP projection of all primary scATAC-seq cells coloured
+had bulk libraries prepared in parallel. Bulk and aggregate single-cell libraries by condition (fresh or frozen). l, Bar plot depicting the proportion of cells from
+for each sample are included. Correlation was calculated in the space of the each brain region for each Leiden cluster for all primary scATAC-seq cells.
+merged primary peak set (n = 459,953 peaks). e, Heat map of all-by-all Pearson m, Heat map of all-by-all Pearson correlations between clusters. Correlation is
+correlations between all aggregate single-cell libraries. Correlation was calculated in the space of all primary peaks (n = 459,953).
+
+Extended Data Fig. 2 | Batch Correction of primary scATAC-seq samples. b, UMAP projections of all primary scATAC-seq cells that passed quality control
+a, UMAP projections of all primary scATAC-seq cells that passed quality control after batch correction with all cells from each sample coloured in red.
+before batch correction with all cells from each sample coloured in red.
+
+Article
+
+
+Extended Data Fig. 3 | See next page for caption.
+
+Extended Data Fig. 3 | Gene activity scores correlate with cell type-specific on integration with scRNA-seq data. c, UMAP projection of cell-type labels
+expression of marker genes. a, UMAP projections of all primary scATAC-seq assigned by CellWalker. d, UMAP projection of radial glia with cell-type
+cells coloured by gene activity score. From top left to bottom right: NKX2.1 assignments from CellWalker. e, UMAP projections of gene activity scores for
+(also known as NKX2-1) marking MGE cells, AQP4 marking glia/astrocytes, TBR1 PAX6 and GLI3, genes that are ubiquitously expressed in radial glia; HOPX, an
+marking excitatory neurons, FEZF2 marking deep layer excitatory neurons, oRG-specific gene2; and CRYAB, a tRG-specific gene2. f, UMAP projection of
+HES1 marking radial glia, HOPX marking outer radial glia, SATB2 marking Z-scores of enrichment of oRG- and tRG-specific peaks (Fisher’s exact, twoupper layer excitatory neurons, CCL4 marking microglia, CRYAB marking sided test, P < 0.05). g, UMAP projections of Z-scores of enrichment of areatruncated radial glia, LHX6 marking MGE-derived interneurons, OLIG1 marking specific peaks for each area in all primary scATAC-seq cells (Fisher’s exact,
+oligodendrocyte precursors, and SOX2 marking radial glia. b, Schematic of the two-sided test, P < 0.05).
+CellWalker algorithm17 used to assign cell-type labels to scATAC-seq cells based
+
+Article
+
+
+Extended Data Fig. 4 | See next page for caption.
+
+Extended Data Fig. 4 | Annotation of primary scATAC-seq peaks. cell-type-specific peaks (Fisher’s exact, two-sided, FDR < 0.05) for each broad
+a, Distribution of primary scATAC-seq peaks in genomic features. cell type. f, Browser tracks highlighting cell-type-specific predicted enhancers.
+b, Distribution of primary scATAC-seq peaks around transcription start sites. Left, highlighting predicted enhancers linked to SOX2 in RGs that are not
+c, Bar plot of log(fold enrichment) of primary scATAC-seq peaks in chromatin present in ulENs. Right, highlighting a predicted enhancer for GRIN2B that is
+states. Chromatin states defined by the 25-state model from Roadmap present in ulENs and not RGs. g, h, Bar plots of −log10(P) of gene ontology
+Epigenomics18 (see Methods). d, Intersection of cell-type-specific peaks biological processes that are enriched in cell-type-specific predicted
+(Fisher’s exact, two sided, FDR < 0.05), predicted enhancer peaks enhancers of MGE-derived interneurons (g) and RGs (h) (see Methods).
+(see Methods), and peaks overlapping promoter-interacting regions identified i, Heat map of Z-scores of transcription factor motif enrichments of key
+by H3K4me3 PLAC–seq21. e, UMAP projections of Z-scores of enrichment of lineage-associated transcription factors in each cluster.
+
+Article
+
+
+Extended Data Fig. 5 | scATAC-seq peaks overlap with previously annotated proportions of predicted enhancers for each cell type (see Methods) present in
+bulk ATAC-seq peaks and validated forebrain enhancers. a–c, Overlap of all the overlapping set. d, Venn diagram of overlap of all predicted enhancers
+primary peaks with the peak set from de la Torre-Ubieta et al.9 (a), Li et al. 22 (b), (see Methods) with gene-linked enhancers from Amiri et al.11, high confidence
+and Markenscoff-Papadimitriou et al. 23 (c). Left to right: Venn diagram of enhancers from Wang et al. 24, and putative regulatory elements from
+overlaps, UMAP projection of Z-scores of enrichment of overlapping peaks in Markenscoff-Papadimitriou et al. 23. e, Venn diagram of overlaps of VISTA
+all primary scATAC-seq cells, bar plot of proportions of cell-type-specific peaks forebrain enhancers25 with all primary scATAC-seq peaks, and all predicted
+(Fisher’s exact, two-sided, FDR < 0.05) present in overlapping set, bar plot of enhancers (see Methods).
+
+Extended Data Fig. 6 | See next page for caption.
+
+Article
+Extended Data Fig. 6 | Enrichment and depletion of disease associated peaks for each cell type in ASD probands compared with unaffected siblings.
+variants in scATACseq peaks. a–c, Enrichment and depletion of cell-type- DNM data from a total of 2,767 probands and 1,855 unaffected siblings were
+specific peaks (a), peaks that overlap with H3K4me3 PLAC–seq interactions21 included in the analysis. No tests reached Bonferroni significance. Bars
+(b) and cell-type-specific peaks that overlap with H3K4me3 PLAC–seq represent 95% CI. f, Enrichment and depletion of predicted enhancer peaks in
+interactions21 (c) (Fisher’s exact, two-sided, FDR < 0.05) in promoter and gene copy number variant (CNV) regions enriched in paediatric cases of NDD30
+regions of genes associated with ASD and NDD, including genes enriched in (n = 70 NDD-associated CNVs). No tests reached Bonferroni significance. Bars
+DNMs (SFARI845, DDD2996056, COE25361 30). Asterisks indicate tests that pass represent 95% CI. g, Enrichment of cell-type-specific enhancers located in
+Bonferroni significance. d, Enrichment and depletion of DNMs in predicted TADs with neurodevelopmental disease-associated genes31 (left) and
+enhancer peaks for each cell type in ASD probands compared with unaffected schizophrenia-associated genes24 (right). Three distinct sets of TADs were used
+siblings. DNM data from a total of 2767 probands and 1855 unaffected siblings (top to bottom): TADs defined in the cortical plate (CP) of developing human
+were included in the analysis. No tests reached Bonferroni significance. Bars cortex, TADs defined in the germinal zone (GZ) of developing human cortex,
+represent 95% CI. e, Enrichment and depletion of DNMs in cell-type-specific and TADs defined in adult cortex19.
+
+Extended Data Fig. 7 | Dynamic patterns of gene expression, chromatin equally sized bins and expression, activity scores and deviations are averaged
+accessibility, and transcription factor motif enrichment across across all cells in each bin. Deviation scores determined using ChromVAR 26
+pseudotime. a–c, Heat map of normalized expression (a), normalized gene (Methods). d, e, Heat maps of correlations between gene expression and gene
+activity scores (b) and deviation scores of motif enrichments (c) of 40 key activity scores for 40 key lineage transcription factors (d) and for 615 cell-type
+lineage transcription factors across pseudotime. Pseudotime is binned into 20 marker genes (e).
+
+Article
+
+
+Extended Data Fig. 8 | Chromatin state profiling reveals divergence of PFC IPCs (h). i, j, Projection of NHLH1, PPP1R17, and NEUROD4 gene activity scores
+and V1 excitatory lineages. a–d, UMAP projections of scATAC-seq cells from on PFC and V1 scATAC-seq cells (i) and scRNA-seq cells (j) ordered by
+PFC and V1 samples before batch correction coloured by sample (a), after batch pseudotime with PFC/V1 divergence branch points displayed. k, Volcano plot
+correction coloured by sample (b), coloured by Leiden cluster (c) and coloured of peaks that are differentially accessible between PFC and V1 IPCs. Peaks
+by gene activity score for EOMES, a marker of IPCs (d). e–h, UMAP projections highlighted in red have log-transformed fold change (logFC) > 0.5 and
+of scRNA-seq cells from PFC and V1 samples before batch correction coloured FDR < 0.05 (n = 1,819). l, Volcano plot of genes that are differentially expressed
+by sample (e), after batch correction coloured by sample (f), coloured by between PFC and V1 IPCs. Genes highlighted in red have logFC > 0.5 and
+Leiden cluster (g) and coloured by gene activity score for EOMES, a marker of FDR < 0.05 (n = 11).
+
+Extended Data Fig. 9 | See next page for caption.
+
+Article
+Extended Data Fig. 9 | Modelling the PFC–V1 split in the developing cortex. group classified as more PFC-like or more V1-like on the basis of calculation of
+a, b, UMAP projections of Z-scores of enrichment of PFC-specific peaks module eigengene values for area-specific modules (see Methods). Asterisks
+(a; n = 4,176) and V1-specific peaks (b; n = 21,030) in all PFC and V1 scATAC-seq indicate significant differences in proportions (DEAB: PFC, 1,160/2,622; V1,
+cells (Fisher’s exact, two-sided, FDR < 0.05). c, Top enriched transcription 1,462/2,622; NoVA: PFC, 563/1,556; V1, 993/1,556; VA: PFC, 1,831/2,976; V1,
+factor motifs in V1-specific peak set as determined by HOMER (hypergeometric 1,145/2,976) (χ2 test, one-sided, vitamin A versus no vitamin A: P = 3.209 × 10–59;
+test, one-sided). d, UMAP projection of ChromVAR deviation scores of motif vitamin A versus DEAB: P = 2.79 × 10 −38). h, Violin plots depicting expression
+enrichment of MEF2C in all PFC and V1 scATAC-seq cells. e, UMAP projection of levels of SATB2, NR2F1, and NR2F2 for excitatory neurons from each treatment
+scRNA-seq data from organoids (n = 3) cultured in the presence of vitamin A, group. i, Heat map showing gene expression of differentially expressed genes
+without the presence of vitamin A, and in the presence of DEAB. Cells coloured between excitatory neurons cultured with and without vitamin A. j, Images of
+by cluster. f, Schematic depiction of classifier method used to assign area organoids cultured with and without vitamin A stained with DAPI and
+identity to organoid cells on the basis of defined area-specific gene modules. immunostained for NR2F1 and AUTS2. All images taken at 10× resolution.
+g, Bar plot depicting proportion of excitatory neurons from each treatment Representative images shown from n = 3 lines.
+
+Extended Data Fig. 10 | See next page for caption.
+
+Article
+Extended Data Fig. 10 | Comparison of organoid and primary peaks reveal scATAC-seq dataset but not in the primary scATAC-seq dataset. h, UMAP
+significant differences in chromatin landscapes. a, Representative image of projection of Z-scores of enrichment of peaks that are present in the primary
+organoid (1323-4 line depicted) immunostained for FOXG1, a marker of cortical scATAC-seq dataset but not in the organoid scATAC-seq dataset. i, Genome
+identity. Image taken at 10× resolution. Representative image shown from n = 3 browser tracks depicted a predicted enhancer of SOX2 that is present in both
+lines. b, Density curves of fragment size distributions for each organoid the full and down-sampled primary RGs but not detected in organoid RGs.
+sample. Fragments are deduplicated, uniquely mapped fragments that have j, UMAP projection of scRNA-seq data from the same three organoid lines used
+passed quality filters (see Methods). c, UMAP projection of all organoid for scATAC-seq analysis coloured by line (n = 19,509 cells). k, UMAP projection
+scATAC-seq cells coloured by cluster. d, UMAP projection of log(read depth). of scRNA-seq data coloured by cluster. l, UMAP projection of normalized gene
+Fragments are deduplicated, uniquely mapped fragments that have passed expression of PAX6, SOX2, EOMES, and NEUROD2. Maximum value was set at the
+quality filters (see Methods). e, Bar plot depicting the proportions of cells in 99th quantile. m, Bar plot depicting the proportions of cells in each cluster
+each cluster from each organoid sample. f, Venn diagram of overlaps of all from each organoid sample. n, UMAP projection of normalized gene
+primary scATAC-seq peaks, all organoid scATAC–seq peaks, all H3K27ac peaks expression of FOXG1 split by organoid line. Maximum value was set at the 99th
+from Amiri et al.11, and all ATAC-seq peaks from Trevino et al.49. g, UMAP quantile.
+projection of Z-scores of enrichment of peaks that are present in the organoid

@@ -1,0 +1,240 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Day 4: collection of virus‑infected hiPS cells through FACS",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01299-6"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_accutase",
+        "name": "Accutase"
+      },
+      {
+        "id": "m_bsa",
+        "name": "BSA"
+      },
+      {
+        "id": "m_dpbs",
+        "name": "DPBS"
+      },
+      {
+        "id": "m_y27632",
+        "name": "Y-27632"
+      },
+      {
+        "id": "m_strainer",
+        "name": "50‑μm cell strainer"
+      },
+      {
+        "id": "m_vitronectin",
+        "name": "Vitronectin"
+      },
+      {
+        "id": "m_e8",
+        "name": "E8 medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_15ml_tube",
+        "name": "15‑ml conical tube"
+      },
+      {
+        "id": "c_10cm_dish",
+        "name": "10‑cm dish"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e_incubator",
+        "name": "Incubator",
+        "device_kind": "incubator"
+      },
+      {
+        "id": "e_facs",
+        "name": "FACS instrument"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_bulk",
+        "name": "hiPS cells (bulk)"
+      },
+      {
+        "id": "s_single",
+        "name": "hiPS cells (single‑cell suspension)"
+      },
+      {
+        "id": "s_resuspended",
+        "name": "hiPS cells resuspended in 3% BSA/DPBS + 10 μM Y‑27632"
+      },
+      {
+        "id": "s_filtered",
+        "name": "hiPS cells after filtration"
+      },
+      {
+        "id": "s_sorted",
+        "name": "mCherry+ hiPS cells (FACS sorted)"
+      },
+      {
+        "id": "s_seeded",
+        "name": "Sorted hiPS cells seeded in 10‑cm dish"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_bulk"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_single"
+          }
+        ],
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_single"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_resuspended"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_resuspended"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_filtered"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Filter the cells with a 50‑μm cell strainer and collect the cells in 15‑ml conical tubes."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_filtered"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_sorted"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Conduct FACS to collect mCherry+ cells (virus‑infected). Uninfected control cells processed similarly for gating."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_sorted"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_seeded"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Seed the sorted mCherry+ cells at low density in 10‑cm dishes coated with vitronectin in 10 ml of pre‑warmed E8 medium supplemented with 10 μM Y‑27632."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_seeded"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_seeded"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "37 °C, 5% CO2"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

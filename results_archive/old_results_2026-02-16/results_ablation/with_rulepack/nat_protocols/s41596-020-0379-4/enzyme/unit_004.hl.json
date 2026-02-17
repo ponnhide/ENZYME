@@ -1,0 +1,114 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Resuspend pellet in BME and plate drops",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-0379-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "BME (or Matrigel)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "24-well suspension cell culture plate",
+        "description": "pre‑heated"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "pellet",
+        "name": "cell pellet"
+      },
+      {
+        "id": "resuspended_pellet",
+        "name": "pellet resuspended in BME"
+      },
+      {
+        "id": "plated_drops",
+        "name": "organoid drops plated in wells"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "pellet"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "resuspended_pellet"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend",
+          "amount": {
+            "value": 40,
+            "unit": "µl"
+          },
+          "material": {
+            "kind": "material",
+            "id": "m1"
+          }
+        },
+        "annotations": {
+          "note": "Aspirate supernatant first; BME kept on ice; approx 10,000 cells per 40 µl BME."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "resuspended_pellet"
+          },
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plated_drops"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 10,
+            "unit": "µl"
+          },
+          "drops_per_well": "3-4"
+        },
+        "annotations": {
+          "note": "Plate drops on bottom of pre‑heated 24‑well plate; each drop ~10 µl."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,144 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41587-023-01747-2.pdf",
+      "type": "paper"
+    },
+    "title": "Pooled loss‑of‑function experiment with iCas9"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "organoid",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "organoid",
+            "kind": "sample"
+          },
+          {
+            "id": "m2",
+            "kind": "material"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "infected_organoid",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "lowered_from": "incubate"
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "infected_organoid",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "incubated_organoid",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": null
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "GFP+ cells were sorted and used."
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "incubated_organoid",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "sorted_GFP_positive",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      }
+    ]
+  },
+  "resources": {
+    "containers": [],
+    "data": [],
+    "equipment": [],
+    "materials": [
+      {
+        "id": "m1",
+        "name": "iCas9 line"
+      },
+      {
+        "id": "m2",
+        "name": "pooled lentiviral library"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoid",
+        "name": "retinal organoids (iCas9 line)"
+      },
+      {
+        "id": "infected_organoid",
+        "name": "retinal organoids infected with pooled lentiviral library"
+      },
+      {
+        "id": "incubated_organoid",
+        "name": "infected organoids after 3–5 weeks"
+      },
+      {
+        "id": "sorted_GFP_positive",
+        "name": "GFP+ sorted cells"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

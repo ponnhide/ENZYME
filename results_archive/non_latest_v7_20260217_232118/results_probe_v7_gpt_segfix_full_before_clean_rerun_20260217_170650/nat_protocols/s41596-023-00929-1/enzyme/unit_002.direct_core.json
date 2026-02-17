@@ -1,0 +1,401 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Percoll density gradient centrifugation",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00929-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_hbss",
+        "name": "HBSS/BSA/glucose solution"
+      },
+      {
+        "id": "m_dnase",
+        "name": "DNase (10 mg/mL)"
+      },
+      {
+        "id": "m_percoll",
+        "name": "22% Percoll solution"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_sample_tube",
+        "type": "15 mL conical tube"
+      },
+      {
+        "id": "c_percoll_tube1",
+        "type": "15 mL conical tube"
+      },
+      {
+        "id": "c_percoll_tube2",
+        "type": "15 mL conical tube"
+      },
+      {
+        "id": "c_combined_tube",
+        "type": "15 mL conical tube"
+      },
+      {
+        "id": "c_waste",
+        "type": "waste container"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "eq_centrifuge",
+        "type": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_cell",
+        "name": "cell suspension"
+      },
+      {
+        "id": "c_percoll_tube1",
+        "name": "c_percoll_tube1"
+      },
+      {
+        "id": "c_percoll_tube2",
+        "name": "c_percoll_tube2"
+      },
+      {
+        "id": "c_combined_tube",
+        "name": "c_combined_tube"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s0",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer supernatant from sample_cell to waste (amount unspecified)"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source": "m_hbss",
+          "destination": "sample_cell",
+          "amount": {
+            "value": 1.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "m_dnase",
+          "destination": "sample_cell",
+          "amount": {
+            "value": 50.0,
+            "unit": "µL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "target": "sample_cell",
+          "details": "50 gentle pipette mixes"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_cell"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "type": "15 mL conical tube",
+          "quantity": 2
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c_percoll_tube1"
+          },
+          {
+            "kind": "container",
+            "id": "c_percoll_tube2"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "m_percoll",
+          "destination": "c_percoll_tube1",
+          "amount": {
+            "value": 4.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": "m_percoll",
+          "destination": "c_percoll_tube2",
+          "amount": {
+            "value": 4.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "source": "sample_cell",
+          "destination": "c_percoll_tube1",
+          "amount": {
+            "value": 750,
+            "unit": "µL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "params": {
+          "source": "sample_cell",
+          "destination": "c_percoll_tube2",
+          "amount": {
+            "value": 750,
+            "unit": "µL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "eq_centrifuge",
+          "program": {
+            "program_name": "spin_10min_500g_4C_no_decel"
+          },
+          "target": "c_percoll_tube1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "eq_centrifuge",
+          "program": {
+            "program_name": "spin_10min_500g_4C_no_decel"
+          },
+          "target": "c_percoll_tube2"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer supernatant from c_percoll_tube1 to waste (amount unspecified)"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer supernatant from c_percoll_tube2 to waste (amount unspecified)"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s13",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "type": "15 mL conical tube"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c_combined_tube"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s14",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer pellet from c_percoll_tube1 to c_combined_tube (amount unspecified)"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s15",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer pellet from c_percoll_tube2 to c_combined_tube (amount unspecified)"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s16",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "target": "c_combined_tube",
+          "details": "resuspend pellet in remaining HBSS/BSA/glucose"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c_combined_tube"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s17",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "eq_centrifuge",
+          "program": {
+            "program_name": "spin_5min_300g_4C"
+          },
+          "target": "c_combined_tube"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s18",
+        "op": "annotate",
+        "params": {
+          "note": "Do not discard the remaining tubes; they can be used for unstained and DAPI controls."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s0",
+    "edges": [
+      {
+        "from": "s0",
+        "to": "s1"
+      },
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      },
+      {
+        "from": "s16",
+        "to": "s17"
+      },
+      {
+        "from": "s17",
+        "to": "s18"
+      }
+    ],
+    "detail_level": 0
+  }
+}

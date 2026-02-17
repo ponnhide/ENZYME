@@ -1,0 +1,150 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Live/dead discrimination",
+    "source": {
+      "type": "paper",
+      "id": "s41596-021-00603-4"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "PBS"
+      },
+      {
+        "id": "m2",
+        "name": "0.25 µM 194cisplatin/PBS solution"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "pipette",
+        "name": "pipette"
+      },
+      {
+        "id": "e2",
+        "type": "rocker",
+        "name": "rocker"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "type": "sample",
+        "name": "cells in wells with PBS"
+      },
+      {
+        "id": "samp2",
+        "type": "sample",
+        "name": "cells in wells after PBS removal"
+      },
+      {
+        "id": "samp3",
+        "type": "sample",
+        "name": "cells in wells with 0.25 µM 194cisplatin/PBS added"
+      },
+      {
+        "id": "samp4",
+        "type": "sample",
+        "name": "cells in wells after incubation"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "annotations": {
+          "note": "Remove PBS by pipetting (aspirate all PBS from each well)."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp3"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 200,
+            "unit": "µl"
+          }
+        },
+        "annotations": {
+          "note": "Add 200 µl of 0.25 µM 194cisplatin/PBS solution to each well."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp4"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "rocker at room temperature for 10-15 min"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

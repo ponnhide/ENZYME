@@ -1,0 +1,64 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Selection of highly variable genes and dimensionality reduction",
+    "source": {
+      "type": "paper",
+      "id": "s41586-024-08172-8"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Compute 3,000 highly variable features in a batch‑aware manner using the scanpy highly_variable_genes function (flavor='seurat_v3', batch_key='bio_sample')."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Use these 3,000 features to compute a 50‑dimensional representation of the data using principal component analysis (PCA)."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Compute a k‑nearest‑neighbour (kNN) graph (n_neighbors=30, metric='cosine') from the PCA representation."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

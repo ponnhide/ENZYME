@@ -1,0 +1,259 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-025-01236-7.pdf",
+      "type": "paper"
+    },
+    "title": "iNPC expansion and passaging"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "start_step_id": "s1",
+    "step_order": null,
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "samp1",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "device_ref": "e1"
+        },
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "samp1",
+            "kind": "sample"
+          }
+        ],
+        "op": "observe",
+        "outputs": [
+          {
+            "id": "samp1",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "features": [
+            "cell count"
+          ],
+          "modality": "instrument_readout"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "samp1",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "samp2",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "cells",
+            "value": 120000
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "m1",
+            "kind": "material"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "c2",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "ml",
+            "value": 1
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "Return the cultures to the incubator."
+        },
+        "id": "s5",
+        "inputs": [],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "device_ref": "e3"
+        },
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "samp2",
+            "kind": "sample"
+          }
+        ],
+        "op": "observe",
+        "outputs": [
+          {
+            "id": "samp2",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "features": [
+            "attachment"
+          ],
+          "modality": "microscope"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Change the medium to 1 ml of fresh hNPSR‑v2 medium."
+        },
+        "id": "s7",
+        "inputs": [],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "device_ref": "e3"
+        },
+        "id": "s8",
+        "inputs": [
+          {
+            "id": "samp2",
+            "kind": "sample"
+          }
+        ],
+        "op": "observe",
+        "outputs": [
+          {
+            "id": "samp2",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "features": [
+            "confluence"
+          ],
+          "modality": "microscope"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "c1",
+        "name": "12-well plate",
+        "type": "plate"
+      },
+      {
+        "id": "c2",
+        "name": "well A1",
+        "parent": "c1",
+        "type": "well"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "name": "cell count"
+      }
+    ],
+    "equipment": [
+      {
+        "device_kind": "cell_counter",
+        "id": "e1",
+        "name": "TC20 automated cell counter"
+      },
+      {
+        "device_kind": "incubator",
+        "id": "e2",
+        "name": "incubator"
+      },
+      {
+        "id": "e3",
+        "name": "microscope"
+      }
+    ],
+    "materials": [
+      {
+        "id": "m1",
+        "name": "hNPSR‑v2 medium"
+      },
+      {
+        "id": "m2",
+        "name": "Matrigel"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "name": "sorted iNPCs"
+      },
+      {
+        "id": "samp2",
+        "name": "seeded iNPCs"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

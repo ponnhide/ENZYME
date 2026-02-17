@@ -1,0 +1,539 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Dissociate OVB organoids for scRNA‑seq",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00814-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "pbs",
+        "name": "PBS"
+      },
+      {
+        "id": "accutase_solution",
+        "name": "Accutase containing 0.2 U/µl DNase I"
+      },
+      {
+        "id": "dmem_f12",
+        "name": "DMEM/F12"
+      },
+      {
+        "id": "organoid_medium",
+        "name": "OVB organoid medium"
+      },
+      {
+        "id": "trypan_blue",
+        "name": "Trypan‑blue"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube_15ml",
+        "name": "15 ml sterile centrifuge tube",
+        "type": "centrifuge_tube",
+        "capacity": {
+          "value": 15,
+          "unit": "ml"
+        }
+      },
+      {
+        "id": "strainer_70um",
+        "name": "70 µm sterile cell strainer",
+        "type": "filter"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "water_bath",
+        "name": "37 °C water bath",
+        "device_kind": "incubator"
+      },
+      {
+        "id": "centrifuge",
+        "name": "Bench-top centrifuge",
+        "device_kind": "centrifuge"
+      },
+      {
+        "id": "cell_counter",
+        "name": "Cell counter",
+        "device_kind": "cell_counter"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoids",
+        "name": "OVB organoids (day 30 or 60)",
+        "type": "sample"
+      },
+      {
+        "id": "cell_suspension",
+        "name": "Single‑cell suspension",
+        "type": "sample"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoids"
+          }
+        ],
+        "params": {
+          "container_ref": "tube_15ml"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoids"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoids"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Remove any carried‑over medium carefully with a 200 µl micropipette tip without disturbing the organoids."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoids"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoids"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Wash organoids three times with 3 ml PBS and withdraw the PBS each time."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "accutase_solution"
+          },
+          {
+            "kind": "sample",
+            "id": "organoids"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoids"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 2,
+            "unit": "ml"
+          },
+          "device_ref": "tube_15ml"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoids"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoids"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "water_bath",
+          "program": {
+            "temperature": {
+              "value": 37,
+              "unit": "C"
+            },
+            "duration": {
+              "value": 15,
+              "unit": "min"
+            }
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoids"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoids"
+          }
+        ],
+        "params": {
+          "modality": "visual",
+          "features": [
+            "organoid integrity"
+          ]
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoids"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoids"
+          }
+        ],
+        "params": {
+          "action_kind": "mix",
+          "device_ref": "uncut_1000ul_tip"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoids"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoids"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "water_bath",
+          "program": {
+            "temperature": {
+              "value": 37,
+              "unit": "C"
+            },
+            "duration": {
+              "value": 15,
+              "unit": "min"
+            }
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s9",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoids"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoids"
+          }
+        ],
+        "params": {
+          "modality": "visual",
+          "features": [
+            "organoid integrity"
+          ]
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s10",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoids"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoids"
+          }
+        ],
+        "params": {
+          "action_kind": "mix",
+          "device_ref": "uncut_1000ul_tip"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s11",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoids"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoids"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "water_bath",
+          "program": {
+            "temperature": {
+              "value": 37,
+              "unit": "C"
+            },
+            "duration": {
+              "value": 15,
+              "unit": "min"
+            }
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s12",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "dmem_f12"
+          },
+          {
+            "kind": "sample",
+            "id": "organoids"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoids"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 8,
+            "unit": "ml"
+          },
+          "device_ref": "tube_15ml"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s13",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoids"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Filter the suspension through a sterile 70 µm diameter strainer to obtain a single‑cell suspension."
+        }
+      },
+      {
+        "id": "s14",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge",
+          "program": {
+            "speed": {
+              "value": 500,
+              "unit": "g"
+            },
+            "duration": {
+              "value": 5,
+              "unit": "min"
+            },
+            "temperature": "RT"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s15",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Aspirate supernatant, then resuspend the cell pellet in 1 ml OVB organoid medium."
+        }
+      },
+      {
+        "id": "s16",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension"
+          }
+        ],
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "cell count",
+            "viability"
+          ]
+        },
+        "annotations": {
+          "note": "Perform Trypan‑blue staining; aim for 65–95 % viability."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      }
+    ],
+    "detail_level": 0
+  }
+}

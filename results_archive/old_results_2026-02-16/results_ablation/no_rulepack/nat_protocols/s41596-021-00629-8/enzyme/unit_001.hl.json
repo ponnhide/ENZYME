@@ -1,0 +1,493 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Initiate monolayer culture from hPSCs grown on MEFs (option A)",
+    "source": {
+      "type": "paper",
+      "id": "s41596-021-00629-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "hpsc_mef_plate",
+        "description": "six-well plate with high-quality hPSCs grown on MEFs (~80% confluency) in standard hPSC culture medium containing 20% KnockOut Serum Replacement"
+      },
+      {
+        "id": "pbs",
+        "description": "PBS without calcium and magnesium"
+      },
+      {
+        "id": "accutase",
+        "description": "Accutase enzyme solution"
+      },
+      {
+        "id": "dmem_f12",
+        "description": "DMEM/F12 medium"
+      },
+      {
+        "id": "e8_y27632",
+        "description": "E8 medium supplemented with 10 μM Y27632"
+      },
+      {
+        "id": "geltrix_coated_flask",
+        "description": "Geltrex‑coated T25 flask"
+      }
+    ],
+    "containers": [
+      {
+        "id": "six_well_plate",
+        "type": "six-well plate"
+      },
+      {
+        "id": "conical_15ml",
+        "type": "15 mL conical tube"
+      },
+      {
+        "id": "t25_flask",
+        "type": "T25 flask"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "type": "incubator",
+        "description": "humidified incubator at 37 °C"
+      },
+      {
+        "id": "centrifuge",
+        "type": "centrifuge"
+      },
+      {
+        "id": "water_bath",
+        "type": "water bath",
+        "description": "water bath for pre‑warming media"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "description": "hPSC colonies on MEFs (one well of a six‑well plate)"
+      },
+      {
+        "id": "cell_suspension",
+        "description": "cell suspension after dissociation"
+      },
+      {
+        "id": "pellet",
+        "description": "cell pellet after centrifugation"
+      },
+      {
+        "id": "flask_culture",
+        "description": "cells seeded in a Geltrex‑coated T25 flask"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "params": {
+          "description": "one well of six‑well plate containing hPSCs on MEFs"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Aspirate the medium from the well."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "pbs"
+          },
+          {
+            "kind": "container",
+            "id": "six_well_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 3,
+            "unit": "mL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Aspirate the PBS."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "accutase"
+          },
+          {
+            "kind": "container",
+            "id": "six_well_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 500,
+            "unit": "μL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "37C_3min"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension"
+          }
+        ],
+        "params": {
+          "action_kind": "mix",
+          "description": "Disperse colonies into single cells by pipetting until all cells are detached."
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension"
+          },
+          {
+            "kind": "container",
+            "id": "conical_15ml"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "entire",
+            "unit": "volume"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s9",
+        "op": "centrifuge",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "pellet"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "300g_3min_4C"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s10",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Remove the supernatant."
+        }
+      },
+      {
+        "id": "s11",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "pellet"
+          },
+          {
+            "kind": "material",
+            "id": "e8_y27632"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend",
+          "amount": {
+            "value": 1,
+            "unit": "mL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s12",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Aspirate the medium from the prepared Geltrex‑coated T25 flask."
+        }
+      },
+      {
+        "id": "s13",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "e8_y27632"
+          },
+          {
+            "kind": "container",
+            "id": "t25_flask"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "flask_culture"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 4,
+            "unit": "mL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s14",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_suspension"
+          },
+          {
+            "kind": "container",
+            "id": "t25_flask"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "flask_culture"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "entire",
+            "unit": "volume"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s15",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "flask_culture"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "flask_culture"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently",
+          "description": "Move the flask back and forth and left to right to ensure cells are equally distributed."
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s16",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "flask_culture"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "flask_culture"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "standard_37C"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s17",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Change the medium after 2 d and then daily by aspirating the medium and adding 5 mL of fresh E8. Prewarm the required amount of culture medium in a water bath (37 °C) for 10–20 min before use."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      },
+      {
+        "from": "s16",
+        "to": "s17"
+      }
+    ],
+    "detail_level": 0
+  }
+}

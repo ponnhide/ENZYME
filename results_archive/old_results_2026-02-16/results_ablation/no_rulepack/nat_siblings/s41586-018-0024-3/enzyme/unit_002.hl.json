@@ -1,0 +1,171 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Clonal tumour organoid culture and dissociation",
+    "source": {
+      "type": "paper",
+      "id": "s41586-018-0024-3.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "HISM"
+      },
+      {
+        "id": "m2",
+        "name": "TryPLE",
+        "vendor": "Thermo Fisher"
+      },
+      {
+        "id": "m3",
+        "name": "AdMEM"
+      },
+      {
+        "id": "m4",
+        "name": "propidium iodide (PI)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "culture plate"
+      },
+      {
+        "id": "c2",
+        "name": "tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sm1",
+        "name": "tumour cell suspension"
+      },
+      {
+        "id": "sm2",
+        "name": "organoid culture (7–14 day)"
+      },
+      {
+        "id": "sm3",
+        "name": "picked organoids"
+      },
+      {
+        "id": "sm4",
+        "name": "single‑cell suspension in AdMEM + PI"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sm1"
+          },
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "equipment",
+            "id": "e1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sm2"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": "7-14",
+            "unit": "day"
+          },
+          "container": {
+            "kind": "container",
+            "id": "c1"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sm2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sm3"
+          }
+        ],
+        "params": {
+          "action_kind": "pick_colony"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sm3"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "material",
+            "id": "m3"
+          },
+          {
+            "kind": "material",
+            "id": "m4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sm4"
+          }
+        ],
+        "params": {
+          "action_kind": "dislodge_cells",
+          "note": "Dissociated with TryPLE, washed and suspended in AdMEM containing propidium iodide"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

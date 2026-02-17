@@ -1,0 +1,170 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Single‑cell dissociation",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00603-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "dispase_ii"
+      },
+      {
+        "id": "collagenase_iv"
+      },
+      {
+        "id": "dnase_i"
+      },
+      {
+        "id": "pbs"
+      },
+      {
+        "id": "dissociation_solution"
+      },
+      {
+        "id": "matrigel"
+      }
+    ],
+    "containers": [
+      {
+        "id": "well_plate",
+        "type": "plate"
+      },
+      {
+        "id": "c_tube",
+        "type": "tube"
+      },
+      {
+        "id": "waste_container",
+        "type": "container"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "gentlemacs_octodissociator",
+        "type": "device"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoid_cells"
+      },
+      {
+        "id": "dissociation_solution",
+        "name": "dissociation_solution"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "dissociation_solution"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "well_plate",
+          "destination": "waste_container",
+          "description": "Remove PBS from the wells by pipetting",
+          "amount": {
+            "description": "unspecified"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "dissociation_solution",
+          "destination": "well_plate",
+          "description": "Add dissociation solution to the wells",
+          "amount": {
+            "description": "unspecified"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "well_plate",
+          "destination": "c_tube",
+          "description": "Scrape Matrigel droplets and pool all cells into a gentleMACS C‑Tube",
+          "amount": {
+            "description": "unspecified"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "dissociation_solution",
+          "destination": "c_tube",
+          "description": "Top up the dissociation solution to 5 ml per C‑Tube",
+          "amount": {
+            "description": "unspecified"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Dissociate organoids into single cells using gentleMACS Octo dissociator with the ‘Standard protocol’ (≈50 min)."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

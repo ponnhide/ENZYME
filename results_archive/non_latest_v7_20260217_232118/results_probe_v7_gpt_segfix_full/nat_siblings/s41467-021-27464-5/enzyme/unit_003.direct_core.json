@@ -1,0 +1,213 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "DAB immunohistochemistry staining",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-021-27464-5.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "secondary biotinylated horse antibody",
+        "source": "Vector Laboratories",
+        "details": "diluted 1:200"
+      },
+      {
+        "id": "m2",
+        "name": "avidin-biotin complex (ABC)",
+        "source": "unspecified"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "glass_slide"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s1",
+        "type": "tissue_section"
+      },
+      {
+        "id": "sample_section",
+        "name": "sample_section"
+      },
+      {
+        "id": "secondary_antibody",
+        "name": "secondary_antibody"
+      },
+      {
+        "id": "abc_complex",
+        "name": "abc_complex"
+      },
+      {
+        "id": "incubated_section_1",
+        "name": "incubated_section_1"
+      },
+      {
+        "id": "washed_section",
+        "name": "washed_section"
+      },
+      {
+        "id": "final_stained_section",
+        "name": "final_stained_section"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_section"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "secondary_antibody"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "abc_complex"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "RT_1h"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_section"
+          },
+          {
+            "kind": "sample",
+            "id": "secondary_antibody"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "incubated_section_1"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "rinse",
+          "details": "wash three times"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "incubated_section_1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "washed_section"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "RT_1h"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "washed_section"
+          },
+          {
+            "kind": "sample",
+            "id": "abc_complex"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "final_stained_section"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

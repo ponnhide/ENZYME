@@ -1,0 +1,218 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Clonal organoid derivation via FACS sorting",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-020-19142-9.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "TryPLE express",
+        "source": "Thermo Fisher Scientific"
+      },
+      {
+        "id": "m2",
+        "name": "DAPI"
+      },
+      {
+        "id": "m3",
+        "name": "HISCM"
+      },
+      {
+        "id": "m4",
+        "name": "LY27632"
+      },
+      {
+        "id": "m5",
+        "name": "BME"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "96-well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "flow cytometer"
+      },
+      {
+        "id": "e2",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s1_input_sample",
+        "name": "s1_input_sample"
+      },
+      {
+        "id": "s1_output_sample",
+        "name": "s1_output_sample"
+      },
+      {
+        "id": "s5_output_sample",
+        "name": "s5_output_sample"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1_input_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1_output_sample"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "m3",
+          "destination": "c1",
+          "amount": {
+            "value": 100.0,
+            "unit": "µl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "m5",
+          "destination": "c1",
+          "amount": {
+            "value": 10.0,
+            "unit": "µl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "params": {
+          "text": "transfer.amount unknown: source=m2, destination=FACS buffer"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "program": {
+            "program_name": "FACS_sort_HLA-A2_positive"
+          },
+          "device_ref": "e1"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1_output_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s5_output_sample"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": "m5",
+          "destination": "c1",
+          "amount": {
+            "value": 10.0,
+            "unit": "µl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "37C_incubation"
+          },
+          "device_ref": "e2"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "text": "transfer.amount unknown: source=m4, destination=c1"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s5"
+      },
+      {
+        "from": "s2",
+        "to": "s5"
+      },
+      {
+        "from": "s3",
+        "to": "s6"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

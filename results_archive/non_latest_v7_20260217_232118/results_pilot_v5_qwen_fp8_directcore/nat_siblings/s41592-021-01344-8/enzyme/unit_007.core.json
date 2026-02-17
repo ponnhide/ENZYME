@@ -1,0 +1,78 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Isolate fluorescent reporter-expressing cells via flow cytometry",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41592-021-01344-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "sample_fluorescent_cells",
+        "name": "sample_fluorescent_cells"
+      },
+      {
+        "id": "sample_isolated_fluorescent_cells",
+        "name": "sample_isolated_fluorescent_cells"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "fluorescence"
+          ]
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_fluorescent_cells"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "params": {
+          "device_kind": "cell_counter",
+          "program": {
+            "program_name": "flow_cytometry_isolation"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_fluorescent_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_isolated_fluorescent_cells"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

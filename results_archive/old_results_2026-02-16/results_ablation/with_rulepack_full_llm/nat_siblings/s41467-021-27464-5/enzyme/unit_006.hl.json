@@ -1,0 +1,135 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Cell‑viability assay (CyQuant)",
+    "source": {
+      "type": "paper",
+      "id": "s41467-021-27464-5.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "CyQuant cell proliferation assay kit",
+        "vendor": "Invitrogen"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "96-well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "Biochrom Asys Expert 96 Microplate Reader",
+        "vendor": "Biochrom",
+        "device_kind": "plate_reader"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cell_susp1",
+        "name": "Harvested organoid cells",
+        "description": "50,000 cells harvested from each organoid (6 replicates per organoid, total 300,000 cells per organoid)"
+      },
+      {
+        "id": "assay_mix1",
+        "name": "CyQuant assay mixture",
+        "description": "Cell suspension mixed with CyQuant reagent according to manufacturer instructions"
+      }
+    ],
+    "data": [
+      {
+        "id": "absorbance_data",
+        "name": "Absorbance readings",
+        "description": "Absorbance measured at 480–520 nm"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_susp1"
+          }
+        ],
+        "params": {
+          "description": "Harvest 50,000 cells from each organoid; 6 replicates per organoid (total 300,000 cells per organoid)"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_susp1"
+          },
+          {
+            "kind": "material",
+            "id": "m1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "assay_mix1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "annotations": {
+          "note": "CyQuant reagent added following the manufacturer’s instructions; exact volumes not specified in the source text"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "assay_mix1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "absorbance_data"
+          }
+        ],
+        "params": {
+          "device_kind": "plate_reader",
+          "device_ref": "e1",
+          "program": "Absorbance measurement 480-520 nm"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,265 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Organoid dissociation into fragments",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41588-025-02182-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_tryple",
+        "name": "TrypLE (Invitrogen)"
+      },
+      {
+        "id": "m_matrigel",
+        "name": "Matrigel"
+      },
+      {
+        "id": "m_crs",
+        "name": "Cell Recovery Solution (Corning)"
+      },
+      {
+        "id": "m_hbss",
+        "name": "HBSS–1% BSA buffer"
+      },
+      {
+        "id": "m_culture_medium",
+        "name": "culture medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_tube",
+        "type": "tube",
+        "name": "1% BSA‑coated tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator1",
+        "type": "incubator",
+        "name": "Incubator (4 °C)"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_organoid",
+        "name": "organoid sample"
+      },
+      {
+        "id": "sample_organoid_incubated",
+        "name": "sample_organoid_incubated"
+      },
+      {
+        "id": "sample_fragments",
+        "name": "sample_fragments"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "m_tryple"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "m_matrigel"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "m_crs"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "m_hbss"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_organoid"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c_tube"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "source": "m_culture_medium",
+          "destination": "waste",
+          "sample_ref": "sample_organoid",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator1",
+          "program": {
+            "program_name": "40min_4C"
+          },
+          "sample_ref": "sample_organoid",
+          "reagent_ref": "m_crs",
+          "duration_minutes": 40,
+          "temperature_C": 4
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_organoid_incubated"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "params": {
+          "source": "sample_organoid_incubated",
+          "destination": "c_tube",
+          "buffer": "HBSS–1% BSA",
+          "method": "pipette_thoroughly",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "sample_ref": "sample_organoid_incubated",
+          "reagents": [
+            "m_tryple",
+            "m_matrigel"
+          ],
+          "description": "Dissociate into 5‑10 cell fragments using TrypLE and reseed in Matrigel"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_fragments"
+          }
+        ],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,146 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Preparation of sequencing libraries from sgRNA-integrated DNA",
+    "source": {
+      "type": "paper",
+      "id": "s41586-023-06564-w"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "herculase_ii_fusion_polymerase",
+        "name": "Herculase II Fusion DNA Polymerase",
+        "vendor": "Agilent",
+        "catalogue_no": "600679"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "thermocycler_1",
+        "device_kind": "thermocycler"
+      }
+    ],
+    "samples": [
+      {
+        "id": "gDNA_sample",
+        "name": "Extracted genomic DNA"
+      },
+      {
+        "id": "library_prePCR",
+        "name": "sgRNA library (pre‑PCR)"
+      },
+      {
+        "id": "pooled_library",
+        "name": "Pooled sgRNA library"
+      }
+    ],
+    "data": [
+      {
+        "id": "sequencing_data",
+        "name": "Illumina NextSeq 550 sequencing output"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "library_prePCR"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "gDNA_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "library_prePCR"
+          }
+        ],
+        "params": {
+          "device_kind": "thermocycler",
+          "program": "PCR amplification of lentiviral sgRNA spacer using Herculase II Fusion DNA Polymerase"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "library_prePCR"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "pooled_library"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "pooled_library"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "sequencing_data"
+          }
+        ],
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "Illumina NextSeq 550 sequencing",
+            "read depth 450-1000x"
+          ]
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

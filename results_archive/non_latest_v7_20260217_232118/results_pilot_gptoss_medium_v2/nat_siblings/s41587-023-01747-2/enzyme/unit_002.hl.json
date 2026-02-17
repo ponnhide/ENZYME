@@ -1,0 +1,185 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "21-cycle immunohistochemical workflow",
+    "source": {
+      "type": "paper",
+      "id": "s41587-023-01747-2"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "sample1",
+        "name": "sample1"
+      },
+      {
+        "id": "sample1_acquired",
+        "name": "sample1_acquired"
+      },
+      {
+        "id": "sample1_denoised",
+        "name": "sample1_denoised"
+      },
+      {
+        "id": "sample1_eluted",
+        "name": "sample1_eluted"
+      },
+      {
+        "id": "sample1_registered",
+        "name": "sample1_registered"
+      },
+      {
+        "id": "sample1_clustered",
+        "name": "sample1_clustered"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1_acquired"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "program": {}
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1_acquired"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1_denoised"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Denoise"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1_denoised"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1_eluted"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Elute antibodies"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1_eluted"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1_registered"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Register"
+        }
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1_registered"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample1_clustered"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Pixel cluster"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

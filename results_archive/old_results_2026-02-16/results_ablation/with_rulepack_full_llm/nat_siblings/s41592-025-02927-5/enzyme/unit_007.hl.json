@@ -1,0 +1,106 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Morphogen combination screening",
+    "source": {
+      "type": "paper",
+      "id": "s41592-025-02927-5"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "cell_hashing_reagents",
+        "type": "reagent",
+        "name": "cell hashing reagents"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube1",
+        "type": "tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "10x_genomics_instrument",
+        "type": "instrument",
+        "name": "10x Genomics Chromium"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cells",
+        "type": "cell_population",
+        "name": "cells"
+      },
+      {
+        "id": "hashed_cells",
+        "type": "cell_population",
+        "name": "hashed cells"
+      }
+    ],
+    "data": [
+      {
+        "id": "sequencing_data",
+        "type": "sequencing",
+        "name": "sequencing data"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "hashed_cells"
+          }
+        ],
+        "params": {
+          "action_kind": "label"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "hashed_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "sequencing_data"
+          }
+        ],
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": "10x Genomics run",
+          "device_ref": "10x_genomics_instrument"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

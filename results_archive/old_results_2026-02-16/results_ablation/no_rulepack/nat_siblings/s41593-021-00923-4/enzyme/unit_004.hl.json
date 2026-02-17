@@ -1,0 +1,165 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Long‑term ALI‑CO culture on inserts",
+    "source": {
+      "type": "paper",
+      "id": "s41593-021-00923-4"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Millicell-CM insert",
+        "vendor": "Merck Millipore",
+        "catalog": "PICM0RG50"
+      },
+      {
+        "id": "m2",
+        "name": "Neurobasal medium",
+        "vendor": "ThermoFisher Scientific",
+        "catalog": "21103049"
+      },
+      {
+        "id": "m3",
+        "name": "B27 supplement (1×)",
+        "vendor": "ThermoFisher Scientific",
+        "catalog": "17504044"
+      },
+      {
+        "id": "m4",
+        "name": "Glucose (0.45% w/v)",
+        "vendor": "Sigma-Aldrich",
+        "catalog": "G8769"
+      },
+      {
+        "id": "m5",
+        "name": "Glutamax",
+        "vendor": "ThermoFisher Scientific",
+        "catalog": "35050038"
+      },
+      {
+        "id": "m6",
+        "name": "Antibiotic–antimycotic (1%)",
+        "vendor": null,
+        "catalog": null
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "cell_culture_insert",
+        "name": "Millicell-CM insert"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s_insert",
+        "name": "Allocated inserts"
+      },
+      {
+        "id": "s_slice_medium",
+        "name": "Slice medium (prepared)"
+      },
+      {
+        "id": "s_culture",
+        "name": "Long‑term ALI‑CO culture"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_insert"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "material",
+            "id": "m3"
+          },
+          {
+            "kind": "material",
+            "id": "m4"
+          },
+          {
+            "kind": "material",
+            "id": "m5"
+          },
+          {
+            "kind": "material",
+            "id": "m6"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_slice_medium"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "note": "Slice medium prepared by mixing neurobasal medium with 1× B27, 0.45% (w/v) glucose, Glutamax, and 1% antibiotic–antimycotic as described."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_slice_medium"
+          },
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_culture"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Feed the Millicell-CM inserts daily with slice medium. Volume not specified in source text."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

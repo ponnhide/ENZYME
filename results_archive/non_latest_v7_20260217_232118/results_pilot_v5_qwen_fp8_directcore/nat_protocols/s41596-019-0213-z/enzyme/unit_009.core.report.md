@@ -1,0 +1,26 @@
+# ENZYME Report
+
+**Total Score: 69/100**
+(Total: 0.686)
+
+**Schema version:** 0.4
+**IR kind:** core
+**Validation:** PASS
+
+## Scores
+- **S_structural**: 0.75
+- **S_param**: 1.0
+- **S_vocab**: 0.375
+- **S_ident**: 0.0
+- **S_ambiguity**: 1.0
+- **S_exec_env**: 0.5
+- **S_procedure**: 0.75
+- **S_specificity**: 1.0
+- **S_coverage**: 0.8
+
+## Issues
+- `UNKNOWN_OBSERVATION_FEATURE` (warn): Unknown registry value: vascular_networks at /protocol/steps/s1/params/features/vascular_networks
+- `UNKNOWN_OBSERVATION_FEATURE` (warn): Unknown registry value: whole_blood_vessel_organoids at /protocol/steps/s1/params/features/whole_blood_vessel_organoids
+- `UNKNOWN_OBSERVATION_FEATURE` (warn): Unknown registry value: endothelial_cell_pericyte_interaction at /protocol/steps/s2/params/features/endothelial_cell_pericyte_interaction
+- `UNKNOWN_OBSERVATION_FEATURE` (warn): Unknown registry value: vascular_lumen at /protocol/steps/s3/params/features/vascular_lumen
+- `UNKNOWN_OBSERVATION_FEATURE` (warn): Unknown registry value: filopodia_structures at /protocol/steps/s3/params/features/filopodia_structures

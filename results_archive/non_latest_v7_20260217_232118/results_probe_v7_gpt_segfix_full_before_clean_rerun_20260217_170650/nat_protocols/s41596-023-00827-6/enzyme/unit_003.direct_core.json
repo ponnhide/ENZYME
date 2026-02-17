@@ -1,0 +1,271 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "RNA wash and elution",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00827-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_prewash",
+        "name": "Direct-zol RNA PreWash"
+      },
+      {
+        "id": "m_wash_buffer",
+        "name": "RNA Wash Buffer"
+      },
+      {
+        "id": "m_water",
+        "name": "DNase-/RNase-free water"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_column",
+        "type": "spin_column",
+        "name": "RNA spin column"
+      },
+      {
+        "id": "c_tube",
+        "type": "microcentrifuge_tube",
+        "name": "RNase-free tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e_centrifuge",
+        "type": "centrifuge",
+        "name": "Benchtop centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "m_prewash",
+        "name": "m_prewash"
+      },
+      {
+        "id": "c_column",
+        "name": "c_column"
+      },
+      {
+        "id": "m_wash_buffer",
+        "name": "m_wash_buffer"
+      },
+      {
+        "id": "c_tube",
+        "name": "c_tube"
+      },
+      {
+        "id": "m_water",
+        "name": "m_water"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "amount": {
+            "value": 400.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "m_prewash"
+          },
+          {
+            "kind": "sample",
+            "id": "c_column"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c_column"
+          }
+        ]
+      },
+      {
+        "id": "s5_centrifuge",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "spin"
+          },
+          "device_ref": "e_centrifuge"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c_column"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c_column"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "amount": {
+            "value": 700.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "m_wash_buffer"
+          },
+          {
+            "kind": "sample",
+            "id": "c_column"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c_column"
+          }
+        ]
+      },
+      {
+        "id": "s6_centrifuge",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "spin_1min"
+          },
+          "device_ref": "e_centrifuge"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c_column"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c_column"
+          }
+        ]
+      },
+      {
+        "id": "s6_move",
+        "op": "annotate",
+        "params": {
+          "description": "move column into RNase-free tube"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c_column"
+          },
+          {
+            "kind": "sample",
+            "id": "c_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c_tube"
+          }
+        ]
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "amount": {
+            "value": 15.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "m_water"
+          },
+          {
+            "kind": "sample",
+            "id": "c_column"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c_column"
+          }
+        ]
+      },
+      {
+        "id": "s7_centrifuge",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "spin"
+          },
+          "device_ref": "e_centrifuge"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "c_column"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c_column"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s5",
+    "edges": [
+      {
+        "from": "s5",
+        "to": "s5_centrifuge"
+      },
+      {
+        "from": "s5_centrifuge",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s6_centrifuge"
+      },
+      {
+        "from": "s6_centrifuge",
+        "to": "s6_move"
+      },
+      {
+        "from": "s6_move",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s7_centrifuge"
+      }
+    ],
+    "detail_level": 0
+  }
+}

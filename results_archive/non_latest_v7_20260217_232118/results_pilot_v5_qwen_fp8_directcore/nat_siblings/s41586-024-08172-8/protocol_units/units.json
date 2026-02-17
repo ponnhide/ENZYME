@@ -1,0 +1,206 @@
+{
+  "units": [
+    {
+      "title": "Metadata curation and harmonization",
+      "text": "We included 33 human neural organoid data from a total of 25 publications1–24,26 plus three unpublished datasets in our atlas (Supplementary Table 1). We curated all neural organoid datasets used in this study through the sfaira78 framework (GitHub dev branch, 18 April 2023). For this, we obtained scRNA-seq count matrices and associated metadata from the location provided in the data availability section for every included publication or directly from the authors in case of unpublished data. We harmonized metadata according to the sfaira standards (https://sfaira.readthedocs.io/en/latest/adding_datasets.html) and manually curated an extra metadata column organoid_age_days, which described the number of days the organoid had been in culture before collection.",
+      "rationale": "This is an actionable protocol step describing systematic data collection and metadata harmonization using a defined framework.",
+      "detected_categories": [
+        {
+          "id": "purification_cleanup",
+          "hits": 1,
+          "confidence": 0.167,
+          "matched_patterns": [
+            "column"
+          ]
+        }
+      ],
+      "split_audit": {
+        "char_count": 768,
+        "word_count": 117,
+        "sentence_count": 4,
+        "category_count": 1,
+        "flags": []
+      }
+    },
+    {
+      "title": "Removal of non-applicable datasets",
+      "text": "We next removed any non-applicable subsets of the published datasets: diseased samples or samples expressing disease-associated mutations (refs. 14–16,18,19,26), fused organoids (ref. 1), primary fetal data (refs. 10,23), hormone-treated samples (ref. 22), data collected before neural induction (refs. 3,20) and share-seq data (ref. 23).",
+      "rationale": "This is a clear, actionable exclusion protocol for filtering out invalid or confounding datasets.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 338,
+        "word_count": 54,
+        "sentence_count": 8,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Harmonization to common gene space",
+      "text": "We harmonized all remaining datasets to a common feature space using any genes of the biotype 'protein_coding' or 'lncRNA' from ensembl79 release 104 while filling any genes missing in a dataset with zero counts.",
+      "rationale": "This is a precise technical step for standardizing gene features across datasets, essential for integration.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 212,
+        "word_count": 34,
+        "sentence_count": 1,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Quality control and outlier filtering",
+      "text": "For quality control and filtering of HNOCA, we removed any cells with fewer than 200 genes expressed. We next removed outlier cells in terms of two quality control metrics: the number of expressed genes and percentage mitochondrial counts. To define outlier cells on the basis of each quality control metric, a z-transformation is first applied to values across all cells. Cells with any z-transformed metric less than −1.96 or greater than 1.96 are defined as outliers.",
+      "rationale": "This is a standardized, quantitative protocol for filtering low-quality cells based on established statistical thresholds.",
+      "detected_categories": [
+        {
+          "id": "molecular_cloning",
+          "hits": 2,
+          "confidence": 0.286,
+          "matched_patterns": [
+            "transform"
+          ]
+        }
+      ],
+      "split_audit": {
+        "char_count": 470,
+        "word_count": 80,
+        "sentence_count": 5,
+        "category_count": 1,
+        "flags": []
+      }
+    },
+    {
+      "title": "Normalization of Smart-seq2 data",
+      "text": "We then normalized the raw read counts for all Smart-seq2 data by dividing it by the maximum gene length for each gene obtained from BioMart. We next multiplied these normalized read counts by the median gene length across all genes in the datasets and treated those length-normalized counts equivalently to raw counts from the datasets obtained with the help of unique molecular identifiers in our downstream analyses.",
+      "rationale": "This is a specific, actionable normalization protocol for Smart-seq2 data to enable cross-platform comparability.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 419,
+        "word_count": 69,
+        "sentence_count": 2,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "Log-normalization and HVG selection",
+      "text": "As a next step we generated a log-normalized expression matrix by first dividing the counts for each cell by the total counts in that cell and multiplying by a factor of 1,000,000 before taking the natural logarithm of each count + 1. We computed 3,000 highly variable features in a batch-aware manner using the scanpy highly_variable_genes function (flavor = 'seurat_v3', batch_key = 'bio_sample').",
+      "rationale": "This is a reproducible, step-by-step protocol for generating log-normalized data and selecting highly variable genes with batch correction.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 399,
+        "word_count": 65,
+        "sentence_count": 2,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    },
+    {
+      "title": "PCA and clustering",
+      "text": "We used these 3,000 features to compute a 50-dimensional representation of the data using principal component analysis (PCA), which in turn we used to compute a k-nearest-neighbour (kNN) graph (n_neighbors = 30, metric = 'cosine'). Using the neighbour graph we computed a two-dimensional representation of the data using UMAP82 and a coarse (resolution 1) and fine (resolution 80) clustering of the unintegrated data using Leiden83 clustering.",
+      "rationale": "This is a detailed, sequential protocol for dimensionality reduction and clustering using specified parameters.",
+      "detected_categories": [
+        {
+          "id": "dna_rna_extraction",
+          "hits": 1,
+          "confidence": 0.143,
+          "matched_patterns": [
+            "lysis"
+          ]
+        }
+      ],
+      "split_audit": {
+        "char_count": 443,
+        "word_count": 69,
+        "sentence_count": 2,
+        "category_count": 1,
+        "flags": []
+      }
+    },
+    {
+      "title": "Hierarchical annotation with snapseed",
+      "text": "Snapseed is a scalable auto-annotation strategy, which annotates cells on the basis of a provided hierarchy of cell types and the corresponding cell type markers. It is based on enrichment of marker gene expression in cell clusters (high-resolution clustering is preferred), and data integration is not necessarily required. In this study, we used snapseed to obtain initial annotations for label-aware integration. First, we constructed a hierarchy of cell types including progenitor, neuron and non-neural types, each defined by a set of marker genes (Supplementary Data 1). Next, we represented the data by the RSS3 to average expression profiles of cell clusters in the recently published human developing brain cell atlas27. We then constructed a kNN graph (k = 30) in the RSS space and clustered the dataset using the Leiden algorithm83 (resolution 80). For all cell type marker genes on a given level in the hierarchy, we computed the area under the receiver operating characteristic curve (AUROC) as well as the detection rate across clusters. For each cell type, a score was computed by multiplying the maximum AUROC with the maximum detection rate among its marker genes. Each cluster was then assigned to the cell type with the highest score. This procedure was performed recursively for all levels of the hierarchy.",
+      "rationale": "This is a comprehensive, stepwise protocol for automated hierarchical cell annotation using marker genes and statistical scoring.",
+      "detected_categories": [
+        {
+          "id": "cell_culture",
+          "hits": 1,
+          "confidence": 0.143,
+          "matched_patterns": [
+            "\\bwell\\b"
+          ]
+        }
+      ],
+      "split_audit": {
+        "char_count": 1327,
+        "word_count": 214,
+        "sentence_count": 10,
+        "category_count": 1,
+        "flags": []
+      }
+    },
+    {
+      "title": "Label-aware integration with scPoli",
+      "text": "We performed integration of the organoid datasets for HNOCA using the scPoli45 model from the scArches51 package. We defined the batch covariate for integration as a concatenation of the dataset identifier (annotation column 'id'), the annotation of biological replicates (annotation column 'bio_sample') as well as technical replicates (annotation column 'tech_sample'). This resulted in 396 individual batches. The batch covariate is represented in the model as a learned vector of size five. We used the top three levels of the RSS-based snapseed cell type annotation as the cell type label input for the scPoli prototype loss. We chose the hidden layer size of the one-layer scPoli encoder and decoder as 1,024, and the latent embedding dimension as ten. We used a value of 100 for the 'alpha_epoch_anneal' parameter. We did not use the unlabelled prototype pretraining. We trained the model for a total of seven epochs, five of which were pretraining epochs.",
+      "rationale": "This is a precise, parameter-rich protocol for batch-aware, label-guided integration using a specific computational model.",
+      "detected_categories": [
+        {
+          "id": "purification_cleanup",
+          "hits": 3,
+          "confidence": 0.5,
+          "matched_patterns": [
+            "column"
+          ]
+        },
+        {
+          "id": "cell_culture",
+          "hits": 1,
+          "confidence": 0.143,
+          "matched_patterns": [
+            "\\bwell\\b"
+          ]
+        },
+        {
+          "id": "molecular_cloning",
+          "hits": 1,
+          "confidence": 0.143,
+          "matched_patterns": [
+            "vector"
+          ]
+        }
+      ],
+      "split_audit": {
+        "char_count": 963,
+        "word_count": 154,
+        "sentence_count": 9,
+        "category_count": 3,
+        "flags": []
+      }
+    },
+    {
+      "title": "Pseudotime inference using neural optimal transport",
+      "text": "To infer a global ordering of differentiation state, we sought to infer a real-time-informed pseudotime on the basis of neural optimal transport47 in the scPoli latent space. We first grouped organoid age in days into seven bins ((0, 15], (15, 30], (30,60], (60, 90], (90, 120], (120, 150], (150, 450]). Next, we used moscot48 to solve a temporal neural problem.",
+      "rationale": "This is a methodical protocol for pseudotime inference using temporal binning and a specific computational tool.",
+      "detected_categories": [],
+      "split_audit": {
+        "char_count": 362,
+        "word_count": 63,
+        "sentence_count": 3,
+        "category_count": 0,
+        "flags": [
+          "UNIT_NO_EXPERIMENT_CATEGORY"
+        ]
+      }
+    }
+  ],
+  "created_at": "2026-02-16T15:54:10.499972+00:00"
+}

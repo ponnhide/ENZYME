@@ -1,0 +1,125 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Phosphatase and protease inhibitor treatment",
+    "source": {
+      "type": "paper",
+      "id": "s41596-021-00603-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "protease_inhibitor_cocktail",
+        "name": "Protease inhibitor cocktail (100× stock)"
+      },
+      {
+        "id": "phosstop",
+        "name": "PhosSTOP (40× stock)"
+      },
+      {
+        "id": "culture_medium",
+        "name": "Culture medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate_1",
+        "name": "Culture plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator_1",
+        "name": "Incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_plate",
+        "name": "Culture plate with medium",
+        "container_ref": "plate_1",
+        "material_ref": "culture_medium"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Add the protease inhibitor cocktail and PhosSTOP directly to culture medium"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_plate"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "annotations": {
+          "note": "Gently rotate the plate by hand five times for 10 s"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_plate"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator_1",
+          "program": "incubate"
+        },
+        "annotations": {
+          "temperature": 37,
+          "temperature_units": "°C",
+          "co2": 5,
+          "co2_units": "%",
+          "duration": 5,
+          "duration_units": "min"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

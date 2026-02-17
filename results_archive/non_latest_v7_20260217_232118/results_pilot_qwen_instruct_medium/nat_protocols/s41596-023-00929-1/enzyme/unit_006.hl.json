@@ -1,0 +1,178 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Prepare Percoll gradient tubes",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00929-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [
+      {
+        "id": "percoll_tube",
+        "name": "percoll_tube",
+        "type": "generic_container"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "sample_tube_after_spinning",
+        "name": "sample_tube_after_spinning"
+      },
+      {
+        "id": "sample_tube_after_addition",
+        "name": "sample_tube_after_addition"
+      },
+      {
+        "id": "sample_tube_after_mixing",
+        "name": "sample_tube_after_mixing"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_tube_after_spinning"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "amount": {
+            "value": "supernatant",
+            "unit": "none"
+          }
+        },
+        "annotations": {
+          "note": "Discard the supernatant by pouring out the liquid into a waste container. Do not aspirate the supernatant during the cell dissociation and digestion, as the cell pellet may be aspirated and lost."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_tube_after_addition"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "mL"
+          }
+        },
+        "annotations": {
+          "material": "HBSS/BSA/glucose"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_tube_after_addition"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 50,
+            "unit": "µL"
+          }
+        },
+        "annotations": {
+          "material": "pre-aliquoted DNase (10 mg/mL)"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_tube_after_addition"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_tube_after_mixing"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently",
+          "repetitions": 50
+        },
+        "annotations": {
+          "note": "Gently mix/resuspend 50 times using a micropipette, taking care not to introduce bubbles, which may detrimentally affect the cells."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Obtain two additional 15 mL conical tubes per each sample tube. For example, for three sample digestion tubes, obtain six tubes for Percoll filtration. Yield will be compromised if each digestion is not distributed into two Percoll tubes."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "percoll_tube"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 4,
+            "unit": "mL"
+          }
+        },
+        "annotations": {
+          "material": "22% Percoll"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

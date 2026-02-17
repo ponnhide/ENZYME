@@ -1,0 +1,249 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Isolation and differentiation of LGR5+ intestinal stem cells",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41592-021-01391-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "ENR CV medium"
+      },
+      {
+        "id": "m2",
+        "name": "ENR medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "culture_plate"
+      },
+      {
+        "id": "c2",
+        "type": "tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator"
+      },
+      {
+        "id": "e2",
+        "type": "incubator"
+      },
+      {
+        "id": "e3",
+        "type": "DisCo platform"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_lgr5",
+        "type": "cell_population"
+      },
+      {
+        "id": "s_organoid",
+        "type": "organoid_population"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "description": "Placeholder for LGR5+ intestinal stem cells"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_lgr5"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "params": {
+          "note": "Isolate single LGR5+ intestinal stem cells via FACS"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source_ref": "s_lgr5",
+          "destination_ref": "c1",
+          "material_ref": "m1",
+          "description": "Seed LGR5+ cells into culture plate with ENR CV medium (day 0 seeding)",
+          "amount": {
+            "description": "unspecified"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "stem_cell_maintenance_3d"
+          },
+          "description": "Incubate for 3 days under stem cell maintenance conditions (ENR CV days 0–3)"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source_ref": "c1",
+          "destination_ref": "c1",
+          "material_ref": "m1",
+          "description": "Remove CV from culture after day 3",
+          "amount": {
+            "description": "unspecified"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source_ref": "c1",
+          "destination_ref": "c1",
+          "material_ref": "m2",
+          "description": "Add ENR medium to initiate differentiation",
+          "amount": {
+            "description": "unspecified"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e2",
+          "program": {
+            "program_name": "differentiation_3d"
+          },
+          "description": "Incubate organoids for up to 3 days under ENR conditions"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "note": "For each day (S0–S3), isolate individual organoids"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "params": {
+          "source_ref": "c1",
+          "destination_ref": "c2",
+          "description": "Isolate single organoid into tube for dissociation",
+          "amount": {
+            "description": "unspecified"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "annotate",
+        "params": {
+          "note": "Dissociate organoid and process on the DisCo platform"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "run_device",
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "device_ref": "e3",
+          "program": {
+            "program_name": "DisCo_processing"
+          },
+          "description": "Process dissociated organoid on DisCo platform"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      }
+    ],
+    "detail_level": 0
+  }
+}

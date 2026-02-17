@@ -1,0 +1,316 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Organoid passaging with CRS dissolution and fragmentation",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00562-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "colon organoid growth medium",
+        "type": "cell_culture_medium"
+      },
+      {
+        "id": "m2",
+        "name": "CRS",
+        "type": "dissolution_reagent"
+      },
+      {
+        "id": "m3",
+        "name": "Matrigel",
+        "type": "extracellular_matrix"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "24_well_plate"
+      },
+      {
+        "id": "c2",
+        "type": "15_ml_conical_tube"
+      },
+      {
+        "id": "c3",
+        "type": "glass_dish"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "pipette",
+        "volume": "1000_ul"
+      },
+      {
+        "id": "e2",
+        "type": "pasteur_pipette"
+      },
+      {
+        "id": "e3",
+        "type": "centrifuge"
+      },
+      {
+        "id": "e4",
+        "type": "ice_bucket"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s1_out",
+        "name": "s1_out"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1_out"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "c1",
+          "destination": "c2",
+          "action": "collect_organoid_droplets",
+          "amount": {
+            "value": 650.0,
+            "unit": "_ul"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "c1",
+          "destination": "c2",
+          "amount": {
+            "value": 12.0,
+            "unit": "_ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "c2",
+          "destination": "waste",
+          "action": "aspirate_supernatant",
+          "equipment": "e2",
+          "amount": {
+            "value": 12.0,
+            "unit": "_ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "reagent": "m2",
+          "dilution": "1:10",
+          "volume": "12_ml"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "ice_incubation_45-60min",
+            "temperature": "4_c",
+            "duration": "45-60_min"
+          },
+          "device_ref": "e4"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "program_name": "centrifuge_1000g_5min_4c",
+            "speed": "1000g",
+            "duration": "5_min",
+            "temperature": "4_c"
+          },
+          "device_ref": "e3"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "transfer",
+        "params": {
+          "source": "c2",
+          "destination": "waste",
+          "action": "aspirate_supernatant",
+          "equipment": "e2",
+          "amount": {
+            "value": 12.0,
+            "unit": "_ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "transfer",
+        "params": {
+          "source": "c2",
+          "destination": "c3",
+          "action": "place_on_ice",
+          "amount": {
+            "value": 12.0,
+            "unit": "_ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "reagent": "m3",
+          "volume": "1_ml_max"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s13",
+        "op": "annotate",
+        "params": {
+          "text": "unmapped action_kind in source: bend_tip"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s14",
+        "op": "transfer",
+        "params": {
+          "source": "c2",
+          "destination": "c1",
+          "action": "distribute_organoid_fragment_mixture",
+          "amount": {
+            "value": 12.0,
+            "unit": "_ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      }
+    ],
+    "detail_level": 0
+  }
+}

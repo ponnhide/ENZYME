@@ -1,0 +1,172 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Digest tissue with EDTA to release crypts",
+    "source": {
+      "type": "paper",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "tissue",
+        "name": "tissue"
+      },
+      {
+        "id": "tissue_in_edta",
+        "name": "tissue_in_edta"
+      },
+      {
+        "id": "digested_tissue_with_dmem",
+        "name": "digested_tissue_with_dmem"
+      },
+      {
+        "id": "filtered_digest",
+        "name": "filtered_digest"
+      },
+      {
+        "id": "pellet",
+        "name": "pellet"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tissue"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tissue_in_edta"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend",
+          "solution": "2.5 mM EDTA in PBS",
+          "volume": "25 mL"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tissue_in_edta"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tissue_in_edta"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "end-over-end rotator at 37 °C for approximately 12 min until crypts are visible"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tissue_in_edta"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "digested_tissue_with_dmem"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 20,
+            "unit": "mL"
+          },
+          "source": "DMEM++",
+          "destination": "tissue_in_edta"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "digested_tissue_with_dmem"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "filtered_digest"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: filter"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "filtered_digest"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "pellet"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "3 min at 4 °C, 500 × g"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

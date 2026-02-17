@@ -1,0 +1,289 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Passage hPSCs in monolayer culture",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00629-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "type": "buffer",
+        "name": "PBS w/o"
+      },
+      {
+        "id": "m2",
+        "type": "enzyme",
+        "name": "Accutase"
+      },
+      {
+        "id": "m3",
+        "type": "medium",
+        "name": "DMEM/F12"
+      },
+      {
+        "id": "m4",
+        "type": "medium",
+        "name": "E8"
+      },
+      {
+        "id": "m5",
+        "type": "chemical",
+        "name": "Y27632"
+      },
+      {
+        "id": "m6",
+        "type": "dye",
+        "name": "Trypan blue"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "flask",
+        "name": "T25 flask"
+      },
+      {
+        "id": "c2",
+        "type": "tube",
+        "name": "15 mL conical tube"
+      },
+      {
+        "id": "c3",
+        "type": "hemocytometer",
+        "name": "hemocytometer"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator"
+      },
+      {
+        "id": "e2",
+        "type": "centrifuge"
+      },
+      {
+        "id": "e3",
+        "type": "cell_counter"
+      }
+    ],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source": "c1",
+          "destination": "c1",
+          "material": "m1",
+          "amount": {
+            "value": 5.0,
+            "unit": "mL"
+          }
+        },
+        "annotations": [
+          {
+            "key": "note",
+            "value": "aspirate the medium before adding PBS w/o"
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "c1",
+          "destination": "c1",
+          "material": "m1",
+          "amount": {
+            "value": 5.0,
+            "unit": "mL"
+          }
+        },
+        "annotations": [
+          {
+            "key": "note",
+            "value": "aspirate the PBS w/o"
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "c1",
+          "destination": "c1",
+          "material": "m2",
+          "amount": {
+            "value": 1.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {}
+        },
+        "annotations": [
+          {
+            "key": "critical_note",
+            "value": "Prolonged incubation with Accutase might be harmful for the cells"
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "c1",
+          "destination": "c2",
+          "material": "m3",
+          "amount": {
+            "value": 5.0,
+            "unit": "mL"
+          }
+        },
+        "annotations": [
+          {
+            "key": "note",
+            "value": "rinse the flask bottom with medium to detach the cells"
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "speed": "300g",
+            "duration": "3 min",
+            "temperature": "4 °C"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "source": "c2",
+          "destination": "c2",
+          "material": "m3",
+          "amount": {
+            "value": 5.0,
+            "unit": "mL"
+          }
+        },
+        "annotations": [
+          {
+            "key": "note",
+            "value": "remove the supernatant"
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "annotations": [
+          {
+            "key": "material",
+            "value": "E8 + 10 μM Y27632"
+          },
+          {
+            "key": "volume",
+            "value": "1 mL"
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "cell_count",
+            "cell_viability"
+          ]
+        },
+        "annotations": [
+          {
+            "key": "method",
+            "value": "Trypan blue staining in a hemocytometer using standard methods"
+          },
+          {
+            "key": "reference",
+            "value": "previously described33"
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

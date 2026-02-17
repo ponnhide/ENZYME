@@ -1,0 +1,190 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Vascular induction of aggregates",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-019-0213-z.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "N2B27 medium"
+      },
+      {
+        "id": "m2",
+        "name": "VEGF-A",
+        "concentration": "100 ng/mL"
+      },
+      {
+        "id": "m3",
+        "name": "forskolin",
+        "concentration": "2 µM"
+      },
+      {
+        "id": "m4",
+        "name": "N2B27 medium + VEGF-A + forskolin"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_plate",
+        "type": "6-well plate (low-attachment)"
+      },
+      {
+        "id": "c1",
+        "type": "15-mL Falcon tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e_incubator",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_agg",
+        "description": "cell aggregates in 6-well plate"
+      },
+      {
+        "id": "s_agg_in_tube",
+        "name": "s_agg_in_tube"
+      },
+      {
+        "id": "s_agg_resuspended",
+        "name": "s_agg_resuspended"
+      },
+      {
+        "id": "s_agg_on_plate",
+        "name": "s_agg_on_plate"
+      },
+      {
+        "id": "s_agg_incubated",
+        "name": "s_agg_incubated"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "description": "Transfer aggregates from 6-well plate to 15‑mL Falcon tube",
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          }
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_agg_in_tube"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "params": {
+          "note": "Aspirate medium from the tube after aggregates have settled"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_agg_resuspended"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "description": "Transfer resuspended aggregates back to low‑attachment 6‑well plate",
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          }
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_agg_on_plate"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "2_day_incubation"
+          }
+        },
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_agg_incubated"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

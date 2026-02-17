@@ -1,0 +1,928 @@
+Protocol
+ Dataset
+ 1.0
+
+ 0.8
+Proportion
+
+ 0.6
+
+ 0.4
+
+ 0.2
+ Age (days) Protocol type
+ Guided
+ 0 7 56 450
+ Age Unguided
+
+ h i Dorsal telen. j k
+ NPC and neurons 15 SOX2 STMN2
+ ExN (HOXB2/NEUROD6+) InN (TFAP2A+)
+ SLC17A6 Max.–Min.
+ Early neuron normalized
+ Ranked InN (HOXB2+) SLC32A1
+ (HOXB2+) SLC18A3
+ DC1 (0,1] 0
+ SLC18A3+ neuron
+ expression
+ ExN (HOXB2+) HOXB2
+ 1 (HOXB2+) TFAP2A 1
+ 0 1.0
+ ExN (ISL1+) InN (ISL1+) ISL1
+ BCL11B SATB2
+ 6 6 LHX9
+ InN (LHX9+)
+ LHX5
+ ExN (LHX9/TCF7L2+) TCF7L2
+ InN (TTR+) TTR 0
+ 0 0 0
+ ExN (LHX9/LHX5+)
+ 0 1.0 0 1.0
+ Pseudotime (ranked DC1)
+
+b, Metadata of biological samples included in HNOCA. c–f, UMAP of the toward more mature cells. i, Marker gene expression profiles along cortical
+integrated HNOCA, coloured by level 2 cell type annotations (c), gene pseudotime. j, UMAP of non-telencephalic neurons, coloured and labelled by
+expression profiles of selected markers (d), sample ages (e) and differentiation clusters. k, Heatmap showing relative expression of selected genes across
+protocol types (f). g, Proportions of cells assigned to different cell types in different non-telencephalic neuron clusters. Coloured dots show cluster
+the HNOCA. Every stacked bar represents one biological sample, grouped by identities as shown in j. Cb, cerebellum; ChP, choroid plexus; CP, choroid
+datasets and ordered by increasing sample ages. Top bars show 36 datasets, plexus; Hy, hypothalamus; max., maximum; MB, midbrain; MH, medulla; min.,
+organoid differentiation protocols, protocol types. Bottom bars show the minimum; Oligo, oligodendrocyte; OPC, oligodendrocyte progenitor cell; PSC,
+sample age. h, UMAP of the integrated HNOCA coloured by top-ranked pluripotent stem cell; telen., telencephalon; Th, thalamus; vTelen, ventral
+diffusion component (DC1) on the real-time-informed transition matrix telencephalon.
+
+organoids. We estimate transcriptomic fidelity of neurons in neural biological metadata from 36 datasets, including 34 published1–26 and
+organoids, and identify previously described cell stress3,10,23,24 as a uni- two as yet unpublished ones (Supplementary Table 1), accounting for
+versal factor distinguishing metabolic states of in vitro neurons from 1.77 million cells after consistent preprocessing and quality control
+primary neurons without strongly affecting core identities of neuronal (Fig. 1a). The HNOCA represents cell types and states generated with
+cell types. We map the data of a neural organoid morphogen screen44 26 distinct neural organoid differentiation protocols, including three
+to the integrated atlas to assess regional specificity and generation of unguided and 23 guided ones, at time points ranging from 7 to 450 days
+new states. We also collect 11 scRNA-seq datasets modelling 10 different (Fig. 1b). To remove batch effects, we implemented a three-step inteneural diseases, and map the integrated data to the neural organoid gration pipeline. First, we projected the HNOCA to a single-cell atlas
+atlas for cell type annotation and differential expression (DE) analysis. of the developing human brain27 using reference similarity spectrum
+Finally, we show that the atlas can be expanded by projecting new data (RSS)3. Then, we developed snapseed (Methods) to perform prelimito the current atlas. Together, our work provides a rich resource and a nary marker-based hierarchical cell type annotation. Last, we used
+new framework to assess the fidelity of neural organoids, characterize scPoli45 for label-aware data integration based on the snapseed annoperturbed and diseased states and streamline protocol development. tations. Evaluation of different integration approaches using a previ-
+ ously established benchmarking pipeline46 showed that scPoli had
+ the best performance for these datasets (Extended Data Fig. 1). We
+Data curation, harmonization and integration performed clustering on the basis of the scPoli representation and
+To build a transcriptomic human neural organoid cell atlas (HNOCA), annotated clusters on the basis of canonical marker gene expression,
+we collected scRNA-seq data and detailed, harmonized technical and organoid sample age and the auto-generated cell type labels. A uniform
+
+ Nature | Vol 635 | 21 November 2024 | 691
+
+Article
+a d hOligoO hStrO
+ hMidOrg Organoid datasets
+ 80 Dorsal telen. [ Unguided ]
+
+ Percentage of
+ 40
+
+ Percentage of
+ telen cells
+ Ventral telen.
+
+ MB cells
+ 27
+ Braun et al. 40 Dorsal midbrain
+ 20
+ Ventral midbrain
+ 0 0
+ Cell class hHyThaOrg hCerebOrg hSpO
+ Radial glia Hypothalamus 80 hMidOrg
+
+ Percentage of
+ hChPO
+
+ Percentage of
+ Neuronal IPC 80 Cerebellum
+ 60
+
+ HB cells
+ Thalamus
+
+ dien cells
+ Neuroblast hThaOrg
+ Region Neuron hSO 40 Pons
+ 40
+ Forebrain Thalamus Glioblast Medulla
+ NTT neuronal 20
+ Telencephalon Midbrain Oligo
+ subtype Cortex Placodes 0 0
+ Midbrain dorsal
+ Glutamatergic Subcortex Midbrain ventral Immune
+ GABAergic Striatum Hindbrain Vascular
+ Glycinergic Hippocampus Cerebellum Erythrocyte e Max.-presence f
+ Cholinergic Neural crest 1.0
+ Diencephalon Pons score
+ Serotonergic Hypothalamus Medulla Fibroblast Enriched
+ (in ≥1 dataset) 0.2
+ 1 0
+ Brain regions
+
+ Max.-presence score
+b
+
+ Im .
+ Va .
+ G s.
+ F- ast
+
+ O st
+ o
+ C
+
+ .
+ yt
+ m
+
+ ac
+ Region
+
+ lig
+ N
+ a
+ (RG, IPC, N-blast, N)
+
+ Er
+ g
+
+ l
+ bl
+
+ Pl
+ -b
+ (NPC, IP, Neuron) 1.0
+ 0
+ Depleted 0.8
+ (in all datasets)
+
+ h 0.6
+ NTT subtype Under-represented
+ (neuron) 0.4
+ Other cells from the same region
+ 0.2
+ Thalamus Midbrain Hindbrain
+c Primary dev. stages Prop. 0 1 (dMB, vMB) (CB, pons, medulla)
+ Pons 0
+ First trimester 1 0.995 0.95 0.575 0.627 0.507 0.533 0.553 TRN m1 GABA-N Clusters
+ GABA-N
+Wang et al.30 Second trimester 0 0.003 0.042 0.41 0.352 0.4 0.428 0.414 GABA-N Neuronal
+ Third trimester 0 0.001 0.004 0.014 0.015 0.078 0.032 0.032 dA2 Cell class
+ Infant 0 0.001 0.004 0.002 0.005 0.014 0.007 0 ExN Region
+ Adolescence 0 0 0 0 0 0.001 0 0 GLUT-TCN dTel. vTel. Th dMB CB Pons
+ RG/IPC m1/m2 Purkinje (cortex)
+ 0 1 2 3 4 5 6 7 10 Hipp HyTh vMB Medulla
+ GLUT-N cell
+ Organoid age (months)
+
+atlases assists organoid neural cell type annotation and estimation of population presence within HNOCA datasets (max presence score). A low score
+primary cell type representation. a, UMAP of a human developing brain cell denotes under-representation of cell state in HNOCA datasets. f, Distribution
+atlas27, coloured by NTT subtypes (left), region (middle) and annotated cell of max presence scores of different cell classes in the human reference atlas27.
+classes (right). b, UMAP of HNOCA, coloured by the mapped neuron NTT Eryt., erythrocyte; Imm., immune; Vas., vascular; G-blast, glioblast; F-blast,
+subtypes (left) and regional labels of NPCs, intermediate progenitor cells (IP) fibroblast; NC, neural crest; Plac., placodes; RG, radial glia; IPC, intermediate
+and neurons. c, Heatmap showing proportions of cells from organoids of progenitor cell; N-blast, neuroblast; N, neuron. g, Box plots showing distribution
+different ages matched to cells from different primary developmental (dev.) of max presence scores in different primary reference cell clusters. Bottom
+stages. d, Percentages of neural cells representing different regions side bars show neuronal versus non-neuronal, cell class, region information of
+(telencephalon, diencephalon, midbrain and hindbrain) in different datasets. primary reference. h, UMAP of human developing brain atlas showing primary
+The x axes show datasets, descendingly ordered by the total proportions (bar neural cell types or states under-represented in HNOCA (in red). Hippo,
+height). Datasets based on unguided differentiation protocols are marked by hippocampus; HyTh, hypothalamus; d, dorsal; v, ventral; CB, cerebellum.
+dots underneath. The bars at the bottom of each panel show organoid protocol
+
+manifold approximation and projection (UMAP) embedding high- the HNOCA to the same latent space. The shared latent space allowed
+lighted three neuronal differentiation trajectories corresponding to us to reconstruct a bipartite weighted k-nearest-neighbour (wkNN)
+dorsal telencephalic, ventral telencephalic and non-telencephalic graph between cells in the HNOCA and the primary reference atlas,
+populations as well as trajectories leading from progenitors to glial cell which was used to transfer the ‘CellClass’ and ‘Subregion’ labels, as well
+types such as astrocytes and oligodendrocytes precursors (Fig. 1c–e and as the neurotransmitter transporter (NTT) information of neuroblasts
+ To elucidate the dynamics and transitions of cell states and types, we to refine the regional annotation of HNOCA non-telencephalic NPCs
+reconstructed a real-age-informed pseudotime of HNOCA cells on the and neurons, as well as the NTT annotation of the non-telencephalic
+basis of neural optimal transport47 using moscot48 (Fig. 1h). Focusing neurons (Fig. 2b), resulting in the final hierarchical HNOCA cell type
+on the dorsal telencephalic neural trajectory, we observed consistent annotation (Extended Data Fig. 3).
+pseudotemporal expression profiles of marker genes such as SOX2 We also sought to compare organoid cells to stages of human brain
+(neural progenitor cells (NPCs)), BCL11B (deeper layer cortical neurons) development beyond the first trimester. Focusing on dorsal telenand SATB2 (upper layer cortical neurons) (Fig. 1i). To further resolve cephalon, we compared the transcriptomic profile of HNOCA NPCs
+heterogeneity among non-telencephalic neurons, we performed sub- and neurons with cells in a primary atlas of human cortex development
+clustering of this population, which revealed numerous neuronal popu- spanning the first trimester to adolescence30. We observed a transition
+lations characterized by distinct marker gene expression (Fig. 1j,k). from cell states observed in the first trimester to more mature states
+ observed in the second-trimester cortex (Fig. 2c), and did not detect
+ substantial matching to later stages. We extended the comparison to
+HNOCA projection to a human developing brain atlas other brain regions using two primary atlases27,29 representing the first
+To assess our cell type annotation, and more precisely annotate the and second trimester, respectively. We confirmed increased similarheterogeneous non-telencephalic neuronal populations, we com- ity to second-trimester cell states in older organoids for other brain
+pared the HNOCA to a recently published single-cell transcriptomic regions (Extended Data Fig. 3).
+atlas of the developing human brain27 (Fig. 2a). We applied scVI49 and We evaluated the capacity of each neural organoid protocol to generscANVI50 to the primary reference atlas, and used scArches51 to project ate neural cells of different brain regions (Fig. 2d, Extended Data Figs. 3
+
+692 | Nature | Vol 635 | 21 November 2024
+
+a b c e f
+ HNOCA Primary Fraction of protocols (f)
+
+ Common DEGs
+ Ubiquitous Inconsistent
+
+ number (×10 )
+ 2 Axongenesis Regulation of dendrite Protein
+
+ 3
+ 0 0.2 0.4 0.6 0.8 1.0 DEGs across change (59) adj –5 development phosphorylation
+ (P = 3.4 × 10 )
+ 0 1 neuron subtypes adj
+ = 4.5 × 10–5)
+ (Padj = 1.2 × 10–4)
+ (P
+ Neuron cell–cell adhesion
+
+ (DE in 
+ f of protocols)
+ (n = 920)
+
+ Fraction of DEGs
+ N-VGLUT (Padj = 3.4 × 10–5)
+ Regulation of neuron Regulation
+ Neuron region/NTT separated 0.2 Down- projection dev. (P = 1.5 × 10–4) of cation
+ adj
+ 0 channel
+ 1 8 16 regulated Synapse organization activity
+ 1.0 Nervous system development
+ Pseudo-bulk Pseudo-bulk 0.4 in organoid adj
+ (P = 3.4 × 10 )
+ –5 adj –4 adj –3
+ (P = 3 × 10 ) (P = 10 )
+
+ (DE in 
+ f of protocols)
+ Number of neuron subtypes
+
+ Fraction of DEGs
+ (673)
+ 0.8 d with common DE
+ Protocols
+
+ P1 0.6 Mitochondrial ATP Negative regulation of
+  DEG 8 synthesis coupled release of sequestered
+
+ Number of pairs
+ P2 0.8 0.6
+ 6
+ electron transport
+ (Padj = 2.6 × 10–5)
+ calcium ion into cytosol
+ adj
+ (P = 7.4 × 10 )
+ –3
+ g Primary P = 0.001
+ Upregulated
+ Regions 0.4
+
+ (×10 )
+ 1.0 Neutrophil
+
+ 3
+ 4 in organoid Canonical glycolysis Organoid
+ degranulation
+ Dorsal telen. Dorsal MB (363) (Padj = 3.7 × 10–4) adj
+ 0.2 2 (P = 8.0 × 10–3)
+ Ventral telen. Ventral MB –1 0 1 2 3
+ N-GABA 0 Glycolysis scores
+ Hypothalamus Cerebellum 0 Electron transport score (s1)
+ Thalamus Pons
+ 1.0 0.8 0.6 0.4 0.2 0
+ −1.0 −0.5 0 0.5 1.0
+ h Primary
+ P = 5.5 × 10 –7
+ i s1 s2 s3
+ Medulla Correlation between subtype*protocol
+ Fraction of protocols (f) (across logFC of ubiquitous DEGs) P = 2.5 × 10–8 Organoid s1 Corr.
+ s2 1
+ 0 1 2 0 0.5
+ s3 0
+ Canonical
+j glycolysis (s2)
+ Hallmark glycolysis (s3)
+ k
+ (dorsal telen. VGLUT-N)
+
+ Guided
+Glycolysis score
+
+ 1.0 Unguided
+
+ d
+ To cortex Telencephalon
+
+ de
+ 0.5 To others
+
+ ui
+ Dorsal
+
+ ng
+ Transcriptomic
+
+ U
+ 0 Matrigel Ventral
+ similarity
+ No use Diencephalon
+
+ Organoid datasets
+ −0.5 Embedded Hypothalamus
+ Desolved Thalamus
+
+ Guided
+ Primary Organoid datasets Mat. media Midbrain
+ No use Spearman correlation Midbrain dorsal
+ Guided Used (366 variable TFs) Midbrain ventral
+ Matrigel Sliced/cut 0.93 Hindbrain
+ Mat. media No Cerebellum
+ Sliced/cut Yes Pons
+ Medulla Neural
+ Shaken/spun Shaken/spun 0.32 cell type
+ No Choroid plexus
+ Protocol 4 10 16 2419 8 7 6 15 7 5 9 3 12 6 1 9 6 6 11 1 7 13 1 5 14 17 <20 cells in
+ Yes Oligodendrocyte Regions
+ Publication 2516 8 1 5 22 3 2 18 1110 27 23 2 14 9 4 23 24 2 6 20 3 7 15 13 26 the dataset NTT
+ Targeting
+ region Glutamatergic GABAergic
+
+primary counterpart reveals universal cell stress in organoids. a, Schematic (h, left) and the Molecular Signatures Database hallmark glycolysis module
+of DE analysis comparing neural cell types in different protocols in HNOCA scores (h, right), in primary neural cell types (upper, dark) and organoid
+to their primary counterparts27. b, Proportions of expressed genes in different counterparts (lower, light). P values, significance of a two-sided Wilcoxon test.
+neural cell types that show DE in certain fractions of protocols that generate i, Heatmap shows pairwise correlation (corr.) of the three module scores.
+the corresponding subtypes. Top left, glutamatergic neurons; bottom j, Hallmark glycolysis score of dorsal telencephalic excitatory neurons (dTelen
+right, GABAergic neurons. Colour shows the brain region. c, Numbers of VGLUT-N), split by the three primary developing human brains and 27 organoid
+protocol-common DEGs (DE in at least half of protocols), grouped by the datasets with at least 20 dTelen VGLUT-N. The lower panel shows selected
+number of neural cell types in which a gene is DE. d, Distribution of expression features of differentiation protocols that may be relevant to cell stress. The
+log-fold-change (logFC) correlation of ubiquitous DEGs among different neuron protocol and publication indices are shown in Extended Data Fig. 1. Mat. media,
+subtype*protocol (that is, each of the neural cell types generated by each of maturation media. k, Spearman correlations between gene expression profiles
+the different protocols). e, Numbers of DEGs per category. f, Gene ontology of neural cell types in HNOCA and those in the human developing brain atlas27,
+enrichment analysis of downregulated (upper, blue) and upregulated (lower, across the variable transcription factors (TFs). Datasets are in the same order as
+red) ubiquitous DEGs. Sizes of the squares correlate with −log-transformed in Supplementary Table 1.
+adjusted P values. g,h, Distribution of the mitochondrial ATP synthesis-coupled
+
+and 4 and Supplementary Table 2). Datasets of unguided neural orga- dorsal midbrain m1-derived GABAergic neurons and m1/m2-derived
+noids contain cells across all brain regions with proportions varying glutamatergic neurons, and cerebellar Purkinje cells (Fig. 2f,g). It is
+across datasets, indicating the capacity of unguided protocols to gener- worth noting that, even though these cell types are less abundant in
+ate many brain regions but with high variability. By contrast, datasets HNOCA datasets than in the primary atlas, certain organoid protocols
+derived from guided organoid protocols are strongly enriched for cells can generate some of these under-represented cell types (for example,
+of the targeted brain region, but often show an increased proportion Purkinje cells in posterior brain organoid protocols).
+of cells of the brain regions neighbouring the targeted regions. For
+example, several datasets derived from midbrain organoid protocols
+also show high proportions of hindbrain neurons, indicating an impre- Transcriptomic fidelity organoid cell types
+cision of morphogen guidance. We next aimed to understand the transcriptomic similarities and dif-
+ To comprehensively evaluate how well organoid protocols repre- ferences between organoids generated by distinct differentiation
+sented by the HNOCA generate primary brain cell types, we estimated protocols as well as between organoids and primary brain tissue. We
+presence scores for every primary cell type in each HNOCA dataset identified differentially expressed genes (DEGs), comparing neural
+(Methods). A large presence score indicates high frequency and likeli- cell types in the HNOCA with their primary counterparts27 (Fig. 3a and
+hood that cells of a similar type are observed in the HNOCA dataset. By Supplementary Table 4). We found that for most neural cell types,
+normalizing the scores per organoid dataset (Extended Data Fig. 5 and more than one-third (mean 34.4%, standard deviation 12.1%) of DEGs
+Supplementary Table 3), we obtained a metric to describe how well each were shared across at least half of the protocols (protocol-common
+primary cell type is represented in at least one HNOCA dataset (Fig. 2d). DEGs), suggesting that many transcriptomic differences between
+This analysis confirmed the absence of erythrocytes, immune cells organoid and primary cells were independent of organoid protocol
+and vascular endothelial cells in the HNOCA, all of which are derived (Fig. 3b). We verified our results using an extra primary human cortex
+from non-neuroectodermal germ layers (Fig. 2e). As expected, tel- scRNA-seq dataset28 (Extended Data Fig. 6 and Supplementary Table 5).
+encephalic cell types are most strongly represented in HNOCA. By We next assessed differential transcriptomic programmes that were
+contrast, cell types of the thalamus, midbrain and cerebellum are least shared across regional neural cell types, and identified a total of 920
+represented, including thalamic reticular nucleus GABAergic neurons, ubiquitous, protocol-common DEGs (uDEGs) that were differentially
+
+ Nature | Vol 635 | 21 November 2024 | 693
+
+Article
+a b c
+ Neural organoid Project to primary/HNOCA
+
+ Annotated region
+ CHIR, SAG SAG CHIR BMP FGF Other
+ morphogen screen Forebrain
+ 44
+ (Amin et al. ) Midbrain
+
+ Fraction
+ Hindbrain
+ Non-specific
+ Un-annotated
+ scRNA-seq Annotated Compare with
+
+ yp ub at s
+
+ er Prain
+ Th ph us
+
+ M ellu s
+ H S Stri pux
+ Di ot co um
+
+ la
+ M lamon
+ ce lamex
+
+ b s
+
+ ed m
+ (50 conditions) region organoid atlas
+
+ n
+ me
+
+ id u
+
+ ul
+ ca rt
+
+ eb o
+ en ha rt
+
+ a al
+ Condition
+
+ po Co
+ Forebrain • Annotation
+ Condition groups Midbrain Brain region
+ Fraction
+
+ C
+ ip
+ SAG BMP Hindbrain • Protocol matching Cortex Diencephalon Cerebellum
+
+ H
+ CHIR, SAG FGF Non-specific • Novelty assessment of predicted Hippocampus Hypothalamus Pons
+ CHIR Other Un-annotated Predicted region Subcortex Thalamus Medulla
+ Striatum Midbrain
+ 0 1
+
+d Cell class e Brain region
+ Radial glia
+ Neuronal IPC
+ Neuroblast
+Protocol/condition
+
+ Neuron
+ Glioblast
+ Oligo
+ Placodes
+ Immune
+ Vascular
+ Erythrocyte
+ Neural crest
+ Fibroblast
+ Presence score
+ Max.-presence
+ esence
+ Depleted Enriched sscore (Amin et al.44)
+ Non-neural Subregion
+Origin Cell class Depleted
+ Dep Enriched
+ 27
+ HNOCA Protocol: Guided Unguided Clusters (primary (Braun et al. )) (in all conditions)
+ c (in 1 condition)
+ Amin et al.44 Condition group
+
+f g h Subpallial Midbrain
+ 364 GABAergic DA neuron
+ neuron LHX6 TH
+ in NOMS over HNOCA
+
+ Cluster 364 Cluster 443 Cluster 385 Cluster 448
+ Gained coverage
+
+ 1.00 ACKR3 EN1
+
+ Primary
+ Inhib. neuron Inhib. neuron DA neuron Inhib. neuron MPPED1
+ 0.75 (LHX6, ACKR3, (LHX8, CA10) (TH1, EN1) (GATA3, CDH8) Co-expression
+ MPPED1) (min. gene expression)
+ 0.50
+
+ 0.25 0 Max.
+ Conditions Conditions
+
+ 44
+ Amin et al.
+ 0
+ 385
+ Telencephalon Diencephalon Midbrain Pons Cereb. Medulla
+ Gained clusters
+ Clusters (primary (Braun et al.27))
+
+HNOCA and human developing brain atlas allows cell type annotation and reference (columns). e, UMAP of primary reference coloured by the dissected
+organoid protocol evaluation. a, Schematic of projecting neural organoid regions (right) and the maximum presence scores across the screen conditions
+morphogen screen44 scRNA-seq data to the HNOCA, and a human developing (left). f, Gain of cell cluster coverage of screen conditions relative to HNOCA
+brain reference atlas27. UMAPs show screen condition groups (left, using datasets, with negative values trimmed to zero. The grey horizontal line shows
+morphogens SAG (sonic hedgehog signaling agonist), CHIR, BMP and FGF) the threshold (0.3) to define gained clusters in screen data. g, UMAP of the
+and regional annotation of screen data (right). b, Comparison of regional primary reference, with gained clusters highlighted in shades of blue. Dashed
+annotation of screen data (rows) and scArches-transferred regional labels from circles highlight two clusters with highest gain of coverage in telencephalon
+the primary reference. c, Proportions of cells assigned to different regions on and midbrain, respectively. h, Coexpression scores of cluster marker genes of
+the basis of reference projection. Every stacked bar represents one screen the two clusters highlighted in g, in the primary reference (upper) and screen
+condition. d, Clustering of HNOCA datasets with conditions in the screen data dataset (lower). DA, dopaminergic.
+on the basis of average presence scores of clusters in the primary reference.
+
+expressed in at least 14 out of the 16 neural cell types (Fig. 3c). These cells (Fig. 3g,h). Using the datasets from refs. 3 and 27 as representauDEGs showed consistent fold changes (r > 0.8) across neuron types tive examples, we identified a similar distribution of glycolysis scores
+and protocols (Fig. 3d), and represent consistent molecular differences across all neural cell types with an overall increased score in organoid
+between neurons in organoids and those in primary tissues regardless cells (Extended Data Fig. 7). Focusing on dorsal telencephalic neurons,
+of protocol or neuronal cell type. Out of all 920 uDEGs, 363 genes were we compared the distribution of glycolysis scores across organoid difconsistently upregulated and 673 genes were consistently downregu- ferentiation protocols and identified several protocol features that corlated, with only 59 genes (6%) inconsistently differentially expressed related with metabolic cell stress. For instance, the usage of maturation
+across subtypes or protocols (Fig. 3e). media, slicing or cutting of organoids and, to a lesser extent, shaking
+ Using gene ontology enrichment analysis52,53 on the uDEGs, we found or spinning of organoids led to overall lower glycolysis scores (Fig. 3h).
+downregulated uDEGs enriched in neurodevelopmental processes Mean glycolysis score and transcriptomic similarity of organoid and
+including neuron cell–cell adhesion and synapse organization (Fig. 3f). primary reference cell types27 across differentiation protocols were
+Upregulated uDEGs were enriched in many metabolism-associated negatively correlated10,24. The correlation was significantly reduced
+terms including mitochondrial ATP synthesis-coupled electron trans- when considering only variable transcription factors, indicating that
+port (electron transport in short) and canonical glycolysis (Fig. 3f). the metabolic changes in organoids have limited impact on the core
+An enrichment of energy-associated pathways has previously been molecular identity of neuronal cell types (Extended Data Fig. 7). This
+associated with metabolic changes caused by the limitations of cur- observation is consistent with previous studies23,24 of distinct metabolic
+rent culture conditions10,24. Also, the Molecular Signatures Database states of cells in neural organoids relative to the primary tissue, which
+gene set hallmark glycolysis54,55 has previously been used to define were shown to not affect neuron fate specification and maturation.
+metabolic states in neural organoids23. Scoring mitochondrial elec- Next, we focused on the expression of 366 variable transcription
+tron transport, canonical glycolysis and hallmark glycolysis gene sets factors to calculate the correlation between corresponding neuronal
+across the HNOCA and the primary reference atlas27, we found that all cell types in the HNOCA datasets and the primary reference atlas27.
+three terms showed significant separation of organoid and primary We found that both guided and unguided organoid differentiation
+
+694 | Nature | Vol 635 | 21 November 2024
+
+a UMAP manifold b c Region
+ 409,000 cells Astrocyte Ventral
+ Cell type and regional Dorsal telencephalon
+ OPC telen. Dorsal telen.
+ annotation Ventral telencephalon
+ NPC glutamatergic
+ Matched HNOCA Hypothalamus
+ metacell neuron Thalamus
+ Primary
+ 11 publications 27
+ (Braun et al. ) Differential Glioblast Dorsal midbrain
+ 10 diseases HNOCA expression Ventral midbrain
+ Dorsal Cerebellum
+ Microglia telen. Pons
+ Mapping NPC Medulla
+ g Ventral telen.
+ NE NPC IP Neuron Glioblast Astrocyte OPC CP GABAergic
+ 1.0 Microglia
+ MC neuron d e Control
+ Disease
+ Cell type prop.
+
+ 0.8 NC-D
+ 0.6 EC Neuro-
+ MC epithelium Non-telen.
+ 0.4 Non-telen. neuron
+ 0.2 NPC
+ Control
+ 0 Status Disease-modelling
+ h 1.0
+ publication Publications Status
+ NH-2022 SZ-2022
+Region prop.
+
+ 0.8
+ f
+ of neurons
+
+ GBM-2019 PTHS-2022
+ SOX2 MAP2 GFAP OLIG1 EMX1
+ 0.6 FXS-2021 ALS-2021
+
+ Expression
+ 0.4 NH-2019 AD-2023 Max.
+ ASD-2023 MC-2020
+ 0.2
+ DM1-2022
+ 0
+ Telencephalon Diencephalon Midbrain Hindbrain 0
+ Dorsal Hypothalamus Dorsal Cerebellum
+ Ventral Thalamus Ventral Pons
+ Medulla SFARI enrichment
+ (log2(OR))
+ i j k l Pseudobulk samples m −1 0 1
+ Control Disease-
+ modelling Expr P = 0.004
+ Transcriptomic similarity
+
+ Publications Max. P = 0.996
+ Query
+ to HNOCA metacells
+
+ 1.0 XRCC6 FMR1 MEIS2
+ Celli 0.94
+ Comparison ACTB RBM27 SFARI
+
+ Top DEGs
+ 0.8 No
+ Min.
+ 10 Yes
+
+ −log10(Adjusted P)
+ CHD2
+ 0.6 GNAS
+ kNNs Wi RBM25 GTF2I
+ Average CALD1
+ FABP5 KMT2A
+ 0.4 HNRNPU PABPC1 DYNC1H1 DE
+ Metacelli 5 KMT2E Non-DE
+ 0.2 SPARC Up
+ 0 Down
+ 0
+ Reference 0
+ GBM FXS GBM Matched Control HNOCA −1.0 −0.5 0 0.5 1.0
+ HNOCA astrocytes astrocytes
+ metacells in diseases logFC(FXS − HNOCA)
+
+transcriptomic comparison for neural organoid disease-modelling data. cells. l, Heatmap showing expression of top DEGs between the AQP4+ population
+a, Overview of disease-modelling neural organoid atlas construction, and in the GBM-2019 dataset and their matched HNOCA metacells. Rows show
+projection to primary atlas27 and HNOCA for downstream analysis. b–f, UMAP DEGs with the ten strongest decreased and increased expressions. Columns
+of integrated disease-modelling neural organoid atlas coloured by predicted show average expression in the AQP4+ population of disease-modelling samples
+cell type annotation (b), predicted regional identities of NPCs, intermediate (first panel), the matched HNOCA metacells per sample (second panel), all
+progenitor cells and neurons (c), publications (d), disease status (e) and marker predicted control astrocytes and all astrocytes in HNOCA. m, Volcano plot
+gene expression (f). g,h, Proportions (prop.) of cells assigned to different cell shows DE analysis between dorsal telencephalic cells in the FXS-2021 dataset
+classes (g) and regions (h). Every stacked bar represents one biological sample. and their matched HNOCA metacells. DEGs coloured in red (increased in
+Side bars show disease status and publication. i, Schematic of reconstructing FXS) and blue (decreased in FXS). Encircled dots show DEGs annotated in
+matched HNOCA metacell for each cell in the disease-modelling neural SFARI database. Top bars show the log-transformed odds ratio of SFARI gene
+organoid atlas. j, UMAP of disease-modelling neural organoid atlas, coloured enrichment in the increased (red) and decreased (blue) DEGs. GBM,
+by transcriptomic similarity with the matched HNOCA metacells. k, Violin plot glioblastoma.
+indicates distribution of estimated transcriptomic similarities, split by
+
+protocols generated neuronal cell types with comparable similarity to are deficient in these processes. Of note, these differences are observed
+the corresponding primary reference cell types. However, we observed across organoid protocols, and highlight areas of consistent transcripbrain region-dependent differences in transcriptomic similarity. For tomic divergence between in vitro and primary counterparts.
+example, organoid neurons from the dorsal parts of most brain regions
+showed higher similarity to their primary counterparts across organoid
+datasets than cell types derived from the ventral parts of most brain HNOCA facilitates organoid protocol evaluation
+regions (Fig. 3i). The HNOCA, as well as the analytical pipeline we established, provides
+ To identify molecular features other than metabolic state that a framework to query new neural organoid scRNA-seq datasets not
+decreased organoid fidelity, we incorporated dorsal telencephalic gluta- included in the HNOCA. To showcase this application, we retrieved
+matergic neurons from four different primary developing human brain scRNA-seq data from a recently published multiplexed neural organoid
+atlases27–30 as an integrated primary reference, and identified neuron morphogen screen44 and projected them to the HNOCA and primary refsubtype and maturation state heterogeneity (Extended Data Fig. 8). erence27 latent spaces (Fig. 4a, Extended Data Fig. 9 and Supplementary
+Projection of dorsal telencephalic neurons in the HNOCA to the pri- Table 7). We transferred regional labels and found high consistency with
+mary atlases revealed the corresponding heterogeneity in neural orga- the provided regional annotation, but with higher resolution within
+noids. Considering metabolic state, maturation state and cell subtype each of the broad brain sections of forebrain, midbrain and hindbrain
+as covariates during DE analysis3 significantly reduced the number of (Fig. 4b). Our transferred annotation therefore allowed a more compre-
+DEGs, supporting the idea that these are the major factors differentiating hensive assessment of the effects of different morphogen conditions
+organoid and primary brain cells (Extended Data Fig. 8 and Supplemen- on generating neurons of different brain regions (Fig. 4c). We further
+tary Table 6). We observed enriched biological processes that included calculated presence scores for reference cells in each screen condition
+synaptic vesicle cycle and negative regulation of high voltage-gated cal- and compared the data of the different screen conditions with the 36
+cium channel activity (Extended Data Fig. 8), suggesting that organoids HNOCA datasets. Using hierarchical clustering on average presence
+
+ Nature | Vol 635 | 21 November 2024 | 695
+
+Article
+a b 72 73
+ Bertucci et al. Caporale et al. Dony et al.
+ 75 c
+ Predicted cell type
+ HNOCA
+ core PSC NPC
+ NE Dorsal telen.
+ Community NC-D Ventral telen.
+ MC Non-telen.
+ edition EC
+ Giandomenico Lopez-Tobon Wang et al.71 Neuron
+ et al.
+ 70
+ et al.
+ 74 CP Dorsal telen.
+ Glioblast Ventral telen.
+ Astrocyte Non-telen.
+ OPC
+ HNOCA core
+ Extension
+
+d e Transcriptomic similarity
+ f
+ Scaled Percentage
+ expression expressed 20 40 60 80100 to HNOCA core metacells HNOCA Browsing Cell type
+ 0 1 0.4 0.8
+ core data transfer
+ Neuroepithelium Neuroepithelium
+ Dorsal telen. NPC Dorsal telen. NPC Community
+ Dorsal telen. IP Dorsal telen. IP edition DE General label Matched DE
+Dorsal telen. neuron Dorsal telen. neuron analysis transfer analysis
+ Ventral telen. NPC Ventral telen. NPC
+Ventral telen. neuron Ventral telen. neuron
+ Non-telen. NPC Primary
+ Non-telen. NPC Non-telen. neuron reference Reference Presence
+ Non-telen. neuron CP mapping scores
+ CP Glioblast
+ Glioblast OPC
+ Astrocyte Astrocyte Query Marker-based Cell Transcriptomic
+ OPC NC derivatives dataset annotation matching similarity
+ NC derivatives MC
+ MC Interface
+ i le y o n g
+ Percentage of cc ra on nic bo an CELLxGENE
+ cells rtu apo D me -To W Web Python HNOCA tools
+ Be
+ SOX2
+ NES
+ MAPT
+ TTR
+ HOPX
+ AQP4
+ OLIG1
+ SOX10
+ DCN
+ FOXG1
+ EMX1
+ EOMES
+ SLC17A7
+ DLX2
+ GAD1
+ LHX5
+
+ C d o ez interface ArchMap API
+ 20 40 60 an Lop
+ Gi
+
+Schematic of projecting further scRNA-seq data by the community to extend extended HNOCA datasets. e, Dot plot shows cell type composition and
+the HNOCA. b, UMAP shows the dataset composition of the current extended average similarity to the matched HNOCA metacells of the extended datasets.
+HNOCA. c, UMAP shows the projected cell type annotation of cells in the five f, Schematic shows the analytical pipelines and varied interfaces to facilitate
+extended datasets. NE, neuroepithelium; NC-D, neural crest derivatives; analysing scRNA-seq data of neural organoids for the community.
+MC, mesenchymal cell; EC, endothelial cell. d, Dot plot shows the expression of
+
+scores revealed distinct presence score profiles for many screen condi- We developed a wkNN-based strategy to generate matched HNOCA
+tions (Fig. 4d), suggesting regional cell type composition distinct from metacells for every cell in each disease model organoid scRNA-seq
+the HNOCA datasets. Next, we summarized the max presence scores dataset (Fig. 5i), and quantified their transcriptomic similarity (Fig. 5j).
+for the whole morphogen screen data (Fig. 4e), and compared them The dataset of glioblastoma organoids64 showed substantially lower
+to those for the HNOCA data to identify primary reference cell types similarity to their primary counterpart than the other disease models
+with increased presence in the screen (Fig. 4f). This analysis highlighted (Fig. 5k). To assess these transcriptomic differences, we performed
+several reference cell clusters with significant abundance increase DE analysis between glioblastoma and matched control metacells.
+under certain screen conditions (Fig. 4g) such as LHX6/ACKR3/MPPED1 Focusing on the AQP4+ population (Extended Data Fig. 10), we identitriple-positive GABAergic neurons in the ventral telencephalon and fied 1,951 DEGs in glioblastoma cells compared to matched HNOCA
+dopaminergic neurons in ventral midbrain. In summary, the projection metacells (Supplementary Table 9) and found increased expression of
+of the morphogen screen query data to HNOCA and primary reference genes such as RBM25 (ref. 65) CALD1 (ref. 66), HNRNPU67 and SPARC68
+allowed a refined annotation of the morphogen screen data, as well (Fig. 5l), all of which have been reported to be relevant to glioblastoma.
+as a comprehensive and quantitative evaluation of the value of new Next, we focused on the organoid model of FXS58, in which NPCs
+differentiation protocols to generate neuronal cell types previously and neurons in the control organoids were of non-telencephalic
+under-represented or lacking in neural organoids. identities whereas the disease model organoids mainly contained
+ telencephalic cells (Fig. 5h and Extended Data Fig. 10). The integrated
+ HNOCA provides the opportunity to perform DE analysis for FXS neo-
+HNOCA facilitates disease model interpretation cortical neurons with matched HNOCA metacells, which identified 444
+We next tested whether the integrated HNOCA can serve as a control DEGs. DEGs higher expressed in FXS cells (122 genes) were enriched
+cohort for assessing organoid models of neural disease. We collected for autism-associated genes annotated in the Simons Foundation
+11 scRNA-seq datasets from 10 neural organoid disease models and Autism Research Initiative (SFARI) database. One such gene, CHD2,
+their respective controls (microcephaly56, amyotrophic lateral scle- was reported in the original publication58 as a key regulator of FXS
+rosis43, Alzheimer’s disease57, autism42, fragile-X syndrome (FXS)58, with increased protein level, but its expression change on messenger
+schizophrenia59, neuronal heterotopia60,61, Pitt–Hopkins syndrome62, RNA (mRNA) level change could not be detected in a bulk RNA-seq
+myotonic dystrophy63 and glioblastoma64) (Fig. 5a, Extended Data Fig. 10 experiment. We also detected decreased expression of FMR1, whose
+and Supplementary Table 8). We projected the data to the HNOCA and loss-of-function mutation causes FXS69.
+the primary reference atlas to transfer annotations (Fig. 5b–f). We
+found differences in cell type and brain regional composition between
+disease model organoids and their respective, study-specific control Extending the HNOCA through data projection
+organoids for most studies (Fig. 5g,h). These differences might repre- New scRNA-seq datasets of human neural organoids continue to be
+sent disease phenotypes, but could also be the consequence of cell line generated, and it will be important to continuously extend and update
+variability. It is therefore important to properly annotate the cell type the HNOCA with this extra data. We therefore established a computaand regional composition of disease and control organoids to identify tional toolkit to project new scRNA-seq data to the HNOCA (Fig. 6a).
+disease phenotypes, particularly when analysing disease-associated We demonstrate the use of the toolkit by incorporating scRNA-seq data
+transcriptomic alterations in a given cell type. from six more studies70–75 into the HNOCA (HNOCA-extended; Fig. 6b
+
+696 | Nature | Vol 635 | 21 November 2024
+
+and Supplementary Table 10), using query-to-reference mapping. We annotation and provides a large control cohort of single-cell transcripharmonized cell type annotations using wkNN-based label transfer, tomes for comparison. For example, we observed discrepancy of cell
+and placed the cells in the context of the existing organoid single-cell type and regional composition between control and disease model
+transcriptomic landscape as represented by the HNOCA (Fig. 6c–e). samples in many studies. At the same time, the HNOCA provides the
+Mapping further datasets to the HNOCA using our approach enhances opportunity to identify disease-specific molecular features against a
+the atlas by increasing its coverage over existing neural organoid pro- multi-line multi-protocol large-scale control cohort.
+tocols and neural cell types generated in organoids. We demonstrate how the HNOCA can be extended and updated by
+ To enable researchers to use the HNOCA in their own analysis, we projecting extra single-cell transcriptomic data of neural organoids
+provide various options for exploration and interaction with the atlas to the atlas. Further, we have developed a computational toolkit,
+(Fig. 6f). The HNOCA can be browsed through an online portal76, ena- HNOCA-tools, which will enable other researchers to recapitulate the
+bling visualization of gene expression and discovery of marker genes. analytic framework applied in our study. Together, we imagine that the
+We also provide the HNOCA through an online interface (http://www. HNOCA will be kept up to date and continue to reflect the landscape
+archmap.bio/) for the interactive mapping of new datasets, enabling of human neural cell states generated in organoids in vitro, serving as
+label transfer, presence score computation and metabolic scoring of a living resource for the neural organoid community that enables the
+cell states. Finally, we have developed HNOCA-tools, a Python pack- assessment of organoid fidelity, the characterization of perturbed and
+age implementing all central analysis approaches presented in this diseased states and the development of new protocols.
+paper, such as annotation, reference mapping, label transfer and DE
+testing methods.
+ Online content
+ Any methods, additional references, Nature Portfolio reporting summa-
+Discussion ries, source data, extended data, supplementary information, acknowl-
+In this study, we built a large-scale integrated cell atlas of human neural edgements, peer review information; details of author contributions
+organoids, the HNOCA, by integrating 1.8 million cells spanning 36 and competing interests; and statements of data and code availability
+scRNA-seq datasets generated by 15 different laboratories worldwide are available at https://doi.org/10.1038/s41586-024-08172-8.
+using 26 different differentiation protocols as well as diverse scRNAseq technologies. The resulting atlas revealed the high complexity 1. Birey, F. et al. Assembly of functionally integrated human forebrain spheroids. Nature
+of neuronal, glial and non-neural cell types that can develop in neu- 545, 54–59 (2017).
+ral organoids grown under existing protocol conditions. Mapping 2. Sloan, S. A. et al. Human astrocyte maturation captured in 3D cerebral cortical spheroids
+ derived from pluripotent stem cells. Neuron 95, 779–790.e6 (2017).
+the HNOCA data to various human developing brain cell reference 3. Kanton, S. et al. Organoid single-cell genomic atlas uncovers human-specific features of
+atlases27–30 allowed comprehensive evaluation of neural organoid pro- brain development. Nature 574, 418–422 (2019).
+ 4. Marton, R. M. et al. Differentiation and maturation of oligodendrocytes in human threetocols to generate cell types of different brain regions. We found that
+ dimensional neural cultures. Nat. Neurosci. 22, 484–491 (2019).
+organoids in the first 3 months of culture best match to first-trimester 5. Trujillo, C. A. et al. Complex oscillatory waves emerging from cortical organoids model
+primary data, whereas organoids around 3 months of culture and older early human brain network development. Cell Stem Cell 25, 558–569.e7 (2019).
+ 6. Velasco, S. et al. Individual brain organoids reproducibly form cell diversity of the human
+best match second-trimester primary cell states. We did not observe
+ cerebral cortex. Nature 570, 523–527 (2019).
+significant neuronal maturation and diversification signatures match- 7. Xiang, Y. et al. hESC-derived thalamic organoids form reciprocal projections when fused
+ing older developmental stages, suggesting a limitation of neuronal with cortical organoids. Cell Stem Cell 24, 487–497.e7 (2019).
+ 8. Yoon, S.-J. et al. Reliability of human cortical organoid generation. Nat. Methods 16, 75–78
+maturation in current neural organoid protocols.
+ (2019).
+ We performed DE analysis between organoid neuron types and their 9. Andersen, J. et al. Generation of functional human 3D cortico-motor assembloids. Cell
+primary counterparts to evaluate transcriptomic fidelity, and identi- 183, 1913–1929.e26 (2020).
+ 10. Bhaduri, A. et al. Cell stress in cortical organoids impairs molecular subtype specification.
+fied metabolic changes related to the glycolysis pathway as a main
+ Nature 578, 142–148 (2020).
+factor that distinguishes organoid and primary cell states, consistent 11. Miura, Y. et al. Generation of human striatal organoids and cortico-striatal assembloids
+with previous reports. Despite the negative effects of metabolic stress from human pluripotent stem cells. Nat. Biotechnol. 38, 1421–1430 (2020).
+ 12. Pellegrini, L. et al. Human CNS barrier-forming organoids with cerebrospinal fluid
+on overall transcriptomic fidelity, the molecular identity of regional
+ production. Science 369, eaaz5626 (2020).
+cell types is maintained as evidenced by transcription factor coexpres- 13. Qian, X. et al. Sliced human cortical organoids for modeling distinct cortical layer
+sion patterns that are highly consistent with primary counterparts. formation. Cell Stem Cell 26, 766–781.e9 (2020).
+ 14. Sawada, T. et al. Developmental excitation-inhibition imbalance underlying psychoses
+ We showcased the mapping of query data, a recently published revealed by single-cell analyses of discordant twins-derived cerebral organoids. Mol.
+single-cell transcriptomic neural organoid morphogen screen, to the Psychiatry 25, 2695–2711 (2020).
+HNOCA and the primary reference, which enabled a refined cell type 15. Khan, T. A. et al. Neuronal defects in a human cellular model of 22q11.2 deletion syndrome.
+ Nat. Med. 26, 1888–1898 (2020).
+annotation, as well as a compositional comparison with existing neural 16. Bowles, K. R. et al. ELAVL4, splicing, and glutamatergic dysfunction precede neuron loss
+organoid datasets. Our powerful framework will facilitate quantitative in MAPT mutation cerebral organoids. Cell 184, 4547–4563.e17 (2021).
+and comparative analysis of scRNA-seq data of human neural organoids, 17. Fiorenzano, A. et al. Single-cell transcriptomics captures features of human midbrain
+ development and dopamine neuron diversity in brain organoids. Nat. Commun. 12, 7302
+and for the benchmarking of new neural organoid protocols. (2021).
+ Consistent with earlier reports3,77, we find that unguided protocols 18. Huang, W.-K. et al. Generation of hypothalamic arcuate organoids from human induced
+generate neural cells with high brain regional variability, which is useful pluripotent stem cells. Cell Stem Cell 28, 1657–1670.e10 (2021).
+ 19. Samarasinghe, R. A. et al. Identification of neural oscillations and epileptiform changes in
+when studying broader fate determination during neurodevelopment. human brain organoids. Nat. Neurosci. 24, 1488–1500 (2021).
+Guided protocols resulted in a strong enrichment of the targeted 20. Fleck, J. S. et al. Inferring and perturbing cell fate regulomes in human brain organoids.
+brain regions. We also note that some guided protocols, particularly Nature https://doi.org/10.1038/s41586-022-05279-8 (2022).
+ 21. He, Z. et al. Lineage recording in human cerebral organoids. Nat. Methods 19, 90–99 (2022).
+those targeting midbrain, show relatively low specificity and generate 22. Kelava, I., Chiaradia, I., Pellegrini, L., Kalinka, A. T. & Lancaster, M. A. Androgens increase
+neural cells from the nearby brain regions. This issue may be due to a excitatory neurogenic potential in human brain organoids. Nature 602, 112–116 (2022).
+differential response of neural stem cells in the organoid to the same 23. Uzquiano, A. et al. Proper acquisition of cell class identity in organoids allows definition of
+ fate specification programs of the human cerebral cortex. Cell 185, 3770–3788.e27 (2022).
+morphogen cue, or to the lack of a full understanding of the timing, 24. Vértesy, Á. et al. Gruffi: an algorithm for computational removal of stressed cells from
+concentration and combinations of morphogens required to precisely brain organoid transcriptomic datasets. EMBO J. 41, e111118 (2022).
+define cells of the deeper regions in the central nervous system. 25. Atamian, A. et al. Human cerebellar organoids with functional Purkinje cells. Cell Stem
+ Cell 31, 39–51.e6 (2024).
+ The integrated HNOCA is also an excellent resource for analysis 26. Paulsen, B. et al. Autism genes converge on asynchronous development of shared
+of disease-modelling neural organoid data. It facilitates cell type neuron classes. Nature 602, 268–273 (2022).
+
+ Nature | Vol 635 | 21 November 2024 | 697
+
+Article
+27. Braun, E. et al. Comprehensive cell atlas of the first-trimester developing human brain. 61. Klaus, J. et al. Altered neuronal migratory trajectories in human cerebral organoids
+ Science 382, eadf1226 (2023). derived from individuals with neuronal heterotopia. Nat. Med. 25, 561–568 (2019).
+28. Eze, U. C., Bhaduri, A., Haeussler, M., Nowakowski, T. J. & Kriegstein, A. R. Single-cell atlas 62. Papes, F. et al. Transcription Factor 4 loss-of-function is associated with deficits in
+ of early human brain development highlights heterogeneity of human neuroepithelial progenitor proliferation and cortical neuron content. Nat. Commun. 13, 2387
+ cells and early radial glia. Nat. Neurosci. 24, 584–594 (2021). (2022).
+29. Bhaduri, A. et al. An atlas of cortical arealization identifies dynamic molecular signatures. 63. Morelli, K. H. et al. MECP2-related pathways are dysregulated in a cortical organoid
+ Nature 598, 200–204 (2021). model of myotonic dystrophy. Sci. Transl. Med. 14, eabn2375 (2022).
+30. Wang, L. et al. Molecular and cellular dynamics of the developing human neocortex at 64. Jacob, F. et al. A patient-derived glioblastoma organoid model and biobank recapitulates
+ single-cell resolution. Preprint at bioRxiv https://doi.org/10.1101/2024.01.16.575956 (2024). inter- and intra-tumoral heterogeneity. Cell 180, 188–204.e22 (2020).
+31. Velasco, S., Paulsen, B. & Arlotta, P. 3D Brain organoids: studying brain development and 65. Brennan, C. W. et al. The somatic genomic landscape of glioblastoma. Cell 155, 462–477
+ disease outside the embryo. Annu. Rev. Neurosci. 43, 375–389 (2020). (2013).
+32. Sidhaye, J. & Knoblich, J. A. Brain organoids: an ensemble of bioassays to investigate 66. Cheng, Q. et al. CALD1 modulates gliomas progression via facilitating tumor angiogenesis.
+ human neurodevelopment and disease. Cell Death Differ. 28, 52–67 (2020). Cancers 13, 2705 (2021).
+33. Pașca, S. P. et al. A nomenclature consensus for nervous system organoids and 67. Pavlyukov, M. S. et al. Apoptotic cell-derived extracellular vesicles promote malignancy
+ assembloids. Nature 609, 907–910 (2022). of glioblastoma via intercellular transfer of splicing factors. Cancer Cell 34, 119–135.e10
+34. Paşca, A. M. et al. Functional cortical neurons and astrocytes from human pluripotent (2018).
+ stem cells in 3D culture. Nat. Methods 12, 671–678 (2015). 68. Rich, J. N. et al. Gene expression profiling and genetic markers in glioblastoma survival.
+35. Jo, J. et al. Midbrain-like organoids from human pluripotent stem cells contain functional Cancer Res. 65, 4051–4058 (2005).
+ dopaminergic and neuromelanin-producing neurons. Cell Stem Cell 19, 248–257 (2016). 69. Mila, M., Alvarez-Mora, M. I., Madrigal, I. & Rodriguez-Revenga, L. Fragile X syndrome: an
+36. Lancaster, M. A. et al. Cerebral organoids model human brain development and overview and update of the FMR1 gene. Clin. Genet. 93, 197–205 (2018).
+ microcephaly. Nature 501, 373–379 (2013). 70. Giandomenico, S. L. et al. Cerebral organoids at the air-liquid interface generate diverse
+37. Quadrato, G. et al. Cell diversity and network dynamics in photosensitive human brain nerve tracts with functional output. Nat. Neurosci. 22, 669–679 (2019).
+ organoids. Nature 545, 48–53 (2017). 71. Wang, M. et al. Morphological diversification and functional maturation of human
+38. Pollen, A. A. et al. Establishing cerebral organoids as models of human-specific brain astrocytes in glia-enriched cortical organoid transplanted in mouse brain. Nat. Biotechnol.
+ evolution. Cell 176, 743–756.e17 (2019). https://doi.org/10.1038/s41587-024-02157-8 (2024).
+39. Camp, J. G. et al. Human cerebral organoids recapitulate gene expression programs of 72. Bertucci, T. et al. Improved protocol for reproducible human cortical organoids reveals
+ fetal neocortex development. Proc. Natl Acad. Sci. USA 112, 15672–15677 (2015). early alterations in metabolism with mutations. Preprint at bioRxiv https://doi.org/10.1101/
+40. Mora-Bermúdez, F. et al. Differences and similarities between human and chimpanzee 2023.07.11.548571 (2023).
+ neural progenitors during cerebral cortex development. eLife 5, e18683 (2016). 73. Caporale, N. et al. Multiplexing cortical brain organoids for the longitudinal dissection of
+41. Benito-Kwiecinski, S. et al. An early cell shape transition drives evolutionary expansion of developmental traits at single cell resolution. Preprint at bioRxiv https://doi.org/10.1101/
+ the human forebrain. Cell 184, 2084–2102.e19 (2021). 2023.08.21.553507 (2023).
+42. Li, C. et al. Single-cell brain organoid screening identifies developmental defects in 74. López-Tobón, A. et al. dosage regulates neuronal differentiation and social behavior in
+ autism. Nature 621, 373–380 (2023). 7q11.23 neurodevelopmental disorders. Sci. Adv. 9, eadh2726 (2023).
+43. Szebényi, K. et al. Human ALS/FTD brain organoid slice cultures display distinct early 75. Dony, L. et al. Chronic exposure to glucocorticoids amplifies inhibitory neuron cell fate
+ astrocyte and targetable neuronal pathology. Nat. Neurosci. 24, 1542–1554 (2021). during human neurodevelopment in organoids. Preprint at bioRxiv https://doi.org/10.1101/
+44. Amin, N. D. et al. Generating human neural diversity with a multiplexed morphogen 2024.01.21.576532 (2024).
+ screen in organoids. Preprint at bioRxiv https://doi.org/10.1101/2023.05.31.541819 (2023). 76. CZI Single-Cell Biology Program et al. CZ CELL×GENE Discover: a single-cell data
+45. De Donno, C. et al. Population-level integration of single-cell datasets enables multi-scale platform for scalable exploration, analysis and modeling of aggregated data. Preprint at
+ analysis across samples. Nat. Methods 20, 1683–1692 (2023). bioRxiv https://doi.org/10.1101/2023.10.30.563174 (2023).
+46. Luecken, M. D. et al. Benchmarking atlas-level data integration in single-cell genomics. 77. Qian, X., Song, H. & Ming, G.-L. Brain organoids: advances, applications and challenges.
+ Nat. Methods 19, 41–50 (2022). Development 146, dev166074 (2019).
+47. Eyring, L. et al. Unbalancedness in neural monge maps improves unpaired domain
+ translation. In Proc. Twelfth International Conference on Learning Representations Publisher’s note Springer Nature remains neutral with regard to jurisdictional claims in
+ https://iclr.cc/virtual/2024/poster/19548 (2024). published maps and institutional affiliations.
+48. Klein, D. et al. Mapping cells through time and space with moscot. Preprint at bioRxiv
+ https://doi.org/10.1101/2023.05.11.540374 (2023). Open Access This article is licensed under a Creative Commons Attribution-
+49. Lopez, R., Regier, J., Cole, M. B., Jordan, M. I. & Yosef, N. Deep generative modeling for NonCommercial-NoDerivatives 4.0 International License, which permits any
+ single-cell transcriptomics. Nat. Methods 15, 1053–1058 (2018). non-commercial use, sharing, distribution and reproduction in any medium or
+50. Xu, C. et al. Probabilistic harmonization and annotation of single-cell transcriptomics format, as long as you give appropriate credit to the original author(s) and the source, provide
+ data with deep generative models. Mol. Syst. Biol. 17, e9620 (2021). a link to the Creative Commons licence, and indicate if you modified the licensed material.
+51. Lotfollahi, M. et al. Mapping single-cell data to reference atlases by transfer learning. You do not have permission under this licence to share adapted material derived from this
+ Nat. Biotechnol. 40, 121–130 (2022). article or parts of it. The images or other third party material in this article are included in the
+52. Ashburner, M. et al. Gene Ontology: tool for the unification of biology. Nat. Genet. 25, article’s Creative Commons licence, unless indicated otherwise in a credit line to the material.
+ 25–29 (2000). If material is not included in the article’s Creative Commons licence and your intended use is
+53. Aleksander, S. A. et al. The Gene Ontology knowledgebase in 2023. Genetics 224, not permitted by statutory regulation or exceeds the permitted use, you will need to obtain
+ iyad031 (2023). permission directly from the copyright holder. To view a copy of this licence, visit http://
+54. Subramanian, A. et al. Gene set enrichment analysis: a knowledge-based approach creativecommons.org/licenses/by-nc-nd/4.0/.
+ for interpreting genome-wide expression profiles. Proc. Natl Acad. Sci. USA 102,
+ 15545–15550 (2005). © The Author(s) 2024, corrected publication 2024
+55. Liberzon, A. et al. The Molecular Signatures Database (MSigDB) hallmark gene set
+ collection. Cell Syst. 1, 417–425 (2015). Human Cell Atlas Organoid Biological Network
+56. Wang, L. et al. Loss of NARS1 impairs progenitor proliferation in cortical brain organoids
+ and leads to microcephaly. Nat. Commun. 11, 4038 (2020).
+57. Vanova, T. et al. Cerebral organoids derived from patients with Alzheimer’s disease with Neal D. Amin10,11, Kevin W. Kelley10,11, Taylor Bertucci13, Sally Temple13, Kathryn R. Bowles14,15,
+ PSEN1/2 mutations have defective tissue patterning and altered development. Cell Rep. Nicolò Caporale16,17, Emanuele Villa16, Giuseppe Testa16,17, Cristiana Cruceanu3,18 &
+ 42, 113310 (2023). Elisabeth B. Binder3
+58. Kang, Y. et al. A human forebrain organoid model of fragile X syndrome exhibits altered
+ neurogenesis and highlights new treatment strategies. Nat. Neurosci. 24, 1377–1391 (2021). 13
+ Neural Stem Cell Institute, Albany, NY, USA. 14UK Dementia Research Institute at the
+59. Notaras, M. et al. Schizophrenia is defined by cell-specific neuropathology and multiple University of Edinburgh, Edinburgh Bioquarter, Edinburgh, UK. 15Centre for Discovery Brain
+ neurodevelopmental mechanisms in patient-derived cerebral organoids. Mol. Psychiatry Sciences, School of Biomedical Sciences, College of Medicine and Veterinary Medicine,
+ 27, 1416–1434 (2022). The University of Edinburgh, Edinburgh, UK. 16Human Technopole, Milan, Italy. 17Department of
+60. Jabali, A. et al. Human cerebral organoids reveal progenitor pathology in EML1-linked Oncology and Hemato-Oncology, University of Milan, Milan, Italy. 18Department of Physiology
+ cortical malformation. EMBO Rep. 23, e54027 (2022). and Pharmacology, Karolinska Institutet, Stockholm, Sweden.
+
+698 | Nature | Vol 635 | 21 November 2024

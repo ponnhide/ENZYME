@@ -1,0 +1,678 @@
+Methods
+ Hierarchical auto-annotation with snapseed
+Metadata curation and harmonization of human neural Snapseed is a scalable auto-annotation strategy, which annotates cells
+organoid scRNA-seq datasets on the basis of a provided hierarchy of cell types and the corresponding
+We included 33 human neural organoid data from a total of 25 publica- cell type markers. It is based on enrichment of marker gene exprestions1–24,26 plus three unpublished datasets in our atlas (Supplementary sion in cell clusters (high-resolution clustering is preferred), and data
+through the sfaira78 framework (GitHub dev branch, 18 April 2023). For In this study, we used snapseed to obtain initial annotations for
+this, we obtained scRNA-seq count matrices and associated metadata label-aware integration. First, we constructed a hierarchy of cell types
+from the location provided in the data availability section for every including progenitor, neuron and non-neural types, each defined by
+included publication or directly from the authors in case of unpub- a set of marker genes (Supplementary Data 1). Next, we represented
+lished data. We harmonized metadata according to the sfaira stand- the data by the RSS3 to average expression profiles of cell clusters in
+ards (https://sfaira.readthedocs.io/en/latest/adding_datasets.html) the recently published human developing brain cell atlas27. We then
+and manually curated an extra metadata column organoid_age_days, constructed a kNN graph (k = 30) in the RSS space and clustered the
+which described the number of days the organoid had been in culture dataset using the Leiden algorithm83 (resolution 80). For both steps, we
+before collection. used the graphical processing unit (GPU)-accelerated RAPIDS imple-
+ We next removed any non-applicable subsets of the published data- mentation that is provided through scanpy81,84.
+sets: diseased samples or samples expressing disease-associated muta- For all cell type marker genes on a given level in the hierarchy, we
+tions (refs. 14–16,18,19,26), fused organoids (ref. 1), primary fetal data computed the area under the receiver operating characteristic curve
+(refs. 10,23), hormone-treated samples (ref. 22), data collected before (AUROC) as well as the detection rate across clusters. For each cell type,
+neural induction (refs. 3,20) and share-seq data (ref. 23). We harmonized a score was computed by multiplying the maximum AUROC with the
+all remaining datasets to a common feature space using any genes of maximum detection rate among its marker genes. Each cluster was
+the biotype ‘protein_coding’ or ‘lncRNA’ from ensembl79 release 104 then assigned to the cell type with the highest score. This procedure
+while filling any genes missing in a dataset with zero counts. On aver- was performed recursively for all levels of the hierarchy. The same
+age, 50% of the full gene space (36,842 genes) was reported in each of procedure was carried out using the fine (resolution 80) clustering of
+the constituent datasets. We then concatenated all remaining datasets the unintegrated data to obtain cell type labels for the unintegrated
+to create a single AnnData80 object. dataset that were used downstream as a ground-truth input for bench-
+ marking integration methods.
+Preprocessing of the HNOCA scRNA-seq data This auto-annotation strategy was implemented in the snapseed
+All processing and analyses were carried out using scanpy81 (v.1.9.3) Python package and is available on GitHub (https://github.com/dev­
+unless indicated otherwise. For quality control and filtering of HNOCA, systemslab/snapseed). Snapseed is a light-weight package to enable
+we removed any cells with fewer than 200 genes expressed. We next scalable marker-based annotation for atlas-level datasets in which
+removed outlier cells in terms of two quality control metrics: the manual annotation is not readily feasible. The package implements
+number of expressed genes and percentage mitochondrial counts. three main functions: annotate() for non-hierarchical annotation of
+To define outlier cells on the basis of each quality control metric, a list of cell types with defined marker genes, annotate_hierarchy()
+z-transformation is first applied to values across all cells. Cells with for annotating more complex, manually defined cell type hierarchies
+any z-transformed metric less than −1.96 or greater than 1.96 are defined and find_markers() for fast discovery of cluster-specific features. All
+as outliers. For any dataset collected using the v.3 chemistry by 10X functions are based on a GPU-accelerated implementation of AUROC
+Genomics, which contains more than 500 cells after the filtering, we scores using JAX (https://github.com/google/jax).
+fitted a Gaussian distribution to the histogram denoting the number
+of expressed genes per cell. If a bimodal distribution was detected, Label-aware data integration with scPoli
+we removed any cell with fewer genes expressed than defined by the We performed integration of the organoid datasets for HNOCA using
+valley between the two maxima of the distribution. We then normal- the scPoli45 model from the scArches51 package. We defined the batch
+ized the raw read counts for all Smart-seq2 data by dividing it by the covariate for integration as a concatenation of the dataset identifier
+maximum gene length for each gene obtained from BioMart. We next (annotation column ‘id’), the annotation of biological replicates (annomultiplied these normalized read counts by the median gene length tation column ‘bio_sample’) as well as technical replicates (annotation
+across all genes in the datasets and treated those length-normalized column ‘tech_sample’). This resulted in 396 individual batches. The
+counts equivalently to raw counts from the datasets obtained with batch covariate is represented in the model as a learned vector of size
+the help of unique molecular identifiers in our downstream analyses. five. We used the top three levels of the RSS-based snapseed cell type
+ As a next step we generated a log-normalized expression matrix by annotation as the cell type label input for the scPoli prototype loss.
+first dividing the counts for each cell by the total counts in that cell and We chose the hidden layer size of the one-layer scPoli encoder and
+multiplying by a factor of 1,000,000 before taking the natural loga- decoder as 1,024, and the latent embedding dimension as ten. We used
+rithm of each count + 1. We computed 3,000 highly variable features a value of 100 for the ‘alpha_epoch_anneal’ parameter. We did not use
+in a batch-aware manner using the scanpy highly_variable_genes func- the unlabelled prototype pretraining. We trained the model for a total
+tion (flavor = ‘seurat_v3’, batch_key = ‘bio_sample’). Here, bio_sample of seven epochs, five of which were pretraining epochs.
+represents biological samples as provided in the original metadata of
+the datasets. On average, 72% of the 3,000 highly variable genes were Benchmark of data integration methods
+reported in each of the constituent HNOCA datasets. We used these To quantitatively compare the organoid atlas integration results from
+3,000 features to compute a 50-dimensional representation of the several tools, we used the GPU-accelerated scib-metrics46,85 Python
+data using principal component analysis (PCA), which in turn we used package (v.0.3.3) and used the embedding with the highest overall
+to compute a k-nearest-neighbour (kNN) graph (n_neighbors = 30, performance for all downstream analyses. We compared the data intemetric = ‘cosine’). Using the neighbour graph we computed a gration performance across the following latent representations of the
+two-dimensional representation of the data using UMAP82 and a coarse data: unintegrated PCA, RSS3 integration, scVI49 (default parameters
+(resolution 1) and fine (resolution 80) clustering of the unintegrated except for using two layers, latent space of size 30 and negative binomial
+data using Leiden83 clustering. likelihood) integration, scANVI50 (default parameters) integrations
+
+Article
+using snapseed level 1, 2 or 3 annotation as cell type label input, scPoli45
+(parameters shown above) integrations using either snapseed level 1, 2 Reference mapping of the organoid atlas to the primary atlas
+or 3 annotation or all three annotation levels at once as the cell type label To compare our organoid atlas with data from the primary developing
+input, scPoli45 integrations of metacells aggregated with the aggrecell human brain, we used scArches51 to project it to the above mentioned
+algorithm (first used as ‘pseudocell’3) using either snapseed level 1 or 3 primary human brain scRNA-seq atlas27. We first pretrained a scVI
+annotation as the cell type label input to scPoli. We used the following model49 on the primary atlas with ‘Donor’ as the batch key. The model
+scores for determining integration quality (each described in ref. 46): was constructed with following parameters: n_latent = 20, n_layers = 2,
+Leiden normalized mutual information score, Leiden adjusted rand n_hidden = 256, use_layer_norm = ‘both’, use_batch_norm = ‘none’,
+index, average silhouette width per cell type label, isolated label score encode_covariates = True, dropout_rate = 0.2 and trained with a
+(average silhouette width-scored) and cell type local inverse Simpson’s batch size of 1,024 for a maximum or 500 epochs with early stopindex to quantify conservation of biological variability. To quantify ping criterion. Next, the model was fine-tuned with scANVI50 using
+batch-effect removal, we used average silhouette width per batch label, ‘Subregion’ and ‘CellClass’ as cell type labels with a batch size of
+integration local inverse Simpson’s index, kNN batch-effect test score 1,024 for a maximum of 100 epochs with early stopping criterion
+and graph connectivity. Integration approaches were then ranked by and n_samples_per_label = 100. To project the organoids atlas to the
+an aggregate total score of individually normalized (into the range of primary atlas, we used the scArches51 implementation provided by
+[0,1]) metrics. Before we carried out the benchmarking, we iteratively scvi-tools88,89. The query model was fine-tuned with a batch size of
+removed any cells from the dataset that had an identical latent repre- 1,024 for a maximum of 100 epochs with early stopping criterion
+sentation to another cell in the dataset until no latent representation and weight_decay = 0.0.
+contained any more duplicate rows. This procedure removed a total of
+3,293 duplicate cells (0.002% of the whole dataset) and was required Bipartite weighted kNN graph reconstruction
+for the benchmarking algorithm to complete without errors. We used With the primary reference27 and query (HNOCA) data projected to the
+the snapseed level 3 annotation computed on the unintegrated PCA same latent space, an unweighted bipartite kNN graph was constructed
+embedding as ground-truth cell type labels in the integration. by identifying 100 nearest neighbours of each query cell in the reference
+ data with either PyNNDescent or RAPIDS-cuML (https://github.com/
+Pseudotime inference rapidsai/cuml) in Python, depending on availability of GPU accelera-
+To infer a global ordering of differentiation state, we sought to infer a tion. Similarly, a reference kNN graph was also built by identifying 100
+real-time-informed pseudotime on the basis of neural optimal trans- nearest neighbours of each reference cell in the reference data. For each
+port47 in the scPoli latent space. We first grouped organoid age in days edge in the reference-query bipartite graph, the similarity between
+into seven bins ((0, 15], (15, 30], (30,60], (60, 90], (90, 120], (120, 150], the reference neighbours of the two linked cells, defined as A and B,
+(150, 450]). Next, we used moscot48 to solve a temporal neural problem. respectively, is represented by the Jaccard index:
+To score the marginal distributions on the basis of expected proliferation rates, we obtained proliferation and apoptosis scores for each cell A∩B
+ J (A, B) = .
+with the method score_genes_for_marginals(). Marginal weights were A∪B
+then computed with
+ The square of Jaccard index was then assigned as the weight of the
+ exp(4 × (prolif_score − apoptosis_score)) edge, to get the bipartite weighted kNN graph between the reference
+ and query datasets.
+ The optimal transport problem was solved using the following
+parameters: iterations = 25,000, compute_wasserstein_baseline = False, wkNN-based primary developing brain atlas label transfer to
+batch_size = 1,024, patience = 100, pretrain = True, train_size = 1. To HNOCA cells
+compute displacement vectors for each cell in age bin i, we used the Given the wkNN estimated between primary reference27 and query
+subproblem corresponding to the [i, i + 1] transport map, except for (HNOCA), any categorical metadata label of reference can be transthe last age bin, where we used the subproblem [i − 1,i]. Displacement ferred to query cells by means of majority voting. In brief, for each
+vectors were obtained by subtracting the original cell distribution from category, its support was calculated for each query cell as the sum of
+the transported distribution. Using the velocity kernel from CellRank86 weights of edges that link to reference cells in this category. The catwe computed a transition matrix from displacement vectors and used egory with the largest support was assigned to the query cell.
+it as an input for computing diffusion maps87. Ranks on negative diffu- To get the final regional labels for the non-telencephalic NPCs and
+sion component 1 were used as a pseudotemporal ordering. neurons, as well as the NTT labels for non-telencephalic neurons, con-
+ straints were added to the transfer procedure. For regional labels, only
+Preprocessing of the human developing brain cell atlas scRNA-seq the non-telencephalic regions, namely diencephalon, hypothalamus,
+data thalamus, midbrain, midbrain dorsal, midbrain ventral, hindbrain,
+The cell ranger-processed scRNA-seq data for the primary atlas27 were cerebellum, pons and medulla, were considered valid categories to
+obtained from the link provided on its GitHub page (https://storage. be transferred. The label-transfer procedure was only applied to the
+googleapis.com/linnarsson-lab-human/human_dev_GRCh38-3.0.0.h5ad). non-telencephalic NPCs and neurons in HNOCA. Before any major-
+For further quality control, cells with fewer than 300 detected genes ity voting was done, the support scores of each valid category across
+were filtered out. Transcript counts were normalized by the total all non-telencephalic NPCs and neurons in HNOCA were smoothed
+number of counts for that cell, multiplied by a scaling factor of 10,000 with a random-walk-with-restart procedure (restart probability alpha,
+and subsequently natural-log transformed. The feature set was inter- 85%). Next, a hierarchical label transfer, which takes into account the
+sected with all genes detected in the organoid atlas and the 2,000 structure hierarchy, was applied. First, the considered regions were
+most highly variable genes were selected with the scanpy function grouped into diencephalon, midbrain and hindbrain, with a support
+highly_variable_genes using ‘Donor’ as the batch key. An extra column score of each structure as its score summed up with scores of its subof ‘neuron_ntt_label’ was created to represent the automatic classified structures. Majority voting was applied to assign each cell to one of the
+neural transmitter transporter subtype labels derived from the ‘Auto­ three structures. Next, a second majority voting was applied to only
+Annotation’ column of the cell cluster metadata (https://github.com/ consider the substructures under the assigned structure (for example,
+linnarsson-lab/developing-human-brain/files/9755350/table_S2.xlsx). hypothalamus and thalamus for diencephalon).
+
+For NTT labels, we first identified valid region-NTT label pairs in st = αs 0 + (1 − α)PT st −1
+the reference on the basis of the provided NTT labels in the reference
+neuroblast and neuron clusters and their most common regions. Here, This procedure was performed 100 times to get the smooth presence
+the most common regions were re-estimated in a hierarchical manner scores that were subsequently log transformed. Scores lower than the
+to the finest resolution mentioned above. Next, when transferring 5th percentile or higher than the 95th percentile were trimmed. The
+NTT labels, for each non-telencephalic neuron with the regional label trimmed scores were normalized into the range of [0,1] as the final
+transferred, only NTT labels that were considered valid for the region presence scores in the HNOCA dataset.
+were considered during majority voting. Given the final presence scores in each of the HNOCA datasets, the
+ max presence scores in the whole HNOCA data were then easily cal-
+Stage-matching analysis culated as the maximum of all the presence scores for each cell in the
+To match telencephalic NPCs and neurons in HNOCA to develop- primary atlas. A large (close to one) max presence score indicates a
+mental stages, we used the recently published human neocortical high frequency of appearance for the cell type or state in at least one
+development atlas30 as the reference. The processed single nucleus HNOCA dataset whereas a small (close to zero) max presence score
+RNA-seq data were obtained from its data portal (https://cell.ucsf.edu/ suggests under-representation in all the HNOCA datasets.
+snMultiome/). Given the ‘class’, ‘subclass’ and ‘type’ labels in the provided metadata as annotations, and ‘individual’ as the batch label, Cell type composition comparison among morphogen usage
+scPoli was applied for label-aware data integration. Next, data rep- using scCODA
+resenting different developmental stages were split. For each stage, To test the cell type compositional changes on admission of certain
+Louvain clustering based on the scPoli latent representation (resolu- morphogens from different organoid differentiation protocols, we
+tion, 5) was applied. Clusters of all stages were pooled, and highly used the pertpy90 implementation of the scCODA algorithm91. scCODA
+variable genes were identified on the basis of coefficient of variations is a Bayesian model for detecting compositional changes in scRNA-seq
+as described in this page: https://pklab.med.harvard.edu/scw2014/ data. For this, we have extracted the information about the added morsubpop_tutorial.html. Finally, every one of HNOCA telencephalic phogens from each differentiation protocol and grouped them into
+NPCs and neurons were correlated to each cluster across the identi- 15 broad molecule groups on the basis of their role in neural differenfied highly variable genes. The stage label of the best-correlated cluster tiation (Supplementary Table 1). These molecule groups were used
+was assigned to the query HNOCA cell. as a covariate in the model. The region labels transferred from the
+ To extend the analysis to other neuronal cell types, the second- primary atlas were used as labels in the analysis (cell_type_identifier).
+trimester multiple-region human brain atlas29 was also introduced. The For cell types without regional identity, the cell type labels presented
+processed count matrices and metadata were obtained from the NeMO in Fig. 1c were used. Pluripotent stem cells and neuroepithelium cells
+data portal (https://data.nemoarchive.org/biccn/grant/u01_devhu/ were removed from the analysis because they are mainly present in the
+kriegstein/transcriptome/scell/10x_v2/human/processed/counts/). early organoid stages. We used bio_sample as the sample_identifier.
+Given the ‘cell_type’ label of the provided metadata as the annotation We ran scCODA sequentially with default parameters, using No-U-turn
+and ‘individual’ as the batch label, scPoli was run for label-aware data sampling (run_nuts function) and selecting each cell type once as a
+integration. Louvain clustering was applied to the scPoli latent rep- reference. We used a majority vote-based system to find the cell types
+resentation to identify clusters (resolution, 20). Similarly, Louvain that were credibly changing in more than half of the iterations.
+clustering with a resolution of 20 was also applied to the first-trimester
+multiple-region human brain atlas27 on the basis of the scANVI latent Cell type composition comparison among morphogen usage
+representation we generated earlier. Average expression profiles using regularized linear regression
+were calculated for all the clusters, and highly variable genes were To complement the composition analysis conducted with scCODA, we
+identified using the same procedure as above for clusters of the two devised an alternative approach to test for differential composition
+primary atlases combined. Next, every NPC and neuron in HNOCA using regularized linear regression. We fit a generalized linear model
+was correlated to the average expression profiles of those clusters. with the region composition matrix as the response Y and molecule
+The best-correlated first- and second-trimester clusters, as well as usage as independent variables X:
+the correlations, were identified. The differences between the two
+correlations were used as the metrics to indicate the stage-matching Y ~ Xβ
+preferences of NPCs and neurons in HNOCA.
+ The model was fit with lasso regularization (alpha = 1) using Gaussian
+Presence scores and max presence scores of cells in the primary noise and an identity link function. The regularization parameter lambda
+developing brain atlas was automatically determined through cross-validation as implemented
+Given a reference dataset and a query dataset, the presence score in the function cv.glmnet() from the glmnet92 R package. All non-zero coefis a score assigned to each cell in the reference, which describes the ficients β were considered as indications of enrichment and depletion.
+frequency or likelihood of the cell type or state of that reference cell
+appearing in the query data. In this study, we calculated the presence DE analysis between HNOCA neural cell types and their primary
+scores of primary atlas cells in each HNOCA dataset to quantify how counterparts and functional enrichment analysis
+frequently we saw a cell type or state represented by each primary cell To study the transcriptomic differences between organoid and primary
+in each of the HNOCA datasets. cells, we subset HNOCA using the final level 1 annotation to cells labelled
+ Specifically, for each HNOCA dataset, we first subset the wkNN graph ‘Neuron’. We furthermore subset the human developing brain atlas to
+to only HNOCA cells in that dataset. Next, the raw weighted degree cells that had been assigned a valid label in the neuron_ntt_label annotawas calculated for each cell in the primary atlas, as the sum of weights tion column. We added an extra two datasets of fetal cortical cells from
+of the remaining edges linked to the cell. A random-walk-with-restart ref. 39 and ref. 28. For the data from ref. 39, we subset the data to cells
+procedure was then applied to smooth the raw scores across the kNN labelled ‘fetal’ and estimated transcripts per million reads for each gene
+graph of the primary atlas. In brief, we first represented the primary in each cell using RSEM93 given the STAR94 mapping results. We then
+atlas kNN graph as its adjacency matrix (A), followed by row normaliza- computed a PCA, a kNN graph, UMAP and Leiden clustering (resolution to convert it into a transition probability matrix (P). With the raw tion 0.2) using scanpy. We then selected the cluster with the highest
+scores represented as a vector s0, in each iteration t, we generated st as STMN2 and NEUROD6 expression as the cortical neuron cluster and
+
+Article
+used only those cells. For the data from ref. 28 we subset the datasets average expression of each neural cell type in the primary reference, as
+to cells annotated as ‘Neuronal’ in Supplementary Table 5 (‘Cortex well as in each dataset of HNOCA. For each HNOCA dataset, only neural
+annotations’) of their publication and computed a PCA, neighbourhood cell types with at least 20 cells were considered. Highly variable genes
+graph and UMAP to visualize the dataset. We found that only samples were identified across the neural cell types in the primary reference
+from the individuals CS14_3, CS20, CS22 and CS20 contained detectable using a Chi-squared test-based variance ratio test on the generalized
+expression of STMN2 and NEUROD6 so we subset the dataset further linear model with Gamma distribution (identity link), given coefficient
+to only cells from those individuals. of variance of transcript counts across neural cell types as the response
+ To compute DE between HNOCA cells and their primary counterparts, and the reciprocal of average transcript count across neural cell types
+we first aggregated cells of the same regional neural cell type into pseu- as the independent variable. Genes with Benjamini–Hochberg adjusted
+dobulk samples by summing the counts for every sample (annotation P values less than 0.01 were considered as highly variable genes. Similarcolumns, ‘batch’ for HNOCA; ‘SampleID’ for the human developing ity between one neural cell type in the primary atlas and its counterpart
+brain atlas; ‘sample’ for ref. 39 and ‘individual’ for ref. 28) using the in each HNOCA dataset was then calculated as the Spearman correlation
+Python implementation of decoupler95 (v.1.4.0) while discarding any coefficient across the identified highly variable genes.
+samples with fewer than ten cells or 1,000 total counts. We then subset- To estimate the similarity of the core transcriptomic identity, which
+ted the feature space to the intersection of features of all datasets and is defined by the coexpression of transcription factors, the highly variremoved any cells with fewer than 200 genes expressed. We further able genes were subset to only transcription factorsfor calculating
+removed any genes expressed in less than 1% of neurons in HNOCA and Spearman correlations. The list of transcription factors was retrieved
+any genes located on the X and Y chromosomes. Out of the remaining from the AnimalTFDB v.4.0 database98.
+11,636 genes, on average, 99% were reported in each of the constituent To identify metabolically stressed cells in the datasets, we used the
+HNOCA datasets. For each regional neural cell type, we removed any scanpy score_genes function with default parameters to score the
+sample from the pseudobulk data that was associated with an organoid ‘canonical glycolysis’ gene set obtained from the enrichR GO_Biologidifferentiation assay with fewer than two total samples or fewer than cal_Process_2021 database across all neuronal cells from HNOCA and
+100 total cells. We next used edgeR96 to iteratively compute DE genes refs. 27,28,39.
+between each organoid differentiation protocol and primary cells of the To estimate the significance of the difference between the correlamatching regional neural cell types for every regional neural cell type tion of glycolysis scores and whole transcriptomic similarities, and
+while correcting for organoid age in days, number of cells per pseudob- the correlation of glycolysis scores and core transcriptomic identity
+ulk sample, median and standard deviation of the number of detected similarities, we generated 100 subsets of highly variable genes, each
+genes per pseudobulk sample. We used the data from ref. 27 (the human with the same size as the highly variable transcription factor. Trandeveloping brain atlas mentioned above), ref. 28 and ref. 39 as primary scriptomic similarities were calculated on the basis of those subsets,
+data for the DE comparison in the cell type ‘Dorsal Telencephalic Neuron and then correlated with the glycolysis scores.
+NT-VGLUT’, whereas for all other cell types we used the human developing brain atlas as the fetal dataset. We used the edgeR genewise negative Heterogeneity of the telencephalic trajectories
+binomial generalized linear model with quasi-likelihood F-tests. We To characterize heterogeneity of telencephalic NPCs and neurons in
+deemed a gene significantly DE if its false-discovery rate (Benjamini– HNOCA, we first transferred the cell type labels (as indicated as the
+Hochberg) corrected P value was smaller than 0.05 and it had an abso- ‘type’ label in the given metadata) from the human neocortical devellute log2-fold change above 0.5. We used the GSEApy97 Python package opment atlas to the HNOCA telencephalic NPCs, intermediate proto carry out functional enrichment analysis in our DE results using the genitor cells and neurons, on the basis of transcriptomic correlation.
+‘GO_Biological_Process_2021’ gene set. In brief, each primary atlas cluster we obtained as mentioned above
+ To evaluate the effect of different primary datasets on the DE results, was assigned to a cell type as the most abundant cell type among cells
+we computed the DE between Dorsal Telencephalic Neuron NT-VGLUT in the cluster. The label of the best-correlated primary cluster was then
+from the HNOCA subset generated with the protocol from ref. 6 and the transferred to every query cell. Given the transferred label, together
+matching cell type from the Braun et al.27 primary dataset as well as the with the level 2 cell type annotation shown in Fig. 1c, as the annotation
+data from ref. 28. To prevent technology effects to affect this analysis, label, scPoli was applied to the telencephalic subset of HNOCA for
+we only used cells generated with the 10X Genomics 3′ v.2 protocol data integration.
+in this comparison. We generate pseudobulk samples as described To benchmark how well different integration strategies recover the
+above and corrected organoid age in days and number of cells per pseu- neuron subcell type heterogeneity, we generated four different clusterdobulk sample in the DE comparison. We used the same edgeR-based ing labels: (1) Louvain clustering (resolution, 2) with the original scPoli
+procedure and cut-offs as described above. We used the scipy fcluster latent representation; (2) Louvain clustering (resolution, 2) with the
+method to cluster genes on the basis of their log-fold changes in the updated scPoli representation; (3) Louvain clustering (resolution, 2)
+two primary datasets. We grouped clusters to represent consistently with PCA of HNOCA telencephalic subset (based on scaled expresupregulated, consistently downregulated and three different inconsist- sion of 3,000 highly variable genes of the telencephalic subset with
+ently regulated groups of genes. We computed functional enrichment flavor = ‘seurat’) and (4) Louvain clustering (resolution, 1) for each
+of each gene group as described above. sample separately (each with 3,000 highly variable genes identified
+ To evaluate the effect of different organoid datasets on the protocol- with flavor = ‘seurat’, followed by data scale and PCA). Next, for each
+based DE analysis, we computed DE between Dorsal Telencephalic sample with at least 500 dorsal telencephalic neurons, the adjusted
+Neuron NT-VGLUT of every organoid publication (further split by pro- mutual information scores were calculated between each of those
+tocol, where more than one protocol was used in a publication) and the four clustering labels with the transferred cell type label mentioned
+matching cell type in the dataset from ref. 27. We computed pseudobulk above as the gold standard, across the dorsal telencephalic neurons
+samples and carried out the DE analysis using the same procedure and as annotated as the level 2 annotation.
+cut-offs as in the protocol-based DE analysis. To create a comprehensive primary atlas of dorsal telencephalic neu-
+ rons for DE analysis between neural organoids and primary tissues, we
+Transcriptomic similarity between HNOCA neural cell types and subset dorsal telencephalic neurons or neocortical neurons from four
+their primary counterparts in the human developing brain atlas different primary atlases27–30. For ref. 28, cells in five author-defined clus-
+To estimate the transcriptomic similarity between neurons in HNOCA ters (60, 57, 79, 45, 65) with high expression of MAP2, DCX and NEUROD6
+and the human developing brain atlas27, we first summarized the were selected. For ref. 29, cells with the following ‘clusterv2 - final’ labels
+
+were selected: ‘Neuron_28’, ‘Neuron_34’, ‘GW19_2_29NeuronNeuron’,
+‘Neuron_30’, ‘Neuron_66Neuron’, ‘GW18_2_42NeuronNeuron’, ‘Neu- Projection and label transfer-based annotation of the diseaseron_33’, ‘Neuron_39Neuron’, ‘Neuron_35’, ‘Neuron_63Neuron’, ‘Neu- modelling dataset
+ron_9’, ‘Neuron_11’, ‘Neuron_20’, ‘Neuron_22’, ‘Neuron_5Neuron’, To compare the disease-modelling atlas with the integrated HNOCA, we
+‘Neuron_21’, ‘Neuron_18’, ‘Neuron_101Neuron’, ‘Neuron_17’, ‘Neu- used scArches51 to project it to the HNOCA as well as the first-trimester
+ron_19’, ‘Neuron_16’, ‘Neuron_50Neuron’, ‘Neuron_12’, ‘Neuron_13’, primary human brain scRNA-seq atlas27. For projecting to the primary
+‘Neuron_68Neuron’, ‘Neuron_100Neuron’, ‘Neuron_25’, ‘Neu- atlas, the same implementation as mentioned above to map HNOCA
+ron_27’, ‘Neuron_53Neuron’, ‘Neuron_23’, ‘Neuron_26’, ‘Neuron_24’, to the atlas was used. For projecting to HNOCA, the query model
+‘Neuron_102Neuron’, ‘Neuron_72Neuron’, ‘Neuron_15’, ‘Neuron_29’ was based on the scPoli model pretrained with the HNOCA data, and
+and ‘Neuron_35Neuron’ on the basis of their high expression of NEU- fineturned with a batch size of 16,384 for a maximum of 30 epochs with
+ROD6 and FOXG1. For ref. 27, cells dissected from dorsal telencephalon 20 pretraining epochs. A nearest neighbour graph was created for the
+that were annotated as neurons with and only with the VGLUT NTT disease-modelling atlas on the basis of the projected latent representalabel were selected. For ref. 30, cells annotated as excitatory neurons tion to HNOCA with scanpy (default parameters), with which a UMAP
+were selected. The curated clusters of the Wang et al. primary atlas, embedding was created with scanpy (default parameters).
+as described earlier, were also subset to those with excitatory neuron Next, for both HNOCA and the disease-modelling atlas, cells were
+labels. The selected dorsal telencephalic neuron subsets of the atlases represented by the concatenated representation of HNOCA-scPoli
+were merged into the joint neocortical neuron atlas. and primary-scANVI models. A bipartite wkNN graph was then recon-
+ Next, cells in the joint neocortical neuron atlas were correlated with structed as mentioned above, by identifying 50 nearest neighbours
+the average expression profile of each excitatory neuron cluster of the in HNOCA for each disease-modelling atlas cell. On the basis of the
+Wang et al. atlas30. The cluster label of the best-correlated cluster was bipartite wkNN, the majority voting-based label transfer was applied to
+assigned to each cell in the joined neocortical neuron atlas, so that cell transfer the four levels of hierarchical cell type annotation and regional
+cluster labels were harmonized for all cells in the atlas. Label-aware identity to the disease-modelling atlas.
+data integration was then performed using scPoli45. On the basis of
+the scPoli latent representation, Louvain clustering was performed Reconstruction of matched HNOCA metacells
+on the joint neocortical neuron atlas (resolution, 1). This cluster label For each cell in the disease-modelling atlas, a matched HNOCA metacell
+was transferred to the dorsal telencephalic neurons in HNOCA with was reconstructed on the basis of the above mentioned bipartite wkNN.
+max-correlation manner across highly variable genes defined on aver- In brief, for a query cell i and a gene j measured in HNOCA, its matched
+age transcriptomic profiles of clusters in the joint neocortical neuron metacell expression of j, denoted as eij′, is calculated as:
+atlas.
+ ∑ k ⊆Ni wikekj
+ eij′ =
+Reference mapping of the neural organoid morphogen screen ∑ k ⊆Ni wik
+scRNA-seq data to the human developing brain atlas and HNOCA
+We used scArches to map scRNA-seq data from the neural organoid mor- Here, Ni represents all HNOCA nearest neighbours of the query cell
+phogen screen to both the scANVI model of the human developing brain ci, wik represents the edge weight between query cell i and reference
+atlas27 and the scPoli model of the HNOCA. In both cases, the ‘dataset’ cell k, and ekj represents expression level of gene j in reference cell k.
+field of the screen data was used as the batch covariate, which indicates Given the matched HNOCA metacell transcriptomic profile, the
+belonging to one of the three categories: ‘organoid screen’, ‘secondary similarity between a query cell and its matched cell state in HNOCA is
+organoid screen’ or ‘fetal striatum 21pcw’. For mapping to the primary then calculated as the Spearman correlation between the query cell
+reference, we used the scvi-tools implementation of scArches without transcriptomic profile and its matched HNOCA metacell transcripthe use of cell type annotations and trained the model for 500 epochs tomic profile.
+with weight_decay of 0 and otherwise default parameters. For mapping
+to HNOCA we used scArches through scPoli and trained the model for Re-analysis of GBM-2019 and FXS-2021 datasets
+500 epochs without unlabelled prototype training. To analyse the glioblastoma organoid dataset (GBM-2019), cells from
+ the publication were subset from the integrated disease-modelling
+Retrieval and harmonization of disease-modelling human atlas. Using scanpy, highly variable genes were identified with default
+neural organoid scRNA-seq datasets parameters. The log-normalized expression values of the highly
+We included 11 scRNA-seq datasets of neural organoids, which were variable genes were then scaled across cells, the truncated PCA was
+designed to model 10 different neural diseases including microceph- performed with the top 20 principal components used for the folaly56, amyotrophic lateral sclerosis43, Alzheimer’s disease57, autism42, lowing analysis. Next, harmonypy, the Python implementation of
+FXS58, schizophrenia59, neuronal heterotopia60,61, Pitt–Hopkins syn- harmony99, was applied to integrate cells from different samples.
+drome62, myotonic dystrophy63 and glioblastoma64. Count matrices and On the basis of the harmony-integrated embeddings, the neighbour
+metadata were directly downloaded for the ten datasets with processed graph was reconstructed. UMAP embeddings and Louvain clusters
+data provided in the Gene Expression Omnibus or ArrayExpress. For (resolution, 0.5) were created on the basis of the nearest neighbour
+the dataset with only FASTQ files available56, we downloaded the FASTQ graph. Among the 12 identified clusters, cluster-7 and cluster-0, the
+files and used Cell Ranger (v.4.0) to map reads to the human refer- two clusters with the highest AQP4 expression, were selected for the
+ence genome and transcriptome retrieved from Cell Ranger website following DE analysis.
+(GRCh38 v.3.0.0) for gene expression quantification. All datasets were To analyse the FXS dataset (FXS-2021), cells from the publication were
+concatenated together with anndata in Python ( join = ‘inner’). For each subset from the integrated disease-modelling atlas. The same procedataset, samples were grouped into either ‘disease’ or ‘control’ as their dure of highly variable gene identification, data scaling and PCA as the
+disease status, with ‘disease’ representing data from patient cell lines, GBM-2019 dataset was applied. Next, the nearest neighbour graph was
+mutant cell lines with disease-related alleles, cells carrying target- created directly on the basis of the top 20 principal components. UMAP
+ing guide RNAs (gRNAs) in CRISPR-based screen and tumour-derived embeddings and Louvain clusters (resolution, 1) were then created on
+organoids. and ‘control’ representing data from healthy cell lines, the basis of the reconstructed nearest neighbour graph. Among the 30
+mutation-corrected cell lines and cells carrying only non-targeting clusters, cluster-17 and cluster-23, which express EMX1 and FOXG1 and
+gRNAs in a CRISPR-based screen. were largely predicted to be dorsal telencephalic NPCs and neurons
+
+Article
+according to the transferred labels from HNOCA, were selected for 78. Fischer, D. S. et al. Sfaira accelerates data and model reuse in single cell genomics.
+ Genome Biol. 22, 248 (2021).
+the following DE analysis. 79. Cunningham, F. et al. Ensembl 2022. Nucleic Acids Res. 50, D988–D995 (2022).
+ 80. Virshup, I., Rybakov, S., Theis, F. J., Angerer, P. & Wolf, F. A. anndata: annotated data.
+F-test-based DE analysis for paired transcriptome Preprint at bioRxiv https://doi.org/10.1101/2021.12.16.473007 (2021).
+ 81. Wolf, F. A., Angerer, P. & Theis, F. J. SCANPY: large-scale single-cell gene expression data
+To compare expression levels of two groups of paired cells, the expres- analysis. Genome Biol. 19, 15 (2018).
+sion difference per gene of each cell pair is first calculated on the basis 82. McInnes, L., Healy, J., Saul, N. & Großberger, L. UMAP: Uniform Manifold Approximation
+of the log-normalized expression values. Next, for each gene to test for and Projection. J. Open Source Softw. 3, 861 (2018).
+ 83. Traag, V. A., Waltman, L. & van Eck, N. J. From Louvain to Leiden: guaranteeing well-
+DE, its variance over the calculated expression difference per cell pair connected communities. Sci. Rep. 9, 5233 (2019).
+(σ2) is compared with the sum of squared of expression differences 84. Nolet, C. et al. Accelerating single-cell genomic analysis with GPUs. Preprint at bioRxiv
+(di for gene i) normalized by the number of cell pairs: https://doi.org/10.1101/2022.05.26.493607 (2022).
+ 85. YosefLab/scib-metrics: accelerated, Python-only, single-cell integration benchmarking
+ n metrics. GitHub https://github.com/YosefLab/scib-metrics (2024).
+ ∑i =1 di 86. Lange, M. et al. CellRank for directed single-cell fate mapping. Nat. Methods 19, 159–170
+ s02 = .
+ n (2022).
+ 87. Haghverdi, L., Buettner, F. & Theis, F. J. Diffusion maps for high-dimensional single-cell
+ analysis of differentiation data. Bioinformatics 31, 2989–2998 (2015).
+ Here, an F-test is applied for the comparison, with f = σ2/s20, d.f.1 = n − 1 88. Gayoso, A. et al. A Python library for probabilistic analysis of single-cell omics data. Nat.
+and d.f.2 = n. Biotechnol. 40, 163–166 (2022).
+ 89. Virshup, I. et al. The scverse project provides a computational ecosystem for single-cell
+ omics data analysis. Nat. Biotechnol. 41, 604–606 (2023).
+Construction of the HNOCA Community Edition by query-to- 90. Heumos, L. et al. Pertpy: an end-to-end framework for perturbation analysis. Preprint at
+reference mapping bioRxiv https://doi.org/10.1101/2024.08.04.606516 (2024).
+ 91. Büttner, M., Ostner, J., Müller, C. L., Theis, F. J. & Schubert, B. scCODA is a Bayesian model
+To construct the HNOCA-CE, we first collected raw count matrices for compositional single-cell data analysis. Nat. Commun. 12, 6876 (2021).
+and associated metadata of five more neural organoid studies. For 92. Tay, J. K., Narasimhan, B. & Hastie, T. Elastic net regularization paths for all generalized
+two publications71,75, we obtained them from the sources listed in the linear models. J. Stat. Softw. 106, 1–31 (2023).
+ 93. Li, B. & Dewey, C. N. RSEM: accurate transcript quantification from RNA-seq data with or
+‘Data availability’ section of the paper. For the remaining three publi- without a reference genome. BMC Bioinf. 12, 323 (2011).
+cations72–74, count matrices and associated metadata were provided 94. Dobin, A. et al. STAR: ultrafast universal RNA-seq aligner. Bioinformatics 29, 15–21
+ (2013).
+directly by the authors. We subset each dataset to the healthy control
+ 95. Badia-I-Mompel, P. et al. decoupleR: ensemble of computational methods to infer
+cells and removed any cells with fewer than 200 genes expressed. We biological activities from omics data. Bioinform. Adv. 2, vbac016 (2022).
+subset the gene space of every dataset to the 3,000 HVGs of HNOCA 96. Robinson, M. D., McCarthy, D. J. & Smyth, G. K. edgeR: a Bioconductor package for
+ differential expression analysis of digital gene expression data. Bioinformatics 26,
+while filling the expression of missing genes in the community datasets
+ 139–140 (2010).
+with zeros. On average, 23% of genes with zero expression were added 97. Fang, Z., Liu, X. & Peltz, G. GSEApy: a comprehensive package for performing gene set
+per dataset. We instantiated a mapping object from the HNOCA-tools enrichment analysis in Python. Bioinformatics 39, btac757 (2023).
+ 98. Shen, W.-K. et al. AnimalTFDB 4.0: a comprehensive animal transcription factor database
+package (at commit fe38c52) using the saved scPoli45 model weights
+ updated with variation and expression annotations. Nucleic Acids Res. 51, D39–D45
+from the HNOCA integration. Using the map_query method of the (2023).
+mapper instance, we projected the community datasets to HNOCA. We 99. Korsunsky, I. et al. Fast, sensitive and accurate integration of single-cell data with
+ Harmony. Nat. Methods 16, 1289–1296 (2019).
+used the following training hyperparameters: retrain = ‘partial’, batch_
+ 100. He, Z. Dony, L. & Fleck, J. S. An integrated transcriptomic cell atlas of human neural
+size = 256, unlabeled_prototype_training = False, n_epochs = 10, pre- organoids: cleaned datasets. Zenodo https://doi.org/10.5281/zenodo.11203684 (2023).
+training_epochs = 9, early_stopping_kwargs = early_stopping_kwargs,
+eta = 10, alpha_epoch_anneal = 10. We computed the wkNN graph using Acknowledgements We thank C. De Donno for his support in improving our data integration
+the compute_wknn method of the mapper instance with k = 100. We efforts using scPoli. We thank D. Klein, P. Weiler and M. Lange for insightful discussions
+transferred the final level_2 cell type labels from HNOCA to the com- on the moscot framework, (neural) optimal transport and real-time-informed pseudotime
+ analyses. We thank C. Bright for customizing the ArchMap tool to meet the requirements
+munity datasets using this neighbour graph. To obtain the combined of this project. We thank F. Sanchis-Calleja, S. Jansen and F. Zenk for insightful comments
+representation of HNOCA-CE, we projected HNOCA together with the on summarizing neural organoid protocols. We thank P. Lönnerberg and S. Linnarsson for
+added community datasets through the trained model and computed insightful discussions on the application of the human developing brain atlas in this study.
+ We thank the Human Cell Atlas Organoid Biological Network, in particular F. Birey, J. Andersen,
+a neighbour graph and UMAP from the resulting latent representation. S. A. Sloan, A. R. Muotri, S. Velasco, P. Arlotta, Y. Xiang, I.-H. Park, A. Bhaduri, A. R. Kriegstein,
+ L. Pellegrini, M. A. Lancaster, G.-L. Ming, T. Sawada, T. Kato, O. Revah, K. R. Bowles, A. M. Goate,
+Reporting summary S. Temple, A. Fiorenzano, M. Parmar, R. Samarasinghe, B. G. Novitch, I. Kelava, J. A. Knoblich,
+ G. Testa, T. Bertucci, R. Shyti, E. B. Binder, F. H. Gage and C. Bock for their support on data and
+Further information on research design is available in the Nature Port- metadata retrieval. This work was supported by Chan Zuckerberg Initiative DAF, an advised
+folio Reporting Summary linked to this article. fund of the Silicon Valley Community Foundation (grant nos. CZF2019-002440 and CZF2021-
+ 237566, to J.G.C. and B.T.). This work was cofunded by the Swiss National Science Foundation
+ (project grant no. 310030_192604, to B.T.), the European Union (European Research Council
+ (ERC), DeepCell grant no. 101054957, to A.S. and F.J.T.; ERC, Organomics grant no. 758877, to
+Data availability B.T.; H2020, Braintime grant no. 874606, to B.T.; ERC, Anthropoid grant no. 803441, to J.G.C.)
+ and the Roche Institute for Human Biology (Z.H., H.C.L., B.T.). Views and opinions expressed
+All curated individual HNOCA datasets are available for easy access
+ are however those of the authors only and do not necessarily reflect those of the European
+through the sfaira Python tool78. The integrated HNOCA data is available Union or the ERC. Neither the European Union nor the granting authority can be held
+at Zenodo (https://doi.org/10.5281/zenodo.11203684)100 and the Cellx- responsible for them. This work was supported by the Bavarian Ministry of Science and the
+ Arts in the framework of the Bavarian Research Association ForInter (Interaction of Human
+Gene Discover Census (https://cellxgene.cziscience.com/collections/
+ Brain Cells) (to F.J.T.). This work was supported by the BMBF-funded de.NBI Cloud within the
+de379e5f-52d0-498c-9801-0f850823c847). The extended HNOCA Com- German Network for Bioinformatics Infrastructure (de.NBI) (grant nos. 031A532B, 031A533A,
+munity Edition Atlas is also available through the CellxGene Discover 031A533B, 031A534A, 031A535A, 031A537A, 031A537B, 031A537C, 031A537D, 031A538A)
+ (to L.D., A.S., K.X.L. and I.S.). This work was supported through a Fulbright grant of the German-
+Census (same URL as above). Both versions of HNOCA are available
+ American Fulbright Commission (to K.X.L.). L.D. acknowledges support by the Joachim Herz
+for reference mapping through the ArchMap web interface (https:// Foundation. This publication is part of the Human Cell Atlas (www.humancellatlas.org/
+www.archmap.bio/). The HNOCA-tools package provides a Python publications/).
+interface for annotation, reference mapping and central downstream
+ Author contributions A.S., K.X.L. and I.S. contributed equally. Z.H., L.D. and J.S. collected
+analysis steps and is available at https://github.com/devsystemslab/ and retrieved the scRNA-seq data involved in HNOCA, with suggestions from S.P.P., J.G.C.
+HNOCA-tools. More information on the available tools and a documen- and B.T. H.-C.L. and M.S. generated the unpublished midbrain organoid data. A.A. and G.Q.
+tation of HNOCA-tools is available at https://devsystemslab.github.io/ generated and shared the cerebellar organoid data before its publication. J.S.F. developed
+ snapseed. Z.H. and J.S.F. curated cell type hierarchy with the support from L.D. L.D., K.X.L.,
+HNOCA-tools. Jupyter notebooks and scripts to reproduce the analysis I.S. and A.S. performed HNOCA data curation and metadata harmonization. L.D., with the
+are available at https://github.com/theislab/neural_organoid_atlas. support from K.X.L. and I.S., performed HNOCA data preprocessing and integration using the
+
+pipeline developed by Z.H., L.D., J.S.F. and A.S. L.D. and K.X.L. performed the benchmark of J.S.F., A.S., I.S., S.P.P., J.G.C., F.J.T. and B.T. wrote the paper with input from all the coauthors.
+integration methods. Z.H. did HNOCA cell type annotation. K.X.L. and J.S.F. performed the All authors read and approved the final manuscript.
+real-time-informed pseudotime analysis. J.S.F. performed reference mapping of HNOCA
+to the human developing brain atlas with support from A.S. Z.H. developed and performed Competing interests F.J.T. consults for Immunai Inc., Singularity Bio B.V., CytoReason Ltd,
+label transfer and presence score estimation. Z.H. performed stage-matching analysis Cellarity, and has ownership interest in Dermagnostix GmbH and Cellarity. The other authors
+of HNOCA cells. I.S., J.S.F. and L.D. performed morphogen analysis, with the organoid declare no competing interests.
+protocols summarized by Z.H. L.D. and Z.H. with support from I.S. K.X.L. performed DE
+and transcriptomic comparison analysis. Z.H. performed the heterogeneity analysis of Additional information
+telencephalic cells and cell-level DE analysis with covariates. J.S.F. and A.S. performed Supplementary information The online version contains supplementary material available at
+reference mapping of organoid morphogen screen dataset to HNOCA and the human https://doi.org/10.1038/s41586-024-08172-8.
+developing brain atlas and the follow-up analysis. Z.H. collected, retrieved and analysed the Correspondence and requests for materials should be addressed to Zhisong He,
+scRNA-seq data of disease-modelling neural organoids, and developed the procedure to J. Gray Camp, Fabian J. Theis or Barbara Treutlein.
+compare with HNOCA. L.D. curated extra datasets and performed reference mapping to Peer review information Nature thanks the anonymous reviewers for their contribution to the
+expand HNOCA. J.S.F. developed the HNOCA-tools Python package implementing analysis peer review of this work.
+approaches developed in the study. Z.H., J.G.C., F.J.T. and B.T. designed the project. Z.H., L.D., Reprints and permissions information is available at http://www.nature.com/reprints.
+
+Article
+
+either without any data integration (PCA) or with different data integration scPoli integration of HNOCA presented throughout the manuscript, colored by
+methods applied. Number in parenthesis indicates which level of RSS-based publications, scRNA-seq methods, organoid protocols, protocol types, cell lines,
+snapseed annotation labels were provided as input to the model for methods and sample ages. (d) UMAPs of HNOCA based on the final scPoli integration, each
+which support semi-supervised data integration. Dots in all UMAP embeddings, with one data set highlighted. Here, one data set is defined as data representing
+each of which represents a cell, are colored by the cell type annotation introduced one protocol in one publication. The protocol and publication of each data set are
+in Fig. 1. a.c. = aggrecell algorithm (b) scIB benchmarking metrics on all tested shown by the color bar and indices on top of the UMAP.
+
+marker genes used in the semi-automatic annotation of cell types for Fig. 1. rate difference>20%, in-out detection rate ratio>2 and fold change>1.2. When
+(b) Mean cell type proportion over all data sets per organoid age bin. more than 5 markers are found, only the top-5 (with the highest in-out detection
+(c) Distribution of sample real-time age in days over deciles of computed rate ratio) are shown.
+pseudotime. (d) Expression of top markers in different non-telencephalic
+
+Article
+
+(a-b) UMAP of HNOCA colored by the mapped (a) cell classes and (b) brain SLC32A1 in clusters (bottom) and neural cell types (right). (g) Overview of the
+regions, both from the human developing brain cell atlas as the primary HNOCA cell type composition for the first two levels of the cell annotation
+reference. (c) Comparison of the HNOCA cell type annotation with the primary (left - level-1, middle - level-2), and the refined regional annotation assisted
+reference mapping-based transferred cell class and brain region labels. by mapping of non-telencephalic NPC and neurons to the primary reference
+Darkness of cells indicates proportions of each HNOCA cell type being (right). (h) neural cell type compositions of different data sets (rows). Darkness
+assigned to different cell class and brain region categories. Brain region labels of the heatmap shows the proportions of different neural cell types per HNOCA
+are only shown for the HNOCA neural cell types. (d) Comparison of the simple data set. Sidebars on the left show organoid protocol types of different data
+majority-voting-based regional label transfer and the hierarchical regional sets. Sidebars on the bottom show neural cell types. Bars on the right show
+label transfer with random-walk-with-restart-based smoothening. Only cells total neuron numbers across data sets. (i) Distribution of transcriptomic
+annotated as NPCs, IPs and neurons are included. (e) UMAP of non-telencephalic similarity differences of NPCs and neurons in HNOCA with the primary
+neurons, colored by clusters (upper), mapped brain regions (middle) and mapped neuronal populations in the first trimester (represented by Braun et al. 27) and
+neurotransmitter transporter (NTT) subtypes (bottom). (f) Comparison the second trimester (represented by Bhaduri et al. 29). Cells are firstly grouped
+of non-telencephalic neural cell types, defined as the concatenation of the by regional identities, followed by organoid ages (in months). Colors of boxes
+mapped brain region and NTT subtype, with the clusters. The middle heatmap indicate organoid ages. (j) Heatmap shows the enrichment of adult regional
+shows contributions of different clusters to different neural cell types. The identities (columns) for HNOCA NPCs and neurons with different estimated
+sidebar on the left shows the neural cell types; dots under the heatmap show regional identities (rows).
+clusters. The heatmaps on the bottom and on the right show the average
+
+type as well as regional composition. (a) Schematic of estimating cell type organoid composition in HNOCA. Positive values correspond to a higher
+enrichment with different morphogen usages. (b) This heat map indicates in abundance of cells from the indicated regional cell identity in cases where
+how many of the 17 iterations scCODA was executed (using each of the 17 the respective morphogen was used in the differentiation protocol. Top:
+regional cell identity as a reference once) the respective morphogen was found log2-fold-effect sizes of morphogens per regional cell identity as computed
+to lead to compositional changes with respect to the reference regional cell by the scCODA model. Bottom: L1-regularized linear model coefficients.
+identity. A morphogen effect was called significant in this consensus approach The dashed arrows show consistent enrichment/depletion identified by the
+if it had a significant effect on cell type composition with respect to more than two methods.
+
+Article
+
+normalized presence scores of different HNOCA data sets (rows) in different cell presence scores across different HNOCA data subsets, split by organoid
+clusters in the primary reference of the human developing brain atlas27 (columns). protocol types. A high max presence score suggests enrichment of the
+Sidebars on the left show organoid differentiation protocol types of HNOCA corresponding primary cell state in at least one HNOCA data set among the
+data sets. Sidebars underneath show cell class and the commonest region data sets based on the specific type of organoid protocols, with a low score
+information of the cell clusters in the primary reference (HyTh - hypothalamus, meaning under-representation of the cell state in all data sets in the subset.
+
+primary reference, and across organoid data set. (a) Number of DEGs Braun et al. 27 (10×3’ v2 chemistry only) or Eze et al. 28 respectively. Of the 2815
+between organoid Dorsal Telencephalic Neurons NT-VGLUT generated using shared DEGs, 2375 genes had an aligned direction of fold-change while 440 genes
+the Velasco et al.6 protocol (10×3’ v2 chemistry only) and primary fetal cortical had an opposite direction of fold-change. (d) Heatmap of log2-transformed
+neurons from Braun et al. 27 (10×3’ v2 chemistry only) or Eze et al. 28 respectively. fold changes (log 2FC) across all 9106 DEGs between dorsal telencephalic
+Of the 3829 shared DEGs, 3423 genes had an aligned direction of fold-change neurons from Lancaster et al. and either primary fetal cortical neurons from
+while 406 genes had an opposite direction of fold-change. (b) Heatmap of Braun et al. (10×3’ v2 chemistry only) or Eze et al. The dendrogram shows the
+log2-transformed fold changes (log 2FC) across all 9054 DEGs between Dorsal hierarchical clustering of DEGs based on their log 2FC against the two primary
+Telencephalic Neurons NT-VGLUT from Velasco et al. and either primary fetal data. (e) Heatmap showing the mean log-fold change per gene across organoid
+cortical neurons from Braun et al. (10×3’ v2 chemistry only) or Eze et al. The publications for Dorsal Telencephalic Neurons NT-VGLUT compared to the
+dendrogram shows the hierarchical clustering of DEGs based on their log 2FC expression in the matching cell type from the Braun et al.27 primary atlas. Shown
+against the two primary data. (c) Number of DEGs between organoid Dorsal are all genes that are significantly differentially expressed compared to primary
+Telencephalic Neurons NT-VGLUT generated using the Lancaster et al. 36 cells in the data from at least one publication.
+
+Article
+
+(a) Hallmark glycolysis scores of different neural cell types in primary significantly weaker when only TFs are taken into consideration, while electron
+(left, Braun et al. 27) and a selected organoid data set (right, Kanton et al. 3). transport scores show no correlation with transcriptomic similarities. The
+(b) Spearman correlation between average gene expression profiles of neural cell boxes show the distributions of correlation when a random subset of variable
+types in HNOCA and those in the primary reference of human developing brain genes, with the same number as the variable TFs, are used. The red dots show
+atlas27, across either all the variable genes (left, S1) or variable transcriptional the correlation using variable TFs. (e) Core transcriptomic fidelity of organoid
+factors (TFs) (right, S3). The average gene expression profile per neural cell type neurons (S2, shown in Fig. 3) which only considers TFs, is higher than the global
+was calculated with all cells (S1) or cells with low glycolysis scores (glycolysis transcriptomic fidelity (S1) which considers all the highly variable genes. Core
+score <0.6, S3). (c) Correlation between different average metabolic scores transcriptomic fidelity and global transcriptomic fidelity are highly correlated
+(up - hallmark glycolysis score, middle - canonical glycolysis score, low - electron (left, x-axis - S1, y-axis - S2, each dot represents one neural cell type in one
+transport score) and transcriptomic similarities (Spearman correlation) to HNOCA data set), while core transcriptomic fidelity is significantly higher
+primary counterparts. Each dot represents one neural cell type generated by (right, x-axis: S1, y-axis: S2-S1, dots are colored by density estimated with
+one protocol. The correlation is calculated based on either all variable genes Gaussian kernel). P-value shows the Wilcoxon test significance.
+(left, S1) or variable TFs (right, S2). (d) The correlation between hallmark and
+
+and its incorporation to differential expression analysis between dorsal scores and matched cluster labels as covariates. The identified DEGs are
+telencephalic neurons in HNOCA and primary developing human brains. colored by red (increased expression in HNOCA) or blue (decreased expression
+(a) Overview of mapping the telencephalic NPCs and neurons in HNOCA to the in HNOCA). (i) Changes of functional term enrichment by DAVID for DEGs based
+human neocortical developmental atlas30 for cell type annotations. (b) UMAP on the analysis with or without covariates. The top panel shows enrichments
+of cells from the HNOCA telencephalic trajectories, colored by the transferred for the up-regulated DEGs (uDEG) in organoids, and the lower panel shows
+cell types from the human neocortical developmental atlas (upper) and the enrichments for the down-regulated DEGs (dDEG). Each dot indicates one
+HNOCA annotation. (c) UMAP of HNOCA telencephalic cells colored by functional term with raw P-value < 0.05 for both DEG sets. Red dots indicate
+expression levels of selected cell type markers. (d) Distributions of adjusted functional terms gaining enrichment with DEGs with covariates (with-covariate
+mutual information across dorsal telencephalic neurons in different HNOCA adjusted P wt < 0.1, and without-covariate adjusted P wo>P wt). Blue dots indicate
+samples, between the transferred cell type labels and cluster labels generated functional terms losing enrichment with DEGs without covariates (P wt>0.1 and
+with four different representations: 1) the original scPoli (scPoli-1), 2) the P wo < 1 × 10 −10). (j) Heatmap shows normalized coefficient (estimated logFC
+re-computed telencephalon-only scPoli based on given the transferred labels; normalized by the overall logFC magnitude) of each DEG per data set.
+3) unintegrated PCA of the merged data; 4) PCA and clustering sample-wise. Dendrograms show hierarchical clustering of DEGs and data sets. Rows
+(e) The joint atlas of human neocortical development, colored by data sets, represent data sets. Side bars on the left are colored based on the types of
+developmental stages, clusters, and whether there is any counterpart in protocols, individual protocols, and publications corresponding to the data
+HNOCA dorsal telencephalic neurons. (f) Distribution of the hallmark sets. Columns represent DEGs.
+glycolysis scores in HNOCA and the primary atlas. (g) Volcano plots show the
+
+Article
+
+morphogen screen data to HNOCA and the human developing brain atlas. in the screen data set in HNOCA data sets. (e) Heatmap showing min-max scaled
+(a) UMAP embedding of the human developing brain atlas and neural organoid average presence scores of each condition in the screen data set in each leiden
+morphogen screen44 data sets based on the joint scANVI latent space colored cluster in HNOCA, ordered by annotated cell type. (f) UMAP embeddings of
+by brain region (left) and data set (right). (b) UMAP embedding of HNOCA and HNOCA (left) and the human developing brain atlas (right) colored by presence
+the screen data sets based on the joint scPoli latent space colored by annotated scores for each condition group in the screen data set. (g) UMAP embeddings
+cell type (left) and data set (right). (c) scPoli UMAP embedding of the HNOCA of the human developing brain atlas (upper) and screen data set (lower) colored
+colored by cell type (left) and max presence score across all data sets (right). by coexpression scores of clusters with gained coverage in the screen data set.
+
+atlas and data projection based extension of HNOCA. (a-c) UMAP of GBM-2019 data set, colored by (g) samples, (h) predicted cell class labels (level-1)
+the unintegrated disease-modeling neural organoid atlas, colored by from the HNOCA projection, (i) expression of astrocyte markers GFAP and
+(a) publications, (b) disease status, (c) transferred level-2 annotation from AQP4, and (j) the AQP4+ population selected for DE analysis with HNOCA.
+HNOCA, and (d) transferred regional identities from HNOCA. (e) Dot plot shows (k-n) UMAP of the fragile X syndrome FXS-2021 data set, colored by (k) samples,
+expression of selected cell type markers in cells with different transferred cell (l) predicted cell type annotation (level-2) from the HNOCA projection,
+class labels (level-1) from HNOCA. (f) Dot plot shows expression of selected (m) expression of dorsal telencephalic cell markers FOXG1, EMX1 and NEUROD6,
+regional markers in the predicted NPCs and neurons in the disease-modeling (n) the dorsal telencephalic NPC and neuron subset for DE analysis with HNOCA.
+atlas with different transferred regional identities from HNOCA. In both (e) and (o) PCA of the scPoli sample embeddings of samples in HNOCA and five additional
+(f), sizes of dots represent percentages of cells expressing the gene, and colors data sets projected to HNOCA.
+
+ZhisongHe
+ He
+
+ natureportfolio|reportingsummary
+ J.GrayCamp
+ FabianTheis
+ Correspondingauthor(s): BarbaraTreutlein
+ Lastupdatedbbya
+ y uthor(s):Aug23,2024
+
+RNateurePpoortfroltiowiinshgS u
+ esttoi
+ mma ry
+ omprovethereproducibilityo
+ oftheworkthatwe
+ wepublish.Thisformprovidesstructureforconsistencyandtransparency
+inr
+ n eporting.Forfurtherinformationo
+ onNa
+ n turePortfoliopolicies,seeourEditorialPoliciesandtheEditorialPolicyChecklist.
+
+Statistics
+Forallstatisticalanalyses,confirmthatthefollowingitemsarepresentint n hefigurelegend,tablelegend,maintext,orMethodssection.
+n/a Confirmed
+ 8 Theexactsampl esize(n)foreachexperimentalgroup/condition,givena asad
+ s iscretenumberandunitofmeasurement
+ 8 Astatementonwh n ethermeasurementsweretakenfromdistinctsampleso orwhetherthesamesamplewasmeasuredrepeatedly
+ 8T hestatisticaltest(s)usedANDwhethertheyareone-ortwo-sided
+ Onlycommontestsshouldbedescribedsolelybyname;describemorecomplextechniquesintheMethodssection.
+ 8 Adescri ptionoofallcovariatestested
+ 8 Adescri ptionoofanyassumptionso orcorrections,suchaast
+ sestso
+ ofnormalityandadjustmentformultiplecomparisons
+ 8 Af ulldescriptionoofthestatisticalparametersincludingcentraltendency(e.g.means)orotherbasicestimates(e.g.regressioncoefficient)
+ ANDvariation(e.g.standarddeviation)orassociatedestimateso ofuncertainty(e.g.confidenceintervals)
+ 8 Fornul lhypothesistesting,theteststatistic(e.g.F,t,r)withconfidenceintervals,effectsizes,degreeso
+ GivePvaluesasexactvalueswheneversuitable.
+ offreedomandPvaluenoted
+ 8 ForBayesiananalysis,informationo
+ ont
+ n hechoiceo ofpriorsandMarkovchainMonteCarlosettings
+ 8 Forhierarchicalandcomplexdesigns,identificationo
+ oftheappropriatelevelfortestsandfullreportingo
+ ofoutcomes
+ 8 Esti
+ matesoofeffectsizes(e.g.Cohen'sd,Pearson'sr),indicatinghowtheywerecalculated
+ Ourwebcollectiononstatisticsforbiologistscontainsarticlesonmanyofthepointsabove.
+
+Softwareandcode
+Policyinformationaboutavailabilityo
+ ofcomputercode
+ Datacollection Thedatacollectionprocedureiisd
+ s escribediint
+ n heMethodssectionoofthemanuscript.
+ Dataanalysis Thedataanalysisiisd
+ s escribediint
+ n heMethodssectionoofthemanuscript.
+Formanuscriptsutilizingcustomalgorithmso
+ orsoftwarethatarecentraltot
+ o heresearchbutnotyetdescribediinp
+ n ublishedliterature,softwaremustbema
+ e deavailablettoe
+ o ditorsand
+reviewers.We
+ Westronglyencouragecodedepositioni inac
+ n ommunityrepository(e.g.GitHub).SeetheNaturePortfolioguidelinesforsubmittingcode&softwareforfurtherinformation.
+
+Data
+Policyinformationaboutavailabilityo
+ ofdata
+ Allmanuscriptsmustincludeadataavailabilitystatement.Thisstatementshouldprovidethefollowinginformation,whereapplicable:
+ -Accessioncodes,uniqueidentifiers,orweblinksforpubliclyavailabledatasets
+ -Adescriptionoofanyrestrictionsoond
+ n ataavailability
+ -Forclinicaldatasetsoorthirdpartydata,pleaseensurethatthestatementadheresttoo
+ o urpolicy
+ April2023
+
+AllcuratedindividualHNOCAdatasetsareavailableforeasyaccessviathesfairapythontool80.TheintegratedHNOCAdataiisa s vailableoonZ
+ n enodo(https://
+doi.org/10.5281/zenodo.11203684)andtheCellxGeneDiscoverCensus(https://cellxgene.cziscience.com/collections/de379e5f-52d0-498c-9801-0f850823c847).
+TheextendedHNOCACommunityEditionAtlasiisa s lsoavailableviatheCellxGeneDiscoverCensus(sameURLaasa s bove).BothversionsoofHNOCAareavailablefor
+referencemappingviatheArchMapwebinterface(https://www.archmap.bio/).
+ 1
+
+Researchinvolvinghumanparticipants,theirdata,orbiologicalmaterial
+
+ natureportfolio|reportingsummary
+Policyinformationaboutstudieswithhumanparticipantsorhumandata.Seealsopolicyinformationaboutsex,gender(identity/presentation),
+andsexualorientationandrace,ethnicityandracism.
+ Reportingonsexandgender N/A
+ Reportingonrace,ethnicity,or N/A
+ othersociallyrelevantgroupings
+ Populationcharacteristics N/A
+ Recruitment N/A
+ Ethicsoversight N/A
+Notethatfullinformationontheapprovalofthestudyprotocolmustalsobeprovidedinthemanuscript.
+
+FPleiaesesldele-csttpheoencebiefloiwtcr e p o r ti n g
+ hatisthebestfitforyourresearch.Ifyouarenotsure,readtheappropriatesectionsbeforemakingyourselection.
+ 8 Lifesciences Behavioural&socialsciences Ecological,evolutionary&environmentalsciences
+Forareferencecopyofthedocumentwithallsections,seenature.com/documents/nr-reporting-summary-flat.pdf
+
+LAlilsftes ci e n c e ss tu d yd e sig n
+ udiesmustdiscloseonthesepointsevenwhenthedisclosureisnegative.
+ Samplesize WecollectedalltherepresentativescRNA-seqdatasetsofdifferentneuralorganoidprotocolsthatareaccessibleforHNOCA.Similarly,we
+ collectedalltherepresentativescRNA-seqdatasetsofneuralorganoiddiseasemodelsthatareaccessibleforthediseaseatlas.
+ Dataexclusions Qualitycontrolwasappliedtoexcludecellswithlowquality.DetailedmethodsaredescribedintheMethodssection
+ Replication ThetwounpublishedscRNA-seqdatasetsbothincludemeasurementsofmultipleindividuals
+ Randomization Experimentswerenotrandomized
+ Blinding Thereisnoblindingdesignofthestudy
+
+RWereepquioreinrfotrmaintiogf o r s p e c ificma t e r ia ls , s y s te msa n dme t h o d s
+ nfromauthorsaboutsometypesofmaterials,experimentalsystemsandmethodsusedinmanystudies.Here,indicatewhethereachmaterial,
+systemormethodlistedisrelevanttoyourstudy.Ifyouarenotsureifalistitemappliestoyourresearch,readtheappropriatesectionbeforeselectingaresponse.
+ Materials&experimentalsystems Methods
+n/a Involvedinthestudy n/a Involvedinthestudy
+ 8 Antibodies 8 ChIP-seq
+ 8 Eukaryoticcelllines 8 Flowcytometry
+ 8 Palaeontologyandarchaeology 8 MRI-basedneuroimaging
+ 8 Animalsandotherorganisms
+ 8 Clinicaldata
+ 8 Dualuseresearchofconcern
+ 8 Plants
+ April2023
+
+ 2
+
+Plants
+
+ natureportfolio|reportinggsummaary
+Seedstocks Reportonthesourceofallseedstocksorotherplantmaterialused.Ifapplicable,statetheseedstockcentreandcataloguenumber.If
+ plantspecimenswerecollectedfromthefield,describethecollectionlocation,dateandsamplingprocedures.
+Novelplantgenotypes De scribethemethodsbywhichallnovelplantgenotypeswereproduced.Thisincludesthosegeneratedbytransgenicapproaches,
+ geneediting,chemical/radiation-basedmutagenesisandhybridization.Fortransgeniclines,describethetransformationmethod,the
+ numberofindependentlinesanalyzedandthegenerationuponwhichexperimentswereperformed.Forgene-editedlines,describe
+ theeditorused,theendogenoussequencetargetedforediting,thetargetingguideRNAsequence(ifapplicable)andhowtheeditor
+Authentication wa
+ Desscaripbpeliaendy.authenticationproceduresforeachseedstockusedornovelgenotypegenerated.Describeanyexperimentsusedto
+ assesstheeffectofamutationand,whereapplicable,howpotentialsecondaryeffects(e.g.secondsiteT-DNAinsertions,mosiacism,
+ off-targetgeneediting)wereexamined.
+
+ April2023
+
+ 3

@@ -1,0 +1,268 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Crypt isolation and initial organoid culture",
+    "source": {
+      "type": "paper",
+      "id": "s41467-024-55567-2"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "DPBS"
+      },
+      {
+        "id": "m2",
+        "name": "EDTA solution (2.5 mM)"
+      },
+      {
+        "id": "m3",
+        "name": "Cultrex RGF BME (R&D Systems)"
+      },
+      {
+        "id": "m4",
+        "name": "culture medium with 10 μM Y-27632 (TargetMol)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "tissue sample"
+      },
+      {
+        "id": "c2",
+        "name": "48-well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_tissue_raw",
+        "name": "raw tissue"
+      },
+      {
+        "id": "s_tissue_washed",
+        "name": "DPBS-washed tissue"
+      },
+      {
+        "id": "s_tissue_edta",
+        "name": "tissue treated with EDTA"
+      },
+      {
+        "id": "s_tissue_incubated",
+        "name": "tissue incubated at 4 °C"
+      },
+      {
+        "id": "s_crypt_suspension",
+        "name": "supernatant containing crypts"
+      },
+      {
+        "id": "s_droplets_plate",
+        "name": "crypts embedded in Cultrex droplets in 48‑well plate"
+      },
+      {
+        "id": "s_plate_cultured",
+        "name": "plate with overlaid culture medium"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_tissue_raw"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_tissue_washed"
+          }
+        ],
+        "params": {
+          "action_kind": "rinse"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_tissue_washed"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_tissue_edta"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Add 2.5 mM EDTA solution to the washed tissue."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_tissue_edta"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_tissue_incubated"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": "4 °C",
+            "duration": "40 min"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_tissue_incubated"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_crypt_suspension"
+          }
+        ],
+        "params": {
+          "amount": {
+            "description": "collect supernatant containing crypts"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_crypt_suspension"
+          },
+          {
+            "kind": "material",
+            "id": "m3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_droplets_plate"
+          }
+        ],
+        "params": {
+          "action_kind": "spread_on_plate",
+          "description": "Embed crypts in Cultrex RGF BME droplets in a 48‑well plate (~50 crypts per well)."
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_droplets_plate"
+          },
+          {
+            "kind": "material",
+            "id": "m4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_plate_cultured"
+          }
+        ],
+        "params": {
+          "amount": {
+            "description": "Overlay droplets with culture medium containing 10 μM Y‑27632."
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_plate_cultured"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_plate_cultured"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Medium is changed every 3 days."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

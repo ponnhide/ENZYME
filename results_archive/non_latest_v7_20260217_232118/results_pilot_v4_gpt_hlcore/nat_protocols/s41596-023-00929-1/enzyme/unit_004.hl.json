@@ -1,0 +1,402 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Immunostaining",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00929-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "hbss_solution",
+        "name": "HBSS/BSA/glucose",
+        "type": "solution"
+      },
+      {
+        "id": "master_mix",
+        "name": "master mix",
+        "type": "reagent"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube",
+        "name": "microcentrifuge tube",
+        "type": "tube"
+      },
+      {
+        "id": "facs_tube",
+        "name": "FACS tube",
+        "type": "tube"
+      },
+      {
+        "id": "filter_70um",
+        "name": "70 µm filter",
+        "type": "filter"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge",
+        "name": "centrifuge",
+        "type": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cells",
+        "name": "cells",
+        "type": "cell_suspension",
+        "container_ref": "tube"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Discard supernatant after spin."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          },
+          {
+            "kind": "material",
+            "id": "hbss_solution"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 200,
+            "unit": "µL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          },
+          {
+            "kind": "material",
+            "id": "master_mix"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Add the master mix into the tube of resuspended cells (volume not specified)."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Incubate for 15 min on ice."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          },
+          {
+            "kind": "material",
+            "id": "hbss_solution"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 5,
+            "unit": "mL"
+          }
+        },
+        "annotations": {
+          "note": "Wash with 5 mL of HBSS/BSA/glucose."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "5 min at 300 g, 4 °C"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Discard supernatant. Note the amount of supernatant remaining; 500 µL is needed to resuspend. Add additional HBSS/BSA/glucose if below 500 µL."
+        }
+      },
+      {
+        "id": "s9",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s10",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "facs_tube"
+          },
+          {
+            "kind": "container",
+            "id": "filter_70um"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Obtain one FACS tube and a 70 µm filter."
+        }
+      },
+      {
+        "id": "s11",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          },
+          {
+            "kind": "container",
+            "id": "filter_70um"
+          },
+          {
+            "kind": "container",
+            "id": "facs_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Dispense the resuspended cells through the 70 µm filter into the FACS tube."
+        }
+      },
+      {
+        "id": "s12",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "facs_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "facs_tube"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Seal the tube and place on ice."
+        }
+      },
+      {
+        "id": "s13",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "facs_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "facs_tube"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Take samples to FACS."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      }
+    ],
+    "detail_level": 0
+  }
+}

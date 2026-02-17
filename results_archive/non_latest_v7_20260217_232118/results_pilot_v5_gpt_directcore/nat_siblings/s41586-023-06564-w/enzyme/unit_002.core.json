@@ -1,0 +1,254 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Puromycin selection of hiPS cells",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-023-06564-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "puromycin",
+        "source": "Life Technologies",
+        "catalogue": "A3349401"
+      },
+      {
+        "id": "m2",
+        "name": "StemFlex medium",
+        "source": "Life Technologies"
+      },
+      {
+        "id": "m3",
+        "name": "StemFlex medium with puromycin",
+        "description": "StemFlex medium supplemented with 1 µg/ml puromycin"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "culture_plate",
+        "description": "Plate used for hiPS cell culture"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator",
+        "description": "Standard cell culture incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s1",
+        "type": "cell_culture",
+        "description": "Seeded hiPS cells at 70-80% confluency"
+      },
+      {
+        "id": "s2",
+        "type": "cell_culture",
+        "description": "hiPS cells after addition of puromycin-supplemented medium"
+      },
+      {
+        "id": "s3",
+        "type": "cell_culture",
+        "description": "hiPS cells after 5‑day puromycin selection"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "type": "observation",
+        "description": "Confluency observation"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "data"
+        },
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "confluency"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d1"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material",
+          "description": "StemFlex medium with 1 µg/ml puromycin"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "m3"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "m3"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "description": "hiPS cells after medium addition"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer of puromycin‑supplemented StemFlex medium (m3) to hiPS cells (s1) to produce s2 (amount unspecified)"
+        },
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m3"
+          },
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ]
+      },
+      {
+        "id": "s7",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "description": "hiPS cells after incubation"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "5_day_selection"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

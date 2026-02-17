@@ -1,0 +1,325 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Split organoids",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-020-0379-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "adDMEM_cold",
+        "name": "adDMEM/F12+++ (ice-cold)",
+        "type": "medium"
+      },
+      {
+        "id": "adDMEM_warm",
+        "name": "adDMEM/F12+++",
+        "type": "medium"
+      },
+      {
+        "id": "TrypLE",
+        "name": "TrypLE",
+        "type": "enzyme"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube_15ml",
+        "type": "conical_tube",
+        "name": "15‑ml conical tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge",
+        "type": "centrifuge",
+        "name": "Centrifuge"
+      },
+      {
+        "id": "incubator",
+        "type": "incubator",
+        "name": "Incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoid_suspension",
+        "name": "Organoid suspension",
+        "type": "sample"
+      },
+      {
+        "id": "pellet",
+        "name": "Organoid pellet",
+        "type": "sample"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_suspension"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "tube_15ml"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "organoid_suspension",
+          "destination": "tube_15ml",
+          "note": "Pipette up and down to disrupt BME or Matrigel and transfer to tube",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "adDMEM_cold"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "adDMEM_cold",
+          "destination": "tube_15ml",
+          "note": "Top up volume with ice‑cold medium",
+          "amount": {
+            "value": 10.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge",
+          "program": {
+            "program_name": "200g_5min_4C"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "source": "tube_15ml",
+          "destination": "waste",
+          "note": "Aspirate supernatant",
+          "amount": {
+            "value": "unknown",
+            "unit": "unknown"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "note": "Split organoids using either TrypLE (head/neck, compact breast, colon, pancreatic, liver) or mechanical disruption (ovarian, cystic breast, colon, pancreatic, liver)."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "TrypLE"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s10",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "adDMEM_warm"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s11",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "target": "pellet",
+          "reagent": "TrypLE",
+          "volume": "1 ml",
+          "note": "Resuspend pellet in TrypLE"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator",
+          "program": {
+            "program_name": "37C_until_dissociated"
+          },
+          "note": "Incubate at 37 °C until organoids fall apart"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s13",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "target": "pellet",
+          "note": "Pipette up and down with P1000 filter tip + P10 tip ≥10 times every 3–5 min"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s14",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "target": "pellet",
+          "reagent": "adDMEM_warm",
+          "volume": "3 ml",
+          "note": "Resuspend pellet in adDMEM/F12+++ for mechanical disruption"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s15",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "target": "pellet",
+          "note": "Pipette up and down 30 times with P1000 filter tip + P10 tip, using tube bottom for pressure"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s8",
+        "to": "s10"
+      },
+      {
+        "from": "s9",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s10",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      }
+    ],
+    "detail_level": 0
+  }
+}

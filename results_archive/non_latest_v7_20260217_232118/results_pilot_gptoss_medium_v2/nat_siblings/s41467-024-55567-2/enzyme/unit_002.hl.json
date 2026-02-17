@@ -1,0 +1,282 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Generation of LGR5‑mNeonGreen reporter organoids",
+    "source": {
+      "type": "paper",
+      "id": "s41467-024-55567-2.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "type": "plasmid",
+        "name": "LGR5-targeting sgRNA plasmids"
+      },
+      {
+        "id": "m2",
+        "type": "DNA",
+        "name": "HDR template"
+      },
+      {
+        "id": "m3",
+        "type": "organoid",
+        "name": "human intestinal organoids"
+      },
+      {
+        "id": "m4",
+        "type": "plasmid",
+        "name": "MBD3-targeting sgRNA plasmids"
+      },
+      {
+        "id": "m5",
+        "type": "organoid",
+        "name": "LGR5‑mNeonGreen reporter cells"
+      },
+      {
+        "id": "m6",
+        "type": "antibody",
+        "name": "MBD3 antibody (Santa Cruz, 1:200)"
+      },
+      {
+        "id": "m7",
+        "type": "organoid",
+        "name": "expanded LGR5‑sgRNA edited organoid colonies"
+      },
+      {
+        "id": "m8",
+        "type": "organoid",
+        "name": "expanded MBD3‑sgRNA edited reporter colonies"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "device_kind": "dna_delivery_device",
+        "name": "NEPA21 electroporator (Nepa Gene)"
+      }
+    ],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m3"
+          },
+          {
+            "kind": "material",
+            "id": "m1"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "m7"
+          }
+        ],
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "program": "electroporation",
+          "device_ref": "e1"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m7"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "m7"
+          }
+        ],
+        "params": {
+          "action_kind": "pick_colony"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m7"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "m7"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Genotyping of expanded organoid colonies (method not detailed in source)."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "m4"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m5"
+          },
+          {
+            "kind": "material",
+            "id": "m4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "m8"
+          }
+        ],
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "program": "electroporation",
+          "device_ref": "e1"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s8",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m8"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "m8"
+          }
+        ],
+        "params": {
+          "action_kind": "pick_colony"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s9",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m8"
+          },
+          {
+            "kind": "material",
+            "id": "m6"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "MBD3 protein level (Western blot)"
+          ]
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

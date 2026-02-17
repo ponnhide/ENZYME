@@ -1,0 +1,162 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "hiPS Cell Transduction",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01299-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "hiPS_cells",
+        "name": "hiPS_cells"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "hiPS_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "hiPS_cells"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          }
+        },
+        "annotations": {
+          "note": "Aspirate the medium from each well and replace it with 1 ml of pre-warmed E8 medium supplemented with 5 μg ml−1 polybrene and the empirically determined volume of lentivirus encoding the sgRNA library."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "hiPS_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "hiPS_cells"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": 37,
+            "temperature_unit": "°C",
+            "co2": 5,
+            "co2_unit": "%",
+            "duration": "8 h"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "hiPS_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "hiPS_cells"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          }
+        },
+        "annotations": {
+          "note": "After 8 h, add another 1 ml of E8 medium to each well."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "hiPS_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "hiPS_cells"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": 37,
+            "temperature_unit": "°C",
+            "co2": 5,
+            "co2_unit": "%"
+          }
+        },
+        "annotations": {
+          "note": "Place the plate back in a 37 °C, 5% CO2 incubator. Maintain one plate of uninfected hiPS cells as a negative control."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "CRITICAL STEP: Before conducting the screen, optimize the volume of lentivirus required to achieve the desired transduction efficiency—typically ~20–50%—to ensure that transduced cells ideally carry only a single copy of the sgRNA expression cassette."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,200 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Initiate differentiation by plating cells",
+    "source": {
+      "type": "paper",
+      "id": "s41467-021-27464-5"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "single cells"
+      },
+      {
+        "id": "m2",
+        "name": "SHH-C24II",
+        "source": {
+          "type": "catalog",
+          "id": "Miltenyi #130-095-727"
+        }
+      },
+      {
+        "id": "m3",
+        "name": "Y-27632"
+      },
+      {
+        "id": "m4",
+        "name": "CHIR99021",
+        "source": {
+          "type": "catalog",
+          "id": "Miltenyi #130-106-539"
+        }
+      },
+      {
+        "id": "m5",
+        "name": "dihydrochloride",
+        "source": {
+          "type": "catalog",
+          "id": "Miltenyi #130-106-538"
+        }
+      },
+      {
+        "id": "m6",
+        "name": "iPS Brew"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "96-well U-bottom plate",
+        "source": {
+          "type": "catalog",
+          "id": "Corning #CLS7007"
+        }
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s_cells",
+        "material_ref": "m1",
+        "description": "single cells to be plated"
+      },
+      {
+        "id": "s_plate",
+        "container_ref": "c1",
+        "description": "96-well U-bottom plate"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_plate"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells"
+          },
+          {
+            "kind": "sample",
+            "id": "s_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 2500,
+            "unit": "cells"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Add SHH-C24II to achieve 400 ng/ml in each well (Miltenyi #130-095-727)."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Add Y-27632 to achieve 10 µM in each well."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Add CHIR99021 to achieve 1.5 µM in each well (Miltenyi #130-106-539)."
+        }
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Add dihydrochloride to achieve 200 mM in each well (Miltenyi #130-106-538)."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

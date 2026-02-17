@@ -1,0 +1,151 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Plating in ECM Hydrogel",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-020-0379-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "type": "material",
+        "name": "BME"
+      },
+      {
+        "id": "m2",
+        "type": "material",
+        "name": "Matrigel"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "container",
+        "name": "24-well suspension cell culture plate",
+        "format": "24-well"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "smp1",
+        "type": "sample",
+        "name": "cell pellet"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source": "smp1",
+          "destination": "c1",
+          "amount": {
+            "value": 0,
+            "unit": "µl"
+          }
+        },
+        "annotations": [
+          {
+            "key": "note",
+            "value": "Aspirate the supernatant"
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "smp1"
+          }
+        ],
+        "annotations": [
+          {
+            "key": "resuspension_medium",
+            "value": "BME or Matrigel"
+          },
+          {
+            "key": "note",
+            "value": "BME should be kept on ice to prevent it from solidifying; thus, work quickly."
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "smp1",
+          "destination": "c1",
+          "amount": {
+            "value": 40.0,
+            "unit": "µl"
+          }
+        },
+        "annotations": [
+          {
+            "key": "note",
+            "value": "Approximately 10,000 cells should be plated in 40 µl of BME."
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "c1",
+          "destination": "c1",
+          "amount": {
+            "value": 10,
+            "unit": "µl"
+          }
+        },
+        "annotations": [
+          {
+            "key": "note",
+            "value": "Plate the BME containing organoids on the bottom of pre-heated 24-well suspension cell culture plates in drops of ~10 µl each."
+          }
+        ],
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

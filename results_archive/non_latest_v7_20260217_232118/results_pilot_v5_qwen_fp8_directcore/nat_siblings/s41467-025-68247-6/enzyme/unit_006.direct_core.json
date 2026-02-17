@@ -1,0 +1,320 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Seed organoids in microwell plates",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Advanced DMEM/F12",
+        "type": "cell_culture_medium"
+      },
+      {
+        "id": "m2",
+        "name": "Trypsin",
+        "type": "enzymatic_dissociation_reagent"
+      },
+      {
+        "id": "m3",
+        "name": "PBS",
+        "type": "buffer"
+      },
+      {
+        "id": "m4",
+        "name": "Organoid growth media without Nicotinamide",
+        "type": "cell_culture_medium",
+        "composition": [
+          "1X Pen-Strep",
+          "10 mM HEPES",
+          "1X GlutaMAX",
+          "1X B-27 Supplement",
+          "0.2 nM Wnt Surrogate protein",
+          "5 nM Gastrin-1",
+          "1.25mM N-Acetyl-L-Cysteine",
+          "100 µg/mL Primocin",
+          "500 nM A 83-01",
+          "50 ng/mL recombinant human EGF",
+          "100 ng/mL recombinant human Noggin",
+          "250 ng/mL recombinant human R-spondin 3",
+          "100 ng/mL recombinant human IGF1",
+          "50 ng/mL recombinant human FGF2",
+          "10 µM Y-27632"
+        ]
+      },
+      {
+        "id": "m5",
+        "name": "Matrigel",
+        "type": "extracellular_matrix"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "microwell_plate",
+        "name": "500 µm Gri3D plate",
+        "manufacturer": "SUN bioscience"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "tissue_culture_incubator"
+      },
+      {
+        "id": "e2",
+        "type": "hemocytometer"
+      }
+    ],
+    "samples": [
+      {
+        "id": "d1",
+        "name": "d1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "action_kind": "aspirate",
+          "source": "c1",
+          "amount": {
+            "value": 500.0,
+            "unit": "µL"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "action_kind": "add",
+          "target": "c1",
+          "material": "m1",
+          "amount": {
+            "value": 150.0,
+            "unit": "µL"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "equilibrate_plate",
+            "duration": "30 min"
+          },
+          "device_ref": "e1"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "trypsin_dissociation",
+            "duration": "12 min"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "action_kind": "neutralize",
+          "source": "c1",
+          "material": "m2",
+          "amount": {
+            "value": 100.0,
+            "unit": "µL"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "action_kind": "wash",
+          "target": "c1",
+          "material": "m3",
+          "amount": {
+            "value": 200.0,
+            "unit": "µL"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s8",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "params": {
+          "action_kind": "transfer",
+          "source": "c1",
+          "target": "c1",
+          "material": "m4",
+          "amount": {
+            "value": 50.0,
+            "unit": "µL"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s10",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "cell_count"
+          ]
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s11",
+        "op": "transfer",
+        "params": {
+          "action_kind": "seed",
+          "target": "c1",
+          "material": "m4",
+          "cell_density": "200 cells per microwell",
+          "amount": {
+            "value": 50.0,
+            "unit": "µL"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s12",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": "allow_settling",
+            "duration": "30-60 min"
+          },
+          "device_ref": "e1"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s13",
+        "op": "transfer",
+        "params": {
+          "action_kind": "add",
+          "target": "c1",
+          "material": "m5",
+          "amount": {
+            "value": 100.0,
+            "unit": "µL"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      }
+    ],
+    "detail_level": 0
+  }
+}

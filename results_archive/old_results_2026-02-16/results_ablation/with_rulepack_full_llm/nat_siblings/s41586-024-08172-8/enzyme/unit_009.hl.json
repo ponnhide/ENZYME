@@ -1,0 +1,156 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Infer real‑time‑informed pseudotime",
+    "source": {
+      "type": "paper",
+      "id": "s41586-024-08172-8"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s_organoid_raw",
+        "description": "Raw organoid age data"
+      },
+      {
+        "id": "s_binned",
+        "description": "Organoid data grouped into seven age bins"
+      },
+      {
+        "id": "s_transition",
+        "description": "Transition matrix derived from displacement vectors"
+      },
+      {
+        "id": "s_diffmap",
+        "description": "Diffusion map embedding"
+      },
+      {
+        "id": "s_pseudotime",
+        "description": "Pseudotemporal ordering based on diffusion component 1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_raw"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid_raw"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_binned"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "Grouped organoid age in days into seven bins ((0, 15], (15, 30], (30,60], (60, 90], (90, 120], (120, 150], (150, 450])"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_binned"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_transition"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "Used moscot to solve a temporal neural problem and computed a transition matrix from displacement vectors"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_transition"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_diffmap"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "Applied diffusion maps to the transition matrix"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_diffmap"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_pseudotime"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "Ranks on diffusion component 1 were used as a pseudotemporal ordering"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

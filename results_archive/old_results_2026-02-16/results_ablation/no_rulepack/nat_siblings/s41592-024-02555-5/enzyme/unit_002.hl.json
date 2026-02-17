@@ -1,0 +1,106 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Generate individual CBOs and pool post‑dissociation",
+    "source": {
+      "type": "paper",
+      "id": "s41592-024-02555-5"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "psc_lines",
+        "name": "PSC lines"
+      },
+      {
+        "id": "organoids",
+        "name": "Organoids"
+      },
+      {
+        "id": "dissociated_cells",
+        "name": "Dissociated cells"
+      },
+      {
+        "id": "pooled_cells",
+        "name": "Pooled cells"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "CBOs were generated individually from the PSC lines"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoids"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "dissociated_cells"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Organoid dissociation"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "dissociated_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "pooled_cells"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "equal amounts per line",
+            "unit": null
+          }
+        },
+        "annotations": {
+          "purpose": "Pool equal amounts of cells per line after organoid dissociation for single-cell library preparation"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

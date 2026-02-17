@@ -1,0 +1,145 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Assist tissue disruption and wash",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-0379-4"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "adDMEM_F12_plus",
+        "name": "adDMEM/F12+++ medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube1",
+        "name": "tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "pipette_P1000",
+        "name": "P1000 pipette"
+      }
+    ],
+    "samples": [
+      {
+        "id": "mix1",
+        "name": "tissue mixture"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "mix1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "mix1"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "note": "pipetting up and down 10–20 times using a P1000 pipette"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "adDMEM_F12_plus"
+          },
+          {
+            "kind": "sample",
+            "id": "mix1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "mix1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 10,
+            "unit": "ml"
+          }
+        },
+        "annotations": {
+          "note": "topping up with 10 ml of adDMEM/F12+++ medium"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "mix1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "mix1"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "speed": "200g",
+          "duration": {
+            "value": 5,
+            "unit": "min"
+          },
+          "temperature": {
+            "value": 4,
+            "unit": "°C"
+          },
+          "program": {
+            "speed": "200g",
+            "duration": {
+              "value": 5,
+              "unit": "min"
+            },
+            "temperature": {
+              "value": 4,
+              "unit": "°C"
+            }
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

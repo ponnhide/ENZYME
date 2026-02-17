@@ -1,0 +1,746 @@
+[2026-02-16T12:54:02.399926+00:00] stderr: ╭───────────────────── Traceback (most recent call last) ──────────────────────╮
+│ /users/hideto/Project/ENZYME/src/enzyme/cli.py:58 in compile_cmd             │
+│                                                                              │
+│    55 │   ),                                                                 │
+│    56 ) -> None:                                                             │
+│    57 │   hl_ir = io.load_json(input_path)                                   │
+│ ❱  58 │   core_ir = lower_to_core(hl_ir, strict=strict_lowering)             │
+│    59 │   io.write_json(output_path, core_ir)                                │
+│    60 │   console.print(f"Compiled Core-IR to {output_path}")                │
+│    61                                                                        │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │           hl_ir = {                                                      │ │
+│ │                   │   'schema_version': '0.4',                           │ │
+│ │                   │   'ir_kind': 'hl',                                   │ │
+│ │                   │   'metadata': {                                      │ │
+│ │                   │   │   'title': 'Pick and expand puromycin-resistant  │ │
+│ │                   colonies',                                             │ │
+│ │                   │   │   'source': {                                    │ │
+│ │                   │   │   │   'type': 'paper',                           │ │
+│ │                   │   │   │   'id': 's41586-023-06564-w.pdf'             │ │
+│ │                   │   │   }                                              │ │
+│ │                   │   },                                                 │ │
+│ │                   │   'resources': {                                     │ │
+│ │                   │   │   'materials': [],                               │ │
+│ │                   │   │   'containers': [],                              │ │
+│ │                   │   │   'equipment': [],                               │ │
+│ │                   │   │   'samples': [                                   │ │
+│ │                   │   │   │   {                                          │ │
+│ │                   │   │   │   │   'id': 'cell_colony',                   │ │
+│ │                   │   │   │   │   'name': 'cell_colony'                  │ │
+│ │                   │   │   │   },                                         │ │
+│ │                   │   │   │   {                                          │ │
+│ │                   │   │   │   │   'id': 'picked_colony',                 │ │
+│ │                   │   │   │   │   'name': 'picked_colony'                │ │
+│ │                   │   │   │   }                                          │ │
+│ │                   │   │   ],                                             │ │
+│ │                   │   │   'data': []                                     │ │
+│ │                   │   },                                                 │ │
+│ │                   │   'protocol': {                                      │ │
+│ │                   │   │   'steps': [                                     │ │
+│ │                   │   │   │   {                                          │ │
+│ │                   │   │   │   │   'id': 's1',                            │ │
+│ │                   │   │   │   │   'op': 'annotate',                      │ │
+│ │                   │   │   │   │   'inputs': [],                          │ │
+│ │                   │   │   │   │   'outputs': [],                         │ │
+│ │                   │   │   │   │   'params': {},                          │ │
+│ │                   │   │   │   │   'annotations': {                       │ │
+│ │                   │   │   │   │   │   'text': 'Cells were maintained in  │ │
+│ │                   StemFlex medium for another 5 days'                    │ │
+│ │                   │   │   │   │   }                                      │ │
+│ │                   │   │   │   },                                         │ │
+│ │                   │   │   │   {                                          │ │
+│ │                   │   │   │   │   'id': 's2',                            │ │
+│ │                   │   │   │   │   'op': 'pick_colony',                   │ │
+│ │                   │   │   │   │   'inputs': [                            │ │
+│ │                   │   │   │   │   │   {                                  │ │
+│ │                   │   │   │   │   │   │   'kind': 'sample',              │ │
+│ │                   │   │   │   │   │   │   'id': 'cell_colony'            │ │
+│ │                   │   │   │   │   │   }                                  │ │
+│ │                   │   │   │   │   ],                                     │ │
+│ │                   │   │   │   │   'outputs': [                           │ │
+│ │                   │   │   │   │   │   {                                  │ │
+│ │                   │   │   │   │   │   │   'kind': 'sample',              │ │
+│ │                   │   │   │   │   │   │   'id': 'picked_colony'          │ │
+│ │                   │   │   │   │   │   }                                  │ │
+│ │                   │   │   │   │   ],                                     │ │
+│ │                   │   │   │   │   'params': {},                          │ │
+│ │                   │   │   │   │   'annotations': {                       │ │
+│ │                   │   │   │   │   │   'text': 'individual colonies were  │ │
+│ │                   picked and maintained separately in a 24-well plate    │ │
+│ │                   coa'+20                                                │ │
+│ │                   │   │   │   │   }                                      │ │
+│ │                   │   │   │   }                                          │ │
+│ │                   │   │   ],                                             │ │
+│ │                   │   │   'start_step_id': 's1',                         │ │
+│ │                   │   │   'edges': [{'from': 's1', 'to': 's2'}],         │ │
+│ │                   │   │   'detail_level': 0                              │ │
+│ │                   │   }                                                  │ │
+│ │                   }                                                      │ │
+│ │      input_path = PosixPath('results_pilot_v4_qwen_fp8_hlcore/nat_sibli… │ │
+│ │     output_path = PosixPath('results_pilot_v4_qwen_fp8_hlcore/nat_sibli… │ │
+│ │ strict_lowering = True                                                   │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+│                                                                              │
+│ /users/hideto/Project/ENZYME/src/enzyme/lowering.py:314 in lower_to_core     │
+│                                                                              │
+│   311 │   │   else:                                                          │
+│   312 │   │   │   if strict and op not in CORE_OPS:                          │
+│   313 │   │   │   │   sid = step.get("id", "<unknown>")                      │
+│ ❱ 314 │   │   │   │   raise LoweringError(f"Unsupported op in strict lowerin │
+│   315 │   │   │   steps_out.append(deepcopy(step))                           │
+│   316 │   │   │   id_map[step_id] = [step_id]                                │
+│   317                                                                        │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │                core_ir = {                                               │ │
+│ │                          │   'schema_version': '0.4',                    │ │
+│ │                          │   'ir_kind': 'core',                          │ │
+│ │                          │   'metadata': {                               │ │
+│ │                          │   │   'title': 'Pick and expand               │ │
+│ │                          puromycin-resistant colonies',                  │ │
+│ │                          │   │   'source': {                             │ │
+│ │                          │   │   │   'type': 'paper',                    │ │
+│ │                          │   │   │   'id': 's41586-023-06564-w.pdf'      │ │
+│ │                          │   │   }                                       │ │
+│ │                          │   },                                          │ │
+│ │                          │   'resources': {                              │ │
+│ │                          │   │   'materials': [],                        │ │
+│ │                          │   │   'containers': [],                       │ │
+│ │                          │   │   'equipment': [],                        │ │
+│ │                          │   │   'samples': [                            │ │
+│ │                          │   │   │   {                                   │ │
+│ │                          │   │   │   │   'id': 'cell_colony',            │ │
+│ │                          │   │   │   │   'name': 'cell_colony'           │ │
+│ │                          │   │   │   },                                  │ │
+│ │                          │   │   │   {                                   │ │
+│ │                          │   │   │   │   'id': 'picked_colony',          │ │
+│ │                          │   │   │   │   'name': 'picked_colony'         │ │
+│ │                          │   │   │   }                                   │ │
+│ │                          │   │   ],                                      │ │
+│ │                          │   │   'data': []                              │ │
+│ │                          │   },                                          │ │
+│ │                          │   'protocol': {                               │ │
+│ │                          │   │   'steps': [                              │ │
+│ │                          │   │   │   {                                   │ │
+│ │                          │   │   │   │   'id': 's1',                     │ │
+│ │                          │   │   │   │   'op': 'annotate',               │ │
+│ │                          │   │   │   │   'inputs': [],                   │ │
+│ │                          │   │   │   │   'outputs': [],                  │ │
+│ │                          │   │   │   │   'params': {},                   │ │
+│ │                          │   │   │   │   'annotations': {                │ │
+│ │                          │   │   │   │   │   'text': 'Cells were         │ │
+│ │                          maintained in StemFlex medium for another 5     │ │
+│ │                          days'                                           │ │
+│ │                          │   │   │   │   }                               │ │
+│ │                          │   │   │   },                                  │ │
+│ │                          │   │   │   {                                   │ │
+│ │                          │   │   │   │   'id': 's2',                     │ │
+│ │                          │   │   │   │   'op': 'pick_colony',            │ │
+│ │                          │   │   │   │   'inputs': [                     │ │
+│ │                          │   │   │   │   │   {                           │ │
+│ │                          │   │   │   │   │   │   'kind': 'sample',       │ │
+│ │                          │   │   │   │   │   │   'id': 'cell_colony'     │ │
+│ │                          │   │   │   │   │   }                           │ │
+│ │                          │   │   │   │   ],                              │ │
+│ │                          │   │   │   │   'outputs': [                    │ │
+│ │                          │   │   │   │   │   {                           │ │
+│ │                          │   │   │   │   │   │   'kind': 'sample',       │ │
+│ │                          │   │   │   │   │   │   'id': 'picked_colony'   │ │
+│ │                          │   │   │   │   │   }                           │ │
+│ │                          │   │   │   │   ],                              │ │
+│ │                          │   │   │   │   'params': {},                   │ │
+│ │                          │   │   │   │   'annotations': {                │ │
+│ │                          │   │   │   │   │   'text': 'individual         │ │
+│ │                          colonies were picked and maintained separately  │ │
+│ │                          in a 24-well plate coa'+20                      │ │
+│ │                          │   │   │   │   }                               │ │
+│ │                          │   │   │   }                                   │ │
+│ │                          │   │   ],                                      │ │
+│ │                          │   │   'start_step_id': 's1',                  │ │
+│ │                          │   │   'edges': [{'from': 's1', 'to': 's2'}],  │ │
+│ │                          │   │   'detail_level': 0                       │ │
+│ │                          │   }                                           │ │
+│ │                          }                                               │ │
+│ │              edges_out = []                                              │ │
+│ │                  hl_ir = {                                               │ │
+│ │                          │   'schema_version': '0.4',                    │ │
+│ │                          │   'ir_kind': 'hl',                            │ │
+│ │                          │   'metadata': {                               │ │
+│ │                          │   │   'title': 'Pick and expand               │ │
+│ │                          puromycin-resistant colonies',                  │ │
+│ │                          │   │   'source': {                             │ │
+│ │                          │   │   │   'type': 'paper',                    │ │
+│ │                          │   │   │   'id': 's41586-023-06564-w.pdf'      │ │
+│ │                          │   │   }                                       │ │
+│ │                          │   },                                          │ │
+│ │                          │   'resources': {                              │ │
+│ │                          │   │   'materials': [],                        │ │
+│ │                          │   │   'containers': [],                       │ │
+│ │                          │   │   'equipment': [],                        │ │
+│ │                          │   │   'samples': [                            │ │
+│ │                          │   │   │   {                                   │ │
+│ │                          │   │   │   │   'id': 'cell_colony',            │ │
+│ │                          │   │   │   │   'name': 'cell_colony'           │ │
+│ │                          │   │   │   },                                  │ │
+│ │                          │   │   │   {                                   │ │
+│ │                          │   │   │   │   'id': 'picked_colony',          │ │
+│ │                          │   │   │   │   'name': 'picked_colony'         │ │
+│ │                          │   │   │   }                                   │ │
+│ │                          │   │   ],                                      │ │
+│ │                          │   │   'data': []                              │ │
+│ │                          │   },                                          │ │
+│ │                          │   'protocol': {                               │ │
+│ │                          │   │   'steps': [                              │ │
+│ │                          │   │   │   {                                   │ │
+│ │                          │   │   │   │   'id': 's1',                     │ │
+│ │                          │   │   │   │   'op': 'annotate',               │ │
+│ │                          │   │   │   │   'inputs': [],                   │ │
+│ │                          │   │   │   │   'outputs': [],                  │ │
+│ │                          │   │   │   │   'params': {},                   │ │
+│ │                          │   │   │   │   'annotations': {                │ │
+│ │                          │   │   │   │   │   'text': 'Cells were         │ │
+│ │                          maintained in StemFlex medium for another 5     │ │
+│ │                          days'                                           │ │
+│ │                          │   │   │   │   }                               │ │
+│ │                          │   │   │   },                                  │ │
+│ │                          │   │   │   {                                   │ │
+│ │                          │   │   │   │   'id': 's2',                     │ │
+│ │                          │   │   │   │   'op': 'pick_colony',            │ │
+│ │                          │   │   │   │   'inputs': [                     │ │
+│ │                          │   │   │   │   │   {                           │ │
+│ │                          │   │   │   │   │   │   'kind': 'sample',       │ │
+│ │                          │   │   │   │   │   │   'id': 'cell_colony'     │ │
+│ │                          │   │   │   │   │   }                           │ │
+│ │                          │   │   │   │   ],                              │ │
+│ │                          │   │   │   │   'outputs': [                    │ │
+│ │                          │   │   │   │   │   {                           │ │
+│ │                          │   │   │   │   │   │   'kind': 'sample',       │ │
+│ │                          │   │   │   │   │   │   'id': 'picked_colony'   │ │
+│ │                          │   │   │   │   │   }                           │ │
+│ │                          │   │   │   │   ],                              │ │
+│ │                          │   │   │   │   'params': {},                   │ │
+│ │                          │   │   │   │   'annotations': {                │ │
+│ │                          │   │   │   │   │   'text': 'individual         │ │
+│ │                          colonies were picked and maintained separately  │ │
+│ │                          in a 24-well plate coa'+20                      │ │
+│ │                          │   │   │   │   }                               │ │
+│ │                          │   │   │   }                                   │ │
+│ │                          │   │   ],                                      │ │
+│ │                          │   │   'start_step_id': 's1',                  │ │
+│ │                          │   │   'edges': [{'from': 's1', 'to': 's2'}],  │ │
+│ │                          │   │   'detail_level': 0                       │ │
+│ │                          │   }                                           │ │
+│ │                          }                                               │ │
+│ │                 id_map = {'s1': ['s1']}                                  │ │
+│ │            macro_rules = None                                            │ │
+│ │ measure_internal_edges = {}                                              │ │
+│ │       normalized_steps = [                                               │ │
+│ │                          │   {                                           │ │
+│ │                          │   │   'id': 's1',                             │ │
+│ │                          │   │   'op': 'annotate',                       │ │
+│ │                          │   │   'inputs': [],                           │ │
+│ │                          │   │   'outputs': [],                          │ │
+│ │                          │   │   'params': {},                           │ │
+│ │                          │   │   'annotations': {                        │ │
+│ │                          │   │   │   'text': 'Cells were maintained in   │ │
+│ │                          StemFlex medium for another 5 days'             │ │
+│ │                          │   │   }                                       │ │
+│ │                          │   },                                          │ │
+│ │                          │   {                                           │ │
+│ │                          │   │   'id': 's2',                             │ │
+│ │                          │   │   'op': 'pick_colony',                    │ │
+│ │                          │   │   'inputs': [                             │ │
+│ │                          │   │   │   {                                   │ │
+│ │                          │   │   │   │   'kind': 'sample',               │ │
+│ │                          │   │   │   │   'id': 'cell_colony'             │ │
+│ │                          │   │   │   }                                   │ │
+│ │                          │   │   ],                                      │ │
+│ │                          │   │   'outputs': [                            │ │
+│ │                          │   │   │   {                                   │ │
+│ │                          │   │   │   │   'kind': 'sample',               │ │
+│ │                          │   │   │   │   'id': 'picked_colony'           │ │
+│ │                          │   │   │   }                                   │ │
+│ │                          │   │   ],                                      │ │
+│ │                          │   │   'params': {},                           │ │
+│ │                          │   │   'annotations': {                        │ │
+│ │                          │   │   │   'text': 'individual colonies were   │ │
+│ │                          picked and maintained separately in a 24-well   │ │
+│ │                          plate coa'+20                                   │ │
+│ │                          │   │   }                                       │ │
+│ │                          │   }                                           │ │
+│ │                          ]                                               │ │
+│ │                     op = 'pick_colony'                                   │ │
+│ │                  rules = {                                               │ │
+│ │                          │   'thermocycle': RunDeviceMacroRule(          │ │
+│ │                          │   │   device_kind='thermocycler',             │ │
+│ │                          │   │   primary_program_keys=(                  │ │
+│ │                          │   │   │   'profile_name',                     │ │
+│ │                          │   │   ),                                      │ │
+│ │                          │   │   ensure_outputs=False                    │ │
+│ │                          │   ),                                          │ │
+│ │                          │   'incubate': RunDeviceMacroRule(             │ │
+│ │                          │   │   device_kind='incubator',                │ │
+│ │                          │   │   primary_program_keys=(                  │ │
+│ │                          │   │   │   'program_name',                     │ │
+│ │                          │   │   ),                                      │ │
+│ │                          │   │   ensure_outputs=True                     │ │
+│ │                          │   ),                                          │ │
+│ │                          │   'centrifuge': RunDeviceMacroRule(           │ │
+│ │                          │   │   device_kind='centrifuge',               │ │
+│ │                          │   │   primary_program_keys=(                  │ │
+│ │                          │   │   │   'program_name',                     │ │
+│ │                          │   │   ),                                      │ │
+│ │                          │   │   ensure_outputs=True                     │ │
+│ │                          │   )                                           │ │
+│ │                          }                                               │ │
+│ │                    sid = 's2'                                            │ │
+│ │           source_steps = [                                               │ │
+│ │                          │   {                                           │ │
+│ │                          │   │   'id': 's1',                             │ │
+│ │                          │   │   'op': 'annotate',                       │ │
+│ │                          │   │   'inputs': [],                           │ │
+│ │                          │   │   'outputs': [],                          │ │
+│ │                          │   │   'params': {},                           │ │
+│ │                          │   │   'annotations': {                        │ │
+│ │                          │   │   │   'text': 'Cells were maintained in   │ │
+│ │                          StemFlex medium for another 5 days'             │ │
+│ │                          │   │   }                                       │ │
+│ │                          │   },                                          │ │
+│ │                          │   {                                           │ │
+│ │                          │   │   'id': 's2',                             │ │
+│ │                          │   │   'op': 'pick_colony',                    │ │
+│ │                          │   │   'inputs': [                             │ │
+│ │                          │   │   │   {                                   │ │
+│ │                          │   │   │   │   'kind': 'sample',               │ │
+│ │                          │   │   │   │   'id': 'cell_colony'             │ │
+│ │                          │   │   │   }                                   │ │
+│ │                          │   │   ],                                      │ │
+│ │                          │   │   'outputs': [                            │ │
+│ │                          │   │   │   {                                   │ │
+│ │                          │   │   │   │   'kind': 'sample',               │ │
+│ │                          │   │   │   │   'id': 'picked_colony'           │ │
+│ │                          │   │   │   }                                   │ │
+│ │                          │   │   ],                                      │ │
+│ │                          │   │   'params': {},                           │ │
+│ │                          │   │   'annotations': {                        │ │
+│ │                          │   │   │   'text': 'individual colonies were   │ │
+│ │                          picked and maintained separately in a 24-well   │ │
+│ │                          plate coa'+20                                   │ │
+│ │                          │   │   }                                       │ │
+│ │                          │   }                                           │ │
+│ │                          ]                                               │ │
+│ │                   step = {                                               │ │
+│ │                          │   'id': 's2',                                 │ │
+│ │                          │   'op': 'pick_colony',                        │ │
+│ │                          │   'inputs': [                                 │ │
+│ │                          │   │   {                                       │ │
+│ │                          │   │   │   'kind': 'sample',                   │ │
+│ │                          │   │   │   'id': 'cell_colony'                 │ │
+│ │                          │   │   }                                       │ │
+│ │                          │   ],                                          │ │
+│ │                          │   'outputs': [                                │ │
+│ │                          │   │   {                                       │ │
+│ │                          │   │   │   'kind': 'sample',                   │ │
+│ │                          │   │   │   'id': 'picked_colony'               │ │
+│ │                          │   │   }                                       │ │
+│ │                          │   ],                                          │ │
+│ │                          │   'params': {},                               │ │
+│ │                          │   'annotations': {                            │ │
+│ │                          │   │   'text': 'individual colonies were       │ │
+│ │                          picked and maintained separately in a 24-well   │ │
+│ │                          plate coa'+20                                   │ │
+│ │                          │   }                                           │ │
+│ │                          }                                               │ │
+│ │                step_id = 's2'                                            │ │
+│ │              steps_out = [                                               │ │
+│ │                          │   {                                           │ │
+│ │                          │   │   'id': 's1',                             │ │
+│ │                          │   │   'op': 'annotate',                       │ │
+│ │                          │   │   'inputs': [],                           │ │
+│ │                          │   │   'outputs': [],                          │ │
+│ │                          │   │   'params': {},                           │ │
+│ │                          │   │   'annotations': {                        │ │
+│ │                          │   │   │   'text': 'Cells were maintained in   │ │
+│ │                          StemFlex medium for another 5 days'             │ │
+│ │                          │   │   }                                       │ │
+│ │                          │   }                                           │ │
+│ │                          ]                                               │ │
+│ │                 strict = True                                            │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+╰──────────────────────────────────────────────────────────────────────────────╯
+LoweringError: Unsupported op in strict lowering: pick_colony (step s2)
+[2026-02-16T13:00:50.263299+00:00] stderr: ╭───────────────────── Traceback (most recent call last) ──────────────────────╮
+│ /users/hideto/Project/ENZYME/src/enzyme/cli.py:58 in compile_cmd             │
+│                                                                              │
+│    55 │   ),                                                                 │
+│    56 ) -> None:                                                             │
+│    57 │   hl_ir = io.load_json(input_path)                                   │
+│ ❱  58 │   core_ir = lower_to_core(hl_ir, strict=strict_lowering)             │
+│    59 │   io.write_json(output_path, core_ir)                                │
+│    60 │   console.print(f"Compiled Core-IR to {output_path}")                │
+│    61                                                                        │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │           hl_ir = {                                                      │ │
+│ │                   │   'schema_version': '0.4',                           │ │
+│ │                   │   'ir_kind': 'hl',                                   │ │
+│ │                   │   'metadata': {                                      │ │
+│ │                   │   │   'title': 'Pick and expand puromycin-resistant  │ │
+│ │                   colonies',                                             │ │
+│ │                   │   │   'source': {                                    │ │
+│ │                   │   │   │   'type': 'paper',                           │ │
+│ │                   │   │   │   'id': 's41586-023-06564-w.pdf'             │ │
+│ │                   │   │   }                                              │ │
+│ │                   │   },                                                 │ │
+│ │                   │   'resources': {                                     │ │
+│ │                   │   │   'materials': [],                               │ │
+│ │                   │   │   'containers': [],                              │ │
+│ │                   │   │   'equipment': [],                               │ │
+│ │                   │   │   'samples': [                                   │ │
+│ │                   │   │   │   {                                          │ │
+│ │                   │   │   │   │   'id': 'colony_sample',                 │ │
+│ │                   │   │   │   │   'name': 'colony_sample'                │ │
+│ │                   │   │   │   },                                         │ │
+│ │                   │   │   │   {                                          │ │
+│ │                   │   │   │   │   'id': 'picked_colony',                 │ │
+│ │                   │   │   │   │   'name': 'picked_colony'                │ │
+│ │                   │   │   │   }                                          │ │
+│ │                   │   │   ],                                             │ │
+│ │                   │   │   'data': []                                     │ │
+│ │                   │   },                                                 │ │
+│ │                   │   'protocol': {                                      │ │
+│ │                   │   │   'steps': [                                     │ │
+│ │                   │   │   │   {                                          │ │
+│ │                   │   │   │   │   'id': 's1',                            │ │
+│ │                   │   │   │   │   'op': 'annotate',                      │ │
+│ │                   │   │   │   │   'inputs': [],                          │ │
+│ │                   │   │   │   │   'outputs': [],                         │ │
+│ │                   │   │   │   │   'params': {},                          │ │
+│ │                   │   │   │   │   'annotations': {                       │ │
+│ │                   │   │   │   │   │   'text': 'Cells were maintained in  │ │
+│ │                   StemFlex medium for another 5 days'                    │ │
+│ │                   │   │   │   │   }                                      │ │
+│ │                   │   │   │   },                                         │ │
+│ │                   │   │   │   {                                          │ │
+│ │                   │   │   │   │   'id': 's2',                            │ │
+│ │                   │   │   │   │   'op': 'pick_colony',                   │ │
+│ │                   │   │   │   │   'inputs': [                            │ │
+│ │                   │   │   │   │   │   {                                  │ │
+│ │                   │   │   │   │   │   │   'kind': 'sample',              │ │
+│ │                   │   │   │   │   │   │   'id': 'colony_sample'          │ │
+│ │                   │   │   │   │   │   }                                  │ │
+│ │                   │   │   │   │   ],                                     │ │
+│ │                   │   │   │   │   'outputs': [                           │ │
+│ │                   │   │   │   │   │   {                                  │ │
+│ │                   │   │   │   │   │   │   'kind': 'sample',              │ │
+│ │                   │   │   │   │   │   │   'id': 'picked_colony'          │ │
+│ │                   │   │   │   │   │   }                                  │ │
+│ │                   │   │   │   │   ],                                     │ │
+│ │                   │   │   │   │   'params': {},                          │ │
+│ │                   │   │   │   │   'annotations': {                       │ │
+│ │                   │   │   │   │   │   'text': 'individual colonies were  │ │
+│ │                   picked and maintained separately in a 24-well plate    │ │
+│ │                   coa'+20                                                │ │
+│ │                   │   │   │   │   }                                      │ │
+│ │                   │   │   │   }                                          │ │
+│ │                   │   │   ],                                             │ │
+│ │                   │   │   'start_step_id': 's1',                         │ │
+│ │                   │   │   'edges': [{'from': 's1', 'to': 's2'}],         │ │
+│ │                   │   │   'detail_level': 0                              │ │
+│ │                   │   }                                                  │ │
+│ │                   }                                                      │ │
+│ │      input_path = PosixPath('results_pilot_v4_qwen_fp8_hlcore/nat_sibli… │ │
+│ │     output_path = PosixPath('results_pilot_v4_qwen_fp8_hlcore/nat_sibli… │ │
+│ │ strict_lowering = True                                                   │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+│                                                                              │
+│ /users/hideto/Project/ENZYME/src/enzyme/lowering.py:314 in lower_to_core     │
+│                                                                              │
+│   311 │   │   else:                                                          │
+│   312 │   │   │   if strict and op not in CORE_OPS:                          │
+│   313 │   │   │   │   sid = step.get("id", "<unknown>")                      │
+│ ❱ 314 │   │   │   │   raise LoweringError(f"Unsupported op in strict lowerin │
+│   315 │   │   │   steps_out.append(deepcopy(step))                           │
+│   316 │   │   │   id_map[step_id] = [step_id]                                │
+│   317                                                                        │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │                core_ir = {                                               │ │
+│ │                          │   'schema_version': '0.4',                    │ │
+│ │                          │   'ir_kind': 'core',                          │ │
+│ │                          │   'metadata': {                               │ │
+│ │                          │   │   'title': 'Pick and expand               │ │
+│ │                          puromycin-resistant colonies',                  │ │
+│ │                          │   │   'source': {                             │ │
+│ │                          │   │   │   'type': 'paper',                    │ │
+│ │                          │   │   │   'id': 's41586-023-06564-w.pdf'      │ │
+│ │                          │   │   }                                       │ │
+│ │                          │   },                                          │ │
+│ │                          │   'resources': {                              │ │
+│ │                          │   │   'materials': [],                        │ │
+│ │                          │   │   'containers': [],                       │ │
+│ │                          │   │   'equipment': [],                        │ │
+│ │                          │   │   'samples': [                            │ │
+│ │                          │   │   │   {                                   │ │
+│ │                          │   │   │   │   'id': 'colony_sample',          │ │
+│ │                          │   │   │   │   'name': 'colony_sample'         │ │
+│ │                          │   │   │   },                                  │ │
+│ │                          │   │   │   {                                   │ │
+│ │                          │   │   │   │   'id': 'picked_colony',          │ │
+│ │                          │   │   │   │   'name': 'picked_colony'         │ │
+│ │                          │   │   │   }                                   │ │
+│ │                          │   │   ],                                      │ │
+│ │                          │   │   'data': []                              │ │
+│ │                          │   },                                          │ │
+│ │                          │   'protocol': {                               │ │
+│ │                          │   │   'steps': [                              │ │
+│ │                          │   │   │   {                                   │ │
+│ │                          │   │   │   │   'id': 's1',                     │ │
+│ │                          │   │   │   │   'op': 'annotate',               │ │
+│ │                          │   │   │   │   'inputs': [],                   │ │
+│ │                          │   │   │   │   'outputs': [],                  │ │
+│ │                          │   │   │   │   'params': {},                   │ │
+│ │                          │   │   │   │   'annotations': {                │ │
+│ │                          │   │   │   │   │   'text': 'Cells were         │ │
+│ │                          maintained in StemFlex medium for another 5     │ │
+│ │                          days'                                           │ │
+│ │                          │   │   │   │   }                               │ │
+│ │                          │   │   │   },                                  │ │
+│ │                          │   │   │   {                                   │ │
+│ │                          │   │   │   │   'id': 's2',                     │ │
+│ │                          │   │   │   │   'op': 'pick_colony',            │ │
+│ │                          │   │   │   │   'inputs': [                     │ │
+│ │                          │   │   │   │   │   {                           │ │
+│ │                          │   │   │   │   │   │   'kind': 'sample',       │ │
+│ │                          │   │   │   │   │   │   'id': 'colony_sample'   │ │
+│ │                          │   │   │   │   │   }                           │ │
+│ │                          │   │   │   │   ],                              │ │
+│ │                          │   │   │   │   'outputs': [                    │ │
+│ │                          │   │   │   │   │   {                           │ │
+│ │                          │   │   │   │   │   │   'kind': 'sample',       │ │
+│ │                          │   │   │   │   │   │   'id': 'picked_colony'   │ │
+│ │                          │   │   │   │   │   }                           │ │
+│ │                          │   │   │   │   ],                              │ │
+│ │                          │   │   │   │   'params': {},                   │ │
+│ │                          │   │   │   │   'annotations': {                │ │
+│ │                          │   │   │   │   │   'text': 'individual         │ │
+│ │                          colonies were picked and maintained separately  │ │
+│ │                          in a 24-well plate coa'+20                      │ │
+│ │                          │   │   │   │   }                               │ │
+│ │                          │   │   │   }                                   │ │
+│ │                          │   │   ],                                      │ │
+│ │                          │   │   'start_step_id': 's1',                  │ │
+│ │                          │   │   'edges': [{'from': 's1', 'to': 's2'}],  │ │
+│ │                          │   │   'detail_level': 0                       │ │
+│ │                          │   }                                           │ │
+│ │                          }                                               │ │
+│ │              edges_out = []                                              │ │
+│ │                  hl_ir = {                                               │ │
+│ │                          │   'schema_version': '0.4',                    │ │
+│ │                          │   'ir_kind': 'hl',                            │ │
+│ │                          │   'metadata': {                               │ │
+│ │                          │   │   'title': 'Pick and expand               │ │
+│ │                          puromycin-resistant colonies',                  │ │
+│ │                          │   │   'source': {                             │ │
+│ │                          │   │   │   'type': 'paper',                    │ │
+│ │                          │   │   │   'id': 's41586-023-06564-w.pdf'      │ │
+│ │                          │   │   }                                       │ │
+│ │                          │   },                                          │ │
+│ │                          │   'resources': {                              │ │
+│ │                          │   │   'materials': [],                        │ │
+│ │                          │   │   'containers': [],                       │ │
+│ │                          │   │   'equipment': [],                        │ │
+│ │                          │   │   'samples': [                            │ │
+│ │                          │   │   │   {                                   │ │
+│ │                          │   │   │   │   'id': 'colony_sample',          │ │
+│ │                          │   │   │   │   'name': 'colony_sample'         │ │
+│ │                          │   │   │   },                                  │ │
+│ │                          │   │   │   {                                   │ │
+│ │                          │   │   │   │   'id': 'picked_colony',          │ │
+│ │                          │   │   │   │   'name': 'picked_colony'         │ │
+│ │                          │   │   │   }                                   │ │
+│ │                          │   │   ],                                      │ │
+│ │                          │   │   'data': []                              │ │
+│ │                          │   },                                          │ │
+│ │                          │   'protocol': {                               │ │
+│ │                          │   │   'steps': [                              │ │
+│ │                          │   │   │   {                                   │ │
+│ │                          │   │   │   │   'id': 's1',                     │ │
+│ │                          │   │   │   │   'op': 'annotate',               │ │
+│ │                          │   │   │   │   'inputs': [],                   │ │
+│ │                          │   │   │   │   'outputs': [],                  │ │
+│ │                          │   │   │   │   'params': {},                   │ │
+│ │                          │   │   │   │   'annotations': {                │ │
+│ │                          │   │   │   │   │   'text': 'Cells were         │ │
+│ │                          maintained in StemFlex medium for another 5     │ │
+│ │                          days'                                           │ │
+│ │                          │   │   │   │   }                               │ │
+│ │                          │   │   │   },                                  │ │
+│ │                          │   │   │   {                                   │ │
+│ │                          │   │   │   │   'id': 's2',                     │ │
+│ │                          │   │   │   │   'op': 'pick_colony',            │ │
+│ │                          │   │   │   │   'inputs': [                     │ │
+│ │                          │   │   │   │   │   {                           │ │
+│ │                          │   │   │   │   │   │   'kind': 'sample',       │ │
+│ │                          │   │   │   │   │   │   'id': 'colony_sample'   │ │
+│ │                          │   │   │   │   │   }                           │ │
+│ │                          │   │   │   │   ],                              │ │
+│ │                          │   │   │   │   'outputs': [                    │ │
+│ │                          │   │   │   │   │   {                           │ │
+│ │                          │   │   │   │   │   │   'kind': 'sample',       │ │
+│ │                          │   │   │   │   │   │   'id': 'picked_colony'   │ │
+│ │                          │   │   │   │   │   }                           │ │
+│ │                          │   │   │   │   ],                              │ │
+│ │                          │   │   │   │   'params': {},                   │ │
+│ │                          │   │   │   │   'annotations': {                │ │
+│ │                          │   │   │   │   │   'text': 'individual         │ │
+│ │                          colonies were picked and maintained separately  │ │
+│ │                          in a 24-well plate coa'+20                      │ │
+│ │                          │   │   │   │   }                               │ │
+│ │                          │   │   │   }                                   │ │
+│ │                          │   │   ],                                      │ │
+│ │                          │   │   'start_step_id': 's1',                  │ │
+│ │                          │   │   'edges': [{'from': 's1', 'to': 's2'}],  │ │
+│ │                          │   │   'detail_level': 0                       │ │
+│ │                          │   }                                           │ │
+│ │                          }                                               │ │
+│ │                 id_map = {'s1': ['s1']}                                  │ │
+│ │            macro_rules = None                                            │ │
+│ │ measure_internal_edges = {}                                              │ │
+│ │       normalized_steps = [                                               │ │
+│ │                          │   {                                           │ │
+│ │                          │   │   'id': 's1',                             │ │
+│ │                          │   │   'op': 'annotate',                       │ │
+│ │                          │   │   'inputs': [],                           │ │
+│ │                          │   │   'outputs': [],                          │ │
+│ │                          │   │   'params': {},                           │ │
+│ │                          │   │   'annotations': {                        │ │
+│ │                          │   │   │   'text': 'Cells were maintained in   │ │
+│ │                          StemFlex medium for another 5 days'             │ │
+│ │                          │   │   }                                       │ │
+│ │                          │   },                                          │ │
+│ │                          │   {                                           │ │
+│ │                          │   │   'id': 's2',                             │ │
+│ │                          │   │   'op': 'pick_colony',                    │ │
+│ │                          │   │   'inputs': [                             │ │
+│ │                          │   │   │   {                                   │ │
+│ │                          │   │   │   │   'kind': 'sample',               │ │
+│ │                          │   │   │   │   'id': 'colony_sample'           │ │
+│ │                          │   │   │   }                                   │ │
+│ │                          │   │   ],                                      │ │
+│ │                          │   │   'outputs': [                            │ │
+│ │                          │   │   │   {                                   │ │
+│ │                          │   │   │   │   'kind': 'sample',               │ │
+│ │                          │   │   │   │   'id': 'picked_colony'           │ │
+│ │                          │   │   │   }                                   │ │
+│ │                          │   │   ],                                      │ │
+│ │                          │   │   'params': {},                           │ │
+│ │                          │   │   'annotations': {                        │ │
+│ │                          │   │   │   'text': 'individual colonies were   │ │
+│ │                          picked and maintained separately in a 24-well   │ │
+│ │                          plate coa'+20                                   │ │
+│ │                          │   │   }                                       │ │
+│ │                          │   }                                           │ │
+│ │                          ]                                               │ │
+│ │                     op = 'pick_colony'                                   │ │
+│ │                  rules = {                                               │ │
+│ │                          │   'thermocycle': RunDeviceMacroRule(          │ │
+│ │                          │   │   device_kind='thermocycler',             │ │
+│ │                          │   │   primary_program_keys=(                  │ │
+│ │                          │   │   │   'profile_name',                     │ │
+│ │                          │   │   ),                                      │ │
+│ │                          │   │   ensure_outputs=False                    │ │
+│ │                          │   ),                                          │ │
+│ │                          │   'incubate': RunDeviceMacroRule(             │ │
+│ │                          │   │   device_kind='incubator',                │ │
+│ │                          │   │   primary_program_keys=(                  │ │
+│ │                          │   │   │   'program_name',                     │ │
+│ │                          │   │   ),                                      │ │
+│ │                          │   │   ensure_outputs=True                     │ │
+│ │                          │   ),                                          │ │
+│ │                          │   'centrifuge': RunDeviceMacroRule(           │ │
+│ │                          │   │   device_kind='centrifuge',               │ │
+│ │                          │   │   primary_program_keys=(                  │ │
+│ │                          │   │   │   'program_name',                     │ │
+│ │                          │   │   ),                                      │ │
+│ │                          │   │   ensure_outputs=True                     │ │
+│ │                          │   )                                           │ │
+│ │                          }                                               │ │
+│ │                    sid = 's2'                                            │ │
+│ │           source_steps = [                                               │ │
+│ │                          │   {                                           │ │
+│ │                          │   │   'id': 's1',                             │ │
+│ │                          │   │   'op': 'annotate',                       │ │
+│ │                          │   │   'inputs': [],                           │ │
+│ │                          │   │   'outputs': [],                          │ │
+│ │                          │   │   'params': {},                           │ │
+│ │                          │   │   'annotations': {                        │ │
+│ │                          │   │   │   'text': 'Cells were maintained in   │ │
+│ │                          StemFlex medium for another 5 days'             │ │
+│ │                          │   │   }                                       │ │
+│ │                          │   },                                          │ │
+│ │                          │   {                                           │ │
+│ │                          │   │   'id': 's2',                             │ │
+│ │                          │   │   'op': 'pick_colony',                    │ │
+│ │                          │   │   'inputs': [                             │ │
+│ │                          │   │   │   {                                   │ │
+│ │                          │   │   │   │   'kind': 'sample',               │ │
+│ │                          │   │   │   │   'id': 'colony_sample'           │ │
+│ │                          │   │   │   }                                   │ │
+│ │                          │   │   ],                                      │ │
+│ │                          │   │   'outputs': [                            │ │
+│ │                          │   │   │   {                                   │ │
+│ │                          │   │   │   │   'kind': 'sample',               │ │
+│ │                          │   │   │   │   'id': 'picked_colony'           │ │
+│ │                          │   │   │   }                                   │ │
+│ │                          │   │   ],                                      │ │
+│ │                          │   │   'params': {},                           │ │
+│ │                          │   │   'annotations': {                        │ │
+│ │                          │   │   │   'text': 'individual colonies were   │ │
+│ │                          picked and maintained separately in a 24-well   │ │
+│ │                          plate coa'+20                                   │ │
+│ │                          │   │   }                                       │ │
+│ │                          │   }                                           │ │
+│ │                          ]                                               │ │
+│ │                   step = {                                               │ │
+│ │                          │   'id': 's2',                                 │ │
+│ │                          │   'op': 'pick_colony',                        │ │
+│ │                          │   'inputs': [                                 │ │
+│ │                          │   │   {                                       │ │
+│ │                          │   │   │   'kind': 'sample',                   │ │
+│ │                          │   │   │   'id': 'colony_sample'               │ │
+│ │                          │   │   }                                       │ │
+│ │                          │   ],                                          │ │
+│ │                          │   'outputs': [                                │ │
+│ │                          │   │   {                                       │ │
+│ │                          │   │   │   'kind': 'sample',                   │ │
+│ │                          │   │   │   'id': 'picked_colony'               │ │
+│ │                          │   │   }                                       │ │
+│ │                          │   ],                                          │ │
+│ │                          │   'params': {},                               │ │
+│ │                          │   'annotations': {                            │ │
+│ │                          │   │   'text': 'individual colonies were       │ │
+│ │                          picked and maintained separately in a 24-well   │ │
+│ │                          plate coa'+20                                   │ │
+│ │                          │   }                                           │ │
+│ │                          }                                               │ │
+│ │                step_id = 's2'                                            │ │
+│ │              steps_out = [                                               │ │
+│ │                          │   {                                           │ │
+│ │                          │   │   'id': 's1',                             │ │
+│ │                          │   │   'op': 'annotate',                       │ │
+│ │                          │   │   'inputs': [],                           │ │
+│ │                          │   │   'outputs': [],                          │ │
+│ │                          │   │   'params': {},                           │ │
+│ │                          │   │   'annotations': {                        │ │
+│ │                          │   │   │   'text': 'Cells were maintained in   │ │
+│ │                          StemFlex medium for another 5 days'             │ │
+│ │                          │   │   }                                       │ │
+│ │                          │   }                                           │ │
+│ │                          ]                                               │ │
+│ │                 strict = True                                            │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+╰──────────────────────────────────────────────────────────────────────────────╯
+LoweringError: Unsupported op in strict lowering: pick_colony (step s2)

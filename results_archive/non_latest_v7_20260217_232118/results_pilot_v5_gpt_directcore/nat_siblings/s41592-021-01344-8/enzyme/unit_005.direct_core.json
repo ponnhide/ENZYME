@@ -1,0 +1,112 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Introduce iTracer via electroporation",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41592-021-01344-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "type": "dna",
+        "name": "iTracer construct"
+      },
+      {
+        "id": "m2",
+        "type": "cell_line",
+        "name": "iPSCs with doxycycline-inducible Cas9 cassette (iCRISPR)"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "dna_delivery_device",
+        "name": "electroporator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_iTracer",
+        "name": "sample_iTracer"
+      },
+      {
+        "id": "sample_iPSC",
+        "name": "sample_iPSC"
+      },
+      {
+        "id": "sample_iPSC_electroporated",
+        "name": "sample_iPSC_electroporated"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "material_ref": "m1"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_iTracer"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "material_ref": "m2"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_iPSC"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "electroporation"
+          }
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_iPSC_electroporated"
+          }
+        ],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s3"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

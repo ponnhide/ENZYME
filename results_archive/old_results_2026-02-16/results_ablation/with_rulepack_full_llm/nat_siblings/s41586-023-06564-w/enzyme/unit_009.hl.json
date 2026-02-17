@@ -1,0 +1,164 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Live‑cell imaging of Dlxi1/2b::eGFP+ cell migration",
+    "source": {
+      "type": "paper",
+      "id": "s41586-023-06564-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "hFA",
+        "description": "human fetal astrocytes"
+      },
+      {
+        "id": "m2",
+        "name": "neural medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "96-well plate",
+        "description": "clear bottom (ibidi, catalogue no. 89626)",
+        "type": "plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "incubator",
+        "device_kind": "incubator"
+      },
+      {
+        "id": "e2",
+        "name": "microscope",
+        "device_kind": "imager"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_hfa",
+        "name": "hFA stock"
+      },
+      {
+        "id": "s_well",
+        "name": "hFA in well"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "name": "time‑lapse images"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_hfa"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_well"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 500,
+            "unit": "µl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_well"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_well"
+          }
+        ],
+        "params": {
+          "temperature": {
+            "value": 37,
+            "unit": "°C"
+          },
+          "CO2": {
+            "value": 5,
+            "unit": "%"
+          },
+          "duration": "30–60 min"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_well"
+          },
+          {
+            "kind": "equipment",
+            "id": "e2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d1"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "program": "time‑lapse imaging",
+          "objective": "×10",
+          "depth": "50–150 µm",
+          "frame_interval": "20 min per frame",
+          "total_duration": "18–22 h"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

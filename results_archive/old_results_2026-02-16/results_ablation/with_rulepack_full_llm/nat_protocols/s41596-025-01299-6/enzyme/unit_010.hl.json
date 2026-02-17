@@ -1,0 +1,112 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Validation of KO efficiency",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01299-6"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "gDNA_sample",
+        "type": "genomic_DNA"
+      },
+      {
+        "id": "pcr_amplicon",
+        "type": "DNA_amplicon"
+      },
+      {
+        "id": "ngs_data",
+        "type": "sequencing_data"
+      },
+      {
+        "id": "western_blot_result",
+        "type": "protein_analysis_result"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "gDNA_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "pcr_amplicon"
+          }
+        ],
+        "params": {
+          "device_kind": "thermocycler",
+          "program": "PCR amplification of genomic DNA using primers flanking the sgRNA target sites"
+        },
+        "annotations": {
+          "note": "Specific PCR conditions (e.g., cycles, temperatures, reagent volumes) are not provided in the source text."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "pcr_amplicon"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "ngs_data"
+          }
+        ],
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": "NGS sequencing of the PCR amplicon for detailed mutation analysis"
+        },
+        "annotations": {
+          "note": "Sequencing platform, library preparation, and run parameters are not specified."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "western_blot_result"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "Western blotting performed to assess protein expression of the target gene; high KO efficiency is indicated by minimal or absent protein signal."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Mincing and washing of epithelium",
+    "source": {
+      "type": "paper",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "mat1",
+        "name": "scalpels",
+        "source": {
+          "type": "vendor",
+          "id": "Fisher Scientific"
+        }
+      },
+      {
+        "id": "mat2",
+        "name": "DMEM++",
+        "description": "Advanced DMEM/F12 (Thermo Fisher Scientific) supplemented with 10 mM HEPES, 1X GlutaMAX, 1X Pen-Strep, and 2.5 μg/mL Amphotericin B"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "50 mL conical tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "device_kind": "centrifuge",
+        "name": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "tissue_segments",
+        "type": "sample",
+        "description": "tissue segments"
+      },
+      {
+        "id": "minced_epithelium",
+        "type": "sample"
+      },
+      {
+        "id": "washed_epithelium",
+        "type": "sample"
+      },
+      {
+        "id": "pelleted_epithelium",
+        "type": "sample"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tissue_segments"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "minced_epithelium"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "Minced tissue segments using scalpels (Fisher Scientific) and collected into 50 mL conical tubes."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "minced_epithelium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "washed_epithelium"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "Washed minced epithelium 3 times with DMEM++ (Advanced DMEM/F12 supplemented with 10 mM HEPES, 1X GlutaMAX, 1X Pen-Strep, and 2.5 μg/mL Amphotericin B)."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "washed_epithelium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "pelleted_epithelium"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "temperature": "4 °C",
+            "speed": "500 × g",
+            "duration": "3 min"
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Passaging hiPS cell colonies",
+    "source": {
+      "type": "paper",
+      "id": "s41586-023-06564-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "EDTA",
+        "description": "0.5 mM EDTA"
+      },
+      {
+        "id": "m2",
+        "name": "Essential 8 medium"
+      },
+      {
+        "id": "m3",
+        "name": "six-well plate"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "culture_plate",
+        "description": "original plate containing hiPS cell colonies"
+      },
+      {
+        "id": "c2",
+        "type": "six-well_plate",
+        "description": "new six-well plates for distribution"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s_cells",
+        "kind": "cell_culture",
+        "description": "hiPS cell colonies"
+      },
+      {
+        "id": "s_cells_resuspended",
+        "name": "s_cells_resuspended"
+      },
+      {
+        "id": "s_cells_distributed",
+        "name": "s_cells_distributed"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells"
+          },
+          {
+            "kind": "material",
+            "id": "m1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 7,
+            "unit": "min"
+          }
+        },
+        "annotations": {
+          "temperature": "room temperature",
+          "reagent_concentration": "0.5 mM EDTA"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells_resuspended"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "annotations": {
+          "reagent": "Essential 8 medium"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells_resuspended"
+          },
+          {
+            "kind": "container",
+            "id": "c2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cells_distributed"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "method": "distributed into new six-well plates"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

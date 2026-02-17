@@ -1,0 +1,759 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Embryoid body formation and endoderm induction",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00827-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [
+      {
+        "id": "c1",
+        "kind": "dish",
+        "material": "plastic",
+        "description": "Matrigel-coated dish for hPSC maintenance"
+      },
+      {
+        "id": "c2",
+        "kind": "conical_tube",
+        "material": "plastic",
+        "volume_ml": 15
+      },
+      {
+        "id": "c3",
+        "kind": "plate",
+        "material": "plastic",
+        "description": "six-well ultralow-attachment plate"
+      },
+      {
+        "id": "c4",
+        "kind": "plate",
+        "material": "plastic",
+        "description": "low-attachment plate (same as c3)"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "kind": "incubator",
+        "description": "normoxic incubator"
+      },
+      {
+        "id": "e2",
+        "kind": "centrifuge"
+      },
+      {
+        "id": "e3",
+        "kind": "incubator",
+        "description": "hypoxic incubator (for EB formation)"
+      },
+      {
+        "id": "e4",
+        "kind": "incubator",
+        "description": "5% CO2/5% O2 incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s1",
+        "name": "s1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "annotations": {
+          "note": "Prepare the EB/PS medium as described in 'Reagent setup.' CRITICAL STEP: Prepare the medium fresh on the day of use."
+        },
+        "params": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "amount": {
+            "value": 3,
+            "unit": "ml"
+          },
+          "source": {
+            "kind": "container",
+            "id": "c1"
+          },
+          "target": {
+            "kind": "container",
+            "id": "c1"
+          }
+        },
+        "annotations": {
+          "note": "Remove the hPSC maintenance medium from the Matrigel-coated dish."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [],
+        "outputs": [],
+        "params": {
+          "amount": {
+            "value": 3,
+            "unit": "ml"
+          },
+          "source": {
+            "kind": "container",
+            "id": "c2"
+          },
+          "target": {
+            "kind": "container",
+            "id": "c1"
+          }
+        },
+        "annotations": {
+          "note": "Add 3 ml of cold (4 °C) trypsin/EDTA to the dish."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [],
+        "outputs": [],
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "duration": "1.5 min",
+            "condition": "normoxic"
+          }
+        },
+        "annotations": {
+          "note": "Incubate the dish for 1–1.5 min in a normoxic incubator."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [],
+        "outputs": [],
+        "params": {
+          "amount": {
+            "value": 3,
+            "unit": "ml"
+          },
+          "source": {
+            "kind": "container",
+            "id": "c1"
+          },
+          "target": {
+            "kind": "container",
+            "id": "c2"
+          }
+        },
+        "annotations": {
+          "note": "Aspirate the trypsin/EDTA solution."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "inputs": [],
+        "outputs": [],
+        "params": {
+          "amount": {
+            "value": 10,
+            "unit": "ml"
+          },
+          "source": {
+            "kind": "container",
+            "id": "c2"
+          },
+          "target": {
+            "kind": "container",
+            "id": "c1"
+          }
+        },
+        "annotations": {
+          "note": "Neutralize the enzymes by adding 10 ml wash medium."
+        }
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "action_kind": "mix_gently",
+          "tool": "10 ml serological pipet"
+        },
+        "annotations": {
+          "note": "Gently flush the cells off the dish by pipetting up and down using a 10 ml serological pipet."
+        }
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "amount": {
+            "value": 10,
+            "unit": "ml"
+          },
+          "source": {
+            "kind": "container",
+            "id": "c1"
+          },
+          "target": {
+            "kind": "container",
+            "id": "c2"
+          }
+        },
+        "annotations": {
+          "note": "Transfer the cell mixture to a 15 ml conical tube."
+        }
+      },
+      {
+        "id": "s9",
+        "op": "run_device",
+        "inputs": [],
+        "outputs": [],
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "e2",
+          "program": {
+            "speed": "400g",
+            "duration": "4 min"
+          }
+        },
+        "annotations": {
+          "note": "Pellet the dissociated cells by centrifugation at 400g for 4 min."
+        }
+      },
+      {
+        "id": "s10",
+        "op": "transfer",
+        "inputs": [],
+        "outputs": [],
+        "params": {
+          "amount": {
+            "value": 15,
+            "unit": "ml"
+          },
+          "source": {
+            "kind": "container",
+            "id": "c2"
+          },
+          "target": {
+            "kind": "container",
+            "id": "c2"
+          }
+        },
+        "annotations": {
+          "note": "Aspirate as much of the supernatant containing enzyme and Stop medium as possible."
+        }
+      },
+      {
+        "id": "s11",
+        "op": "transfer",
+        "inputs": [],
+        "outputs": [],
+        "params": {
+          "amount": {
+            "value": 12.5,
+            "unit": "ml"
+          },
+          "source": {
+            "kind": "container",
+            "id": "c2"
+          },
+          "target": {
+            "kind": "container",
+            "id": "c2"
+          }
+        },
+        "annotations": {
+          "note": "Resuspend the cells with 12.5 ml EB/PS medium."
+        }
+      },
+      {
+        "id": "s12",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "amount": {
+            "value": 2,
+            "unit": "ml"
+          },
+          "source": {
+            "kind": "container",
+            "id": "c2"
+          },
+          "target": {
+            "kind": "container",
+            "id": "c3"
+          }
+        },
+        "annotations": {
+          "note": "Distribute 2 ml per well of the cell mixture to a six-well ultralow-attachment plate."
+        }
+      },
+      {
+        "id": "s13",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "action_kind": "mix_gently",
+          "tool": "plate shaker"
+        },
+        "annotations": {
+          "note": "Gently rock the plate with a side-to-side motion to ensure even distribution of cells and avoid aggregation of cells before placing the plate back in an incubator."
+        }
+      },
+      {
+        "id": "s14",
+        "op": "run_device",
+        "inputs": [],
+        "outputs": [],
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e3",
+          "program": {
+            "duration": "12–16 h",
+            "condition": "hypoxic"
+          }
+        },
+        "annotations": {
+          "note": "Place the ultralow-attachment plate in a hypoxic incubator for 12–16 h to allow EB formation."
+        }
+      },
+      {
+        "id": "s15",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "annotations": {
+          "note": "Prepare the endoderm induction medium as described in 'Reagent setup.' CRITICAL STEP: Prepare the medium fresh on the day of use."
+        },
+        "params": {}
+      },
+      {
+        "id": "s16",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "amount": {
+            "value": 12,
+            "unit": "ml"
+          },
+          "source": {
+            "kind": "container",
+            "id": "c3"
+          },
+          "target": {
+            "kind": "container",
+            "id": "c2"
+          }
+        },
+        "annotations": {
+          "note": "Gently collect all EBs from the ultralow-attachment plate to a 15 ml conical tube."
+        }
+      },
+      {
+        "id": "s17",
+        "op": "transfer",
+        "inputs": [],
+        "outputs": [],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          },
+          "source": {
+            "kind": "container",
+            "id": "c2"
+          },
+          "target": {
+            "kind": "container",
+            "id": "c3"
+          }
+        },
+        "annotations": {
+          "note": "Add 1 ml per well of the endoderm induction medium to the ultralow-attachment plate that previously contained the EBs. CRITICAL STEP: Endoderm induction medium is added to the empty wells to prevent them from drying out, which promotes cellular attachment."
+        }
+      },
+      {
+        "id": "s18",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "action_kind": "resuspend",
+          "tool": "manual settling"
+        },
+        "annotations": {
+          "note": "Allow the EBs to settle down for 5 min or centrifuge the conical tube at 130g for 1 min to pellet down the EBs."
+        }
+      },
+      {
+        "id": "s19",
+        "op": "transfer",
+        "inputs": [],
+        "outputs": [],
+        "params": {
+          "amount": {
+            "value": 15,
+            "unit": "ml"
+          },
+          "source": {
+            "kind": "container",
+            "id": "c2"
+          },
+          "target": {
+            "kind": "container",
+            "id": "c2"
+          }
+        },
+        "annotations": {
+          "note": "Aspirate the EB/PS medium."
+        }
+      },
+      {
+        "id": "s20",
+        "op": "transfer",
+        "inputs": [],
+        "outputs": [],
+        "params": {
+          "amount": {
+            "value": 6.5,
+            "unit": "ml"
+          },
+          "source": {
+            "kind": "container",
+            "id": "c2"
+          },
+          "target": {
+            "kind": "container",
+            "id": "c2"
+          }
+        },
+        "annotations": {
+          "note": "Gently resuspend the EBs with 6.5 ml endoderm induction medium using a 5 ml serological pipet."
+        }
+      },
+      {
+        "id": "s21",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          },
+          "source": {
+            "kind": "container",
+            "id": "c2"
+          },
+          "target": {
+            "kind": "container",
+            "id": "c4"
+          }
+        },
+        "annotations": {
+          "note": "Distribute them 1 ml per well of the EB mixture equally back to the low-attachment plate. CRITICAL STEP: Only take 1ml of the EB mixture each time. Gently resuspend the EBs each time before taking the EB mixture for each well to ensure similar EB numbers are distributed to each well."
+        }
+      },
+      {
+        "id": "s22",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "action_kind": "mix_gently",
+          "tool": "plate shaker"
+        },
+        "annotations": {
+          "note": "Rock the plate with a side-to-side motion to ensure that EBs are evenly distributed."
+        }
+      },
+      {
+        "id": "s23",
+        "op": "run_device",
+        "inputs": [],
+        "outputs": [],
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e4",
+          "program": {
+            "condition": "5% CO2/5% O2"
+          }
+        },
+        "annotations": {
+          "note": "Return the plate to a 5% CO2/5% O2 incubator."
+        }
+      },
+      {
+        "id": "s24",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "annotations": {
+          "note": "On d2, add 1 ml fresh Endoderm induction medium to each well (in total 3 ml per well). CRITICAL STEP: Prepare the medium fresh on the day of use."
+        },
+        "params": {}
+      },
+      {
+        "id": "s25",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "action_kind": "mix_gently",
+          "tool": "plate shaker"
+        },
+        "annotations": {
+          "note": "Rock the plate with a side-to-side motion to ensure that EBs are evenly distributed."
+        }
+      },
+      {
+        "id": "s26",
+        "op": "run_device",
+        "inputs": [],
+        "outputs": [],
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e4",
+          "program": {
+            "condition": "5% CO2/5% O2"
+          }
+        },
+        "annotations": {
+          "note": "Return the plate to a 5% CO2/5% O2 incubator."
+        }
+      },
+      {
+        "id": "s27",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "annotations": {
+          "note": "On d3, add 2 ml fresh Endoderm induction medium to each well (in total: 5 ml medium per well). CRITICAL STEP: Prepare the medium fresh on the day of use."
+        },
+        "params": {}
+      },
+      {
+        "id": "s28",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "action_kind": "mix_gently",
+          "tool": "plate shaker"
+        },
+        "annotations": {
+          "note": "Rock the plate in a side-to-side motion to ensure that EBs are evenly distributed."
+        }
+      },
+      {
+        "id": "s29",
+        "op": "run_device",
+        "inputs": [],
+        "outputs": [],
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e4",
+          "program": {
+            "condition": "5% CO2/5% O2"
+          }
+        },
+        "annotations": {
+          "note": "Return the plate to a 5% CO2/5% O2 incubator."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      },
+      {
+        "from": "s16",
+        "to": "s17"
+      },
+      {
+        "from": "s17",
+        "to": "s18"
+      },
+      {
+        "from": "s18",
+        "to": "s19"
+      },
+      {
+        "from": "s19",
+        "to": "s20"
+      },
+      {
+        "from": "s20",
+        "to": "s21"
+      },
+      {
+        "from": "s21",
+        "to": "s22"
+      },
+      {
+        "from": "s22",
+        "to": "s23"
+      },
+      {
+        "from": "s23",
+        "to": "s24"
+      },
+      {
+        "from": "s24",
+        "to": "s25"
+      },
+      {
+        "from": "s25",
+        "to": "s26"
+      },
+      {
+        "from": "s26",
+        "to": "s27"
+      },
+      {
+        "from": "s27",
+        "to": "s28"
+      },
+      {
+        "from": "s28",
+        "to": "s29"
+      }
+    ],
+    "detail_level": 0
+  }
+}

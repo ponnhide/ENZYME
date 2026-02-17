@@ -1,0 +1,282 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "FACS Sorting of Transduced hiPS Cells",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01299-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Accutase"
+      },
+      {
+        "id": "m2",
+        "name": "3% BSA/DPBS (wt/vol)"
+      },
+      {
+        "id": "m3",
+        "name": "Y-27632"
+      },
+      {
+        "id": "m4",
+        "name": "vitronectin"
+      },
+      {
+        "id": "m5",
+        "name": "E8 medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "15-ml conical tube"
+      },
+      {
+        "id": "c2",
+        "type": "10-cm dish"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "50-μm cell strainer"
+      },
+      {
+        "id": "e2",
+        "type": "FACS sorter"
+      },
+      {
+        "id": "e3",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s1",
+        "name": "s1"
+      },
+      {
+        "id": "s2",
+        "name": "s2"
+      },
+      {
+        "id": "s3",
+        "name": "s3"
+      },
+      {
+        "id": "s4",
+        "name": "s4"
+      },
+      {
+        "id": "s5",
+        "name": "s5"
+      },
+      {
+        "id": "s6",
+        "name": "s6"
+      },
+      {
+        "id": "s7",
+        "name": "s7"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "volume",
+            "unit_type": "ml",
+            "unit_value": 1
+          }
+        },
+        "annotations": {
+          "note": "Resuspend the cells with 3% BSA/DPBS (wt/vol) supplemented with 10 μM Y-27632."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s4"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: filter"
+        },
+        "annotations": {
+          "device": "50-μm cell strainer"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s5"
+          }
+        ],
+        "params": {
+          "device_kind": "cell_counter",
+          "program": "FACS sorting for mCherry+ cells"
+        },
+        "annotations": {
+          "note": "Uninfected control cells should be processed similarly as negative controls to set the gate."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s5"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s6"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 3200000.0,
+            "unit": "count",
+            "unit_type": "cells"
+          }
+        },
+        "annotations": {
+          "note": "We collected 3.2 × 10^6 cells to maintain >1,000× coverage per sgRNA."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s6"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s7"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 10,
+            "unit": "volume",
+            "unit_type": "ml"
+          }
+        },
+        "annotations": {
+          "note": "Seed the sorted mCherry+ cells at low density in 10-cm dishes coated with vitronectin in 10 ml of pre-warmed E8 medium supplemented with 10 μM Y-27632."
+        }
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s7"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "device_kind": "incubator",
+          "program": "37 °C, 5% CO2"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

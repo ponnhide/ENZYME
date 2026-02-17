@@ -1,0 +1,61 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Normalization of Smart‑seq2 counts",
+    "source": {
+      "type": "paper",
+      "id": "s41586-024-08172-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "raw_counts",
+        "type": "data",
+        "description": "Raw read counts for Smart‑seq2 data"
+      },
+      {
+        "id": "norm_counts",
+        "type": "data",
+        "description": "Length‑normalized read counts"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "raw_counts"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "norm_counts"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "Normalized the raw read counts by dividing each count by the maximum gene length for the corresponding gene (obtained from BioMart), then multiplied the result by the median gene length across all genes. Treated these length‑normalized counts equivalently to raw counts with unique molecular identifiers for downstream analyses."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s1"
+      }
+    ],
+    "detail_level": 0
+  }
+}

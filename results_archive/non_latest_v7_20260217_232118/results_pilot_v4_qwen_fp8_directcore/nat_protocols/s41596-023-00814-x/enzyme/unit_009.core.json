@@ -1,0 +1,572 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Procedure",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00814-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "type": "medium",
+        "name": "OVB-organoid medium"
+      },
+      {
+        "id": "m2",
+        "type": "chemical",
+        "name": "aspartate",
+        "concentration": "10 mM"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "well_plate",
+        "format": "12-well",
+        "purpose": "suspension culture"
+      },
+      {
+        "id": "c2",
+        "type": "centrifuge_tube",
+        "volume": "50 ml"
+      },
+      {
+        "id": "c3",
+        "type": "chamber",
+        "purpose": "electrode chamber"
+      },
+      {
+        "id": "c4",
+        "type": "chamber",
+        "purpose": "dark chamber"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator",
+        "conditions": {
+          "temperature": "37 °C",
+          "co2": "5%"
+        }
+      },
+      {
+        "id": "e2",
+        "type": "plate_reader",
+        "purpose": "ERG aperture"
+      },
+      {
+        "id": "e3",
+        "type": "superfusion_system"
+      },
+      {
+        "id": "e4",
+        "type": "pipette",
+        "volume": "10 ml",
+        "sterile": true
+      },
+      {
+        "id": "e5",
+        "type": "light_source",
+        "name": "150 W white light bulb"
+      },
+      {
+        "id": "e6",
+        "type": "filter",
+        "name": "infrared filter"
+      },
+      {
+        "id": "e7",
+        "type": "light_source",
+        "name": "red light"
+      },
+      {
+        "id": "e8",
+        "type": "opaque_box"
+      }
+    ],
+    "samples": [
+      {
+        "id": "smp1",
+        "type": "organoid",
+        "age": "60-d-old"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "params": {
+          "source": "smp1",
+          "destination": "c1",
+          "amount": {
+            "value": 1,
+            "unit": "organoid"
+          }
+        },
+        "annotations": [
+          "Transfer 60-d-old organoids each to one well of a suspension culture 12-well plate."
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "m1",
+          "destination": "c1",
+          "amount": {
+            "value": 2.0,
+            "unit": "ml"
+          }
+        },
+        "annotations": [
+          "Add 2 ml of OVB-organoid medium per well."
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e1",
+          "program": {
+            "duration": "24 h",
+            "temperature": "37 °C",
+            "co2": "5%",
+            "light": "absolute darkness"
+          }
+        },
+        "annotations": [
+          "Keep the plate in absolute darkness at 37 °C and 5% CO2 for 24 h before ERG experiments."
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "m1",
+          "destination": "c2",
+          "amount": {
+            "value": 50.0,
+            "unit": "ml"
+          }
+        },
+        "annotations": [
+          "Prepare fresh OVB organoid medium in 50 ml centrifuge tubes."
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": [
+          "Oxygenate the OVB organoid medium by pumping air onto the bottom of the centrifuge tube with a sterile 10 ml serological pipette for 2 min under the clean bench."
+        ],
+        "resources": {
+          "tools": [
+            "e4"
+          ]
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Keep the room where you handle OVB organoids and perform the ERG experiment absolutely dark. Use a red light (e.g., from the western blot developing room) as the sole light source. If required, use an opaque box to transport OVB organoids from one dark room to another."
+        },
+        "resources": {
+          "equipment": [
+            "e7",
+            "e8"
+          ]
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "text": "unmapped device_kind in source: superfusion_system"
+        },
+        "annotations": [
+          "Set up the ERG aperture and fill the superfusion system with an oxygenated OVB medium."
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "params": {
+          "source": "smp1",
+          "destination": "c3",
+          "amount": {
+            "value": 1,
+            "unit": "organoid"
+          }
+        },
+        "annotations": [
+          "Place organoids under red light in an electrode chamber."
+        ],
+        "resources": {
+          "equipment": [
+            "e7"
+          ]
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "params": {
+          "source": "c3",
+          "destination": "c4",
+          "amount": {
+            "value": 1,
+            "unit": "chamber"
+          }
+        },
+        "annotations": [
+          "Place electrode chamber into the dark chamber of the ERG aperture and connect it to the superfusion system containing oxygenated OVB medium."
+        ],
+        "resources": {
+          "equipment": [
+            "e2",
+            "e3"
+          ]
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "annotate",
+        "params": {
+          "text": "unmapped device_kind in source: superfusion_system"
+        },
+        "annotations": [
+          "Set up the speed of superfusion to 0.5 ml/min."
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "run_device",
+        "params": {
+          "device_kind": "imager",
+          "device_ref": "e2",
+          "program": {
+            "stimulus": "light_flash",
+            "duration": "500 ms",
+            "intensities": [
+              "2000 mlux",
+              "20000 mlux",
+              "200000 mlux"
+            ],
+            "repetitions": 3,
+            "interval": "3 min"
+          }
+        },
+        "annotations": [
+          "For dose-dependent light sensitivity, expose each organoid to 500 ms long flashes. Start with a low intensity of 2,000 mlux (moonlight on a clear night), increase to 20,000 mlux (candle light) and then to 200,000 mlux (daylight on a cloudy day). Repeat each intensity three times at 3 min intervals, and then switch to the next higher light intensity. Record all responses."
+        ],
+        "resources": {
+          "data": [
+            "d1"
+          ]
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "annotate",
+        "params": {
+          "note": "If OVB organoids show dose-dependent responses to different light stimulation, you can continue with the photic stress experiment. Keep the superfusion speed at 0.5 ml/min. Continue immediately after Step 9 with the same organoids. Alternatively, start with new organoids and adjust the system by exposing the organoids to 500 ms flashes of 200,000 mlux every 3 min for 15 min ('pre-bright' light) until you get a stably repeated light response."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s13",
+        "op": "run_device",
+        "params": {
+          "device_kind": "imager",
+          "device_ref": "e2",
+          "program": {
+            "stimulus": "continuous_light",
+            "duration": "10 min",
+            "intensity": "4600 lux",
+            "source": "e5"
+          }
+        },
+        "annotations": [
+          "Desensitize the organoid in the electrode chamber by bright light exposure with a light intensity of 4,600 lux for 10 min continuously. A 150 W white light bulb could be used as a bright light source."
+        ],
+        "resources": {
+          "equipment": [
+            "e5"
+          ]
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s14",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "label"
+        },
+        "annotations": [
+          "Place an infrared filter between the bulb and electrode chamber to subtract the thermal impact of the bright light source."
+        ],
+        "resources": {
+          "equipment": [
+            "e6"
+          ]
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s15",
+        "op": "annotate",
+        "params": {
+          "note": "Let the organoids regenerate for 30 s in a dark chamber without light exposure after the 10 min of bright light in Step 11."
+        },
+        "resources": {
+          "equipment": [
+            "e4"
+          ]
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s16",
+        "op": "run_device",
+        "params": {
+          "device_kind": "imager",
+          "device_ref": "e2",
+          "program": {
+            "stimulus": "light_flash",
+            "duration": "500 ms",
+            "intensity": "200000 mlux",
+            "interval": "3 min"
+          }
+        },
+        "annotations": [
+          "Start light flashes of 500 ms and 200,000 mlux every 3 min and record the responses."
+        ],
+        "resources": {
+          "data": [
+            "d2"
+          ]
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s17",
+        "op": "run_device",
+        "params": {
+          "device_kind": "imager",
+          "device_ref": "e2",
+          "program": {
+            "duration": "30 min",
+            "stimulus": "light_flash",
+            "duration_per_flash": "500 ms",
+            "intensity": "200000 mlux",
+            "interval": "3 min"
+          }
+        },
+        "annotations": [
+          "After 30 min of flashing and recording, using the same organoids under the same conditions to repeat Step 11, but do not use bright light exposure, instead replacing it with 0 mlux (darkness). This can be used as a negative control for the bright light exposure procedure."
+        ],
+        "resources": {
+          "data": [
+            "d3"
+          ]
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s18",
+        "op": "annotate",
+        "params": {
+          "text": "unmapped device_kind in source: superfusion_system"
+        },
+        "annotations": [
+          "Set up the superfusion system containing the OVB organoid medium to a higher speed of 2 ml/min."
+        ],
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s19",
+        "op": "annotate",
+        "params": {
+          "note": "Let organoids adjust for 36 min of equilibration time to this higher superfusion speed until they show a stable electrical signal of −200 mV as a response to flashes of 200,000 mlux and 500 ms. Record the electric response continuously every 3 min."
+        },
+        "resources": {
+          "data": [
+            "d4"
+          ]
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s20",
+        "op": "transfer",
+        "params": {
+          "source": "m2",
+          "destination": "e3",
+          "amount": {
+            "value": 10.0,
+            "unit": "mM"
+          }
+        },
+        "annotations": [
+          "Add 10 mM aspartate to the medium after equilibration time is completed. Record electric response continuously. Aspartate will block the signal transduction from photoreceptors to the subsequent retinal cell layers ('A-wave')."
+        ],
+        "resources": {
+          "data": [
+            "d5"
+          ]
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s21",
+        "op": "transfer",
+        "params": {
+          "source": "m1",
+          "destination": "e3",
+          "amount": {
+            "value": 1,
+            "unit": "volume"
+          }
+        },
+        "annotations": [
+          "Wash out aspartate by adding OVB organoid medium without aspartate into the system. Continuously record the electric signals as responses to light flashes."
+        ],
+        "resources": {
+          "data": [
+            "d6"
+          ]
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      },
+      {
+        "from": "s16",
+        "to": "s17"
+      },
+      {
+        "from": "s17",
+        "to": "s18"
+      },
+      {
+        "from": "s18",
+        "to": "s19"
+      },
+      {
+        "from": "s19",
+        "to": "s20"
+      },
+      {
+        "from": "s20",
+        "to": "s21"
+      }
+    ],
+    "detail_level": 0
+  }
+}

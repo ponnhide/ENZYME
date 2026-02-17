@@ -1,0 +1,301 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Seeding and attachment of hPSCs for differentiation",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00880-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "laminin521",
+        "name": "Laminin‑521"
+      },
+      {
+        "id": "e8_medium",
+        "name": "E8 medium"
+      },
+      {
+        "id": "trypLE_select",
+        "name": "TrypLE Select"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate1",
+        "type": "12-well_plate"
+      },
+      {
+        "id": "tube15ml_1",
+        "type": "15ml_conical_tube"
+      },
+      {
+        "id": "tube1_5ml_1",
+        "type": "1.5ml_microcentrifuge_tube"
+      },
+      {
+        "id": "mastermix_tube",
+        "type": "15ml_conical_tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator1",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "hpsc_sample",
+        "name": "human pluripotent stem cells"
+      },
+      {
+        "id": "plate1",
+        "name": "plate1"
+      },
+      {
+        "id": "tube15ml_1",
+        "name": "tube15ml_1"
+      },
+      {
+        "id": "tube1_5ml_1",
+        "name": "tube1_5ml_1"
+      },
+      {
+        "id": "cell_count_data",
+        "name": "cell_count_data"
+      },
+      {
+        "id": "mastermix_tube",
+        "name": "mastermix_tube"
+      }
+    ],
+    "data": [
+      {
+        "id": "cell_count_data",
+        "name": "cell count"
+      }
+    ]
+  },
+  "protocol": {
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "params": {
+          "note": "Coat 12‑well plate with Laminin‑521 and warm to 37 °C in CO₂ incubator"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "rinse",
+          "container": "plate1",
+          "reagent": "trypLE_select",
+          "volume": "1 mL"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator1",
+          "program_name": "room_temp_3min",
+          "program": {
+            "program_name": "room_temp_3min"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tube15ml_1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source": "e8_medium",
+          "destination": "tube15ml_1",
+          "amount": {
+            "value": 3.0,
+            "unit": "mL"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "container": "plate1",
+          "repetitions": 3
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s8",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tube1_5ml_1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer cell suspension from plate1 to tube1_5ml_1 (cell suspension amount unspecified)"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s10",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "container": "tube1_5ml_1",
+          "repetitions": 4
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s11",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "cell_count"
+          ]
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_count_data"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s12",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "mastermix_tube"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s13",
+        "op": "annotate",
+        "params": {
+          "note": "Prepare cell seeding mastermix in conical tube for the required number of Laminin‑521‑coated wells (25 000 cells per well, 1 mL per well, plus one extra well)."
+        },
+        "outputs": [],
+        "inputs": []
+      }
+    ],
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      }
+    ],
+    "detail_level": 0
+  }
+}

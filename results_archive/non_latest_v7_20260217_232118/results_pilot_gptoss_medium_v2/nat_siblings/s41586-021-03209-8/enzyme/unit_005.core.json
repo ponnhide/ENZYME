@@ -1,0 +1,118 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41586-021-03209-8.pdf",
+      "type": "paper"
+    },
+    "title": "Generate single‑cell RNA‑seq libraries with 10X Chromium"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "single cells were loaded onto chromium chips with a capture target of 10,000 cells per sample"
+        },
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "cells",
+            "kind": "sample"
+          },
+          {
+            "id": "c1",
+            "kind": "container"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "loaded_chip",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "libraries were generated using the 10X Genomics Chromium 3′ Gene Expression Kit on the Chromium instrument"
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "loaded_chip",
+            "kind": "sample"
+          },
+          {
+            "id": "m1",
+            "kind": "material"
+          },
+          {
+            "id": "e1",
+            "kind": "equipment"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "c1",
+        "name": "Chromium chip"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "10X Chromium instrument"
+      }
+    ],
+    "materials": [
+      {
+        "id": "m1",
+        "name": "10X Genomics Chromium 3′ Gene Expression Kit"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cells",
+        "name": "single cells"
+      },
+      {
+        "id": "loaded_chip",
+        "name": "chromium chip loaded with cells"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

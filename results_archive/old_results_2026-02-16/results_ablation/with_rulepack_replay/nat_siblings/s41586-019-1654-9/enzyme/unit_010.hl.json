@@ -1,0 +1,100 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Loading cells onto 10x chip",
+    "source": {
+      "type": "paper",
+      "id": "s41586-019-1654-9.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "Countess",
+        "manufacturer": "Thermo Fisher",
+        "kind": "cell_counter"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_cells",
+        "description": "initial cell suspension"
+      },
+      {
+        "id": "sample_diluted_cells",
+        "description": "diluted cell suspension for 10x chip"
+      }
+    ],
+    "data": [
+      {
+        "id": "data_cell_count",
+        "description": "cell count obtained from Countess"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "data_cell_count"
+          }
+        ],
+        "params": {
+          "device_kind": "cell_counter",
+          "device_ref": "e1",
+          "program": "count"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_diluted_cells"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "note": "Diluted to obtain approximately 6,000 cells per lane of a 10x microfluidic chip device"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

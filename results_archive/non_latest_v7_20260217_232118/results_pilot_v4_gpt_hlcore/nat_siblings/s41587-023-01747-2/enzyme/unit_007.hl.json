@@ -1,0 +1,154 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Histo4i processing workflow",
+    "source": {
+      "type": "paper",
+      "id": "s41587-023-01747-2"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "raw_image"
+      },
+      {
+        "id": "denoised_image"
+      },
+      {
+        "id": "registered_image"
+      },
+      {
+        "id": "clustered_pixels"
+      },
+      {
+        "id": "nuclei_segmentation"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "raw_image"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "program": {}
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "raw_image"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "denoised_image"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Denoise"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "denoised_image"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "registered_image"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Register"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "registered_image"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "clustered_pixels"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Pixel cluster"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "clustered_pixels"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "nuclei_segmentation"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Segment nuclei"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

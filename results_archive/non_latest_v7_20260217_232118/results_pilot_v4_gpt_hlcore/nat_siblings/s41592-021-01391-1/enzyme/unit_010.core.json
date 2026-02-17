@@ -1,0 +1,173 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41592-021-01391-1.pdf",
+      "type": "paper"
+    },
+    "title": "Control fluid flow via microvalves"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "start_step_id": "s1",
+    "step_order": null,
+    "steps": [
+      {
+        "annotations": {
+          "note": "Implementation of Quake‑style microvalves to facilitate flow control during operation"
+        },
+        "id": "s1",
+        "inputs": [],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "Developed machine‑vision‑based approach utilizing subsequent image subtraction for blob detection"
+        },
+        "id": "s2",
+        "inputs": [],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "samp1",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "d1",
+            "kind": "data"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "program": "image_acquisition"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Performed image subtraction and blob detection to identify particles"
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "d1",
+            "kind": "data"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "d2",
+            "kind": "data"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "Moved particles into the ~200‑μm‑wide target region of interest"
+        },
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "d2",
+            "kind": "data"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "result": "95.9% of particles placed in the ~200‑μm‑wide region"
+        },
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "samp1",
+            "kind": "sample"
+          }
+        ],
+        "op": "observe",
+        "outputs": [],
+        "params": {
+          "features": [
+            "placement_success_rate"
+          ],
+          "modality": "visual"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "c1",
+        "name": "microfluidic chip"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "name": "raw images"
+      },
+      {
+        "id": "d2",
+        "name": "analysis results"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "imager"
+      }
+    ],
+    "materials": [
+      {
+        "id": "m1",
+        "name": "particles"
+      }
+    ],
+    "samples": [
+      {
+        "container_ref": "c1",
+        "id": "samp1",
+        "name": "particle suspension"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

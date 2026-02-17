@@ -1,0 +1,227 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Immunofluorescence staining of organoid sections",
+    "source": {
+      "type": "paper",
+      "id": "s41586-023-06564-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "normal donkey serum",
+        "vendor": "MilliporeSigma",
+        "catalogue": "S30-M"
+      },
+      {
+        "id": "m2",
+        "name": "Triton X-100",
+        "vendor": "MilliporeSigma",
+        "catalogue": "T9284-100ML"
+      },
+      {
+        "id": "m3",
+        "name": "PBS"
+      },
+      {
+        "id": "m4",
+        "name": "primary antibodies"
+      },
+      {
+        "id": "m5",
+        "name": "blocking solution (10% normal donkey serum, 0.3% Triton X-100 in PBS)"
+      },
+      {
+        "id": "m6",
+        "name": "primary antibody solution (primary antibodies diluted in PBS with 10% normal donkey serum and 0.3% Triton X-100)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "cryosection slide",
+        "type": "slide"
+      },
+      {
+        "id": "c2",
+        "name": "blocking solution tube"
+      },
+      {
+        "id": "c3",
+        "name": "primary antibody solution tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s1",
+        "name": "organoid cryosections",
+        "type": "section",
+        "container": "c1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          },
+          {
+            "kind": "material",
+            "id": "m5"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "annotations": {
+          "note": "Add enough blocking solution to cover the sections"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 1,
+            "unit": "hour"
+          },
+          "temperature": {
+            "value": 22,
+            "unit": "celsius"
+          }
+        },
+        "annotations": {
+          "note": "Incubation at room temperature"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          },
+          {
+            "kind": "material",
+            "id": "m6"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "annotations": {
+          "note": "Add enough primary antibody solution to cover the sections"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": null,
+            "unit": null
+          },
+          "temperature": {
+            "value": 4,
+            "unit": "celsius"
+          }
+        },
+        "annotations": {
+          "note": "Incubate overnight at 4 °C"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

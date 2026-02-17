@@ -1,0 +1,194 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-025-01299-6.pdf",
+      "type": "paper"
+    },
+    "title": "Dissociation of hSO for interneuron generation screen (Day 45)"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "papain_solution",
+            "kind": "material"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "well_content",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "ml",
+            "value": 3
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "well_content",
+            "kind": "sample"
+          },
+          {
+            "id": "organoid_sample",
+            "kind": "material"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "mixed_content",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "mixed_content",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "mixed_content",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "Incubate at 37 °C, 5% CO2 for 15 min"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Gently shake the plate horizontally every 5 min to evenly distribute the papain solution."
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "mixed_content",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "mixed_content",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Both control and genetically perturbed hSO should be dissociated at this step, because control (uninfected) cells will be needed to set the gate for FACS."
+        },
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "mixed_content",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "mixed_content",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "six_well_plate",
+        "name": "six-well plate",
+        "type": "plate"
+      },
+      {
+        "id": "well_A1",
+        "name": "well of six-well plate",
+        "parent": "six_well_plate",
+        "type": "well"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "device_kind": "incubator",
+        "id": "incubator",
+        "name": "CO2 incubator"
+      }
+    ],
+    "materials": [
+      {
+        "id": "papain_solution",
+        "name": "enzyme solution with papain (10 U ml−1)",
+        "type": "reagent"
+      },
+      {
+        "id": "organoid_sample",
+        "name": "human cortical organoids (hSO)",
+        "type": "biological_sample"
+      }
+    ],
+    "samples": [
+      {
+        "container_ref": "well_A1",
+        "id": "well_content",
+        "name": "organoid + papain mixture",
+        "type": "sample"
+      },
+      {
+        "container_ref": "well_A1",
+        "id": "mixed_content",
+        "name": "pooled organoids with papain solution",
+        "type": "sample"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

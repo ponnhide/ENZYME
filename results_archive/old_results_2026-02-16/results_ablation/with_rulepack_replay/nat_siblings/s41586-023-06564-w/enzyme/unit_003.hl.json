@@ -1,0 +1,141 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "FACS selection of transduced cells",
+    "source": {
+      "type": "paper",
+      "id": "s41586-023-06564-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "mat_vitronectin_plate",
+        "name": "vitronectin coated plate"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "eq_facs",
+        "name": "FACS instrument"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp_culture",
+        "name": "culture before selection"
+      },
+      {
+        "id": "samp_selected",
+        "name": "mCherry+ selected cells"
+      },
+      {
+        "id": "samp_seeded",
+        "name": "cells seeded on vitronectin plates"
+      },
+      {
+        "id": "samp_expanded",
+        "name": "expanded cells after 6 days"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Three days later"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_culture"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_selected"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "mCherry+ cells were selected by FACS (collected roughly 3.6 × 10^6 cells)"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_selected"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_seeded"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 3600000.0,
+            "unit": "cells"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_seeded"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_expanded"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 6,
+            "unit": "day"
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

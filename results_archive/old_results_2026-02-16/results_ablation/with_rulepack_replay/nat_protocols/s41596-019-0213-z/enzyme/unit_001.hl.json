@@ -1,0 +1,179 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Aggregate formation with ROCK inhibitor",
+    "source": {
+      "type": "paper",
+      "id": "s41596-019-0213-z.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "cells",
+        "name": "cells"
+      },
+      {
+        "id": "y27632",
+        "name": "Y27632",
+        "concentration": "50 μM"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate",
+        "type": "6-well low-attachment plate"
+      },
+      {
+        "id": "plate_with_cells",
+        "name": "plate_with_cells",
+        "type": "generic_container"
+      },
+      {
+        "id": "plate_ready",
+        "name": "plate_ready",
+        "type": "generic_container"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "cells_suspension",
+        "name": "cells_suspension"
+      },
+      {
+        "id": "y27632_solution",
+        "name": "y27632_solution"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cells_suspension"
+          }
+        ],
+        "params": {
+          "description": "cells at 2×10^5 cells/mL"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "plate"
+          }
+        ],
+        "params": {
+          "type": "6-well low-attachment plate"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "y27632_solution"
+          }
+        ],
+        "params": {
+          "concentration": "50 μM"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cells_suspension"
+          },
+          {
+            "kind": "container",
+            "id": "plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "plate_with_cells"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": "mL"
+          }
+        },
+        "annotations": {
+          "note": "Volume not specified in source text"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "y27632_solution"
+          },
+          {
+            "kind": "container",
+            "id": "plate_with_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "plate_ready"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": "mL"
+          }
+        },
+        "annotations": {
+          "note": "Volume not specified; Y27632 at 50 μM added as per source"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

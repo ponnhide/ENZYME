@@ -1,0 +1,108 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Immunofluorescence staining of organoids",
+    "source": {
+      "type": "paper",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Y‑27632",
+        "concentration": "10 µM"
+      },
+      {
+        "id": "m2",
+        "name": "4% paraformaldehyde",
+        "vendor": "Thermo Fisher"
+      }
+    ],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s_organoid",
+        "name": "organoids in Cultrex domes"
+      },
+      {
+        "id": "s_removed_organoid",
+        "name": "organoids removed from Cultrex domes"
+      },
+      {
+        "id": "s_fixed_organoid",
+        "name": "organoids fixed in 4% paraformaldehyde"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_organoid"
+          },
+          {
+            "kind": "material",
+            "id": "m1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_removed_organoid"
+          }
+        ],
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_removed_organoid"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_fixed_organoid"
+          }
+        ],
+        "params": {
+          "temperature": {
+            "value": 4,
+            "unit": "celsius"
+          },
+          "duration": "overnight"
+        },
+        "annotations": {
+          "device": "rocker"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Organoid sequencing alignment",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-018-0024-3.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "sample_organoids",
+        "type": "organoid",
+        "description": "human normal and tumour colon organoids"
+      },
+      {
+        "id": "ref_genome_build37",
+        "name": "ref_genome_build37"
+      }
+    ],
+    "data": [
+      {
+        "id": "ref_genome_build37",
+        "type": "reference_genome",
+        "description": "NCBI build37"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "description": "human normal and tumour colon organoids"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_organoids"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "data",
+          "description": "NCBI build37 human reference genome"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "ref_genome_build37"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "params": {
+          "note": "Sequences were aligned to the human reference genome (NCBI build37) using BWA-align."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

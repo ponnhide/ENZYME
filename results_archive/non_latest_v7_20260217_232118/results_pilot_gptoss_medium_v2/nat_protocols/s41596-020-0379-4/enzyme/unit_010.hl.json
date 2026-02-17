@@ -1,0 +1,153 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Resuspend in BME and plate",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-0379-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "BME or Matrigel"
+      },
+      {
+        "id": "m2",
+        "name": "cell pellet"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "tube"
+      },
+      {
+        "id": "c2",
+        "type": "plate_well"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s1",
+        "material_ref": "m2",
+        "container_ref": "c1",
+        "description": "cell pellet in tube"
+      },
+      {
+        "id": "s2",
+        "material_ref": "m1",
+        "container_ref": "c1",
+        "description": "BME (kept on ice)"
+      },
+      {
+        "id": "s3",
+        "material_ref": "m2",
+        "container_ref": "c2",
+        "description": "resuspended cells in BME"
+      },
+      {
+        "id": "s4",
+        "material_ref": "m2",
+        "container_ref": "c2",
+        "description": "cells plated in BME"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Aspirate the supernatant"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          },
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend",
+          "amount": {
+            "value": 40,
+            "unit": "µl"
+          }
+        },
+        "annotations": {
+          "note": "BME kept on ice; work quickly"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s4"
+          }
+        ],
+        "params": {
+          "action_kind": "spread_on_plate",
+          "amount": {
+            "value": 40,
+            "unit": "µl"
+          }
+        },
+        "annotations": {
+          "note": "Approximately 10,000 cells plated in 40 µl BME"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

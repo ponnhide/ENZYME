@@ -1,0 +1,458 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "TrypLExpress incubation",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-019-1654-9.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "mat_trypl",
+        "type": "reagent",
+        "name": "TrypLExpress",
+        "vendor": "Thermo Fisher"
+      },
+      {
+        "id": "mat_mtesr1",
+        "type": "reagent",
+        "name": "mTeSR1"
+      }
+    ],
+    "containers": [
+      {
+        "id": "cont_tube1",
+        "type": "tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "eq_centrifuge",
+        "type": "centrifuge"
+      },
+      {
+        "id": "eq_incubator",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp_cells_initial",
+        "type": "cell_sample",
+        "description": "initial cells"
+      },
+      {
+        "id": "samp_cells_incubated",
+        "type": "cell_sample"
+      },
+      {
+        "id": "samp_cells_pellet",
+        "type": "cell_sample"
+      },
+      {
+        "id": "samp_cells_resuspended1",
+        "type": "cell_sample"
+      },
+      {
+        "id": "samp_cells_filtered",
+        "type": "cell_sample"
+      },
+      {
+        "id": "samp_cells_pellet2",
+        "type": "cell_sample"
+      },
+      {
+        "id": "samp_cells_resuspended2",
+        "type": "cell_sample"
+      },
+      {
+        "id": "samp_cells_diluted",
+        "type": "cell_sample"
+      },
+      {
+        "id": "samp_cells_mixed",
+        "type": "cell_sample"
+      },
+      {
+        "id": "mat_trypl",
+        "name": "mat_trypl"
+      },
+      {
+        "id": "mat_mtesr1",
+        "name": "mat_mtesr1"
+      },
+      {
+        "id": "cont_tube1",
+        "name": "cont_tube1"
+      },
+      {
+        "id": "eq_centrifuge",
+        "name": "eq_centrifuge"
+      },
+      {
+        "id": "eq_incubator",
+        "name": "eq_incubator"
+      },
+      {
+        "id": "data_cell_count",
+        "name": "data_cell_count"
+      }
+    ],
+    "data": [
+      {
+        "id": "data_cell_count",
+        "type": "measurement",
+        "description": "cell count"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "mat_trypl"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "mat_mtesr1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cont_tube1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "equipment"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "eq_centrifuge"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "equipment"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "eq_incubator"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_cells_initial"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "eq_incubator",
+          "program": {
+            "program_name": "TrypLExpress incubation 5 min"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_cells_initial"
+          },
+          {
+            "kind": "sample",
+            "id": "mat_trypl"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_cells_incubated"
+          }
+        ]
+      },
+      {
+        "id": "s8",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "eq_centrifuge",
+          "program": {
+            "program_name": "5 min 200g"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_cells_incubated"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_cells_pellet"
+          }
+        ]
+      },
+      {
+        "id": "s9",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_cells_pellet"
+          },
+          {
+            "kind": "sample",
+            "id": "mat_mtesr1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_cells_resuspended1"
+          }
+        ]
+      },
+      {
+        "id": "s10",
+        "op": "annotate",
+        "params": {
+          "note": "Filtered through a 20-μm strainer and washed with mTeSR1"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_cells_resuspended1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_cells_filtered"
+          }
+        ]
+      },
+      {
+        "id": "s11",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "eq_centrifuge",
+          "program": {
+            "program_name": "5 min 200g"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_cells_filtered"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_cells_pellet2"
+          }
+        ]
+      },
+      {
+        "id": "s12",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_cells_pellet2"
+          },
+          {
+            "kind": "sample",
+            "id": "mat_mtesr1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_cells_resuspended2"
+          }
+        ]
+      },
+      {
+        "id": "s13",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "cell_count"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_cells_resuspended2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "data_cell_count"
+          }
+        ]
+      },
+      {
+        "id": "s14",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_cells_resuspended2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_cells_diluted"
+          }
+        ]
+      },
+      {
+        "id": "s15",
+        "op": "annotate",
+        "params": {
+          "note": "Mixed equal ratios of three cell lines to target 10,000 cells for 10x microfluidic chip"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_cells_diluted"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_cells_mixed"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      }
+    ],
+    "detail_level": 0
+  }
+}

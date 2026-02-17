@@ -1,0 +1,146 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "group": "nat_protocols",
+    "source": {
+      "id": "s41596-023-00880-1",
+      "type": "paper"
+    },
+    "title": "Micromass centrifugation and resuspension"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "tube_sample",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "tube_sample",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "µL",
+            "value": 200
+          },
+          "source_material": "e6_fbs"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "tube_sample",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "tube_sample",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "duration": {
+            "unit": "min",
+            "value": 3
+          },
+          "program": {
+            "duration": {
+              "unit": "min",
+              "value": 3
+            },
+            "repeats": 3,
+            "rotation_between": "180°",
+            "speed": {
+              "unit": "g",
+              "value": 300
+            }
+          },
+          "repeats": 3,
+          "rotation_between": "180°",
+          "speed": {
+            "unit": "g",
+            "value": 300
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "Use a P200 pipette with a wide‑bore tip to gently push each cell pellet down to the base of the tube and aspirate the micromass into the pipette tip opening."
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "tube_sample",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "tube_sample",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "tube",
+        "type": "tube"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "id": "centrifuge",
+        "type": "centrifuge"
+      },
+      {
+        "id": "p200_pipette",
+        "type": "pipette"
+      }
+    ],
+    "materials": [
+      {
+        "id": "e6_fbs",
+        "name": "E6/2% FBS"
+      }
+    ],
+    "samples": [
+      {
+        "container_ref": "tube",
+        "description": "tube containing cells",
+        "id": "tube_sample"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

@@ -1,0 +1,124 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Add medium after BME solidifies",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-0379-4"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "bme",
+        "name": "BME"
+      },
+      {
+        "id": "organoid_medium",
+        "name": "organoid medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate",
+        "type": "well_plate",
+        "description": "Plate containing solidified BME drops"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "plate",
+        "container_ref": "plate",
+        "description": "Plate with solidified BME drops"
+      },
+      {
+        "id": "org_medium",
+        "description": "Organoid medium sample"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate"
+          }
+        ],
+        "params": {
+          "duration": "30-60 min"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Flip the plate"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "org_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 500,
+            "unit": "µl"
+          }
+        },
+        "annotations": {
+          "critical": "Do not add medium directly on top of the BME drops, as this might disrupt the droplets."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

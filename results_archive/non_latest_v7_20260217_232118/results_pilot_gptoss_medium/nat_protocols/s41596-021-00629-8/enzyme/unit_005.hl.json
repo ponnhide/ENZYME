@@ -1,0 +1,127 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Resuspend pellet in E8 + Y27632",
+    "source": {
+      "type": "paper",
+      "id": "s41596-021-00629-8"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "E8_Y27632",
+        "type": "reagent",
+        "description": "E8 medium supplemented with 10 μM Y27632"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube",
+        "type": "container",
+        "description": "microcentrifuge tube"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "cell_pellet",
+        "type": "sample",
+        "description": "cell pellet after centrifugation"
+      },
+      {
+        "id": "pellet_with_medium",
+        "type": "sample",
+        "description": "cell pellet after addition of E8+Y27632"
+      },
+      {
+        "id": "resuspended_cells",
+        "type": "sample",
+        "description": "cells gently resuspended in E8+Y27632"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s0",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_pellet"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_pellet"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Remove the supernatant"
+        }
+      },
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_pellet"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "pellet_with_medium"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "mL"
+          }
+        },
+        "annotations": {
+          "reagent": "E8 + 10 μM Y27632"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "pellet_with_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "resuspended_cells"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s0",
+    "edges": [
+      {
+        "from": "s0",
+        "to": "s1"
+      },
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,185 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Papain dissociation of organoid pieces",
+    "source": {
+      "type": "paper",
+      "id": "s41586-019-1654-9"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "papain",
+        "name": "Papain"
+      },
+      {
+        "id": "enzyme_A",
+        "name": "Enzyme A"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "incubator1",
+        "name": "Incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoid_pieces",
+        "name": "Organoid pieces"
+      },
+      {
+        "id": "papain_mix",
+        "name": "Papain mix",
+        "derived_from": [
+          "papain"
+        ]
+      },
+      {
+        "id": "enzyme_A_mix",
+        "name": "Enzyme A mix",
+        "derived_from": [
+          "enzyme_A"
+        ]
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_pieces"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "papain_mix"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "enzyme_A_mix"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "papain_mix"
+          },
+          {
+            "kind": "sample",
+            "id": "organoid_pieces"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Transfer Papain to organoid pieces (amount not specified)"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_pieces"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_pieces"
+          }
+        ],
+        "params": {
+          "temperature": {
+            "value": 37,
+            "unit": "C"
+          },
+          "duration": {
+            "value": 15,
+            "unit": "min"
+          },
+          "device_kind": "incubator"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "enzyme_A_mix"
+          },
+          {
+            "kind": "sample",
+            "id": "organoid_pieces"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Add Enzyme A to the Papain mix (amount not specified)"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Dehydrate organoids before freezing",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00814-x"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "sucrose_30",
+        "name": "30% sucrose solution"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube1",
+        "type": "tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator1",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoid_sample",
+        "type": "organoid",
+        "container_id": "tube1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "sucrose_30"
+          },
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "ml"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          },
+          {
+            "kind": "equipment",
+            "id": "incubator1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "overnight at 4 °C",
+          "temperature": {
+            "value": 4,
+            "unit": "°C"
+          },
+          "duration": "overnight"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "modality": "visual",
+          "features": "organoids sink to bottom of tube when fully dehydrated"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,449 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Establishment of organoids from primary tissue",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-0379-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "tissue_sample",
+        "name": "Primary tissue (from Step 3)",
+        "type": "material"
+      },
+      {
+        "id": "adDMEM_F12_medium",
+        "name": "adDMEM/F12+++ medium",
+        "type": "material"
+      },
+      {
+        "id": "BME",
+        "name": "BME (or Matrigel)",
+        "type": "material"
+      },
+      {
+        "id": "ROCK_inhibitor_10uM",
+        "name": "10 µM ROCK inhibitor",
+        "type": "material"
+      },
+      {
+        "id": "Primocin_100ug_ml",
+        "name": "Primocin (100 µg/ml)",
+        "type": "material"
+      },
+      {
+        "id": "caspofungin_0_5ug_ml",
+        "name": "0.5 µg/ml caspofungin",
+        "type": "material"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube",
+        "name": "Microcentrifuge tube",
+        "type": "container"
+      },
+      {
+        "id": "centrifuge_tube",
+        "name": "Centrifuge tube",
+        "type": "container"
+      },
+      {
+        "id": "cell_strainer_100um",
+        "name": "100‑µm cell strainer",
+        "type": "container"
+      },
+      {
+        "id": "24_well_plate",
+        "name": "Pre‑heated 24‑well suspension cell culture plate",
+        "type": "container"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "shaker",
+        "name": "Shaker",
+        "type": "equipment"
+      },
+      {
+        "id": "centrifuge",
+        "name": "Centrifuge",
+        "type": "equipment"
+      },
+      {
+        "id": "incubator",
+        "name": "Humidified incubator (37 °C, 5 % CO₂)",
+        "type": "equipment"
+      },
+      {
+        "id": "water_bath",
+        "name": "37 °C water bath",
+        "type": "equipment"
+      }
+    ],
+    "samples": [
+      {
+        "id": "digested_mix",
+        "name": "Digest mixture",
+        "type": "sample"
+      },
+      {
+        "id": "mixture_with_medium",
+        "name": "Mixture topped up with medium",
+        "type": "sample"
+      },
+      {
+        "id": "pellet1",
+        "name": "First pellet after centrifugation",
+        "type": "sample"
+      },
+      {
+        "id": "resuspended_cells",
+        "name": "Resuspended cells after first centrifugation",
+        "type": "sample"
+      },
+      {
+        "id": "pellet2",
+        "name": "Second pellet after centrifugation",
+        "type": "sample"
+      },
+      {
+        "id": "BME_cell_suspension",
+        "name": "Cells resuspended in BME",
+        "type": "sample"
+      },
+      {
+        "id": "plate_with_droplets",
+        "name": "24‑well plate with BME drops",
+        "type": "sample"
+      },
+      {
+        "id": "solidified_plate",
+        "name": "Plate after BME solidification",
+        "type": "sample"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "description": "Digest the tissue (from Step 3) as appropriate based on the tumor type (Table 1). Monitor digestion; for <2‑h incubations, mix every 10–15 min by shaking vigorously and by pipetting up/down with a P1000 pipette. For overnight incubations, place the mixture on a shaker. Addition of 10 µM ROCK inhibitor during digestion can increase outgrowth efficiency. For head and neck organoids, digestion should not exceed 1 h and should be monitored regularly."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "digested_mix"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "digested_mix"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "annotations": {
+          "note": "Pipette up and down 10–20 times using a P1000 pipette."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "digested_mix"
+          },
+          {
+            "kind": "material",
+            "id": "adDMEM_F12_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "mixture_with_medium"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 10,
+            "unit": "ml"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "centrifuge",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "mixture_with_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "pellet1"
+          }
+        ],
+        "params": {
+          "speed": {
+            "value": 200,
+            "unit": "g"
+          },
+          "duration": {
+            "value": 5,
+            "unit": "min"
+          },
+          "temperature": {
+            "value": 4,
+            "unit": "°C"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "pellet1"
+          },
+          {
+            "kind": "material",
+            "id": "adDMEM_F12_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "resuspended_cells"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "annotations": {
+          "note": "Resuspend pellet in 10 ml adDMEM/F12 medium."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "resuspended_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "resuspended_cells"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "Filter using a 100‑µm cell strainer."
+        }
+      },
+      {
+        "id": "s7",
+        "op": "centrifuge",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "resuspended_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "pellet2"
+          }
+        ],
+        "params": {
+          "speed": {
+            "value": 200,
+            "unit": "g"
+          },
+          "duration": {
+            "value": 5,
+            "unit": "min"
+          },
+          "temperature": {
+            "value": 4,
+            "unit": "°C"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s8",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "pellet2"
+          },
+          {
+            "kind": "material",
+            "id": "BME"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "BME_cell_suspension"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "annotations": {
+          "note": "Approximately 10,000 cells should be plated in 40 µl of BME."
+        }
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "BME_cell_suspension"
+          },
+          {
+            "kind": "container",
+            "id": "24_well_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate_with_droplets"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 10,
+            "unit": "µl"
+          }
+        },
+        "annotations": {
+          "description": "Plate the BME containing organoids on the bottom of pre‑heated 24‑well suspension cell culture plates in drops of ~10 µl each.",
+          "drops_per_well": "3-4"
+        }
+      },
+      {
+        "id": "s10",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "plate_with_droplets"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "solidified_plate"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "temperature": {
+            "value": 37,
+            "unit": "°C"
+          },
+          "co2": {
+            "value": 5,
+            "unit": "% (vol/vol)"
+          },
+          "duration": {
+            "value": 25,
+            "unit": "min",
+            "note": "20–30 min"
+          },
+          "humidity": "humidified"
+        },
+        "annotations": {
+          "description": "Allow BME to solidify."
+        }
+      },
+      {
+        "id": "s11",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "description": "Prepare organoid medium (tissue‑specific growth factors as per Supplementary Table 1), add 10 µM ROCK inhibitor and Primocin (100 µg/ml). Warm medium in a 37 °C water bath. For head and neck organoids, additionally add 0.5 µg/ml caspofungin."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      }
+    ],
+    "detail_level": 0
+  }
+}

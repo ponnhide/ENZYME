@@ -1,0 +1,120 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Organoid dissociation with papain",
+    "source": {
+      "type": "paper",
+      "id": "s41586-023-06564-w"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "papain",
+        "name": "Papain",
+        "vendor": "Worthington",
+        "catalogue": "LS003127"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "incubator1",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoid_1",
+        "description": "Organoid sample to be dissociated"
+      },
+      {
+        "id": "papain_solution_1",
+        "description": "Papain enzyme solution (10 U ml−1)"
+      },
+      {
+        "id": "organoid_dissociated_1",
+        "description": "Organoid after papain dissociation"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "papain_solution_1"
+          }
+        ],
+        "params": {
+          "material_id": "papain"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "papain_solution_1"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Papain solution prewarmed to 37 °C"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_1"
+          },
+          {
+            "kind": "sample",
+            "id": "papain_solution_1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_dissociated_1"
+          }
+        ],
+        "params": {
+          "temperature": {
+            "value": 37,
+            "unit": "celsius"
+          },
+          "duration": {
+            "value": 15,
+            "unit": "minute"
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

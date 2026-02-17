@@ -1,0 +1,99 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Matrigel coating and incubation",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00814-x"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "matrigel_solution",
+        "name": "Matrigel/DMEM/F12 solution",
+        "type": "reagent"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate_24well",
+        "name": "24-well plate",
+        "type": "well_plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator_1",
+        "name": "incubator",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "well_sample",
+        "name": "well with Matrigel coating",
+        "container_ref": "plate_24well",
+        "location": "well"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "matrigel_solution"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "well_sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 300,
+            "unit": "µl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "well_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "well_sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "Incubate 1 h at 37 °C, 5% CO2"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

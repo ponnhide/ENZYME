@@ -1,0 +1,210 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41467-025-68247-6.pdf",
+      "type": "paper"
+    },
+    "title": "Measure organoid permeability with FITC-dextran"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "c1",
+            "kind": "container"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "FITC-Dextran diluted in PBS; source sample not specified"
+        },
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "s1",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "s2",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "mg/mL",
+            "value": 2
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "Solution of 4kDA FITC-Dextran (2 mg/mL) in PBS prepared; exact volume not specified"
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "m1",
+            "kind": "material"
+          },
+          {
+            "id": "m2",
+            "kind": "material"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "s3",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "mg/mL",
+            "value": 2
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "Organoids incubated in FITC-Dextran solution for 5 min in µ-slides"
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "s3",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "s4",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "min",
+            "value": 5
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "c1",
+            "kind": "container"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "d1",
+            "kind": "data"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "device_ref": "e1",
+          "program": "fluorescence_and_DIC_imaging"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Percentage of intact organoids calculated as: number of organoids excluding FITC-dextran from lumen / total number of organoids per condition/donor"
+        },
+        "id": "s6",
+        "inputs": [],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "c1",
+        "name": "µ-slides",
+        "type": "microslide",
+        "vendor": "Ibidi"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "Nikon spinning disc confocal",
+        "type": "spinning_disc_confocal_imager"
+      }
+    ],
+    "materials": [
+      {
+        "id": "m1",
+        "name": "4kDA FITC-Dextran",
+        "vendor": "MedChemExpress"
+      },
+      {
+        "id": "m2",
+        "name": "PBS"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s1",
+        "name": "s1"
+      },
+      {
+        "id": "s2",
+        "name": "s2"
+      },
+      {
+        "id": "s3",
+        "name": "s3"
+      },
+      {
+        "id": "s4",
+        "name": "s4"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

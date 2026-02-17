@@ -1,0 +1,204 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Dehydrate and embed organoids for cryosection",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-023-00814-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "mat_pbs_gly",
+        "name": "PBS‑Glycine",
+        "description": "Phosphate‑buffered saline with glycine"
+      },
+      {
+        "id": "mat_sucrose30",
+        "name": "30% sucrose solution",
+        "description": "30% (w/v) sucrose in water"
+      },
+      {
+        "id": "mat_oct",
+        "name": "Tissue‑Tek OCT Compound",
+        "description": "Embedding medium for cryosectioning"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube1",
+        "type": "microcentrifuge_tube",
+        "description": "Tube containing organoids during dehydration"
+      },
+      {
+        "id": "mold1",
+        "type": "cryomold",
+        "description": "Tissue‑Tek Cryomold for embedding"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "organoid_sample",
+        "type": "organoid",
+        "description": "Organoids to be processed"
+      },
+      {
+        "id": "mat_pbs_gly",
+        "name": "mat_pbs_gly"
+      },
+      {
+        "id": "mat_sucrose30",
+        "name": "mat_sucrose30"
+      },
+      {
+        "id": "mold1",
+        "name": "mold1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "rinse",
+          "description": "Remove PFA and wash three times with PBS‑Glycine for 3 min at RT."
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          },
+          {
+            "kind": "sample",
+            "id": "mat_pbs_gly"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "params": {
+          "note": "PAUSE POINT: Organoids can be stored for up to 2 months in PBS‑Glycine at 4 °C."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "description": "Add 1 ml of 30% sucrose solution to the organoids and keep at 4 °C overnight.",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "mat_sucrose30"
+          },
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "params": {
+          "note": "PAUSE POINT: Organoids can be stored for up to 2 weeks in sucrose solution at 4 °C."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "description": "Transfer the dehydrated organoids from the sucrose tube into the OCT cryomold using a cut 200 µl micropipette tip or inoculation loop.",
+          "amount": {
+            "value": 200.0,
+            "unit": "µl"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          },
+          {
+            "kind": "sample",
+            "id": "mold1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Place one organoid in the center of the mold and orient it so the pigmented area faces the sides, not the bottom of the mold opening."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {
+          "note": "Place the mold with organoids at −80 °C for deep freezing and store for a minimum of 24 h (up to 1 year)."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

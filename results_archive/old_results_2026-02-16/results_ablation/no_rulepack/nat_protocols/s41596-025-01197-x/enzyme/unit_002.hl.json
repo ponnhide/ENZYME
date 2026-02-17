@@ -1,0 +1,144 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "NR formation and amplification medium exchange",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01197-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_dispase",
+        "name": "Dispase"
+      },
+      {
+        "id": "m_amplification_medium",
+        "name": "Amplification medium"
+      },
+      {
+        "id": "m_EGF",
+        "name": "EGF"
+      },
+      {
+        "id": "m_FGF2",
+        "name": "FGF2"
+      }
+    ],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "induced_culture",
+        "name": "Successfully induced cultures"
+      },
+      {
+        "id": "replated_culture",
+        "name": "Replated neuroectodermal cell clusters"
+      },
+      {
+        "id": "culture_with_amplification_medium",
+        "name": "Culture in amplification medium"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "induced_culture"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "replated_culture"
+          }
+        ],
+        "params": {
+          "action_kind": "detach"
+        },
+        "annotations": {
+          "note": "Replated using Dispase to detach neuroectodermal cell clusters."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "replated_culture"
+          },
+          {
+            "kind": "material",
+            "id": "m_amplification_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "culture_with_amplification_medium"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "unspecified",
+            "unit": null
+          }
+        },
+        "annotations": {
+          "note": "Switch to amplification medium containing EGF 10 ng/mL and FGF2 10 ng/mL."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "culture_with_amplification_medium"
+          },
+          {
+            "kind": "material",
+            "id": "m_amplification_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "culture_with_amplification_medium"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": "50",
+            "unit": "percent"
+          }
+        },
+        "annotations": {
+          "note": "Half the medium exchanged every other day with fresh medium containing 2× EGF (20 ng/mL) and 2× FGF2 (20 ng/mL) to maintain final concentration at 10 ng/mL."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

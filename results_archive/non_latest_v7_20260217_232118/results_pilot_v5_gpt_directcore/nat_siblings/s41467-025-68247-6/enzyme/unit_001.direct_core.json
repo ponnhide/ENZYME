@@ -1,0 +1,376 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Tissue cleaning and crypt isolation",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "gauze",
+        "name": "gauze (Fisher Scientific)"
+      },
+      {
+        "id": "pbs_plus",
+        "name": "PBS++ (PBS + 10 mM HEPES, 1X GlutaMAX, 1X Pen-Strep, 2.5 μg/mL Amphotericin B) (Thermo Fisher Scientific)"
+      },
+      {
+        "id": "dmem_plus",
+        "name": "DMEM++ (Advanced DMEM/F12 + 10 mM HEPES, 1X GlutaMAX, 1X Pen-Strep, 2.5 μg/mL Amphotericin B) (Thermo Fisher Scientific)"
+      },
+      {
+        "id": "scalpel",
+        "name": "scalpels (Fisher Scientific)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "dish",
+        "type": "petri_dish_15cm"
+      },
+      {
+        "id": "tube",
+        "type": "conical_tube_50ml"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge1",
+        "type": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "colon_tissue",
+        "name": "colon tissue"
+      },
+      {
+        "id": "minced_epithelium",
+        "name": "minced epithelium"
+      },
+      {
+        "id": "dish",
+        "name": "dish"
+      },
+      {
+        "id": "pbs_plus",
+        "name": "pbs_plus"
+      },
+      {
+        "id": "tube",
+        "name": "tube"
+      },
+      {
+        "id": "dmem_plus",
+        "name": "dmem_plus"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "colon_tissue"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "params": {
+          "note": "Slice colon tissue lengthwise and wipe 3–4 times with gauze (Fisher Scientific) to remove waste and mucus."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "container_type": "petri_dish_15cm"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "dish"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "pbs_plus"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "pbs_plus",
+          "destination": "dish",
+          "amount": {
+            "description": "fill"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "container_type": "conical_tube_50ml"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tube"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s8",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "dmem_plus"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s9",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "minced_epithelium"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s10",
+        "op": "transfer",
+        "params": {
+          "source": "minced_epithelium",
+          "destination": "tube",
+          "amount": {
+            "description": "as_needed"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "transfer",
+        "params": {
+          "source": "dmem_plus",
+          "destination": "tube",
+          "amount": {
+            "description": "enough_to_wash"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge1",
+          "program": {
+            "program_name": "500g_3min_4C"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s13",
+        "op": "annotate",
+        "params": {
+          "note": "Discard supernatant after centrifugation."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s14",
+        "op": "transfer",
+        "params": {
+          "source": "dmem_plus",
+          "destination": "tube",
+          "amount": {
+            "description": "enough_to_wash"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s15",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge1",
+          "program": {
+            "program_name": "500g_3min_4C"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s16",
+        "op": "annotate",
+        "params": {
+          "note": "Discard supernatant after centrifugation."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s17",
+        "op": "transfer",
+        "params": {
+          "source": "dmem_plus",
+          "destination": "tube",
+          "amount": {
+            "description": "enough_to_wash"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s18",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge1",
+          "program": {
+            "program_name": "500g_3min_4C"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s19",
+        "op": "annotate",
+        "params": {
+          "note": "Discard supernatant after centrifugation."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      },
+      {
+        "from": "s16",
+        "to": "s17"
+      },
+      {
+        "from": "s17",
+        "to": "s18"
+      },
+      {
+        "from": "s18",
+        "to": "s19"
+      }
+    ],
+    "detail_level": 0
+  }
+}

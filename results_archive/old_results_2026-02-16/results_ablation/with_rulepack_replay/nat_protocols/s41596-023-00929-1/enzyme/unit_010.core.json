@@ -1,0 +1,324 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-023-00929-1.pdf",
+      "type": "paper"
+    },
+    "title": "Plating sorted cells (steps 62-69)"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "sorted_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "spun_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "duration": "5 min",
+          "program": "5 min at 300g, 4 °C",
+          "speed": "300g",
+          "temperature": "4 °C"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Remove supernatant from microcentrifuge tubes containing cells."
+        },
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "spun_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "cell_pellet",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "growth_medium",
+            "kind": "material"
+          },
+          {
+            "id": "cell_pellet",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "cells_with_medium",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "µL",
+            "value": 500
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "cells_with_medium",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "cells_with_medium",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Add the desired amount of cell solution into collagen‑coated wells (approximately half the well volume)."
+        },
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "cells_with_medium",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "well_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "growth_medium",
+            "kind": "material"
+          },
+          {
+            "id": "well_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "well_cells_total",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "µL",
+            "value": 500
+          },
+          "note": "Add additional 500 µL of growth medium to reach ~1 mL total per well."
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s7",
+        "inputs": [
+          {
+            "id": "pbs",
+            "kind": "material"
+          },
+          {
+            "id": "empty_well",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "well_pbs",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "µL",
+            "value": 500
+          },
+          "note": "Add 500 µL of 1× PBS to all other empty wells to prevent drying."
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s8",
+        "inputs": [
+          {
+            "id": "well_cells_total",
+            "kind": "sample"
+          },
+          {
+            "id": "well_pbs",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "well_cells_total",
+            "kind": "sample"
+          },
+          {
+            "id": "well_pbs",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "37 °C incubation",
+          "temperature": "37 °C"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "microcentrifuge_tube",
+        "name": "microcentrifuge tube"
+      },
+      {
+        "description": "culture well",
+        "id": "collagen_coated_well",
+        "name": "collagen‑coated well"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "device_kind": "centrifuge",
+        "id": "centrifuge",
+        "name": "centrifuge"
+      },
+      {
+        "device_kind": "incubator",
+        "id": "incubator",
+        "name": "incubator"
+      }
+    ],
+    "materials": [
+      {
+        "description": "prewarmed (37 °C) growth medium",
+        "id": "growth_medium",
+        "name": "growth medium"
+      },
+      {
+        "description": "phosphate‑buffered saline 1×",
+        "id": "pbs",
+        "name": "1× PBS"
+      }
+    ],
+    "samples": [
+      {
+        "container_ref": "microcentrifuge_tube",
+        "id": "sorted_cells",
+        "name": "sorted mural/endothelial cells"
+      },
+      {
+        "container_ref": "microcentrifuge_tube",
+        "id": "spun_cells",
+        "name": "cells after centrifugation"
+      },
+      {
+        "container_ref": "microcentrifuge_tube",
+        "id": "cell_pellet",
+        "name": "cell pellet after supernatant removal"
+      },
+      {
+        "container_ref": "microcentrifuge_tube",
+        "id": "cells_with_medium",
+        "name": "cells resuspended in growth medium"
+      },
+      {
+        "container_ref": "collagen_coated_well",
+        "id": "well_cells",
+        "name": "collagen‑coated well containing cell suspension"
+      },
+      {
+        "container_ref": "collagen_coated_well",
+        "id": "well_cells_total",
+        "name": "well after adding additional growth medium (≈1 mL total)"
+      },
+      {
+        "container_ref": "collagen_coated_well",
+        "id": "empty_well",
+        "name": "empty collagen‑coated well"
+      },
+      {
+        "container_ref": "collagen_coated_well",
+        "id": "well_pbs",
+        "name": "empty well after adding PBS"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

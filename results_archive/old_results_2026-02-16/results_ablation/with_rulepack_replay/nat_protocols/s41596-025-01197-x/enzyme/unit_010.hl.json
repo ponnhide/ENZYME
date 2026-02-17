@@ -1,0 +1,235 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Thawing and plating of PS cells (Stage 1)",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01197-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "6‑well plate with MG‑coated wells"
+      },
+      {
+        "id": "m2",
+        "name": "stem cell medium with Y‑27632"
+      },
+      {
+        "id": "m3",
+        "name": "5 mL serological pipet"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "6‑well plate",
+        "name": "MG‑coated 6‑well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "incubator",
+        "device_kind": "incubator"
+      },
+      {
+        "id": "e2",
+        "name": "water bath",
+        "device_kind": "water_bath"
+      },
+      {
+        "id": "e3",
+        "name": "centrifuge",
+        "device_kind": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "name": "frozen cell aliquot"
+      },
+      {
+        "id": "samp2",
+        "name": "thawed cells"
+      },
+      {
+        "id": "samp3",
+        "name": "cell pellet"
+      },
+      {
+        "id": "samp4",
+        "name": "cell suspension with medium"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "params": {
+          "temperature": {
+            "value": 37,
+            "unit": "C"
+          },
+          "co2": {
+            "value": 5,
+            "unit": "%"
+          },
+          "duration": {
+            "value": 30,
+            "unit": "min"
+          }
+        },
+        "annotations": {
+          "alternative": "keep at room temperature for 1 h in a biosafety cabinet"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "params": {
+          "device_kind": "water_bath",
+          "program": "thaw",
+          "temperature": {
+            "value": 37,
+            "unit": "C"
+          }
+        },
+        "annotations": {
+          "monitoring": "process observed every few seconds"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "centrifuge",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp3"
+          }
+        ],
+        "params": {
+          "speed": {
+            "value": 1000,
+            "unit": "rpm"
+          },
+          "rcf": {
+            "value": 300,
+            "unit": "g"
+          },
+          "duration": {
+            "value": 4,
+            "unit": "min"
+          },
+          "temperature": "room temperature"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4a",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m2"
+          },
+          {
+            "kind": "sample",
+            "id": "samp3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp4"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 3,
+            "unit": "mL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4b",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp4"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "annotations": {
+          "tool": "5 mL serological pipet"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4a"
+      },
+      {
+        "from": "s4a",
+        "to": "s4b"
+      }
+    ],
+    "detail_level": 0
+  }
+}

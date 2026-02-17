@@ -1,0 +1,204 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "d‑4: Cell seeding and aggregate formation",
+    "source": {
+      "type": "paper",
+      "id": "s41596-021-00629-8"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_accutase",
+        "name": "Accutase"
+      },
+      {
+        "id": "m_E8",
+        "name": "E8 medium"
+      },
+      {
+        "id": "m_Y27632",
+        "name": "Y27632 (10 µM)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_T25",
+        "name": "T25 flask"
+      },
+      {
+        "id": "c_96well",
+        "name": "U‑shaped ultra‑low attachment 96‑well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e_centrifuge",
+        "name": "centrifuge"
+      },
+      {
+        "id": "e_incubator",
+        "name": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_hPSC",
+        "name": "human pluripotent stem cells (hPSCs)"
+      },
+      {
+        "id": "s_stock",
+        "name": "stock cell suspension (5,000 cells / 100 µL)"
+      },
+      {
+        "id": "s_seeded_plate",
+        "name": "96‑well plate seeded with hPSCs"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_hPSC"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_hPSC"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Detach hPSCs from a T25 flask at 80–90% confluence by Accutase treatment and count the cells as described in Steps 2–5."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_hPSC"
+          },
+          {
+            "kind": "material",
+            "id": "m_E8"
+          },
+          {
+            "kind": "material",
+            "id": "m_Y27632"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_stock"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Prepare a stock cell suspension at a concentration of 5,000 cells per 100 µL medium by adding an appropriate amount of cells from Step 10 to E8 + 10 µM Y27632. Gently resuspend the cells."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_stock"
+          },
+          {
+            "kind": "container",
+            "id": "c_96well"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_seeded_plate"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 100,
+            "unit": "µL"
+          }
+        },
+        "annotations": {
+          "note": "Seed 100 µL of the stock cell suspension per well of the U‑shaped ultra‑low attachment 96‑well plate, seeding 12 extra wells (one row) beyond the desired number of HFOs."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_seeded_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_seeded_plate"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "300g_4C_3min"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_seeded_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_seeded_plate"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Place the plate into the incubator carefully and do not move it for at least 24 h to ensure that one round aggregate forms per well overnight."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

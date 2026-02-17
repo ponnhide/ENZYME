@@ -1,0 +1,121 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Microwell plate preparation for organoid seeding",
+    "source": {
+      "type": "paper",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [
+      {
+        "id": "microwell_plate",
+        "name": "microwell_plate",
+        "type": "generic_container"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "storage_buffer",
+        "name": "storage_buffer"
+      },
+      {
+        "id": "aspirated_storage_buffer",
+        "name": "aspirated_storage_buffer"
+      },
+      {
+        "id": "advanced_dmeme_f12",
+        "name": "advanced_dmeme_f12"
+      },
+      {
+        "id": "well_content",
+        "name": "well_content"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "storage_buffer"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "aspirated_storage_buffer"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "action": "aspirate"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "advanced_dmeme_f12"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "well_content"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 150,
+            "unit": "µL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "microwell_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "microwell_plate"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "30 min incubation"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

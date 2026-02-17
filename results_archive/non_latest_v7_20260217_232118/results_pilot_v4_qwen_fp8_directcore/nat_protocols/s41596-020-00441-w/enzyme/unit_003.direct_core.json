@@ -1,0 +1,186 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Differentiation of PSCs into definitive endoderm (Day 0)",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-020-00441-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "mTeSR1",
+        "type": "medium"
+      },
+      {
+        "id": "day_0_medium",
+        "type": "medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "well_24well_plate",
+        "type": "well",
+        "format": "24-well_plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "inverted_microscope",
+        "type": "microscope"
+      },
+      {
+        "id": "incubator",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "well_24well_plate",
+        "name": "well_24well_plate"
+      },
+      {
+        "id": "day_0_medium",
+        "name": "day_0_medium"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "observe",
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "cell_confluency"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "well_24well_plate"
+          }
+        ],
+        "outputs": [],
+        "equipment": [
+          "inverted_microscope"
+        ],
+        "annotations": [
+          {
+            "key": "target_confluency",
+            "value": "80-90%"
+          },
+          {
+            "key": "critical_step",
+            "value": "true"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "params": {
+          "note": "If cell confluency is not 80-90%, wait additional 24 h: aspirate mTeSR1 and add 500 μl fresh mTeSR1 per well"
+        },
+        "inputs": [],
+        "outputs": [],
+        "equipment": [],
+        "annotations": []
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [],
+        "outputs": [],
+        "equipment": [],
+        "annotations": [
+          {
+            "key": "note",
+            "value": "Warm aliquot of day 0 medium to room temperature"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "from_container": "day_0_medium",
+          "to_container": "well_24well_plate",
+          "amount": {
+            "value": 0.5,
+            "unit": "ml"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "day_0_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "well_24well_plate"
+          }
+        ],
+        "equipment": [],
+        "annotations": []
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": "37 °C",
+            "co2": "5%",
+            "duration": "overnight"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "well_24well_plate"
+          }
+        ],
+        "outputs": [],
+        "equipment": [
+          "incubator"
+        ],
+        "annotations": [
+          {
+            "key": "critical_step",
+            "value": "Pre-warming medium increases cell survival"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,258 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Hierarchical annotation with snapseed",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-024-08172-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "d1",
+        "name": "d1"
+      },
+      {
+        "id": "d2",
+        "name": "d2"
+      },
+      {
+        "id": "d3",
+        "name": "d3"
+      },
+      {
+        "id": "d4",
+        "name": "d4"
+      },
+      {
+        "id": "d5",
+        "name": "d5"
+      },
+      {
+        "id": "d6",
+        "name": "d6"
+      },
+      {
+        "id": "d7",
+        "name": "d7"
+      },
+      {
+        "id": "d8",
+        "name": "d8"
+      },
+      {
+        "id": "d9",
+        "name": "d9"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "type": "single_cell_expression_data",
+        "description": "RSS3 averaged expression profiles from human developing brain cell atlas"
+      },
+      {
+        "id": "d2",
+        "type": "marker_gene_hierarchy",
+        "description": "Hierarchy of cell types (progenitor, neuron, non-neural) with marker genes (Supplementary Data 1)"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "params": {
+          "annotation": "Snapseed is a scalable auto-annotation strategy based on enrichment of marker gene expression in cell clusters. High-resolution clustering is preferred. Data integration is not necessarily required."
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d1"
+          },
+          {
+            "kind": "sample",
+            "id": "d2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d3"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "label",
+          "label": "RSS3 averaged expression profiles"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d4"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": {
+            "program_name": "kNN_graph_construction",
+            "k": 30,
+            "space": "RSS"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d5"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": {
+            "program_name": "Leiden_clustering",
+            "resolution": 80
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d5"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d6"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "AUROC",
+            "detection_rate"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d6"
+          },
+          {
+            "kind": "sample",
+            "id": "d2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d7"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "label",
+          "label": "cell_type_score = max_AUROC * max_detection_rate"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d7"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d8"
+          }
+        ]
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": {
+            "program_name": "hierarchical_assignment",
+            "level": "recursive"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d8"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d9"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

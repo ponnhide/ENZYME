@@ -1,0 +1,212 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Anterior/posterior gut spheroid formation (Day 7)",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-020-00441-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "type": "reagent",
+        "name": "TrypLE Express"
+      },
+      {
+        "id": "m2",
+        "type": "reagent",
+        "name": "DMEM/F12"
+      },
+      {
+        "id": "m3",
+        "type": "reagent",
+        "name": "day 7 medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "well_plate",
+        "format": "96-well",
+        "shape": "round-bottom",
+        "properties": [
+          "ultra-low attachment"
+        ]
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "incubator",
+        "name": "37 °C incubator"
+      },
+      {
+        "id": "e2",
+        "type": "centrifuge",
+        "name": "centrifuge"
+      }
+    ],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": "37 °C",
+            "duration": "5 min"
+          }
+        },
+        "inputs": [],
+        "outputs": [],
+        "annotations": [
+          {
+            "key": "description",
+            "value": "dissociate anterior or posterior gut cells to single cells by incubation with TrypLE Express"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "m1",
+          "destination": "c1",
+          "amount": {
+            "value": 500.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [],
+        "outputs": [],
+        "annotations": [
+          {
+            "key": "description",
+            "value": "add warm DMEM/F12 to each well to sufficiently dilute the TrypLE"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "speed": "1000 r.p.m.",
+            "duration": "3 min"
+          }
+        },
+        "inputs": [],
+        "outputs": [],
+        "annotations": [
+          {
+            "key": "description",
+            "value": "centrifuge cells"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [],
+        "outputs": [],
+        "annotations": [
+          {
+            "key": "description",
+            "value": "resuspend pellet in day 7 medium"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "c1",
+          "destination": "c1",
+          "amount": {
+            "value": 100.0,
+            "unit": "μl"
+          }
+        },
+        "inputs": [],
+        "outputs": [],
+        "annotations": [
+          {
+            "key": "description",
+            "value": "plate anterior or posterior gut cell suspensions in 96-well round-bottom ultra-low attachment plates at 10,000 cells per well"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": "37 °C",
+            "duration": "overnight"
+          }
+        },
+        "inputs": [],
+        "outputs": [],
+        "annotations": [
+          {
+            "key": "description",
+            "value": "incubate to form spheroids"
+          }
+        ]
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "params": {},
+        "inputs": [],
+        "outputs": [],
+        "annotations": [
+          {
+            "key": "description",
+            "value": "prepare the same number of anterior and posterior spheroids"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

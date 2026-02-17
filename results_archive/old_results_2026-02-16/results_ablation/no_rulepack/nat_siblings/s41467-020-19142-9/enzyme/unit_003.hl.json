@@ -1,0 +1,250 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Plating crypts in basement membrane extract",
+    "source": {
+      "type": "paper",
+      "id": "s41467-020-19142-9.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "colonic crypts"
+      },
+      {
+        "id": "m2",
+        "name": "basement membrane extract (BME; Cultrex PC BME RGF type 2, Amsbio)"
+      },
+      {
+        "id": "m3",
+        "name": "human intestinal stem cell medium (HISCM) composed of Advanced Dulbecco’s modified Eagle medium/F12 supplemented with penicillin/streptomycin, 10 mM HEPES and Glutamax, 50% Wnt3a conditioned medium, 20% R‑Spondin1 conditioned medium, 10% Noggin conditioned medium, 1x B27, 1.25 mM N‑acetylcysteine, 10 mM nicotinamide, 50 ng/ml human EGF, 10 nM Gastrin, 500 nM A83‑01, 10 nM prostaglandin E2 and 100 µg/ml Primocin"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "culture plate (e.g., multi‑well plate)"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_crypts",
+        "name": "s_crypts"
+      },
+      {
+        "id": "s_bme",
+        "name": "s_bme"
+      },
+      {
+        "id": "s_medium",
+        "name": "s_medium"
+      },
+      {
+        "id": "s_bme_in_plate",
+        "name": "s_bme_in_plate"
+      },
+      {
+        "id": "s_crypts_in_bme",
+        "name": "s_crypts_in_bme"
+      },
+      {
+        "id": "s_culture",
+        "name": "s_culture"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_crypts"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_bme"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "m3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_medium"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_bme"
+          },
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_bme_in_plate"
+          }
+        ],
+        "params": {
+          "amount": null
+        },
+        "annotations": {
+          "note": "Volume of BME added to plate not specified"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_crypts"
+          },
+          {
+            "kind": "sample",
+            "id": "s_bme_in_plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_crypts_in_bme"
+          }
+        ],
+        "params": {
+          "amount": null
+        },
+        "annotations": {
+          "note": "Amount of crypt suspension transferred not specified"
+        }
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_medium"
+          },
+          {
+            "kind": "sample",
+            "id": "s_crypts_in_bme"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_culture"
+          }
+        ],
+        "params": {
+          "amount": null
+        },
+        "annotations": {
+          "note": "Volume of medium added not specified"
+        }
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_culture"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_culture"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Incubate under appropriate conditions for organoid growth (conditions not detailed in the source text)"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,260 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Southern blotting",
+    "source": {
+      "type": "paper",
+      "id": "s41593-021-00923-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Qiagen DNeasy Blood and Tissue kit",
+        "catalog_number": "69506"
+      },
+      {
+        "id": "m2",
+        "name": "Bsu36I restriction enzyme",
+        "vendor": "New England Biolabs",
+        "catalog_number": "R0524S"
+      },
+      {
+        "id": "m3",
+        "name": "0.8% agarose gel"
+      },
+      {
+        "id": "m4",
+        "name": "Molecular weight marker II",
+        "vendor": "Roche",
+        "catalog_number": "11218590910"
+      },
+      {
+        "id": "m5",
+        "name": "Molecular weight marker III",
+        "vendor": "Roche",
+        "catalog_number": "11218603910"
+      },
+      {
+        "id": "m6",
+        "name": "1‑kb probe",
+        "vendor": "IDT",
+        "sequence": "GGGGCC"
+      },
+      {
+        "id": "m7",
+        "name": "Salmon sperm DNA"
+      },
+      {
+        "id": "m8",
+        "name": "Anti‑DIG AP antibody",
+        "vendor": "Roche",
+        "catalog_number": "11093274910"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "Microcentrifuge tube"
+      },
+      {
+        "id": "c2",
+        "name": "Agarose gel casting tray"
+      },
+      {
+        "id": "c3",
+        "name": "Blotting membrane"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "Gel electrophoresis apparatus"
+      },
+      {
+        "id": "e2",
+        "name": "Hybridization incubator"
+      },
+      {
+        "id": "e3",
+        "name": "Imaging system for DIG detection"
+      }
+    ],
+    "samples": [
+      {
+        "id": "dna_extracted",
+        "name": "dna_extracted"
+      },
+      {
+        "id": "dna_with_enzyme",
+        "name": "dna_with_enzyme"
+      },
+      {
+        "id": "digested_DNA",
+        "name": "digested_DNA"
+      },
+      {
+        "id": "probe_1kb",
+        "name": "probe_1kb"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "dna_extracted"
+          }
+        ],
+        "params": {
+          "source_material": "hiPSC cultures",
+          "extraction_kit": "m1"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "dna_extracted"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "dna_with_enzyme"
+          }
+        ],
+        "params": {
+          "reagent": "m2",
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          }
+        },
+        "annotations": {
+          "note": "amount not specified in source text"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "dna_with_enzyme"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "digested_DNA"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "incubation": "restriction digest conditions not specified in text"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "digested_DNA"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "description": "Run digested DNA on 0.8% agarose gel (material m3) accompanied by molecular weight markers II (m4) and III (m5)."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "probe_1kb"
+          }
+        ],
+        "params": {
+          "probe_material": "m6"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "digested_DNA"
+          },
+          {
+            "kind": "sample",
+            "id": "probe_1kb"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "description": "Southern blotting performed using the 1‑kb probe (m6) in salmon sperm DNA (m7) for hybridization."
+        }
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "inputs": [],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "description": "Visualization performed with anti‑DIG AP antibody (m8)."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

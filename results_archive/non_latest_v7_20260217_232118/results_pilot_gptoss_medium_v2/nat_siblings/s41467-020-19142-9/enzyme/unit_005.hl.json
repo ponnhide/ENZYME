@@ -1,0 +1,139 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Seeding dissociated tumor cells",
+    "source": {
+      "type": "paper",
+      "id": "s41467-020-19142-9"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "dissociated tumor cells"
+      },
+      {
+        "id": "m2",
+        "name": "BME"
+      },
+      {
+        "id": "m3",
+        "name": "HICS minus Wnt conditioned medium"
+      },
+      {
+        "id": "m4",
+        "name": "LY27632"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "culture plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_input",
+        "material": "m1",
+        "container": "c1"
+      },
+      {
+        "id": "s_plated",
+        "material": "m1",
+        "container": "c1"
+      },
+      {
+        "id": "s_cultured",
+        "material": "m1",
+        "container": "c1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_input"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_plated"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Transfer dissociated tumor cells into BME (amount unspecified)."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_plated"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cultured"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "37 °C"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cultured"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cultured"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Organoids cultured in HICS minus Wnt conditioned medium supplemented with 10 µM LY27632."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

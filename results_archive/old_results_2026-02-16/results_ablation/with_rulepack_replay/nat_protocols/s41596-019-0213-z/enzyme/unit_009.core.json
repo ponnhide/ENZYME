@@ -1,0 +1,106 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-019-0213-z",
+      "type": "paper"
+    },
+    "title": "Aggregate incubation"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {
+          "note": "Place 3 mL of cell suspension per well into a 6-well low-attachment plate"
+        },
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "cell_suspension_sample",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "cell_suspension_in_plate",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "mL",
+            "value": 3
+          }
+        }
+      },
+      {
+        "annotations": {
+          "condition": "until cell aggregates with smooth borders (>50- to 100-µm diameter) have been formed",
+          "lowered_from": "incubate"
+        },
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "cell_suspension_in_plate",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "cell_suspension_in_plate",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": null
+          }
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "description": "6-well low-attachment plate",
+        "id": "low_attach_plate"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "description": "incubator",
+        "id": "incubator"
+      }
+    ],
+    "materials": [
+      {
+        "description": "cell suspension",
+        "id": "cell_suspension"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cell_suspension_sample",
+        "material_ref": "cell_suspension"
+      },
+      {
+        "container_ref": "low_attach_plate",
+        "id": "cell_suspension_in_plate",
+        "material_ref": "cell_suspension"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

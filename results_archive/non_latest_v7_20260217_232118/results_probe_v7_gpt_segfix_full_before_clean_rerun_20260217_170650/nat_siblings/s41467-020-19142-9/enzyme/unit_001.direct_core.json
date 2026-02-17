@@ -1,0 +1,267 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Organoid generation and culture medium preparation",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-020-19142-9.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "chelation_solution",
+        "name": "Chelation solution"
+      },
+      {
+        "id": "BME",
+        "name": "Basement membrane extract"
+      },
+      {
+        "id": "adv_dmem_f12",
+        "name": "Advanced DMEM/F12"
+      },
+      {
+        "id": "pen_strep",
+        "name": "Penicillin/streptomycin"
+      },
+      {
+        "id": "HEPES",
+        "name": "HEPES"
+      },
+      {
+        "id": "Glutamax",
+        "name": "Glutamax"
+      },
+      {
+        "id": "Wnt3a_cm",
+        "name": "Wnt3a conditioned medium"
+      },
+      {
+        "id": "RSpo1_cm",
+        "name": "R‑Spondin1 conditioned medium"
+      },
+      {
+        "id": "Noggin_cm",
+        "name": "Noggin conditioned medium"
+      },
+      {
+        "id": "B27",
+        "name": "B27"
+      },
+      {
+        "id": "N_acetylcysteine",
+        "name": "N‑acetylcysteine"
+      },
+      {
+        "id": "nicotinamide",
+        "name": "Nicotinamide"
+      },
+      {
+        "id": "human_EGF",
+        "name": "Human EGF"
+      },
+      {
+        "id": "Gastrin",
+        "name": "Gastrin"
+      },
+      {
+        "id": "A83_01",
+        "name": "A83‑01"
+      },
+      {
+        "id": "SB202190",
+        "name": "SB202190"
+      },
+      {
+        "id": "prostaglandin_E2",
+        "name": "Prostaglandin E2"
+      },
+      {
+        "id": "Primocin",
+        "name": "Primocin"
+      },
+      {
+        "id": "HISCM",
+        "name": "Human intestinal stem cell medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate",
+        "type": "well_plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator1",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "crypts",
+        "name": "Colonic crypts"
+      },
+      {
+        "id": "digested_crypts",
+        "name": "Digested crypts"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "chelation_solution"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "crypts"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "chelation_solution",
+          "destination": "crypts",
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator1",
+          "program": {
+            "program_name": "30 min at 4°C"
+          }
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "digested_crypts"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "BME"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "plate"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "source": "digested_crypts",
+          "destination": "plate",
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "components": "Advanced DMEM/F12, penicillin/streptomycin, 10 mM HEPES, Glutamax, 50% Wnt3a conditioned medium, 20% R‑Spondin1 conditioned medium, 10% Noggin conditioned medium, 1x B27, 1.25 mM N‑acetylcysteine, 10 mM nicotinamide, 50 ng/ml human EGF, 10 nM Gastrin, 500 nM A83‑01, 3 µM SB202190, 10 nM prostaglandin E2, 100 µg/ml Primocin"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "HISCM"
+          }
+        ],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

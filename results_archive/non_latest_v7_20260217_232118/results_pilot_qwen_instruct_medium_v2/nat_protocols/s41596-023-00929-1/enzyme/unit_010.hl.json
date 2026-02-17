@@ -1,0 +1,418 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Immunostain cells and prepare for FACS",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00929-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "s1-input",
+        "name": "s1-input"
+      },
+      {
+        "id": "s1-output",
+        "name": "s1-output"
+      },
+      {
+        "id": "s2-output",
+        "name": "s2-output"
+      },
+      {
+        "id": "master-mix",
+        "name": "master-mix"
+      },
+      {
+        "id": "s3-output",
+        "name": "s3-output"
+      },
+      {
+        "id": "s4-output",
+        "name": "s4-output"
+      },
+      {
+        "id": "s5-output",
+        "name": "s5-output"
+      },
+      {
+        "id": "s6-output",
+        "name": "s6-output"
+      },
+      {
+        "id": "s7-output",
+        "name": "s7-output"
+      },
+      {
+        "id": "s9-output",
+        "name": "s9-output"
+      },
+      {
+        "id": "s10-output",
+        "name": "s10-output"
+      },
+      {
+        "id": "s11-output",
+        "name": "s11-output"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1-input"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1-output"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 0,
+            "unit": "µL"
+          }
+        },
+        "annotations": {
+          "note": "Discard supernatant after spinning"
+        }
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1-output"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s2-output"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend",
+          "volume": "~200 µL"
+        },
+        "annotations": {
+          "reagent": "HBSS/BSA/glucose"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "master-mix"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3-output"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 0,
+            "unit": "µL"
+          }
+        },
+        "annotations": {
+          "note": "Add master mix into tube of resuspended cells"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s3-output"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s4-output"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": "4 °C",
+            "duration": "15 min"
+          }
+        },
+        "annotations": {
+          "note": "Incubate on ice; prepare controls via Steps 36–45 during this time"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s4-output"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s5-output"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 5000,
+            "unit": "µL"
+          }
+        },
+        "annotations": {
+          "reagent": "HBSS/BSA/glucose",
+          "note": "Wash with 5 mL of HBSS/BSA/glucose and mix"
+        }
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s5-output"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s6-output"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": {
+            "speed": "300g",
+            "duration": "5 min",
+            "temperature": "4 °C"
+          }
+        }
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s6-output"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s7-output"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 0,
+            "unit": "µL"
+          }
+        },
+        "annotations": {
+          "note": "Discard supernatant"
+        }
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s7-output"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Note the amount of supernatant remaining in the tube; 500 µL of supernatant is needed to resuspend. Add additional HBSS/BSA/glucose if below the recommended 500 µL needed to resuspend"
+        }
+      },
+      {
+        "id": "s9",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s7-output"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s9-output"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "annotations": {
+          "note": "Resuspend cells"
+        }
+      },
+      {
+        "id": "s10",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s9-output"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s10-output"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 0,
+            "unit": "µL"
+          }
+        },
+        "annotations": {
+          "container": "FACS tube",
+          "device": "70 µm filter",
+          "note": "Dispense resuspended cells through filter into FACS tube"
+        }
+      },
+      {
+        "id": "s11",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s10-output"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s11-output"
+          }
+        ],
+        "params": {
+          "action_kind": "label"
+        },
+        "annotations": {
+          "note": "Seal the tube and place on ice"
+        }
+      },
+      {
+        "id": "s12",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s11-output"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "note": "Critical step: Cells should be analyzed as soon as possible. Longer periods of dissociation may compromise cell viability."
+        }
+      },
+      {
+        "id": "s13",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s11-output"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "amount": {
+            "value": 0,
+            "unit": "µL"
+          }
+        },
+        "annotations": {
+          "note": "Take samples to FACS"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      }
+    ],
+    "detail_level": 0
+  }
+}

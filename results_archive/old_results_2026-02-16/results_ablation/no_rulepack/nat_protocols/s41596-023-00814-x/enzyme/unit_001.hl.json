@@ -1,0 +1,114 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Matrigel coating and incubation",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00814-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "matrigel_solution",
+        "name": "Matri gel/DMEM/F12 solution"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate_24well",
+        "type": "24-well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "well"
+      },
+      {
+        "id": "well_coated"
+      },
+      {
+        "id": "well_incubated"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "matrigel_solution"
+          },
+          {
+            "kind": "sample",
+            "id": "well"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "well_coated"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 300,
+            "unit": "µl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "well_coated"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "well_incubated"
+          }
+        ],
+        "params": {
+          "duration": {
+            "value": 1,
+            "unit": "h"
+          },
+          "temperature": {
+            "value": 37,
+            "unit": "°C"
+          },
+          "co2": {
+            "value": 5,
+            "unit": "%"
+          },
+          "device_ref": "incubator"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

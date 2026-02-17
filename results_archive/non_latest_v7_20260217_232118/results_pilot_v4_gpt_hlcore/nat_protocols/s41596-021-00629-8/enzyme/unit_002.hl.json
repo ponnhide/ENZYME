@@ -1,0 +1,99 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Centrifuge to form aggregates",
+    "source": {
+      "type": "paper",
+      "id": "s41596-021-00629-8"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [
+      {
+        "id": "culture_plate",
+        "type": "plate",
+        "description": "culture plate containing cells"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge1",
+        "device_kind": "centrifuge",
+        "description": "centrifuge used for aggregating cells"
+      },
+      {
+        "id": "incubator1",
+        "device_kind": "incubator",
+        "description": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "cell_sample",
+        "type": "cell_culture",
+        "description": "cells in the culture plate"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_sample"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "centrifuge1",
+          "program": {
+            "speed": "300g",
+            "temperature": "4 °C",
+            "duration": "3 min"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "cell_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "cell_sample"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "place the plate into the incubator"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

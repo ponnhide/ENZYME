@@ -1,0 +1,156 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Expose organoids to hypoxia",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-021-27464-5.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "hypoxia_chamber",
+        "type": "incubator",
+        "name": "Binder CB160"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoid_sample",
+        "type": "organoid"
+      },
+      {
+        "id": "hypoxia_chamber",
+        "name": "hypoxia_chamber"
+      },
+      {
+        "id": "exposure_4h",
+        "name": "exposure_4h"
+      },
+      {
+        "id": "exposure_8h",
+        "name": "exposure_8h"
+      },
+      {
+        "id": "exposure_16h",
+        "name": "exposure_16h"
+      }
+    ],
+    "data": [
+      {
+        "id": "exposure_4h"
+      },
+      {
+        "id": "exposure_8h"
+      },
+      {
+        "id": "exposure_16h"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "equipment"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "hypoxia_chamber"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer organoid sample into hypoxia chamber (amount unspecified)"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "hypoxia_chamber",
+          "program": {
+            "program_name": "hypoxia_exposure_1%O2_5%CO2"
+          }
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "timepoint_4h",
+            "timepoint_8h",
+            "timepoint_16h"
+          ]
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "exposure_4h"
+          },
+          {
+            "kind": "sample",
+            "id": "exposure_8h"
+          },
+          {
+            "kind": "sample",
+            "id": "exposure_16h"
+          }
+        ],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

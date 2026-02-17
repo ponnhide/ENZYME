@@ -1,0 +1,127 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Preparation of sequencing libraries from sgRNA‑integrated DNA",
+    "source": {
+      "type": "paper",
+      "id": "s41586-023-06564-w"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Herculase II Fusion DNA Polymerase",
+        "vendor": "Agilent",
+        "catalogue_no": "600679"
+      }
+    ],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "eq1",
+        "name": "Illumina NextSeq 550",
+        "device_kind": "amplicon_readout_system"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "name": "genomic_DNA_sample"
+      },
+      {
+        "id": "lib1",
+        "name": "sequencing_library"
+      },
+      {
+        "id": "pooled_lib",
+        "name": "pooled_sequencing_library"
+      },
+      {
+        "id": "seq_data",
+        "name": "sequencing_data"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "lib1"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Amplify and barcode the lentivirally integrated sgRNA spacer sequence using Herculase II Fusion DNA Polymerase (Agilent, catalogue no. 600679)."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "lib1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "pooled_lib"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Samples were pooled."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "pooled_lib"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "seq_data"
+          }
+        ],
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": "sequencing",
+          "read_depth": "450–1,000 times",
+          "device_ref": "eq1"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

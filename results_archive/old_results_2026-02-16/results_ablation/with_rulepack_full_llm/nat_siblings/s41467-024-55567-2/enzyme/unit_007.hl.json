@@ -1,0 +1,295 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Colony formation assay",
+    "source": {
+      "type": "paper",
+      "id": "s41467-024-55567-2.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "organoids",
+        "type": "biological_sample",
+        "name": "organoids"
+      },
+      {
+        "id": "bme",
+        "type": "reagent",
+        "name": "BME"
+      },
+      {
+        "id": "dapi",
+        "type": "reagent",
+        "name": "DAPI"
+      },
+      {
+        "id": "fixative",
+        "type": "reagent",
+        "name": "fixative"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate_48well",
+        "type": "plate",
+        "format": "48-well"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator",
+        "type": "incubator",
+        "name": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoid_sample",
+        "type": "sample",
+        "derived_from": [
+          "organoids"
+        ]
+      },
+      {
+        "id": "single_cells",
+        "type": "sample",
+        "derived_from": [
+          "organoid_sample"
+        ]
+      },
+      {
+        "id": "plated_cells",
+        "type": "sample",
+        "derived_from": [
+          "single_cells"
+        ]
+      },
+      {
+        "id": "colonies",
+        "type": "sample",
+        "derived_from": [
+          "plated_cells"
+        ]
+      }
+    ],
+    "data": [
+      {
+        "id": "colony_count",
+        "type": "measurement",
+        "name": "colony count"
+      },
+      {
+        "id": "cfe",
+        "type": "calculated_value",
+        "name": "colony-forming efficiency"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "single_cells"
+          }
+        ],
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "plate_48well"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "single_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plated_cells"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 8000,
+            "unit": "cells"
+          },
+          "destination": {
+            "container_id": "plate_48well",
+            "well": "each well"
+          },
+          "medium": "BME"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "plated_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "colonies"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "duration": {
+            "value": 7,
+            "unit": "day"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "colonies"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "colonies"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "Fix colonies (fixative not specified in source)."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "colonies"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "colonies"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "Stain colonies with DAPI."
+        }
+      },
+      {
+        "id": "s7",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "colonies"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "colony_count"
+          }
+        ],
+        "params": {
+          "modality": "visual",
+          "features": [
+            "colony count"
+          ]
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "data",
+            "id": "colony_count"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "cfe"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "description": "Calculate colony-forming efficiency = number of colonies / number of plated cells × 100%."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

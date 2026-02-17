@@ -1,0 +1,149 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "FACS sorting of interneuron populations",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01299-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "nm",
+        "name": "Neurobasal Medium"
+      },
+      {
+        "id": "fbs",
+        "name": "FBS"
+      },
+      {
+        "id": "y27632",
+        "name": "Y-27632"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube1",
+        "type": "conical_tube_15ml_low_binding"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "facs",
+        "type": "FACS"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sorted_cells",
+        "description": "Dlxi1/2b::GFP+ and GFP- cells sorted by FACS"
+      },
+      {
+        "id": "facs_results",
+        "name": "facs_results"
+      }
+    ],
+    "data": [
+      {
+        "id": "facs_results",
+        "type": "measurement"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "tube1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sorted_cells"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "params": {
+          "note": "Perform FACS sorting at 4 °C, collecting Dlxi1/2b::GFP+ and Dlxi1/2b::GFP− cells into a low‑binding 15‑ml conical tube containing 5 ml NM supplemented with 10 % FBS (vol/vol) and 20 µM Y‑27632. Use cells dissociated from control hSO as a negative control to set the gate."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "sorted_cells",
+          "destination": "tube1",
+          "description": "Transfer sorted cells into the prepared tube",
+          "amount": {
+            "value": "unspecified",
+            "unit": "unspecified"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "cell_count",
+            "percentage"
+          ]
+        },
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "facs_results"
+          }
+        ],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

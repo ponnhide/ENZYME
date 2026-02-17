@@ -1,0 +1,148 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Crypt isolation with EDTA and rotation",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-025-68247-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "Y-27632",
+        "description": "10 µM Y‑27632"
+      },
+      {
+        "id": "m2",
+        "name": "organoid growth media",
+        "description": "organoid growth media"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "culture_chamber",
+        "name": "culture chamber"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "rotator",
+        "name": "over‑end rotator"
+      },
+      {
+        "id": "e2",
+        "type": "imager",
+        "name": "Nikon spinning disc confocal microscope"
+      }
+    ],
+    "samples": [
+      {
+        "id": "crypts",
+        "type": "crypts"
+      },
+      {
+        "id": "organoids",
+        "type": "organoids"
+      },
+      {
+        "id": "d1",
+        "name": "d1"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "type": "image",
+        "description": "organoid microscopy image"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "crypts"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "params": {
+          "note": "Rotate culture chamber on over‑end rotator at 37 °C until crypts are visible (approximately 12 h)."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "params": {
+          "note": "Add Y‑27632 to achieve 10 µM final concentration."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "params": {
+          "note": "Change media in the culture chamber."
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "observe",
+        "params": {
+          "modality": "microscope",
+          "features": [
+            "organoid_image"
+          ],
+          "device_ref": "e2"
+        },
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "d1"
+          }
+        ],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

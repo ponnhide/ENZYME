@@ -1,0 +1,804 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "custom_protocol.txt",
+      "type": "paper"
+    },
+    "title": "Dual model preflight test"
+  },
+  "protocol": {
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      },
+      {
+        "from": "s16",
+        "to": "s17"
+      },
+      {
+        "from": "s17",
+        "to": "s18"
+      },
+      {
+        "from": "s18",
+        "to": "s19"
+      },
+      {
+        "from": "s19",
+        "to": "s20"
+      },
+      {
+        "from": "s20",
+        "to": "s21"
+      },
+      {
+        "from": "s21",
+        "to": "s22"
+      },
+      {
+        "from": "s22",
+        "to": "s23"
+      },
+      {
+        "from": "s23",
+        "to": "s24"
+      },
+      {
+        "from": "s24",
+        "to": "s25"
+      },
+      {
+        "from": "s25",
+        "to": "s26"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "packaging_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "cells",
+            "value": 200000
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "packaging_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "seeded_packaging_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "cells",
+            "value": 200000
+          },
+          "container": "6well_plate"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "lentiviral_plasmid",
+            "kind": "material"
+          },
+          {
+            "id": "psPAX2",
+            "kind": "material"
+          },
+          {
+            "id": "pMD2G",
+            "kind": "material"
+          },
+          {
+            "id": "PEI_solution",
+            "kind": "material"
+          },
+          {
+            "id": "PBS",
+            "kind": "material"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "lentiviral_mix",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "seeded_packaging_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "viral_supernatant",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "container": "1.5ml_tube"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Viral supernatant stored at -80 °C"
+        },
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "viral_supernatant",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s6",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "target_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "cells",
+            "value": 200000
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s7",
+        "inputs": [
+          {
+            "id": "target_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "seeded_target_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "cells",
+            "value": 200000
+          },
+          "container": "6well_plate"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Viral supernatant thawed at room temperature"
+        },
+        "id": "s8",
+        "inputs": [
+          {
+            "id": "viral_supernatant",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s9",
+        "inputs": [
+          {
+            "id": "viral_supernatant",
+            "kind": "sample"
+          },
+          {
+            "id": "polybrene",
+            "kind": "material"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "infection_mix",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s10",
+        "inputs": [
+          {
+            "id": "infection_mix",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "infected_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "container": "6well_plate"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s11",
+        "inputs": [
+          {
+            "id": "infected_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "reseeded_infected_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "cells",
+            "value": 5000
+          },
+          "container": "96well_plate"
+        }
+      },
+      {
+        "annotations": {
+          "note": "After 2 days, 2.0 µg ml⁻¹ puromycin added; incubation 3 days for selection"
+        },
+        "id": "s12",
+        "inputs": [
+          {
+            "id": "reseeded_infected_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s13",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "reporter_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "cells",
+            "value": 50000
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s14",
+        "inputs": [
+          {
+            "id": "reporter_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "seeded_reporter_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "cells",
+            "value": 50000
+          },
+          "container": "24well_plate"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s15",
+        "inputs": [
+          {
+            "id": "PEI_solution",
+            "kind": "material"
+          },
+          {
+            "id": "PBS",
+            "kind": "material"
+          },
+          {
+            "id": "base_editor_plasmid",
+            "kind": "material"
+          },
+          {
+            "id": "gRNA_plasmid",
+            "kind": "material"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "transfection_mix",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s16",
+        "inputs": [
+          {
+            "id": "transfection_mix",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "transfected_reporter_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "container": "24well_plate"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s17",
+        "inputs": [
+          {
+            "id": "transfected_reporter_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "fluorescence_images",
+            "kind": "data"
+          }
+        ],
+        "params": {
+          "device_kind": "imager",
+          "features": [
+            "fluorescence"
+          ],
+          "modality": "microscope",
+          "program": "confocal_imaging"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s18",
+        "inputs": [
+          {
+            "id": "transfected_reporter_cells",
+            "kind": "sample"
+          },
+          {
+            "id": "Hoechst",
+            "kind": "material"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "stained_reporter_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "label"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s19",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "genomic_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "cells",
+            "value": 5000
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s20",
+        "inputs": [
+          {
+            "id": "genomic_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "seeded_genomic_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "cells",
+            "value": 5000
+          },
+          "container": "96well_plate"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s21",
+        "inputs": [
+          {
+            "id": "PEI_solution",
+            "kind": "material"
+          },
+          {
+            "id": "PBS",
+            "kind": "material"
+          },
+          {
+            "id": "base_editor_plasmid",
+            "kind": "material"
+          },
+          {
+            "id": "gRNA_plasmid",
+            "kind": "material"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "genomic_transfection_mix",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s22",
+        "inputs": [
+          {
+            "id": "genomic_transfection_mix",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "transfected_genomic_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "container": "96well_plate"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s23",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "offtarget_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "cells",
+            "value": 200000
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s24",
+        "inputs": [
+          {
+            "id": "offtarget_cells",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "seeded_offtarget_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "cells",
+            "value": 200000
+          },
+          "container": "6well_plate"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s25",
+        "inputs": [
+          {
+            "id": "PEI_solution",
+            "kind": "material"
+          },
+          {
+            "id": "PBS",
+            "kind": "material"
+          },
+          {
+            "id": "base_editor_plasmid",
+            "kind": "material"
+          },
+          {
+            "id": "EMX1_gRNA_plasmid",
+            "kind": "material"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "offtarget_mix",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s26",
+        "inputs": [
+          {
+            "id": "offtarget_mix",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "transfected_offtarget_cells",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "container": "6well_plate"
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "6well_plate",
+        "name": "6‑well plate"
+      },
+      {
+        "id": "24well_plate",
+        "name": "24‑well plate"
+      },
+      {
+        "id": "96well_plate",
+        "name": "96‑well plate"
+      },
+      {
+        "id": "1.5ml_tube",
+        "name": "1.5 ml microcentrifuge tube"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "id": "incubator",
+        "name": "incubator"
+      },
+      {
+        "id": "imager",
+        "name": "InCellAnalyzer6000 confocal microscope"
+      },
+      {
+        "id": "freezer",
+        "name": "-80 °C freezer"
+      }
+    ],
+    "materials": [
+      {
+        "id": "HEK293Ta_cells",
+        "name": "HEK293Ta cells"
+      },
+      {
+        "id": "DMEM",
+        "name": "Dulbecco’s Modified Eagle’s Medium (DMEM)"
+      },
+      {
+        "id": "FBS",
+        "name": "10% fetal bovine serum (FBS)"
+      },
+      {
+        "id": "pen_strep",
+        "name": "1% penicillin–streptomycin"
+      },
+      {
+        "id": "lentiviral_plasmid",
+        "name": "lentiviral plasmid"
+      },
+      {
+        "id": "psPAX2",
+        "name": "psPAX2 helper plasmid"
+      },
+      {
+        "id": "pMD2G",
+        "name": "pMD2.G helper plasmid"
+      },
+      {
+        "id": "PEI_solution",
+        "name": "polyethyleneimine MAX (PEI) 1 mg ml⁻¹"
+      },
+      {
+        "id": "PBS",
+        "name": "phosphate‑buffered saline (PBS)"
+      },
+      {
+        "id": "polybrene",
+        "name": "poly‑brene 8 mg ml⁻¹"
+      },
+      {
+        "id": "puromycin",
+        "name": "puromycin 2.0 µg ml⁻¹"
+      },
+      {
+        "id": "Hoechst",
+        "name": "Hoechst 33342 10 mg ml⁻¹"
+      },
+      {
+        "id": "base_editor_plasmid",
+        "name": "base editor plasmid"
+      },
+      {
+        "id": "gRNA_plasmid",
+        "name": "gRNA expression plasmid"
+      },
+      {
+        "id": "control_EGFP_plasmid",
+        "name": "control EGFP plasmid (pLV‑eGFP)"
+      },
+      {
+        "id": "EMX1_gRNA_plasmid",
+        "name": "EMX1‑targeting gRNA plasmid"
+      }
+    ],
+    "samples": []
+  },
+  "schema_version": "0.4"
+}

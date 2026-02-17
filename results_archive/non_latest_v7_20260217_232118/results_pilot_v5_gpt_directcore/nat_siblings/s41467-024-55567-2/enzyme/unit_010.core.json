@@ -1,0 +1,133 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Screening of CRISPR‑edited colonies by Western blot",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41467-024-55567-2.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "antibody_mbd3",
+        "name": "MBD3 antibody",
+        "source": "Santa Cruz",
+        "dilution": "1:200"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate1",
+        "type": "plate"
+      },
+      {
+        "id": "membrane1",
+        "type": "membrane"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "imager1",
+        "type": "imager"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "description": "colonies from single cells"
+      },
+      {
+        "id": "samp2",
+        "description": "picked and expanded colonies"
+      }
+    ],
+    "data": [
+      {
+        "id": "data1",
+        "description": "Western blot result for MBD3"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "description": "colonies from single cells"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "pick_colony"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "imager",
+          "program": {
+            "program_name": "Western blot detection"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp2"
+          },
+          {
+            "kind": "material",
+            "id": "antibody_mbd3"
+          },
+          {
+            "kind": "container",
+            "id": "membrane1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "data",
+            "id": "data1"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      }
+    ],
+    "detail_level": 0
+  }
+}

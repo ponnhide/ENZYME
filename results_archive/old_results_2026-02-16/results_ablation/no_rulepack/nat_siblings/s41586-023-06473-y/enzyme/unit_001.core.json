@@ -1,0 +1,198 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41586-023-06473-y.pdf",
+      "type": "paper"
+    },
+    "title": "Construction of barcoded CHOOSE lentiviral vector"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "m1",
+            "kind": "material"
+          }
+        ],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "s1",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "note": "Introduce a multicloning site (NheI and SgsI) into the 3′ LTR of the lentiviral backbone, remove the original U6 sgRNA expression cassette, and insert a dual sgRNA cassette (U6-sgRNA1-H1-sgRNA2) into the 3′ LTR cloning site."
+        },
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "s1",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "s1",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "s1",
+            "kind": "sample"
+          },
+          {
+            "id": "m2",
+            "kind": "material"
+          },
+          {
+            "id": "m3",
+            "kind": "material"
+          },
+          {
+            "id": "c1",
+            "kind": "container"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "s3",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": null,
+            "value": null
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "s3",
+            "kind": "sample"
+          },
+          {
+            "id": "e1",
+            "kind": "equipment"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "s2",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "barcode_length": "15 bp",
+          "cycles": "8-10",
+          "device_kind": "thermocycler",
+          "program": "qPCR amplification of dual sgRNA cassette with 15 bp barcode; 8–10 cycles, fluorescence monitored, stop when reaching logarithmic phase"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Resulting barcoded library contains a 15 base pair barcode introduced by the primers."
+        },
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "s2",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "s2",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "c1",
+        "name": "PCR tube"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "thermocycler (qPCR machine)"
+      }
+    ],
+    "materials": [
+      {
+        "id": "m1",
+        "name": "lentiviral backbone vector (CAG-ERT2-Cre-ERT2-P2A-EGFP-P2A-puro)"
+      },
+      {
+        "id": "m2",
+        "name": "primers for barcode amplification (introduce 15 bp barcode)"
+      },
+      {
+        "id": "m3",
+        "name": "qPCR reagents (polymerase, dNTPs, buffer)"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s1",
+        "name": "modified lentiviral construct with dual sgRNA cassette"
+      },
+      {
+        "id": "s3",
+        "name": "PCR reaction mixture for barcode amplification"
+      },
+      {
+        "id": "s2",
+        "name": "barcoded dual sgRNA library"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

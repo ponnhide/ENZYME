@@ -1,0 +1,167 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Collagen I coating of Transwell inserts",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00562-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "collagen_I",
+        "name": "Collagen I"
+      },
+      {
+        "id": "PBS",
+        "name": "PBS−/−"
+      }
+    ],
+    "containers": [
+      {
+        "id": "coating_tube",
+        "type": "tube",
+        "name": "Microcentrifuge tube"
+      },
+      {
+        "id": "transwell_12well",
+        "type": "transwell_insert",
+        "name": "12-well Transwell insert"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator_1",
+        "type": "incubator",
+        "name": "Incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "coating_solution",
+        "type": "solution",
+        "description": "50 µg/ml Collagen I in PBS−/−"
+      },
+      {
+        "id": "coating_tube",
+        "name": "coating_tube"
+      },
+      {
+        "id": "transwell_12well",
+        "name": "transwell_12well"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "coating_tube"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "coating_solution"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "destination": "apical",
+          "amount": {
+            "value": 300.0,
+            "unit": "µl"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "coating_solution"
+          },
+          {
+            "kind": "sample",
+            "id": "transwell_12well"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "destination": "basolateral",
+          "amount": {
+            "value": 1200.0,
+            "unit": "µl"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "coating_solution"
+          },
+          {
+            "kind": "sample",
+            "id": "transwell_12well"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator_1",
+          "program": {
+            "program_name": "37C_2h"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

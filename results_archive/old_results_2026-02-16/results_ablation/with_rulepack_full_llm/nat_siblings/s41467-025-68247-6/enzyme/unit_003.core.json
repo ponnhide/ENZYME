@@ -1,0 +1,251 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41467-025-68247-6.pdf",
+      "type": "paper"
+    },
+    "title": "Application of injury treatments (irradiation, DSS, cytomix)"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [],
+        "op": "allocate",
+        "outputs": [
+          {
+            "id": "sample1",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "container": "plate1",
+          "material": "organoid_culture"
+        }
+      },
+      {
+        "annotations": {
+          "lowered_from": "incubate"
+        },
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "sample1",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "sample1",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": null
+          }
+        }
+      },
+      {
+        "annotations": {
+          "description": "Place plates on center of rotating table of the (137Cs) gamma irradiator for time periods equivalent to either 6 Gy or 12 Gy, then return to incubator."
+        },
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "sample1",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "sample1",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "description": "DSS (MP Biomedicals) dissolved in organoid media (without EGF or Nicotinamide) added to organoid wells."
+        },
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "sample1",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "sample1_DSS",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "lowered_from": "incubate"
+        },
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "sample1_DSS",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "sample1_DSS",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": null
+          }
+        }
+      },
+      {
+        "annotations": {
+          "note": "Washing performed twice with Advanced DMEM/F12."
+        },
+        "id": "s6",
+        "inputs": [
+          {
+            "id": "sample1_DSS",
+            "kind": "sample"
+          }
+        ],
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "sample1_washed",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "action_kind": "rinse"
+        }
+      },
+      {
+        "annotations": {
+          "description": "Replaced with organoid media."
+        },
+        "id": "s7",
+        "inputs": [
+          {
+            "id": "sample1_washed",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "sample1_final",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "plate1",
+        "type": "microwell_plate"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "id": "incubator",
+        "name": "incubator"
+      }
+    ],
+    "materials": [
+      {
+        "id": "organoid_culture",
+        "name": "organoids"
+      },
+      {
+        "id": "microwell_plate",
+        "name": "microwell plate"
+      },
+      {
+        "id": "gamma_irradiator",
+        "name": "(137Cs) gamma irradiator"
+      },
+      {
+        "id": "DSS",
+        "name": "DSS (MP Biomedicals)"
+      },
+      {
+        "id": "organoid_media_no_EGF_Nicotinamide",
+        "name": "organoid media (without EGF or Nicotinamide)"
+      },
+      {
+        "id": "Advanced_DMEM_F12",
+        "name": "Advanced DMEM/F12"
+      }
+    ],
+    "samples": [
+      {
+        "container": "plate1",
+        "id": "sample1",
+        "material": "organoid_culture"
+      },
+      {
+        "id": "sample1_DSS",
+        "name": "sample1_DSS"
+      },
+      {
+        "id": "sample1_washed",
+        "name": "sample1_washed"
+      },
+      {
+        "id": "sample1_final",
+        "name": "sample1_final"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

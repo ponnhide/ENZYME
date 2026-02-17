@@ -1,0 +1,105 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41596-023-00880-1.pdf",
+      "type": "paper"
+    },
+    "title": "CHIR99021 pulse to micromasses"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "chir_solution",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "micromasses",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "mL",
+            "value": 1
+          },
+          "target_location": "base of the Transwell"
+        }
+      },
+      {
+        "annotations": {
+          "lowered_from": "incubate"
+        },
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "micromasses",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "micromasses",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "program_name": null
+          }
+        }
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "transwell",
+        "name": "Transwell"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "id": "incubator",
+        "name": "incubator"
+      }
+    ],
+    "materials": [
+      {
+        "id": "chir_solution",
+        "name": "E6-containing 5 µM CHIR99021"
+      }
+    ],
+    "samples": [
+      {
+        "container_ref": "transwell",
+        "id": "micromasses",
+        "type": "cell_micromasses"
+      },
+      {
+        "container_ref": null,
+        "id": "chir_solution",
+        "type": "solution"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

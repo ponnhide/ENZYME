@@ -1,0 +1,196 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Data processing for scATAC‑seq",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41586-021-03209-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "Cell Ranger ATAC pipeline",
+        "type": "software"
+      },
+      {
+        "id": "e2",
+        "name": "BWA",
+        "type": "software"
+      },
+      {
+        "id": "e3",
+        "name": "SnapATAC pipeline",
+        "type": "software"
+      }
+    ],
+    "samples": [
+      {
+        "id": "d1",
+        "name": "d1"
+      },
+      {
+        "id": "d2",
+        "name": "d2"
+      },
+      {
+        "id": "d3",
+        "name": "d3"
+      },
+      {
+        "id": "d4",
+        "name": "d4"
+      },
+      {
+        "id": "d5",
+        "name": "d5"
+      },
+      {
+        "id": "d6",
+        "name": "d6"
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "name": "BCL files",
+        "type": "bcl"
+      },
+      {
+        "id": "d2",
+        "name": "FASTQ files",
+        "type": "fastq"
+      },
+      {
+        "id": "d3",
+        "name": "Fragment files",
+        "type": "fragment"
+      },
+      {
+        "id": "d4",
+        "name": "GRCh38 reference genome",
+        "type": "reference_genome"
+      },
+      {
+        "id": "d5",
+        "name": "Aligned FASTQ files",
+        "type": "fastq_aligned"
+      },
+      {
+        "id": "d6",
+        "name": "SnapATAC output",
+        "type": "analysis_result"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "operation": "allocate",
+        "params": {
+          "resource_id": "d1"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d1"
+          }
+        ],
+        "op": "annotate",
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "operation": "run_device",
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": "Cell Ranger ATAC pipeline"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d2"
+          },
+          {
+            "kind": "sample",
+            "id": "d3"
+          }
+        ],
+        "op": "annotate"
+      },
+      {
+        "id": "s3",
+        "operation": "run_device",
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": "BWA"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d2"
+          },
+          {
+            "kind": "sample",
+            "id": "d4"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d5"
+          }
+        ],
+        "op": "annotate"
+      },
+      {
+        "id": "s4",
+        "operation": "run_device",
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": "SnapATAC pipeline"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "d3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d6"
+          }
+        ],
+        "op": "annotate"
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Prepare EdU working solution",
+    "source": {
+      "type": "paper",
+      "id": "s41596-021-00562-w"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "EdU stock solution (10 mM)",
+        "type": "reagent"
+      },
+      {
+        "id": "m2",
+        "name": "Base medium",
+        "type": "reagent"
+      },
+      {
+        "id": "m3",
+        "name": "Colon monolayer differentiation medium",
+        "type": "reagent"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "Tube for EdU working solution in base medium",
+        "type": "container"
+      },
+      {
+        "id": "c2",
+        "name": "Tube for EdU working solution in colon medium",
+        "type": "container"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "sample_stock",
+        "material_ref": "m1",
+        "description": "10 mM EdU stock solution"
+      },
+      {
+        "id": "sample_base_medium",
+        "material_ref": "m2",
+        "description": "Base medium"
+      },
+      {
+        "id": "sample_colon_medium",
+        "material_ref": "m3",
+        "description": "Colon monolayer differentiation medium"
+      },
+      {
+        "id": "sample_working_base",
+        "material_ref": "m1",
+        "container_ref": "c1",
+        "description": "10 μM EdU in base medium"
+      },
+      {
+        "id": "sample_working_colon",
+        "material_ref": "m1",
+        "container_ref": "c2",
+        "description": "10 μM EdU in colon monolayer differentiation medium"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_stock"
+          },
+          {
+            "kind": "sample",
+            "id": "sample_base_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_working_base"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "note": "Dilute 10 mM EdU stock to 10 μM in base medium; specific volumes not provided."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_stock"
+          },
+          {
+            "kind": "sample",
+            "id": "sample_colon_medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_working_colon"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "note": "Dilute 10 mM EdU stock to 10 μM in colon monolayer differentiation medium; specific volumes not provided."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

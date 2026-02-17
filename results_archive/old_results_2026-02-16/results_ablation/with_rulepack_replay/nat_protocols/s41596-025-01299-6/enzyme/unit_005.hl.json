@@ -1,0 +1,187 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Day 45: dissociating hSO and sorting Dlxi1/2b::GFP+ and Dlxi1/2b::GFP− cells",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01299-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "organoids",
+        "description": "12 organoids"
+      },
+      {
+        "id": "m2",
+        "name": "enzyme solution with papain",
+        "description": "Papain enzyme solution",
+        "concentration": "10 U ml−1",
+        "volume": "3 ml"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "six-well plate",
+        "well": "A1"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "CO2 incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_org",
+        "material_id": "m1",
+        "description": "12 organoids"
+      },
+      {
+        "id": "s_enzyme",
+        "material_id": "m2",
+        "description": "enzyme solution with papain (10 U ml−1, 3 ml)"
+      },
+      {
+        "id": "s_combined",
+        "description": "organoids + enzyme solution in well A1"
+      },
+      {
+        "id": "s_combined_incubated",
+        "description": "incubated sample"
+      },
+      {
+        "id": "s_shaken",
+        "description": "shaken sample after incubation"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_enzyme"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_combined"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 3,
+            "unit": "ml"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_org"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_combined"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "12 organoids transferred into well A1"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_combined"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_combined_incubated"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": {
+              "value": 37,
+              "unit": "°C"
+            },
+            "duration": {
+              "value": 15,
+              "unit": "min"
+            },
+            "CO2": "5%"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_combined_incubated"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_shaken"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently",
+          "schedule": "every 5 min",
+          "duration": {
+            "value": 15,
+            "unit": "min"
+          }
+        },
+        "annotations": {
+          "note": "Gently shake the plate horizontally to evenly distribute papain solution"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

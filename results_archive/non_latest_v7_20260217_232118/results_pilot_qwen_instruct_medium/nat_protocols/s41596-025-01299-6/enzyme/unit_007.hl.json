@@ -1,0 +1,170 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Generation of hFA Assembloids",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01299-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "24-well low-attachment plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "P1000 pipette"
+      },
+      {
+        "id": "e2",
+        "type": "P20 pipette"
+      },
+      {
+        "id": "e3",
+        "type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s1",
+        "type": "hCO"
+      },
+      {
+        "id": "s2",
+        "type": "hSO"
+      },
+      {
+        "id": "s3",
+        "type": "hFA assembloid"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1"
+          },
+          {
+            "kind": "sample",
+            "id": "s2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "params": {
+          "amount": [
+            {
+              "value": 1,
+              "unit": "each"
+            },
+            {
+              "value": 1,
+              "unit": "each"
+            }
+          ],
+          "container": "c1"
+        },
+        "annotations": {
+          "method": "Transfer one hCO and one hSO into the same well of a 24-well low-attachment plate using P1000 pipette tips with wide orifice."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: position"
+        },
+        "annotations": {
+          "method": "Tilt the plate slightly to guide both organoids toward the edge of the well. Using a P20 pipette tip, gently position the hCO and hSO so that they are in contact with each other (Fig. 3f)."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": {
+            "temperature": "37 °C",
+            "co2": "5%",
+            "duration": "4 d"
+          },
+          "device_ref": "e3"
+        },
+        "annotations": {
+          "method": "Transfer the plate to a 37 °C incubator with 5% CO2, ensuring that the plate remains tilted (Fig. 3g). Keep the plates in the tilted position for 4 d without disturbing them."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s3"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "critical_note": "It is important to keep the hFA undisturbed for the first 4 d after fusion to successfully generate hFA. We achieved a 100% success rate while generating 1,008 assembloids."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

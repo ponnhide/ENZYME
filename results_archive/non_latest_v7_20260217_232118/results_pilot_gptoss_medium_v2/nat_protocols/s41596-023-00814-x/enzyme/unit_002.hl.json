@@ -1,0 +1,114 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Coat wells with Matrigel",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00814-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "kind": "material",
+        "id": "matrigel_solution",
+        "name": "Matigel/DMEM/F12 solution"
+      }
+    ],
+    "containers": [
+      {
+        "kind": "container",
+        "id": "plate_24well",
+        "name": "24-well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "kind": "equipment",
+        "id": "incubator",
+        "name": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "kind": "sample",
+        "id": "plate",
+        "name": "24-well plate"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "matrigel_solution"
+          },
+          {
+            "kind": "sample",
+            "id": "plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 300,
+            "unit": "µl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "plate"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "plate"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "incubate",
+          "duration": {
+            "value": 1,
+            "unit": "h"
+          },
+          "temperature": {
+            "value": 37,
+            "unit": "°C"
+          },
+          "co2": {
+            "value": 5,
+            "unit": "%"
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

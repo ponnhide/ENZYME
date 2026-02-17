@@ -1,0 +1,235 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41467-024-55567-2.pdf",
+      "type": "paper"
+    },
+    "title": "Crypt isolation and organoid embedding"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {},
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "s_tissue",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "s_tissue",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "unspecified",
+            "value": "unspecified"
+          },
+          "material_ref": "m_dpbs"
+        }
+      },
+      {
+        "annotations": {
+          "lowered_from": "incubate"
+        },
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "s_tissue",
+            "kind": "sample"
+          }
+        ],
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "s_tissue",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e_incubator",
+          "program": {
+            "program_name": null
+          }
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s3",
+        "inputs": [
+          {
+            "id": "s_tissue",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "s_crypts",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "unit": "unspecified",
+            "value": "unspecified"
+          },
+          "description": "collect supernatant containing crypts"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s4",
+        "inputs": [
+          {
+            "id": "s_crypts",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "s_droplet",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "amount": "50 crypts per well",
+          "container_ref": "c_48well_plate",
+          "description": "embed crypts in Cultrex droplets (~50 crypts/well)",
+          "material_ref": "m_cultrex"
+        }
+      },
+      {
+        "annotations": {},
+        "id": "s5",
+        "inputs": [
+          {
+            "id": "s_droplet",
+            "kind": "sample"
+          }
+        ],
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "s_droplet",
+            "kind": "sample"
+          }
+        ],
+        "params": {
+          "additive_material_ref": "m_y27632",
+          "amount": {
+            "unit": "unspecified",
+            "value": "unspecified"
+          },
+          "description": "overlay droplets with culture medium containing 10 μM Y-27632",
+          "material_ref": "m_medium"
+        }
+      },
+      {
+        "annotations": {
+          "note": "Change medium every 3 days"
+        },
+        "id": "s6",
+        "inputs": [],
+        "op": "annotate",
+        "outputs": [],
+        "params": {}
+      }
+    ]
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "c_tissue_container",
+        "type": "tube"
+      },
+      {
+        "id": "c_48well_plate",
+        "type": "48-well plate"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "device_kind": "incubator",
+        "id": "e_incubator"
+      }
+    ],
+    "materials": [
+      {
+        "id": "m_dpbs",
+        "name": "DPBS"
+      },
+      {
+        "description": "2.5 mM",
+        "id": "m_edta",
+        "name": "EDTA"
+      },
+      {
+        "id": "m_cultrex",
+        "name": "Cultrex RGF BME",
+        "vendor": "R&D Systems"
+      },
+      {
+        "id": "m_medium",
+        "name": "culture medium"
+      },
+      {
+        "concentration": "10 μM",
+        "id": "m_y27632",
+        "name": "Y-27632",
+        "vendor": "TargetMol"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_tissue",
+        "type": "tissue"
+      },
+      {
+        "id": "s_crypts",
+        "type": "crypts"
+      },
+      {
+        "id": "s_droplet",
+        "type": "organoid_droplet"
+      },
+      {
+        "id": "s_medium",
+        "type": "culture_medium"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

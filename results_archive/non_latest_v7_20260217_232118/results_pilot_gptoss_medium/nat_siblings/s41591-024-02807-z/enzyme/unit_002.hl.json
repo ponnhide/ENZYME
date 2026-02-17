@@ -1,0 +1,132 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Pick, dissociate, and replate individual AFOs",
+    "source": {
+      "type": "paper",
+      "id": "s41591-024-02807-z"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "AFO_1",
+        "type": "sample",
+        "description": "individual AFO"
+      },
+      {
+        "id": "picked_AFO",
+        "type": "sample",
+        "description": "picked AFO"
+      },
+      {
+        "id": "single_cells",
+        "type": "sample",
+        "description": "single cells from AFO"
+      },
+      {
+        "id": "replated_AFO",
+        "type": "sample",
+        "description": "replated AFO cells"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "AFO_1"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "AFO_1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "picked_AFO"
+          }
+        ],
+        "params": {
+          "action_kind": "pick_colony"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "picked_AFO"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "single_cells"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "dissociated into single cells"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "single_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "replated_AFO"
+          }
+        ],
+        "params": {
+          "action_kind": "spread_on_plate"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

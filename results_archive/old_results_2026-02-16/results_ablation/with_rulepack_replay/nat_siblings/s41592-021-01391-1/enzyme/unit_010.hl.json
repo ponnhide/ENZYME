@@ -1,0 +1,151 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Species‑mixing validation experiment",
+    "source": {
+      "type": "paper",
+      "id": "s41592-021-01391-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "HEK293T_cells"
+      },
+      {
+        "id": "murine_IBA_cells"
+      },
+      {
+        "id": "processed_cells"
+      },
+      {
+        "id": "merged_barcodes"
+      },
+      {
+        "id": "Barnyard_plot"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "HEK293T_cells"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "murine_IBA_cells"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "HEK293T_cells"
+          },
+          {
+            "kind": "sample",
+            "id": "murine_IBA_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "processed_cells"
+          }
+        ],
+        "params": {
+          "action_kind": "process",
+          "description": "processed with DisCo workflow for scRNA‑seq"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "processed_cells"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "merged_barcodes"
+          }
+        ],
+        "params": {
+          "action_kind": "merge_barcodes",
+          "description": "barcodes merged"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "observe",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "merged_barcodes"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "Barnyard_plot"
+          }
+        ],
+        "params": {
+          "modality": "visual",
+          "features": "Barnyard plot"
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s3"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

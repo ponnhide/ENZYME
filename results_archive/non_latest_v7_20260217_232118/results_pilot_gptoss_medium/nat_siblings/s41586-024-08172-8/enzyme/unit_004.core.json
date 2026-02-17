@@ -1,0 +1,90 @@
+{
+  "ir_kind": "core",
+  "metadata": {
+    "source": {
+      "id": "s41586-024-08172-8",
+      "type": "paper"
+    },
+    "title": "Build kNN graph and Leiden clustering"
+  },
+  "protocol": {
+    "detail_level": 0,
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "start_step_id": "s1",
+    "steps": [
+      {
+        "annotations": {
+          "description": "Construct kNN graph (k=30) in RSS space"
+        },
+        "id": "s1",
+        "inputs": [
+          {
+            "id": "dataset",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "knn_graph",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      },
+      {
+        "annotations": {
+          "description": "Cluster dataset using Leiden algorithm (resolution 80)"
+        },
+        "id": "s2",
+        "inputs": [
+          {
+            "id": "dataset",
+            "kind": "sample"
+          },
+          {
+            "id": "knn_graph",
+            "kind": "sample"
+          }
+        ],
+        "op": "annotate",
+        "outputs": [
+          {
+            "id": "clusters",
+            "kind": "sample"
+          }
+        ],
+        "params": {}
+      }
+    ]
+  },
+  "resources": {
+    "containers": [],
+    "data": [],
+    "equipment": [],
+    "materials": [],
+    "samples": [
+      {
+        "description": "Input dataset",
+        "id": "dataset",
+        "type": "sample"
+      },
+      {
+        "description": "k-Nearest Neighbor graph (k=30) in RSS space",
+        "id": "knn_graph",
+        "type": "sample"
+      },
+      {
+        "description": "Leiden clustering result (resolution 80)",
+        "id": "clusters",
+        "type": "sample"
+      }
+    ]
+  },
+  "schema_version": "0.4"
+}

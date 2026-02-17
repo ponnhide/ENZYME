@@ -1,0 +1,207 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Mesoderm differentiation incubation",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-019-0213-z.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "N2B27 medium"
+      },
+      {
+        "id": "m2",
+        "name": "CHIR99021"
+      },
+      {
+        "id": "m3",
+        "name": "BMP-4"
+      },
+      {
+        "id": "a1",
+        "name": "a1"
+      },
+      {
+        "id": "a2",
+        "name": "a2"
+      },
+      {
+        "id": "a3",
+        "name": "a3"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "low-attachment plate",
+        "name": "low-attachment plate"
+      },
+      {
+        "id": "c1_inst",
+        "name": "c1_inst",
+        "type": "generic_container"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "pipette",
+        "name": "10-mL serological pipette"
+      },
+      {
+        "id": "e2",
+        "type": "incubator",
+        "name": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "agg1",
+        "name": "cell aggregates"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material",
+          "resource_id": "m1"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "a1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material",
+          "resource_id": "m2"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "a2"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material",
+          "resource_id": "m3"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "a3"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "resource_id": "c1"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1_inst"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "sample_id": "agg1",
+          "reagents": [
+            "a1",
+            "a2",
+            "a3"
+          ],
+          "volume_per_well": "3 mL"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source_sample_id": "agg1",
+          "destination_container_id": "c1_inst",
+          "volume_per_well": "3 mL",
+          "amount": {
+            "value": 3,
+            "unit": "mL"
+          },
+          "equipment_ref": "e1"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e2",
+          "program": {
+            "program_name": "incubation"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

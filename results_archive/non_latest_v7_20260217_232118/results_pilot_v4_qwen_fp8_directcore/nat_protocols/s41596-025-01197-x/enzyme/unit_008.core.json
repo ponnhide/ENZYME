@@ -1,0 +1,365 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Protocol",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01197-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [],
+    "samples": [],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "params": {
+          "note": "sgRNA design using online CRISPR design tools (CHOPCHOP, Benchlin, CRISPick, crispr.mit.edu) to identify sgRNA sequences flanking SHANK3: sgRNA#1R (ATACCACAAGAAGGACGTCCGGG), sgRNA#2F (ACCCTTAAACACGGTTATGATGG), sgRNA#3R (ATTTAAAAGCAACCGGACGCTGG), sgRNA#4F (TGAGCCGCTATGACGCTTCAGGG), sgRNA#7 (AGAGGTGTGCGTTCAGTTACAGG), sgRNA#9F (TCTGGGCGTCTGACACGTCAGGG)"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "params": {
+          "note": "Synthesize DNA fragments and subclone into plasmid pSpCas9(BB)-2A-Puro (PX459, Addgene cat. no. 48139) following standard procedures"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "program": "transfect HEK293 cells with sgRNA plasmids using standard transfection procedures"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": "cutting efficiency at target loci"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "params": {
+          "note": "Cutting efficiency was ~24.9% for sgRNA#1 and 20.1% for sgRNA#4"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "params": {
+          "device_kind": "dna_delivery_device",
+          "program": "electroporate human H9 stem cells with 5 μM validated sgRNA-containing plasmids per 3 × 10^6 cells using Amaxa Nucleofector System (program A023)"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "note": "Plate cells onto MG-coated plates post-electroporation"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "params": {
+          "note": "Change medium to puromycin-containing (0.25 μg/mL) stem cell medium the following day to select transfected cells"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "pick_colony"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "annotate",
+        "params": {
+          "note": "When stem cell colonies reach 60–80% confluency, passage them and use half of the cells for gDNA extraction and half for cryopreservation and propagation"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "run_device",
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": "perform PCR on extracted gDNA using primers targeting SHANK3 region: Primer 1F (CAGACACTTCACGAAAGAAGC) and Primer 5R (GGGAGCAAAAAGGAAACCTC)"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s13",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": "presence of complete hemizygous SHANK3 deletion (~69.5 kb)"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s14",
+        "op": "run_device",
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "program": "validate deletion by Sanger sequencing"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s15",
+        "op": "annotate",
+        "params": {
+          "note": "Start neural induction with PS cells at 80–90% confluency"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s16",
+        "op": "transfer",
+        "params": {
+          "from": "unknown_container",
+          "to": "MG-coated plates",
+          "amount": {
+            "value": 1.0,
+            "unit": ":1 ratio"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s17",
+        "op": "annotate",
+        "params": {
+          "note": "Change stem cell medium to induction medium the next day after replating"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s18",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": "tissue thickening, tissue curling, detachments indicating neuroectodermal fate"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s19",
+        "op": "annotate",
+        "params": {
+          "note": "Assess daily progression of neural induction; remove floating dead cells during medium changes by tilting culture dish ~30° and aspirating 80–90% of old medium"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s20",
+        "op": "annotate",
+        "params": {
+          "note": "Replate successfully induced cultures using Dispase to detach neuroectodermal cell clusters"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s21",
+        "op": "annotate",
+        "params": {
+          "note": "Switch to amplification medium with EGF (10 ng/mL) and FGF2 (10 ng/mL)"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s22",
+        "op": "transfer",
+        "params": {
+          "from": "culture_container",
+          "to": "culture_container",
+          "note": "Exchange half the medium every other day with fresh medium containing 2× EGF (20 ng/mL) and 2× FGF2 (20 ng/mL) to maintain final concentration at 10 ng/mL",
+          "amount": {
+            "value": 50.0,
+            "unit": "%"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s23",
+        "op": "annotate",
+        "params": {
+          "note": "Limit FGF2 exposure to 5 days (two medium changes) to avoid tissue caudalization"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s24",
+        "op": "annotate",
+        "params": {
+          "note": "Continue including EGF until NRs become apparent"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s25",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      },
+      {
+        "from": "s12",
+        "to": "s13"
+      },
+      {
+        "from": "s13",
+        "to": "s14"
+      },
+      {
+        "from": "s14",
+        "to": "s15"
+      },
+      {
+        "from": "s15",
+        "to": "s16"
+      },
+      {
+        "from": "s16",
+        "to": "s17"
+      },
+      {
+        "from": "s17",
+        "to": "s18"
+      },
+      {
+        "from": "s18",
+        "to": "s19"
+      },
+      {
+        "from": "s19",
+        "to": "s20"
+      },
+      {
+        "from": "s20",
+        "to": "s21"
+      },
+      {
+        "from": "s21",
+        "to": "s22"
+      },
+      {
+        "from": "s22",
+        "to": "s23"
+      },
+      {
+        "from": "s23",
+        "to": "s24"
+      },
+      {
+        "from": "s24",
+        "to": "s25"
+      }
+    ],
+    "detail_level": 0
+  }
+}

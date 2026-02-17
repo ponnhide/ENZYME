@@ -1,0 +1,281 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Thawing PS cells",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01197-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "mat_plate",
+        "name": "6-well plate (MG‑coated)"
+      },
+      {
+        "id": "mat_e8",
+        "name": "E8 medium"
+      },
+      {
+        "id": "mat_stem",
+        "name": "stem cell medium"
+      },
+      {
+        "id": "mat_y27632",
+        "name": "Y‑27632"
+      },
+      {
+        "id": "mat_frozen_cells",
+        "name": "frozen vial of PS cells"
+      },
+      {
+        "id": "mat_ethanol70",
+        "name": "70% ethanol"
+      },
+      {
+        "id": "mat_napkin",
+        "name": "napkin"
+      }
+    ],
+    "containers": [
+      {
+        "id": "cont_falcon15",
+        "name": "15 mL Falcon tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "eq_incubator",
+        "name": "incubator (37 °C, 5 % CO₂)"
+      },
+      {
+        "id": "eq_biosafety_cabinet",
+        "name": "biosafety cabinet"
+      },
+      {
+        "id": "eq_water_bath",
+        "name": "water bath (37 °C)"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_plate1",
+        "name": "6‑well plate (MG‑coated)"
+      },
+      {
+        "id": "sample_falcon1",
+        "name": "15 mL Falcon tube"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_plate1"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_falcon1"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_plate1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_plate1"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "37 °C, 5 % CO₂, ~30 min"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "mat_e8"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_falcon1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 6,
+            "unit": "mL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "mat_stem"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_falcon1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 3,
+            "unit": "mL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_falcon1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_falcon1"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "warm to 37 °C (time not specified)"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "mat_y27632"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_falcon1"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 3,
+            "unit": "µL"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "mat_frozen_cells"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "description": "Thaw frozen aliquot of cells by dipping vial in 37 °C water bath while monitoring every few seconds."
+        }
+      },
+      {
+        "id": "s9",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "mat_frozen_cells"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "description": "After thawing, move vial to biosafety cabinet, spray with 70 % ethanol, and wipe with a napkin."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      }
+    ],
+    "detail_level": 0
+  }
+}

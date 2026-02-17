@@ -1,0 +1,227 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Section 3A: selection for the interneuron generation screen (Day 45)",
+    "source": {
+      "type": "paper",
+      "id": "s41596-025-01299-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "human_spinal_organoid",
+        "name": "human spinal organoid (hSO)"
+      },
+      {
+        "id": "enzyme_solution_base",
+        "name": "enzyme solution (base)"
+      },
+      {
+        "id": "papain",
+        "name": "papain",
+        "description": "10 U ml−1"
+      }
+    ],
+    "containers": [
+      {
+        "id": "six_well_plate",
+        "type": "six-well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "co2_incubator",
+        "device_kind": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoid_sample",
+        "derived_from": [
+          "human_spinal_organoid"
+        ],
+        "description": "12 hSO pooled for dissociation"
+      },
+      {
+        "id": "mixed_solution",
+        "derived_from": [
+          "enzyme_solution_base",
+          "papain"
+        ]
+      },
+      {
+        "id": "warmed_solution",
+        "derived_from": [
+          "mixed_solution"
+        ]
+      },
+      {
+        "id": "pooled_sample",
+        "derived_from": [
+          "organoid_sample",
+          "warmed_solution"
+        ],
+        "container": "six_well_plate"
+      },
+      {
+        "id": "incubated_sample",
+        "derived_from": [
+          "pooled_sample"
+        ]
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "enzyme_solution_base"
+          },
+          {
+            "kind": "material",
+            "id": "papain"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "mixed_solution"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "details": "Mix the enzyme solution with papain to achieve 10 U ml−1 papain concentration."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "mixed_solution"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "warmed_solution"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "pre-warm 37 °C for 20 min"
+        },
+        "annotations": {
+          "temperature": "37 °C",
+          "duration": "20 min"
+        }
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid_sample"
+          },
+          {
+            "kind": "sample",
+            "id": "warmed_solution"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "pooled_sample"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 3,
+            "unit": "ml"
+          }
+        },
+        "annotations": {
+          "organoid_count": "12 organoids pooled into one well of a six-well plate"
+        }
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "pooled_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "incubated_sample"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "37 °C for 15 min in 5 % CO₂"
+        },
+        "annotations": {
+          "temperature": "37 °C",
+          "duration": "15 min",
+          "CO2": "5 %"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "incubated_sample"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "incubated_sample"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently"
+        },
+        "annotations": {
+          "procedure": "Gently shake the plate horizontally every 5 min to evenly distribute the papain solution."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

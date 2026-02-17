@@ -1,0 +1,326 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Embedding aggregates and second matrix layer",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-019-0213-z.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "mat_medium",
+        "type": "material",
+        "name": "StemPro-34 SFM complete medium"
+      },
+      {
+        "id": "mat_purecol",
+        "type": "material",
+        "name": "PureCol"
+      },
+      {
+        "id": "mat_collagen",
+        "type": "material",
+        "name": "Collagen I"
+      },
+      {
+        "id": "mat_matrigel",
+        "type": "material",
+        "name": "Matrigel"
+      },
+      {
+        "id": "mat_fbs",
+        "type": "material",
+        "name": "FBS"
+      },
+      {
+        "id": "mat_vegf",
+        "type": "material",
+        "name": "VEGF-A"
+      },
+      {
+        "id": "mat_fgf",
+        "type": "material",
+        "name": "FGF-2"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube_15ml",
+        "type": "container",
+        "container_type": "15 mL tube"
+      },
+      {
+        "id": "plate_12well",
+        "type": "container",
+        "container_type": "12-well plate"
+      },
+      {
+        "id": "waste_container",
+        "type": "container",
+        "container_type": "waste tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "incubator_1",
+        "type": "equipment",
+        "equipment_type": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "agg_sample",
+        "type": "sample",
+        "name": "Cell aggregates"
+      },
+      {
+        "id": "collagen_solution",
+        "type": "sample",
+        "name": "Collagen I–Matrigel solution"
+      },
+      {
+        "id": "agg_collagen_mix",
+        "type": "sample",
+        "name": "Aggregate–Collagen I–Matrigel mixture"
+      },
+      {
+        "id": "obs_vessel_sprouting",
+        "type": "sample",
+        "name": "Observation of sprouting vessels"
+      }
+    ],
+    "data": [
+      {
+        "id": "data_obs_vessel_sprouting",
+        "type": "data",
+        "description": "Visual observation of sprouting vessels"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "agg_sample"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source_ref": "agg_sample",
+          "destination_ref": "tube_15ml",
+          "method": "pipette using 10‑mL serological pipette",
+          "amount": {
+            "value": "as needed",
+            "unit": null
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "rinse",
+          "target_ref": "tube_15ml",
+          "reagent_ref": "mat_medium",
+          "volume": "1 mL",
+          "repeat": 2,
+          "note": "Aspirate supernatant then add medium; repeat wash once"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source_ref": "tube_15ml",
+          "destination_ref": "waste_container",
+          "method": "P200 pipette, remove carefully",
+          "amount": {
+            "value": "remaining medium",
+            "unit": null
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "target_ref": "mat_collagen",
+          "reagent_ref": "mat_purecol",
+          "note": "Prepare complete collagen I solution"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "params": {
+          "note": "Keep collagen I–Matrigel solution on ice"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "target_ref": "agg_sample",
+          "reagent_ref": "collagen_solution",
+          "note": "Resuspend aggregates in collagen I–Matrigel solution on ice"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "agg_collagen_mix"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "params": {
+          "source_ref": "agg_collagen_mix",
+          "destination_ref": "plate_12well",
+          "method": "add to each well of the 12‑well plate",
+          "amount": {
+            "value": 0.5,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "target_ref": "plate_12well",
+          "note": "Rock plate back and forth to distribute aggregates, then move to incubator"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "incubator_1",
+          "program": {
+            "program_name": "gel_solidification_2h_37C",
+            "duration": "2 h",
+            "temperature": "37 °C"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "transfer",
+        "params": {
+          "source_ref": "mat_medium",
+          "destination_ref": "plate_12well",
+          "note": "Add prewarmed (37 °C) StemPro‑34 SFM complete medium with 15 % FBS, 100 ng/mL VEGF‑A and 100 ng/mL FGF‑2",
+          "amount": {
+            "value": "as needed",
+            "unit": null
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "sprouting vessels"
+          ],
+          "target_ref": "plate_12well",
+          "note": "Sprouting vessels should appear after 1–3 d after embedding"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "obs_vessel_sprouting"
+          }
+        ],
+        "inputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      }
+    ],
+    "detail_level": 0
+  }
+}

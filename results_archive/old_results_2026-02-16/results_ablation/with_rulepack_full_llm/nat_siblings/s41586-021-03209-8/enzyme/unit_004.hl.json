@@ -1,0 +1,166 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Bulk ATAC-seq library preparation",
+    "source": {
+      "type": "paper",
+      "id": "s41586-021-03209-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [],
+    "equipment": [
+      {
+        "id": "nova_seq",
+        "name": "Illumina NovaSeq"
+      }
+    ],
+    "samples": [
+      {
+        "id": "nuclei",
+        "description": "50,000 nuclei"
+      },
+      {
+        "id": "permeabilized_nuclei",
+        "description": "Permeabilized nuclei"
+      },
+      {
+        "id": "tagmented_chromatin",
+        "description": "Tagmented chromatin"
+      },
+      {
+        "id": "library",
+        "description": "ATAC-seq library"
+      },
+      {
+        "id": "sequencing_data",
+        "description": "Sequencing reads"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "nuclei"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 50000,
+            "unit": "count"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "nuclei"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "permeabilized_nuclei"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Permeabilize nuclei (details not provided in source text)."
+        }
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "permeabilized_nuclei"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "tagmented_chromatin"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Tagment permeabilized nuclei (details not provided in source text)."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "tagmented_chromatin"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "library"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Generate ATAC-seq library from tagmented chromatin (details not provided in source text)."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "library"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sequencing_data"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Sequence library on Illumina NovaSeq with target depth of 50 million reads per library."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

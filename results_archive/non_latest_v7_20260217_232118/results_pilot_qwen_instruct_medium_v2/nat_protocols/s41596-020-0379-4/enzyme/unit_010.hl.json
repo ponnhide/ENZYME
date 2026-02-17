@@ -1,0 +1,219 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Organoid Freezing",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-0379-4.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "cell-freezing-medium",
+        "name": "cell-freezing-medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "cryogenic-vial",
+        "name": "cryogenic-vial",
+        "type": "generic_container"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "organoid-suspension",
+        "name": "organoid-suspension"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "cell-freezing-medium"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid-suspension"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 500,
+            "unit": "µl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid-suspension"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "organoid-suspension"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "organoid-suspension"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "cryogenic-vial"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 500,
+            "unit": "µl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "cryogenic-vial"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "cryogenic-vial"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: place_into"
+        },
+        "annotations": {
+          "device": "freezing container"
+        }
+      },
+      {
+        "id": "s5",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "cryogenic-vial"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "cryogenic-vial"
+          }
+        ],
+        "params": {
+          "device_kind": "incubator",
+          "program": "store at –80 °C for 24 h"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "cryogenic-vial"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "cryogenic-vial"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: remove_from"
+        },
+        "annotations": {
+          "device": "freezing container"
+        }
+      },
+      {
+        "id": "s7",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "cryogenic-vial"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "cryogenic-vial"
+          }
+        ],
+        "params": {
+          "text": "unmapped action_kind in source: transfer_to"
+        },
+        "annotations": {
+          "destination": "liquid nitrogen tank (approximately –180 °C)"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

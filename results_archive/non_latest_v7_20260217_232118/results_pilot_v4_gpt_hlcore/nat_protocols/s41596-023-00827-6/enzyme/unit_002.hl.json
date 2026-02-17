@@ -1,0 +1,108 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Centrifuge to remove Matrigel",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00827-6.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "ethanol_100",
+        "name": "100% ethanol"
+      }
+    ],
+    "containers": [
+      {
+        "id": "tube1",
+        "type": "microcentrifuge tube"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "centrifuge1",
+        "device_kind": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample1",
+        "type": "cell_sample",
+        "container_ref": "tube1"
+      },
+      {
+        "id": "supernatant1",
+        "type": "supernatant",
+        "container_ref": "tube1"
+      },
+      {
+        "id": "mixed1",
+        "type": "mixed_solution",
+        "container_ref": "tube1"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "supernatant1"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "16,000g for 5 min at 4 °C"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "supernatant1"
+          },
+          {
+            "kind": "material",
+            "id": "ethanol_100"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "mixed1"
+          }
+        ],
+        "params": {
+          "action_kind": "mix"
+        },
+        "annotations": {
+          "note": "mix with equal amount of 100% ethanol and vortex thoroughly"
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      }
+    ],
+    "detail_level": 0
+  }
+}

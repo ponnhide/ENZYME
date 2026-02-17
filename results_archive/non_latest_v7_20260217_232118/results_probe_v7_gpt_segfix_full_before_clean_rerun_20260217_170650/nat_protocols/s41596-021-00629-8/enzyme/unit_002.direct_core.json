@@ -1,0 +1,298 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Initiate monolayer culture from frozen hPSC stock",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00629-8.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "frozen hPSC stock (3×10^6 cells)"
+      },
+      {
+        "id": "m2",
+        "name": "DMEM/F12 (cold, 4°C)"
+      },
+      {
+        "id": "m3",
+        "name": "E8 medium"
+      },
+      {
+        "id": "m4",
+        "name": "Y27632 (10 μM)"
+      },
+      {
+        "id": "m5",
+        "name": "Geltrex coating"
+      },
+      {
+        "id": "m6",
+        "name": "E8 + 10 μM Y27632"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "conical_tube_15ml",
+        "name": "15 mL conical tube"
+      },
+      {
+        "id": "c2",
+        "type": "t25_flask",
+        "name": "Geltrex-coated T25 flask"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "centrifuge",
+        "name": "centrifuge"
+      },
+      {
+        "id": "e2",
+        "type": "incubator",
+        "name": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp1",
+        "name": "cell pellet"
+      },
+      {
+        "id": "samp2",
+        "name": "cell suspension"
+      },
+      {
+        "id": "c1",
+        "name": "c1"
+      },
+      {
+        "id": "c2",
+        "name": "c2"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "container_type": "conical_tube_15ml"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c1"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "params": {
+          "source": "m1",
+          "destination": "c1",
+          "description": "transfer frozen hPSC stock into tube",
+          "amount": {
+            "value": 3000000,
+            "unit": "cells"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source": "m2",
+          "destination": "c1",
+          "description": "add cold DMEM/F12",
+          "amount": {
+            "value": 10.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "e1",
+          "program": {
+            "program_name": "300g_3min_4C"
+          },
+          "description": "centrifuge at 300g for 3 min at 4 °C"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "params": {
+          "source": "m6",
+          "destination": "c1",
+          "description": "add E8 + 10 μM Y27632",
+          "amount": {
+            "value": 1.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "target": "c1",
+          "description": "resuspend cell pellet"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s7",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "container_type": "t25_flask"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "c2"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s8",
+        "op": "transfer",
+        "params": {
+          "source": "m6",
+          "destination": "c2",
+          "description": "add 4 mL E8 + 10 μM Y27632 to flask",
+          "amount": {
+            "value": 4.0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s9",
+        "op": "transfer",
+        "params": {
+          "source": "c1",
+          "destination": "c2",
+          "description": "transfer cell suspension to flask",
+          "amount": {
+            "value": 0,
+            "unit": "mL"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s10",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix_gently",
+          "target": "c2",
+          "description": "rock flask back‑and‑forth to distribute cells evenly"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s11",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "e2",
+          "program": {
+            "program_name": "standard_culture"
+          },
+          "description": "place flask in incubator"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s12",
+        "op": "annotate",
+        "params": {
+          "note": "Change medium after 2 days and then daily by aspirating old medium and adding 5 mL fresh E8."
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      },
+      {
+        "from": "s11",
+        "to": "s12"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,157 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Evaluation of coculture after 8 h",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00562-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [
+      {
+        "id": "c_plate",
+        "type": "microplate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "eq_plate_reader",
+        "type": "plate_reader"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_culture"
+      },
+      {
+        "id": "d_od600",
+        "name": "d_od600"
+      },
+      {
+        "id": "d_luciferase",
+        "name": "d_luciferase"
+      }
+    ],
+    "data": [
+      {
+        "id": "d_od600"
+      },
+      {
+        "id": "d_luciferase"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_culture"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "data"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d_od600"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "optical_density_600nm"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_culture"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d_od600"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "data"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d_luciferase"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "observe",
+        "params": {
+          "modality": "instrument_readout",
+          "features": [
+            "luciferase_activity"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_culture"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "d_luciferase"
+          }
+        ]
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      }
+    ],
+    "detail_level": 0
+  }
+}

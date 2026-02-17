@@ -1,0 +1,229 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Seeding hPSCs at defined density",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01236-7.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "matrigel",
+        "name": "Matrigel"
+      },
+      {
+        "id": "mtesr_plus",
+        "name": "mTeSR Plus medium"
+      },
+      {
+        "id": "y27632",
+        "name": "Y27632"
+      },
+      {
+        "id": "supplemented_medium",
+        "name": "mTeSR Plus medium with 10 µM Y27632"
+      }
+    ],
+    "containers": [
+      {
+        "id": "plate12",
+        "type": "12-well_plate",
+        "name": "12-well plate"
+      }
+    ],
+    "equipment": [],
+    "samples": [
+      {
+        "id": "hpsc_suspension",
+        "name": "hPSC cell suspension"
+      },
+      {
+        "id": "mtesr_plus",
+        "name": "mtesr_plus"
+      },
+      {
+        "id": "y27632",
+        "name": "y27632"
+      },
+      {
+        "id": "supplemented_medium",
+        "name": "supplemented_medium"
+      },
+      {
+        "id": "plate12",
+        "name": "plate12"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material",
+          "name": "Matrigel"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "matrigel"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material",
+          "name": "mTeSR Plus medium"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "mtesr_plus"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "material",
+          "name": "Y27632"
+        },
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "y27632"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s4",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "sample",
+          "name": "hPSC cell suspension"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "hpsc_suspension"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s5",
+        "op": "allocate",
+        "params": {
+          "allocate_kind": "container",
+          "type": "12-well_plate",
+          "name": "12-well plate"
+        },
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "plate12"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "description": "Supplement mTeSR Plus medium with 10 µM Y27632"
+        },
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "mtesr_plus"
+          },
+          {
+            "kind": "material",
+            "id": "y27632"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "material",
+            "id": "supplemented_medium"
+          }
+        ]
+      },
+      {
+        "id": "s7",
+        "op": "transfer",
+        "params": {
+          "description": "Add supplemented medium to Matrigel‑coated well of the 12‑well plate",
+          "amount": {
+            "value": 1.0,
+            "unit": "ml"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "material",
+            "id": "supplemented_medium"
+          },
+          {
+            "kind": "container",
+            "id": "plate12"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "params": {
+          "description": "Seed 40,000 hPSCs into the same well (amount unspecified)"
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      }
+    ],
+    "detail_level": 0
+  }
+}

@@ -1,0 +1,230 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Organoid generation in 96‑well plates",
+    "source": {
+      "type": "paper",
+      "id": "s41592-025-02927-5.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "pluripotent stem cells H9 line"
+      },
+      {
+        "id": "m2",
+        "name": "pluripotent stem cells HES3 line (NKX2-1 reporter)"
+      },
+      {
+        "id": "m3",
+        "name": "minimal neural induction media (MNIM)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "96-well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "incubator"
+      }
+    ],
+    "samples": [
+      {
+        "id": "samp_h9",
+        "kind": "cell_line",
+        "material_ref": "m1"
+      },
+      {
+        "id": "samp_hes3",
+        "kind": "cell_line",
+        "material_ref": "m2"
+      },
+      {
+        "id": "samp_embryoid_h9",
+        "kind": "embryoid_body"
+      },
+      {
+        "id": "samp_embryoid_hes3",
+        "kind": "embryoid_body"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_h9"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "allocate",
+        "inputs": [],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_hes3"
+          }
+        ],
+        "params": {},
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_h9"
+          },
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_embryoid_h9"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "annotations": {
+          "note": "Volume or cell number not specified in source text."
+        }
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_hes3"
+          },
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "samp_embryoid_hes3"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": null,
+            "unit": null
+          }
+        },
+        "annotations": {
+          "note": "Volume or cell number not specified in source text."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "samp_embryoid_h9"
+          },
+          {
+            "kind": "sample",
+            "id": "samp_embryoid_hes3"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "action": "aggregate pluripotent stem cells into embryoid bodies",
+          "detail": "Aggregation method not described in source text."
+        }
+      },
+      {
+        "id": "s7",
+        "op": "incubate",
+        "inputs": [
+          {
+            "kind": "container",
+            "id": "c1"
+          },
+          {
+            "kind": "material",
+            "id": "m3"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "device_kind": "incubator"
+        },
+        "annotations": {
+          "note": "Culture conditions (temperature, CO₂, duration) not specified; cells are cultured in minimal neural induction media (MNIM) to induce neuroectodermal fates."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      }
+    ],
+    "detail_level": 0
+  }
+}

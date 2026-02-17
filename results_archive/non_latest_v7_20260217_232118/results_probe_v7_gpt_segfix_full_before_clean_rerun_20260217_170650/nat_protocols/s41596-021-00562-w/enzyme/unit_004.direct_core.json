@@ -1,0 +1,158 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Seeding organoid fragments into Matrigel droplets",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-021-00562-w.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "matrigel",
+        "type": "material",
+        "name": "Matrigel"
+      },
+      {
+        "id": "colon_organoid_medium",
+        "type": "material",
+        "name": "colon organoid medium"
+      }
+    ],
+    "containers": [
+      {
+        "id": "olympus_24well_plate",
+        "type": "plate",
+        "description": "Olympus 24-well tissue culture treated plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "co2_incubator",
+        "type": "incubator"
+      },
+      {
+        "id": "biosafety_cabinet",
+        "type": "biosafety_cabinet"
+      }
+    ],
+    "samples": [
+      {
+        "id": "organoid_fragment_suspension",
+        "type": "sample",
+        "description": "organoid fragment suspension in Matrigel"
+      }
+    ],
+    "data": [
+      {
+        "id": "gelation_observation",
+        "type": "data",
+        "description": "visual check of Matrigel gelation"
+      }
+    ]
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "params": {
+          "note": "Transfer Matrigel to organoid fragment suspension; amount calculated in Step 27"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s2",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "target_ref": "organoid_fragment_suspension"
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "params": {
+          "source_ref": "organoid_fragment_suspension",
+          "destination_ref": "olympus_24well_plate",
+          "amount": {
+            "value": 50.0,
+            "unit": "µl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "co2_incubator",
+          "program": {
+            "program_name": "gelation_15-20min",
+            "duration": "15-20 min"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "id": "s5",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "gelation"
+          ],
+          "target_ref": "olympus_24well_plate"
+        },
+        "outputs": [],
+        "inputs": []
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "params": {
+          "source_ref": "colon_organoid_medium",
+          "destination_ref": "olympus_24well_plate",
+          "amount": {
+            "value": 600.0,
+            "unit": "µl"
+          }
+        },
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      }
+    ],
+    "detail_level": 0
+  }
+}

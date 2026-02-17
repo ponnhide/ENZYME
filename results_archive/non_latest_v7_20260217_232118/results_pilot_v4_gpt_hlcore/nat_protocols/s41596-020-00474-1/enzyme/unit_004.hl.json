@@ -1,0 +1,238 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Resuspend pellet in BME and plate",
+    "source": {
+      "type": "paper",
+      "id": "s41596-020-00474-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m1",
+        "name": "BME"
+      },
+      {
+        "id": "m2",
+        "name": "Type 1 or Type 2 medium (pre‑warmed)"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c1",
+        "name": "12‑well plate"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "name": "biosafety cabinet"
+      },
+      {
+        "id": "e2",
+        "name": "incubator (37 °C, 5 % CO₂)"
+      }
+    ],
+    "samples": [
+      {
+        "id": "sample_pellet",
+        "name": "cell pellet"
+      },
+      {
+        "id": "sample_resuspended",
+        "name": "BME‑resuspended cells"
+      },
+      {
+        "id": "sample_plate",
+        "name": "cells plated in 12‑well plate"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_pellet"
+          },
+          {
+            "kind": "material",
+            "id": "m1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_resuspended"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend",
+          "amount": {
+            "value": 200,
+            "unit": "µl"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_resuspended"
+          },
+          {
+            "kind": "container",
+            "id": "c1"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_plate"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 100,
+            "unit": "µl"
+          },
+          "distribution": "multiple small drops (<20 µl each) per well"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_plate"
+          }
+        ],
+        "outputs": [],
+        "params": {},
+        "annotations": {
+          "description": "Turn the plate upside down and leave in the biosafety cabinet for 5 min."
+        }
+      },
+      {
+        "id": "s4",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_plate"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "device_kind": "incubator",
+          "program": "solidify",
+          "temperature": {
+            "value": 37,
+            "unit": "°C"
+          },
+          "duration": {
+            "value": 30,
+            "unit": "min"
+          }
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5a",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_plate"
+          },
+          {
+            "kind": "material",
+            "id": "m2"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "sample_plate"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 750,
+            "unit": "µl"
+          },
+          "note": "Add pre‑warmed medium to each well"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5b",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "sample_plate"
+          }
+        ],
+        "outputs": [],
+        "params": {
+          "device_kind": "incubator",
+          "temperature": {
+            "value": 37,
+            "unit": "°C"
+          },
+          "co2": {
+            "value": 5,
+            "unit": "%"
+          },
+          "program": {
+            "temperature": {
+              "value": 37,
+              "unit": "°C"
+            },
+            "co2": {
+              "value": 5,
+              "unit": "%"
+            }
+          }
+        },
+        "annotations": {}
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5a"
+      },
+      {
+        "from": "s5a",
+        "to": "s5b"
+      }
+    ],
+    "detail_level": 0
+  }
+}

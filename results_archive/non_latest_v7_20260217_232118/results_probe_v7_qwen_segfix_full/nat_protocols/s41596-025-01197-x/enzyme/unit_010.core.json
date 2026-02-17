@@ -1,0 +1,127 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "core",
+  "metadata": {
+    "title": "Slice preparation for patch-clamp electrophysiology",
+    "source": {
+      "type": "paper_pdf",
+      "id": "s41596-025-01197-x.pdf"
+    }
+  },
+  "resources": {
+    "materials": [],
+    "containers": [
+      {
+        "id": "c1",
+        "type": "beaker"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e1",
+        "type": "vibratome"
+      },
+      {
+        "id": "e2",
+        "type": "magnifying_glass"
+      },
+      {
+        "id": "e3",
+        "type": "insulin_needle"
+      },
+      {
+        "id": "e4",
+        "type": "pasteur_pipette"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s1_output",
+        "name": "s1_output"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "params": {
+          "text": "unmapped device_kind in source: vibratome"
+        },
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s1_output"
+          }
+        ],
+        "inputs": []
+      },
+      {
+        "id": "s2",
+        "op": "observe",
+        "params": {
+          "modality": "visual",
+          "features": [
+            "slice_separation"
+          ]
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1_output"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s3",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "dislodge_cells"
+        },
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s1_output"
+          }
+        ],
+        "equipment": [
+          "e3"
+        ],
+        "outputs": []
+      },
+      {
+        "id": "s4",
+        "op": "transfer",
+        "params": {
+          "source": "s1_output",
+          "target": "c1",
+          "amount": "unknown"
+        },
+        "equipment": [
+          "e4"
+        ],
+        "inputs": [],
+        "outputs": []
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      }
+    ],
+    "detail_level": 0
+  }
+}

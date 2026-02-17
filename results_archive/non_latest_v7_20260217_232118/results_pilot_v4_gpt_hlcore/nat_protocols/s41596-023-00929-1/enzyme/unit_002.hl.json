@@ -1,0 +1,352 @@
+{
+  "schema_version": "0.4",
+  "ir_kind": "hl",
+  "metadata": {
+    "title": "Percoll density gradient centrifugation",
+    "source": {
+      "type": "paper",
+      "id": "s41596-023-00929-1.pdf"
+    }
+  },
+  "resources": {
+    "materials": [
+      {
+        "id": "m_hbss",
+        "name": "HBSS/BSA/glucose solution"
+      },
+      {
+        "id": "m_dnase",
+        "name": "DNase (10 mg/mL) pre‑aliquoted"
+      },
+      {
+        "id": "m_percoll",
+        "name": "22% Percoll"
+      }
+    ],
+    "containers": [
+      {
+        "id": "c_sample_tube",
+        "name": "sample tube"
+      },
+      {
+        "id": "c_conical_tube",
+        "name": "15 mL conical tube"
+      },
+      {
+        "id": "c_waste",
+        "name": "waste container"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "e_centrifuge",
+        "device_kind": "centrifuge",
+        "name": "centrifuge"
+      }
+    ],
+    "samples": [
+      {
+        "id": "s_cell_suspension",
+        "name": "cell suspension in sample tube",
+        "container_ref": "c_sample_tube"
+      },
+      {
+        "id": "s_percoll_tube",
+        "name": "Percoll tube",
+        "container_ref": "c_conical_tube"
+      }
+    ],
+    "data": []
+  },
+  "protocol": {
+    "steps": [
+      {
+        "id": "s1",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_suspension"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_suspension"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Discard the supernatant by pouring out the liquid into a waste container. Do not aspirate the supernatant during the cell dissociation and digestion, as the cell pellet may be aspirated and lost."
+        }
+      },
+      {
+        "id": "s2",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_suspension"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_suspension"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 1,
+            "unit": "mL"
+          },
+          "material_ref": "m_hbss"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s3",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_suspension"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_suspension"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 50,
+            "unit": "µL"
+          },
+          "material_ref": "m_dnase"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s4",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_suspension"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_suspension"
+          }
+        ],
+        "params": {
+          "action_kind": "mix_gently",
+          "mixes": 50,
+          "note": "Gently mix/resuspend 50 times using a micropipette, taking care not to introduce bubbles."
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s5",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_percoll_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_percoll_tube"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 4,
+            "unit": "mL"
+          },
+          "material_ref": "m_percoll"
+        },
+        "annotations": {
+          "note": "Dispense 4 mL of 22 % Percoll into each new 15 mL conical tube."
+        }
+      },
+      {
+        "id": "s6",
+        "op": "transfer",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_cell_suspension"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_percoll_tube"
+          }
+        ],
+        "params": {
+          "amount": {
+            "value": 0.75,
+            "unit": "mL"
+          },
+          "note": "Dispense cell suspension (~750 µL) on top of the Percoll in each tube."
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s7",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_percoll_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_percoll_tube"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "10 min at 500 g, 4 °C, no deceleration"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s8",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_percoll_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_percoll_tube"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Discard supernatant."
+        }
+      },
+      {
+        "id": "s9",
+        "op": "manipulate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_percoll_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_percoll_tube"
+          }
+        ],
+        "params": {
+          "action_kind": "resuspend",
+          "note": "Reunite contents of all Percoll tubes into one tube by resuspending the cell pellet in the remaining HBSS/BSA/glucose."
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s10",
+        "op": "run_device",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_percoll_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_percoll_tube"
+          }
+        ],
+        "params": {
+          "device_kind": "centrifuge",
+          "program": "5 min at 300 g, 4 °C"
+        },
+        "annotations": {}
+      },
+      {
+        "id": "s11",
+        "op": "annotate",
+        "inputs": [
+          {
+            "kind": "sample",
+            "id": "s_percoll_tube"
+          }
+        ],
+        "outputs": [
+          {
+            "kind": "sample",
+            "id": "s_percoll_tube"
+          }
+        ],
+        "params": {},
+        "annotations": {
+          "note": "Do not discard the remaining tubes. The small amount of cells left over after combining the majority of cells into one tube for the master mix can be used for unstained and DAPI controls."
+        }
+      }
+    ],
+    "start_step_id": "s1",
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2"
+      },
+      {
+        "from": "s2",
+        "to": "s3"
+      },
+      {
+        "from": "s3",
+        "to": "s4"
+      },
+      {
+        "from": "s4",
+        "to": "s5"
+      },
+      {
+        "from": "s5",
+        "to": "s6"
+      },
+      {
+        "from": "s6",
+        "to": "s7"
+      },
+      {
+        "from": "s7",
+        "to": "s8"
+      },
+      {
+        "from": "s8",
+        "to": "s9"
+      },
+      {
+        "from": "s9",
+        "to": "s10"
+      },
+      {
+        "from": "s10",
+        "to": "s11"
+      }
+    ],
+    "detail_level": 0
+  }
+}
