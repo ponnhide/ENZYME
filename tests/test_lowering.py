@@ -1,4 +1,6 @@
-from enzyme.lowering import lower_to_core
+import pytest
+
+from enzyme.lowering import LoweringError, lower_to_core
 
 
 def test_lowering_macros():
@@ -16,7 +18,13 @@ def test_lowering_macros():
                 {
                     "id": "s4",
                     "op": "measure",
-                    "params": {"device_kind": "plate_reader", "program_name": "read"},
+                    "inputs": [{"kind": "sample", "id": "sample:s3"}],
+                    "params": {
+                        "device_kind": "plate_reader",
+                        "program_name": "read",
+                        "readout": "egfp",
+                        "integration_time": {"value": 100, "unit": "ms"},
+                    },
                 },
             ],
             "start_step_id": "s1",
@@ -41,8 +49,46 @@ def test_lowering_macros():
     assert "s4.2" in steps
     assert steps["s4.1"]["op"] == "run_device"
     assert steps["s4.2"]["op"] == "observe"
+    assert steps["s4.1"]["outputs"][0]["kind"] == "data"
+    assert steps["s4.2"]["inputs"] == [steps["s4.1"]["outputs"][0]]
+    assert steps["s4.2"]["params"]["modality"] == "instrument_readout"
+    assert steps["s4.2"]["params"]["features"]["readout"] == "egfp"
+    assert steps["s4.1"]["params"]["program"]["integration_time"]["unit"] == "ms"
 
     edge_pairs = {(edge["from"], edge["to"]) for edge in core["protocol"]["edges"]}
     assert ("s3", "s4.1") in edge_pairs
     assert ("s4.1", "s4.2") in edge_pairs
     assert core["protocol"]["step_order"][-2:] == ["s4.1", "s4.2"]
+
+
+def test_lowering_strict_rejects_unknown_macro():
+    hl = {
+        "schema_version": "0.4",
+        "ir_kind": "hl",
+        "protocol": {
+            "steps": [{"id": "s1", "op": "unknown_macro", "params": {}}],
+            "start_step_id": "s1",
+            "edges": [{"from": "s1", "to": "s1"}],
+        },
+    }
+
+    with pytest.raises(LoweringError):
+        lower_to_core(hl, strict=True)
+
+
+def test_lowering_duplicate_step_ids_raise():
+    hl = {
+        "schema_version": "0.4",
+        "ir_kind": "hl",
+        "protocol": {
+            "steps": [
+                {"id": "s1", "op": "annotate", "params": {}},
+                {"id": "s1", "op": "annotate", "params": {}},
+            ],
+            "start_step_id": "s1",
+            "edges": [{"from": "s1", "to": "s1"}],
+        },
+    }
+
+    with pytest.raises(LoweringError):
+        lower_to_core(hl)

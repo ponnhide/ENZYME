@@ -1,552 +1,46 @@
 {
-  "schema_version": "0.4",
   "ir_kind": "core",
   "metadata": {
-    "title": "Example (abstract): adherent cell passaging",
-    "version": "0.4-example",
+    "created_at": "2026-02-09",
     "source": {
-      "type": "manual",
       "id": null,
-      "uri": null,
-      "retrieved_at": "2026-02-09"
+      "retrieved_at": "2026-02-09",
+      "type": "manual",
+      "uri": null
     },
-    "created_at": "2026-02-09"
-  },
-  "resources": {
-    "materials": [
-      {
-        "id": "mat:wash_buffer",
-        "name": "wash buffer"
-      },
-      {
-        "id": "mat:detach_reagent",
-        "name": "detachment reagent"
-      },
-      {
-        "id": "mat:medium",
-        "name": "culture medium"
-      }
-    ],
-    "containers": [
-      {
-        "id": "ct:vessel_A",
-        "name": "culture_vessel_A",
-        "type": "culture_vessel_generic"
-      },
-      {
-        "id": "ct:vessel_B",
-        "name": "culture_vessel_B",
-        "type": "culture_vessel_generic"
-      },
-      {
-        "id": "ct:tube_cells",
-        "name": "cell_tube",
-        "type": "tube_generic"
-      },
-      {
-        "id": "ct:waste",
-        "name": "waste",
-        "type": "waste_container"
-      }
-    ],
-    "equipment": [
-      {
-        "id": "eq:inc1",
-        "name": "incubator",
-        "type": "incubator"
-      },
-      {
-        "id": "eq:cent1",
-        "name": "centrifuge",
-        "type": "centrifuge"
-      },
-      {
-        "id": "eq:counter1",
-        "name": "cell_counter",
-        "type": "cell_counter"
-      }
-    ],
-    "samples": [],
-    "data": []
+    "title": "Example (abstract): adherent cell passaging",
+    "version": "0.4-example"
   },
   "protocol": {
     "detail_level": 0,
-    "steps": [
-      {
-        "id": "c1",
-        "op": "observe",
-        "label": "observe culture state",
-        "inputs": [
-          {
-            "kind": "container",
-            "id": "ct:vessel_A"
-          }
-        ],
-        "outputs": [
-          {
-            "kind": "data",
-            "id": "data:obs0"
-          }
-        ],
-        "params": {
-          "modality": "microscope",
-          "features": {
-            "confluency": null,
-            "morphology": null
-          }
-        }
-      },
-      {
-        "id": "c_skip",
-        "op": "annotate",
-        "label": "skip passaging note",
-        "params": {
-          "note": "If confluency < THRESH, skip passaging."
-        }
-      },
-      {
-        "id": "c2",
-        "op": "transfer",
-        "label": "remove spent medium",
-        "inputs": [
-          {
-            "kind": "container",
-            "id": "ct:vessel_A"
-          }
-        ],
-        "outputs": [
-          {
-            "kind": "waste",
-            "id": "ct:waste"
-          }
-        ],
-        "params": {
-          "amount": {
-            "symbol": "X_all"
-          },
-          "transfer_kind": "aspirate"
-        }
-      },
-      {
-        "id": "c3",
-        "op": "transfer",
-        "label": "add wash buffer",
-        "inputs": [
-          {
-            "kind": "material",
-            "id": "mat:wash_buffer"
-          }
-        ],
-        "outputs": [
-          {
-            "kind": "container",
-            "id": "ct:vessel_A"
-          }
-        ],
-        "params": {
-          "amount": {
-            "symbol": "X_wash"
-          },
-          "transfer_kind": "pipette"
-        }
-      },
-      {
-        "id": "c4",
-        "op": "manipulate",
-        "label": "rinse vessel",
-        "inputs": [
-          {
-            "kind": "container",
-            "id": "ct:vessel_A"
-          }
-        ],
-        "params": {
-          "action_kind": "rinse",
-          "settings": {}
-        }
-      },
-      {
-        "id": "c5",
-        "op": "transfer",
-        "label": "remove wash",
-        "inputs": [
-          {
-            "kind": "container",
-            "id": "ct:vessel_A"
-          }
-        ],
-        "outputs": [
-          {
-            "kind": "waste",
-            "id": "ct:waste"
-          }
-        ],
-        "params": {
-          "amount": {
-            "symbol": "X_all"
-          },
-          "transfer_kind": "aspirate"
-        }
-      },
-      {
-        "id": "c6",
-        "op": "transfer",
-        "label": "add detachment reagent",
-        "inputs": [
-          {
-            "kind": "material",
-            "id": "mat:detach_reagent"
-          }
-        ],
-        "outputs": [
-          {
-            "kind": "container",
-            "id": "ct:vessel_A"
-          }
-        ],
-        "params": {
-          "amount": {
-            "symbol": "X_detach"
-          },
-          "transfer_kind": "pipette"
-        }
-      },
-      {
-        "id": "c7",
-        "op": "run_device",
-        "label": "incubate for detachment (macro)",
-        "inputs": [
-          {
-            "kind": "container",
-            "id": "ct:vessel_A"
-          }
-        ],
-        "outputs": [],
-        "params": {
-          "device_kind": "incubator",
-          "device_ref": "eq:inc1",
-          "program": {
-            "program_name": "DETACHMENT_PROGRAM"
-          }
-        },
-        "annotations": {
-          "lowered_from": "incubate"
-        }
-      },
-      {
-        "id": "c8",
-        "op": "observe",
-        "label": "check detachment",
-        "inputs": [
-          {
-            "kind": "container",
-            "id": "ct:vessel_A"
-          }
-        ],
-        "outputs": [
-          {
-            "kind": "data",
-            "id": "data:obs_detach"
-          }
-        ],
-        "params": {
-          "modality": "microscope",
-          "features": {
-            "detached_enough": null
-          }
-        }
-      },
-      {
-        "id": "c7b",
-        "op": "run_device",
-        "label": "continue incubation (macro)",
-        "inputs": [
-          {
-            "kind": "container",
-            "id": "ct:vessel_A"
-          }
-        ],
-        "outputs": [],
-        "params": {
-          "device_kind": "incubator",
-          "device_ref": "eq:inc1",
-          "program": {
-            "program_name": "DETACHMENT_CONTINUE_PROGRAM"
-          }
-        },
-        "annotations": {
-          "lowered_from": "incubate"
-        }
-      },
-      {
-        "id": "c9",
-        "op": "transfer",
-        "label": "add medium to neutralize",
-        "inputs": [
-          {
-            "kind": "material",
-            "id": "mat:medium"
-          }
-        ],
-        "outputs": [
-          {
-            "kind": "container",
-            "id": "ct:vessel_A"
-          }
-        ],
-        "params": {
-          "amount": {
-            "symbol": "X_neutralize"
-          },
-          "transfer_kind": "pipette"
-        }
-      },
-      {
-        "id": "c10",
-        "op": "manipulate",
-        "label": "dislodge cells",
-        "inputs": [
-          {
-            "kind": "container",
-            "id": "ct:vessel_A"
-          }
-        ],
-        "params": {
-          "action_kind": "dislodge_cells",
-          "settings": {}
-        }
-      },
-      {
-        "id": "c11",
-        "op": "transfer",
-        "label": "collect cell suspension",
-        "inputs": [
-          {
-            "kind": "container",
-            "id": "ct:vessel_A"
-          }
-        ],
-        "outputs": [
-          {
-            "kind": "container",
-            "id": "ct:tube_cells"
-          }
-        ],
-        "params": {
-          "amount": {
-            "symbol": "X_all"
-          },
-          "transfer_kind": "pipette"
-        }
-      },
-      {
-        "id": "c12",
-        "op": "run_device",
-        "label": "concentrate cells (macro)",
-        "inputs": [
-          {
-            "kind": "container",
-            "id": "ct:tube_cells"
-          }
-        ],
-        "outputs": [],
-        "params": {
-          "device_kind": "centrifuge",
-          "device_ref": "eq:cent1",
-          "program": {
-            "program_name": "CENTRIFUGE_PROGRAM"
-          }
-        },
-        "annotations": {
-          "lowered_from": "centrifuge"
-        }
-      },
-      {
-        "id": "c13",
-        "op": "transfer",
-        "label": "remove supernatant",
-        "inputs": [
-          {
-            "kind": "container",
-            "id": "ct:tube_cells"
-          }
-        ],
-        "outputs": [
-          {
-            "kind": "waste",
-            "id": "ct:waste"
-          }
-        ],
-        "params": {
-          "amount": {
-            "symbol": "X_supernatant"
-          },
-          "transfer_kind": "aspirate"
-        }
-      },
-      {
-        "id": "c14",
-        "op": "transfer",
-        "label": "add medium to resuspend",
-        "inputs": [
-          {
-            "kind": "material",
-            "id": "mat:medium"
-          }
-        ],
-        "outputs": [
-          {
-            "kind": "container",
-            "id": "ct:tube_cells"
-          }
-        ],
-        "params": {
-          "amount": {
-            "symbol": "X_resuspend"
-          },
-          "transfer_kind": "pipette"
-        }
-      },
-      {
-        "id": "c15",
-        "op": "manipulate",
-        "label": "resuspend",
-        "inputs": [
-          {
-            "kind": "container",
-            "id": "ct:tube_cells"
-          }
-        ],
-        "params": {
-          "action_kind": "resuspend",
-          "settings": {}
-        }
-      },
-      {
-        "id": "c16",
-        "op": "run_device",
-        "label": "count cells (machine)",
-        "inputs": [
-          {
-            "kind": "container",
-            "id": "ct:tube_cells"
-          }
-        ],
-        "params": {
-          "device_kind": "cell_counter",
-          "device_ref": "eq:counter1",
-          "program": {
-            "program_name": "COUNT_PROGRAM"
-          }
-        }
-      },
-      {
-        "id": "c17",
-        "op": "observe",
-        "label": "record count",
-        "inputs": [
-          {
-            "kind": "container",
-            "id": "ct:tube_cells"
-          }
-        ],
-        "outputs": [
-          {
-            "kind": "data",
-            "id": "data:obs_count"
-          }
-        ],
-        "params": {
-          "modality": "instrument_readout",
-          "features": {
-            "cell_count": null,
-            "viability": null
-          }
-        }
-      },
-      {
-        "id": "c18",
-        "op": "transfer",
-        "label": "seed new vessel",
-        "inputs": [
-          {
-            "kind": "container",
-            "id": "ct:tube_cells"
-          }
-        ],
-        "outputs": [
-          {
-            "kind": "container",
-            "id": "ct:vessel_B"
-          }
-        ],
-        "params": {
-          "amount": {
-            "symbol": "X_seed"
-          },
-          "transfer_kind": "pipette"
-        }
-      },
-      {
-        "id": "c19",
-        "op": "run_device",
-        "label": "culture incubation (macro)",
-        "inputs": [
-          {
-            "kind": "container",
-            "id": "ct:vessel_B"
-          }
-        ],
-        "outputs": [],
-        "params": {
-          "device_kind": "incubator",
-          "device_ref": "eq:inc1",
-          "program": {
-            "program_name": "CULTURE_PROGRAM"
-          }
-        },
-        "annotations": {
-          "lowered_from": "incubate"
-        }
-      },
-      {
-        "id": "c20",
-        "op": "annotate",
-        "label": "done",
-        "params": {
-          "note": "Passaging completed (abstract)."
-        }
-      }
-    ],
-    "start_step_id": "c1",
     "edges": [
       {
-        "from": "c1",
-        "to": "c2",
         "condition": {
-          "op": "ge",
           "left": {
             "ref": "data:obs0.features.confluency"
           },
+          "op": "ge",
           "right": {
             "symbol": "THRESH_CONFLUENCY"
           }
         },
-        "priority": 1
+        "from": "c1",
+        "priority": 1,
+        "to": "c2"
       },
       {
-        "from": "c1",
-        "to": "c_skip",
         "condition": {
-          "op": "lt",
           "left": {
             "ref": "data:obs0.features.confluency"
           },
+          "op": "lt",
           "right": {
             "symbol": "THRESH_CONFLUENCY"
           }
         },
-        "priority": 0
+        "from": "c1",
+        "priority": 0,
+        "to": "c_skip"
       },
       {
         "from": "c_skip",
@@ -577,32 +71,32 @@
         "to": "c8"
       },
       {
-        "from": "c8",
-        "to": "c9",
         "condition": {
-          "op": "eq",
           "left": {
             "ref": "data:obs_detach.features.detached_enough"
           },
+          "op": "eq",
           "right": {
             "const": true
           }
         },
-        "priority": 1
+        "from": "c8",
+        "priority": 1,
+        "to": "c9"
       },
       {
-        "from": "c8",
-        "to": "c7b",
         "condition": {
-          "op": "eq",
           "left": {
             "ref": "data:obs_detach.features.detached_enough"
           },
+          "op": "eq",
           "right": {
             "const": false
           }
         },
-        "priority": 0
+        "from": "c8",
+        "priority": 0,
+        "to": "c7b"
       },
       {
         "from": "c7b",
@@ -653,6 +147,7 @@
         "to": "c20"
       }
     ],
+    "start_step_id": "c1",
     "step_order": [
       "c1",
       "c_skip",
@@ -676,6 +171,511 @@
       "c18",
       "c19",
       "c20"
+    ],
+    "steps": [
+      {
+        "id": "c1",
+        "inputs": [
+          {
+            "id": "ct:vessel_A",
+            "kind": "container"
+          }
+        ],
+        "label": "observe culture state",
+        "op": "observe",
+        "outputs": [
+          {
+            "id": "data:obs0",
+            "kind": "data"
+          }
+        ],
+        "params": {
+          "features": {
+            "confluency": null,
+            "morphology": null
+          },
+          "modality": "microscope"
+        }
+      },
+      {
+        "id": "c_skip",
+        "label": "skip passaging note",
+        "op": "annotate",
+        "params": {
+          "note": "If confluency < THRESH, skip passaging."
+        }
+      },
+      {
+        "id": "c2",
+        "inputs": [
+          {
+            "id": "ct:vessel_A",
+            "kind": "container"
+          }
+        ],
+        "label": "remove spent medium",
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "ct:waste",
+            "kind": "waste"
+          }
+        ],
+        "params": {
+          "amount": {
+            "symbol": "X_all"
+          },
+          "transfer_kind": "aspirate"
+        }
+      },
+      {
+        "id": "c3",
+        "inputs": [
+          {
+            "id": "mat:wash_buffer",
+            "kind": "material"
+          }
+        ],
+        "label": "add wash buffer",
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "ct:vessel_A",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "amount": {
+            "symbol": "X_wash"
+          },
+          "transfer_kind": "pipette"
+        }
+      },
+      {
+        "id": "c4",
+        "inputs": [
+          {
+            "id": "ct:vessel_A",
+            "kind": "container"
+          }
+        ],
+        "label": "rinse vessel",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "rinse",
+          "settings": {}
+        }
+      },
+      {
+        "id": "c5",
+        "inputs": [
+          {
+            "id": "ct:vessel_A",
+            "kind": "container"
+          }
+        ],
+        "label": "remove wash",
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "ct:waste",
+            "kind": "waste"
+          }
+        ],
+        "params": {
+          "amount": {
+            "symbol": "X_all"
+          },
+          "transfer_kind": "aspirate"
+        }
+      },
+      {
+        "id": "c6",
+        "inputs": [
+          {
+            "id": "mat:detach_reagent",
+            "kind": "material"
+          }
+        ],
+        "label": "add detachment reagent",
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "ct:vessel_A",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "amount": {
+            "symbol": "X_detach"
+          },
+          "transfer_kind": "pipette"
+        }
+      },
+      {
+        "annotations": {
+          "lowered_from": "incubate"
+        },
+        "id": "c7",
+        "inputs": [
+          {
+            "id": "ct:vessel_A",
+            "kind": "container"
+          }
+        ],
+        "label": "incubate for detachment (macro)",
+        "op": "run_device",
+        "outputs": [],
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "eq:inc1",
+          "program": {
+            "program_name": "DETACHMENT_PROGRAM"
+          }
+        }
+      },
+      {
+        "id": "c8",
+        "inputs": [
+          {
+            "id": "ct:vessel_A",
+            "kind": "container"
+          }
+        ],
+        "label": "check detachment",
+        "op": "observe",
+        "outputs": [
+          {
+            "id": "data:obs_detach",
+            "kind": "data"
+          }
+        ],
+        "params": {
+          "features": {
+            "detached_enough": null
+          },
+          "modality": "microscope"
+        }
+      },
+      {
+        "annotations": {
+          "lowered_from": "incubate"
+        },
+        "id": "c7b",
+        "inputs": [
+          {
+            "id": "ct:vessel_A",
+            "kind": "container"
+          }
+        ],
+        "label": "continue incubation (macro)",
+        "op": "run_device",
+        "outputs": [],
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "eq:inc1",
+          "program": {
+            "program_name": "DETACHMENT_CONTINUE_PROGRAM"
+          }
+        }
+      },
+      {
+        "id": "c9",
+        "inputs": [
+          {
+            "id": "mat:medium",
+            "kind": "material"
+          }
+        ],
+        "label": "add medium to neutralize",
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "ct:vessel_A",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "amount": {
+            "symbol": "X_neutralize"
+          },
+          "transfer_kind": "pipette"
+        }
+      },
+      {
+        "id": "c10",
+        "inputs": [
+          {
+            "id": "ct:vessel_A",
+            "kind": "container"
+          }
+        ],
+        "label": "dislodge cells",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "dislodge_cells",
+          "settings": {}
+        }
+      },
+      {
+        "id": "c11",
+        "inputs": [
+          {
+            "id": "ct:vessel_A",
+            "kind": "container"
+          }
+        ],
+        "label": "collect cell suspension",
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "ct:tube_cells",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "amount": {
+            "symbol": "X_all"
+          },
+          "transfer_kind": "pipette"
+        }
+      },
+      {
+        "annotations": {
+          "lowered_from": "centrifuge"
+        },
+        "id": "c12",
+        "inputs": [
+          {
+            "id": "ct:tube_cells",
+            "kind": "container"
+          }
+        ],
+        "label": "concentrate cells (macro)",
+        "op": "run_device",
+        "outputs": [],
+        "params": {
+          "device_kind": "centrifuge",
+          "device_ref": "eq:cent1",
+          "program": {
+            "program_name": "CENTRIFUGE_PROGRAM"
+          }
+        }
+      },
+      {
+        "id": "c13",
+        "inputs": [
+          {
+            "id": "ct:tube_cells",
+            "kind": "container"
+          }
+        ],
+        "label": "remove supernatant",
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "ct:waste",
+            "kind": "waste"
+          }
+        ],
+        "params": {
+          "amount": {
+            "symbol": "X_supernatant"
+          },
+          "transfer_kind": "aspirate"
+        }
+      },
+      {
+        "id": "c14",
+        "inputs": [
+          {
+            "id": "mat:medium",
+            "kind": "material"
+          }
+        ],
+        "label": "add medium to resuspend",
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "ct:tube_cells",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "amount": {
+            "symbol": "X_resuspend"
+          },
+          "transfer_kind": "pipette"
+        }
+      },
+      {
+        "id": "c15",
+        "inputs": [
+          {
+            "id": "ct:tube_cells",
+            "kind": "container"
+          }
+        ],
+        "label": "resuspend",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "resuspend",
+          "settings": {}
+        }
+      },
+      {
+        "id": "c16",
+        "inputs": [
+          {
+            "id": "ct:tube_cells",
+            "kind": "container"
+          }
+        ],
+        "label": "count cells (machine)",
+        "op": "run_device",
+        "params": {
+          "device_kind": "cell_counter",
+          "device_ref": "eq:counter1",
+          "program": {
+            "program_name": "COUNT_PROGRAM"
+          }
+        }
+      },
+      {
+        "id": "c17",
+        "inputs": [
+          {
+            "id": "ct:tube_cells",
+            "kind": "container"
+          }
+        ],
+        "label": "record count",
+        "op": "observe",
+        "outputs": [
+          {
+            "id": "data:obs_count",
+            "kind": "data"
+          }
+        ],
+        "params": {
+          "features": {
+            "cell_count": null,
+            "viability": null
+          },
+          "modality": "instrument_readout"
+        }
+      },
+      {
+        "id": "c18",
+        "inputs": [
+          {
+            "id": "ct:tube_cells",
+            "kind": "container"
+          }
+        ],
+        "label": "seed new vessel",
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "ct:vessel_B",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "amount": {
+            "symbol": "X_seed"
+          },
+          "transfer_kind": "pipette"
+        }
+      },
+      {
+        "annotations": {
+          "lowered_from": "incubate"
+        },
+        "id": "c19",
+        "inputs": [
+          {
+            "id": "ct:vessel_B",
+            "kind": "container"
+          }
+        ],
+        "label": "culture incubation (macro)",
+        "op": "run_device",
+        "outputs": [],
+        "params": {
+          "device_kind": "incubator",
+          "device_ref": "eq:inc1",
+          "program": {
+            "program_name": "CULTURE_PROGRAM"
+          }
+        }
+      },
+      {
+        "id": "c20",
+        "label": "done",
+        "op": "annotate",
+        "params": {
+          "note": "Passaging completed (abstract)."
+        }
+      }
     ]
-  }
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "ct:vessel_A",
+        "name": "culture_vessel_A",
+        "type": "culture_vessel_generic"
+      },
+      {
+        "id": "ct:vessel_B",
+        "name": "culture_vessel_B",
+        "type": "culture_vessel_generic"
+      },
+      {
+        "id": "ct:tube_cells",
+        "name": "cell_tube",
+        "type": "tube_generic"
+      },
+      {
+        "id": "ct:waste",
+        "name": "waste",
+        "type": "waste_container"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "id": "eq:inc1",
+        "name": "incubator",
+        "type": "incubator"
+      },
+      {
+        "id": "eq:cent1",
+        "name": "centrifuge",
+        "type": "centrifuge"
+      },
+      {
+        "id": "eq:counter1",
+        "name": "cell_counter",
+        "type": "cell_counter"
+      }
+    ],
+    "materials": [
+      {
+        "id": "mat:wash_buffer",
+        "name": "wash buffer"
+      },
+      {
+        "id": "mat:detach_reagent",
+        "name": "detachment reagent"
+      },
+      {
+        "id": "mat:medium",
+        "name": "culture medium"
+      }
+    ],
+    "samples": []
+  },
+  "schema_version": "0.4"
 }

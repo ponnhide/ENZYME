@@ -1,0 +1,170 @@
+# Codex Task: Paper PDF → Protocol Extraction → ENZYME Formalization → Scoring → Comparison (Nat Protocols vs Nat siblings)
+
+Date: 2026-02-14
+
+
+## Context / Assumptions
+You must read "ENZYME_Codex_Handoff_Summary_v0_4" before proceeding following tasks.
+- You need to activate "conda activate vLLM_env". When executing the python scripts listed in this document and `vllm serve` you should use this environment.
+- You are working in a clone of ENZYME `main` branch.
+- Paper PDFs are already placed locally under:
+  - `papers/nat_protocols/`   (Nature Protocols PDFs)
+  - `papers/nat_siblings/`    (Nature + sister journals, excluding Nature Protocols)
+- A local vLLM model directory exists at:
+  - `/users/hideto/Project/vLLM/Raw/gpt-oss-120b`
+- Target context length: 131072 tokens.
+- ENZYME CLI exists and works in this repo:
+  - `enzyme compile / validate / score / report`
+- It is acceptable for ENZYME IR to contain concrete numbers and instrument names because this is a *local-only* evaluation pipeline.
+  - However, do NOT print paper full text into logs; keep outputs on disk.
+
+## Goal
+Implement an end-to-end pipeline to:
+1) Start `vllm serve` for gpt-oss-120b from the local model path.
+2) For each PDF in both groups:
+   a) Extract text from PDF (prefer poppler `pdftotext`, fallback to PyMuPDF, then pdfminer).
+   b) Identify and extract protocol-relevant sections (Methods / Procedures / Protocol / Experimental procedures / etc.).
+   c) Split into multiple protocol units when multiple distinct experiments are present.
+   d) Convert each protocol unit into ENZYME **HL-IR JSON** using the local LLM with ENZYME API doc context.
+   e) Lower HL→Core using `enzyme compile`, then `validate`, `score`, and `report`.
+   f) Save per-protocol artifacts under a per-paper result directory.
+3) Aggregate scores across papers and produce plots comparing Nat Protocols vs Nat siblings.
+
+---
+
+## Deliverables (files to add to repo)
+
+### A) vLLM startup scripts
+1. `scripts/start_vllm_gptoss.sh`
+   - Starts: `vllm serve /users/hideto/Project/vLLM/Raw/gpt-oss-120b`
+   - Args:
+     - ` --tensor-parallel-size 4` (You must cofirm the number of GPUs in the local environment.)
+     - `--host 0.0.0.0 --port 8000`
+     - `--max-model-len 131072`
+     - set a served model name, e.g. `--served-model-name gpt-oss-120b`
+   - Writes PID to `run/vllm.pid`
+   - Writes logs to `run/vllm.log`
+   - If already running (PID alive or `/v1/models` reachable), do nothing and exit 0.
+
+2. `scripts/stop_vllm_gptoss.sh`
+   - Stops server using PID file.
+
+### B) PDF text extraction utility (vendored)
+Add `scripts/extract_pdf_text.py` (or vendor the already provided one) with:
+- `--method auto|pdftotext|pymupdf|pdfminer`
+- `--clean`
+- `--start/--end` regex slicing support
+- Optional `--pages-json`
+
+(If the repo already contains an equivalent script, reuse it; otherwise add it.)
+
+### C) LLM client + prompting
+Add:
+- `scripts/llm_client.py`:
+  - OpenAI-compatible client to `http://localhost:8000/v1`
+  - Model name: `gpt-oss-120b`
+  - Deterministic settings: `temperature=0`
+  - Robust JSON parsing with 1 retry on malformed output.
+- `scripts/prompts/`:
+  - `enzyme_system_prompt.md` (include ENZYME API doc text or load from file)
+  - `segment_protocol_prompt.md` for protocol section identification and splitting.
+
+**Key instruction to LLM:**
+- Convert natural-language protocol into ENZYME HL-IR JSON v0.4.
+- Keep concrete numbers/instrument names exactly as in text; do NOT invent missing values.
+- When unsure, preserve text in `annotate` steps instead of hallucinating.
+
+### D) Main pipeline runner
+Add `scripts/run_paper_benchmark.py` implementing:
+
+Input arguments:
+- `--papers-root papers`
+- `--out results`
+- `--group nat_protocols` and `--group nat_siblings` (run either or both)
+- `--max-protocols-per-paper N` (default 10, safety guard)
+- `--llm-base-url http://localhost:8000/v1`
+- `--llm-model gpt-oss-120b`
+- `--skip-existing` (default true)
+
+Processing per PDF:
+1) Create:
+   - `results/<group>/<paper_stem>/`
+   - subdirs: `extracted/`, `protocol_units/`, `enzyme/`, `logs/`
+2) Extract text:
+   - save `extracted/full.txt`
+3) Identify protocol-relevant sections:
+   - use heuristics FIRST (headings like METHODS, PROCEDURE, EXPERIMENTAL PROCEDURES, MATERIALS AND METHODS, etc.)
+   - then LLM to refine:
+     - output JSON list of protocol units: each has `title`, `text` (verbatim excerpt), `rationale`
+   - save:
+     - `protocol_units/units.json`
+     - `protocol_units/unit_001.txt`, `unit_002.txt`, ...
+4) For each unit:
+   - Call LLM to produce HL-IR JSON:
+     - save `enzyme/unit_001.hl.json`
+   - Run ENZYME:
+     - `enzyme compile --in ... --out enzyme/unit_001.core.json`
+     - `enzyme validate --in ... --out enzyme/unit_001.validation.json`
+     - `enzyme score --in ... --validation ... --out enzyme/unit_001.scores.json`
+     - `enzyme report --in ... --validation ... --scores ... --format md --out enzyme/unit_001.report.md`
+   - Store a small `enzyme/unit_001.meta.json` with:
+     - source paper, group, unit title, text hash, created_at
+5) Save per-paper summary:
+   - `results/<group>/<paper_stem>/paper_summary.json`
+     - number_of_units
+     - per-unit total score
+     - mean/median per paper
+
+### E) Analysis + plotting
+Add `scripts/analyze_scores.py` that:
+- Reads all `results/**/enzyme/*.scores.json`
+- Produces:
+  - `results/analysis/scores_long.csv` (one row per protocol unit)
+  - `results/analysis/scores_per_paper.csv` (aggregated per paper)
+  - plots in `results/analysis/plots/`:
+    - `total_score_boxplot.png`
+    - `total_score_violin.png` (optional)
+    - `num_units_per_paper.png` (optional)
+- Use **matplotlib only** (no seaborn).
+- Score column:
+  - If `total_100` exists in score JSON, use it.
+  - Else use `total*100` as a float.
+
+### F) Documentation
+Update `README.md` with:
+- How to start/stop vLLM
+- How to run benchmark
+- Where outputs are stored
+- A note that extracted methods text and generated ENZYME JSON may contain concrete experimental conditions and should not be redistributed without permission.
+
+---
+
+## Acceptance Criteria
+1) Running:
+   ```bash
+   bash scripts/start_vllm_gptoss.sh
+   python scripts/run_paper_benchmark.py --group nat_protocols --papers-root papers --out results
+   python scripts/run_paper_benchmark.py --group nat_siblings --papers-root papers --out results
+   python scripts/analyze_scores.py --results results
+   ```
+   produces per-paper directories, per-unit ENZYME artifacts, and plots under `results/analysis/plots/`.
+
+2) Pipeline is resumable:
+   - `--skip-existing` avoids redoing completed units.
+
+3) No crashes on papers with no extractable text:
+   - log and continue, create `paper_summary.json` indicating failure reason.
+
+4) Logs are concise; do not dump entire paper text to console.
+
+---
+
+## Implementation Notes (Important)
+- The hardest step is protocol-unit segmentation. Implement a robust two-stage approach:
+  - Stage 1: heuristic heading slicing
+  - Stage 2: LLM chooses units and returns excerpts (strict JSON)
+- Always cap output protocols per paper to avoid runaway splitting.
+- Use deterministic LLM settings (temperature=0) for reproducibility.
+- Prefer calling ENZYME via subprocess for simplicity unless internal API is stable.
+
+End of task.

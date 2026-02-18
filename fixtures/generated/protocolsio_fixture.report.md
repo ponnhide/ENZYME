@@ -1,7 +1,7 @@
 # ENZYME Report
 
-**Total Score: 92/100**
-(Total: 0.917)
+**Total Score: 72/100**
+(Total: 0.722)
 
 **Schema version:** 0.4
 **IR kind:** core
@@ -14,6 +14,9 @@
 - **S_ident**: 1.0
 - **S_ambiguity**: 1.0
 - **S_exec_env**: 0.5
+- **S_procedure**: 0.0
+- **S_specificity**: 1.0
+- **S_coverage**: 0.0
 
 ## Issues
 No issues reported.

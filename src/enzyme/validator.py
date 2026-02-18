@@ -56,6 +56,55 @@ def _collect_schema_issues(data: dict[str, Any], schema_path: str) -> list[Issue
     return issues
 
 
+def _normalize_expression(node: Any) -> Any:
+    if isinstance(node, list):
+        return [_normalize_expression(item) for item in node]
+    if not isinstance(node, dict):
+        return node
+
+    normalized = {key: _normalize_expression(value) for key, value in node.items()}
+    if "op" not in normalized:
+        if "ref" in normalized:
+            normalized["op"] = "ref"
+        elif "const" in normalized:
+            normalized["op"] = "const"
+        elif "symbol" in normalized:
+            normalized["op"] = "symbol"
+    return normalized
+
+
+def _normalize_for_schema(data: dict[str, Any]) -> dict[str, Any]:
+    normalized = dict(data)
+    metadata = normalized.get("metadata")
+    if isinstance(metadata, dict):
+        metadata = dict(metadata)
+        source = metadata.get("source")
+        if isinstance(source, dict):
+            source = dict(source)
+            for key in ("id", "uri"):
+                if source.get(key) is None:
+                    source.pop(key, None)
+            metadata["source"] = source
+        normalized["metadata"] = metadata
+
+    protocol = normalized.get("protocol")
+    if isinstance(protocol, dict):
+        protocol = dict(protocol)
+        edges = []
+        for edge in protocol.get("edges", []) or []:
+            if not isinstance(edge, dict):
+                edges.append(edge)
+                continue
+            edge_copy = dict(edge)
+            if "condition" in edge_copy:
+                edge_copy["condition"] = _normalize_expression(edge_copy["condition"])
+            edges.append(edge_copy)
+        protocol["edges"] = edges
+        normalized["protocol"] = protocol
+
+    return normalized
+
+
 def _registry_lookup(custom_registry: dict[str, Any], key: str, name: str) -> bool:
     if key == "modalities":
         return name in custom_registry.get("modalities", set())
@@ -69,6 +118,23 @@ def _get_program_requirements(
         return registry.device_kinds[device_kind].get("required_program_keys", [])
     if device_kind in custom_registry.get("device_kinds", {}):
         return custom_registry["device_kinds"][device_kind].get("required_program_keys", [])
+    return []
+
+
+def _observe_feature_keys(features: Any) -> list[str]:
+    if isinstance(features, dict):
+        return [key for key in features.keys() if isinstance(key, str)]
+    if isinstance(features, list):
+        keys: list[str] = []
+        for item in features:
+            if isinstance(item, str) and item.strip():
+                keys.append(item.strip())
+                continue
+            if isinstance(item, dict):
+                name = item.get("name")
+                if isinstance(name, str) and name.strip():
+                    keys.append(name.strip())
+        return keys
     return []
 
 
@@ -120,7 +186,7 @@ def _check_registry(step: dict[str, Any], detail_level: int, registry: Registry,
         ):
             issues.append(unknown_issue("UNKNOWN_MODALITY", f"/protocol/steps/{step.get('id')}/params/modality", modality))
         features = step.get("params", {}).get("features", {})
-        for feature_key in features.keys():
+        for feature_key in _observe_feature_keys(features):
             if feature_key not in registry.observation_features and not _registry_lookup(
                 custom, "observation_features", feature_key
             ):
@@ -265,6 +331,8 @@ def _check_ranges(protocol: dict[str, Any], registry: Registry) -> list[Issue]:
         if step.get("op") != "observe":
             continue
         features = step.get("params", {}).get("features", {})
+        if not isinstance(features, dict):
+            continue
         for key, value in features.items():
             constraints = registry.observation_features.get(key, {}).get("constraints", {})
             if not constraints:
@@ -305,7 +373,8 @@ def validate_core(
     data: dict[str, Any], schema_path: str, registry: Registry
 ) -> dict[str, Any]:
     issues: list[Issue] = []
-    issues.extend(_collect_schema_issues(data, schema_path))
+    schema_ready_data = _normalize_for_schema(data)
+    issues.extend(_collect_schema_issues(schema_ready_data, schema_path))
 
     protocol = data.get("protocol", {})
     detail_level = protocol.get("detail_level", 0)

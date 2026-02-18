@@ -1,0 +1,230 @@
+Metadata-Version: 2.4
+Name: enzyme
+Version: 0.4.0
+Summary: ENZYME v0.4 MVP implementation
+Author: ENZYME MVP
+License: MIT License
+        
+        Copyright (c) 2025 Hideto Mori
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pydantic>=2.0
+Requires-Dist: jsonschema>=4.0
+Requires-Dist: pint>=0.23
+Requires-Dist: typer>=0.12
+Requires-Dist: rich>=13.0
+Requires-Dist: networkx>=3.0
+Requires-Dist: pytest>=7.0
+Dynamic: license-file
+
+# ENZYME v0.4 MVP
+
+ENZYME represents experimental protocols as JSON (ENZYME-IR), lowers human/macros into a core set of operations, validates them with a registry-aware kernel, computes quality scores, and emits human-readable reports.
+
+## Concepts
+
+- **HL-IR vs Core-IR**: HL-IR allows macros and flexible step ops. Core-IR must use only the core ops: `allocate`, `transfer`, `manipulate`, `run_device`, `observe`, `annotate`, `dispose`.
+- **Lowering**: HL-IR is lowered to Core-IR by expanding macros (`thermocycle`, `incubate`, `centrifuge`, `measure`).
+- **Human vs Device boundaries**:
+  - `run_device` is used for automated device operation.
+  - `transfer` and `manipulate` represent human actions.
+  - `observe` captures observations.
+- **Registry control**: `manipulate.action_kind`, `run_device.device_kind`, and `observe` vocabularies are validated against the registry or declared custom vocabularies.
+
+## Quickstart
+
+```bash
+pip install -e .
+python scripts/generate_artifacts.py
+pytest -q
+```
+
+## Re-generate bundled artifacts
+
+```bash
+python scripts/generate_artifacts.py
+python scripts/generate_artifacts.py --check
+```
+
+Generated outputs are stored in:
+- `fixtures/generated/`
+- `examples/generated/`
+
+## CLI Usage
+
+```bash
+enzyme import protocolsio --in fixtures/protocolsio_fixture.json --out /tmp/hl.json
+enzyme compile --in /tmp/hl.json --out /tmp/core.json --strict-lowering
+enzyme validate --in /tmp/core.json --out /tmp/validation.json
+enzyme score --in /tmp/core.json --validation /tmp/validation.json --out /tmp/scores.json
+enzyme report --in /tmp/core.json --validation /tmp/validation.json --scores /tmp/scores.json --format md --out /tmp/report.md
+```
+
+Optional strict reproducibility scoring (profile-driven, adds `reproducibility` block in `scores.json`):
+
+```bash
+enzyme score \
+  --in /tmp/core.json \
+  --validation /tmp/validation.json \
+  --repro-profile profiles/reproducibility_profile.strict.v0_1.json \
+  --out /tmp/scores.json
+```
+
+Reproducibility semantics:
+- `flow_integrity` is treated as a viability gate (`reproducibility.viability_gate.pass`).
+- The reproducibility total is the equal-average of non-flow categories (`total_mode=equal_average_non_flow`).
+- Category weights in the profile are preserved for reporting, but intentionally not used in the reproducibility total in this MVP baseline.
+
+## Paper Benchmark Pipeline (Nat Protocols vs Nat siblings)
+
+Start local vLLM server (gpt-oss-120b):
+
+```bash
+bash scripts/start_vllm_gptoss.sh
+```
+
+Start local vLLM server (Qwen3-Next-80B-A3B-Thinking):
+
+```bash
+bash scripts/start_vllm_qwen3_next_80b.sh
+```
+
+Stop local vLLM server:
+
+```bash
+bash scripts/stop_vllm_gptoss.sh
+```
+
+Run benchmark by group:
+
+```bash
+python scripts/run_paper_benchmark.py --group nat_protocols --papers-root papers --out results
+python scripts/run_paper_benchmark.py --group nat_siblings --papers-root papers --out results
+```
+
+IR generation modes:
+- `--ir-mode hl-core` (default): LLM outputs HL-IR and ENZYME lowering compiles it to Core-IR.
+- `--ir-mode direct-core`: LLM outputs Core-IR directly; compile is skipped.
+- `--strict-lowering` (only for `hl-core`) fails fast if unsupported non-core ops remain.
+
+Run benchmark with explicit model and reasoning effort (for gpt-oss):
+
+```bash
+python scripts/run_paper_benchmark.py \
+  --group nat_protocols \
+  --papers-root papers \
+  --out results \
+  --ir-mode hl-core \
+  --llm-model gpt-oss-120b \
+  --llm-reasoning-effort medium
+```
+
+Run benchmark with Qwen (chat completions path, no Responses API required):
+
+```bash
+python scripts/run_paper_benchmark.py \
+  --group nat_protocols \
+  --papers-root papers \
+  --out results_qwen \
+  --ir-mode direct-core \
+  --llm-model qwen3-next-80b-a3b-thinking
+```
+
+Quick smoke test (1 paper per group, up to 2 units per paper):
+
+```bash
+python scripts/run_paper_benchmark.py \
+  --group nat_protocols \
+  --group nat_siblings \
+  --papers-root papers \
+  --out results_smoke \
+  --max-papers-per-group 1 \
+  --max-protocols-per-paper 2
+```
+
+Run benchmark with strict reproducibility extension enabled:
+
+```bash
+python scripts/run_paper_benchmark.py \
+  --group nat_protocols \
+  --papers-root papers \
+  --out results \
+  --repro-profile profiles/reproducibility_profile.strict.v0_1.json
+```
+
+Rule-pack controls (enabled by default):
+- `--enable-rule-pack` applies synonym normalization and one-pass JSON repair before compile.
+- `--no-enable-rule-pack` disables those advanced normalization rules.
+- `--llm-reasoning-effort {low|medium|high}` can be set for compatible chat-completions backends.
+- `--ir-mode {hl-core|direct-core}` selects LLM output target IR.
+- `--strict-lowering` enables strict compile checks in `hl-core`.
+
+Analyze and plot scores:
+
+```bash
+python scripts/analyze_scores.py --results results
+```
+
+Notes:
+- If `papers/` does not exist, the benchmark runner will automatically try `paper/`.
+- The pipeline is resumable. By default `--skip-existing` is enabled to avoid recomputing completed units.
+- The script uses `scripts/extract_pdf_text.py` for PDF extraction (`pdftotext` -> PyMuPDF -> pdfminer fallback).
+- Reproducibility scoring does not infer unknown values. Missing values are penalized.
+- Synonym normalization maps equivalent controlled-vocabulary variants to canonical terms.
+
+Minimal restart checklist (recommended after failed runs):
+1. Stop old processes and verify no leftovers:
+   - `bash scripts/stop_vllm_gptoss.sh`
+   - `pgrep -af "vllm serve|run_paper_benchmark.py"`
+2. Start exactly one model server:
+   - gpt-oss: `bash scripts/start_vllm_gptoss.sh`
+   - Qwen: `bash scripts/start_vllm_qwen3_next_80b.sh`
+3. Verify API before benchmark:
+   - `curl -fsS http://127.0.0.1:8000/v1/models`
+   - `curl -fsS http://127.0.0.1:8000/v1/chat/completions -H "Content-Type: application/json" -d '{"model":"gpt-oss-120b","messages":[{"role":"user","content":"return JSON only: {\"ok\":true}"}],"temperature":0}'`
+4. Run smallest benchmark first:
+   - `python scripts/run_paper_benchmark.py --group nat_protocols --papers-root papers --out results_smoke_retry --max-papers-per-group 1 --max-protocols-per-paper 1`
+
+Outputs:
+- Per-paper outputs: `results/<group>/<paper_stem>/`
+  - `extracted/full.txt`
+  - `protocol_units/units.json`, `protocol_units/unit_*.txt`
+  - `enzyme/unit_*.hl.json` or `enzyme/unit_*.direct_core.json`, plus `enzyme/unit_*.core.json`, `enzyme/unit_*.validation.json`, `enzyme/unit_*.scores.json`, `enzyme/unit_*.report.md`, `enzyme/unit_*.meta.json`
+  - `paper_summary.json`
+- Aggregation outputs:
+  - `results/analysis/scores_long.csv`
+  - `results/analysis/scores_per_paper.csv`
+  - `results/analysis/plots/*.png`
+
+Data handling caution:
+- Extracted methods/procedure text and generated ENZYME JSON can contain concrete experimental conditions and instrument names.
+- Treat these outputs as local-only evaluation artifacts and do not redistribute without permission.
+
+## Included artifacts
+
+- `enzyme_ir/schema_hl.json` and `enzyme_ir/schema_core.json`
+- `registry/registry_v0_4.json`
+- `fixtures/protocolsio_fixture.json`
+- `fixtures/expected_hl.json`
+- `fixtures/expected_core.json`
+- `examples/*_hl_v0_4.json` and `examples/*_core_v0_4.json`

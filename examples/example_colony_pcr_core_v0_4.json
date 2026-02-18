@@ -1,301 +1,18 @@
 {
-  "schema_version": "0.4",
   "ir_kind": "core",
   "metadata": {
-    "title": "Example (abstract): colony picking to genotyping PCR",
-    "version": "0.4-example",
+    "created_at": "2026-02-09",
     "source": {
-      "type": "manual",
       "id": null,
-      "uri": null,
-      "retrieved_at": "2026-02-09"
+      "retrieved_at": "2026-02-09",
+      "type": "manual",
+      "uri": null
     },
-    "created_at": "2026-02-09"
-  },
-  "resources": {
-    "materials": [
-      {
-        "id": "mat:pcr_mastermix",
-        "name": "PCR master mix"
-      },
-      {
-        "id": "mat:primers",
-        "name": "primers set"
-      }
-    ],
-    "containers": [
-      {
-        "id": "ct:plate_colonies",
-        "name": "colonies_plate",
-        "type": "plate_generic"
-      },
-      {
-        "id": "ct:colony_tube",
-        "name": "colony_tube",
-        "type": "tube_generic"
-      },
-      {
-        "id": "ct:pcr_tube",
-        "name": "pcr_tube",
-        "type": "tube_generic"
-      }
-    ],
-    "equipment": [
-      {
-        "id": "eq:thermo1",
-        "name": "thermocycler",
-        "type": "thermocycler"
-      },
-      {
-        "id": "eq:readout1",
-        "name": "amplicon_readout_system",
-        "type": "amplicon_readout_system"
-      }
-    ],
-    "samples": [],
-    "data": []
+    "title": "Example (abstract): colony picking to genotyping PCR",
+    "version": "0.4-example"
   },
   "protocol": {
     "detail_level": 0,
-    "steps": [
-      {
-        "id": "p1",
-        "op": "observe",
-        "label": "observe plate to choose colony",
-        "inputs": [
-          {
-            "kind": "container",
-            "id": "ct:plate_colonies"
-          }
-        ],
-        "outputs": [
-          {
-            "kind": "data",
-            "id": "data:obs_plate"
-          }
-        ],
-        "params": {
-          "modality": "visual",
-          "features": {
-            "candidate_colonies": null
-          }
-        }
-      },
-      {
-        "id": "p2",
-        "op": "manipulate",
-        "label": "pick one colony",
-        "inputs": [
-          {
-            "kind": "container",
-            "id": "ct:plate_colonies"
-          }
-        ],
-        "outputs": [
-          {
-            "kind": "container",
-            "id": "ct:colony_tube"
-          }
-        ],
-        "params": {
-          "action_kind": "pick_colony",
-          "settings": {
-            "pick_target": "one_of(data:obs_plate.candidate_colonies)"
-          }
-        }
-      },
-      {
-        "id": "p3",
-        "op": "transfer",
-        "label": "add mastermix",
-        "inputs": [
-          {
-            "kind": "material",
-            "id": "mat:pcr_mastermix"
-          }
-        ],
-        "outputs": [
-          {
-            "kind": "container",
-            "id": "ct:pcr_tube"
-          }
-        ],
-        "params": {
-          "amount": {
-            "symbol": "X_mm"
-          },
-          "transfer_kind": "pipette"
-        }
-      },
-      {
-        "id": "p4",
-        "op": "transfer",
-        "label": "add primers",
-        "inputs": [
-          {
-            "kind": "material",
-            "id": "mat:primers"
-          }
-        ],
-        "outputs": [
-          {
-            "kind": "container",
-            "id": "ct:pcr_tube"
-          }
-        ],
-        "params": {
-          "amount": {
-            "symbol": "X_primers"
-          },
-          "transfer_kind": "pipette"
-        }
-      },
-      {
-        "id": "p5",
-        "op": "transfer",
-        "label": "add template from colony tube",
-        "inputs": [
-          {
-            "kind": "container",
-            "id": "ct:colony_tube"
-          }
-        ],
-        "outputs": [
-          {
-            "kind": "container",
-            "id": "ct:pcr_tube"
-          }
-        ],
-        "params": {
-          "amount": {
-            "symbol": "X_template"
-          },
-          "transfer_kind": "pipette"
-        }
-      },
-      {
-        "id": "p6",
-        "op": "manipulate",
-        "label": "mix PCR reaction",
-        "inputs": [
-          {
-            "kind": "container",
-            "id": "ct:pcr_tube"
-          }
-        ],
-        "params": {
-          "action_kind": "mix",
-          "settings": {}
-        }
-      },
-      {
-        "id": "p7",
-        "op": "run_device",
-        "label": "PCR (macro)",
-        "inputs": [
-          {
-            "kind": "container",
-            "id": "ct:pcr_tube"
-          }
-        ],
-        "params": {
-          "device_kind": "thermocycler",
-          "device_ref": "eq:thermo1",
-          "program": {
-            "profile_name": "PCR_PROFILE"
-          }
-        },
-        "annotations": {
-          "lowered_from": "thermocycle"
-        }
-      },
-      {
-        "id": "p8.1",
-        "op": "run_device",
-        "label": "readout (macro) (run)",
-        "inputs": [
-          {
-            "kind": "container",
-            "id": "ct:pcr_tube"
-          }
-        ],
-        "params": {
-          "device_kind": "amplicon_readout_system",
-          "device_ref": "eq:readout1",
-          "program": {
-            "program_name": "READOUT_PROGRAM"
-          }
-        },
-        "annotations": {
-          "lowered_from": "measure",
-          "parent": "p8"
-        }
-      },
-      {
-        "id": "p8.2",
-        "op": "observe",
-        "label": "readout (macro) (observe)",
-        "inputs": [
-          {
-            "kind": "container",
-            "id": "ct:pcr_tube"
-          }
-        ],
-        "outputs": [
-          {
-            "kind": "data",
-            "id": "data:p8_measurement"
-          }
-        ],
-        "params": {
-          "modality": "instrument_readout",
-          "features": {}
-        },
-        "annotations": {
-          "lowered_from": "measure",
-          "parent": "p8"
-        }
-      },
-      {
-        "id": "p9",
-        "op": "observe",
-        "label": "interpret readout",
-        "inputs": [
-          {
-            "kind": "container",
-            "id": "ct:pcr_tube"
-          }
-        ],
-        "outputs": [
-          {
-            "kind": "data",
-            "id": "data:obs_readout"
-          }
-        ],
-        "params": {
-          "modality": "instrument_readout",
-          "features": {
-            "pass_fail": null,
-            "band_pattern": null
-          }
-        }
-      },
-      {
-        "id": "p10",
-        "op": "annotate",
-        "label": "note result placeholder",
-        "inputs": [
-          {
-            "kind": "data",
-            "id": "data:obs_readout"
-          }
-        ],
-        "params": {
-          "note": "Decide next action based on data:obs_readout.pass_fail"
-        }
-      }
-    ],
-    "start_step_id": "p1",
     "edges": [
       {
         "from": "p1",
@@ -338,6 +55,7 @@
         "to": "p10"
       }
     ],
+    "start_step_id": "p1",
     "step_order": [
       "p1",
       "p2",
@@ -350,6 +68,300 @@
       "p8.2",
       "p9",
       "p10"
+    ],
+    "steps": [
+      {
+        "id": "p1",
+        "inputs": [
+          {
+            "id": "ct:plate_colonies",
+            "kind": "container"
+          }
+        ],
+        "label": "observe plate to choose colony",
+        "op": "observe",
+        "outputs": [
+          {
+            "id": "data:obs_plate",
+            "kind": "data"
+          }
+        ],
+        "params": {
+          "features": {
+            "candidate_colonies": null
+          },
+          "modality": "visual"
+        }
+      },
+      {
+        "id": "p2",
+        "inputs": [
+          {
+            "id": "ct:plate_colonies",
+            "kind": "container"
+          }
+        ],
+        "label": "pick one colony",
+        "op": "manipulate",
+        "outputs": [
+          {
+            "id": "ct:colony_tube",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "action_kind": "pick_colony",
+          "settings": {
+            "pick_target": "one_of(data:obs_plate.candidate_colonies)"
+          }
+        }
+      },
+      {
+        "id": "p3",
+        "inputs": [
+          {
+            "id": "mat:pcr_mastermix",
+            "kind": "material"
+          }
+        ],
+        "label": "add mastermix",
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "ct:pcr_tube",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "amount": {
+            "symbol": "X_mm"
+          },
+          "transfer_kind": "pipette"
+        }
+      },
+      {
+        "id": "p4",
+        "inputs": [
+          {
+            "id": "mat:primers",
+            "kind": "material"
+          }
+        ],
+        "label": "add primers",
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "ct:pcr_tube",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "amount": {
+            "symbol": "X_primers"
+          },
+          "transfer_kind": "pipette"
+        }
+      },
+      {
+        "id": "p5",
+        "inputs": [
+          {
+            "id": "ct:colony_tube",
+            "kind": "container"
+          }
+        ],
+        "label": "add template from colony tube",
+        "op": "transfer",
+        "outputs": [
+          {
+            "id": "ct:pcr_tube",
+            "kind": "container"
+          }
+        ],
+        "params": {
+          "amount": {
+            "symbol": "X_template"
+          },
+          "transfer_kind": "pipette"
+        }
+      },
+      {
+        "id": "p6",
+        "inputs": [
+          {
+            "id": "ct:pcr_tube",
+            "kind": "container"
+          }
+        ],
+        "label": "mix PCR reaction",
+        "op": "manipulate",
+        "params": {
+          "action_kind": "mix",
+          "settings": {}
+        }
+      },
+      {
+        "annotations": {
+          "lowered_from": "thermocycle"
+        },
+        "id": "p7",
+        "inputs": [
+          {
+            "id": "ct:pcr_tube",
+            "kind": "container"
+          }
+        ],
+        "label": "PCR (macro)",
+        "op": "run_device",
+        "params": {
+          "device_kind": "thermocycler",
+          "device_ref": "eq:thermo1",
+          "program": {
+            "profile_name": "PCR_PROFILE"
+          }
+        }
+      },
+      {
+        "annotations": {
+          "lowered_from": "measure",
+          "parent": "p8"
+        },
+        "id": "p8.1",
+        "inputs": [
+          {
+            "id": "ct:pcr_tube",
+            "kind": "container"
+          }
+        ],
+        "label": "readout (macro) (run)",
+        "op": "run_device",
+        "outputs": [
+          {
+            "id": "data:p8_raw",
+            "kind": "data"
+          }
+        ],
+        "params": {
+          "device_kind": "amplicon_readout_system",
+          "device_ref": "eq:readout1",
+          "program": {
+            "program_name": "READOUT_PROGRAM"
+          }
+        }
+      },
+      {
+        "annotations": {
+          "lowered_from": "measure",
+          "parent": "p8"
+        },
+        "id": "p8.2",
+        "inputs": [
+          {
+            "id": "data:p8_raw",
+            "kind": "data"
+          }
+        ],
+        "label": "readout (macro) (observe)",
+        "op": "observe",
+        "outputs": [
+          {
+            "id": "data:p8_measurement",
+            "kind": "data"
+          }
+        ],
+        "params": {
+          "features": {},
+          "modality": "instrument_readout",
+          "target_refs": [
+            {
+              "id": "ct:pcr_tube",
+              "kind": "container"
+            }
+          ]
+        }
+      },
+      {
+        "id": "p9",
+        "inputs": [
+          {
+            "id": "ct:pcr_tube",
+            "kind": "container"
+          }
+        ],
+        "label": "interpret readout",
+        "op": "observe",
+        "outputs": [
+          {
+            "id": "data:obs_readout",
+            "kind": "data"
+          }
+        ],
+        "params": {
+          "features": {
+            "band_pattern": null,
+            "pass_fail": null
+          },
+          "modality": "instrument_readout"
+        }
+      },
+      {
+        "id": "p10",
+        "inputs": [
+          {
+            "id": "data:obs_readout",
+            "kind": "data"
+          }
+        ],
+        "label": "note result placeholder",
+        "op": "annotate",
+        "params": {
+          "note": "Decide next action based on data:obs_readout.pass_fail"
+        }
+      }
     ]
-  }
+  },
+  "resources": {
+    "containers": [
+      {
+        "id": "ct:plate_colonies",
+        "name": "colonies_plate",
+        "type": "plate_generic"
+      },
+      {
+        "id": "ct:colony_tube",
+        "name": "colony_tube",
+        "type": "tube_generic"
+      },
+      {
+        "id": "ct:pcr_tube",
+        "name": "pcr_tube",
+        "type": "tube_generic"
+      }
+    ],
+    "data": [],
+    "equipment": [
+      {
+        "id": "eq:thermo1",
+        "name": "thermocycler",
+        "type": "thermocycler"
+      },
+      {
+        "id": "eq:readout1",
+        "name": "amplicon_readout_system",
+        "type": "amplicon_readout_system"
+      }
+    ],
+    "materials": [
+      {
+        "id": "mat:pcr_mastermix",
+        "name": "PCR master mix"
+      },
+      {
+        "id": "mat:primers",
+        "name": "primers set"
+      }
+    ],
+    "samples": []
+  },
+  "schema_version": "0.4"
 }

@@ -48,9 +48,14 @@ def import_cmd(
 def compile_cmd(
     input_path: Path = typer.Option(..., "--in", exists=True, readable=True),
     output_path: Path = typer.Option(..., "--out"),
+    strict_lowering: bool = typer.Option(
+        False,
+        "--strict-lowering/--no-strict-lowering",
+        help="Fail compile when non-core/non-macro ops remain after lowering.",
+    ),
 ) -> None:
     hl_ir = io.load_json(input_path)
-    core_ir = lower_to_core(hl_ir)
+    core_ir = lower_to_core(hl_ir, strict=strict_lowering)
     io.write_json(output_path, core_ir)
     console.print(f"Compiled Core-IR to {output_path}")
 
@@ -72,11 +77,19 @@ def score_cmd(
     input_path: Path = typer.Option(..., "--in", exists=True, readable=True),
     validation_path: Path = typer.Option(..., "--validation", exists=True, readable=True),
     output_path: Path = typer.Option(..., "--out"),
+    repro_profile_path: Optional[Path] = typer.Option(
+        None,
+        "--repro-profile",
+        exists=True,
+        readable=True,
+        help="Optional reproducibility scoring profile JSON",
+    ),
 ) -> None:
     core_ir = io.load_json(input_path)
     validation = io.load_json(validation_path)
     registry = Registry.from_file(REGISTRY_PATH)
-    scores = score_core(core_ir, validation, registry)
+    reproducibility_profile = io.load_json(repro_profile_path) if repro_profile_path else None
+    scores = score_core(core_ir, validation, registry, reproducibility_profile=reproducibility_profile)
     io.write_json(output_path, scores)
     console.print(f"Scores written to {output_path}")
 
